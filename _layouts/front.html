@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+<body>
+  {% include navigation.html %}
+  {% include header.html %}
+  {% include portfolio.html %}
+  {% include scripts.html %}
+
+  <script>
+      /**
+        * 주간/야간 모드를 전환하는 함수
+      */
+      function toggleTheme() {
+          const body = document.body;
+          const toggleIcon = document.getElementById('theme-icon');
+          const tooltipText = document.getElementById('tooltip-text');
+          
+          // body에 'night-mode' 클래스가 있는지 확인
+          const isNightMode = body.classList.contains('night-mode');
+
+          if (isNightMode) {
+              const newUrlValue = 'url(../img/bg.jpg)';
+              document.documentElement.style.setProperty(
+                  '--header-bg-url', 
+                  newUrlValue
+              );              
+              // 현재 야간 모드 -> 주간 모드로 전환
+              body.classList.remove('night-mode');
+              
+              // 아이콘을 달(야간 전환)로 변경: 🌙 (유니코드: &#9789; 또는 &#9788; 사용)
+              toggleIcon.innerHTML = '&#9788;'; 
+              tooltipText.textContent = '야간 모드로 전환';
+              
+              // localStorage에 상태 저장 (선택 사항)
+              localStorage.setItem('theme', 'day'); 
+          } else {
+              // 현재 주간 모드 -> 야간 모드로 전환
+              const newUrlValue = 'url(../img/bg_night.jpg)';
+              document.documentElement.style.setProperty(
+                  '--header-bg-url', 
+                  newUrlValue
+              );               
+              body.classList.add('night-mode');
+              
+              // 아이콘을 해(주간 전환)로 변경: ☀️
+              toggleIcon.innerHTML = '&#9788;'; 
+              tooltipText.textContent = '야간 모드로 전환';
+              
+              // localStorage에 상태 저장 (선택 사항)
+              localStorage.setItem('theme', 'day'); 
+          }
+      }
+
+      /**
+        * 페이지 로드 시 저장된 테마를 불러와 적용
+        */
+      function loadTheme() {
+          const savedTheme = localStorage.getItem('theme');
+          if (savedTheme === 'night') {
+              document.body.classList.add('night-mode');
+              
+              const toggleIcon = document.getElementById('theme-icon');
+              const tooltipText = document.getElementById('tooltip-text');
+              if (toggleIcon && tooltipText) {
+                  // 야간 모드이므로, 주간으로 돌아가는 '해' 아이콘을 보여줍니다.
+                  toggleIcon.innerHTML = '&#9728;'; 
+                  tooltipText.textContent = '주간 모드로 전환';
+              }
+          }
+          else
+          {
+              toggleIcon.innerHTML = '&#9788;'; 
+              tooltipText.textContent = '야간 모드로 전환';            
+              localStorage.setItem('theme', 'day'); 
+          }
+      }
+
+      // 페이지 로드 시 테마를 불러와 적용
+      window.onload = loadTheme;
+  </script>  
+</body>
+
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css"> 
+<section class="intro-profile-section">
+    <div class="profile-container">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>투자 포트폴리오 분석</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    
+    <!-- 포트폴리오 철학 섹션 추가 -->
+    <div class="philosophy-section">
+        <h2 class="role-title">YOUNG FINANCE Portfolio Philosophy</h1>
+    </div>
+    <div class="intro-bio-text">
+<h5><p>YOUNG FINANCE의 투자 철학은 <strong>'축구팀 포트폴리오(Football Team Portfolio)'</strong>라는 비유를 기반으로 합니다. 주식 시장은 끊임없이 움직이는 경기장과 같으며, 성공적인 투자는 단순한 종목 나열이 아닌, 명확한 역할 분담과 균형 잡힌 팀워크에서 시작됩니다.</p>
+        <p>저는 포트폴리오를 구성할 때 감독의 시각으로 각 종목의 성격과 역할을 정의하고, 공격과 수비의 균형을 통해 어떤 시장 환경에서도 유연하게 대응할 수 있는 전략을 추구합니다.</p></h5>
+        
+        <h2>1. 포지션별 역할 정의</h2>
+        <h5><p>각 주식은 축구 포지션처럼 명확한 역할과 목표를 가지고 있습니다. 이 역할은 해당 종목의 <strong>성장성, 시가총액(규모), 경제적 해자(Moat)</strong>를 기준으로 분류됩니다.</p></h5>
+        
+        <h3> 공격수 (STRIKER)</h3>
+        <p><strong>역할:</strong> 포트폴리오의 <strong>성장 엔진</strong> 역할을 담당하며, 팀에 가장 폭발적인 수익(골)을 안겨줍니다.</p>
+        <ul>
+<h5>
+            <li><p style="text-align: left;"><strong>성향:</strong> 상대적으로 <strong>시가총액이 크면서</strong>도, 이미 경제적 해자가 어느 정도 검증된(브랜드, 기술력, 네트워크 효과 등) <strong>선두 성장주</strong>로 구성합니다.</li></p>
+            <li><p style="text-align: left;"><strong>목표:</strong> 시장을 주도하는 높은 성장률과 압도적인 시장 점유율 확대를 통해 장기적인 자산 증식을 이끌어냅니다.</p></li>
+</h5>
+        </ul>
+
+        <h3> 미드필더 (MIDFIELDER)</h3>
+        <p><strong>역할:</strong> 공격과 수비를 연결하며, <strong>성장 기회 발굴 및 활력</strong>을 불어넣는 역할을 합니다.</p>
+        <ul>
+<h5>
+            <li><p style="text-align: left;"><strong>성향:</strong> <strong>시가총액은 상대적으로 작지만</strong> 잠재적인 성장성이 매우 큰 종목들로 구성됩니다. 아직 경제적 해자가 충분히 검증되지 않아 변동성이 클 수 있지만, 성공할 경우 공격수만큼 큰 수익을 기대할 수 있습니다.</p></li>
+            <li><p style="text-align: left;"><strong>목표:</strong> 초기 성장 단계에 있는 유망주를 발굴하고, 미래의 공격수로 성장할 수 있는 기회를 포착합니다.</p></li>
+</h5>
+        </ul>
+
+        <h3> 수비수 (DEFENDER)</h3>
+        <p><strong>역할:</strong> 포트폴리오의 <strong>안정성과 방어</strong>를 책임지며, 시장 하락 시 손실을 최소화하는 핵심 축입니다.</p>
+        <ul>
+<h5>
+            <li><p style="text-align: left;"><strong>성향:</strong> <strong>상대적으로 안정적인</strong> 현금 흐름을 창출하거나, 시장 전체가 하락할 때 방어력이 강한 종목 및 자산(예: 현금성 자산, 금, 저변동성 ETF 등)으로 구성합니다.</p></li>
+            <li><p style="text-align: left;"><strong>목표:</strong> 시장 변동성에 대비하고, 자산의 기초 체력을 단단하게 유지하여 공격수와 미드필더가 자유롭게 움직일 수 있는 기반을 제공합니다.</p></li>
+</h5>
+        </ul>
+
+        <h2>2. 포트폴리오 구성 전략</h2>
+        <h5><p>이러한 역할 분담은 포트폴리오가 단순히 공격적이거나 수비적인 한쪽 성향에 치우치지 않도록 균형을 잡아줍니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>포지션</th>
+                    <th>투자 비중 (예시)</th>
+                    <th>주요 투자 목표</th>
+                    <th>시장 상황 대응</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>공격수</strong></td>
+                    <td>40% ~ 60%</td>
+                    <td>시장 수익률 상회, 압도적 성장</td>
+                    <td>강세장일 때 수익 극대화</td>
+                </tr>
+                <tr>
+                    <td><strong>미드필더</strong></td>
+                    <td>20% ~ 40%</td>
+                    <td>새로운 성장 동력 확보, 고수익 가능성</td>
+                    <td>과감한 베팅과 기회 포착</td>
+                </tr>
+                <tr>
+                    <td><strong>수비수</strong></td>
+                    <td>10% ~ 30%</td>
+                    <td>자본 보존, 하락장 방어</td>
+                    <td>약세장일 때 변동성 흡수</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>성공적인 축구팀처럼, YOUNG FINANCE의 포트폴리오는 각 포지션이 자신의 역할을 충실히 수행함으로써 장기적으로 지속 가능한 승리(수익)를 목표로 합니다.</p>
+</h5>
+    </div>
+    <!-- 포트폴리오 철학 섹션 끝 -->
+    </div>
+
+    <style>
+        /* ==================================== */
+        /* 1. 기본 및 공통 레이아웃 스타일 */
+        /* ==================================== */
+        body {
+            /* 배경색을 검은색으로 변경 */
+            background-color: black;
+            /* 폰트 변경: Inter와 한국어 폰트 설정 */
+            font-family: 'Inter', Arial, sans-serif, 'Malgun Gothic', 'Dotum', 'Apple Gothic';
+            margin: 0;
+            padding: 40px 20px;
+            color: white; /* 기본 글자색 흰색으로 설정 */
+        }
+        .header-date {
+            /* 글자 크기 수정: 1.5em -> 1.2em */
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white; /* 기준일 텍스트 흰색 */
+        }
+        .main-layout {
+            display: flex;
+            gap: 40px;
+        }
+        .chart-section {
+            flex: 1;
+            /* 좌우 크기 동일하게 유지 (max-width: 50%) */
+            max-width: 50%; 
+            /* 검은색 배경에 맞춰 배경색 조정 */
+            background-color: #333; 
+            color: white; /* 차트 섹션 내부 텍스트 흰색 */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(255,255,255,0.1); /* 흰색 그림자로 변경 */
+        }
+
+        /* ==================================== */
+        /* 2. 축구 포메이션 스타일 */
+        /* ==================================== */
+        .formation-section {
+            flex: 1;
+            /* 좌우 크기 동일하게 유지 (max-width: 50%) */
+            background: 
+                repeating-linear-gradient(
+                    to bottom,
+                    #388e3c, /* 어두운 잔디 */
+                    #388e3c 25px, /* 어두운 잔디 높이 */
+                    #4caf50 25px, /* 밝은 잔디 시작 */
+                    #4caf50 50px /* 밝은 잔디 높이 */
+                );
+            border: 2px solid black; 
+            position: relative;
+            height: 800px; 
+            padding: 20px 0; 
+            box-shadow: 0 4px 10px rgba(255,255,255,0.1); /* 흰색 그림자로 변경 */
+            overflow: hidden; 
+        }
+        .formation-title {
+            color: white; /* 제목 색상 흰색으로 변경 */
+            font-size: 1.1em;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+            position: absolute;
+            top: 10px;
+            left: 20px; 
+            z-index: 10;
+        }
+        /* 필드 라인 */
+        .field-line {
+            position: absolute;
+            background-color: white;
+            opacity: 0.9;
+        }
+        /* 중앙 라인 */
+        .center-line { top: 50%; left: 20px; width: calc(100% - 40px); height: 2px; transform: translateY(-50%); }
+        /* 중앙 서클 */
+	.center-circle { 
+        top: 50%; left: 50%; width: 100px; height: 100px; 
+    		border-radius: 50%; 
+    		border: 2px solid white;  
+	    	background-color: transparent; 
+		transform: translate(-50%, -50%); 
+		z-index: 5; 
+	}
+
+        /* 🟢 축구장 외곽선 스타일 🟢 */
+        .field-boundary {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            bottom: 20px;
+            border: 2px solid white; 
+            z-index: 1; 
+            pointer-events: none; 
+        }
+  	 /* 중앙 점 */
+        .center-dot { top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; background-color: white; transform: translate(-50%, -50%); }
+
+        /* 페널티 아크 (반원) */
+        .penalty-arc {
+            position: absolute;
+            left: 50%;
+            width: 120px; 
+            height: 120px; 
+            border-radius: 50%; 
+            border: 2px solid white;
+            z-index: 5;
+            pointer-events: none;
+            background-color: transparent;
+     	    transform: translateX(-50%); 
+        }
+        /* 하단 골대 쪽 아크 */
+        .penalty-arc-bottom {
+            /* 아크의 중심이 페널티 스폿 위치 (bottom: 100px)에 오도록, 아크 높이(반지름 60px)만큼 아래로 이동 */
+            bottom: 50px; 
+            /* 원의 윗부분(아크)만 보이게 처리 - 좀 더 완만한 호를 위해 clip-path 조정 */
+            clip-path: inset(0 0 75% 0); 
+        }
+
+        /* 상단 골대 쪽 아크 */
+        .penalty-arc-top {
+            /* 아크의 중심이 페널티 스폿 위치 (top: 100px)에 오도록, 아크 높이(반지름 60px)만큼 위로 이동 */
+            top: 50px; 
+            /* 원의 아랫부분(아크)만 보이게 처리 - 좀 더 완만한 호를 위해 clip-path 조정 */
+            clip-path: inset(75% 0 0 0); 
+        }
+        
+	.penalty-box-bottom { 
+		bottom: 20px; 
+		left: 50%; 
+		width: 80%; 
+		height: 120px; 
+		border: 2px solid white; 
+		background-color: transparent; 
+		transform: translateX(-50%); 
+	}
+	.goal-box-bottom { bottom: 20px; left: 50%; width: 40%; height: 60px; border: 2px solid white; 
+	background-color: transparent; 
+	transform: translateX(-50%); }
+
+        .penalty-box-top { top: 20px; left: 50%; width: 80%; height: 120px; border: 2px solid white; 
+		background-color: transparent; 
+		transform: translateX(-50%); }
+        .goal-box-top { top: 20px; left: 50%; width: 40%; height: 60px; border: 2px solid white; 
+		background-color: transparent; 
+		transform: translateX(-50%); }
+ 
+        /* 페널티 스폿 (점) */
+        .penalty-spot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: white;
+            z-index: 6;
+        }
+        .penalty-spot-bottom { bottom: 100px; } 
+        .penalty-spot-top { top: 100px; } 
+
+
+        /* 선수 배치 */
+        .player {
+            position: absolute;
+            width: 80px; 
+            text-align: center;
+        }
+        .jersey {
+            width: 45px;
+            height: 45px;
+            background-color: white; 
+            border-radius: 50%;
+            color: black;
+            font-weight: bold;
+            line-height: 45px;
+            margin: 0 auto 5px; 
+            border: 2px solid black; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-size: 0.9em;
+        }
+        .jersey.goalkeeper { 
+            background-color: #ffc107;
+            border: 2px solid #a07a00; 
+        }
+        .player-info {
+            color: black; 
+            font-size: 0.85em;
+            font-weight: bold;
+            background-color: white; 
+            padding: 3px 6px;
+            border-radius: 4px;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            white-space: nowrap; 
+        }
+
+        /* 각 선수 위치 조정 */
+        /* TSLA (ST) */
+        .player.p-tsla { top: 15%; left: 50%; transform: translateX(-50%); }
+        /* UPST (LW) */
+        .player.p-upst { top: 30%; left: 15%; transform: translateX(-50%);}
+        /* PLTR (CAM) */
+        .player.p-pltr { top: 30%; left: 50%; transform: translateX(-50%); }
+        /* TEM (RW) */
+        .player.p-tem { top: 30%; left: 85%; transform: translateX(-50%);}
+        /* XPEV (LM) */
+        .player.p-xpev { top: 48%; left: 35%;  transform: translateX(-50%);}
+        /* HIMS (RM) */
+        .player.p-hims { top: 48%; left: 65%;  transform: translateX(-50%);}
+        /* LB */
+        .player.p-nu { top: 72%; left: 70%; transform: translateX(-50%); }
+        /* RB */
+        .player.p-rb { top: 60%; left: 90%; transform: translateX(-50%); }
+        /* CB (좌) */
+        .player.p-cb-left { top: 72%; left: 30%; transform: translateX(-50%);}
+        /* CB (우) */
+        .player.p-cb-right { top: 60%; left: 10%; transform: translateX(-50%);}
+        /* BTC (GK) */
+        .player.p-btc { bottom: 5%; left: 50%; transform: translateX(-50%); }
+
+        /* 반응형 (옵션) */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            .chart-section, .formation-section {
+                max-width: 100%;
+                width: 100%;
+                height: 500px; /* 모바일에서 높이 조정 */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-date">
+        Base Date : <span id="current-date-display">October 1, 2025</span>
+    </div>
+    
+    <div class="main-layout">
+        
+        <div class="chart-section">
+            <canvas id="myPieChart"></canvas>
+        </div>
+        
+        <div class="formation-section">
+          
+	    <div class="field-boundary"></div>
+            <div class="field-line center-line"></div>
+            <div class="field-line center-circle"></div>
+            <div class="field-line center-dot"></div>
+
+            <div class="field-line penalty-box-top"></div>
+            <div class="field-line goal-box-top"></div>
+            <div class="field-line goal-line-top"></div>
+            <!-- 페널티 스폿과 아크 추가 -->
+            <div class="field-line penalty-spot-top"></div>
+	    <div class="field-line penalty-arc penalty-arc-top"></div> 
+            <div class="goal-post-top"></div>
+
+            <div class="field-line penalty-box-bottom"></div>
+            <div class="field-line goal-box-bottom"></div>
+            <div class="field-line goal-line-bottom"></div>
+            <!-- 페널티 스폿과 아크 추가 -->
+            <div class="field-line penalty-spot-bottom"></div>
+	    <div class="field-line penalty-arc penalty-arc-bottom"></div> 
+            <div class="goal-post-bottom"></div>
+
+
+            <div class="player p-tsla">
+                <div class="jersey">7</div>
+                <div class="player-info">TSLA</div>
+            </div>
+
+            <div class="player p-upst">
+                <div class="jersey">9</div>
+                <div class="player-info">UPST(2.38)</div>
+            </div>
+            <div class="player p-pltr">
+                <div class="jersey">10</div>
+                <div class="player-info">PLTR(2.59)</div>
+            </div>
+            <div class="player p-tem">
+                <div class="jersey">11</div>
+                <div class="player-info">TEM</div>
+            </div>
+
+            <div class="player p-xpev">
+                <div class="jersey">8</div>
+                <div class="player-info">XPEV(2.5)</div>
+            </div>
+            <div class="player p-hims">
+                <div class="jersey">6</div>
+                <div class="player-info">HIMS(2.14)</div>
+            </div>
+
+            <div class="player p-nu">
+                <div class="jersey">4</div>
+                <div class="player-info">NU(1.08)</div>
+            </div>
+            <div class="player p-rb">
+                <div class="jersey">5</div>
+                <div class="player-info">-</div>
+            </div>
+            
+            <div class="player p-cb-left">
+                <div class="jersey">3</div> <div class="player-info">-</div>
+            </div>
+            <div class="player p-cb-right">
+                <div class="jersey">2</div> <div class="player-info">-</div>
+            </div>
+
+            <div class="player p-btc">
+                <div class="jersey goalkeeper">1</div> <div class="player-info">BTC</div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // Chart.js에 datalabels 플러그인 등록
+        Chart.register(ChartDataLabels);
+
+        // 🚨 1. 사용자 데이터 입력 영역 🚨
+        const portfolioData = [
+            // 비중 합계는 100%가 되도록 조정해야 합니다.
+            { asset: 'TSLA', percentage: 40.7, color: '#36a2eb' }, 
+            { asset: 'PLTR', percentage: 17.1, color: '#4bc0c0' },
+            { asset: 'BTC', percentage: 15.7, color: '#00cc66' },
+            { asset: 'TEM', percentage: 6.3, color: '#c94c92' },
+            { asset: 'HIMS', percentage: 5.6, color: '#ffcd56' },
+            { asset: 'UPST', percentage: 4.5, color: '#ff9f40' },
+            { asset: 'TSLR', percentage: 5.2, color: '#ff6384' },
+            { asset: 'XPEV', percentage: 2.7, color: '#e57373' },
+            { asset: 'NU', percentage: 2.0, color: '#7a76e6' },
+            { asset: 'MNY', percentage: 0.1, color: '#a0b0b0' }
+        ];
+
+        // 🚨 2. 데이터 처리 및 차트 생성 🚨
+        const labels = portfolioData.map(d => d.asset);
+        const dataValues = portfolioData.map(d => d.percentage);
+        const backgroundColors = portfolioData.map(d => d.color);
+
+        const ctx = document.getElementById('myPieChart').getContext('2d');
+        
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: dataValues,
+                    backgroundColor: backgroundColors,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    datalabels: {
+                        color: 'white',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: (value, context) => {
+                            const assetName = context.chart.data.labels[context.dataIndex];
+                            return `${assetName}\n${value.toFixed(1)}%`;
+                        },
+                        anchor: 'end',
+                        align: 'end',
+                        offset: -100,      // 레이블을 원 바깥으로 10픽셀 밀어냄
+                        clamp: true 
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                return `${label}: ${value.toFixed(1)}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
