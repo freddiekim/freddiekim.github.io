@@ -4,7 +4,10 @@
 <body>
   {% include navigation.html %}
   {% include header.html %}
-  {% include portfolio.html %}
+  {% include tesla.html %}
+  {% include palantir.html %}
+  {% include hims.html %}
+  {% include tempusai.html %}
   {% include scripts.html %}
 
   <script>
@@ -45,10 +48,10 @@
               
               // 아이콘을 해(주간 전환)로 변경: ☀️
               toggleIcon.innerHTML = '&#9788;'; 
-              tooltipText.textContent = '야간 모드로 전환';
+              tooltipText.textContent = '주간 모드로 전환';
               
               // localStorage에 상태 저장 (선택 사항)
-              localStorage.setItem('theme', 'day'); 
+              localStorage.setItem('theme', 'night'); 
           }
       }
 
