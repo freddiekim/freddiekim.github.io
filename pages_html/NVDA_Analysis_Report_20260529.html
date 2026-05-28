@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NVIDIA (NVDA) — 심층 투자 분석 보고서 | 2026.05.27</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans+KR:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c10;
+  --bg2: #0f1218;
+  --bg3: #161b24;
+  --border: #1e2635;
+  --border2: #2a3448;
+  --green: #76d673;
+  --green2: #4dba4a;
+  --red: #f06060;
+  --gold: #f0b429;
+  --blue: #4db8ff;
+  --blue2: #2196f3;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --accent: #76ea76;
+  --nvda: #76ea76;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+/* ── HEADER ── */
+.report-header {
+  background: linear-gradient(135deg, #0a0c10 0%, #0d1520 40%, #0a1a0e 100%);
+  border-bottom: 1px solid var(--border2);
+  padding: 48px 64px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.report-header::before {
+  content: 'NVDA';
+  position: absolute; right: 40px; top: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 200px;
+  color: rgba(118,234,118,0.04);
+  letter-spacing: -8px;
+  pointer-events: none;
+}
+.report-meta { display: flex; gap: 16px; align-items: center; margin-bottom: 16px; }
+.badge {
+  background: rgba(118,234,118,0.12);
+  border: 1px solid rgba(118,234,118,0.3);
+  color: var(--green);
+  padding: 3px 12px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.badge.red { background: rgba(240,96,96,0.12); border-color: rgba(240,96,96,0.3); color: var(--red); }
+.badge.gold { background: rgba(240,180,41,0.12); border-color: rgba(240,180,41,0.3); color: var(--gold); }
+.badge.blue { background: rgba(77,184,255,0.12); border-color: rgba(77,184,255,0.3); color: var(--blue); }
+.report-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 58px;
+  letter-spacing: 3px;
+  line-height: 1;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.report-subtitle { color: var(--text2); font-size: 15px; font-weight: 300; }
+.header-stats {
+  display: flex; gap: 40px; margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.hstat { }
+.hstat-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); font-family: 'IBM Plex Mono', monospace; }
+.hstat-value { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; color: #fff; }
+.hstat-value.green { color: var(--green); }
+.hstat-value.gold { color: var(--gold); }
+.hstat-value.blue { color: var(--blue); }
+.hstat-change { font-size: 11px; color: var(--text3); margin-top: 2px; }
+/* ── NAV ── */
+.toc-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 64px;
+  display: flex; gap: 0; overflow-x: auto;
+}
+.toc-item {
+  padding: 14px 20px;
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  letter-spacing: 0.5px;
+  color: var(--text3);
+  white-space: nowrap;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.toc-item:hover { color: var(--green); border-bottom-color: var(--green); }
+/* ── MAIN ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 64px; }
+section { padding: 56px 0 32px; border-bottom: 1px solid var(--border); }
+section:last-child { border-bottom: none; }
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+/* ── CARDS ── */
+.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+.card-grid.two { grid-template-columns: repeat(2, 1fr); }
+.card-grid.four { grid-template-columns: repeat(4, 1fr); }
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--green);
+}
+.card.gold::before { background: var(--gold); }
+.card.red::before { background: var(--red); }
+.card.blue::before { background: var(--blue); }
+.card-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text3); font-family: 'IBM Plex Mono', monospace; margin-bottom: 8px; }
+.card-value { font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 600; color: #fff; }
+.card-value.green { color: var(--green); }
+.card-value.gold { color: var(--gold); }
+.card-value.blue { color: var(--blue); }
+.card-value.red { color: var(--red); }
+.card-sub { font-size: 12px; color: var(--text2); margin-top: 6px; }
+/* ── TABLE ── */
+.data-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+.data-table th {
+  background: var(--bg3);
+  color: var(--text3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+}
+.data-table tr:hover td { background: rgba(118,234,118,0.03); }
+.data-table td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; }
+.data-table td.highlight { color: #fff; font-weight: 500; }
+.data-table td.green { color: var(--green); font-family: 'IBM Plex Mono', monospace; }
+.data-table td.gold { color: var(--gold); font-family: 'IBM Plex Mono', monospace; }
+.data-table td.red { color: var(--red); font-family: 'IBM Plex Mono', monospace; }
+.data-table td.blue { color: var(--blue); font-family: 'IBM Plex Mono', monospace; }
+.data-table tr.nvda td { background: rgba(118,234,118,0.05); }
+/* ── CHART WRAPPER ── */
+.chart-wrap {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.chart-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1px; color: var(--text2); margin-bottom: 16px; }
+/* ── TIMELINE ── */
+.timeline { border-left: 2px solid var(--border2); padding-left: 24px; margin: 24px 0; }
+.tl-item { position: relative; margin-bottom: 24px; }
+.tl-item::before {
+  content: '';
+  position: absolute; left: -31px; top: 6px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid var(--bg);
+}
+.tl-year { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--green); margin-bottom: 4px; }
+.tl-text { color: var(--text2); font-size: 13px; }
+/* ── RISK TABLE ── */
+.risk-item {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+}
+.risk-level {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.risk-level.high { background: rgba(240,96,96,0.2); color: var(--red); }
+.risk-level.med { background: rgba(240,180,41,0.2); color: var(--gold); }
+.risk-level.low { background: rgba(118,234,118,0.2); color: var(--green); }
+.risk-text strong { color: #fff; display: block; margin-bottom: 4px; font-size: 14px; }
+.risk-text p { color: var(--text2); font-size: 13px; }
+/* ── CONVICTION BOX ── */
+.conviction-box {
+  background: linear-gradient(135deg, rgba(118,234,118,0.06), rgba(118,234,118,0.02));
+  border: 1px solid rgba(118,234,118,0.3);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 24px 0;
+}
+.conviction-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--green); text-transform: uppercase; margin-bottom: 12px; }
+.conviction-text { font-size: 16px; color: #fff; line-height: 1.7; font-weight: 300; }
+/* ── VERDICT BOX ── */
+.verdict-box {
+  background: linear-gradient(135deg, rgba(240,180,41,0.08), rgba(240,180,41,0.02));
+  border: 2px solid rgba(240,180,41,0.4);
+  border-radius: 8px;
+  padding: 28px;
+  margin: 24px 0;
+}
+.verdict-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+.verdict-rating {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+.verdict-text { font-size: 14px; color: var(--text2); }
+/* ── PROGRESS BAR ── */
+.progress-row { margin-bottom: 14px; }
+.progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12px; }
+.progress-label span:first-child { color: var(--text2); }
+.progress-label span:last-child { font-family: 'IBM Plex Mono', monospace; color: #fff; }
+.progress-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; background: var(--green); }
+.progress-fill.gold { background: var(--gold); }
+.progress-fill.red { background: var(--red); }
+.progress-fill.blue { background: var(--blue); }
+/* ── MOAT ── */
+.moat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+.moat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px;
+}
+.moat-card h4 { color: var(--blue); font-size: 13px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.moat-card p { color: var(--text2); font-size: 12px; }
+/* ── PORTFOLIO SECTION ── */
+.port-action {
+  background: linear-gradient(135deg, rgba(77,184,255,0.06), rgba(77,184,255,0.02));
+  border: 1px solid rgba(77,184,255,0.3);
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px 0;
+}
+.port-action-title { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 1.5px; color: var(--blue); text-transform: uppercase; margin-bottom: 16px; }
+.buy-phase { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.buy-phase:last-child { border-bottom: none; }
+.phase-badge {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(77,184,255,0.15);
+  border: 1px solid rgba(77,184,255,0.4);
+  color: var(--blue);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.phase-info { flex: 1; }
+.phase-price { font-family: 'IBM Plex Mono', monospace; font-size: 15px; color: #fff; }
+.phase-detail { font-size: 12px; color: var(--text2); }
+.phase-shares { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--green); text-align: right; }
+/* ── SEPARATOR ── */
+.sep { height: 1px; background: var(--border); margin: 24px 0; }
+p { color: var(--text2); margin-bottom: 12px; }
+p strong { color: #fff; }
+ul { color: var(--text2); padding-left: 20px; margin-bottom: 12px; }
+ul li { margin-bottom: 6px; font-size: 13px; }
+ul li strong { color: #fff; }
+h4 { color: #fff; font-size: 14px; margin-bottom: 8px; margin-top: 16px; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 24px 64px;
+  color: var(--text3);
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.6;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="report-meta">
+    <span class="badge">Equity Research</span>
+    <span class="badge gold">NASDAQ: NVDA</span>
+    <span class="badge blue">2026.05.27 기준</span>
+    <span class="badge">AI 인프라 섹터</span>
+  </div>
+  <div class="report-title">NVIDIA CORPORATION</div>
+  <div class="report-subtitle">에이전틱 AI 시대의 종합 인프라 제공자 — Vera Rubin CPU 포함 심층 기업가치 분석</div>
+  <div class="header-stats">
+    <div class="hstat">
+      <div class="hstat-label">현재 주가</div>
+      <div class="hstat-value">$212.60</div>
+      <div class="hstat-change">52주 범위: $132.92 – $236.54</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label">시가총액</div>
+      <div class="hstat-value blue">$5.16T</div>
+      <div class="hstat-change">글로벌 #1 반도체 기업</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label">Q1 FY27 매출</div>
+      <div class="hstat-value green">$81.6B</div>
+      <div class="hstat-change">YoY +85% | 역대 최고</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label">Q2 FY27 가이던스</div>
+      <div class="hstat-value gold">$91B</div>
+      <div class="hstat-change">컨센서스 $86.8B 상회</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label">Forward P/E</div>
+      <div class="hstat-value">21.5x</div>
+      <div class="hstat-change">PEG 0.49 — 성장 대비 저평가</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-label">투자의견</div>
+      <div class="hstat-value green">STRONG BUY</div>
+      <div class="hstat-change">61개 애널리스트 평균 목표가 $296.81</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc-bar">
+  <a href="#s1" class="toc-item">01 · 비즈니스 전환</a>
+  <a href="#s2" class="toc-item">02 · 실적 증명</a>
+  <a href="#s3" class="toc-item">03 · M&A 전략</a>
+  <a href="#s4" class="toc-item">04 · 기술 해자</a>
+  <a href="#s5" class="toc-item">05 · 생태계 포지셔닝</a>
+  <a href="#s6" class="toc-item">06 · 기업가치 평가</a>
+  <a href="#s7" class="toc-item">07 · 리스크 분석</a>
+  <a href="#s8" class="toc-item">08 · 투자 결론</a>
+  <a href="#s9" class="toc-item">09 · 포트폴리오 전략</a>
+</div>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════
+  SECTION 1: BUSINESS MODEL EVOLUTION
+══════════════════════════════════════════════ -->
+<section id="s1">
+  <div class="section-label">Framework 01</div>
+  <div class="section-title">전통적 비즈니스 모델의 진화 — 구조적 전환점</div>
+
+  <p><strong>엔비디아의 레거시</strong>: 1993년 설립 당시 NVIDIA는 PC 게이밍 그래픽카드(GPU) 설계사였다. 2000년대~2010년대 중반까지 GeForce 브랜드 소비자 GPU와 Quadro 전문가용 GPU가 핵심이었으며, 전체 매출의 50% 이상을 게이밍이 차지했다. "그래픽 칩 회사"라는 정체성이 강했다.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">2006</div>
+      <div class="tl-text"><strong>CUDA 출시</strong> — GPU를 범용 병렬 컴퓨팅에 활용하는 패러다임 전환. 당시에는 부수적 행보처럼 보였으나, 이것이 AI 혁명의 씨앗이 됨.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2016</div>
+      <div class="tl-text"><strong>DGX-1 발표 / 데이터센터 사업 부상</strong> — Tesla V100 기반 AI 학습 서버. HPC·딥러닝 시장에서 수요 폭발 시작.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2022</div>
+      <div class="tl-text"><strong>ChatGPT 충격 → H100 수요 폭증</strong> — 데이터센터 부문이 전체 매출의 60% 초과. 게이밍은 비중이 축소되기 시작.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2024~2025</div>
+      <div class="tl-text"><strong>Blackwell 아키텍처 + NVLink + DGX 슈퍼포드</strong> — 단순 칩 판매에서 '랙 단위 AI 팩토리 시스템' 판매로 전환. ASP(평균 판매가) 비약적 상승.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2026 (지금)</div>
+      <div class="tl-text"><strong>Vera Rubin + CPU 사업 진출</strong> — GPU 회사에서 CPU+GPU+DPU+NIC+소프트웨어를 아우르는 <strong>AI 풀스택 인프라 기업</strong>으로 정체성 완전 전환. CFO는 Vera CPU가 "$200B 신규 TAM"이라고 선언.</div>
+    </div>
+  </div>
+
+  <div class="card-grid four">
+    <div class="card">
+      <div class="card-label">레거시 정체성 (2015)</div>
+      <div class="card-value" style="font-size:18px;">GPU 설계사</div>
+      <div class="card-sub">게이밍 GPU 비중 ~55%</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">현재 정체성 (2026)</div>
+      <div class="card-value gold" style="font-size:18px;">AI 인프라 기업</div>
+      <div class="card-sub">데이터센터 비중 92%</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">차기 정체성 (H2 2026~)</div>
+      <div class="card-value blue" style="font-size:18px;">AI CPU/GPU 플랫폼</div>
+      <div class="card-sub">Vera CPU $20B 신규 수익원</div>
+    </div>
+    <div class="card">
+      <div class="card-label">미래 비전 (2027~)</div>
+      <div class="card-value" style="font-size:18px;">AI 오케스트레이터</div>
+      <div class="card-sub">에이전틱 AI 인프라 전반</div>
+    </div>
+  </div>
+
+  <p>Jensen Huang은 2026년 GTC 키노트에서 <strong>"AI 팩토리의 구축 — 인류 역사상 가장 대규모 인프라 확장 — 이 비범한 속도로 가속되고 있다"</strong>고 선언했다. 에이전틱 AI(Agentic AI)의 도래와 함께 엔비디아는 모든 프론티어 AI 모델(Anthropic, OpenAI, SpaceX AI, Meta, Google Gemini)이 구동되는 유일한 플랫폼임을 확인했다.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 2: FINANCIAL PROOF
+══════════════════════════════════════════════ -->
+<section id="s2">
+  <div class="section-label">Framework 02</div>
+  <div class="section-title">실적으로 증명되는 실체 — 테마에서 펀더멘털로</div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">FY2026 연간 매출</div>
+      <div class="card-value green">$215.9B</div>
+      <div class="card-sub">YoY +65% | FY2025 $130.5B 대비</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">Q1 FY2027 매출</div>
+      <div class="card-value gold">$81.6B</div>
+      <div class="card-sub">YoY +85% | 분기 역대 최고</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">Q1 FY27 순이익</div>
+      <div class="card-value blue">$58.3B</div>
+      <div class="card-sub">단일분기 Intel 연간매출 초과</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">■ 연간 매출 및 데이터센터 비중 추이 (FY2020–FY2027E)</div>
+    <canvas id="revenueChart" height="90"></canvas>
+  </div>
+
+  <h4>세그먼트 포트폴리오 다변화</h4>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>사업 부문</th>
+        <th class="num">Q1 FY2027 매출</th>
+        <th class="num">YoY 성장률</th>
+        <th class="num">전체 비중</th>
+        <th>성장 동인</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="nvda">
+        <td class="highlight">데이터센터 (DC)</td>
+        <td class="num green">$75.2B</td>
+        <td class="num green">+92%</td>
+        <td class="num green">92%</td>
+        <td>Blackwell H200/B200, 에이전틱 AI 추론 수요</td>
+      </tr>
+      <tr>
+        <td>게이밍 (Graphics)</td>
+        <td class="num">~$3.8B</td>
+        <td class="num">+30%</td>
+        <td class="num">~5%</td>
+        <td>RTX 50 시리즈, AI 기반 DLSS 4</td>
+      </tr>
+      <tr>
+        <td>전문 시각화 (ProViz)</td>
+        <td class="num">~$0.8B</td>
+        <td class="num">+74%</td>
+        <td class="num">~1%</td>
+        <td>디지털 트윈, Omniverse 플랫폼</td>
+      </tr>
+      <tr>
+        <td>자동차·로보틱스</td>
+        <td class="num">~$0.8B</td>
+        <td class="num">+77%</td>
+        <td class="num">~1%</td>
+        <td>DRIVE Orin/Thor, 자율주행 플랫폼</td>
+      </tr>
+      <tr>
+        <td class="highlight">Vera CPU (신규·H2 2026~)</td>
+        <td class="num gold">$0 (Q3~)</td>
+        <td class="num gold">신규</td>
+        <td class="num gold">~$20B 목표</td>
+        <td>x86 서버 CPU 대체, 88코어 ARM Olympus</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-grid four">
+    <div class="card">
+      <div class="card-label">FY26 비GAAP 영업이익률</div>
+      <div class="card-value green">63.6%</div>
+      <div class="card-sub">($137.3B / $215.9B)</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">Q1 FY27 영업현금흐름</div>
+      <div class="card-value gold">$50.3B</div>
+      <div class="card-sub">단일분기, YoY +84%</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">FY26 총 잉여현금흐름</div>
+      <div class="card-value blue">~$120B</div>
+      <div class="card-sub">현금·유가증권 $62.6B 보유</div>
+    </div>
+    <div class="card">
+      <div class="card-label">주주환원 (Q1 FY27)</div>
+      <div class="card-value">$20B</div>
+      <div class="card-sub">자사주매입 + 배당 (신규 분기 $0.25)</div>
+    </div>
+  </div>
+
+  <p>주목할 점은 고객 다변화이다. 과거 소수 클라우드 업체 의존에서 벗어나 현재 마이크로소프트 Azure, Google Cloud, AWS, Meta, Tesla, xAI 등 <strong>전 세계 주요 하이퍼스케일러 전체가 동시 고객</strong>이다. Jensen Huang은 "NVIDIA는 모든 클라우드에서 구동되고, 모든 프론티어·오픈소스 모델을 지원하며, AI가 생산되는 모든 곳에서 스케일하는 유일한 플랫폼"이라고 천명했다.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 3: M&A STRATEGY
+══════════════════════════════════════════════ -->
+<section id="s3">
+  <div class="section-label">Framework 03</div>
+  <div class="section-title">M&A 및 수직계열화 전략</div>
+
+  <div class="card-grid two">
+    <div>
+      <h4>핵심 전략적 인수 및 투자</h4>
+      <table class="data-table">
+        <thead>
+          <tr><th>대상</th><th>시기</th><th>금액</th><th>내재화 기술</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight">Mellanox Technologies</td>
+            <td>2020</td>
+            <td class="num gold">$6.9B</td>
+            <td>InfiniBand·이더넷 인터커넥트 내재화 → NVLink·Spectrum 기반</td>
+          </tr>
+          <tr>
+            <td class="highlight">Arm Holdings (시도)</td>
+            <td>2020~22</td>
+            <td class="num red">$40B (규제 무산)</td>
+            <td>무산됐으나 ARM 아키텍처 라이선스 심화 → Vera CPU 핵심</td>
+          </tr>
+          <tr>
+            <td>DeepMap</td>
+            <td>2021</td>
+            <td class="num">~$0.4B</td>
+            <td>HD 매핑·자율주행 기술</td>
+          </tr>
+          <tr>
+            <td>Excelero (네트워크 스토리지)</td>
+            <td>2022</td>
+            <td class="num">비공개</td>
+            <td>NVMe-over-Fabric 기술</td>
+          </tr>
+          <tr>
+            <td class="highlight">Groq (20B 딜·LPU 협력)</td>
+            <td>2026</td>
+            <td class="num gold">~$20B</td>
+            <td>디코딩 가속 LPU + Vera Rubin 통합, 추론 성능 극대화</td>
+          </tr>
+          <tr>
+            <td>전략적 AI 스타트업 투자</td>
+            <td>FY27 Q1</td>
+            <td class="num">$18.6B</td>
+            <td>에코시스템 락인, AI 스타트업 포트폴리오 확보</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>수직계열화 진행 단계</h4>
+      <div style="margin-top:8px;">
+        <div class="progress-row">
+          <div class="progress-label"><span>GPU 아키텍처 설계</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>CPU (Vera ARM Olympus)</span><span>진입 완료 (H2 2026)</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>DPU (BlueField-4)</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>인터커넥트 (NVLink 6세대)</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>네트워킹 (Spectrum InfiniBand·이더넷)</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>소프트웨어 (CUDA·NIM·cuDNN)</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>AI 모델 서비스 (NIM API)</span><span>80%</span></div>
+          <div class="progress-bar"><div class="progress-fill gold" style="width:80%"></div></div>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>시스템 수준 판매 (DGX·HGX 랙)</span><span>100%</span></div>
+          <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        </div>
+      </div>
+      <p style="margin-top:12px; font-size:12px;">Mellanox 인수로 인터커넥트를 내재화하면서 데이터센터 단일 랙의 처리량이 3배 이상 향상됐다. 과거 외부 조달 시 10% 수준이던 인터커넥트 마진이 내재화 후 65~70% 수준으로 개선됐다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 4: TECHNOLOGY MOAT
+══════════════════════════════════════════════ -->
+<section id="s4">
+  <div class="section-label">Framework 04</div>
+  <div class="section-title">핵심 기술의 디테일 — 기술적 해자</div>
+
+  <div class="moat-grid">
+    <div class="moat-card">
+      <h4>⬡ CUDA 에코시스템 (20년 누적 해자)</h4>
+      <p>CUDA는 2006년 출시 이후 현재 4,000만+ 개발자가 사용. AI 연구의 90%+ 가 CUDA 기반. PyTorch, TensorFlow, JAX 등 주요 프레임워크 전부 CUDA 최적화. <strong>재작성 비용(Switching Cost)이 극단적으로 높아 경쟁사 진입 장벽의 핵심.</strong></p>
+    </div>
+    <div class="moat-card">
+      <h4>🔴 Rubin GPU — 336B 트랜지스터 괴물</h4>
+      <p>TSMC CoWoS-L 2.5D 패키징, 듀얼 다이 설계. NVFP4 정밀도 기준 50 PFLOPs (추론) — Blackwell 대비 <strong>5배</strong> 성능. 메모리 대역폭 22 TB/s (HBM4, 288GB). 훈련 성능 35 PFLOPs (+3.5x). 10배 낮은 토큰당 비용.</p>
+    </div>
+    <div class="moat-card">
+      <h4>🔵 Vera CPU — x86 서버 시장 도전장</h4>
+      <p>88개 커스텀 ARM "Olympus" 코어, 227B 트랜지스터. Vera Rubin NVL72 구성 시 CPU 36개 + GPU 72개 통합. CFO Colette Kress: "모든 주요 하이퍼스케일러와 시스템 업체가 파트너로 참여." <strong>$200B 신규 TAM.</strong> 2/3의 x86 서버 CPU 시장 점유 목표.</p>
+    </div>
+    <div class="moat-card">
+      <h4>🟡 NVLink 6세대 + BlueField-4 DPU</h4>
+      <p>NVL72 기준 GPU 간 Scale-Up 대역폭 <strong>260 TB/s</strong>. PCIe 기반 AMD/Intel 경쟁 솔루션 대비 8~10배 높은 GPU간 통신 속도. BlueField-4 DPU가 네트워킹·스토리지·보안 오프로드를 통합 처리, CPU 사이클 절감.</p>
+    </div>
+    <div class="moat-card">
+      <h4>🟢 NIM (NVIDIA Inference Microservices)</h4>
+      <p>주요 AI 모델(Llama, Mistral, Gemma 등)을 컨테이너화해 원클릭 배포 가능. 기업이 자체 GPU 인프라 위에서 프라이빗 AI를 쉽게 운영하도록 지원. <strong>소프트웨어 구독 수익 모델로의 전환점.</strong></p>
+    </div>
+    <div class="moat-card">
+      <h4>🟣 Vera Rubin POD — 60 ExaFLOPS AI 팩토리</h4>
+      <p>7개 칩으로 구성된 40랙 AI 슈퍼컴퓨터. 단일 POD가 GPT-4급 모델 훈련에 필요한 컴퓨팅의 30% 이상 처리 가능. 시스템 수준 판매로 ASP가 단품 GPU 대비 10배+ 상승. Jensen Huang: "$3~4조 연간 AI 인프라 지출 시장이 2030년까지 형성."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 5: ECOSYSTEM POSITIONING
+══════════════════════════════════════════════ -->
+<section id="s5">
+  <div class="section-label">Framework 05</div>
+  <div class="section-title">생태계 내 포지셔닝 및 턴키 역량</div>
+
+  <div class="two-col">
+    <div>
+      <h4>하이퍼스케일러와의 관계 구도</h4>
+      <table class="data-table">
+        <thead><tr><th>파트너사</th><th>관계</th><th>전략적 의미</th></tr></thead>
+        <tbody>
+          <tr><td>Microsoft Azure</td><td class="green">핵심 고객</td><td>Azure AI Supercomputer, OpenAI 인프라</td></tr>
+          <tr><td>Google Cloud</td><td class="green">핵심 고객</td><td>Gemini 학습, TPU 병행 사용 구조</td></tr>
+          <tr><td>AWS</td><td class="green">핵심 고객</td><td>UltraCluster, Bedrock 인프라</td></tr>
+          <tr><td>Meta</td><td class="green">핵심 고객</td><td>Llama 학습, 350K+ H100 보유</td></tr>
+          <tr><td>Tesla / xAI</td><td class="blue">핵심 고객</td><td>Grok 학습, Dojo 병행</td></tr>
+          <tr><td>TSMC</td><td class="gold">전략 파트너</td><td>$150B/년 대만 투자 약정, CoWoS 우선 확보</td></tr>
+          <tr><td>SK Hynix</td><td class="gold">전략 파트너</td><td>HBM4 독점 공급 협력 강화</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>턴키 솔루션 역량 레이어</h4>
+      <div style="margin-top:8px;">
+        <div style="background:var(--bg3); border:1px solid var(--border); border-radius:6px; overflow:hidden;">
+          <div style="background:rgba(118,234,118,0.15); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--green);">▶ Layer 7: AI 응용 레이어 (NIM, Omniverse, DRIVE)</div>
+          <div style="background:rgba(118,234,118,0.10); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--text2);">▶ Layer 6: 소프트웨어 스택 (CUDA, cuDNN, TensorRT)</div>
+          <div style="background:rgba(77,184,255,0.08); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--blue);">▶ Layer 5: 시스템 수준 (DGX Spark, HGX, NVL72 랙)</div>
+          <div style="background:rgba(77,184,255,0.06); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--text2);">▶ Layer 4: 인터커넥트 (NVLink 6세대, Spectrum InfiniBand/이더넷)</div>
+          <div style="background:rgba(240,180,41,0.06); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--gold);">▶ Layer 3: 데이터 처리 (BlueField-4 DPU)</div>
+          <div style="background:rgba(240,180,41,0.08); border-bottom:1px solid var(--border); padding:10px 14px; font-size:12px; color:var(--text2);">▶ Layer 2: CPU (Vera ARM Olympus 88코어) — 신규 진입!</div>
+          <div style="background:rgba(118,234,118,0.12); padding:10px 14px; font-size:12px; color:var(--green); font-weight:600;">▶ Layer 1: GPU (Rubin R100, 336B 트랜지스터)</div>
+        </div>
+        <p style="font-size:12px; margin-top:10px;">이 7개 레이어를 단일 벤더로 모두 제공하는 기업은 지구상에 엔비디아가 유일하다. 고객 입장에서는 엔비디아 외 대안 선택 시 각 레이어를 별도 통합해야 하는 막대한 복잡성 비용 발생 → 전환비용(Switching Cost)이 폭발적으로 증가.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 6: VALUATION
+══════════════════════════════════════════════ -->
+<section id="s6">
+  <div class="section-label">Framework 06</div>
+  <div class="section-title">기업가치 평가 — Vera Rubin CPU 포함</div>
+
+  <h4>① 현재 주가 대비 안전마진 분석</h4>
+  <div class="card-grid four">
+    <div class="card">
+      <div class="card-label">현재 주가</div>
+      <div class="card-value">$212.60</div>
+      <div class="card-sub">2026.05.27 기준</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">애널리스트 평균 목표가</div>
+      <div class="card-value gold">$296.81</div>
+      <div class="card-sub">상승여력 +39.6%</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">DCF 내재가치 (본보고서)</div>
+      <div class="card-value blue">$285~$320</div>
+      <div class="card-sub">안전마진 +34~+51%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Morningstar 공정가치</div>
+      <div class="card-value red">$464</div>
+      <div class="card-sub">현재가 568% 프리미엄?<br>(보수적 추정치와 불일치)</div>
+    </div>
+  </div>
+
+  <h4>② 절대가치 평가 #1: DCF (Vera Rubin CPU 포함)</h4>
+  <div class="card-grid two">
+    <div>
+      <table class="data-table">
+        <thead><tr><th>항목</th><th class="num">가정값</th></tr></thead>
+        <tbody>
+          <tr><td>FY2027E 총매출</td><td class="num green">$375B</td></tr>
+          <tr><td class="highlight">  └ GPU/데이터센터</td><td class="num">$340B (Q1+Q2 가이던스+H2 가속)</td></tr>
+          <tr><td class="highlight">  └ Vera CPU (신규)</td><td class="num gold">$20B (Q3~Q4 진입)</td></tr>
+          <tr><td class="highlight">  └ 기타 (게이밍·오토모티브 등)</td><td class="num">$15B</td></tr>
+          <tr><td>FY2027E FCF 마진</td><td class="num">53% → FCF ~$199B</td></tr>
+          <tr><td>FY2028E 성장률</td><td class="num">+30% (Vera Rubin 풀뱅크)</td></tr>
+          <tr><td>FY2029E 성장률</td><td class="num">+20%</td></tr>
+          <tr><td>FY2030E 성장률</td><td class="num">+15%</td></tr>
+          <tr><td>FY2031~35E CAGR</td><td class="num">+10%</td></tr>
+          <tr><td>영구성장률 (g)</td><td class="num">3.5%</td></tr>
+          <tr><td>WACC</td><td class="num">9.0%</td></tr>
+          <tr><td>발행주식수</td><td class="num">24.22B주</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="data-table">
+        <thead><tr><th>연도</th><th class="num">FCF 추정</th><th class="num">할인율</th><th class="num">현재가치</th></tr></thead>
+        <tbody>
+          <tr><td>FY2027E</td><td class="num green">$199B</td><td class="num">1.000</td><td class="num">$199B</td></tr>
+          <tr><td>FY2028E</td><td class="num">$259B</td><td class="num">0.917</td><td class="num">$237B</td></tr>
+          <tr><td>FY2029E</td><td class="num">$311B</td><td class="num">0.842</td><td class="num">$262B</td></tr>
+          <tr><td>FY2030E</td><td class="num">$358B</td><td class="num">0.772</td><td class="num">$276B</td></tr>
+          <tr><td>FY2031~35E</td><td class="num">합산</td><td class="num">—</td><td class="num">$1,050B</td></tr>
+          <tr><td class="highlight">터미널 밸류</td><td class="num">FCF×(1+g)/(WACC-g)</td><td class="num">0.600</td><td class="num green">$4,200B</td></tr>
+          <tr><td class="highlight">기업가치 (EV)</td><td class="num" colspan="2"></td><td class="num green">$6,224B</td></tr>
+          <tr><td class="highlight">순현금 차감 후</td><td class="num" colspan="2"></td><td class="num green">$6,161B</td></tr>
+          <tr><td class="highlight" style="color:var(--green)">주당 내재가치</td><td class="num" colspan="2"></td><td class="num green" style="font-size:18px;">$254~$285</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px; margin-top:8px; color:var(--text3);">※ WACC 10%·g 3% 하향 시나리오: $230 / WACC 8%·g 4% 상향: $320. Vera CPU $20B 가정 포함.</p>
+    </div>
+  </div>
+
+  <h4>③ 절대가치 평가 #2: P/FCF 멀티플 밴드 분석 (EV/FCF)</h4>
+  <div class="chart-wrap">
+    <div class="chart-title">■ NVDA vs AMD vs AVGO — EV/FCF 멀티플 밴드 & 주가 추이 (2020A–2030E)</div>
+    <canvas id="pfcfChart" height="110"></canvas>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr><th>연도</th><th class="num">NVDA FCF (B$)</th><th class="num">NVDA EV/FCF</th><th class="num">AMD FCF (B$)</th><th class="num">AMD EV/FCF</th><th class="num">AVGO FCF (B$)</th><th class="num">AVGO EV/FCF</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>2020</td><td class="num">$4.7B</td><td class="num">65x</td><td class="num">$0.3B</td><td class="num">—</td><td class="num">$9.2B</td><td class="num">35x</td></tr>
+      <tr><td>2021</td><td class="num">$8.1B</td><td class="num">90x</td><td class="num">$0.9B</td><td class="num">380x</td><td class="num">$12.6B</td><td class="num">38x</td></tr>
+      <tr><td>2022</td><td class="num">$3.8B</td><td class="num">95x</td><td class="num">$1.2B</td><td class="num">130x</td><td class="num">$16.0B</td><td class="num">27x</td></tr>
+      <tr><td>2023</td><td class="num">$16.6B</td><td class="num">120x</td><td class="num">$1.0B</td><td class="num">195x</td><td class="num">$18.9B</td><td class="num">26x</td></tr>
+      <tr><td>2024</td><td class="num">$60.9B</td><td class="num">72x</td><td class="num">$1.4B</td><td class="num">200x</td><td class="num">$22.8B</td><td class="num">30x</td></tr>
+      <tr><td>2025</td><td class="num">$94.0B</td><td class="num">48x</td><td class="num">$2.5B</td><td class="num">90x</td><td class="num">$25.5B</td><td class="num">26x</td></tr>
+      <tr class="nvda">
+        <td><strong>2026 (현재)</strong></td>
+        <td class="num green">$120B</td>
+        <td class="num green"><strong>43x</strong></td>
+        <td class="num">$4.5B</td>
+        <td class="num">60x</td>
+        <td class="num">$32.0B</td>
+        <td class="num">24x</td>
+      </tr>
+      <tr><td>2027E</td><td class="num">$199B</td><td class="num">26x</td><td class="num">$7.0B</td><td class="num">40x</td><td class="num">$40.0B</td><td class="num">20x</td></tr>
+      <tr><td>2028E</td><td class="num">$259B</td><td class="num">20x</td><td class="num">$10.0B</td><td class="num">28x</td><td class="num">$48.0B</td><td class="num">18x</td></tr>
+      <tr><td>2029E</td><td class="num">$311B</td><td class="num">17x</td><td class="num">$13.0B</td><td class="num">21x</td><td class="num">$55.0B</td><td class="num">16x</td></tr>
+      <tr><td>2030E</td><td class="num">$358B</td><td class="num">14x</td><td class="num">$16.0B</td><td class="num">17x</td><td class="num">$62.0B</td><td class="num">14x</td></tr>
+    </tbody>
+  </table>
+
+  <h4>④ 경쟁사 상대가치 비교 (2026년 5월 기준)</h4>
+  <table class="data-table">
+    <thead>
+      <tr><th>기업</th><th class="num">시총</th><th class="num">Forward P/E</th><th class="num">PEG</th><th class="num">EV/FCF</th><th class="num">매출성장(FY27E)</th><th>코멘트</th></tr>
+    </thead>
+    <tbody>
+      <tr class="nvda">
+        <td class="highlight">NVIDIA (NVDA) ★</td>
+        <td class="num green">$5.16T</td>
+        <td class="num green">21.5x</td>
+        <td class="num green">0.49</td>
+        <td class="num green">43x</td>
+        <td class="num green">+74%E</td>
+        <td>성장 대비 가장 저평가, Vera CPU 가치 미반영</td>
+      </tr>
+      <tr>
+        <td>AMD</td>
+        <td class="num">$0.28T</td>
+        <td class="num">24x</td>
+        <td class="num">1.2x</td>
+        <td class="num">60x</td>
+        <td class="num">+25%E</td>
+        <td>MI350/400 GPU 경쟁, 2위 but 수율·소프트웨어 격차</td>
+      </tr>
+      <tr>
+        <td>Broadcom (AVGO)</td>
+        <td class="num">$0.98T</td>
+        <td class="num">28x</td>
+        <td class="num">1.5x</td>
+        <td class="num">24x</td>
+        <td class="num">+20%E</td>
+        <td>커스텀 ASICs, 하이퍼스케일러 직접 경쟁 회피 전략</td>
+      </tr>
+      <tr>
+        <td>Intel (INTC)</td>
+        <td class="num">$0.12T</td>
+        <td class="num">22x</td>
+        <td class="num">1.8x</td>
+        <td class="num">50x</td>
+        <td class="num">-5%E</td>
+        <td>구조적 위기, NVIDIA CPU 진출로 추가 압박</td>
+      </tr>
+      <tr>
+        <td>Google (TPU)</td>
+        <td class="num">$2.3T</td>
+        <td class="num">21x</td>
+        <td class="num">1.1x</td>
+        <td class="num">35x</td>
+        <td class="num">+14%E</td>
+        <td>자체 TPU 있으나 NVDA 동시 구매, 경쟁+협력 관계</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="conviction-box">
+    <div class="conviction-label">📊 2026년 말 목표주가 분석</div>
+    <div class="conviction-text">
+      FY2027E 비GAAP EPS를 $11.5로 추정할 때 (Q1=$1.87, Q2~Q4 성장 감안), 
+      <strong>Forward P/E 25~28배 적용 → 목표주가 $288~$322</strong>. 
+      Vera CPU가 $20B 매출 인식 시 EPS 추가 업사이드 $0.5~$0.8 가능. 
+      <strong>2026년 말 목표주가: $295~$325, 현재가 대비 +39~+53% 상승여력</strong>. 
+      EV/FCF 밴드 30x 적용 시 시가총액 $6T 상회, 주당 $248 이상.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 7: RISK ANALYSIS
+══════════════════════════════════════════════ -->
+<section id="s7">
+  <div class="section-label">Framework 07</div>
+  <div class="section-title">리스크 관리 분석</div>
+
+  <div class="risk-item">
+    <div class="risk-level high">HIGH</div>
+    <div class="risk-text">
+      <strong>① 미-중 무역 규제 리스크</strong>
+      <p>현재 중국 데이터센터 매출을 <strong>Zero로 가정</strong>하고 있음 (Q2 FY27 가이던스에서도 중국 제외 명시). 그러나 Huawei Ascend 910C의 부상과 중국 정부 조달 금지 확대가 중장기 리스크. 과거 중국이 전체 매출의 20~25%를 차지했던 점을 감안하면, 규제 악화 시 최대 20% 이상 매출 영향 가능. 반대로 규제 완화 시 대형 업사이드 촉매.</p>
+    </div>
+  </div>
+  <div class="risk-item">
+    <div class="risk-level high">HIGH</div>
+    <div class="risk-text">
+      <strong>② 하이퍼스케일러 자체 칩(Custom ASIC) 개발 가속</strong>
+      <p>Google TPU, AWS Trainium/Inferentia, Microsoft Maia, Meta MTIA, Tesla Dojo 등 고객사가 동시에 자체 칩 개발 중. 단기(<2년) 내 NVDA 대체는 불가능하나, 5년 이상 장기 관점에서 GPU 의존도를 낮출 위험성 존재. 다만 추론(Inference) 수요가 폭증하는 구조에서는 Custom ASIC과 GPU가 상호보완 관계로 병존 가능성 높음.</p>
+    </div>
+  </div>
+  <div class="risk-item">
+    <div class="risk-level med">MEDIUM</div>
+    <div class="risk-text">
+      <strong>③ Vera Rubin 수율·납기 리스크</strong>
+      <p>Rubin Ultra의 4-다이 설계가 수율 문제로 2-다이로 변경됐던 선례 존재. TSMC CoWoS-L 선진 패키징의 공급 병목과 HBM4 초기 수율이 변수. Q3 2026 일정이 Q4로 밀릴 경우 가이던스 미달 리스크. 20,000명 엔지니어가 24시간 진행 중으로 모니터링 요망.</p>
+    </div>
+  </div>
+  <div class="risk-item">
+    <div class="risk-level med">MEDIUM</div>
+    <div class="risk-text">
+      <strong>④ AI 거품 붕괴 시나리오</strong>
+      <p>하이퍼스케일러의 capex가 급격히 감소하거나 AI 수익화가 지연될 경우 GPU 수요 급랭 가능성. 현재 Microsoft, Google, Meta, Amazon의 2026년 AI capex 합산이 $300B+ 수준으로 견조하나, 거시경제 침체 시 투자 축소 리스크 내재.</p>
+    </div>
+  </div>
+  <div class="risk-item">
+    <div class="risk-level low">LOW</div>
+    <div class="risk-text">
+      <strong>⑤ 밸류에이션 과부하 리스크</strong>
+      <p>현재 Forward P/E 21.5x, PEG 0.49로 성장 대비 실질적으로 저렴. 다만 시장 기대치가 극도로 높아져(beat & raise 반복) 주가 과반영 시 'buy the rumor, sell the news' 패턴 반복 가능. Q1 FY27 발표 후 주가 하락이 그 예.</p>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <h4>실적 발표 시 반드시 체크해야 할 3가지 지표</h4>
+  <div class="card-grid">
+    <div class="card blue">
+      <div class="card-label">체크 포인트 ①</div>
+      <div class="card-value blue" style="font-size:16px;">데이터센터 매출 & 중국 변수</div>
+      <div class="card-sub">데이터센터 매출 성장률이 QoQ 10%+ 유지되는지, 중국 수출 규제 변화가 있는지 확인. 중국 수익이 재개되면 즉각적 주가 업사이드 촉매.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">체크 포인트 ②</div>
+      <div class="card-value gold" style="font-size:16px;">Vera Rubin 출하 일정 & CPU 매출</div>
+      <div class="card-sub">Q3 2026 Vera Rubin 출하 확인 및 Vera CPU $20B 매출 목표 진척도. CPU 사업이 수익화 단계에 접어들면 EPS 업사이드 직접 반영.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">체크 포인트 ③</div>
+      <div class="card-value" style="font-size:16px;">총마진(Gross Margin) 방어</div>
+      <div class="card-sub">FY26 GM이 FY25 75%에서 71.1%로 하락한 점 주목. Vera Rubin 초기 시스템 판매 구조(단품 vs 시스템)에 따라 마진 방향이 결정됨. 75%+ 회복 여부 모니터링 핵심.</div>
+    </div>
+  </div>
+
+  <div class="sep"></div>
+
+  <h4>경쟁사 분석: AMD vs NVIDIA — 압도적 격차의 실체</h4>
+  <p><strong>최대 경쟁사: AMD (MI300X → MI350 → MI400 로드맵)</strong></p>
+  <div class="card-grid two">
+    <div class="card">
+      <div class="card-label">AMD의 강점</div>
+      <div style="margin-top:8px;">
+        <ul style="font-size:12px;">
+          <li>MI300X: 192GB HBM3 통합, 추론 메모리 용량에서 일부 우위</li>
+          <li>ROCm 소프트웨어 스택 개선 중 (PyTorch 지원 강화)</li>
+          <li>x86 CPU(EPYC)와 GPU 크로스셀링 가능</li>
+          <li>CUDA 독점에 대한 고객 불만 활용 전략</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card red">
+      <div class="card-label">AMD의 치명적 약점 & NVDA의 압도 이유</div>
+      <div style="margin-top:8px;">
+        <ul style="font-size:12px;">
+          <li><strong>CUDA 생태계 20년 격차</strong>: 4천만 개발자, 수십억 줄의 CUDA 최적화 코드 재작성 불가</li>
+          <li>NVLink 부재: GPU 클러스터 확장 시 PCIe 대비 8~10배 대역폭 열위</li>
+          <li>Rubin GPU 대비 성능 갭 확대: Blackwell 대비 3~4x 뒤처진 상태에서 Rubin이 또 5x 도약</li>
+          <li>시스템 수준 솔루션(랙·DPU·인터커넥트 통합) 역량 부재</li>
+          <li>소프트웨어 지원 생태계(NIM 등) 미성숙</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p><strong>결론:</strong> AMD가 단기(2~3년)에 NVIDIA를 따라잡을 가능성은 극히 낮다. CUDA 해자, NVLink 대역폭 우위, 수직계열화된 풀스택 솔루션은 AMD가 복제할 수 없는 구조적 경쟁우위다. 다만 AMD가 틈새 시장(특정 추론 워크로드, 중소 CSP)에서 점유율 일부 확보하는 것은 가능하다. 장기적 위협은 오히려 AMD가 아닌 <strong>하이퍼스케일러 자체 ASIC</strong>이다.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 8: INVESTMENT CONCLUSION
+══════════════════════════════════════════════ -->
+<section id="s8">
+  <div class="section-label">Framework 08</div>
+  <div class="section-title">투자 결론 — 시장의 오해와 재평가 포인트</div>
+
+  <h4>시장의 오해: "NVIDIA는 사이클 반도체 기업"</h4>
+  <div class="card-grid two">
+    <div class="card red">
+      <div class="card-label">시장이 잘못 적용하는 잣대</div>
+      <div style="margin-top:8px;">
+        <ul style="font-size:13px;">
+          <li>반도체 사이클 로직: "언젠가는 수요가 꺾인다" → NVIDIA를 Intel·AMD처럼 평가</li>
+          <li>데이터센터 capex의 순환적 성격 우려 → 실제 구조적 전환 과소평가</li>
+          <li>Q1 FY27 어닝 후 하락: "기대치 대비 부족" 프레임 → Forward P/E 21.5x는 성장률 대비 극도로 저렴</li>
+          <li>AMD·구글 TPU 위협 과대평가, CUDA 해자 과소평가</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card green">
+      <div class="card-label">올바른 평가 프레임</div>
+      <div style="margin-top:8px;">
+        <ul style="font-size:13px;">
+          <li>NVIDIA는 이제 <strong>AI 인프라 유틸리티</strong>에 가깝다 → 전력 회사처럼 장기 안정 수요</li>
+          <li>PEG 0.49: 성장 대비 가장 저렴한 메가캡 중 하나</li>
+          <li>Jensen이 "$1조 매출 2026~2027 달성" 천명 → 실제 분기별 가이던스 상회로 신뢰도 입증</li>
+          <li>Vera CPU $200B TAM: 아직 주가에 반영 안 됨</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="conviction-box">
+    <div class="conviction-label">🔑 가장 강력한 컨빅션 포인트 하나</div>
+    <div class="conviction-text">
+      <strong>Vera CPU의 $200B TAM 진입은 엔비디아의 두 번째 성장 곡선이며, 현재 주가에 전혀 반영되지 않았다.</strong><br><br>
+      CFO Colette Kress가 직접 "$200B 신규 기회"라고 선언한 Vera CPU 사업은, 분석가들이 FY2027E EPS 추정에 포함하지 않은 알파 소스다. 4M개 Vera CPU 납품 로드맵이 확인되고, 주요 하이퍼스케일러 전체가 파트너로 참여 중이다. x86 서버 CPU 시장에서 2/3 점유 시나리오는 인텔의 서버 CPU 매출($40B+)의 상당 부분을 NVIDIA가 흡수함을 의미한다. GPU 회사가 CPU 시장에 진입한 유일한 사례이며, CUDA 소프트웨어 스택과의 통합으로 락인 효과가 극대화될 것이다.
+    </div>
+  </div>
+
+  <div class="verdict-box">
+    <div class="verdict-label">Final Verdict</div>
+    <div class="verdict-rating">STRONG BUY</div>
+    <div class="verdict-text">
+      현재가 $212.60은 FY2027E EPS 기준 21.5x Forward P/E, PEG 0.49로 성장 대비 매력적 구간이다. 
+      Vera Rubin GPU의 Q3 2026 출하, Vera CPU $20B 매출 개시, 중국 규제 완화 옵션, $80B 자사주매입 등 다수의 상승 촉매가 대기 중이다. 
+      2026년 말 목표주가 <strong>$295~$325</strong> (상승여력 +39~+53%).
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+  SECTION 9: PORTFOLIO STRATEGY
+══════════════════════════════════════════════ -->
+<section id="s9">
+  <div class="section-label">Framework 09</div>
+  <div class="section-title">포트폴리오 관점 — 신규 매수 전략</div>
+
+  <p>영주님은 현재 NVDA를 보유하고 있지 않습니다. 포트폴리오는 TSLA(~35~38%), PLTR(고확신), POET Technologies, MRVL 등이 주요 포지션입니다.</p>
+
+  <div class="card-grid two">
+    <div>
+      <h4>포트폴리오 맥락 분석</h4>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="card-label">현재 포트폴리오 리스크 프로파일</div>
+        <div style="margin-top:8px;">
+          <div class="progress-row">
+            <div class="progress-label"><span>TSLA (최대 비중)</span><span>35~38%</span></div>
+            <div class="progress-bar"><div class="progress-fill gold" style="width:38%"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-label"><span>PLTR</span><span>추정 15~20%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:18%"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-label"><span>POET / MRVL 등</span><span>추정 10~15%</span></div>
+            <div class="progress-bar"><div class="progress-fill blue" style="width:13%"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-label"><span>현금 및 기타</span><span>나머지</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:29%"></div></div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;">TSLA 고집중 포트폴리오에 NVDA를 추가하면 <strong>AI 인프라 레이어와 AI 응용 레이어를 동시에 보유</strong>하는 구조가 된다. PLTR(소프트웨어)+NVDA(하드웨어)+TSLA(AI 응용) 삼각 구조로 AI 밸류체인 전반을 커버하는 시너지 효과.</p>
+      <p style="font-size:13px;">단, TSLA 비중이 이미 높으므로 <strong>포트폴리오의 최대 8~10% 수준</strong>으로 신규 포지션 구성 권장. 무리한 집중 회피.</p>
+    </div>
+    <div>
+      <h4>투자 판단: ✅ 신규 매수 추천</h4>
+      <p style="font-size:13px;">이유: PEG 0.49로 성장 대비 저평가, Vera CPU 업사이드 미반영, $80B 자사주매입으로 하방 지지, Vera Rubin Q3 2026 출하 촉매 근접.</p>
+      <h4>목표주가</h4>
+      <div class="card-grid two" style="gap:8px;">
+        <div class="card">
+          <div class="card-label">2026년 말 목표</div>
+          <div class="card-value green">$295~$325</div>
+        </div>
+        <div class="card gold">
+          <div class="card-label">2027년 목표</div>
+          <div class="card-value gold">$380~$420</div>
+        </div>
+      </div>
+      <h4>손절 기준</h4>
+      <div class="card red">
+        <div class="card-label">손절라인</div>
+        <div class="card-value red">$175 이하</div>
+        <div class="card-sub">-17.7% 손절. Vera Rubin 일정 지연 + 가이던스 하향 동시 발생 시.</div>
+      </div>
+    </div>
+  </div>
+
+  <h4>분할 매수 플랜 (포트폴리오 8~10% 목표, 총 투자금 기준 자율 조정)</h4>
+
+  <div class="port-action">
+    <div class="port-action-title">📋 신규 매수 플랜 — 4차 분할 진입 (총 목표 비중: 포트폴리오의 8~10%)</div>
+
+    <div class="buy-phase">
+      <div class="phase-badge">1</div>
+      <div class="phase-info">
+        <div class="phase-price">$210~$215 구간 (현재가 근방)</div>
+        <div class="phase-detail">즉시 진입 | 현재 주가 $212.60 근처에서 첫 매수. Vera Rubin Q3 출하 이전 저점 확보 목적. 총 목표 포지션의 30% 선취.</div>
+      </div>
+      <div class="phase-shares">목표비중 25~30주<br><span style="font-size:11px; color:var(--text3)">($5,250~$6,450 / 목표비중 30%)</span></div>
+    </div>
+
+    <div class="buy-phase">
+      <div class="phase-badge">2</div>
+      <div class="phase-info">
+        <div class="phase-price">$195~$205 구간 (조정 시)</div>
+        <div class="phase-detail">단기 조정 또는 시장 변동성 확대 시 2차 진입. Vera Rubin 수율 이슈 등 일시적 악재에 의한 조정 활용. 총 목표 비중 추가 25%.</div>
+      </div>
+      <div class="phase-shares">목표비중 20~25주<br><span style="font-size:11px; color:var(--text3)">($3,900~$5,125 / 누적 55%)</span></div>
+    </div>
+
+    <div class="buy-phase">
+      <div class="phase-badge">3</div>
+      <div class="phase-info">
+        <div class="phase-price">$180~$190 구간 (딥 조정 시)</div>
+        <div class="phase-detail">중국 규제 재강화, 거시 충격 등 이벤트 드리븐 급락 시 적극 매수. Q2 FY27 실적 발표(8월 26일) 전후 변동성 구간 활용. 총 목표 비중 추가 25%.</div>
+      </div>
+      <div class="phase-shares">목표비중 20~25주<br><span style="font-size:11px; color:var(--text3)">($3,600~$4,750 / 누적 80%)</span></div>
+    </div>
+
+    <div class="buy-phase">
+      <div class="phase-badge">4</div>
+      <div class="phase-info">
+        <div class="phase-price">$225~$235 돌파 확인 후 (상승 추세 확인)</div>
+        <div class="phase-detail">Vera Rubin 출하 확인 + Q2 가이던스 상회 확인 후 추세 추종 매수. 마지막 20%는 모멘텀 확인 후 진입해 리스크 최소화.</div>
+      </div>
+      <div class="phase-shares">목표비중 10~15주<br><span style="font-size:11px; color:var(--text3)">($2,250~$3,525 / 누적 100%)</span></div>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card blue">
+      <div class="card-label">총 목표 매수 수량 (예시)</div>
+      <div class="card-value blue">70~90주</div>
+      <div class="card-sub">평균 매수단가 목표: ~$200~$210대. 투자금 약 $14,000~$18,900 수준.</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">2026년 말 목표 수익</div>
+      <div class="card-value green">+39~+53%</div>
+      <div class="card-sub">목표주가 $295~$325 기준. 주당 $82~$112 이익 기대.</div>
+    </div>
+    <div class="card gold">
+      <div class="card-label">카탈리스트 일정</div>
+      <div class="card-value gold" style="font-size:15px;">2026.08.26</div>
+      <div class="card-sub">Q2 FY27 실적 발표. Vera CPU 매출 첫 인식 여부 핵심 체크.</div>
+    </div>
+  </div>
+
+  <p style="margin-top:16px; font-size:12px; color:var(--text3);">
+    ※ 수량은 포트폴리오 규모에 따라 비례 조정 필요. 상기 수량은 참고 예시이며, 
+    실제 투자 집행 시 총 포트폴리오 대비 8~10% 비중을 기준으로 산출 권장. 
+    한국 세제상 해외주식 양도차익 22%(지방세 포함) 적용. 취득가 관리 및 과세 연도 분산 고려 필요.
+  </p>
+</section>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>※ 본 보고서는 2026년 5월 27일 기준으로 작성된 투자 참고 자료로, 금융투자상품에 대한 투자권유 행위가 아닙니다.</div>
+  <div>투자 결정은 본인의 판단과 책임하에 이루어져야 하며, 과거 성과가 미래 수익을 보장하지 않습니다.</div>
+  <div style="margin-top:4px;">데이터 출처: NVIDIA SEC Filing (8-K), CNBC, Bloomberg, Kiplinger, Tom's Hardware, DataCenter Knowledge, StockAnalysis.com, GuruFocus | 작성: Claude AI Investment Research Desk</div>
+</div>
+
+<script>
+// ── CHART 1: Revenue & DC Mix ──
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revenueCtx, {
+  type: 'bar',
+  data: {
+    labels: ['FY2020', 'FY2021', 'FY2022', 'FY2023', 'FY2024', 'FY2025', 'FY2026', 'FY2027E', 'FY2028E', 'FY2029E'],
+    datasets: [
+      {
+        label: '데이터센터 매출 ($B)',
+        data: [6.9, 10.9, 15.0, 47.5, 87.2, 115.2, 193.7, 340, 450, 540],
+        backgroundColor: 'rgba(118,234,118,0.7)',
+        borderColor: '#76ea76',
+        borderWidth: 1,
+      },
+      {
+        label: '기타 매출 ($B)',
+        data: [3.9, 5.0, 11.8, 10.2, 11.3, 15.3, 22.2, 35, 45, 55],
+        backgroundColor: 'rgba(77,184,255,0.5)',
+        borderColor: '#4db8ff',
+        borderWidth: 1,
+      },
+      {
+        label: 'Q2 가이던스 / 목표 수익선',
+        type: 'line',
+        data: [null, null, null, null, null, null, null, 91, null, null],
+        borderColor: '#f0b429',
+        borderWidth: 2,
+        pointRadius: 6,
+        pointBackgroundColor: '#f0b429',
+        fill: false,
+        yAxisID: 'y',
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { family: 'IBM Plex Mono', size: 11 } } },
+      tooltip: { mode: 'index' }
+    },
+    scales: {
+      x: { stacked: true, ticks: { color: '#64748b', font: { size: 11 } }, grid: { color: '#1e2635' } },
+      y: { stacked: true, ticks: { color: '#64748b', callback: v => '$' + v + 'B', font: { size: 11 } }, grid: { color: '#1e2635' } }
+    }
+  }
+});
+
+// ── CHART 2: P/FCF Band ──
+const pfcfCtx = document.getElementById('pfcfChart').getContext('2d');
+const years = ['2020','2021','2022','2023','2024','2025','2026','2027E','2028E','2029E','2030E'];
+new Chart(pfcfCtx, {
+  type: 'line',
+  data: {
+    labels: years,
+    datasets: [
+      {
+        label: 'NVDA EV/FCF',
+        data: [65, 90, 95, 120, 72, 48, 43, 26, 20, 17, 14],
+        borderColor: '#76ea76',
+        backgroundColor: 'rgba(118,234,118,0.08)',
+        borderWidth: 2.5,
+        pointRadius: 5,
+        pointBackgroundColor: '#76ea76',
+        fill: true,
+        tension: 0.3,
+      },
+      {
+        label: 'AMD EV/FCF',
+        data: [null, 380, 130, 195, 200, 90, 60, 40, 28, 21, 17],
+        borderColor: '#f06060',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#f06060',
+        fill: false,
+        tension: 0.3,
+        borderDash: [5,3],
+      },
+      {
+        label: 'AVGO EV/FCF',
+        data: [35, 38, 27, 26, 30, 26, 24, 20, 18, 16, 14],
+        borderColor: '#f0b429',
+        borderWidth: 2,
+        pointRadius: 4,
+        pointBackgroundColor: '#f0b429',
+        fill: false,
+        tension: 0.3,
+        borderDash: [3,3],
+      },
+      {
+        label: '50x 기준선',
+        data: [50,50,50,50,50,50,50,50,50,50,50],
+        borderColor: 'rgba(255,255,255,0.15)',
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+        borderDash: [6,4],
+      },
+      {
+        label: '20x 기준선',
+        data: [20,20,20,20,20,20,20,20,20,20,20],
+        borderColor: 'rgba(255,255,255,0.08)',
+        borderWidth: 1,
+        pointRadius: 0,
+        fill: false,
+        borderDash: [6,4],
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { labels: { color: '#94a3b8', font: { family: 'IBM Plex Mono', size: 11 } } },
+      annotation: {}
+    },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 11 } }, grid: { color: '#1e2635' } },
+      y: {
+        ticks: { color: '#64748b', callback: v => v + 'x', font: { size: 11 } },
+        grid: { color: '#1e2635' },
+        min: 0, max: 250
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

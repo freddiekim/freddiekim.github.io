@@ -74,3 +74,238 @@
     margin-right: 45px; 
 }
 
+.research-library-section {
+    background: #f5f2ea;
+    color: #141414;
+    padding: 76px 20px;
+}
+
+.research-library-container {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.research-library-heading {
+    max-width: 760px;
+    margin-bottom: 30px;
+}
+
+.research-library-heading h2 {
+    color: #111;
+    font-size: 2.7em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+}
+
+.research-library-heading p {
+    color: #55534c;
+    font-size: 1.08em;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.report-company-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.report-company-card {
+    background: #fff;
+    border: 1px solid #ded8ca;
+    border-radius: 8px;
+    min-height: 190px;
+    padding: 22px;
+}
+
+.report-company-topline {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.report-ticker {
+    color: #111;
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1.45em;
+    font-weight: 700;
+}
+
+.report-count {
+    background: #141414;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.78em;
+    padding: 4px 10px;
+    white-space: nowrap;
+}
+
+.report-company-card h3 {
+    color: #232323;
+    font-size: 1.25em;
+    margin: 0 0 16px;
+}
+
+.report-link {
+    border-top: 1px solid #ebe5d8;
+    color: #70510f;
+    display: block;
+    font-size: 1em;
+    line-height: 1.45;
+    padding-top: 14px;
+    text-decoration: none;
+}
+
+.report-link:hover,
+.report-link:focus {
+    color: #111;
+    text-decoration: none;
+}
+
+.report-link span {
+    color: #777268;
+    display: block;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+.company-analysis-section {
+    background: #0c0f14;
+    color: #f7f7f2;
+    padding: 82px 20px;
+}
+
+.company-analysis-section-alt {
+    background: #15130f;
+}
+
+.company-analysis-container {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.company-analysis-heading {
+    max-width: 760px;
+    margin-bottom: 34px;
+}
+
+.analysis-kicker {
+    color: #d8b46a;
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+.company-analysis-heading h2 {
+    color: #fff;
+    font-size: 2.8em;
+    line-height: 1.1;
+    margin: 0 0 14px;
+}
+
+.analysis-thesis {
+    color: #d8d8d2;
+    font-size: 1.12em;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.analysis-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    min-height: 210px;
+    padding: 24px;
+}
+
+.analysis-card-wide {
+    grid-column: span 3;
+    min-height: 0;
+}
+
+.analysis-card h3 {
+    color: #fff;
+    font-size: 1.22em;
+    margin: 0 0 14px;
+}
+
+.analysis-card p,
+.analysis-card li {
+    color: #d8d8d2;
+    font-size: 1em;
+    line-height: 1.65;
+}
+
+.analysis-card p {
+    margin: 0;
+}
+
+.analysis-card ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.analysis-card li + li {
+    margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+    .report-company-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analysis-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analysis-card-wide {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 640px) {
+    .research-library-section {
+        padding: 56px 18px;
+    }
+
+    .research-library-heading h2 {
+        font-size: 2.05em;
+    }
+
+    .report-company-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .company-analysis-section {
+        padding: 58px 18px;
+    }
+
+    .company-analysis-heading h2 {
+        font-size: 2.1em;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-card,
+    .analysis-card-wide {
+        grid-column: span 1;
+        min-height: 0;
+    }
+
+    .btn-spacer {
+        margin-right: 0;
+        margin-bottom: 12px;
+    }
+}
