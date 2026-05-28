@@ -11,6 +11,25 @@
     <li>
       <a href="#research-library" onclick = $("#menu-close").click(); >Research Library</a>
     </li>
+    <li class="sidebar-section-label">Reports</li>
+    {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+    {% assign report_tickers = "" %}
+    {% for report in report_files %}
+      {% assign report_ticker = report.name | split: "_" | first | upcase %}
+      {% assign report_marker = "|" | append: report_ticker | append: "|" %}
+      {% unless report_tickers contains report_marker %}
+        {% assign report_tickers = report_tickers | append: report_marker %}
+      {% endunless %}
+    {% endfor %}
+    {% assign report_ticker_list = report_tickers | split: "|" %}
+    {% for ticker in report_ticker_list %}
+      {% if ticker != "" %}
+        <li>
+          <a class="sidebar-report-link" href="#report-{{ ticker | downcase }}" onclick = $("#menu-close").click(); >{{ ticker }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    <li class="sidebar-section-label">Watchlist</li>
     <li>
       <a href="#tesla" onclick = $("#menu-close").click(); >Tesla</a>
     </li>

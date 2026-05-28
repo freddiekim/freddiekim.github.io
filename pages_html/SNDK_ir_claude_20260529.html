@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SNDK — SanDisk 심층 투자 분석 리포트 | 2026.05.27</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #10141a;
+    --surface2: #161c26;
+    --border: rgba(255,255,255,0.07);
+    --accent: #f97316;
+    --accent2: #fb923c;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #eab308;
+    --blue: #3b82f6;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --dim: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a0c0f 0%, #0f1520 50%, #0a0c0f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 60px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 72px;
+    letter-spacing: 4px;
+    line-height: 0.9;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header-sub {
+    font-size: 16px;
+    color: var(--dim);
+    font-weight: 300;
+    margin-bottom: 24px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .meta-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .meta-value.neg { color: var(--red); }
+  .meta-value.accent { color: var(--accent); }
+
+  /* CONTAINER */
+  .container { max-width: 1200px; margin: 0 auto; padding: 48px 60px; }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 64px;
+    padding: 36px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), transparent);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    gap: 16px;
+  }
+  .card-grid-2 { grid-template-columns: 1fr 1fr; }
+  .card-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .card-title {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .card-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .card-value.green { color: var(--green); }
+  .card-value.accent { color: var(--accent); }
+  .card-value.red { color: var(--red); }
+
+  /* PROSE */
+  .prose p { color: var(--dim); margin-bottom: 16px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--text); font-weight: 600; }
+  .prose .highlight {
+    background: rgba(249,115,22,0.1);
+    border-left: 3px solid var(--accent);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin: 16px 0;
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; border-radius: 12px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: rgba(249,115,22,0.08);
+    padding: 12px 16px;
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--dim);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  tbody tr:last-child td { border-bottom: none; }
+  .td-highlight { color: var(--accent) !important; font-weight: 600; }
+  .td-green { color: var(--green) !important; }
+  .td-red { color: var(--red) !important; }
+  .td-yellow { color: var(--yellow) !important; }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+  .badge-green { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .badge-red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+  .badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); border: 1px solid rgba(234,179,8,0.3); }
+  .badge-accent { background: rgba(249,115,22,0.15); color: var(--accent); border: 1px solid rgba(249,115,22,0.3); }
+
+  /* RISK METER */
+  .risk-bar {
+    height: 6px;
+    background: var(--bg);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .risk-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--green), var(--yellow), var(--red));
+  }
+
+  /* CHART */
+  .chart-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .chart-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  /* CONVICTION BOX */
+  .conviction-box {
+    background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(249,115,22,0.02) 100%);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 16px;
+  }
+  .conviction-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .conviction-text {
+    font-size: 16px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 24px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent), transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 24px; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -22px; top: 6px;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .timeline-title { font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .timeline-desc { font-size: 13px; color: var(--muted); }
+
+  /* BUY/SELL PLAN */
+  .trade-plan {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .trade-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .trade-round {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    color: var(--accent);
+    letter-spacing: 2px;
+  }
+  .trade-price { font-family: 'DM Mono', monospace; font-size: 16px; color: var(--text); margin-top: 4px; }
+  .trade-qty { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .trade-rationale { font-size: 11px; color: var(--dim); margin-top: 8px; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 24px 60px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header { padding: 32px 20px 24px; }
+    .header h1 { font-size: 48px; }
+    .container { padding: 24px 20px; }
+    .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr 1fr; }
+    .trade-plan { grid-template-columns: 1fr 1fr; }
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 16px;
+  }
+  .inset {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .inset h4 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  ul.bullet { list-style: none; padding: 0; }
+  ul.bullet li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--dim);
+    font-size: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  ul.bullet li::before { content: '▸'; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+  ul.bullet li:last-child { border-bottom: none; }
+  ul.bullet li strong { color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-tag">탑티어 기술 투자 애널리스트 리포트 ▸ 2026.05.27</div>
+  <h1>SANDISK CORP.</h1>
+  <div class="header-sub">NASDAQ: SNDK &nbsp;|&nbsp; AI 슈퍼사이클의 핵심 NAND 순수 플레이 &nbsp;|&nbsp; 현재 조정 구간 진입</div>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">현재가</span>
+      <span class="meta-value neg">$1,547.11</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">일간변동</span>
+      <span class="meta-value neg">-3.83%</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">52주 범위</span>
+      <span class="meta-value" style="font-size:14px; padding-top:4px">$36.21 ~ $1,658.77</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">시가총액</span>
+      <span class="meta-value">$235B</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">연간 수익률</span>
+      <span class="meta-value accent">+3,807%</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">애널리스트 의견</span>
+      <span class="meta-value" style="font-size:13px; padding-top:5px">BUY 18 / HOLD 1 / SELL 1</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN KPI -->
+<div class="container">
+
+<div class="card-grid card-grid-4" style="margin-bottom:48px">
+  <div class="card">
+    <div class="card-title">Q3 FY2026 매출</div>
+    <div class="card-value green">$5.95B</div>
+    <div class="card-sub">YoY +251% &nbsp;|&nbsp; QoQ +97%</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Non-GAAP 매출총이익률</div>
+    <div class="card-value accent">78.4%</div>
+    <div class="card-sub">전년 동기 22.5% → +55.9%p</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Q3 Non-GAAP EPS</div>
+    <div class="card-value green">$23.41</div>
+    <div class="card-sub">컨센서스 $14.66 → +59.7% 어닝 서프라이즈</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Q4 FY2026 가이던스 매출</div>
+    <div class="card-value accent">$7.75~8.25B</div>
+    <div class="card-sub">Non-GAAP EPS $30~33 예상</div>
+  </div>
+  <div class="card">
+    <div class="card-title">데이터센터 매출(Q3)</div>
+    <div class="card-value green">$1.467B</div>
+    <div class="card-sub">YoY +645% &nbsp;|&nbsp; QoQ +233%</div>
+  </div>
+  <div class="card">
+    <div class="card-title">분기 FCF(Q3)</div>
+    <div class="card-value green">$2.955B</div>
+    <div class="card-sub">FCF 마진 49.7% (업계 최상위)</div>
+  </div>
+  <div class="card">
+    <div class="card-title">장기부채</div>
+    <div class="card-value green">$0</div>
+    <div class="card-sub">현금 $3.74B &nbsp;|&nbsp; 순현금 전환 완료</div>
+  </div>
+  <div class="card">
+    <div class="card-title">NBM 백로그</div>
+    <div class="card-value accent">$42B+</div>
+    <div class="card-sub">5개 다년 계약 &nbsp;|&nbsp; 선급금 $400M</div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 01</div>
+  <div class="section-title">전통적 비즈니스 모델의 진화 — 구조적 전환점</div>
+  <div class="prose">
+    <p><strong>레거시 사업의 한계:</strong> SanDisk의 DNA는 1991년 세계 최초 플래시 기반 SSD(20MB, $1,000)를 출시한 데서 비롯됩니다. 그러나 2016년 Western Digital(WDC)에 $190억에 피인수된 후, NAND 사업은 HDD 중심의 손익 구조 아래 묻혀버렸습니다. WDC 내에서 NAND의 높은 성장성은 HDD의 안정적이지만 느린 성장 프로파일과 블렌딩되며 <strong>만성적인 밸류에이션 디스카운트</strong>를 받아왔습니다. SD 카드, USB 드라이브 등 소비자용 제품이 매출의 상당 부분을 차지하며 "성숙 상품 기업"으로 인식되었습니다.</p>
+    <div class="highlight">
+      구조적 전환점: 2025년 2월 24일, SanDisk는 WDC로부터 완전 분리(스핀오프)되어 NASDAQ에 재상장(초기 주가 ~$40). 이는 단순한 기업 구조 변화가 아닌, <strong>NAND 순수 플레이(Pure-Play)로서의 정체성 재탄생</strong>을 의미합니다.
+    </div>
+    <p><strong>AI 인프라 종합 솔루션 제공자로의 진화:</strong> 현재 SanDisk는 소비자 플래시 회사가 아닙니다. AI 훈련 클러스터의 방대한 데이터셋 저장소, 추론(Inference) 서버의 고속 스토리지 레이어, 그리고 미래 AI 가속기 내 HBM을 보완하는 <strong>High-Bandwidth Flash(HBF™)</strong> 공급자로 변신 중입니다. 데이터센터 매출 비중이 Q2 FY2026의 전체 매출 일부에서 Q3에는 <strong>$1.467B(+645% YoY)</strong>로 폭발적으로 성장, 이제 SanDisk의 핵심 사업 축이 되었습니다.</p>
+  </div>
+
+  <div class="timeline" style="margin-top:24px">
+    <div class="timeline-item">
+      <div class="timeline-date">2016</div>
+      <div class="timeline-title">WDC 피인수 ($190억)</div>
+      <div class="timeline-desc">NAND 사업 HDD 우산 아래 편입 → 만성적 밸류에이션 디스카운트 시작</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2024.10</div>
+      <div class="timeline-title">WDC 분리 계획 발표</div>
+      <div class="timeline-desc">플래시/NAND 부문과 HDD 부문의 각자 독립 상장 결정. WDC 1주당 SNDK 1/3주 교부</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2025.02.24</div>
+      <div class="timeline-title">SNDK 재상장 (~$40)</div>
+      <div class="timeline-desc">NAND 순수 플레이로 독립. AI 데이터센터 수혜 기업으로 시장 재인식 시작</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026.01</div>
+      <div class="timeline-title">Kioxia JV 2034년까지 연장</div>
+      <div class="timeline-desc">요카이치 공장 JV 5년 연장. 안정적 웨이퍼 공급 기반 확보 ($1.165B 지불 약정)</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026.02.26</div>
+      <div class="timeline-title">SK하이닉스와 HBF™ 표준화 착수</div>
+      <div class="timeline-desc">OCP(Open Compute Project) 산하 HBF 워크스트림 발족. 차세대 AI 추론 메모리 표준 주도</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">2026.04</div>
+      <div class="timeline-title">Nasdaq-100 편입</div>
+      <div class="timeline-desc">패시브 자금 유입 및 기관 투자자 접근성 확대. S&P 500 내 YTD 수익률 1위</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 02</div>
+  <div class="section-title">실적으로 증명되는 실체 — 테마에서 펀더멘털로</div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-title">분기별 매출 추이 (FY2025~FY2026)</div>
+      <div class="chart-box" style="margin-top:0; padding:12px; border:none; background:transparent">
+        <canvas id="revenueChart" height="180"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Non-GAAP 매출총이익률 추이 (%)</div>
+      <div class="chart-box" style="margin-top:0; padding:12px; border:none; background:transparent">
+        <canvas id="marginChart" height="180"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p><strong>단순 기대감이 아닌 수치로 증명된 펀더멘털 전환:</strong> Q3 FY2026 결과는 업계 역사상 가장 극적인 어닝 서프라이즈 중 하나입니다. 매출 가이던스 $4.4~4.8B 대비 실제 $5.95B 달성(+25.8% 초과), Non-GAAP EPS 컨센서스 $14.66 대비 $23.41 달성(+59.7% 초과). 이는 단순한 비트(NAND) 가격 상승이 아닌, <strong>제품 믹스 고부가가치화(TLC Enterprise SSD 집중)</strong>와 <strong>New Business Model(NBM) 계약 구조</strong>가 결합된 구조적 마진 개선입니다.</p>
+    <div class="highlight">
+      <strong>고객 다변화 핵심 지표:</strong> Q3까지 3개, Q4 초 추가 2개로 총 5개 NBM 다년 계약 체결. 계약 총가치 $42B+, 재무 보증 $11B+ (제3자 금융기관 보유), FY2027 예상 비트 출하량의 1/3 이상 커버. "소비자용 SD카드 회사"에서 "AI 하이퍼스케일러와 5년 장기 공급 파트너"로의 완전한 정체성 전환.
+    </div>
+    <p><strong>포트폴리오 다변화:</strong> 소비자(Consumer), 클라이언트(Client/PC), 데이터센터(Datacenter) 3개 세그먼트 중 데이터센터가 Q3에 압도적 성장. QLC(Quad Level Cell) 기반 'Stargate' 솔루션은 Q4부터 매출 인식 시작, 고부가가치 엔터프라이즈 SSD 포트폴리오 확대. 향후 초고용량(128TB/256TB) 드라이브 수요 확대 예상.</p>
+  </div>
+
+  <div class="table-wrap" style="margin-top:24px">
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>Q1 FY2026</th>
+          <th>Q2 FY2026</th>
+          <th>Q3 FY2026</th>
+          <th>Q4 FY2026E</th>
+          <th>FY2026E 합계</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>매출 (B$)</td><td>~$1.5</td><td>$3.03</td><td class="td-highlight">$5.95</td><td class="td-highlight">$8.0 (중간값)</td><td class="td-green">~$18.5B</td></tr>
+        <tr><td>YoY 성장률</td><td>~-10%</td><td>+61%</td><td class="td-green">+251%</td><td class="td-green">+300%E</td><td class="td-green">+150%E</td></tr>
+        <tr><td>Non-GAAP GM</td><td>~28%</td><td>~43%</td><td class="td-highlight">78.4%</td><td class="td-highlight">80% (가이던스 중간)</td><td>-</td></tr>
+        <tr><td>Non-GAAP EPS</td><td>~$0.5</td><td>$5.46</td><td class="td-green">$23.41</td><td class="td-green">$31.5 (중간값)</td><td class="td-green">~$61</td></tr>
+        <tr><td>데이터센터 매출</td><td>소액</td><td>~$450M</td><td class="td-highlight">$1.467B (+645% YoY)</td><td class="td-highlight">$2.5B+E</td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 03</div>
+  <div class="section-title">M&A 및 수직계열화 전략</div>
+  <div class="prose">
+    <p><strong>SanDisk의 전략은 M&A보다 JV(합작투자) 심화와 내재화에 있습니다.</strong> 외부 팹리스 기업이 외주로 해결하는 웨이퍼 제조부터 완제품 납품까지 전 밸류체인을 내부에서 통제합니다.</p>
+  </div>
+
+  <div class="two-col">
+    <div class="inset">
+      <h4>Kioxia JV — 핵심 수직계열화 축</h4>
+      <ul class="bullet">
+        <li><strong>25년 이상 파트너십</strong>: Yokkaichi 공장 JV 운영. 세계 최고 수준의 3D NAND 공동 개발</li>
+        <li><strong>2026.01 연장</strong>: 기존 2029년 만료 → 2034년까지 5년 연장. SanDisk가 $1.165B를 2026~2029년에 분할 지급</li>
+        <li><strong>BiCS FLASH™ 공동 개발</strong>: 현재 BiCS8(218레이어), BiCS10(332레이어) 2026년 양산 착수 목표</li>
+        <li><strong>비용 공유</strong>: 천문학적 R&D/CAPEX를 Kioxia와 분담 → 삼성/SK하이닉스 대비 원가 경쟁력</li>
+      </ul>
+    </div>
+    <div class="inset">
+      <h4>SK하이닉스 HBF™ 표준화 협력</h4>
+      <ul class="bullet">
+        <li><strong>2025.08</strong>: SanDisk-SK하이닉스 HBF 협력 발표 (JV가 아닌 표준화 파트너십)</li>
+        <li><strong>OCP 워크스트림</strong>: 업계 표준 선점. 경쟁사 대비 표준화 주도권 확보</li>
+        <li><strong>HBF 샘플</strong>: 2026 하반기 출시, AI 추론 장치용 디바이스 샘플 2027 초 예상</li>
+        <li><strong>TAM 확대</strong>: HBF가 표준화되면 HBM 시장 일부를 NAND 기반으로 대체 가능. SanDisk의 TAM 2배 확대 잠재력</li>
+      </ul>
+    </div>
+    <div class="inset">
+      <h4>New Business Model(NBM) — 비즈니스 수직계열화</h4>
+      <ul class="bullet">
+        <li><strong>5개 다년 공급 계약</strong>: 하이퍼스케일러(클라우드 빅테크) + 주요 스토리지 OEM 대상</li>
+        <li><strong>구조</strong>: 고객의 분기별 구매 미이행 시 제3자 금융기관이 재무 보증 집행</li>
+        <li><strong>잔여 이행의무</strong>: $42B (10-Q 공시). 선급금 $400M 이미 수취</li>
+        <li><strong>수직계열화 효과</strong>: 팹 가동률 100% 보장 → 고정비 희석 → GM 78%+ 구조적 유지 가능성</li>
+      </ul>
+    </div>
+    <div class="inset">
+      <h4>WDC 스핀오프 자체의 전략적 의미</h4>
+      <ul class="bullet">
+        <li><strong>$190억 인수 자산의 재발굴</strong>: 10년 묵혀있던 NAND 프리미엄 해방</li>
+        <li><strong>집중 경영</strong>: HDD 사업 희석 제거 → NAND/SSD 전문 경영팀, 자본배분 집중</li>
+        <li><strong>자본 경량화</strong>: CAPEX 중 대부분을 Kioxia JV에 이전 → SanDisk 자체 CAPEX 최소화</li>
+        <li><strong>무부채 + $6B 자사주 매입</strong>: 경쟁사 Micron의 $25B+ CAPEX와 극명한 대비</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 04</div>
+  <div class="section-title">핵심 기술의 디테일 — 기술적 해자(Moat)</div>
+
+  <div class="card-grid card-grid-3" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-title">BiCS FLASH™ 3D NAND</div>
+      <div class="card-value accent" style="font-size:20px">BiCS8 → BiCS10</div>
+      <div class="card-sub">218레이어(현재) → 332레이어(2026 양산 목표). 레이어당 비용 감소, 저장 밀도 지수적 향상</div>
+    </div>
+    <div class="card">
+      <div class="card-title">High-Bandwidth Flash™</div>
+      <div class="card-value accent" style="font-size:20px">HBF™</div>
+      <div class="card-sub">NAND와 HBM의 성능 갭 브리지. AI 추론(Inference) 전용 메모리 신카테고리. TAM 2배 확대 잠재</div>
+    </div>
+    <div class="card">
+      <div class="card-title">QLC Stargate 솔루션</div>
+      <div class="card-value accent" style="font-size:20px">QLC 기술</div>
+      <div class="card-sub">Q4 FY2026부터 매출 인식. 최고 저장 밀도, AI 데이터센터 용량 효율 극대화</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <div class="highlight">
+      <strong>왜 SanDisk의 기술이 AI 인프라에 필수적인가:</strong>
+      AI 모델의 추론(Inference) 단계는 훈련과 달리 지속적으로 실행됩니다. GPT-4급 모델을 수백만 사용자에게 실시간으로 서비스하려면 모델 웨이트(수백 GB~수 TB)를 즉각 로드해야 합니다. HBM(고대역폭 메모리)은 초고속이지만 용량이 제한되고 가격이 천문학적입니다. NAND SSD는 HBM 대비 10분의 1 가격으로 수백 TB를 랙 밀도 높게 제공합니다. CEO David Goeckeler의 발언: <em>"NAND 플래시는 실시간 추론에서 모델을 경제적으로 접근 가능하게 하는 유일한 솔루션"</em>.
+    </div>
+    <p><strong>HBF™ — 게임체인저 기술의 의미:</strong> SanDisk는 SK하이닉스와 함께 HBF(High-Bandwidth Flash)라는 완전히 새로운 메모리 카테고리를 정의하고 있습니다. HBF는 기존 NAND보다 훨씬 빠른 대역폭을 제공하면서도 HBM보다 훨씬 저렴합니다. NVIDIA와 Kioxia가 공동 개발 중인 GPU에 직접 연결되는 초고속 SSD 기술도 이와 같은 맥락. 만약 HBF가 OCP 표준으로 채택된다면, SanDisk는 단순한 NAND 제조업체를 넘어 <strong>AI 가속기 아키텍처의 필수 구성 요소 공급자</strong>가 됩니다.</p>
+    <p><strong>수직통합 기술 스택:</strong> 웨이퍼 설계(BiCS FLASH™ 공동) → 팹 제조(Kioxia JV 요카이치/기타카미) → 컨트롤러 펌웨어 → 엔터프라이즈 SSD 완제품(NVMe, U.2, E1.S 폼팩터) → 소프트웨어 스택까지 이어지는 내재화. 팹리스 경쟁사가 복제 불가한 구조.</p>
+  </div>
+
+  <div class="divider"></div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>기술</th>
+          <th>현황</th>
+          <th>로드맵</th>
+          <th>경쟁 우위</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>BiCS8 (218L)</td><td class="td-green">양산 중</td><td>BiCS10 (332L) 2026 착수</td><td class="td-highlight">레이어 밀도 업계 최고 수준</td></tr>
+        <tr><td>TLC Enterprise SSD</td><td class="td-green">주력 제품, 폭발적 수요</td><td>128TB/256TB 초용량 드라이브</td><td class="td-highlight">데이터센터 매출 +645% YoY 견인</td></tr>
+        <tr><td>QLC Stargate</td><td class="td-yellow">Q4 FY2026 출하 시작</td><td>2027 본격 양산</td><td>TLC 대비 25% 낮은 Bit 원가</td></tr>
+        <tr><td>HBF™</td><td class="td-yellow">표준화 진행 중 (OCP)</td><td>2026H2 샘플, 2027 초 디바이스</td><td class="td-highlight">SK하이닉스 공동. 새 TAM 창출</td></tr>
+        <tr><td>GPU 직결 SSD (Kioxia-NVIDIA)</td><td class="td-yellow">공동 개발 중</td><td>2027년 드라이브 출시 목표</td><td>HBM 부분 대체 가능성. 혁신적 아키텍처</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 05</div>
+  <div class="section-title">생태계 내 포지셔닝 — 턴키 역량 & 빅테크 파트너십</div>
+
+  <div class="two-col">
+    <div class="prose">
+      <p><strong>하이퍼스케일러 생태계에서의 위상:</strong> SanDisk의 NBM 5개 계약 상대방은 공시되지 않았으나, 이미 주요 클라우드 서비스 프로바이더(CSP) 1곳 이상, 대형 스토리지 OEM 1곳이 포함되었으며, 2026년 중 추가 하이퍼스케일러 1곳 및 대형 스토리지 OEM 1곳 추가 계획이 발표되었습니다.</p>
+      <div class="highlight">
+        NVIDIA·Google·Microsoft·Meta·AWS는 AI 인프라 CAPEX를 2026년 합산 $500B+로 확대 예정. 이 중 상당 부분이 NAND SSD를 포함한 스토리지 인프라에 투입됩니다. SanDisk는 이 수요의 직접 수혜자입니다.
+      </div>
+      <p><strong>턴키 솔루션 역량:</strong> SanDisk는 단순 부품 납품이 아닌, 데이터센터 스토리지 어레이 전체 솔루션을 제공합니다. 엔터프라이즈 NVMe SSD → 스토리지 서버 → 스토리지 소프트웨어 스택의 통합 제공 능력. 경쟁사인 Samsung과 달리 소비자 가전, 반도체 메모리 등 비관련 사업과의 내부 경쟁 없이 데이터센터에 100% 집중할 수 있습니다.</p>
+    </div>
+    <div>
+      <div class="inset" style="margin-bottom:16px">
+        <h4>NAND 시장 점유율 (2025 Q3, TrendForce)</h4>
+        <canvas id="marketShareChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:16px">
+    <table>
+      <thead>
+        <tr>
+          <th>파트너사</th>
+          <th>관계 유형</th>
+          <th>전략적 의미</th>
+          <th>상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Kioxia</td><td>제조 JV (25년+)</td><td>웨이퍼 공급, BiCS FLASH 공동개발, 원가 경쟁력</td><td class="td-green">2034년까지 연장 완료</td></tr>
+        <tr><td>SK하이닉스</td><td>HBF 표준화 파트너</td><td>차세대 AI 추론 메모리 표준 공동 주도</td><td class="td-green">OCP 워크스트림 운영 중</td></tr>
+        <tr><td>NVIDIA</td><td>공급망 파트너 (간접)</td><td>GPU-직결 초고속 SSD 아키텍처 수혜</td><td class="td-yellow">Kioxia 통해 협력 진행</td></tr>
+        <tr><td>하이퍼스케일러 (미공개)</td><td>NBM 장기 공급 계약</td><td>$42B+ 백로그, FY2027 1/3 이상 커버</td><td class="td-green">5개 계약 체결 완료</td></tr>
+        <tr><td>Western Digital</td><td>구 모회사 (지분 청산)</td><td>2026.02 WDC 잔여 지분 완전 청산 완료</td><td class="td-highlight">완전 독립 완료</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 06</div>
+  <div class="section-title">기업 가치 평가 — 밸류에이션 심층 분석</div>
+
+  <!-- COMP TABLE -->
+  <div class="table-wrap" style="margin-bottom:24px">
+    <table>
+      <thead>
+        <tr>
+          <th>기업</th>
+          <th>티커</th>
+          <th>시가총액</th>
+          <th>현재 P/E(TTM)</th>
+          <th>Forward P/E(FY27E)</th>
+          <th>EV/EBITDA</th>
+          <th>P/FCF(FY26E)</th>
+          <th>매출 성장(FY26E)</th>
+          <th>GM%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-highlight">SanDisk</td>
+          <td class="td-highlight">SNDK</td>
+          <td class="td-highlight">$235B</td>
+          <td>~55x</td>
+          <td class="td-green">~20x</td>
+          <td>~25x</td>
+          <td class="td-green">~29x</td>
+          <td class="td-green">+150%E</td>
+          <td class="td-green">78.4%</td>
+        </tr>
+        <tr>
+          <td>Micron</td>
+          <td>MU</td>
+          <td>~$620B</td>
+          <td>~40x</td>
+          <td>~9x</td>
+          <td>~15x</td>
+          <td>~35x</td>
+          <td>+60%E</td>
+          <td>~56%</td>
+        </tr>
+        <tr>
+          <td>Samsung Electronics</td>
+          <td>005930.KS</td>
+          <td>~$280B</td>
+          <td>~18x</td>
+          <td>~12x</td>
+          <td>~8x</td>
+          <td>~15x</td>
+          <td>+25%E</td>
+          <td>~45%</td>
+        </tr>
+        <tr>
+          <td>SK하이닉스</td>
+          <td>000660.KS</td>
+          <td>~$160B</td>
+          <td>~15x</td>
+          <td>~8x</td>
+          <td>~7x</td>
+          <td>~12x</td>
+          <td>+40%E</td>
+          <td>~50%</td>
+        </tr>
+        <tr>
+          <td>Kioxia</td>
+          <td>6600.T</td>
+          <td>~$25B</td>
+          <td>적자 전환 중</td>
+          <td>~20x</td>
+          <td>~12x</td>
+          <td>N/A</td>
+          <td>+30%E</td>
+          <td>~35%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-grid card-grid-2" style="margin-bottom:24px">
+    <!-- DCF -->
+    <div class="card">
+      <div class="card-title">절대 가치 평가 ① — DCF (10년 할인)</div>
+      <div style="margin-top:12px">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>가정</th><th>기본 시나리오</th><th>강세 시나리오</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FY2026 FCF</td><td>$8.25B</td><td>$8.5B</td></tr>
+              <tr><td>FY2027E 성장</td><td>+60%</td><td>+80%</td></tr>
+              <tr><td>FY2028E 성장</td><td>+30%</td><td>+40%</td></tr>
+              <tr><td>FY2029E (사이클 하락)</td><td>-35%</td><td>-20%</td></tr>
+              <tr><td>FY2030E 회복</td><td>+30%</td><td>+40%</td></tr>
+              <tr><td>터미널 성장률</td><td>3%</td><td>4%</td></tr>
+              <tr><td>WACC</td><td>11%</td><td>10%</td></tr>
+              <tr><td class="td-highlight">내재 주당 가치</td><td class="td-yellow">~$1,380</td><td class="td-green">~$1,820</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px; font-size:12px; color:var(--muted)">
+          현재 주가 $1,547 대비: 기본 -10.8% (소폭 고평가), 강세 +17.6%<br>
+          <strong style="color:var(--yellow)">DCF 결론: 현재 주가는 강세 시나리오를 부분 반영 중. 사이클 정점 가정 시 프리미엄 존재.</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- EV/EBITDA COMP -->
+    <div class="card">
+      <div class="card-title">절대 가치 평가 ② — EV/EBITDA 유사기업 배수</div>
+      <div style="margin-top:12px">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>구분</th><th>수치</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>FY2026E EBITDA</td><td>~$14.5B (비GAAP 영업이익 기준)</td></tr>
+              <tr><td>사이클 피크 기업 평균 EV/EBITDA</td><td>15~20x</td></tr>
+              <tr><td>AI 성장 프리미엄 (Micron 비교)</td><td>+5x 프리미엄 정당화</td></tr>
+              <tr><td>목표 EV (20x 적용)</td><td>~$290B</td></tr>
+              <tr><td>순현금 차감</td><td>+$3.7B</td></tr>
+              <tr><td>희석주식수</td><td>158M주</td></tr>
+              <tr><td class="td-highlight">목표 주가 (20x EV/EBITDA)</td><td class="td-green">~$1,857</td></tr>
+              <tr><td class="td-highlight">목표 주가 (25x EV/EBITDA)</td><td class="td-green">~$2,320</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px; font-size:12px; color:var(--muted)">
+          <strong style="color:var(--green)">EV/EBITDA 25x 적용 시 $2,320 → Barclays 목표가($2,300)와 일치. NBM 계약으로 이익 가시성 프리미엄 정당화 가능.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P/FCF BAND CHART -->
+  <div class="chart-box">
+    <div class="chart-title">P/FCF 멀티플 밴드 비교 — SNDK vs MU (2020~2030E)</div>
+    <canvas id="pfcfBandChart" height="280"></canvas>
+    <div style="margin-top:12px; font-size:12px; color:var(--muted); display:flex; gap:24px; flex-wrap:wrap;">
+      <span>📌 2020~2024: SNDK 데이터는 WDC 내 NAND 세그먼트 추정치 (분리 전)</span>
+      <span>📌 2025~2030: 독립법인 기준 (2027E 이후 애널리스트 추정치)</span>
+      <span>📌 현재 SNDK P/FCF: ~29.6x (FY2026E 기준)</span>
+    </div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:24px">
+    <table>
+      <thead>
+        <tr>
+          <th>연도</th>
+          <th>SNDK FCF/주 (추정)</th>
+          <th>P/FCF 밴드 低(10x)</th>
+          <th>P/FCF 밴드 中(20x)</th>
+          <th>P/FCF 밴드 高(35x)</th>
+          <th>SNDK 실제/예상 주가</th>
+          <th>MU FCF/주</th>
+          <th>MU P/FCF 밴드 中(15x)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>2020 (WDC내)</td><td class="td-red">N/A (적자)</td><td>-</td><td>-</td><td>-</td><td>WDC: ~$40</td><td>~-$2</td><td>적자</td></tr>
+        <tr><td>2021</td><td class="td-red">N/A (적자)</td><td>-</td><td>-</td><td>-</td><td>WDC: ~$55</td><td>~$5</td><td>~$75</td></tr>
+        <tr><td>2022</td><td class="td-red">N/A (적자)</td><td>-</td><td>-</td><td>-</td><td>WDC: ~$35</td><td>~$8</td><td>~$120</td></tr>
+        <tr><td>2023</td><td class="td-red">N/A (적자)</td><td>-</td><td>-</td><td>-</td><td>WDC: ~$30</td><td class="td-red">~-$5</td><td>적자</td></tr>
+        <tr><td>2024</td><td>~$2</td><td>$20</td><td>$40</td><td>$70</td><td>WDC Flash:~$35→SNDK $40</td><td>~$10</td><td>~$150</td></tr>
+        <tr><td class="td-yellow">2025 (상장 첫해)</td><td>~$3.5</td><td>$35</td><td>$70</td><td>$122</td><td class="td-yellow">$40→$275</td><td>~$15</td><td>~$225</td></tr>
+        <tr><td class="td-highlight">2026 (현재)</td><td class="td-highlight">~$52</td><td>$520</td><td>$1,040</td><td class="td-highlight">$1,820</td><td class="td-highlight">~$1,547 (今)</td><td>~$50</td><td>~$750</td></tr>
+        <tr><td class="td-green">2027E</td><td class="td-green">~$76</td><td>$760</td><td>$1,520</td><td class="td-green">$2,660</td><td>$1,800~2,300E</td><td>~$65</td><td>~$975</td></tr>
+        <tr><td>2028E</td><td>~$96</td><td>$960</td><td>$1,920</td><td>$3,360</td><td>$2,000~3,500E</td><td>~$80</td><td>~$1,200</td></tr>
+        <tr><td class="td-red">2029E (사이클하락)</td><td class="td-red">~$62</td><td>$620</td><td>$1,240</td><td>$2,170</td><td>$800~2,000E</td><td>~$40</td><td>~$600</td></tr>
+        <tr><td class="td-green">2030E</td><td class="td-green">~$82</td><td>$820</td><td>$1,640</td><td>$2,870</td><td>$1,500~2,500E</td><td>~$60</td><td>~$900</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:24px; padding:20px; background:rgba(249,115,22,0.06); border:1px solid rgba(249,115,22,0.2); border-radius:12px">
+    <div class="conviction-label">안전 마진 계산 (기준: 현재가 $1,547)</div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:12px">
+      <div style="text-align:center">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:4px">DCF 기본 시나리오</div>
+        <div style="font-family:'DM Mono',monospace; font-size:24px; color:var(--red)">-10.8%</div>
+        <div style="font-size:11px; color:var(--muted)">내재가치 ~$1,380</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:4px">EV/EBITDA 20x</div>
+        <div style="font-family:'DM Mono',monospace; font-size:24px; color:var(--green)">+20.0%</div>
+        <div style="font-size:11px; color:var(--muted)">목표가 ~$1,857</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:11px; color:var(--muted); margin-bottom:4px">EV/EBITDA 25x (강세)</div>
+        <div style="font-family:'DM Mono',monospace; font-size:24px; color:var(--green)">+50.0%</div>
+        <div style="font-size:11px; color:var(--muted)">목표가 ~$2,300 (Barclays)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 07</div>
+  <div class="section-title">리스크 관리 분석</div>
+
+  <div class="two-col" style="margin-bottom:24px">
+    <div>
+      <div class="inset">
+        <h4>최대 리스크 5가지</h4>
+        <ul class="bullet">
+          <li>
+            <div>
+              <strong>① NAND 사이클 반전 (최대 리스크)</strong>
+              <div style="font-size:12px; margin-top:4px">현재 78.4% GM은 공급 부족 사이클의 산물. 삼성/SK하이닉스가 공격적 CAPEX 집행 시 2027~2028년 공급 과잉 전환 가능. 역사적으로 NAND GM은 10~20%대까지 하락한 선례 존재. Beta 5.04 — 사이클 하락 시 주가 60~70% 폭락 가능성.</div>
+              <div class="risk-bar"><div class="risk-fill" style="width:90%"></div></div>
+              <div style="font-size:11px; color:var(--red); margin-top:4px">리스크 강도: 매우 높음</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>② Kioxia JV 지정학적 리스크</strong>
+              <div style="font-size:12px; margin-top:4px">제조 거점이 일본 요카이치/기타카미. 미중 무역 분쟁, 대만해협 긴장 간접 영향, 일본 지진 리스크. 공급망 단일 의존도 높음.</div>
+              <div class="risk-bar"><div class="risk-fill" style="width:60%"></div></div>
+              <div style="font-size:11px; color:var(--yellow); margin-top:4px">리스크 강도: 중간</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>③ NBM 계약 이행 실패 리스크</strong>
+              <div style="font-size:12px; margin-top:4px">고객이 분기 구매 의무 불이행 시 재무 보증 집행. 그러나 하이퍼스케일러 재정 상황 악화 시 법적 분쟁 가능성. 계약 구조의 신뢰성은 아직 검증 단계.</div>
+              <div class="risk-bar"><div class="risk-fill" style="width:40%"></div></div>
+              <div style="font-size:11px; color:var(--yellow); margin-top:4px">리스크 강도: 낮음~중간</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>④ HBF 기술 표준화 실패</strong>
+              <div style="font-size:12px; margin-top:4px">HBF가 OCP 표준으로 채택되지 않거나 경쟁 기술(CXL 기반 솔루션, 삼성 자체 규격)에 밀릴 경우 차세대 성장 스토리 훼손.</div>
+              <div class="risk-bar"><div class="risk-fill" style="width:45%"></div></div>
+              <div style="font-size:11px; color:var(--yellow); margin-top:4px">리스크 강도: 중간</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>⑤ 밸류에이션 고평가 (Morningstar 854% 프리미엄 주장)</strong>
+              <div style="font-size:12px; margin-top:4px">Morningstar는 SNDK를 공정가치 대비 854% 프리미엄에 거래 중이라 평가. 사이클 정점 기업에 고성장 멀티플 부여 시 사이클 전환 시 급격한 멀티플 축소 위험.</div>
+              <div class="risk-bar"><div class="risk-fill" style="width:70%"></div></div>
+              <div style="font-size:11px; color:var(--red); margin-top:4px">리스크 강도: 높음</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <div class="inset" style="margin-bottom:16px">
+        <h4>실적 발표 시 반드시 체크할 3가지</h4>
+        <ul class="bullet">
+          <li>
+            <div>
+              <strong>① NBM 계약 진행 상황 및 이행률</strong>
+              <div style="font-size:12px; margin-top:4px">추가 계약 체결 수, 기존 계약의 실제 구매 이행률, 잔여 이행 의무(RPO) 변동. NBM이 SanDisk 프리미엄 밸류에이션의 핵심 근거. 계약 이탈 or 이행 부진 = 프리미엄 즉시 훼손 신호.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>② Non-GAAP 매출총이익률(GM%) 방어 여부</strong>
+              <div style="font-size:12px; margin-top:4px">Q3 78.4% → Q4 가이던스 79~81%. 이 수준의 GM 유지 또는 하락 여부. 삼성·SK하이닉스의 CAPEX 계획 언급 여부(경쟁 강도 선행 지표). GM이 70% 아래로 무너지면 사이클 전환 신호.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>③ 데이터센터 세그먼트 매출 성장률 및 고객 구성 다변화</strong>
+              <div style="font-size:12px; margin-top:4px">Q4 데이터센터 매출 $2.5B+ 달성 여부, QLC Stargate 초기 출하 성과. 신규 하이퍼스케일러·OEM 계약 공시 여부. 소비자·클라이언트 세그먼트 축소 vs 데이터센터 비중 확대 트렌드 확인.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="inset">
+        <h4>주요 경쟁사 비교 & 경쟁 압살 가능성</h4>
+        <ul class="bullet">
+          <li>
+            <div>
+              <strong>삼성전자 (시가총액 ~$280B, NAND 32.3% 점유)</strong>
+              <div style="font-size:12px; margin-top:4px">압살 불가. 삼성은 메모리 시장 절대 강자. 수직통합(팹 자체 보유), DRAM·HBM·NAND 전 제품 커버, 막대한 CAPEX 능력. 단, 비메모리 사업(파운드리, 스마트폰)과의 자원 분산이 NAND 집중도 희석. SanDisk는 삼성 대비 <strong>AI 데이터센터 특화 포지셔닝</strong>으로 차별화.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>Micron Technology (시가총액 ~$620B, DRAM+NAND+HBM)</strong>
+              <div style="font-size:12px; margin-top:4px">상대적 우위 가능. Micron은 DRAM/HBM 강자이나 NAND 집중도는 SNDK보다 낮음. SNDK는 NAND 순수 플레이 특화로 AI 데이터센터 NAND 공급에서 <strong>반응 속도·제품 집중</strong> 우위. NBM 계약 구조는 Micron이 아직 보유하지 않은 차별화 요소.</div>
+            </div>
+          </li>
+          <li>
+            <div>
+              <strong>종합 평가</strong>
+              <div style="font-size:12px; margin-top:4px">압살보다 <strong>공존 및 점유율 확장</strong>이 현실적. SanDisk의 전략은 AI 데이터센터라는 급성장 세그먼트에서 <strong>선점 포지션 + 장기 계약</strong>으로 구조적 시장 기반 확보. 사이클 하락기에는 자본 경량화(무부채, $6B 바이백)로 경쟁사 대비 생존 우위.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8A -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 08</div>
+  <div class="section-title">투자 결론 — 시장의 오해와 재평가 포인트</div>
+
+  <div class="two-col">
+    <div class="prose">
+      <p><strong>시장이 SNDK를 오해하는 방식:</strong></p>
+      <p>시장의 일부(특히 Morningstar 같은 전통적 밸류에이션 관점)는 SanDisk를 여전히 <strong>"NAND 상품 제조업체"</strong>로 보고 있습니다. 이 관점에서 NAND는 사이클적 상품(Commodity)이며, GM 78%는 일시적 사이클 정점이고, 10~15년 DCF로 보면 현재 주가는 터무니없이 고평가됩니다.</p>
+      <div class="highlight">
+        이것이 <strong>시장의 오해</strong>입니다: NBM(New Business Model) 계약 구조가 등장하면서 SNDK는 더 이상 단순 NAND 상품 회사가 아닙니다. $42B+ 잔여 이행 의무, 제3자 재무 보증 구조, 하이퍼스케일러와의 다년 독점 공급 계약 — 이는 마치 <strong>반도체판 '구독 경제'</strong>입니다. NAND가 AI 인프라의 필수재(Essential Infrastructure)가 된 구조적 변화가 단순 사이클 논리를 초월합니다.
+      </div>
+    </div>
+
+    <div class="conviction-box">
+      <div class="conviction-label">최강 확신 포인트 (Single Conviction)</div>
+      <div class="conviction-text">
+        <strong>NBM 계약 구조의 역사적 선례 없음</strong> — SanDisk는 세계 최초로 NAND 공급에 <em>제3자 금융기관이 보증하는 법적 구매 약정 계약</em>을 체결했습니다. $42B 잔여 이행의무는 FY2027 예상 매출을 이미 1/3 이상 잠궈두었습니다. 이는 NAND를 사이클에서 해방시켜 <strong>예측 가능한 구독형 수익 구조</strong>로 전환하는 혁신입니다. 이 구조가 업계 표준으로 확산된다면, SNDK는 "NAND 공급자"가 아닌 <strong>"AI 인프라 연간 계약 서비스 제공자"</strong>로 재평가(Re-rating)받을 것입니다. 이 하나의 변화만으로도 현재 밸류에이션 프리미엄은 충분히 정당화됩니다.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8B — PORTFOLIO -->
+<div class="section">
+  <div class="section-num">FRAMEWORK 09 — 포트폴리오 관점</div>
+  <div class="section-title">포트폴리오 분석 및 매수 플랜</div>
+
+  <div class="two-col" style="margin-bottom:24px">
+    <div class="inset">
+      <h4>현재 포트폴리오 vs SNDK 추가 시 영향</h4>
+      <ul class="bullet">
+        <li><strong>현재 보유</strong>: TSLA(~35~38%), PLTR(고확신), POET Tech, MRVL — AI 인프라 테마 편중 이미 존재</li>
+        <li><strong>SNDK 추가 시</strong>: AI 데이터센터 스토리지 레이어 추가 노출. MRVL(네트워킹 반도체)·POET(광인터커넥트)와 <strong>AI 인프라 밸류체인 수직 강화</strong></li>
+        <li><strong>리스크 분산 관점</strong>: TSLA 집중도 위험 일부 희석. 그러나 SNDK Beta 5.04 → 전체 포트폴리오 변동성 추가 상승 주의</li>
+        <li><strong>세금 고려</strong>: 신규 매수이므로 기존 수익 실현 없음. 해외주식 양도세(22%, 지방세 포함) 고려 시 장기 보유 선호</li>
+      </ul>
+    </div>
+    <div class="inset">
+      <h4>투자 판단 종합</h4>
+      <ul class="bullet">
+        <li><span class="badge badge-green">매수 추천</span> &nbsp;소규모 포지션 구축 — 조정 구간을 활용한 분할 매수</li>
+        <li><strong>목표가 (12개월)</strong>: <span style="color:var(--green); font-family:'DM Mono',monospace; font-size:16px">$2,300</span> (Barclays 목표가, EV/EBITDA 25x 기준, +48.7% 업사이드)</li>
+        <li><strong>손절 기준</strong>: $1,050 이하 (분기 GM 70% 미만 하락 OR NBM 계약 이탈 발생 시)</li>
+        <li><strong>포지션 크기 권고</strong>: 전체 포트폴리오의 3~5% 이내 (High Beta 감안, TSLA 쏠림 존재)</li>
+        <li><strong>매수 근거</strong>: 오늘(-3.83%) 조정은 기술적 조정. 펀더멘털 훼손 없음. Q4 가이던스($8B 매출, $31.5 EPS) 강력</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- BUY PLAN -->
+  <div style="padding:24px; background:rgba(34,197,94,0.05); border:1px solid rgba(34,197,94,0.2); border-radius:12px; margin-bottom:24px">
+    <div class="conviction-label">3차 분할 매수 플랜 — 목표가 $2,300</div>
+    <div class="trade-plan">
+      <div class="trade-card" style="border-color: rgba(34,197,94,0.3)">
+        <div class="trade-round">1차</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px">즉시 매수 (현재 조정)</div>
+        <div class="trade-price" style="color:var(--green)">$1,480~1,550</div>
+        <div class="trade-qty">3주</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px">투자금 약 $4,500~4,650</div>
+        <div class="trade-rationale">오늘 조정(-3.83%) 활용. 52주 고점 대비 -6.5% 수준. Q4 가이던스 강력. 초기 포지션 구축.</div>
+      </div>
+      <div class="trade-card" style="border-color: rgba(234,179,8,0.3)">
+        <div class="trade-round">2차</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px">추가 조정 시</div>
+        <div class="trade-price" style="color:var(--yellow)">$1,250~1,350</div>
+        <div class="trade-qty">5주</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px">투자금 약 $6,250~6,750</div>
+        <div class="trade-rationale">약 -15~20% 조정 구간. FY2026 FCF 기준 P/FCF ~24~26x 수준. 합리적 진입점.</div>
+      </div>
+      <div class="trade-card" style="border-color: rgba(59,130,246,0.3)">
+        <div class="trade-round">3차</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px">큰 조정 시 (옵션)</div>
+        <div class="trade-price" style="color:var(--blue)">$1,050~1,150</div>
+        <div class="trade-qty">7주</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px">투자금 약 $7,350~8,050</div>
+        <div class="trade-rationale">-30% 조정. GM 훼손 없고 NBM 계약 유지 확인 시에만 매수. P/FCF ~20x로 밸류에이션 매력 극대화.</div>
+      </div>
+      <div class="trade-card" style="border-color: rgba(249,115,22,0.4); background: rgba(249,115,22,0.05)">
+        <div class="trade-round" style="color:var(--accent)">목표</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px">12개월 목표가</div>
+        <div class="trade-price" style="color:var(--accent)">$2,300</div>
+        <div style="font-size:11px; color:var(--green); margin-top:4px">최대 +48.7% (1차 기준)</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:4px">총 15주 매수 시 총투자 ~$18,100~19,450</div>
+        <div class="trade-rationale">Barclays PT $2,300. EV/EBITDA 25x 기반. Q4 실적 + 신규 NBM 계약 발표가 핵심 촉매.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO TABLE -->
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>시나리오</th>
+          <th>발생 조건</th>
+          <th>주가 예상 범위</th>
+          <th>대응 전략</th>
+          <th>확률(추정)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="td-green">강세</td><td>NBM 계약 추가, HBF 표준 채택, Q4 가이던스 상회</td><td class="td-green">$2,300~2,800</td><td>1~3차 전체 포지션 유지. $2,300 부분 익절</td><td class="td-green">35%</td></tr>
+        <tr><td class="td-yellow">기본</td><td>Q4 가이던스 달성, NBM 현 수준 유지</td><td class="td-yellow">$1,600~2,300</td><td>목표가 $2,300 도달 시 50% 익절</td><td class="td-yellow">40%</td></tr>
+        <tr><td class="td-red">약세</td><td>GM 70% 이하 하락 or NBM 계약 이탈</td><td class="td-red">$800~1,200</td><td>$1,050 손절 라인 준수. 즉시 전량 청산</td><td class="td-red">25%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:20px; padding:16px; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); border-radius:10px; font-size:13px; color:var(--dim)">
+    ⚠️ <strong style="color:var(--red)">중요 주의사항:</strong> SNDK는 Beta 5.04의 극고변동성 주식입니다. 현재 이미 TSLA(35~38%)·PLTR·POET·MRVL 등 AI 테마 집중 포트폴리오에 추가하는 것이므로, <strong>포트폴리오 대비 최대 5% 이내</strong>로 포지션을 제한할 것을 강권합니다. NAND 사이클 전환은 예고 없이 찾아올 수 있으며, 손절 라인($1,050) 이탈 시 이유를 막론하고 청산 원칙을 지켜야 합니다. 이 리포트는 투자 참고 자료이며 최종 투자 결정은 본인의 책임입니다.
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  SNDK DEEP DIVE ANALYSIS &nbsp;|&nbsp; 기준일: 2026.05.27 &nbsp;|&nbsp; 데이터 출처: Investing.com / Robinhood / TIKR / TrendForce / Sandisk IR / Motley Fool &nbsp;|&nbsp; 본 자료는 투자 참고용이며 투자 권유가 아닙니다
+</div>
+
+<script>
+// Chart 1: Revenue
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+new Chart(revenueCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Q1 FY25', 'Q2 FY25', 'Q3 FY25', 'Q4 FY25', 'Q1 FY26', 'Q2 FY26', 'Q3 FY26', 'Q4 FY26E'],
+    datasets: [{
+      label: '분기 매출 ($B)',
+      data: [1.8, 1.7, 1.7, 1.9, 1.5, 3.03, 5.95, 8.0],
+      backgroundColor: ['#334155','#334155','#334155','#334155','#475569','#64748b','#f97316','rgba(249,115,22,0.5)'],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { display: false } },
+      y: { ticks: { color: '#64748b', font: { size: 9 }, callback: v => '$'+v+'B' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+    }
+  }
+});
+
+// Chart 2: Margin
+const marginCtx = document.getElementById('marginChart').getContext('2d');
+new Chart(marginCtx, {
+  type: 'line',
+  data: {
+    labels: ['Q1 FY25', 'Q2 FY25', 'Q3 FY25', 'Q4 FY25', 'Q1 FY26', 'Q2 FY26', 'Q3 FY26', 'Q4 FY26E'],
+    datasets: [{
+      label: 'Non-GAAP GM%',
+      data: [8, 15, 22.5, 30, 28, 43, 78.4, 80],
+      borderColor: '#f97316',
+      backgroundColor: 'rgba(249,115,22,0.1)',
+      fill: true,
+      tension: 0.4,
+      pointBackgroundColor: '#f97316',
+      pointRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 9 } }, grid: { display: false } },
+      y: { 
+        ticks: { color: '#64748b', font: { size: 9 }, callback: v => v+'%' }, 
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        min: 0, max: 100
+      }
+    }
+  }
+});
+
+// Chart 3: Market Share
+const msCtx = document.getElementById('marketShareChart').getContext('2d');
+new Chart(msCtx, {
+  type: 'doughnut',
+  data: {
+    labels: ['삼성(32.3%)', 'SK하이닉스(19.3%)', 'Kioxia(15.3%)', 'Micron(14.0%)', 'SanDisk(12.4%)', '기타(6.7%)'],
+    datasets: [{
+      data: [32.3, 19.3, 15.3, 14.0, 12.4, 6.7],
+      backgroundColor: ['#1e40af','#0891b2','#6d28d9','#059669','#f97316','#475569'],
+      borderWidth: 2,
+      borderColor: '#161c26'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { color: '#64748b', font: { size: 9 }, padding: 8, boxWidth: 10 }
+      }
+    }
+  }
+});
+
+// Chart 4: P/FCF Band
+const pfcfCtx = document.getElementById('pfcfBandChart').getContext('2d');
+const years = ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027E', '2028E', '2029E', '2030E'];
+new Chart(pfcfCtx, {
+  type: 'line',
+  data: {
+    labels: years,
+    datasets: [
+      {
+        label: 'SNDK P/FCF 35x 상단',
+        data: [null, null, null, null, 70, 122, 1820, 2660, 3360, 2170, 2870],
+        borderColor: 'rgba(249,115,22,0.3)',
+        backgroundColor: 'rgba(249,115,22,0.05)',
+        borderDash: [4,4],
+        fill: '+1',
+        pointRadius: 0,
+        tension: 0.3,
+      },
+      {
+        label: 'SNDK P/FCF 20x 중단',
+        data: [null, null, null, null, 40, 70, 1040, 1520, 1920, 1240, 1640],
+        borderColor: 'rgba(249,115,22,0.6)',
+        backgroundColor: 'rgba(249,115,22,0.08)',
+        fill: '+1',
+        pointRadius: 3,
+        tension: 0.3,
+      },
+      {
+        label: 'SNDK P/FCF 10x 하단',
+        data: [null, null, null, null, 20, 35, 520, 760, 960, 620, 820],
+        borderColor: 'rgba(249,115,22,0.3)',
+        backgroundColor: 'rgba(249,115,22,0.03)',
+        borderDash: [4,4],
+        fill: false,
+        pointRadius: 0,
+        tension: 0.3,
+      },
+      {
+        label: 'SNDK 실제 주가',
+        data: [null, null, null, null, 38, 155, 1547, null, null, null, null],
+        borderColor: '#f97316',
+        backgroundColor: '#f97316',
+        borderWidth: 2.5,
+        fill: false,
+        pointRadius: 5,
+        tension: 0.3,
+      },
+      {
+        label: 'MU P/FCF 15x 중단',
+        data: [null, 75, 120, null, 150, 225, 750, 975, 1200, 600, 900],
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        borderDash: [6,3],
+        fill: false,
+        pointRadius: 3,
+        tension: 0.3,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: { color: '#94a3b8', font: { size: 10 }, padding: 12, boxWidth: 20 }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: {
+        ticks: { color: '#64748b', font: { size: 10 }, callback: v => '$'+v.toLocaleString() },
+        grid: { color: 'rgba(255,255,255,0.04)' }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

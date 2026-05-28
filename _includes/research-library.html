@@ -1,3 +1,14 @@
+{% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign report_tickers = "" %}
+{% for report in report_files %}
+    {% assign report_ticker = report.name | split: "_" | first | upcase %}
+    {% assign report_marker = "|" | append: report_ticker | append: "|" %}
+    {% unless report_tickers contains report_marker %}
+        {% assign report_tickers = report_tickers | append: report_marker %}
+    {% endunless %}
+{% endfor %}
+{% assign report_ticker_list = report_tickers | split: "|" %}
+
 <section class="research-library-section" id="research-library">
     <div class="research-library-container">
         <div class="research-library-heading">
@@ -5,74 +16,63 @@
             <h2>Research Library</h2>
             <p>
                 직접 만든 HTML 투자 분석자료를 회사별로 모아둔 공간입니다.
-                새 보고서가 생기면 같은 회사 카드에 날짜별로 추가해 추적할 수 있습니다.
+                <code>pages_html</code> 폴더에 HTML 파일을 추가하면 다음 빌드 때 회사별 카드와 사이드 메뉴에 자동 반영됩니다.
             </p>
         </div>
 
         <div class="report-company-grid">
-            <article class="report-company-card">
-                <div class="report-company-topline">
-                    <span class="report-ticker">NVDA</span>
-                    <span class="report-count">1 report</span>
-                </div>
-                <h3>NVIDIA</h3>
-                <a class="report-link" href="pages_html/NVDA_Analysis_Report_20260529.html" target="_blank" rel="noopener noreferrer">
-                    심층 투자 분석 보고서
-                    <span>2026.05.29</span>
-                </a>
-            </article>
+            {% for ticker in report_ticker_list %}
+                {% if ticker != "" %}
+                    {% assign report_count = 0 %}
+                    {% for report in report_files %}
+                        {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                        {% if current_ticker == ticker %}
+                            {% assign report_count = report_count | plus: 1 %}
+                        {% endif %}
+                    {% endfor %}
 
-            <article class="report-company-card">
-                <div class="report-company-topline">
-                    <span class="report-ticker">QCOM</span>
-                    <span class="report-count">2 reports</span>
-                </div>
-                <h3>Qualcomm</h3>
-                <a class="report-link" href="pages_html/QCOM_IR_claude_20260523.html" target="_blank" rel="noopener noreferrer">
-                    퀄컴 심층 투자분석 리포트
-                    <span>2026.05.23</span>
-                </a>
-                <a class="report-link" href="pages_html/QCOM_Investment_Report_20260523.html" target="_blank" rel="noopener noreferrer">
-                    기관급 투자분석 보고서
-                    <span>2026.05.23</span>
-                </a>
-            </article>
+                    <article class="report-company-card" id="report-{{ ticker | downcase }}">
+                        <div class="report-company-topline">
+                            <span class="report-ticker">{{ ticker }}</span>
+                            <span class="report-count">{{ report_count }} report{% if report_count > 1 %}s{% endif %}</span>
+                        </div>
+                        <h3>
+                            {% case ticker %}
+                                {% when "AGYS" %}Agilysys
+                                {% when "BE" %}Bloom Energy
+                                {% when "DELL" %}Dell Technologies
+                                {% when "GLW" %}Corning
+                                {% when "LWLG" %}Lightwave Logic
+                                {% when "NVDA" %}NVIDIA
+                                {% when "QCOM" %}Qualcomm
+                                {% when "SNDK" %}SanDisk
+                                {% when "SOFI" %}SoFi
+                                {% else %}{{ ticker }}
+                            {% endcase %}
+                        </h3>
 
-            <article class="report-company-card">
-                <div class="report-company-topline">
-                    <span class="report-ticker">AGYS</span>
-                    <span class="report-count">1 report</span>
-                </div>
-                <h3>Agilysys</h3>
-                <a class="report-link" href="pages_html/AGYS_Investment_Report_20260522.html" target="_blank" rel="noopener noreferrer">
-                    기업 심층 분석 보고서
-                    <span>2026.05.22</span>
-                </a>
-            </article>
-
-            <article class="report-company-card">
-                <div class="report-company-topline">
-                    <span class="report-ticker">BE</span>
-                    <span class="report-count">1 report</span>
-                </div>
-                <h3>Bloom Energy</h3>
-                <a class="report-link" href="pages_html/BE_Investment_Report_20260522.html" target="_blank" rel="noopener noreferrer">
-                    투자 분석 보고서
-                    <span>2026.05.22</span>
-                </a>
-            </article>
-
-            <article class="report-company-card">
-                <div class="report-company-topline">
-                    <span class="report-ticker">GLW</span>
-                    <span class="report-count">1 report</span>
-                </div>
-                <h3>Corning</h3>
-                <a class="report-link" href="pages_html/GLW_Investment_Report_20260523.html" target="_blank" rel="noopener noreferrer">
-                    구조적 전환 투자분석 보고서
-                    <span>2026.05.23</span>
-                </a>
-            </article>
+                        {% for report in report_files %}
+                            {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                            {% if current_ticker == ticker %}
+                                {% assign report_parts = report.name | remove: ".html" | split: "_" %}
+                                {% assign report_date_raw = report_parts | last %}
+                                {% assign first_part = report.name | split: "_" | first %}
+                                {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
+                                <a class="report-link" href="{{ report.path | relative_url }}" target="_blank" rel="noopener noreferrer">
+                                    {% if report_label == "" %}
+                                        투자 분석 보고서
+                                    {% else %}
+                                        {{ report_label | replace: "IR", "IR" | replace: "ir", "IR" | replace: "claude", "Claude" | replace: "investment", "Investment" | replace: "report", "Report" | replace: "analysis", "Analysis" }}
+                                    {% endif %}
+                                    {% if report_date_raw.size == 8 %}
+                                        <span>{{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}</span>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </article>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 </section>
