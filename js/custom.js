@@ -1,40 +1,49 @@
-// Closes the sidebar menu
-$("#menu-close").click(function(e) {
-  e.preventDefault();
-  $("#sidebar-wrapper").toggleClass("active");
-});
+document.addEventListener("DOMContentLoaded", function () {
+  var sidebar = document.getElementById("sidebar-wrapper");
+  var menuToggle = document.getElementById("menu-toggle");
+  var menuClose = document.getElementById("menu-close");
 
-// Opens the sidebar menu
-$("#menu-toggle").click(function(e) {
-  e.preventDefault();
-  $("#sidebar-wrapper").toggleClass("active");
-});
-
-// Scrolls to the selected menu item on the page
-$(function() {
-  $('a[href*=#]:not([href=#])').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
-
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        $('html,body').animate({
-          scrollTop: target.offset().top
-        }, 1000);
-        return false;
-      }
+  function toggleSidebar(event) {
+    if (event) {
+      event.preventDefault();
     }
-  });
-});
+    if (sidebar) {
+      sidebar.classList.toggle("active");
+    }
+  }
 
-// Map scrolling behaviour
-$(document).ready(function() {
-  $('#map_iframe').addClass('scrolloff');
-  $('#map').on('click', function () {
-    $('#map_iframe').removeClass('scrolloff');
-  });
+  function closeSidebar() {
+    if (sidebar) {
+      sidebar.classList.remove("active");
+    }
+  }
 
-  $('#map_iframe').mouseleave(function  () {
-    $('#map_iframe').addClass('scrolloff');
+  if (menuToggle) {
+    menuToggle.addEventListener("click", toggleSidebar);
+  }
+
+  if (menuClose) {
+    menuClose.addEventListener("click", toggleSidebar);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener("click", function (event) {
+      var targetId = link.getAttribute("href");
+      if (!targetId || targetId === "#") {
+        return;
+      }
+
+      var target = document.querySelector(targetId);
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      closeSidebar();
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
   });
 });

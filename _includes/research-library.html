@@ -58,7 +58,7 @@
                                 {% assign report_date_raw = report_parts | last %}
                                 {% assign first_part = report.name | split: "_" | first %}
                                 {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
-                                <a class="report-link" href="{{ report.path | relative_url }}" target="_blank" rel="noopener noreferrer">
+                                <a class="report-link" href="{{ report.path | relative_url }}" target="_self">
                                     {% if report_label == "" %}
                                         투자 분석 보고서
                                     {% else %}

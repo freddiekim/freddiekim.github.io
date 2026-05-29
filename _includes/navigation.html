@@ -3,13 +3,13 @@
   <ul class="sidebar-nav">
     <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
     <li class="sidebar-brand">
-      <a href="#top"  onclick = $("#menu-close").click(); >YOUNG FINANCE</a>
+      <a href="#top">YOUNG FINANCE</a>
     </li>
     <li>
-      <a href="#top" onclick = $("#menu-close").click(); >Home</a>
+      <a href="#top">Home</a>
     </li>
     <li>
-      <a href="#research-library" onclick = $("#menu-close").click(); >Research Library</a>
+      <a href="#research-library">Research Library</a>
     </li>
     <li class="sidebar-section-label">Reports</li>
     {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
@@ -25,26 +25,26 @@
     {% for ticker in report_ticker_list %}
       {% if ticker != "" %}
         <li>
-          <a class="sidebar-report-link" href="#report-{{ ticker | downcase }}" onclick = $("#menu-close").click(); >{{ ticker }}</a>
+          <a class="sidebar-report-link" href="#report-{{ ticker | downcase }}">{{ ticker }}</a>
         </li>
       {% endif %}
     {% endfor %}
     <li class="sidebar-section-label">Watchlist</li>
     <li>
-      <a href="#tesla" onclick = $("#menu-close").click(); >Tesla</a>
+      <a href="#tesla">Tesla</a>
     </li>
     <li>
-      <a href="#palantir" onclick = $("#menu-close").click(); >Palantir</a>
+      <a href="#palantir">Palantir</a>
     </li>
     <li>
-      <a href="#hims" onclick = $("#menu-close").click(); >Hims&Hers Health</a>
+      <a href="#hims">Hims&Hers Health</a>
     </li>
     <li>
-      <a href="#tempusai" onclick = $("#menu-close").click(); >Tempus AI</a>
+      <a href="#tempusai">Tempus AI</a>
     </li>
 
     <li>
-      <a href="../pages/about.html" onclick = $("#menu-close").click(); >About</a>
+      <a href="../pages/about.html">About</a>
     </li>
   </ul>
 </nav>

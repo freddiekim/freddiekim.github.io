@@ -12,6 +12,24 @@
   {% include scripts.html %}
 
   <script>
+      function getSavedTheme() {
+          try {
+              return window.localStorage ? window.localStorage.getItem('theme') : null;
+          } catch (error) {
+              return null;
+          }
+      }
+
+      function saveTheme(theme) {
+          try {
+              if (window.localStorage) {
+                  window.localStorage.setItem('theme', theme);
+              }
+          } catch (error) {
+              // 테마 전환은 저장소 접근 가능 여부와 무관하게 동작해야 합니다.
+          }
+      }
+
       /**
         * 주간/야간 모드를 전환하는 함수
       */
@@ -24,7 +42,7 @@
           const isNightMode = body.classList.contains('night-mode');
 
           if (isNightMode) {
-              const newUrlValue = 'url(../img/bg.jpg)';
+              const newUrlValue = 'url("/img/young-finance-bg-day.jpg")';
               document.documentElement.style.setProperty(
                   '--header-bg-url', 
                   newUrlValue
@@ -37,10 +55,10 @@
               tooltipText.textContent = '야간 모드로 전환';
               
               // localStorage에 상태 저장 (선택 사항)
-              localStorage.setItem('theme', 'day'); 
+              saveTheme('day'); 
           } else {
               // 현재 주간 모드 -> 야간 모드로 전환
-              const newUrlValue = 'url(../img/bg_night.jpg)';
+              const newUrlValue = 'url("/img/young-finance-bg-night.jpg")';
               document.documentElement.style.setProperty(
                   '--header-bg-url', 
                   newUrlValue
@@ -52,7 +70,7 @@
               tooltipText.textContent = '주간 모드로 전환';
               
               // localStorage에 상태 저장 (선택 사항)
-              localStorage.setItem('theme', 'night'); 
+              saveTheme('night'); 
           }
       }
 
@@ -60,12 +78,16 @@
         * 페이지 로드 시 저장된 테마를 불러와 적용
         */
       function loadTheme() {
-          const savedTheme = localStorage.getItem('theme');
+          const savedTheme = getSavedTheme();
+          const toggleIcon = document.getElementById('theme-icon');
+          const tooltipText = document.getElementById('tooltip-text');
           if (savedTheme === 'night') {
               document.body.classList.add('night-mode');
+              document.documentElement.style.setProperty(
+                  '--header-bg-url',
+                  'url("/img/young-finance-bg-night.jpg")'
+              );
               
-              const toggleIcon = document.getElementById('theme-icon');
-              const tooltipText = document.getElementById('tooltip-text');
               if (toggleIcon && tooltipText) {
                   // 야간 모드이므로, 주간으로 돌아가는 '해' 아이콘을 보여줍니다.
                   toggleIcon.innerHTML = '&#9728;'; 
@@ -74,14 +96,21 @@
           }
           else
           {
-              toggleIcon.innerHTML = '&#9788;'; 
-              tooltipText.textContent = '야간 모드로 전환';            
-              localStorage.setItem('theme', 'day'); 
+              document.body.classList.remove('night-mode');
+              document.documentElement.style.setProperty(
+                  '--header-bg-url',
+                  'url("/img/young-finance-bg-day.jpg")'
+              );
+              if (toggleIcon && tooltipText) {
+                  toggleIcon.innerHTML = '&#9788;'; 
+                  tooltipText.textContent = '야간 모드로 전환';
+              }
+              saveTheme('day'); 
           }
       }
 
       // 페이지 로드 시 테마를 불러와 적용
-      window.onload = loadTheme;
+      window.addEventListener('load', loadTheme);
   </script>  
 </body>
 
