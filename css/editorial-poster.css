@@ -342,14 +342,16 @@ a:focus {
 
 .research-library-section,
 .company-analysis-section,
-.company-analysis-section-alt {
+.company-analysis-section-alt,
+.comments-section {
     background: var(--poster-paper) !important;
     color: var(--poster-ink) !important;
     padding: 86px 20px;
 }
 
 .research-library-heading,
-.company-analysis-heading {
+.company-analysis-heading,
+.comments-heading {
     margin-left: 0;
     max-width: 820px;
 }
@@ -360,7 +362,8 @@ a:focus {
 }
 
 .research-library-heading h2,
-.company-analysis-heading h2 {
+.company-analysis-heading h2,
+.comments-heading h2 {
     color: var(--poster-ink) !important;
     font-size: clamp(40px, 6vw, 76px);
     font-weight: 900;
@@ -371,6 +374,19 @@ a:focus {
 .research-library-heading p,
 .analysis-thesis {
     color: var(--poster-ink-soft) !important;
+}
+
+.comments-container {
+    margin: 0 auto;
+    max-width: 1120px;
+}
+
+.comments-widget {
+    background: var(--poster-cream) !important;
+    border: 5px solid var(--poster-line) !important;
+    border-radius: 8px !important;
+    min-height: 220px;
+    padding: 22px;
 }
 
 .report-company-grid,

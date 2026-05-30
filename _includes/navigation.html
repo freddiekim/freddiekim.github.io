@@ -11,6 +11,9 @@
     <li>
       <a href="#research-library">Research Library</a>
     </li>
+    <li>
+      <a href="#comments">Comments</a>
+    </li>
     <li class="sidebar-section-label">Reports</li>
     {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
     {% assign report_tickers = "" %}
