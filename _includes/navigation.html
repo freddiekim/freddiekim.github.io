@@ -23,7 +23,8 @@
     {% endfor %}
     {% assign report_ticker_list = report_tickers | split: "|" %}
     {% assign covered_tickers = "" %}
-    {% for company in site.data.company_research %}
+    {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
+    {% for company in companies %}
       {% assign ticker = company.ticker | upcase %}
       {% assign covered_marker = "|" | append: ticker | append: "|" %}
       {% assign covered_tickers = covered_tickers | append: covered_marker %}

@@ -1,0 +1,109 @@
+TSLA:
+  - period: "2026 Q1"
+    label: "Q1 2026 Update"
+    kind: "PDF"
+    url: "https://ir.tesla.com/_flysystem/s3/sec/000162828026026551/tsla-20260422-gen.pdf"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Update"
+    kind: "PDF"
+    url: "https://ir.tesla.com/_flysystem/s3/sec/000162828026003837/tsla-20260128-gen.pdf"
+
+GLW:
+  - period: "2026 Q1"
+    label: "Q1 2026 Results"
+    kind: "IR"
+    url: "https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Strong-First-Quarter-2026-Financial-Results-1/default.aspx"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Results"
+    kind: "IR"
+    url: "https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Outstanding-2025-Financial-Results-1--Upgrades-Springboard-Plan-for-Faster-Sales-Growth-on-Significantly-Enhanced-Financial-Profile/default.aspx"
+
+MU:
+  - period: "FY2026 Q1"
+    label: "FQ1 2026 Financial Results"
+    kind: "PDF"
+    url: "https://investors.micron.com/static-files/530bd7ed-a8c8-4687-af4a-8c129f740e09"
+  - period: "FY2025 Q4"
+    label: "FQ4 2025 Financial Results"
+    kind: "PDF"
+    url: "https://investors.micron.com/static-files/5fb98d73-2134-4446-8d1b-0f90285f6c02"
+
+GCTS:
+  - period: "2026 Q1"
+    label: "Q1 2026 Business Update"
+    kind: "IR"
+    url: "https://www.businesswire.com/news/home/20260512443937/en/GCT-Semiconductor-Holding-Inc.-Provides-Business-Update-and-Reports-First-Quarter-2026-Financial-Results"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Business Update"
+    kind: "IR"
+    url: "https://www.businesswire.com/news/home/20260325064668/en/GCT-Semiconductor-Holding-Inc.-Provides-Business-Update-and-Reports-Fourth-Quarter-and-Full-Year-2025-Financial-Results"
+
+QCOM:
+  - period: "FY2026 Q2"
+    label: "Q2 FY26 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investor.qualcomm.com/news-events/investor-events/events/event-details/2026/Q2-FY26-Earnings-Conference-Call-2026-Tnakn5Ozme/default.aspx"
+  - period: "FY2026 Q1"
+    label: "Q1 FY26 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investor.qualcomm.com/news-events/investor-events/events/event-details/2026/Q1-FY26-Earnings-Conference-Call-2026--ikBLBPWLh/default.aspx"
+
+DELL:
+  - period: "FY2027 Q1"
+    label: "Q1 FY27 Performance Review"
+    kind: "PDF"
+    url: "https://investors.delltechnologies.com/events/event-details/dell-technologies-fiscal-year-2027-first-quarter-results"
+  - period: "FY2026 Q4"
+    label: "Q4 FY26 Performance Review"
+    kind: "PDF"
+    url: "https://investors.delltechnologies.com/events/event-details/dell-technologies-fiscal-year-2026-fourth-quarter-results"
+
+PLTR:
+  - period: "2026 Q1"
+    label: "Q1 2026 Business Update"
+    kind: "PDF"
+    url: "https://investors.palantir.com/files/Palantir%20-%20Q1%202026%20Business%20Update.pdf"
+  - period: "2025 Q4"
+    label: "Q4 2025 Investor Presentation"
+    kind: "PDF"
+    url: "https://investors.palantir.com/files/Palantir%20-%20Q4%202025%20Investor%20Presentation.pdf"
+
+SOFI:
+  - period: "2026 Q1"
+    label: "Q1'26 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investors.sofi.com/overview/default.aspx"
+  - period: "2025 Q4"
+    label: "Q4'25 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investors.sofi.com/events-and-presentations/presentations/presentation-details/2026/Q425-Earnings-Presentation/default.aspx"
+
+NVDA:
+  - period: "FY2027 Q1"
+    label: "Q1 FY27 Quarterly Presentation"
+    kind: "PDF"
+    url: "https://s201.q4cdn.com/141608511/files/doc_financials/2027/Q127/NVDA-F1Q27-Quarterly-Presentation-FINAL.pdf"
+  - period: "FY2026 Q4"
+    label: "Q4 FY26 Quarterly Presentation"
+    kind: "PDF"
+    url: "https://s201.q4cdn.com/141608511/files/doc_financials/2026/Q426/NVDA-F4Q26-Quarterly-Presentation.pdf"
+
+IBM:
+  - period: "2026 Q1"
+    label: "1Q 2026 Earnings"
+    kind: "PDF"
+    url: "https://www.ibm.com/downloads/documents/us-en/15db805fff4249f2"
+  - period: "2025 Q4"
+    label: "4Q 2025 Earnings"
+    kind: "PDF"
+    url: "https://www.ibm.com/downloads/documents/us-en/1550f7eea8c0ded5"
+
+SNDK:
+  - period: "FY2026 Q1"
+    label: "Q1FY26 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investor.sandisk.com/news-events/presentations"
+  - period: "FY2025 Q4"
+    label: "Q4FY25 Earnings Presentation"
+    kind: "PDF"
+    url: "https://investor.sandisk.com/news-events/presentations"

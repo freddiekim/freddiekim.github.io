@@ -409,16 +409,44 @@ a:focus {
     margin: 0;
 }
 
-.analysis-card-reports {
+.company-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: -4px 0 14px;
+}
+
+.portfolio-weight {
+    align-items: center;
+    background: var(--poster-ink) !important;
+    border: 3px solid var(--poster-line);
+    border-radius: 999px;
+    color: var(--poster-cream) !important;
+    display: inline-flex;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1;
+    padding: 7px 10px;
+    text-transform: uppercase;
+}
+
+.portfolio-weight-watch {
+    background: var(--poster-blue) !important;
+}
+
+.analysis-card-reports,
+.analysis-card-earnings {
     grid-column: span 3;
     min-height: 0;
 }
 
-.analysis-card-reports .report-company-topline {
+.analysis-card-reports .report-company-topline,
+.analysis-card-earnings .report-company-topline {
     margin-bottom: 8px;
 }
 
-.analysis-card-reports .report-company-topline h3 {
+.analysis-card-reports .report-company-topline h3,
+.analysis-card-earnings .report-company-topline h3 {
     margin: 0;
 }
 
@@ -693,7 +721,8 @@ img {
 }
 
 @media (max-width: 900px) {
-    .analysis-card-reports {
+    .analysis-card-reports,
+    .analysis-card-earnings {
         grid-column: span 2;
     }
 }
@@ -728,7 +757,8 @@ img {
         font-size: 34px;
     }
 
-    .analysis-card-reports {
+    .analysis-card-reports,
+    .analysis-card-earnings {
         grid-column: span 1;
     }
 }

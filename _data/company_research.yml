@@ -1,5 +1,6 @@
 - ticker: AGYS
   name: Agilysys
+  portfolio_rank: 900
   thesis: "호텔, 리조트, 카지노 운영 소프트웨어를 수직 통합한 버티컬 SaaS 기업으로 봅니다."
   observation: "반복 매출 비중과 구독 성장률이 높아지고 있으며, PMS/POS/스파/결제/AI 모듈을 묶는 운영 데이터 레이어가 핵심 해자입니다."
   metrics:
@@ -15,6 +16,7 @@
 
 - ticker: BE
   name: Bloom Energy
+  portfolio_rank: 901
   thesis: "수소 테마주가 아니라 AI 데이터센터 전력 병목을 줄이는 온사이트 전력 인프라 기업으로 추적합니다."
   observation: "Q1 2026 매출 급증과 대규모 backlog는 AI 전력 수요가 주문과 실적으로 전환되고 있음을 보여주지만, 주가는 이미 공격적 성공 시나리오를 많이 반영했습니다."
   metrics:
@@ -30,6 +32,8 @@
 
 - ticker: DELL
   name: Dell Technologies
+  portfolio_rank: 6
+  portfolio_weight: 2.3
   thesis: "PC 제조사를 넘어 NVIDIA 기반 AI Factory, 서버, 스토리지, 서비스까지 묶는 턴키 AI 인프라 기업으로 재평가되는 구간입니다."
   observation: "AI 서버 주문, 출하, 백로그가 구조적 성장을 증명하고 있으나 총마진과 FCF 전환은 매 분기 확인해야 할 핵심 변수입니다."
   metrics:
@@ -45,6 +49,8 @@
 
 - ticker: GCTS
   name: GCT Semiconductor
+  portfolio_rank: 4
+  portfolio_weight: 3.9
   thesis: "레거시 LTE 칩셋 팹리스가 아니라 5G/FWA/ATG/위성 단말 연결을 가능하게 하는 특수 RF·baseband 플랫폼 옵션으로 추적합니다."
   observation: "Globalstar, 위성 reference platform, MaxLinear FWA, Gogo ATG가 동시에 연결되며 단순 소형 적자 팹리스에서 위성·FWA 단말 설계 레이어로 재평가될 여지가 생겼습니다."
   metrics:
@@ -60,6 +66,8 @@
 
 - ticker: GLW
   name: Corning
+  portfolio_rank: 2
+  portfolio_weight: 8.3
   thesis: "광섬유, 특수 유리, AI 데이터센터 연결 수요를 함께 받는 AI 인프라 공급망 수혜주로 봅니다."
   observation: "Optical 성장과 NVIDIA 공급망 재평가가 주가를 끌어올렸지만, 이미 포트폴리오 비중이 높다면 Q2 실적 확인 전 추가 매수는 신중해야 합니다."
   metrics:
@@ -75,6 +83,8 @@
 
 - ticker: IBM
   name: IBM
+  portfolio_rank: 10
+  portfolio_weight: 0.3
   thesis: "레거시 IT 기업에서 Red Hat, 하이브리드 클라우드, 엔터프라이즈 AI, 메인프레임 AI, 퀀텀 옵션을 가진 플랫폼 기업으로 전환 중입니다."
   observation: "Q1 2026은 FCF, 마진, EPS가 동반 개선됐고 소프트웨어와 IBM Z가 리레이팅 논리를 만들지만 컨설팅 성장 둔화가 핵심 반증 포인트입니다."
   metrics:
@@ -90,6 +100,7 @@
 
 - ticker: LPTH
   name: LightPath Technologies
+  portfolio_rank: 902
   thesis: "렌즈 부품주가 아니라 BlackDiamond 소재, G5 카메라, 방산 IR 이미징 주문을 묶는 defense photonics·IR subsystem 기업으로 재분류될 수 있는지 봅니다."
   observation: "G5 backlog, 58M 달러 익명 advanced IR camera 주문, Amorphous Materials 인수, 방산 프로그램 후보가 한 방향으로 쌓이며 component supplier에서 imaging subsystem supplier로 올라가는 변곡점입니다."
   metrics:
@@ -105,6 +116,7 @@
 
 - ticker: LWLG
   name: Lightwave Logic
+  portfolio_rank: 903
   thesis: "AI 클러스터 내부 데이터 전송 병목을 겨냥한 EO 폴리머 기반 실리콘 포토닉스 소재 기업입니다."
   observation: "파운드리 PDK 통합, 특허 확장, 리드 고객 협상은 상용화 가능성을 키우지만 아직 pre-revenue 단계라 이벤트 리스크가 큽니다."
   metrics:
@@ -120,6 +132,8 @@
 
 - ticker: MU
   name: Micron Technology
+  portfolio_rank: 3
+  portfolio_weight: 7.1
   thesis: "DRAM/NAND 사이클 기업을 넘어 HBM4, 데이터센터 SSD, 전략 고객 계약을 가진 AI 메모리 슈퍼사이클 수혜주로 추적합니다."
   observation: "HBM 공급 부족과 컨센서스 상향이 강한 리레이팅을 만들고 있지만, 단기 주가에는 이미 최상단 기대가 반영되기 시작했습니다."
   metrics:
@@ -135,6 +149,8 @@
 
 - ticker: NVDA
   name: NVIDIA
+  portfolio_rank: 9
+  portfolio_weight: 0.6
   thesis: "GPU 반도체 회사를 넘어 CUDA, 네트워킹, DPU, NIM, Vera Rubin CPU까지 묶은 AI 인프라 운영체제 기업입니다."
   observation: "데이터센터 성장과 Vera CPU 옵션이 아직 충분히 반영되지 않았다는 논리지만, 높은 기대치와 공급망 일정은 계속 검증해야 합니다."
   metrics:
@@ -150,6 +166,7 @@
 
 - ticker: PENG
   name: Penguin Solutions
+  portfolio_rank: 904
   thesis: "메모리 모듈·HPC 프로젝트 기업에서 MemoryAI CXL/KV Cache, ICE/OriginAI, SKT·SK hynix 협력을 묶은 AI factory platform integrator로 전환 중입니다."
   observation: "SKT 전략투자, SK hynix AIDC 협력, MemoryAI CXL KV Cache, Deepgram·Dell 레퍼런스가 연결되며 GPU 투자 이후의 온프레미스 inference 운영 병목을 해결하는 플랫폼 논리가 생겼습니다."
   metrics:
@@ -165,6 +182,8 @@
 
 - ticker: QCOM
   name: Qualcomm
+  portfolio_rank: 5
+  portfolio_weight: 3.7
   thesis: "스마트폰 모뎀/IP 기업에서 자동차, IoT, AI PC, 산업용 Edge AI를 묶는 connected edge 플랫폼으로 전환 중입니다."
   observation: "시장은 Apple 모뎀 손실과 핸드셋 사이클에 집중하지만, 자동차와 IoT가 실적으로 확인되면 리레이팅 여지가 있습니다."
   metrics:
@@ -180,6 +199,8 @@
 
 - ticker: SNDK
   name: SanDisk
+  portfolio_rank: 11
+  portfolio_weight: 0.3
   thesis: "소비자용 플래시 브랜드에서 AI 데이터센터 NAND와 장기 공급계약 기반의 스토리지 인프라 기업으로 전환 중입니다."
   observation: "NBM 다년 계약과 데이터센터 매출 폭증이 구조적 전환을 보여주지만, NAND 사이클과 고변동성은 가장 큰 관리 대상입니다."
   metrics:
@@ -195,6 +216,8 @@
 
 - ticker: SOFI
   name: SoFi Technologies
+  portfolio_rank: 8
+  portfolio_weight: 1.7
   thesis: "소비자 금융 앱, 은행, Galileo/Technisys 인프라를 동시에 가진 핀테크 플랫폼으로 봅니다."
   observation: "회원 증가와 매출 성장, 신규 상품 교차판매는 강하지만 Tech Platform 회복과 신용 품질이 리레이팅의 관건입니다."
   metrics:
@@ -210,6 +233,8 @@
 
 - ticker: TSLA
   name: Tesla
+  portfolio_rank: 1
+  portfolio_weight: 35.9
   thesis: "전기차 제조사를 넘어 에너지 저장장치, 충전 인프라, 자율주행 소프트웨어까지 확장하는 플랫폼 기업으로 추적합니다."
   observation: "투자 포인트는 차량 판매량만으로 보기보다 생산 효율, 가격 정책, FSD 채택률, 에너지 사업 성장성이 함께 움직이는지 확인하는 데 있습니다."
   metrics:
@@ -225,6 +250,8 @@
 
 - ticker: PLTR
   name: Palantir
+  portfolio_rank: 7
+  portfolio_weight: 2.1
   thesis: "정부와 기업 데이터를 운영 의사결정에 연결하는 AI 소프트웨어 플랫폼으로 추적합니다."
   observation: "높은 고객 락인과 전략적 데이터 플랫폼이라는 강점이 있지만, 밸류에이션을 정당화하려면 상업 고객 증가와 사용량 기반 확장이 꾸준히 확인되어야 합니다."
   metrics:
@@ -240,6 +267,7 @@
 
 - ticker: HIMS
   name: Hims & Hers Health
+  portfolio_rank: 905
   thesis: "원격 진료와 구독형 헬스케어를 결합해 남성 건강, 피부, 정신건강, 체중관리 영역을 넓히는 소비자 의료 플랫폼으로 봅니다."
   observation: "브랜드, 편의성, 구독 모델이 강점입니다. 다만 가입자 증가가 마케팅 비용 효율과 반복 매출 품질로 이어지는지 확인해야 합니다."
   metrics:
@@ -255,6 +283,7 @@
 
 - ticker: TEM
   name: Tempus AI
+  portfolio_rank: 906
   thesis: "임상 데이터와 AI를 결합해 정밀의료, 진단, 제약사 연구개발 효율화를 겨냥하는 헬스케어 데이터 기업으로 추적합니다."
   observation: "데이터 자산과 의료 현장 접점이 핵심입니다. 투자 판단에는 매출 성장뿐 아니라 손익 개선, 데이터 네트워크 확장, 제약사 파트너십의 반복성이 중요합니다."
   metrics:

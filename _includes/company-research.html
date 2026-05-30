@@ -9,6 +9,7 @@
 {% endfor %}
 {% assign report_ticker_list = report_tickers | split: "|" %}
 {% assign covered_tickers = "" %}
+{% assign companies = site.data.company_research | sort: "portfolio_rank" %}
 
 <section class="company-analysis-section" id="company-research">
     <div class="company-analysis-container">
@@ -21,10 +22,11 @@
         </div>
 
         <div class="company-research-list">
-            {% for company in site.data.company_research %}
+            {% for company in companies %}
                 {% assign ticker = company.ticker | upcase %}
                 {% assign covered_marker = "|" | append: ticker | append: "|" %}
                 {% assign covered_tickers = covered_tickers | append: covered_marker %}
+                {% assign earnings_links = site.data.earnings_presentations[ticker] %}
                 {% assign report_count = 0 %}
                 {% for report in report_files %}
                     {% assign current_ticker = report.name | split: "_" | first | upcase %}
@@ -37,6 +39,13 @@
                     <div class="company-research-heading">
                         <p class="analysis-kicker">{{ ticker }}</p>
                         <h3>{{ company.name }}</h3>
+                        <div class="company-meta-row">
+                            {% if company.portfolio_weight %}
+                                <span class="portfolio-weight">Portfolio {{ company.portfolio_weight }}%</span>
+                            {% else %}
+                                <span class="portfolio-weight portfolio-weight-watch">Research List</span>
+                            {% endif %}
+                        </div>
                         <p>{{ company.thesis }}</p>
                     </div>
 
@@ -68,6 +77,23 @@
                             <h3>다음 업데이트</h3>
                             <p>{{ company.next_update }}</p>
                         </article>
+
+                        {% if earnings_links %}
+                            <article class="analysis-card analysis-card-earnings">
+                                <div class="report-company-topline">
+                                    <h3>분기 실적 발표</h3>
+                                    <span class="report-count">{{ earnings_links.size }} link{% if earnings_links.size > 1 %}s{% endif %}</span>
+                                </div>
+                                <div class="company-report-links">
+                                    {% for item in earnings_links %}
+                                        <a class="report-link" href="{{ item.url }}" target="_self">
+                                            {{ item.period }}
+                                            <span>{{ item.label }} · {{ item.kind }}</span>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            </article>
+                        {% endif %}
 
                         <article class="analysis-card analysis-card-reports">
                             <div class="report-company-topline">
