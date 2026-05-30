@@ -19,14 +19,24 @@ GLW:
     url: "https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Outstanding-2025-Financial-Results-1--Upgrades-Springboard-Plan-for-Faster-Sales-Growth-on-Significantly-Enhanced-Financial-Profile/default.aspx"
 
 MU:
+  - period: "FY2026 Q2"
+    label: "FQ2 2026 Financial Results"
+    kind: "PDF"
+    url: "https://investors.micron.com/news-releases/news-release-details/micron-technology-inc-reports-results-second-quarter-fiscal-2026"
   - period: "FY2026 Q1"
     label: "FQ1 2026 Financial Results"
     kind: "PDF"
     url: "https://investors.micron.com/static-files/530bd7ed-a8c8-4687-af4a-8c129f740e09"
-  - period: "FY2025 Q4"
-    label: "FQ4 2025 Financial Results"
-    kind: "PDF"
-    url: "https://investors.micron.com/static-files/5fb98d73-2134-4446-8d1b-0f90285f6c02"
+
+INTC:
+  - period: "2026 Q1"
+    label: "Q1 2026 Earnings"
+    kind: "IR"
+    url: "https://www.intc.com/news-releases/news-release-details/intel-reports-first-quarter-2026-financial-results"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Earnings"
+    kind: "IR"
+    url: "https://www.intc.com/news-releases/news-release-details/intel-reports-fourth-quarter-and-full-year-2025-financial-results"
 
 GCTS:
   - period: "2026 Q1"
@@ -48,6 +58,26 @@ QCOM:
     kind: "PDF"
     url: "https://investor.qualcomm.com/news-events/investor-events/events/event-details/2026/Q1-FY26-Earnings-Conference-Call-2026--ikBLBPWLh/default.aspx"
 
+JBL:
+  - period: "FY2026 Q2"
+    label: "Q2 FY26 Earnings Results"
+    kind: "IR"
+    url: "https://investors.jabil.com/news-releases/news-release-details/jabil-reports-second-quarter-fiscal-year-2026-results"
+  - period: "FY2026 Q1"
+    label: "Q1 FY26 Earnings Results"
+    kind: "IR"
+    url: "https://investors.jabil.com/news-releases/news-release-details/jabil-reports-first-quarter-fiscal-year-2026-results"
+
+AMD:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://ir.amd.com/news-releases/news-release-details/amd-reports-first-quarter-2026-financial-results"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://ir.amd.com/news-releases/news-release-details/amd-reports-fourth-quarter-and-full-year-2025-financial-results"
+
 DELL:
   - period: "FY2027 Q1"
     label: "Q1 FY27 Performance Review"
@@ -68,6 +98,16 @@ PLTR:
     kind: "PDF"
     url: "https://investors.palantir.com/files/Palantir%20-%20Q4%202025%20Investor%20Presentation.pdf"
 
+MRVL:
+  - period: "FY2026 Q4"
+    label: "Q4 & FY 2026 Financial Results"
+    kind: "IR"
+    url: "https://investor.marvell.com/news-releases/news-release-details/marvell-technology-reports-fourth-quarter-and-fiscal-year-2026"
+  - period: "FY2026 Q3"
+    label: "Q3 FY2026 Financial Results"
+    kind: "IR"
+    url: "https://investor.marvell.com/news-releases/news-release-details/marvell-technology-reports-third-quarter-fiscal-year-2026"
+
 SOFI:
   - period: "2026 Q1"
     label: "Q1'26 Earnings Presentation"
@@ -77,6 +117,56 @@ SOFI:
     label: "Q4'25 Earnings Presentation"
     kind: "PDF"
     url: "https://investors.sofi.com/events-and-presentations/presentations/presentation-details/2026/Q425-Earnings-Presentation/default.aspx"
+
+AVGO:
+  - period: "FY2025 Q2"
+    label: "Q2 FY25 Earnings Presentation"
+    kind: "IR"
+    url: "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-reports-second-quarter-fiscal-year-2025-financial"
+  - period: "FY2025 Q1"
+    label: "Q1 FY25 Earnings Presentation"
+    kind: "IR"
+    url: "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-reports-first-quarter-fiscal-year-2025-financial"
+
+ADI:
+  - period: "FY2025 Q2"
+    label: "Q2 FY25 Financial Results"
+    kind: "IR"
+    url: "https://investor.analog.com/news-releases/news-release-details/analog-devices-reports-second-quarter-fiscal-year-2025-financial"
+  - period: "FY2025 Q1"
+    label: "Q1 FY25 Financial Results"
+    kind: "IR"
+    url: "https://investor.analog.com/news-releases/news-release-details/analog-devices-reports-first-quarter-fiscal-year-2025-financial"
+
+CDNS:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investor.cadence.com/news-releases/news-release-details/cadence-reports-first-quarter-2026-financial-results"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://investor.cadence.com/news-releases/news-release-details/cadence-reports-fourth-quarter-and-fiscal-year-2025-financial"
+
+COHR:
+  - period: "FY2025 Q3"
+    label: "Q3 FY25 Financial Results"
+    kind: "IR"
+    url: "https://ir.coherent.com/news-releases/news-release-details/coherent-reports-third-quarter-fiscal-2025-financial-results"
+  - period: "FY2025 Q2"
+    label: "Q2 FY25 Financial Results"
+    kind: "IR"
+    url: "https://ir.coherent.com/news-releases/news-release-details/coherent-reports-second-quarter-fiscal-2025-financial-results"
+
+MELI:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investor.mercadolibre.com/news-releases/news-release-details/mercadolibre-inc-reports-first-quarter-2026-financial-results"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://investor.mercadolibre.com/news-releases/news-release-details/mercadolibre-inc-reports-fourth-quarter-and-full-year-2025"
 
 NVDA:
   - period: "FY2027 Q1"
@@ -107,3 +197,113 @@ SNDK:
     label: "Q4FY25 Earnings Presentation"
     kind: "PDF"
     url: "https://investor.sandisk.com/news-events/presentations"
+
+AGYS:
+  - period: "FY2026 Q4"
+    label: "Q4 & FY 2026 Earnings"
+    kind: "IR"
+    url: "https://ir.agilysys.com/events-and-presentations/events"
+  - period: "FY2026 Q3"
+    label: "Q3 FY2026 Earnings"
+    kind: "IR"
+    url: "https://ir.agilysys.com/events-and-presentations/events"
+
+BE:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://www.bloomenergy.com/news/bloom-energy-reports-first-quarter-2026-financial-results/"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://www.bloomenergy.com/news/bloom-energy-reports-fourth-quarter-and-full-year-2025-financial-results/"
+
+LPTH:
+  - period: "FY2026 Q3"
+    label: "Q3 FY2026 Financial Results"
+    kind: "IR"
+    url: "https://ir.lightpath.com/news-releases"
+  - period: "FY2026 Q2"
+    label: "Q2 FY2026 Financial Results"
+    kind: "IR"
+    url: "https://ir.lightpath.com/news-releases"
+
+PENG:
+  - period: "FY2026 Q2"
+    label: "Q2 FY2026 Earnings"
+    kind: "IR"
+    url: "https://ir.penguinsolutions.com/news-releases"
+  - period: "FY2026 Q1"
+    label: "Q1 FY2026 Earnings"
+    kind: "IR"
+    url: "https://ir.penguinsolutions.com/news-releases"
+
+SKT:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.sktelecom.com/en/investor/irSchedule.do"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.sktelecom.com/en/investor/irSchedule.do"
+
+SK_HYNIX:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.skhynix.com/ir/index.jsp"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.skhynix.com/ir/index.jsp"
+
+SAMSUNG_ELEC:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.samsung.com/global/ir/financial-information/annual-report/"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.samsung.com/global/ir/financial-information/annual-report/"
+
+SAMSUNG_EM:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.samsungelektro.com/kor/ir/earning.do"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.samsungelektro.com/kor/ir/earning.do"
+
+NAVER:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://ir.naver.com/reports/quarterly-earnings"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://ir.naver.com/reports/quarterly-earnings"
+
+HYUNDAI_STEEL:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.hyundai-steel.com/en/irRelations/irCalendar.do"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.hyundai-steel.com/en/irRelations/irCalendar.do"
+
+DB_HITEK:
+  - period: "2026 Q1"
+    label: "2026년 1분기 실적발표"
+    kind: "IR"
+    url: "https://www.dbhitek.com/kor/ir/performance.do"
+  - period: "2025 Q4"
+    label: "2025년 4분기 실적발표"
+    kind: "IR"
+    url: "https://www.dbhitek.com/kor/ir/performance.do"
