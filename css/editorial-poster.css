@@ -376,6 +376,65 @@ a:focus {
     color: var(--poster-ink-soft) !important;
 }
 
+.company-research-list {
+    display: grid;
+    gap: 58px;
+    margin-top: 42px;
+}
+
+.company-research-item {
+    border-top: 6px solid var(--poster-line);
+    padding-top: 34px;
+}
+
+.company-research-heading {
+    margin-bottom: 24px;
+    max-width: 820px;
+}
+
+.company-research-heading h3 {
+    color: var(--poster-ink) !important;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 1;
+    margin: 0 0 12px;
+    text-transform: uppercase;
+}
+
+.company-research-heading p {
+    color: var(--poster-ink-soft) !important;
+    font-size: 1.12em;
+    line-height: 1.65;
+    margin: 0;
+}
+
+.analysis-card-reports {
+    grid-column: span 3;
+    min-height: 0;
+}
+
+.analysis-card-reports .report-company-topline {
+    margin-bottom: 8px;
+}
+
+.analysis-card-reports .report-company-topline h3 {
+    margin: 0;
+}
+
+.company-report-links {
+    display: grid;
+    gap: 0;
+}
+
+.report-empty {
+    margin: 0;
+}
+
+.other-reports {
+    margin-top: 58px;
+}
+
 .comments-container {
     margin: 0 auto;
     max-width: 1120px;
@@ -633,6 +692,12 @@ img {
     max-width: 100%;
 }
 
+@media (max-width: 900px) {
+    .analysis-card-reports {
+        grid-column: span 2;
+    }
+}
+
 @media (max-width: 768px) {
     .poster-sun {
         height: 112px;
@@ -657,5 +722,13 @@ img {
 
     .text-vertical-center {
         padding-top: 96px;
+    }
+
+    .company-research-heading h3 {
+        font-size: 34px;
+    }
+
+    .analysis-card-reports {
+        grid-column: span 1;
     }
 }

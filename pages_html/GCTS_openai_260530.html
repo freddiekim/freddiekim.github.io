@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GCTS 수정 리서치 보고서 — 놓친 포인트 반영판 — 2026-05-30</title>
+<style>
+:root{
+  --paper:#f7f0e4;--cream:#fffaf0;--ink:#18222d;--muted:#69727e;--line:#d9cdbb;
+  --teal:#2f7f79;--navy:#26384a;--coral:#d8785d;--mustard:#dfb75f;--sage:#8aa88e;--red:#b95049;--blue:#4c6f91;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.58}
+a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(47,127,121,.35)}
+.container{max-width:1180px;margin:0 auto;padding:30px 22px 70px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;background:var(--cream);border:2.5px solid var(--ink);box-shadow:10px 10px 0 var(--ink);border-radius:24px;padding:28px}
+.kicker{letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:900;font-size:13px}
+h1{font-size:43px;line-height:1.05;margin:10px 0 14px;letter-spacing:-.045em}
+h2{font-size:29px;line-height:1.2;margin:46px 0 14px;letter-spacing:-.035em;border-top:2px solid var(--ink);padding-top:22px}
+h3{font-size:20px;margin:30px 0 10px;letter-spacing:-.02em}
+p{margin:8px 0 14px}
+.sub{color:var(--muted);font-size:15px}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badge{border:1.5px solid var(--ink);border-radius:999px;padding:7px 12px;background:#f0e5d4;font-weight:800;font-size:13px}
+.badge.green{background:#dfe9dd}.badge.hot{background:#f3d2c4}.badge.blue{background:#dbe5ed}
+.hero-svg{width:100%;height:auto;border:2px solid var(--ink);border-radius:18px;background:#fbf5eb}
+.cardgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+.card{background:var(--cream);border:2px solid var(--ink);border-radius:18px;padding:17px;box-shadow:5px 5px 0 rgba(24,34,45,.95)}
+.card h3{margin:0 0 8px;font-size:18px} .card p{font-size:14px;margin:0;color:#263442}
+.callout{background:#e7efeb;border:2px solid var(--ink);border-radius:18px;padding:18px;margin:18px 0;box-shadow:5px 5px 0 var(--ink)}
+.warning{background:#f5dfd7} .neutral{background:#f1eadc}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;background:var(--cream);border:2px solid var(--ink);border-radius:16px;overflow:hidden}
+.tbl th,.tbl td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:14px}
+.tbl th{background:#e8dccb;font-weight:900} .tbl tr:last-child td{border-bottom:0}
+.small{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;border:1.3px solid var(--ink);border-radius:999px;padding:3px 8px;font-size:12px;font-weight:800;background:#efe3d1;margin:1px 2px}
+.tag.fact{background:#dfe9dd}.tag.infer{background:#f4e5b5}.tag.risk{background:#f4d2c8}
+.chartbox{background:var(--cream);border:2px solid var(--ink);border-radius:18px;padding:14px;margin:16px 0;box-shadow:5px 5px 0 var(--ink)}
+.chart{width:100%;height:auto;display:block}.chart-bg{fill:#fffaf0}.grid{stroke:#d7cbb8;stroke-width:1}.line{fill:none;stroke:var(--teal);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.dot{fill:var(--mustard);stroke:var(--ink);stroke-width:2}.tick{font-size:12px;fill:#65717b;font-weight:700}.bar1{fill:var(--sage);stroke:var(--ink);stroke-width:2}.bar2{fill:var(--teal);stroke:var(--ink);stroke-width:2}.bar3{fill:var(--mustard);stroke:var(--ink);stroke-width:2}.bar4{fill:var(--coral);stroke:var(--ink);stroke-width:2}.barlabel{font-size:13px;fill:var(--ink);font-weight:900}.axis{stroke:var(--ink);stroke-width:4;stroke-linecap:round}.mark{stroke-width:3;stroke:var(--teal)}.mark.bear{stroke:var(--red)}.mark.current{stroke:var(--ink);stroke-width:5}.mark-dot{fill:var(--teal);stroke:var(--ink);stroke-width:2}.mark-dot.bear{fill:var(--coral)}.mark-dot.current{fill:var(--mustard)}.ladderlabel{font-size:12px;fill:var(--ink);font-weight:900}.price{font-size:14px;fill:var(--ink);font-weight:900}
+.src{font-size:12px;color:#59636f}
+.source-table td{font-size:12px}
+hr{border:0;border-top:2px solid var(--ink);margin:28px 0}
+.decision{font-size:22px;font-weight:900;background:#e7efeb;border:2px solid var(--ink);border-radius:18px;padding:16px;box-shadow:5px 5px 0 var(--ink)}
+.final-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.final-item{border:2px solid var(--ink);background:var(--cream);border-radius:14px;padding:12px}.final-item b{display:block;font-size:13px;color:var(--muted)}.final-item span{font-size:20px;font-weight:900}
+@media(max-width:900px){.hero,.twocol,.cardgrid,.final-grid{grid-template-columns:1fr}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <div>
+      <div class="kicker">GCTS Revised Research • 2026-05-30</div>
+      <h1>GCT Semiconductor<br>놓친 포인트 반영<br>수정 보고서</h1>
+      <p class="sub">업로드 문서 3건을 기존 보고서와 대조해, <b>Amazon–Globalstar–Apple 전략 체인</b>, <b>Globalstar 공식 제품 채택</b>, <b>위성 reference platform의 lock-in 효과</b>, <b>million-unit-plus 옵션</b>, <b>희석/전환사채 수급 구조</b>를 다시 반영했습니다.</p>
+      <div class="badges"><span class="badge hot">현재가 $3.37</span><span class="badge green">Base $4.20</span><span class="badge blue">Bull $6.90</span><span class="badge">Overshoot $9.80</span><span class="badge hot">Action: Core Hold</span></div>
+    </div>
+    <svg class="hero-svg" viewBox="0 0 560 360" role="img" aria-label="flat vector illustration of satellite, chip and ground terminal">
+      <rect x="0" y="0" width="560" height="360" fill="#fffaf0"/>
+      <circle cx="458" cy="74" r="42" fill="#dfb75f" stroke="#18222d" stroke-width="4"/>
+      <path d="M40 274 C130 236 205 252 280 222 C355 192 450 210 520 169" fill="none" stroke="#26384a" stroke-width="4" stroke-linecap="round"/>
+      <rect x="225" y="148" width="110" height="88" rx="16" fill="#8aa88e" stroke="#18222d" stroke-width="5"/>
+      <rect x="252" y="174" width="56" height="36" rx="8" fill="#f7f0e4" stroke="#18222d" stroke-width="3"/>
+      <g stroke="#18222d" stroke-width="4" stroke-linecap="round">
+        <line x1="225" y1="168" x2="196" y2="168"/><line x1="225" y1="194" x2="196" y2="194"/><line x1="225" y1="220" x2="196" y2="220"/>
+        <line x1="335" y1="168" x2="364" y2="168"/><line x1="335" y1="194" x2="364" y2="194"/><line x1="335" y1="220" x2="364" y2="220"/>
+      </g>
+      <g transform="translate(80,58)">
+        <rect x="-22" y="-12" width="44" height="24" rx="5" fill="#d8785d" stroke="#18222d" stroke-width="3"/>
+        <rect x="-76" y="-18" width="46" height="36" rx="6" fill="#2f7f79" stroke="#18222d" stroke-width="3"/>
+        <rect x="30" y="-18" width="46" height="36" rx="6" fill="#2f7f79" stroke="#18222d" stroke-width="3"/>
+        <path d="M-6 14 L-24 54" stroke="#18222d" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="-29" cy="64" r="10" fill="#dfb75f" stroke="#18222d" stroke-width="3"/>
+      </g>
+      <g fill="none" stroke="#2f7f79" stroke-width="3" stroke-linecap="round">
+        <path d="M104 124 C165 108 204 122 238 154"/><path d="M322 154 C381 117 429 107 486 132"/><path d="M304 239 C360 284 421 289 481 260"/>
+      </g>
+      <g transform="translate(438,254)">
+        <rect x="-28" y="-44" width="56" height="82" rx="8" fill="#d8785d" stroke="#18222d" stroke-width="4"/>
+        <rect x="-16" y="-31" width="32" height="54" rx="4" fill="#fffaf0" stroke="#18222d" stroke-width="3"/>
+        <path d="M-54 44 H54" stroke="#18222d" stroke-width="5" stroke-linecap="round"/>
+      </g>
+      <text x="46" y="325" font-size="18" font-weight="900" fill="#18222d">Satellite • RF/Baseband • Ground Terminal</text>
+    </svg>
+  </section>
+
+  <h2>0. 기존 보고서에서 내가 놓친 것</h2>
+  <div class="callout warning">
+    <b>핵심 수정:</b> 이전 보고서는 GCTS를 “5G/FWA·위성 초기 램프업 소형 팹리스”로 보았지만, 업로드 문서와 공시를 다시 대조하면 <b>위성 단말 생태계의 표준 설계 레이어</b>로 진화할 가능성을 충분히 반영하지 못했습니다. 특히 <b>Globalstar 제품 채택 → Amazon의 Globalstar 인수 → Apple 위성 서비스 지속</b>이라는 전략 체인은 base DCF가 아니라 <b>리레이팅/전략가치 옵션</b>으로 따로 계산해야 합니다.</div>
+  <div class="cardgrid">
+    <div class="card"><h3>① Globalstar 공식 제품 채택</h3><p><span class="tag fact">검증</span> Globalstar RM200M은 GCT GDM7243i를 쓰고, 향후 제품은 GDM7243SL 및 5G IoT-enabled chipset을 사용할 계획입니다. 이전 보고서는 “대형 위성 고객”만 보았고 Globalstar의 직접 제품 채택을 과소반영했습니다. [S4][F1]</p></div>
+    <div class="card"><h3>② Amazon–Globalstar–Apple 체인</h3><p><span class="tag fact">검증</span> Amazon은 Globalstar를 인수해 MSS spectrum과 D2D 역량을 Amazon Leo에 결합하고, Apple 위성 서비스를 계속 지원한다고 발표했습니다. 다만 “GCTS가 Amazon 직접 고객”이라는 주장은 아직 미확인입니다. [S5][F1]</p></div>
+    <div class="card"><h3>③ Reference platform의 의미</h3><p><span class="tag fact">검증</span> 5월 7일 계약은 단순 라이선스가 아니라 OEM/ODM이 사용할 표준 설계도를 제공하는 구조입니다. 이는 칩 교체비용과 설계 lock-in을 크게 만듭니다. [S6][F3]</p></div>
+    <div class="card"><h3>④ Million-unit-plus 옵션</h3><p><span class="tag infer">강한 옵션</span> Q4 콜에서 CEO는 위성 파트너 물량을 연간 “million-unit-plus” 수준, 현 application에서는 “sole supplier”처럼 보인다고 설명했습니다. 이 한 문장이 bull case의 중심입니다. [S8][F3]</p></div>
+    <div class="card"><h3>⑤ 희석은 단순 리스크가 아니라 수급 변수</h3><p><span class="tag risk">리스크</span> Q1에 ATM으로 1,000만 주 발행, Indigo $4M 전환 완료, Obsidian $20M facility 가동 가능성이 확인됩니다. 주가 상단과 단기 변동성의 핵심입니다. [S3][F1]</p></div>
+    <div class="card"><h3>⑥ M&A 프리미엄은 base가 아닌 real option</h3><p><span class="tag infer">추론</span> Amazon/Apple/Qualcomm 방어적 인수 가능성은 논리적이지만 공시된 사실은 아닙니다. 따라서 base target에는 작게, bull/overshoot에는 크게 반영해야 합니다. [F1]</p></div>
+    <div class="card"><h3>⑦ SQNS와 아나패스 연결고리</h3><p><span class="tag infer">보조 축</span> 비스마트폰 셀룰러 IoT 피어 SQNS, 아나패스의 지씨티리써치 대여금/담보 구조는 시장이 보는 할인율과 funding risk를 이해하는 데 중요합니다. [F2][F3]</p></div>
+    <div class="card"><h3>⑧ 결론 수정</h3><p><span class="tag fact">변경</span> 단순 “일부 차익실현”보다, 현재가는 <b>core hold</b>가 더 합리적입니다. 다만 $4.40 이상 무검증 급등에는 15~20% 트림합니다.</p></div>
+    <div class="card"><h3>⑨ 미확인 가정 분리</h3><p><span class="tag risk">엄격화</span> 익명 위성 고객이 Globalstar/Amazon 진영인지는 공식 확인 전까지 추론입니다. 본 보고서는 검증 사실과 추론을 구분해 valuation에 반영합니다.</p></div>
+  </div>
+
+  <h2>1. 전통적 비즈니스 모델의 진화</h2>
+  <p>GCTS의 레거시는 4G LTE/4.5G/4.75G LTE 기반 통신 칩셋입니다. 기존 고객군은 CPE, 모바일 핫스팟, 라우터, M2M, 일부 스마트폰·통신장비였고, 스마트폰 메인 모뎀 시장의 Qualcomm과 정면승부하는 회사는 아니었습니다. 지금의 변화는 <b>스마트폰 외부의 5G</b>, 즉 기내 ATG, FWA, 위성-지상망 통합, IoT/NTN 단말에서 발생합니다.</p>
+  <p>업로드 문서의 가장 중요한 통찰은 “대형 팹리스가 보기에는 시장이 작고 규격이 까다로워 비어 있는 영역”입니다. GCTS는 단순 칩 판매에서 <b>RF + baseband + DSP를 통합한 SoC, reference platform, 고객별 tuning/support</b>를 제공하는 구조로 이동하고 있습니다. MaxLinear 파트너십도 Wi-Fi/네트워크 처리와 GCT cellular modem을 사전 통합해 OEM 비용을 낮추는 방향입니다. [S7]</p>
+  <table class="tbl"><tr><th>구분</th><th>과거</th><th>현재 전환</th><th>투자 판단</th></tr><tr><td>사업 정체성</td><td>4G LTE 칩셋 팹리스</td><td>5G/FWA/ATG/NTN 특화 connectivity platform</td><td>아직 시장은 평균 목표가 기준 legacy + 초기 램프업 수준으로 평가</td></tr><tr><td>제품 형태</td><td>개별 칩·모듈 지원</td><td>SoC + reference design + OEM/ODM enablement</td><td>단순 P/S보다 design-win duration을 반영해야 함</td></tr><tr><td>고객 전환비용</td><td>통신인증·SW 튜닝 중심</td><td>항공 인증, 위성/지상망 전환, UE reference platform</td><td>성공 시 lock-in 강함</td></tr></table>
+
+  <h2>2. 실적으로 증명되는 실체</h2>
+  <div class="twocol"><div><p>Q1 2026은 “매출 규모”보다 “출하 곡선”이 핵심입니다. 5G 칩셋 출하는 Q4 2025 약 1,900개에서 Q1 2026 3,000개로 늘었고, 회사는 2026년 내내 순차 성장을 기대한다고 밝혔습니다. Q1 매출은 $1.9M, gross margin은 49.3%였지만, 이 마진에는 서비스·라이선싱 성격의 높은 마진이 섞여 있어 제품 마진으로 오해하면 안 됩니다. [S2][F3]</p><p>Q4 컨콜의 핵심 숫자는 FWA backlog가 Q2부터 보일 수 있고, 위성 파트너 shipment는 H2 2026부터 시작될 가능성입니다. 또한 장기적으로 조정 EBITDA breakeven은 분기 매출 약 $25M run-rate, 즉 Q1 2027 전후를 회사가 언급했습니다. [S8]</p></div><div class="chartbox"><b>5G 출하량: 실체가 보이기 시작한 구간</b><svg viewBox="0 0 760 260" class="chart" role="img" aria-label="5G 출하량 추세와 확인 기준"><rect x="0" y="0" width="760" height="260" class="chart-bg"/><rect x="74.1" y="188.9" width="104.8" height="29.1" rx="8" class="bar1"/><text x="126.5" y="180.9" text-anchor="middle" class="barlabel">1,900</text><text x="126.5" y="246" text-anchor="middle" class="tick">Q4 25</text><rect x="243.1" y="172.1" width="104.8" height="45.9" rx="8" class="bar2"/><text x="295.5" y="164.1" text-anchor="middle" class="barlabel">3,000</text><text x="295.5" y="246" text-anchor="middle" class="tick">Q1 26</text><rect x="412.1" y="141.5" width="104.8" height="76.5" rx="8" class="bar3"/><text x="464.5" y="133.5" text-anchor="middle" class="barlabel">5,000</text><text x="464.5" y="246" text-anchor="middle" class="tick">Q2 trigger</text><rect x="581.1" y="65.0" width="104.8" height="153.0" rx="8" class="bar4"/><text x="633.5" y="57.0" text-anchor="middle" class="barlabel">10,000</text><text x="633.5" y="246" text-anchor="middle" class="tick">H2 sat. proof</text><line x1="42" x2="718" y1="218.0" y2="218.0" class="grid"/><text x="8" y="222.0" class="tick">0</text><line x1="42" x2="718" y1="130.0" y2="130.0" class="grid"/><text x="8" y="134.0" class="tick">5,750</text><line x1="42" x2="718" y1="42.0" y2="42.0" class="grid"/><text x="8" y="46.0" class="tick">11,500</text></svg><div class="src">Q4/Q1은 공시·컨콜 기준, Q2/H2는 본 보고서의 확인 기준입니다.</div></div></div>
+  <table class="tbl"><tr><th>지표</th><th>최근값</th><th>해석</th><th>다음 확인</th></tr><tr><td>Q1 2026 매출</td><td>$1.92M / YoY +287%</td><td>낮은 base에서 반등. 절대 규모는 아직 작음</td><td>Q2 $3.3M 이상이면 램프 확인</td></tr><tr><td>5G 출하</td><td>3,000 units / QoQ +58%</td><td>평가 단계에서 early deployment로 이동</td><td>Q2 5,000 units 이상이면 리레이팅 지속</td></tr><tr><td>Gross margin</td><td>49.3%</td><td>서비스·라이선싱 영향 포함. 제품 단독 마진은 낮게 봐야 함</td><td>제품 mix에서 35~40% 유지 여부</td></tr><tr><td>현금</td><td>$7.2M</td><td>분기 OpEx 대비 부족. funding risk 상존</td><td>ATM/Obsidian 사용 강도</td></tr><tr><td>미래 매출 가시성</td><td>Gogo, 위성 license/reference platform, MaxLinear FWA</td><td>수주금액보다는 shipment ramp와 design-win 지속성이 중요</td><td>위성 H2 초기 출하 확인</td></tr></table>
+
+  <h2>3. 컨센서스 리비전 분석</h2>
+  <p>현재 컨센서스 평균 목표가는 약 $3.47, 최고 목표가는 $4.40, 최저는 $3.00 수준입니다. 2026년 매출 컨센서스는 Q1 이후 $27.9M에서 $21.6M으로 낮아진 반면 EPS 추정은 -$0.46에서 -$0.43으로 소폭 개선됐다는 집계도 있습니다. 즉 애널리스트 모델은 아직 <b>위성 reference platform과 million-unit-plus 옵션을 완전히 자본화하지 않은 상태</b>로 보입니다. [S10]</p>
+  <p>현 국면에서는 평균 목표가보다 <b>최고 목표가와 비공식 bull case</b>가 더 중요합니다. 현재 주가 $3.37은 평균 목표가에는 근접했지만, 업로드 문서가 강조한 위성·D2D 옵션이 공식 출하로 확인되면 sell-side 평균 목표가 자체가 뒤늦게 올라갈 수 있습니다. 반대로 Q2/Q3에서 출하가 정체되면 평균 목표가 근처에서 주가가 되돌림을 받을 확률이 큽니다.</p>
+
+  <h2>4. 이벤트 드리븐 분석</h2>
+  <table class="tbl"><tr><th>시점</th><th>이벤트</th><th>상승 조건</th><th>하락 조건</th></tr><tr><td>2026 Q2 실적</td><td>5G 순차 성장 검증</td><td>매출 $3.3M+, 5G 5,000개+, 제품 GM 35% 근접</td><td>매출 $2.7M 미만 또는 출하 4,000개 미만</td></tr><tr><td>2026 H2</td><td>주요 위성 고객 초기 5G 출하</td><td>출하 개시 + OEM/ODM reference design 채택 신호</td><td>2027년으로 지연 또는 NDA 뒤 기대치만 유지</td></tr><tr><td>Computex 2026</td><td>MaxLinear FWA/AnyWAN 시연</td><td>구체적 OEM/통신사 pipeline 언급</td><td>단순 전시 수준, 주문 전환 부재</td></tr><tr><td>2026 Q3/Q4</td><td>위성·FWA backlog 가시화</td><td>분기 매출 $8M~$12M run-rate 접근</td><td>ATM만 증가하고 매출 ramp 부재</td></tr><tr><td>2027 Q1</td><td>EBITDA breakeven 경로</td><td>분기 매출 $25M run-rate 접근</td><td>고정비 흡수 실패, 추가 going concern 강화</td></tr></table>
+  <div class="callout neutral"><b>실적 발표 후 주가가 오르기 위한 조건:</b> 이제 단순 beat만으로는 부족합니다. <b>beat + shipment raise + H2 satellite schedule 유지 + 희석 완화</b>가 필요합니다. 주가가 이미 한 달에 150% 이상 움직였기 때문에, 다음 실적은 “숫자 확인”보다 “2026 H2 물량의 신뢰도”를 평가받는 이벤트입니다.</div>
+
+  <h2>5. M&A 및 수직계열화 전략</h2>
+  <p>GCTS 자체가 칩 제조공정을 수직계열화한 회사는 아닙니다. UMC, Samsung, TSMC 등 외부 foundry에 의존하는 fabless입니다. 따라서 “수직계열화”는 제조 내재화가 아니라 <b>기술 레이어 내재화</b>로 봐야 합니다.</p>
+  <table class="tbl"><tr><th>레이어</th><th>GCTS 보유/내재화</th><th>비고</th></tr><tr><td>RF</td><td>SoC 내 RF transceiver 통합</td><td>저전력·소형 form factor 장점 [S4][S7]</td></tr><tr><td>Baseband modem</td><td>핵심</td><td>Doppler, 약신호, satellite-terrestrial handoff가 차별화 지점</td></tr><tr><td>DSP</td><td>통합</td><td>GCT SoC는 RF/baseband/DSP 기능 통합 [S7]</td></tr><tr><td>Reference design</td><td>강화 중</td><td>위성 provider와 OEM/ODM enablement [S6]</td></tr><tr><td>Foundry/패키징</td><td>외부 의존</td><td>공급능력·선급비용·수율 리스크</td></tr><tr><td>클라우드/데이터/서비스</td><td>부재</td><td>Amazon/Apple/통신사 ecosystem에 올라타는 구조</td></tr></table>
+  <p>M&A optionality는 이번 수정 보고서에서 별도 가치로 반영합니다. Amazon의 Globalstar 인수, Apple 위성 서비스 지속, Qualcomm/MediaTek의 5G NTN 경쟁 포지션을 감안하면 GCTS의 “작지만 검증된 satellite-terrestrial endpoint chip IP”는 전략적 방어가치가 있습니다. 다만 공식 매각 절차나 인수 제안은 없으므로 base target에 직접 넣지 않습니다.</p>
+
+  <h2>6. 핵심 기술 디테일</h2>
+  <p>업로드 문서가 강조한 기술 포인트는 단순합니다. 일반 스마트폰 또는 저전력 IoT 단말이 위성과 직접 또는 복합적으로 통신하려면, 지상망 대비 훨씬 약한 신호, 고속 이동에 따른 Doppler shift, 배터리/안테나 크기 제한, 지상망-위성망 전환을 칩 수준에서 해결해야 합니다. 이는 “앱/소프트웨어”만으로 해결하기 어렵고 RF/baseband silicon 경험이 필요합니다.</p>
+  <table class="tbl"><tr><th>제품/플랫폼</th><th>용도</th><th>차별점</th><th>모방 난이도</th></tr><tr><td>GDM7243i</td><td>Globalstar RM200M, NB-IoT/저전력 tracking</td><td>협대역·저전력 IoT, 위성 GPS/추적기 적합</td><td>중간~높음: RF 튜닝/인증/전력 설계 누적 필요</td></tr><tr><td>GDM7243SL</td><td>4G LTE multi-mode, satellite-cellular 전환</td><td>저주파 450/380MHz, Cat-1bis/M1/NB, NTN 확장성</td><td>높음: 특수망/위성 IoT 디자인윈이 중요</td></tr><tr><td>5G chipset platform</td><td>Gogo ATG, FWA, 위성 UE</td><td>RF/baseband/DSP 통합, 고객별 application support</td><td>높음: volume보다 customer-specific integration이 장벽</td></tr><tr><td>Satellite reference platform</td><td>주요 위성 provider OEM/ODM UE 설계</td><td>표준 설계도 제공으로 time-to-market 단축</td><td>매우 높음: 설계 초기에 들어가면 교체비용 증가</td></tr></table>
+
+  <h2>7. 생태계 포지셔닝 및 Turnkey 역량</h2>
+  <p>GCTS는 hyperscaler cloud platform이 아니며 NVIDIA/AMD처럼 시스템 전체를 지배하지도 않습니다. 그러나 특정 vertical에서는 <b>단말 connectivity의 핵심 부품 + reference design provider</b> 역할을 할 수 있습니다.</p>
+  <table class="tbl"><tr><th>파트너/고객군</th><th>관계</th><th>의미</th></tr><tr><td>Globalstar</td><td>공식 IoT module/chip partnership</td><td>RM200M/GDM7243i, 향후 GDM7243SL/5G IoT-enabled chipset [S4]</td></tr><tr><td>Amazon Leo</td><td>직접 고객 미확인. Globalstar 인수로 간접 전략 연결</td><td>Amazon이 Globalstar spectrum/인프라를 흡수하며 GCT의 Globalstar exposure 가치 상승 [S5]</td></tr><tr><td>Apple</td><td>GCT 직접 고객 미확인. Globalstar 위성 서비스의 최종 ecosystem</td><td>Apple 위성 서비스 지속은 Globalstar network 안정성과 투자 지속성을 높임 [S5]</td></tr><tr><td>Gogo</td><td>5G ATG live network</td><td>항공 인증·실전 검증. switching cost 높음 [S8]</td></tr><tr><td>MaxLinear</td><td>FWA/converged gateway 공동개발</td><td>AnyWAN pre-integration으로 OEM design cost 절감 [S7]</td></tr><tr><td>Skylo/Iridium 등 NTN ecosystem</td><td>표준 기반 위성 IoT 협력</td><td>NTN/IoT option 확대</td></tr><tr><td>Orbic/Verizon FWA</td><td>LOI/개발 단계</td><td>본계약 전까지는 upside option</td></tr></table>
+
+  <h2>8. 가치 평가</h2>
+  <div class="chartbox"><b>목표가 사다리: 확인 전·후를 분리</b><svg viewBox="0 0 760 220" class="chart" role="img" aria-label="목표가 사다리"><rect x="0" y="0" width="760" height="220" class="chart-bg"/><line x1="46" x2="714" y1="110.0" y2="110.0" class="axis"/><line x1="62.7" x2="62.7" y1="80.0" y2="140.0" class="mark bear"/><circle cx="62.7" cy="110.0" r="8" class="mark-dot bear"/><text x="62.7" y="68.0" text-anchor="middle" class="ladderlabel">Thesis break</text><text x="62.7" y="164.0" text-anchor="middle" class="price">$2.20</text><line x1="96.1" x2="96.1" y1="80.0" y2="140.0" class="mark bear"/><circle cx="96.1" cy="110.0" r="8" class="mark-dot bear"/><text x="96.1" y="68.0" text-anchor="middle" class="ladderlabel">Conservative IV</text><text x="96.1" y="164.0" text-anchor="middle" class="price">$2.60</text><line x1="160.4" x2="160.4" y1="80.0" y2="140.0" class="mark current"/><circle cx="160.4" cy="110.0" r="8" class="mark-dot current"/><text x="160.4" y="68.0" text-anchor="middle" class="ladderlabel">Current</text><text x="160.4" y="164.0" text-anchor="middle" class="price">$3.37</text><line x1="229.7" x2="229.7" y1="80.0" y2="140.0" class="mark bull"/><circle cx="229.7" cy="110.0" r="8" class="mark-dot bull"/><text x="229.7" y="68.0" text-anchor="middle" class="ladderlabel">Base 12M</text><text x="229.7" y="164.0" text-anchor="middle" class="price">$4.20</text><line x1="346.6" x2="346.6" y1="80.0" y2="140.0" class="mark bull"/><circle cx="346.6" cy="110.0" r="8" class="mark-dot bull"/><text x="346.6" y="68.0" text-anchor="middle" class="ladderlabel">Post-Q2 re-rate</text><text x="346.6" y="164.0" text-anchor="middle" class="price">$5.60</text><line x1="455.2" x2="455.2" y1="80.0" y2="140.0" class="mark bull"/><circle cx="455.2" cy="110.0" r="8" class="mark-dot bull"/><text x="455.2" y="68.0" text-anchor="middle" class="ladderlabel">Bull</text><text x="455.2" y="164.0" text-anchor="middle" class="price">$6.90</text><line x1="697.3" x2="697.3" y1="80.0" y2="140.0" class="mark bull"/><circle cx="697.3" cy="110.0" r="8" class="mark-dot bull"/><text x="697.3" y="68.0" text-anchor="middle" class="ladderlabel">Overshoot</text><text x="697.3" y="164.0" text-anchor="middle" class="price">$9.80</text></svg><div class="src">Current: 2026-05-29 종가. Target은 본 보고서의 시나리오별 산정치.</div></div>
+
+  <h3>A. DCF — bear/base/bull</h3>
+  <table class="tbl"><tr><th>시나리오</th><th>매출 경로</th><th>마진/FCF</th><th>할인율/영구성장</th><th>주당가치</th><th>해석</th></tr><tr><td>Bear</td><td>2026 $14M → 2030 $65M</td><td>영업마진 8%, FCF margin 6~7%</td><td>18% / 2%</td><td>$1.60~$2.20</td><td>위성 지연, FWA 제한, 추가 희석</td></tr><tr><td>Base</td><td>2026 $24M → 2027 $60M → 2030 $150M</td><td>영업마진 15%, FCF margin 12%</td><td>16% / 3%</td><td>$3.80~$4.50</td><td>Gogo+FWA+위성 초기 출하 성공</td></tr><tr><td>Bull</td><td>2026 $34M → 2027 $100M → 2030 $300M</td><td>영업마진 22%, FCF margin 18~20%</td><td>15% / 3.5%</td><td>$6.50~$8.00</td><td>위성 물량이 실제 million-unit 경로 진입</td></tr></table>
+  <p>보수적 내재가치는 $2.60으로 둡니다. 이유는 base DCF 중간값이 $4 내외로 나오더라도, 현금 부족, going concern, ATM/전환사채 희석, 고객명 불확실성을 할인해야 하기 때문입니다.</p>
+
+  <h3>B. Owner earnings / FCF yield</h3>
+  <table class="tbl"><tr><th>가정</th><th>Normalized FCF</th><th>적정 FCF yield</th><th>적정 시총</th><th>주당 가치</th></tr><tr><td>Base 2029: 매출 $125M, FCF margin 12%</td><td>$15M</td><td>5.0%</td><td>$300M</td><td>$3.0~$3.5, 확인 후 $4.2 가능</td></tr><tr><td>Bull 2029: 매출 $230M, FCF margin 18%</td><td>$41M</td><td>4.5%</td><td>$900M</td><td>$7~$8</td></tr><tr><td>Strategic overshoot</td><td>FCF보다 전략가치/희소성</td><td>N/M</td><td>$1.0B+</td><td>$9~$10+</td></tr></table>
+
+  <h3>C. 상대가치</h3>
+  <p>현재 GCTS는 TTM 매출이 작아 EV/Sales가 70배 내외로 보일 수 있어 전통 비교는 왜곡됩니다. P/E, EV/EBITDA, P/FCF도 적자라 의미가 낮습니다. 따라서 2027 매출을 기준으로 보는 것이 더 타당합니다.</p>
+  <table class="tbl"><tr><th>피어/범주</th><th>특징</th><th>GCTS 대비</th><th>적용 멀티플</th></tr><tr><td>SQNS</td><td>IoT 셀룰러 칩셋, 긴 양산 이력, BTC treasury 왜곡</td><td>GCTS보다 검증됐으나 위성 5G option은 다름</td><td>정상화 후 1~3x Sales 가능</td></tr><tr><td>CEVA/SIMO/HIMX 등</td><td>수익성 있는 IP/팹리스</td><td>GCTS는 훨씬 위험하지만 성장 option 큼</td><td>수익성 확인 전 discount</td></tr><tr><td>RF/Connectivity 소형 팹리스</td><td>적자·고변동</td><td>GCTS는 위성 reference design으로 premium 가능</td><td>2027E 6~10x Sales</td></tr><tr><td>전략적 NTN asset</td><td>D2D/위성/IoT endpoint chip</td><td>고객명·출하 확인 시 희소성 premium</td><td>10~12x Sales overshoot</td></tr></table>
+
+  <h3>D. 리레이팅 가치</h3>
+  <p>이 회사의 리레이팅은 과거 평균 멀티플이 아니라 <b>정체성 변경</b>에서 나옵니다. 4G 소형 팹리스 → 5G ATG/FWA 초기 상용화 → 주요 위성 provider reference platform → Amazon/Globalstar/Apple ecosystem option 순서입니다. 현재 주가는 이미 단순 base보다 앞서가지만, 아직 bull case 전체를 반영했다고 보기는 어렵습니다.</p>
+  <table class="tbl"><tr><th>목표</th><th>가격</th><th>내재 가정</th><th>현재 반영 정도</th></tr><tr><td>보수적 내재가치</td><td>$2.60</td><td>위성 option 배제, 희석 할인</td><td>이미 상회</td></tr><tr><td>12개월 base target</td><td>$4.20</td><td>H2 위성 초기 출하, Q2/Q3 순차성장, 2027 매출 $50~60M</td><td>부분 반영</td></tr><tr><td>Bull target</td><td>$6.90</td><td>위성 물량 $80~100M revenue path, sole-supplier 가능성</td><td>아직 미반영</td></tr><tr><td>Overshoot target</td><td>$9.80</td><td>Amazon/Globalstar 노출 확인, M&A rumor, squeeze</td><td>수급/이벤트 구간에서만 가능</td></tr><tr><td>실적 전 trading target</td><td>$3.85~$4.40</td><td>컨센서스 고점 접근, 뉴스 momentum</td><td>실적 전 과열 구간</td></tr><tr><td>실적 후 re-rating target</td><td>$4.80~$5.60</td><td>Q2 beat + shipment raise + H2 위성 유지</td><td>조건부</td></tr></table>
+
+  <h2>9. 2020~2030 멀티플 밴드</h2>
+  <p>GCTS는 2024년 SPAC 이후 상장사로, 2020~2023의 상장 기준 P/E·P/FCF·EV/EBITDA 시계열은 실질적으로 비교 불가능합니다. 또한 2024~2026은 적자와 낮은 매출 base 때문에 P/E, P/FCF, EV/EBITDA가 대부분 N/M입니다. 따라서 실제 데이터와 미래 가정을 분리합니다.</p>
+  <table class="tbl"><tr><th>연도</th><th>구분</th><th>Revenue</th><th>P/E</th><th>EV/EBITDA</th><th>P/FCF</th><th>EV/Sales</th><th>비고</th></tr><tr><td>2020~2023</td><td>비상장/전 SPAC</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>비교 불가</td></tr><tr><td>2024</td><td>실제</td><td>$9.1M</td><td>N/M</td><td>N/M</td><td>N/M</td><td>높음</td><td>4G 감소, 5G 전환</td></tr><tr><td>2025</td><td>실제</td><td>$2.9M</td><td>N/M</td><td>N/M</td><td>N/M</td><td>100x+</td><td>전환 trough</td></tr><tr><td>2026E bear/base/bull</td><td>가정</td><td>$14M / $24M / $34M</td><td>N/M</td><td>N/M</td><td>N/M</td><td>10~25x</td><td>H2 위성 초기 출하 여부</td></tr><tr><td>2027E bear/base/bull</td><td>가정</td><td>$28M / $60M / $100M</td><td>N/M~흑전 전</td><td>N/M~20x</td><td>N/M</td><td>4~10x</td><td>리레이팅 핵심 연도</td></tr><tr><td>2028E bear/base/bull</td><td>가정</td><td>$40M / $95M / $165M</td><td>높음</td><td>12~25x</td><td>20~60x</td><td>3~8x</td><td>FCF 전환 여부</td></tr><tr><td>2029E~2030E</td><td>가정</td><td>$65M / $150M / $300M</td><td>20~40x</td><td>8~18x</td><td>15~35x</td><td>2~6x</td><td>성공 시 정상 팹리스 밴드</td></tr></table>
+  <div class="twocol"><div class="chartbox"><b>최근 1개월 주가 흐름</b><svg viewBox="0 0 760 260" class="chart" role="img" aria-label="GCTS 1개월 주가 흐름">
+        <rect x="0" y="0" width="760" height="260" class="chart-bg"/>
+        <line x1="38" x2="722" y1="222.0" y2="222.0" class="grid"/><text x="8" y="226.0" class="tick">$1.20</text><line x1="38" x2="722" y1="130.0" y2="130.0" class="grid"/><text x="8" y="134.0" class="tick">$2.58</text><line x1="38" x2="722" y1="38.0" y2="38.0" class="grid"/><text x="8" y="42.0" class="tick">$3.95</text>
+        <path d="M 38.0,214.0 L 70.6,208.6 L 103.1,195.9 L 135.7,202.6 L 168.3,200.6 L 200.9,200.6 L 233.4,201.9 L 266.0,188.5 L 298.6,195.2 L 331.1,193.2 L 363.7,205.3 L 396.3,205.9 L 428.9,179.8 L 461.4,129.7 L 494.0,114.9 L 526.6,119.0 L 559.1,71.5 L 591.7,75.5 L 624.3,81.5 L 656.9,85.5 L 689.4,52.7 L 722.0,76.8" class="line"/>
+        <circle cx="38.0" cy="214.0" r="4.2" class="dot"><title>4/29: $1.32</title></circle><circle cx="70.6" cy="208.6" r="4.2" class="dot"><title>4/30: $1.40</title></circle><circle cx="103.1" cy="195.9" r="4.2" class="dot"><title>5/1: $1.59</title></circle><circle cx="135.7" cy="202.6" r="4.2" class="dot"><title>5/4: $1.49</title></circle><circle cx="168.3" cy="200.6" r="4.2" class="dot"><title>5/5: $1.52</title></circle><circle cx="200.9" cy="200.6" r="4.2" class="dot"><title>5/6: $1.52</title></circle><circle cx="233.4" cy="201.9" r="4.2" class="dot"><title>5/7: $1.50</title></circle><circle cx="266.0" cy="188.5" r="4.2" class="dot"><title>5/8: $1.70</title></circle><circle cx="298.6" cy="195.2" r="4.2" class="dot"><title>5/11: $1.60</title></circle><circle cx="331.1" cy="193.2" r="4.2" class="dot"><title>5/12: $1.63</title></circle><circle cx="363.7" cy="205.3" r="4.2" class="dot"><title>5/13: $1.45</title></circle><circle cx="396.3" cy="205.9" r="4.2" class="dot"><title>5/14: $1.44</title></circle><circle cx="428.9" cy="179.8" r="4.2" class="dot"><title>5/15: $1.83</title></circle><circle cx="461.4" cy="129.7" r="4.2" class="dot"><title>5/18: $2.58</title></circle><circle cx="494.0" cy="114.9" r="4.2" class="dot"><title>5/19: $2.80</title></circle><circle cx="526.6" cy="119.0" r="4.2" class="dot"><title>5/20: $2.74</title></circle><circle cx="559.1" cy="71.5" r="4.2" class="dot"><title>5/21: $3.45</title></circle><circle cx="591.7" cy="75.5" r="4.2" class="dot"><title>5/22: $3.39</title></circle><circle cx="624.3" cy="81.5" r="4.2" class="dot"><title>5/26: $3.30</title></circle><circle cx="656.9" cy="85.5" r="4.2" class="dot"><title>5/27: $3.24</title></circle><circle cx="689.4" cy="52.7" r="4.2" class="dot"><title>5/28: $3.73</title></circle><circle cx="722.0" cy="76.8" r="4.2" class="dot"><title>5/29: $3.37</title></circle>
+        <text x="38.0" y="250" text-anchor="middle" class="tick">4/29</text><text x="200.9" y="250" text-anchor="middle" class="tick">5/6</text><text x="363.7" y="250" text-anchor="middle" class="tick">5/13</text><text x="526.6" y="250" text-anchor="middle" class="tick">5/20</text><text x="722.0" y="250" text-anchor="middle" class="tick">5/29</text>
+    </svg><div class="src">4/29~5/29 종가 기반. 5/15~5/21 구간에서 re-rating/squeeze 성격의 급등이 발생.</div></div><div class="chartbox"><b>시나리오별 목표가</b><svg viewBox="0 0 760 220" class="chart" role="img" aria-label="목표가 사다리"><rect x="0" y="0" width="760" height="220" class="chart-bg"/><line x1="46" x2="714" y1="110.0" y2="110.0" class="axis"/><line x1="62.7" x2="62.7" y1="80.0" y2="140.0" class="mark bear"/><circle cx="62.7" cy="110.0" r="8" class="mark-dot bear"/><text x="62.7" y="68.0" text-anchor="middle" class="ladderlabel">Thesis break</text><text x="62.7" y="164.0" text-anchor="middle" class="price">$2.20</text><line x1="96.1" x2="96.1" y1="80.0" y2="140.0" class="mark bear"/><circle cx="96.1" cy="110.0" r="8" class="mark-dot bear"/><text x="96.1" y="68.0" text-anchor="middle" class="ladderlabel">Conservative IV</text><text x="96.1" y="164.0" text-anchor="middle" class="price">$2.60</text><line x1="160.4" x2="160.4" y1="80.0" y2="140.0" class="mark current"/><circle cx="160.4" cy="110.0" r="8" class="mark-dot current"/><text x="160.4" y="68.0" text-anchor="middle" class="ladderlabel">Current</text><text x="160.4" y="164.0" text-anchor="middle" class="price">$3.37</text><line x1="229.7" x2="229.7" y1="80.0" y2="140.0" class="mark bull"/><circle cx="229.7" cy="110.0" r="8" class="mark-dot bull"/><text x="229.7" y="68.0" text-anchor="middle" class="ladderlabel">Base 12M</text><text x="229.7" y="164.0" text-anchor="middle" class="price">$4.20</text><line x1="346.6" x2="346.6" y1="80.0" y2="140.0" class="mark bull"/><circle cx="346.6" cy="110.0" r="8" class="mark-dot bull"/><text x="346.6" y="68.0" text-anchor="middle" class="ladderlabel">Post-Q2 re-rate</text><text x="346.6" y="164.0" text-anchor="middle" class="price">$5.60</text><line x1="455.2" x2="455.2" y1="80.0" y2="140.0" class="mark bull"/><circle cx="455.2" cy="110.0" r="8" class="mark-dot bull"/><text x="455.2" y="68.0" text-anchor="middle" class="ladderlabel">Bull</text><text x="455.2" y="164.0" text-anchor="middle" class="price">$6.90</text><line x1="697.3" x2="697.3" y1="80.0" y2="140.0" class="mark bull"/><circle cx="697.3" cy="110.0" r="8" class="mark-dot bull"/><text x="697.3" y="68.0" text-anchor="middle" class="ladderlabel">Overshoot</text><text x="697.3" y="164.0" text-anchor="middle" class="price">$9.80</text></svg><div class="src">미래 가정은 실제 데이터와 구분. Overshoot는 펀더멘털 가치보다 수급·전략가치 반영.</div></div></div>
+
+  <h2>10. 리스크 관리</h2>
+  <table class="tbl"><tr><th>리스크</th><th>Thesis 훼손 trigger</th><th>대응</th></tr><tr><td>위성 출하 지연</td><td>H2 2026 초기 5G 출하가 2027년으로 공식 지연</td><td>보유분 25~40% 축소</td></tr><tr><td>출하 성장 정체</td><td>Q2 5G 출하 4,000개 미만 또는 Q3 순차성장 실패</td><td>매수 금지, $2.30 이탈 시 축소</td></tr><tr><td>희석/going concern</td><td>분기 중 주식수 15~20% 이상 증가 + 매출 ramp 부재</td><td>반등 시 trimming</td></tr><tr><td>제품 마진 착시</td><td>서비스 매출 제거 후 제품 GM 25~30% 미만 지속</td><td>Bull case 제거</td></tr><tr><td>경쟁·고객 집중</td><td>Qualcomm/MediaTek/Sequans/내재화로 design win 상실</td><td>위성 reference platform 재확인 전 비중 축소</td></tr></table>
+  <p><b>실적마다 확인할 3개 지표:</b> ① 5G chipset units, ② H2 satellite initial shipment schedule와 OEM/ODM reference design 진척, ③ ATM/Obsidian/주식수 변화입니다.</p>
+
+  <h2>11. 주가 모멘텀 및 수급 분석</h2>
+  <p>5월 급등은 단일 요인이 아닙니다. Q1 3,000개 출하, 위성 license 확장, reference platform, MaxLinear FWA 파트너십, Amazon–Globalstar 뉴스에 따른 위성/D2D thematic re-rating, short interest 증가가 겹쳤습니다. 5월 15일 short interest는 506만 주, float의 7.38%, 전월 대비 +71.1%였습니다. days-to-cover는 0.8로 길지는 않지만, 소형주·낮은 기관 보유·뉴스 밀도 때문에 squeeze성 변동성이 큽니다. [S9]</p>
+  <p>현재 주가 상승의 성격은 <b>펀더멘털 개선 35%, multiple expansion 40%, 수급/short covering 25%</b>로 봅니다. 과열은 맞지만, 무조건 매도 신호라기보다 리레이팅 초기와 수급 과열이 겹친 상태입니다.</p>
+
+  <h2>12. 투자 결론</h2>
+  <div class="decision">수정 결론: “소형 적자 팹리스”가 아니라, <u>위성·FWA·ATG 단말 연결의 특수 RF/baseband platform option</u>으로 봐야 합니다.</div>
+  <p>시장이 여전히 오해하는 점은 매출 $1~2M대의 적자 소형 팹리스라는 레거시 잣대입니다. 반대로 시장이 너무 낙관적으로 보는 부분은 “Amazon=GCTS 직접 고객”처럼 아직 공시되지 않은 연결을 사실처럼 가격에 반영하려는 태도입니다.</p>
+  <p><b>가장 강한 conviction point:</b> reference platform 계약과 Q4 컨콜의 million-unit-plus/sole-supplier 언급은 단순 테마가 아니라 설계 lock-in 가능성을 보여줍니다.</p>
+  <p><b>가장 중요한 반증 포인트:</b> Q2/Q3에서 5G 출하가 순차 성장하지 않거나 H2 위성 출하가 지연되면, bull case는 최소 6~12개월 뒤로 밀립니다.</p>
+
+  <h2>13. 포트폴리오 관점</h2>
+  <p>보유 6,300주, 현재 포트 비중 3.9%는 GCTS의 upside option을 고려하면 완전히 과하지는 않지만, going concern·ATM·소형주 변동성을 감안하면 더 늘릴 단계도 아닙니다.</p>
+  <div class="decision">추천 행동: <b>A. 전량 보유</b> — 단, $4.40 이상 무검증 급등 시 15~20% 조건부 차익실현</div>
+  <table class="tbl"><tr><th>항목</th><th>구체적 행동</th></tr><tr><td>목표 비중</td><td>3.5~4.0%. 현재 3.9% 유지. 4.5% 초과 확대 금지.</td></tr><tr><td>현재가 행동</td><td>$3.37 부근에서는 전량 보유. 추격매수 금지.</td></tr><tr><td>매수 가격</td><td>$2.65~$2.85 조정 시 600~900주만 1차 추가, 단 부정적 financing/위성 지연 뉴스가 없을 때.</td></tr><tr><td>실적 전 행동</td><td>기본 보유. $3.85~$4.40 trading target 접근 시 신규매수 금지. $4.40~$4.60에서 새 데이터 없이 급등하면 900~1,200주 매도.</td></tr><tr><td>실적 후 좋은 경우</td><td>Q2 매출 $3.3M+, 5G 5,000개+, H2 위성 출하 유지, ATM 과도 사용 없음 → core 5,100~6,300주 보유, $5.60까지 hold.</td></tr><tr><td>실적 후 나쁜 경우</td><td>Q2 매출 $2.7M 미만 또는 출하 4,000개 미만 또는 위성 지연 → 1,500~2,500주 축소.</td></tr><tr><td>목표가 도달</td><td>$4.20은 일부 확인 구간이라 보유. $5.60~$6.90에서는 1,600~2,200주 차익. $9.80 overshoot에서는 총 보유의 최소 50% 차익.</td></tr><tr><td>손절/축소 기준</td><td>$2.20~$2.30 하향 이탈 + thesis 훼손 뉴스 동반 시 절반 축소. 단순 시장 조정만으로는 기계적 손절 금지.</td></tr></table>
+
+  <h2>14. 최종 판단</h2>
+  <div class="final-grid">
+    <div class="final-item"><b>현재 주가</b><span>$3.37</span></div>
+    <div class="final-item"><b>보수적 내재가치</b><span>$2.60</span></div>
+    <div class="final-item"><b>12개월 base</b><span>$4.20</span></div>
+    <div class="final-item"><b>Bull target</b><span>$6.90</span></div>
+    <div class="final-item"><b>Overshoot target</b><span>$9.80</span></div>
+    <div class="final-item"><b>하방 리스크</b><span>$2.20</span></div>
+    <div class="final-item"><b>12개월 기대수익률</b><span>+24.6%</span></div>
+    <div class="final-item"><b>보유 수량 기준 base 기대손익</b><span>+$5,229</span></div>
+  </div>
+  <table class="tbl"><tr><th>시나리오</th><th>목표가</th><th>수익률</th><th>6,300주 기준 손익</th></tr><tr><td>Base</td><td>$4.20</td><td>+24.6%</td><td>+5,229달러</td></tr><tr><td>Bull</td><td>$6.90</td><td>+104.7%</td><td>+22,239달러</td></tr><tr><td>Overshoot</td><td>$9.80</td><td>+190.8%</td><td>+40,509달러</td></tr><tr><td>Downside</td><td>$2.20</td><td>-34.7%</td><td>-7,371달러</td></tr></table>
+  <div class="callout"><b>가장 중요한 체크포인트:</b> Q2 5G 출하량이 5,000개 이상으로 순차 성장하고, 2026년 하반기 주요 위성 고객향 5G 초기 출하가 실제로 시작되는지입니다. 이 둘이 확인되면 GCTS는 단순 5G 칩셋 회사가 아니라 위성·지상망 통합 단말 reference platform 업체로 재평가됩니다.</div>
+
+  <h2>15. 참조 파일 및 출처</h2>
+  <table class="tbl source-table"><tr><th>ID</th><th>자료</th><th>링크</th><th>활용 내용</th></tr><tr><td><b>S1</b></td><td>현재 주가·거래량·시가총액</td><td>OpenAI Finance / Finviz / Market data pages</td><td>실시간/지연 시세는 공급자별 share count 차이로 시총이 달라질 수 있음</td></tr><tr><td><b>S2</b></td><td>Q1 2026 실적 발표</td><td><a href="https://www.businesswire.com/news/home/20260512443937/en/GCT-Semiconductor-Holding-Inc.-Provides-Business-Update-and-Reports-First-Quarter-2026-Financial-Results">링크</a></td><td>5G 출하 3,000개, 매출 $1.9M, Gross margin 49.3%, 현금 $7.2M, ATM $75M</td></tr><tr><td><b>S3</b></td><td>2026 Q1 10-Q</td><td><a href="https://www.sec.gov/Archives/edgar/data/1851961/000119312526219536/gcts-20260331.htm">링크</a></td><td>going concern, ATM, Indigo/Obsidian, 주식수/희석, 부채 구조</td></tr><tr><td><b>S4</b></td><td>Globalstar–GCT 공식 파트너십</td><td><a href="https://www.businesswire.com/news/home/20250304414446/en/GCT-Semiconductor-and-Globalstar-Partner-to-Develop-IoT-Modules-for-Two-Way-Satellite-Cellular-and-Band-53-Connectivity">링크</a></td><td>RM200M, GDM7243i, GDM7243SL, 5G IoT-enabled chipset</td></tr><tr><td><b>S5</b></td><td>Amazon–Globalstar–Apple 발표</td><td><a href="https://www.aboutamazon.com/news/company-news/amazon-globalstar-apple">링크</a></td><td>Amazon의 Globalstar 인수, Amazon Leo D2D, Apple 위성 서비스 지원</td></tr><tr><td><b>S6</b></td><td>위성 reference platform 계약</td><td><a href="https://www.businesswire.com/news/home/20260507726602/en/GCT-Semiconductor-Signs-Reference-Platform-Contract-with-Major-Satellite-Communications-Provider-to-Fast-Track-Global-5G-Deployment">링크</a></td><td>주요 위성사업자 UE reference design, OEM/ODM enablement</td></tr><tr><td><b>S7</b></td><td>MaxLinear–GCT FWA 파트너십</td><td><a href="https://www.businesswire.com/news/home/20260527203373/en/MaxLinear-and-GCT-Semiconductor-Partner-to-Develop-Next-Generation-5G-FWA-and-Converged-Gateways">링크</a></td><td>5G FWA/AnyWAN 게이트웨이, Wi-Fi + cellular modem pre-integration</td></tr><tr><td><b>S8</b></td><td>Q4 2025 컨퍼런스콜</td><td><a href="https://www.fool.com/earnings/call-transcripts/2026/03/25/gct-semiconductor-q4-2025-earnings-call-transcript/">링크</a></td><td>Gogo 1,900개, 위성 million-unit-plus, sole supplier 가능성, GM/OpEx 가이드</td></tr><tr><td><b>S9</b></td><td>Short interest</td><td><a href="https://www.marketbeat.com/stocks/NYSE/GCTS/short-interest/">링크</a></td><td>5/15/2026 short interest 5.06M, float 7.38%, +71.1%</td></tr><tr><td><b>S10</b></td><td>컨센서스/목표가</td><td><a href="https://www.investing.com/equities/concord-acquisition-iii-consensus-estimates">링크</a></td><td>평균 $3.47, 고점 $4.40, 저점 $3.00</td></tr><tr><td><b>F1</b></td><td>업로드 PDF: [주간레터] [$GCTS] 우주 저궤도 위성 산업에서 성장 변곡점</td><td>file:uploaded</td><td>Amazon–Globalstar–Apple, 전환사채/양산 발주/M&amp;A optionality 관점</td></tr><tr><td><b>F2</b></td><td>업로드 TXT: 그로스파파 GCTS 딥다이브</td><td>file:uploaded</td><td>Gogo/위성/Orbic 3축, SQNS peer, 아나패스 연결고리</td></tr><tr><td><b>F3</b></td><td>업로드 TXT: [기업점검] 3,000개가 증명한 것</td><td>file:uploaded</td><td>Q1 출하 3,000개, reference platform, H2 위성 출하 체크포인트</td></tr></table>
+  <p class="small">주의: 본 보고서는 투자 판단 보조 자료이며, 미공개 고객명·M&A 가능성·future shipment는 공시로 확인되기 전까지 확률적 시나리오입니다. 가격 목표는 기업가치와 수급/이벤트 overshoot를 구분한 분석용 범위이며 보장된 결과가 아닙니다.</p>
+</div>
+</body>
+</html>

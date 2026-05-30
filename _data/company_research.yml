@@ -1,0 +1,269 @@
+- ticker: AGYS
+  name: Agilysys
+  thesis: "호텔, 리조트, 카지노 운영 소프트웨어를 수직 통합한 버티컬 SaaS 기업으로 봅니다."
+  observation: "반복 매출 비중과 구독 성장률이 높아지고 있으며, PMS/POS/스파/결제/AI 모듈을 묶는 운영 데이터 레이어가 핵심 해자입니다."
+  metrics:
+    - "구독 매출 성장률 30% 이상 유지 여부"
+    - "반복 매출 비중과 조정 EBITDA 마진"
+    - "대형 호텔 체인 구현 일정과 고객 다변화"
+    - "AI CRS/Revenue Intelligence 매출 기여"
+  risks:
+    - "대형 고객 구현 지연에 따른 매출 인식 지연"
+    - "AI 기능 품질, 개인정보, 결제 보안 리스크"
+    - "Oracle, Mews, Toast, PAR와의 경쟁"
+  next_update: "FY2027 가이던스에서 구독 성장률, 마진, 대형 구현 진행률이 동시에 확인되는지 점검합니다."
+
+- ticker: BE
+  name: Bloom Energy
+  thesis: "수소 테마주가 아니라 AI 데이터센터 전력 병목을 줄이는 온사이트 전력 인프라 기업으로 추적합니다."
+  observation: "Q1 2026 매출 급증과 대규모 backlog는 AI 전력 수요가 주문과 실적으로 전환되고 있음을 보여주지만, 주가는 이미 공격적 성공 시나리오를 많이 반영했습니다."
+  metrics:
+    - "Product backlog 증가율과 실제 매출 전환률"
+    - "Non-GAAP gross margin 34% 유지 여부"
+    - "영업현금흐름과 FCF 흑자 지속성"
+    - "데이터센터 고객군 확대와 설치 속도"
+  risks:
+    - "밸류에이션 과열과 멀티플 압축"
+    - "Backlog가 매출과 현금흐름으로 늦게 전환될 리스크"
+    - "가스터빈, 원전, ESS, 유틸리티 계약 등 전력 대안 경쟁"
+  next_update: "실적 발표 때 backlog 전환, 마진, FCF가 동시에 개선되는지 확인하고 추격매수보다 조정 구간을 우선 봅니다."
+
+- ticker: DELL
+  name: Dell Technologies
+  thesis: "PC 제조사를 넘어 NVIDIA 기반 AI Factory, 서버, 스토리지, 서비스까지 묶는 턴키 AI 인프라 기업으로 재평가되는 구간입니다."
+  observation: "AI 서버 주문, 출하, 백로그가 구조적 성장을 증명하고 있으나 총마진과 FCF 전환은 매 분기 확인해야 할 핵심 변수입니다."
+  metrics:
+    - "AI 서버 주문, 출하, 백로그의 동시 증가"
+    - "ISG 영업마진과 총마진 방향"
+    - "FY27 AI server guide 60B 달러 이상 상향 여부"
+    - "Adjusted FCF와 운전자본 부담"
+  risks:
+    - "AI 서버 믹스 확대로 인한 저마진화"
+    - "실적 이벤트 전 기대감 과열"
+    - "신규 주문 둔화 또는 가이던스 상향 실패"
+  next_update: "실적 후 AI 서버 가이던스 상향, ISG 마진, FCF 개선이 확인될 때만 추가 비중 확대를 검토합니다."
+
+- ticker: GCTS
+  name: GCT Semiconductor
+  thesis: "레거시 LTE 칩셋 팹리스가 아니라 5G/FWA/ATG/위성 단말 연결을 가능하게 하는 특수 RF·baseband 플랫폼 옵션으로 추적합니다."
+  observation: "Globalstar, 위성 reference platform, MaxLinear FWA, Gogo ATG가 동시에 연결되며 단순 소형 적자 팹리스에서 위성·FWA 단말 설계 레이어로 재평가될 여지가 생겼습니다."
+  metrics:
+    - "Q2 매출 3.3M 달러 이상과 5G 출하 5,000개 이상"
+    - "H2 2026 위성 고객 초기 출하 일정 유지"
+    - "제품 gross margin 35~40% 유지 여부"
+    - "ATM, Obsidian, 전환증권 사용에 따른 주식수 희석"
+  risks:
+    - "위성 출하가 2027년으로 밀리는 일정 리스크"
+    - "희석과 going concern 부담이 매출 램프보다 빠르게 커질 리스크"
+    - "Qualcomm, MediaTek, Sequans 또는 고객 내재화로 design win이 약해질 리스크"
+  next_update: "다음 실적에서 매출, 5G 출하량, 위성 H2 일정, 희석 강도를 함께 확인하고, 데이터 없는 급등 구간은 트림 기준으로 봅니다."
+
+- ticker: GLW
+  name: Corning
+  thesis: "광섬유, 특수 유리, AI 데이터센터 연결 수요를 함께 받는 AI 인프라 공급망 수혜주로 봅니다."
+  observation: "Optical 성장과 NVIDIA 공급망 재평가가 주가를 끌어올렸지만, 이미 포트폴리오 비중이 높다면 Q2 실적 확인 전 추가 매수는 신중해야 합니다."
+  metrics:
+    - "Optical Communications 성장률 30% 이상 유지"
+    - "NVIDIA 및 AI 데이터센터 관련 매출 기여"
+    - "Springboard 2030 목표 상향 여부"
+    - "Q2 실적 발표 전후 마진과 수주 코멘트"
+  risks:
+    - "YTD 급등 후 밸류에이션 부담"
+    - "Solar 비용 초과와 수익성 변동"
+    - "AI CapEx 둔화 시 광통신 수요 조정"
+  next_update: "Q2 실적에서 Optical 성장, NVIDIA 파트너십, Springboard 목표가 유지 또는 상향되는지 확인합니다."
+
+- ticker: IBM
+  name: IBM
+  thesis: "레거시 IT 기업에서 Red Hat, 하이브리드 클라우드, 엔터프라이즈 AI, 메인프레임 AI, 퀀텀 옵션을 가진 플랫폼 기업으로 전환 중입니다."
+  observation: "Q1 2026은 FCF, 마진, EPS가 동반 개선됐고 소프트웨어와 IBM Z가 리레이팅 논리를 만들지만 컨설팅 성장 둔화가 핵심 반증 포인트입니다."
+  metrics:
+    - "소프트웨어 CC 성장률 8~10% 이상"
+    - "Red Hat 성장률과 OpenShift 수요"
+    - "컨설팅 CC 성장률 회복 여부"
+    - "FCF 성장과 가이던스 방향"
+  risks:
+    - "컨설팅 성장 구조적 둔화"
+    - "메인프레임 COBOL 현대화에 따른 IBM Z 이탈 가능성"
+    - "Confluent 통합, 부채, 퀀텀 CAPEX 부담"
+  next_update: "7월 Q2 실적에서 소프트웨어 성장, 컨설팅 회복, FCF 가이던스가 동시에 확인되는지 봅니다."
+
+- ticker: LPTH
+  name: LightPath Technologies
+  thesis: "렌즈 부품주가 아니라 BlackDiamond 소재, G5 카메라, 방산 IR 이미징 주문을 묶는 defense photonics·IR subsystem 기업으로 재분류될 수 있는지 봅니다."
+  observation: "G5 backlog, 58M 달러 익명 advanced IR camera 주문, Amorphous Materials 인수, 방산 프로그램 후보가 한 방향으로 쌓이며 component supplier에서 imaging subsystem supplier로 올라가는 변곡점입니다."
+  metrics:
+    - "Backlog 100M 달러 이상 유지와 매출 전환 속도"
+    - "Gross margin 37~40% 접근 여부"
+    - "Adjusted EBITDA 흑자와 cash burn 품질"
+    - "58M 달러 주문 고객의 출하, 반복주문, 고객 집중 공시"
+  risks:
+    - "Backlog가 실제 매출과 FCF로 전환되지 않는 리스크"
+    - "익명 고객 주문이 반복 가능한 방산 프로그램이 아니라 일회성 주문일 리스크"
+    - "S-3 shelf, earnout stock, 추가 발행에 따른 희석"
+  next_update: "Q4 FY2026/FY2027 초 실적에서 backlog, gross margin, EBITDA, 현금 소진, 대형 고객 주문 품질을 확인한 뒤 watchlist 강도를 조정합니다."
+
+- ticker: LWLG
+  name: Lightwave Logic
+  thesis: "AI 클러스터 내부 데이터 전송 병목을 겨냥한 EO 폴리머 기반 실리콘 포토닉스 소재 기업입니다."
+  observation: "파운드리 PDK 통합, 특허 확장, 리드 고객 협상은 상용화 가능성을 키우지만 아직 pre-revenue 단계라 이벤트 리스크가 큽니다."
+  metrics:
+    - "리드 고객 공급계약 체결 여부"
+    - "Stage 3 고객의 Stage 4 전환"
+    - "Telcordia, 패키징, 대량생산 검증"
+    - "현금 소진 속도와 추가 자금 조달 가능성"
+  risks:
+    - "양산 전환 실패 또는 고객 계약 지연"
+    - "TFLN, InP 등 경쟁 기술 성숙"
+    - "실적 이벤트 전후 변동성 확대"
+  next_update: "다음 실적 전후로 고객 단계 전환, 패키징 검증, 계약 발표가 있는지 확인하고 급등 시 일부 리스크 축소를 검토합니다."
+
+- ticker: MU
+  name: Micron Technology
+  thesis: "DRAM/NAND 사이클 기업을 넘어 HBM4, 데이터센터 SSD, 전략 고객 계약을 가진 AI 메모리 슈퍼사이클 수혜주로 추적합니다."
+  observation: "HBM 공급 부족과 컨센서스 상향이 강한 리레이팅을 만들고 있지만, 단기 주가에는 이미 최상단 기대가 반영되기 시작했습니다."
+  metrics:
+    - "HBM 가격과 bit shipment 성장률"
+    - "FY2026 Q3 실적과 다음 분기 가이던스"
+    - "Gross margin, operating margin, FCF 전환"
+    - "HBM4 계약 물량과 고객 집중도"
+  risks:
+    - "HBM 가격 하락 또는 공급 과잉"
+    - "중국 수출 규제와 지정학 리스크"
+    - "CapEx 과잉과 실적 발표 전 기대 과열"
+  next_update: "6월 24일 실적에서 beat and raise가 나오는지, HBM 가격과 마진이 thesis를 지지하는지 확인합니다."
+
+- ticker: NVDA
+  name: NVIDIA
+  thesis: "GPU 반도체 회사를 넘어 CUDA, 네트워킹, DPU, NIM, Vera Rubin CPU까지 묶은 AI 인프라 운영체제 기업입니다."
+  observation: "데이터센터 성장과 Vera CPU 옵션이 아직 충분히 반영되지 않았다는 논리지만, 높은 기대치와 공급망 일정은 계속 검증해야 합니다."
+  metrics:
+    - "데이터센터 매출 QoQ 성장률"
+    - "Vera Rubin 출하 일정과 초기 매출 인식"
+    - "Gross margin 회복 여부"
+    - "하이퍼스케일러 AI CapEx 지속성"
+  risks:
+    - "미중 수출 규제와 중국 매출 공백"
+    - "Vera Rubin 수율, 납기, HBM4 공급 병목"
+    - "AI CapEx 둔화와 기대치 과열"
+  next_update: "Q2 FY27 실적에서 Vera CPU 매출, 데이터센터 성장률, 마진 방향을 확인해 신규 매수 속도를 조절합니다."
+
+- ticker: PENG
+  name: Penguin Solutions
+  thesis: "메모리 모듈·HPC 프로젝트 기업에서 MemoryAI CXL/KV Cache, ICE/OriginAI, SKT·SK hynix 협력을 묶은 AI factory platform integrator로 전환 중입니다."
+  observation: "SKT 전략투자, SK hynix AIDC 협력, MemoryAI CXL KV Cache, Deepgram·Dell 레퍼런스가 연결되며 GPU 투자 이후의 온프레미스 inference 운영 병목을 해결하는 플랫폼 논리가 생겼습니다."
+  metrics:
+    - "Q3 매출 399M~405M 달러 이상과 FY26 가이던스 유지 또는 상향"
+    - "Integrated Memory 성장률과 MemoryAI 반복 주문"
+    - "Non-GAAP gross margin 28% 이상과 CXL 솔루션 마진"
+    - "OCF, 재고, 매출채권 정상화와 SK resale overhang"
+  risks:
+    - "현재 주가가 이미 bull/overshoot 일부를 반영한 밸류에이션 부담"
+    - "MemoryAI가 파일럿에 머물고 반복 매출로 이어지지 않을 리스크"
+    - "SK 지분, 전환사채, 전환우선주에 따른 경제적 희석과 오버행"
+  next_update: "7월 초로 추정되는 다음 실적에서 beat and raise, MemoryAI 고객 확대, gross margin 방어, FCF 품질을 확인할 때만 신규 진입을 재검토합니다."
+
+- ticker: QCOM
+  name: Qualcomm
+  thesis: "스마트폰 모뎀/IP 기업에서 자동차, IoT, AI PC, 산업용 Edge AI를 묶는 connected edge 플랫폼으로 전환 중입니다."
+  observation: "시장은 Apple 모뎀 손실과 핸드셋 사이클에 집중하지만, 자동차와 IoT가 실적으로 확인되면 리레이팅 여지가 있습니다."
+  metrics:
+    - "Automotive 매출 성장률과 FY29 경로"
+    - "IoT와 PC, XR, Industrial 성장률"
+    - "QCT EBT margin 유지 여부"
+    - "데이터센터 custom silicon 고객과 매출 공개"
+  risks:
+    - "Apple 모뎀 내재화로 인한 매출 공백"
+    - "중국 OEM 의존도와 수출 규제"
+    - "NVIDIA와 데이터센터 직접 경쟁 시 낮은 승산"
+  next_update: "Investor Day와 Q3 실적에서 자동차, IoT, 데이터센터 초기 신호가 숫자로 확인되는지 점검합니다."
+
+- ticker: SNDK
+  name: SanDisk
+  thesis: "소비자용 플래시 브랜드에서 AI 데이터센터 NAND와 장기 공급계약 기반의 스토리지 인프라 기업으로 전환 중입니다."
+  observation: "NBM 다년 계약과 데이터센터 매출 폭증이 구조적 전환을 보여주지만, NAND 사이클과 고변동성은 가장 큰 관리 대상입니다."
+  metrics:
+    - "NBM 계약 추가 체결과 구매 이행률"
+    - "데이터센터 세그먼트 매출 성장률"
+    - "Gross margin, NAND ASP, bit shipment"
+    - "HBF 표준화와 고객 채택"
+  risks:
+    - "NAND 사이클 반전"
+    - "Kioxia JV와 제조 거점 지정학 리스크"
+    - "고평가 논란과 높은 beta"
+  next_update: "Q4 실적과 신규 NBM 계약 발표에서 장기 계약 기반 매출 가시성이 유지되는지 확인합니다."
+
+- ticker: SOFI
+  name: SoFi Technologies
+  thesis: "소비자 금융 앱, 은행, Galileo/Technisys 인프라를 동시에 가진 핀테크 플랫폼으로 봅니다."
+  observation: "회원 증가와 매출 성장, 신규 상품 교차판매는 강하지만 Tech Platform 회복과 신용 품질이 리레이팅의 관건입니다."
+  metrics:
+    - "회원 수와 신규 상품 중 기존 회원 비중"
+    - "Tech Platform 매출 회복과 Galileo 계정 수"
+    - "NCO rate와 신용 비용"
+    - "EPS, 조정 순이익, 가이던스 상향 여부"
+  risks:
+    - "신용 리스크 악화"
+    - "Tech Platform 성장 정체와 빅테크 금융 진입"
+    - "금리 사이클과 주식 희석"
+  next_update: "Q2 실적에서 Tech Platform 성장 복원, 신용 품질, 연간 가이던스 상향 여부를 확인합니다."
+
+- ticker: TSLA
+  name: Tesla
+  thesis: "전기차 제조사를 넘어 에너지 저장장치, 충전 인프라, 자율주행 소프트웨어까지 확장하는 플랫폼 기업으로 추적합니다."
+  observation: "투자 포인트는 차량 판매량만으로 보기보다 생산 효율, 가격 정책, FSD 채택률, 에너지 사업 성장성이 함께 움직이는지 확인하는 데 있습니다."
+  metrics:
+    - "분기별 인도량과 생산량 차이"
+    - "자동차 부문 매출총이익률"
+    - "에너지 저장장치 배치량"
+    - "FSD 및 소프트웨어 매출 비중"
+  risks:
+    - "전기차 가격 경쟁 심화"
+    - "자율주행 규제와 기술 검증 지연"
+    - "CEO 리스크와 브랜드 신뢰도 변동"
+  next_update: "실적 발표 후 인도량, 마진, 에너지 사업 코멘트를 중심으로 thesis 유지 여부를 점검합니다."
+
+- ticker: PLTR
+  name: Palantir
+  thesis: "정부와 기업 데이터를 운영 의사결정에 연결하는 AI 소프트웨어 플랫폼으로 추적합니다."
+  observation: "높은 고객 락인과 전략적 데이터 플랫폼이라는 강점이 있지만, 밸류에이션을 정당화하려면 상업 고객 증가와 사용량 기반 확장이 꾸준히 확인되어야 합니다."
+  metrics:
+    - "미국 상업 부문 매출 성장률"
+    - "고객 수와 대형 계약 수"
+    - "영업이익률과 잉여현금흐름"
+    - "AIP Bootcamp 이후 전환 사례"
+  risks:
+    - "정부 계약 의존도와 예산 사이클"
+    - "높은 기대치가 반영된 주가"
+    - "AI 플랫폼 경쟁 심화"
+  next_update: "신규 고객 수, 순매출 유지율, 상업 부문 가이던스가 기존 성장 스토리를 강화하는지 확인합니다."
+
+- ticker: HIMS
+  name: Hims & Hers Health
+  thesis: "원격 진료와 구독형 헬스케어를 결합해 남성 건강, 피부, 정신건강, 체중관리 영역을 넓히는 소비자 의료 플랫폼으로 봅니다."
+  observation: "브랜드, 편의성, 구독 모델이 강점입니다. 다만 가입자 증가가 마케팅 비용 효율과 반복 매출 품질로 이어지는지 확인해야 합니다."
+  metrics:
+    - "구독자 수와 월평균 매출"
+    - "마케팅 비용 대비 매출 성장"
+    - "조정 EBITDA와 현금흐름"
+    - "신규 카테고리의 반복 구매율"
+  risks:
+    - "처방 의약품 규제 변화"
+    - "고객 획득 비용 상승"
+    - "체중관리 제품 경쟁과 공급 이슈"
+  next_update: "구독자 성장률, 마케팅 효율, 신규 카테고리 매출 기여도를 분기별로 업데이트합니다."
+
+- ticker: TEM
+  name: Tempus AI
+  thesis: "임상 데이터와 AI를 결합해 정밀의료, 진단, 제약사 연구개발 효율화를 겨냥하는 헬스케어 데이터 기업으로 추적합니다."
+  observation: "데이터 자산과 의료 현장 접점이 핵심입니다. 투자 판단에는 매출 성장뿐 아니라 손익 개선, 데이터 네트워크 확장, 제약사 파트너십의 반복성이 중요합니다."
+  metrics:
+    - "진단 및 데이터 서비스 매출 성장"
+    - "제약사와 병원 파트너십 확대"
+    - "매출총이익률과 영업손실 축소"
+    - "AI 제품의 실제 임상 도입 사례"
+  risks:
+    - "의료 데이터 규제와 개인정보 이슈"
+    - "수익성 전환 시점 불확실성"
+    - "진단 시장 경쟁과 보험 적용 변수"
+  next_update: "실적 발표 후 매출 성장의 질, 손실 축소 속도, 파트너십 확대 여부를 리서치 노트에 반영합니다."

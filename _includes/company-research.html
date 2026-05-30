@@ -1,0 +1,173 @@
+{% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign report_tickers = "" %}
+{% for report in report_files %}
+    {% assign report_ticker = report.name | split: "_" | first | upcase %}
+    {% assign report_marker = "|" | append: report_ticker | append: "|" %}
+    {% unless report_tickers contains report_marker %}
+        {% assign report_tickers = report_tickers | append: report_marker %}
+    {% endunless %}
+{% endfor %}
+{% assign report_ticker_list = report_tickers | split: "|" %}
+{% assign covered_tickers = "" %}
+
+<section class="company-analysis-section" id="company-research">
+    <div class="company-analysis-container">
+        <div class="company-analysis-heading">
+            <p class="analysis-kicker">Company Research</p>
+            <h2>Company Research</h2>
+            <p class="analysis-thesis">
+                보유·관심 기업의 투자 논리, 추적 지표, 리스크, 원문 리포트를 한 화면에서 봅니다.
+            </p>
+        </div>
+
+        <div class="company-research-list">
+            {% for company in site.data.company_research %}
+                {% assign ticker = company.ticker | upcase %}
+                {% assign covered_marker = "|" | append: ticker | append: "|" %}
+                {% assign covered_tickers = covered_tickers | append: covered_marker %}
+                {% assign report_count = 0 %}
+                {% for report in report_files %}
+                    {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                    {% if current_ticker == ticker %}
+                        {% assign report_count = report_count | plus: 1 %}
+                    {% endif %}
+                {% endfor %}
+
+                <article class="company-research-item" id="company-{{ ticker | downcase }}">
+                    <div class="company-research-heading">
+                        <p class="analysis-kicker">{{ ticker }}</p>
+                        <h3>{{ company.name }}</h3>
+                        <p>{{ company.thesis }}</p>
+                    </div>
+
+                    <div class="analysis-grid">
+                        <article class="analysis-card analysis-card-wide">
+                            <h3>핵심 관찰</h3>
+                            <p>{{ company.observation }}</p>
+                        </article>
+
+                        <article class="analysis-card">
+                            <h3>추적 지표</h3>
+                            <ul>
+                                {% for metric in company.metrics %}
+                                    <li>{{ metric }}</li>
+                                {% endfor %}
+                            </ul>
+                        </article>
+
+                        <article class="analysis-card">
+                            <h3>리스크</h3>
+                            <ul>
+                                {% for risk in company.risks %}
+                                    <li>{{ risk }}</li>
+                                {% endfor %}
+                            </ul>
+                        </article>
+
+                        <article class="analysis-card">
+                            <h3>다음 업데이트</h3>
+                            <p>{{ company.next_update }}</p>
+                        </article>
+
+                        <article class="analysis-card analysis-card-reports">
+                            <div class="report-company-topline">
+                                <h3>분석 리포트</h3>
+                                <span class="report-count">{{ report_count }} report{% if report_count > 1 %}s{% endif %}</span>
+                            </div>
+                            {% if report_count > 0 %}
+                                <div class="company-report-links">
+                                    {% for report in report_files %}
+                                        {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                                        {% if current_ticker == ticker %}
+                                            {% assign report_parts = report.name | remove: ".html" | split: "_" %}
+                                            {% assign report_date_raw = report_parts | last %}
+                                            {% assign first_part = report.name | split: "_" | first %}
+                                            {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
+                                            <a class="report-link" href="{{ report.path | relative_url }}" target="_self">
+                                                {% if report_label == "" %}
+                                                    투자 분석 보고서
+                                                {% else %}
+                                                    {{ report_label | replace: "IR", "IR" | replace: "ir", "IR" | replace: "claude", "Claude" | replace: "openai", "OpenAI" | replace: "investment", "Investment" | replace: "report", "Report" | replace: "analysis", "Analysis" }}
+                                                {% endif %}
+                                                {% if report_date_raw.size == 8 %}
+                                                    <span>{{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}</span>
+                                                {% elsif report_date_raw.size == 6 %}
+                                                    <span>20{{ report_date_raw | slice: 0, 2 }}.{{ report_date_raw | slice: 2, 2 }}.{{ report_date_raw | slice: 4, 2 }}</span>
+                                                {% endif %}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="report-empty">연결된 HTML 리포트가 아직 없습니다.</p>
+                            {% endif %}
+                        </article>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+        {% assign has_other_reports = false %}
+        {% for ticker in report_ticker_list %}
+            {% if ticker != "" %}
+                {% assign ticker_marker = "|" | append: ticker | append: "|" %}
+                {% unless covered_tickers contains ticker_marker %}
+                    {% assign has_other_reports = true %}
+                {% endunless %}
+            {% endif %}
+        {% endfor %}
+
+        {% if has_other_reports %}
+            <article class="company-research-item other-reports" id="other-reports">
+                <div class="company-research-heading">
+                    <p class="analysis-kicker">Other Reports</p>
+                    <h3>기타</h3>
+                    <p>요약 카드가 아직 준비되지 않은 신규 리포트입니다. 요약이 추가되면 정식 회사 카드로 이동합니다.</p>
+                </div>
+                <div class="report-company-grid">
+                    {% for ticker in report_ticker_list %}
+                        {% if ticker != "" %}
+                            {% assign ticker_marker = "|" | append: ticker | append: "|" %}
+                            {% unless covered_tickers contains ticker_marker %}
+                                {% assign report_count = 0 %}
+                                {% for report in report_files %}
+                                    {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                                    {% if current_ticker == ticker %}
+                                        {% assign report_count = report_count | plus: 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                <article class="report-company-card" id="report-{{ ticker | downcase }}">
+                                    <div class="report-company-topline">
+                                        <span class="report-ticker">{{ ticker }}</span>
+                                        <span class="report-count">{{ report_count }} report{% if report_count > 1 %}s{% endif %}</span>
+                                    </div>
+                                    {% for report in report_files %}
+                                        {% assign current_ticker = report.name | split: "_" | first | upcase %}
+                                        {% if current_ticker == ticker %}
+                                            {% assign report_parts = report.name | remove: ".html" | split: "_" %}
+                                            {% assign report_date_raw = report_parts | last %}
+                                            {% assign first_part = report.name | split: "_" | first %}
+                                            {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
+                                            <a class="report-link" href="{{ report.path | relative_url }}" target="_self">
+                                                {% if report_label == "" %}
+                                                    투자 분석 보고서
+                                                {% else %}
+                                                    {{ report_label | replace: "IR", "IR" | replace: "ir", "IR" | replace: "claude", "Claude" | replace: "openai", "OpenAI" | replace: "investment", "Investment" | replace: "report", "Report" | replace: "analysis", "Analysis" }}
+                                                {% endif %}
+                                                {% if report_date_raw.size == 8 %}
+                                                    <span>{{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}</span>
+                                                {% elsif report_date_raw.size == 6 %}
+                                                    <span>20{{ report_date_raw | slice: 0, 2 }}.{{ report_date_raw | slice: 2, 2 }}.{{ report_date_raw | slice: 4, 2 }}</span>
+                                                {% endif %}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </article>
+                            {% endunless %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </article>
+        {% endif %}
+    </div>
+</section>

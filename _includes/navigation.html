@@ -9,12 +9,9 @@
       <a href="#top">Home</a>
     </li>
     <li>
-      <a href="#research-library">Research Library</a>
+      <a href="#company-research">Company Research</a>
     </li>
-    <li>
-      <a href="#comments">Comments</a>
-    </li>
-    <li class="sidebar-section-label">Reports</li>
+    <li class="sidebar-section-label">Companies</li>
     {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
     {% assign report_tickers = "" %}
     {% for report in report_files %}
@@ -25,27 +22,32 @@
       {% endunless %}
     {% endfor %}
     {% assign report_ticker_list = report_tickers | split: "|" %}
+    {% assign covered_tickers = "" %}
+    {% for company in site.data.company_research %}
+      {% assign ticker = company.ticker | upcase %}
+      {% assign covered_marker = "|" | append: ticker | append: "|" %}
+      {% assign covered_tickers = covered_tickers | append: covered_marker %}
+      <li>
+        <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">{{ ticker }}</a>
+      </li>
+    {% endfor %}
+    {% assign has_other_reports = false %}
     {% for ticker in report_ticker_list %}
       {% if ticker != "" %}
-        <li>
-          <a class="sidebar-report-link" href="#report-{{ ticker | downcase }}">{{ ticker }}</a>
-        </li>
+        {% assign ticker_marker = "|" | append: ticker | append: "|" %}
+        {% unless covered_tickers contains ticker_marker %}
+          {% assign has_other_reports = true %}
+        {% endunless %}
       {% endif %}
     {% endfor %}
-    <li class="sidebar-section-label">Watchlist</li>
+    {% if has_other_reports %}
+      <li>
+        <a class="sidebar-report-link" href="#other-reports">기타</a>
+      </li>
+    {% endif %}
     <li>
-      <a href="#tesla">Tesla</a>
+      <a href="#comments">Comments</a>
     </li>
-    <li>
-      <a href="#palantir">Palantir</a>
-    </li>
-    <li>
-      <a href="#hims">Hims&Hers Health</a>
-    </li>
-    <li>
-      <a href="#tempusai">Tempus AI</a>
-    </li>
-
     <li>
       <a href="../pages/about.html">About</a>
     </li>
