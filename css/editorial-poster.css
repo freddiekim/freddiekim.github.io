@@ -416,7 +416,8 @@ a:focus {
     margin: -4px 0 14px;
 }
 
-.portfolio-weight {
+.portfolio-weight,
+.portfolio-role {
     align-items: center;
     background: var(--poster-ink) !important;
     border: 3px solid var(--poster-line);
@@ -432,6 +433,23 @@ a:focus {
 
 .portfolio-weight-watch {
     background: var(--poster-blue) !important;
+}
+
+.portfolio-role-striker {
+    background: var(--poster-red) !important;
+}
+
+.portfolio-role-midfielder {
+    background: var(--poster-blue) !important;
+}
+
+.portfolio-role-defender {
+    background: var(--poster-sun) !important;
+    color: var(--poster-ink) !important;
+}
+
+.portfolio-role-other {
+    background: var(--poster-green) !important;
 }
 
 .analysis-card-reports,

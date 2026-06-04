@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVCO Forensic Deep Dive — 2026-06-02 기준</title>
+<style>
+:root {
+  --ink:#1f2a2e; --muted:#627177; --paper:#fbfaf5; --card:#ffffff; --line:#d9dedb;
+  --mint:#9ed7c3; --terr:#e8a37d; --blue:#8db4d7; --yellow:#f0d77b; --red:#d87972; --green:#7fb493;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.58}
+a{color:#255b6f;text-decoration:none;border-bottom:1px solid #255b6f}
+.cover{padding:58px 42px 34px;border-bottom:1px solid var(--line);background:#f3efe5;position:relative;overflow:hidden}
+.cover h1{font-size:38px;line-height:1.1;margin:0 0 14px;letter-spacing:-.04em}
+.cover .sub{font-size:16px;color:var(--muted);max-width:980px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px}
+.poster{position:absolute;right:35px;top:30px;width:190px;height:190px}
+.container{max-width:1180px;margin:0 auto;padding:34px 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+h2{font-size:25px;margin:0 0 16px;letter-spacing:-.03em}
+h3{font-size:19px;margin:24px 0 10px;letter-spacing:-.02em}
+p{margin:9px 0}
+.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.col4{grid-column:span 4} .col6{grid-column:span 6} .col8{grid-column:span 8} .col12{grid-column:span 12}
+.metric{background:#f7f5ee;border:1px solid var(--line);border-radius:16px;padding:16px}
+.metric .label{color:var(--muted);font-size:13px}
+.metric .value{font-size:26px;font-weight:800;letter-spacing:-.03em}
+.metric .note{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+th{background:#f1eee5;text-align:left;font-weight:700}
+tr:last-child td{border-bottom:0}
+.dense th,.dense td{font-size:12px;padding:9px 10px}
+.callout{border-left:6px solid var(--terr);background:#fff8ef;border-radius:14px;padding:16px;margin:14px 0}
+.good{border-left-color:var(--green);background:#f3faf6}
+.bad{border-left-color:var(--red);background:#fff3f2}
+.neutral{border-left-color:var(--blue);background:#f3f8fc}
+.tag{display:inline-block;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:2px 4px 2px 0;background:#fff}
+ul{padding-left:20px}
+li{margin:5px 0}
+.chart,.map{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0}
+.svg-title{font:700 18px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}
+.svg-small{font:12px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#627177}
+.axis{stroke:#c8cfcb;stroke-width:1}
+.bar1{fill:#8db4d7} .bar2{fill:#9ed7c3} .bar3{fill:#f0d77b} .bar4{fill:#e8a37d}
+.node-core{fill:#f0d77b;stroke:#1f2a2e;stroke-width:1.5}
+.node-a{fill:#9ed7c3;stroke:#1f2a2e}.node-b{fill:#8db4d7;stroke:#1f2a2e}.node-c{fill:#e8a37d;stroke:#1f2a2e}
+.node-d{fill:#f0d77b;stroke:#1f2a2e}.node-e{fill:#c9d6a4;stroke:#1f2a2e}.node-f{fill:#d87972;stroke:#1f2a2e}
+.link{stroke:#627177;stroke-width:2;fill:none}
+.map-title{font:800 24px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}
+.map-text{font:700 15px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}
+.map-small{font:12px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#445055}
+.footer{font-size:12px;color:var(--muted);padding:20px 0 50px}
+@media(max-width:800px){.cover{padding:38px 20px}.poster{display:none}.container{padding:22px 14px}.col4,.col6,.col8{grid-column:span 12}th,td{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="cover">
+  <svg class="poster" viewBox="0 0 220 220" aria-hidden="true">
+    <rect x="18" y="18" width="184" height="184" rx="28" fill="#ffffff" stroke="#d9dedb"/>
+    <circle cx="68" cy="70" r="28" fill="#9ed7c3"/>
+    <rect x="105" y="48" width="58" height="58" rx="10" fill="#f0d77b" stroke="#1f2a2e"/>
+    <path d="M48 143h126" stroke="#1f2a2e" stroke-width="6" stroke-linecap="round"/>
+    <path d="M70 164h82" stroke="#8db4d7" stroke-width="15" stroke-linecap="round"/>
+    <circle cx="155" cy="139" r="20" fill="#e8a37d" stroke="#1f2a2e"/>
+  </svg>
+  <div class="kicker">Forensic Equity Deep Dive · Silvaco Group, Inc. (SVCO)</div>
+  <h1>시장이 놓친 구조적 변곡점:<br>TCAD/EDA 소형주에서 AI 공정 디지털 트윈 + 실리콘 IP 레이어로</h1>
+  <div class="sub">분석 기준일: 2026-06-02 정규장 종가 기준. 현재 주가 확인: finance feed 기준 $12.17, MarketScreener 6/2 정규장 종가도 $12.17이며 after-hours 표시는 $13.88로 별도 관측. 밸류에이션은 유동성 낮은 after-hours가 아니라 정규장/finance feed $12.17을 사용.</div>
+  <div class="badges">
+    <span class="badge">투자의견: Buy, 분할 신규 진입</span>
+    <span class="badge">Base Target: $16</span>
+    <span class="badge">Bull: $23</span>
+    <span class="badge">Overshoot: $31</span>
+    <span class="badge">핵심 확인: Q2 FTCO 고객 + OCF</span>
+  </div>
+</header>
+
+<main class="container">
+<section class="card">
+  <h2>0. Executive Summary</h2>
+  <div class="grid">
+    <div class="metric col4"><div class="label">현재 주가</div><div class="value">$12.17</div><div class="note">6/2 close / current finance feed</div></div>
+    <div class="metric col4"><div class="label">현 주식 수 기준 시총</div><div class="value">$397.8M</div><div class="note">32.69M주 × $12.17; finance feed market cap $381.7M와 차이 있음</div></div>
+    <div class="metric col4"><div class="label">TTM EV/Sales</div><div class="value">5.8x</div><div class="note">TTM revenue 약 $66.7M, NXP vendor financing 포함</div></div>
+  </div>
+
+  <table><thead><tr><th>시장 데이터</th><th>수치</th><th>판단</th></tr></thead><tbody>
+    <tr><td>6/2 정규장 종가</td><td>$12.17, +14.06%</td><td>분석 기준 주가. finance feed도 $12.17로 표시.</td></tr>
+    <tr><td>6/2 거래량</td><td>약 1.47M주</td><td>평균 거래량 대비 급증. 이벤트 기대와 수급 재평가가 동시에 발생.</td></tr>
+    <tr><td>5거래일 흐름</td><td>약 +24.2%</td><td>5/27 $9.80 → 6/2 $12.17 기준. 단기 과열 신호.</td></tr>
+    <tr><td>1개월 흐름</td><td>약 +5.0%</td><td>5/4 $11.59 → 6/2 $12.17 기준. 월간으로는 아직 IPO 후 discount 해소 초입.</td></tr>
+    <tr><td>After-hours 관측</td><td>MarketScreener $13.88</td><td>저유동성 after-hours는 목표가 산정에 반영하지 않음.</td></tr>
+  </tbody></table>
+
+  <div class="callout good"><b>한 문장 thesis:</b> SVCO는 시장이 여전히 “소형 EDA/TCAD 라이선스 회사”로 보는 동안, 실제로는 Micron에서 검증된 AI FTCO 공정 디지털 트윈과 Mixel의 advanced-node connectivity IP를 결합해 고객 lock-in이 강한 reference platform 레이어로 이동 중이다.</div>
+  <div class="callout bad"><b>한 문장 anti-thesis:</b> FTCO 고객 확대가 일회성/소규모 engagement에 그치고, Mixel 성장이 인수 효과일 뿐이며, ATM 희석이 계속되면 현재 주가는 이미 2026 base case 상당 부분을 산 가격일 수 있다.</div>
+  <p><b>현재 시장이 보는 회사:</b> IPO 이후 현금 소진·소송비·소형 EDA discount를 겪은 TCAD/EDA vendor.</p>
+  <p><b>내가 새롭게 보는 회사:</b> manufacturing-process AI digital twin + node-ready silicon IP + legacy EDA를 묶는 “공정 개발 운영체제” 후보. 다만 아직은 고객명과 계약 구조가 충분히 공개되지 않은 early proof 단계다.</p>
+  <p><b>투자 등급:</b> <span class="tag">Buy</span> <b>포트폴리오 행동:</b> <span class="tag">비중 확대 / 3차 분할 신규 진입</span>. 추격매수는 제한하고, $12 부근 1차·$10.50 이하 2차·Q2 검증 후 3차가 적절하다.</p>
+</section>
+
+<section class="card">
+  <h2>[1단계] Thesis Discovery — 내가 발견한 핵심 변곡점</h2>
+  <h3>처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h3>
+  <table class="dense"><thead><tr><th>#</th><th>처음 보면 놓칠 신호</th><th>왜 중요한가</th></tr></thead><tbody>
+<tr><td>1</td><td>CEO/CFO 교체가 단순 인사 뉴스가 아니다</td><td>전 Mentor Graphics CEO Wally Rhines와 power/auto/indie/GaN Systems 배경 CFO의 조합은 M&A·IP·수익성 discipline 방향으로 정렬된다.</td></tr>
+<tr><td>2</td><td>FTCO는 “소프트웨어 기능”보다 고객 공정 데이터를 먹는 semi-custom digital twin</td><td>고객 생산 데이터와 TCAD/multi-physics simulation이 결합되기 때문에 채택 후 switching cost가 높다.</td></tr>
+<tr><td>3</td><td>Micron anchor → equipment/power/government로 확장 중</td><td>컨콜은 FTCO 고객 후보가 메모리 하나가 아니라 equipment, power, government로 넓어졌음을 암시했다.</td></tr>
+<tr><td>4</td><td>Mixel은 revenue bolt-on이 아니라 node-ready reference IP layer</td><td>TSMC N2P MIPI C/D-PHY availability는 소형 IP 업체가 advanced-node design flow 안으로 들어가는 신호다.</td></tr>
+<tr><td>5</td><td>Tech-X+Cadence OPC+FTCO는 공정 co-optimization stack</td><td>플라즈마/포토닉스/OPC/TCAD가 따로 보이지만 시간순으로 보면 advanced process modeling stack을 채우는 움직임이다.</td></tr>
+<tr><td>6</td><td>Q1 cash burn 숫자는 표면보다 덜 나쁘다</td><td>reported OCF 사용 $11M에는 final litigation $8.3M와 severance가 포함되어 있고, 회사는 조정 기준 $1.7M 사용을 제시했다.</td></tr>
+<tr><td>7</td><td>ATM은 독이다, 하지만 생존형만은 아니다</td><td>잔여 $30.7M capacity는 희석 리스크이지만, FTCO/IP ramp 전 bridge capital 또는 M&A optionality로도 읽힌다.</td></tr>
+<tr><td>8</td><td>customer concentration footnote는 익명고객 단서다</td><td>Q1 고객 B 10% 매출, AR A/B/C 집중은 whale customer 존재를 시사하지만 Micron 단정은 금물이다.</td></tr>
+<tr><td>9</td><td>KPMG 선임은 forensic red flag와 credibility signal을 동시에 준다</td><td>material weakness는 리스크지만, 대형 감사인 선임은 기관투자자 관점에서 신뢰성 회복 가능성을 만든다.</td></tr>
+<tr><td>10</td><td>short squeeze 서사가 과장될 수 있다</td><td>short interest 4.17% float/1.6 DTC로 과열 시 squeeze는 보조요인이지 핵심 thesis가 아니다.</td></tr>
+</tbody></table>
+  <h3>A. 기업 정체성 재정의</h3>
+  <p>레거시 SVCO는 TCAD·EDA 라이선스/maintenance와 반도체 IP를 파는 소형 설계 소프트웨어 회사다. 하지만 2024~2026 사건을 연결하면, 회사는 <b>공정 개발 데이터·물리 시뮬레이션·AI 모델·silicon-proven IP</b>가 결합된 플랫폼 회사로 이동 중이다. 특히 FTCO는 단순히 GUI에 AI 버튼을 붙인 제품이 아니라, 고객의 실제 제조 데이터와 Silvaco의 TCAD/multi-physics 모델을 결합해 공정 recipe·장비 세팅·yield pathfinding을 단축하려는 솔루션이다.</p>
+  <p>이 변화가 작동하면 매출 구조는 license/maintenance 중심에서 <b>design win, customer-specific model, expansion license, service attach, IP royalty/license</b>가 혼합된 구조로 바뀐다. margin은 이미 non-GAAP gross margin 88% 수준으로 높고, R&D/S&M leverage만 나오면 operating margin이 빠르게 개선될 수 있다. 다만 아직 FTCO 계약의 반복성·가격·고객명은 공개되지 않았다.</p>
+
+  <h3>B. 고객·공급망·파트너 맵</h3>
+  
+<svg viewBox="0 0 980 420" class="map" role="img" aria-label="SVCO ecosystem map">
+  <rect x="410" y="170" width="160" height="80" rx="16" class="node-core"/>
+  <text x="490" y="202" text-anchor="middle" class="map-title">SVCO</text>
+  <text x="490" y="226" text-anchor="middle" class="map-small">TCAD · EDA · SIP</text>
+  <text x="490" y="244" text-anchor="middle" class="map-small">FTCO Digital Twin</text>
+  <rect x="70" y="55" width="190" height="62" rx="14" class="node-a"/><text x="165" y="84" text-anchor="middle" class="map-text">Micron / Memory</text><text x="165" y="102" text-anchor="middle" class="map-small">확정 anchor</text>
+  <rect x="70" y="175" width="190" height="62" rx="14" class="node-b"/><text x="165" y="204" text-anchor="middle" class="map-text">Equipment makers</text><text x="165" y="222" text-anchor="middle" class="map-small">추론 후보</text>
+  <rect x="70" y="295" width="190" height="62" rx="14" class="node-c"/><text x="165" y="324" text-anchor="middle" class="map-text">Power / SiC</text><text x="165" y="342" text-anchor="middle" class="map-small">APEC 확인</text>
+  <rect x="720" y="55" width="190" height="62" rx="14" class="node-d"/><text x="815" y="84" text-anchor="middle" class="map-text">TSMC N2P ecosystem</text><text x="815" y="102" text-anchor="middle" class="map-small">Mixel MIPI IP</text>
+  <rect x="720" y="175" width="190" height="62" rx="14" class="node-e"/><text x="815" y="204" text-anchor="middle" class="map-text">ITRI / MCU startups</text><text x="815" y="222" text-anchor="middle" class="map-small">SmartSpice channel</text>
+  <rect x="720" y="295" width="190" height="62" rx="14" class="node-f"/><text x="815" y="324" text-anchor="middle" class="map-text">Strategic acquirers</text><text x="815" y="342" text-anchor="middle" class="map-small">EDA · IP · IDM</text>
+  <line x1="260" y1="86" x2="410" y2="185" class="link"/><line x1="260" y1="206" x2="410" y2="210" class="link"/><line x1="260" y1="326" x2="410" y2="235" class="link"/>
+  <line x1="570" y1="185" x2="720" y2="86" class="link"/><line x1="570" y1="210" x2="720" y2="206" class="link"/><line x1="570" y1="235" x2="720" y2="326" class="link"/>
+</svg>
+
+  <table class="dense"><thead><tr><th>구분</th><th>엔티티</th><th>근거/해석</th><th>신뢰도</th></tr></thead><tbody>
+<tr><td>직접 확정 고객/파트너</td><td>Micron, Advanced Power Electronics Corp., ITRI/Nankang IC Design Incubation Center, indie Semiconductor, TSMC-node ecosystem</td><td>Micron FTCO, APEC SiC TCAD/EDA, ITRI SmartSpice, indie automotive radar MIPI, TSMC N2P IP availability</td><td>A</td></tr>
+<tr><td>익명 직접 고객</td><td>Q1 revenue >10% Customer B, AR >10% Customers A/B/C</td><td>SEC concentration footnote. 고객명은 공개되지 않았으므로 Micron/기타로 단정 불가</td><td>A</td></tr>
+<tr><td>간접 고객</td><td>foundry, IDM, fabless, semiconductor equipment, power device, MCU startup ecosystem</td><td>제품과 컨콜이 지목한 수요처. 실제 명명 고객은 제한적</td><td>B</td></tr>
+<tr><td>최종 수혜 고객</td><td>memory/storage, SiC power, mobile/automotive camera/radar/AR/VR/IoT/robotics SoC</td><td>FTCO 및 Mixel end-market으로 추론</td><td>B</td></tr>
+<tr><td>관련성 낮음</td><td>SpaceX, Globalstar, Gogo, Skylo, Verizon</td><td>우주통신/NTN 직접 thesis는 현재 공시로 확인되지 않음. photonics/5G/6G 표현만으로 연결하면 과잉 추론</td><td>A</td></tr>
+</tbody></table>
+  <p><b>Lock-in 구조:</b> FTCO는 고객 생산 데이터, 공정 recipe, 장비 파라미터, TCAD model calibration이 축적될수록 switching cost가 커진다. Mixel IP는 tape-out 전후로 PHY 검증·foundry node·MIPI compliance·customer integration 비용이 커서 교체비용이 높다. 단, lock-in은 design win 이후의 이야기이며, design win 수와 고객 양산 일정이 아직 제한적으로 공개되어 있다.</p>
+
+  <h3>C. 사건 체인 분석 — 최근 24개월</h3>
+  <table class="dense"><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>Thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead><tbody>
+<tr><td>2024-04-01</td><td>Micron 전략 투자 / FTCO 논리 공개</td><td>Micron이 Silvaco 전략 투자와 FTCO/digital twin 협력을 설명.</td><td>단순 EDA가 아니라 메모리 제조 공정 데이터와 물리 시뮬레이션을 결합하는 초기 anchor customer.</td><td>FTCO TAM/lock-in의 기원. 단, 해당 투자 조건의 현재 잔존 여부는 별도 검증 필요.</td><td>A</td><td>10-K 고객 B/F와 Micron 매출 인식의 일치 여부, 고객 10% 명시.</td></tr>
+<tr><td>2024-04-16</td><td>Micron FTCO partnership 확장</td><td>Silvaco는 Micron과 AI 기반 digital twin/FTCO 파트너십 확대를 발표.</td><td>production data + TCAD simulation이 결합된 semi-custom platform로 이동.</td><td>FTCO가 license/service one-off가 아니라 multi-year process workflow가 될 가능성.</td><td>A</td><td>Micron follow-on order 규모/기간, RPO 반영 방식.</td></tr>
+<tr><td>2024-05-13</td><td>IPO 완료</td><td>6.0M주를 $19에 발행, gross $114M.</td><td>IPO 자금으로 레거시 부채/운영자금 확보. 이후 주가는 IPO 대비 하락해 narrative reset 상태.</td><td>시장 신뢰 하락 이후 2026 재평가 여지.</td><td>A</td><td>IPO proceeds 사용내역, cash burn 정상화.</td></tr>
+<tr><td>2025-03-04</td><td>Cadence OPC asset acquisition</td><td>Cadence Design Systems로부터 OPC suite를 $11.5M cash로 취득.</td><td>TCAD/EDA와 lithography/process proximity를 잇는 공정 co-optimization 레이어 강화.</td><td>FTCO가 etch/deposition뿐 아니라 lithography adjacent로 확장 가능.</td><td>A</td><td>OPC 고객 conversion, integration 매출.</td></tr>
+<tr><td>2025-04-29</td><td>Tech-X acquisition</td><td>$8.2M consideration: $4.1M cash, 457,666 shares, contingent consideration.</td><td>plasma/photonics/multi-physics capability 흡수.</td><td>FTCO의 physics engine 폭을 넓히며 정부/포토닉스/장비 고객 접근성 확대.</td><td>A</td><td>Tech-X earnout 달성 조건, photonics bookings.</td></tr>
+<tr><td>2025-08-01</td><td>Mixel acquisition closing</td><td>Mixel을 $22.5M에 인수; low-power MIPI/SerDes/PHY IP 확보.</td><td>SVCO가 소프트웨어 회사에서 검증된 mixed-signal connectivity IP vendor로 확장.</td><td>SIP mix 상승은 gross margin과 multiple을 바꿀 수 있으나 acquired growth 리스크 있음.</td><td>A</td><td>Mixel organic bookings, N2P/N5/N6 design win 수.</td></tr>
+<tr><td>2025-08-19</td><td>CEO transition: Wally Rhines</td><td>전 Mentor Graphics CEO Wally Rhines가 CEO로 선임.</td><td>EDA scale-up/M&A 경험이 있는 CEO가 cost discipline + strategic options를 주도.</td><td>M&A optionality와 operating discipline signal.</td><td>A</td><td>CEO equity hurdles, 2026 investor messaging consistency.</td></tr>
+<tr><td>2025-09-15</td><td>CFO Chris Zegarelli 합류</td><td>Infineon/GaN Systems/indie Semiconductor/Broadcom/Qualcomm/Intel 배경의 CFO.</td><td>power semi + automotive radar/IP + M&A integration 경험이 Mixel/APEC/SiC와 맞물림.</td><td>자본시장/희석 관리 및 strategic buyer dialogue 가능성 상승.</td><td>A</td><td>revolver final agreement, ATM 사용 속도, operating cash flow 전환.</td></tr>
+<tr><td>2025-11-24</td><td>Restructuring / RIF</td><td>68명 관련 비용 최대 $5M, 2026년 완료 예정.</td><td>성장주 생존 비용 절감이 아니라 Q2 non-GAAP profitability를 만들기 위한 구조 조정.</td><td>매출 성장 없이도 손익분기점에 도달할 수 있는 operating leverage.</td><td>A</td><td>non-GAAP opex $15.5M 이하 유지 여부.</td></tr>
+<tr><td>2026-02-13</td><td>Nangate settlement final payment</td><td>final $8.3M 지급, Q1 말 잔여 liability 없음.</td><td>2025 cash burn 왜곡 요인이 제거됨.</td><td>2026 OCF 전환 가능성의 질적 개선.</td><td>A</td><td>Q2/Q3 reported OCF 흑자 여부.</td></tr>
+<tr><td>2026-03-13</td><td>ATM $15M 설정</td><td>Jefferies ATM으로 Q1 752,744주, 평균 $5.75에 gross $4.3M 매각.</td><td>생존 자금이라기보다 litigation 후 balance sheet bridge이지만 저가 희석이 발생.</td><td>오버행이 주가 discount 요인.</td><td>A</td><td>ATM 일별 판매량, 10-Q 이후 판매 여부.</td></tr>
+<tr><td>2026-03-30</td><td>APEC SiC partnership</td><td>Advanced Power Electronics가 Victory Device/Gateway/SmartSpice 채택.</td><td>Power device / SiC 공정 개발 수요가 FTCO와 같은 방향.</td><td>Power semi vertical에서 고객 검증 신호.</td><td>A</td><td>APEC 확대 주문, SiC FTCO module 매출.</td></tr>
+<tr><td>2026-04-20</td><td>ITRI SmartSpice deployment</td><td>Nankang IC Design Incubation Center에서 MCU 스타트업 지원.</td><td>대만/정부/인큐베이션 채널을 통한 long-tail design ecosystem 확보.</td><td>표준 설계 레이어/reference platform으로 확장 가능.</td><td>B</td><td>ITRI 협력 고객 수, renewal/license scope.</td></tr>
+<tr><td>2026-05-07</td><td>Q1 2026 beat + FTCO new customer</td><td>매출 $17.8M +26% YoY, TCAD bookings $10.5M +49% YoY, new FTCO customer, Q2 another expected.</td><td>FTCO가 Micron 1건이 아니라 category로 확대되는 첫 증거.</td><td>리레이팅 핵심 촉매. 단 고객명/계약 규모 불명.</td><td>A</td><td>Q2 신규 FTCO 고객, bookings ≥$19M, RPO 증가.</td></tr>
+<tr><td>2026-05-08</td><td>ATM upsize to $35M</td><td>잔여 $30.7M capacity; public float $75M 이상이라 baby-shelf 제한 없음.</td><td>주가 상승 시 회사가 적극적으로 자본을 보강할 수 있음.</td><td>상방을 희석하나 runway/전략적 유연성 증가.</td><td>A</td><td>Q2 10-Q에서 ATM 후속 매각액.</td></tr>
+<tr><td>2026-05-19</td><td>Mixel MIPI on TSMC N2P</td><td>MIPI C-PHY/D-PHY combo IP를 TSMC N2P에서 즉시 제공.</td><td>SVCO가 IP catalog vendor를 넘어 foundry-node-ready connectivity layer로 진화.</td><td>N2P design cycle 진입 시 2027~2029 매출 optionality.</td><td>A</td><td>TSMC N2P 고객 tape-out, named design wins.</td></tr>
+<tr><td>2026-05-27</td><td>KPMG auditor engagement</td><td>Baker Tilly 해임, KPMG 선임; disagreement는 없고 material weakness만 재언급.</td><td>내부통제 리스크는 남지만, 대형 감사인 선임은 institutional credibility 개선 가능.</td><td>감사/내부통제 리스크 완화 여부가 multiple에 영향.</td><td>B</td><td>material weakness remediation.</td></tr>
+<tr><td>2026-06-02</td><td>주가 +14%, 거래량 급증</td><td>$12.17 close, 약 1.47M주 거래.</td><td>FTCO/Mixel narrative가 급격히 가격 반영 시작. short squeeze만으로 설명하기에는 short interest가 낮음.</td><td>실적 전 가격은 base를 일부 선반영하나 bull은 미반영.</td><td>B</td><td>거래일별 ATM 판매/기관 매수 여부.</td></tr>
+</tbody></table>
+
+  <h3>D. 소형주 자본구조 forensic 분석</h3>
+  <table class="dense"><thead><tr><th>항목</th><th>수치/판단</th><th>해석</th></tr></thead><tbody>
+<tr><td>현금</td><td>$10.9M</td><td>2026 Q1 말 cash and cash equivalents.</td></tr>
+<tr><td>Reported Q1 OCF</td><td>-$11.0M</td><td>$8.3M final litigation payment와 약 $1M severance가 포함.</td></tr>
+<tr><td>Adjusted Q1 OCF use</td><td>약 -$1.7M</td><td>회사 CFO의 ex-litigation/severance commentary 기준.</td></tr>
+<tr><td>Runway</td><td>Base 6~8분기</td><td>ATM 전액 미사용 시 현금만으로는 짧지만, $10M non-binding revolver + ATM 잔여 여력 고려.</td></tr>
+<tr><td>ATM</td><td>총 $35M, 잔여 약 $30.7M</td><td>주가 상승 시 희석 가능성. $12.17 기준 약 2.52M주 추가.</td></tr>
+<tr><td>전환사채</td><td>현재 주요 outstanding convertible debt 확인 안 됨</td><td>Micron 전략 투자/전환 note는 pre-IPO 사건으로 확인되나 현재 cap table 잔존 여부는 검증 필요.</td></tr>
+<tr><td>Vendor financing</td><td>$3.3M PV</td><td>NXP Netherlands 기술 라이선스 $6M/5년 관련 financing liability.</td></tr>
+<tr><td>Tech-X earnout</td><td>variable shares 가능</td><td>2026 Q1 10-Q: 조건 변경 후 발행 주식 수 상한이 명확히 제한되지 않음.</td></tr>
+<tr><td>RSU/SBC</td><td>$17.9M unrecognized SBC</td><td>약 2.8년 동안 비용 인식. 주가 $12.17 기준 1.47M주 상당 경제적 희석 감안.</td></tr>
+<tr><td>Short interest</td><td>709k주, float 4.17%, 1.6 DTC</td><td>short squeeze는 가능하나 핵심 thesis 아님.</td></tr>
+<tr><td>Options</td><td>Nasdaq option chain not available</td><td>옵션 기반 gamma squeeze 데이터는 확인 제한.</td></tr>
+</tbody></table>
+  <p><b>판단:</b> Q1 말 현금 $10.9M만 보면 runway가 짧아 보인다. 그러나 final litigation payment $8.3M가 끝났고, Q1 adjusted OCF use가 $1.7M 수준으로 떨어졌으며, ATM 잔여 capacity와 non-binding revolver term sheet가 있다. 따라서 financing은 순수 생존자금이라기보다 <b>ramp bridge + balance sheet credibility</b>에 가깝다. 그러나 저가 ATM이 반복되면 bull case per-share upside는 빠르게 잠식된다.</p>
+
+  <h3>E. 기술 장벽</h3>
+  <p><b>핵심 제품/레이어:</b> FTCO, Victory TCAD, SmartSpice, Utmost, Jivaro, Mixel MIPI C-PHY/D-PHY/M-PHY/LVDS/SerDes, Tech-X plasma/photonics simulation, Cadence OPC asset.</p>
+  <p><b>왜 실리콘/RF/공정 레벨인가:</b> 공정 recipe와 device behavior는 소프트웨어 앱만으로 해결되지 않는다. plasma/etch/deposition/stress/photonics/OPC/TCAD와 생산 데이터가 연결돼야 한다. Mixel은 PHY/SerDes라는 analog/mixed-signal hard IP이므로 RF·layout·process node 검증이 핵심이다.</p>
+  <p><b>모방 난이도:</b> Cadence/Synopsys/Siemens EDA가 자본력은 압도적이지만, SVCO가 이미 특정 고객의 공정 데이터와 model calibration을 확보하면 해당 고객 내부에서는 교체가 쉽지 않다. 반면 신규 고객 확보는 여전히 대형 경쟁사의 bundle, 내부 솔루션, 고객 보수성에 막힐 수 있다.</p>
+
+  <h3>F. 생태계 game theory</h3>
+  <p><b>누가 필요로 하는가:</b> memory/IDM은 wafer learning cycle을 줄이고 싶고, equipment maker는 장비 세팅과 recipe tuning 시간을 줄이고 싶고, power device 업체는 SiC/GaN 구조 개발의 trial wafer 비용을 줄이고 싶다. MIPI/SerDes 고객은 advanced-node PHY 검증 리스크를 줄이고 싶다.</p>
+  <p><b>인수 후보:</b> 전략적 후보는 Cadence, Synopsys, Siemens EDA, Keysight/Ansys-adjacent simulation, Qualcomm/indie/자동차 IP ecosystem, 또는 특정 IDM/foundry/equipment 고객이다. 방어적 인수 논리는 “경쟁사가 FTCO+IP customer data layer를 가져가면 고객 공정 데이터 interface를 잃는다”는 데 있다. 단, Pesic Family controlled-company 구조와 change-of-control approval rights가 M&A 타이밍과 프리미엄에 영향을 준다.</p>
+
+  <h3>G. 반대 thesis</h3>
+  <div class="callout bad">
+    <ul>
+      <li>Micron 이후 FTCO 고객 확대가 작은 PoC일 수 있다.</li>
+      <li>Q1의 SIP 고성장은 Mixel acquired revenue이며 organic acceleration이 아닐 수 있다.</li>
+      <li>APEC/ITRI는 reference value는 있어도 단기 매출 규모가 작을 수 있다.</li>
+      <li>Customer B 10%를 Micron 또는 전략 고객으로 추정하는 것은 위험하다.</li>
+      <li>ATM은 주가가 오를수록 더 빠르게 사용될 수 있으며, per-share upside를 낮춘다.</li>
+      <li>대형 EDA 업체가 bundling·pricing·existing relationship으로 대응하면 SVCO의 sales cycle이 길어질 수 있다.</li>
+      <li>감사인 변경과 material weakness는 기관투자자에게 여전히 discount factor다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="card">
+  <h2>[2단계] 정식 보고서</h2>
+  <h3>1. 시장이 놓친 핵심 변곡점 5개</h3>
+  <table><thead><tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 미반영인가</th></tr></thead>
+  <tbody>
+    <tr><td>FTCO multi-customer화</td><td>Q1 new FTCO customer, Q2 추가 고객 기대, TCAD bookings +49% YoY.</td><td>Micron 1건에서 category로 확장 중.</td><td>대형 equipment/IDM 고객일 수 있음.</td><td>고객명·계약 규모·반복성 미공개.</td></tr>
+    <tr><td>Mixel N2P IP</td><td>MIPI C/D-PHY on TSMC N2P 공개.</td><td>advanced-node ready IP vendor로 진입.</td><td>2027~2029 SoC design win pipeline.</td><td>인수 직후라 organic contribution 불명.</td></tr>
+    <tr><td>Cost reset</td><td>Q2 non-GAAP profitability 목표, $15~20M cost reduction.</td><td>매출 성장 없이도 손익분기점 접근.</td><td>2026 positive OCF.</td><td>2025 소송비/cash burn 기억이 강함.</td></tr>
+    <tr><td>자본구조 양면성</td><td>ATM 잔여 $30.7M, 현금 $10.9M.</td><td>runway 확보와 희석이 동시에 존재.</td><td>strategic bridge/M&A 준비자금.</td><td>ATM은 보통 discount 요인이라 긍정 해석이 늦음.</td></tr>
+    <tr><td>Rhines/Zegarelli management reset</td><td>CEO/CFO 모두 2025년 하반기 합류.</td><td>EDA scale-up + power/IP/M&A 경험이 현재 전략과 맞음.</td><td>strategic sale 또는 platform consolidation.</td><td>소형주 인사 뉴스로 지나치기 쉬움.</td></tr>
+  </tbody></table>
+
+  <h3>2. 전통적 비즈니스 모델의 진화</h3>
+  <p>레거시 사업은 TCAD·EDA license/maintenance와 IP license다. 현재 성장 축은 <b>AI FTCO, Mixel SIP, power semiconductor TCAD, advanced-node reference IP</b>다. 과거 고객은 foundry/IDM/fabless/학계였다면, 미래 고객은 memory manufacturer, semiconductor equipment maker, power device company, government lab, advanced-node SoC designer로 확장될 수 있다.</p>
+  <p>결론: SVCO는 아직 플랫폼 회사라고 단정하기 어렵지만, 제품 판매 기업에서 <b>reference platform / turnkey workflow / 표준 설계 레이어</b>로 진화하는 중간 지점에 있다. 이 변화가 확인되면 P/S 3~5x discount band가 아니라 6~8x platform/IP scarcity band가 가능하다.</p>
+
+  <h3>3. 실적으로 증명되는 실체</h3>
+  <svg viewBox="0 0 640 260" class="chart" role="img" aria-label="Q1 2026 매출 구성 ($M)">
+<text x="18" y="24" class="svg-title">Q1 2026 매출 구성 ($M)</text>
+<line x1="45" y1="215" x2="620" y2="215" class="axis"/>
+<rect x="50.0" y="57.9" width="133.3" height="157.1" rx="4" class="bar1"/>
+<text x="116.7" y="51.9" text-anchor="middle" class="svg-small">9.6</text>
+<text x="116.7" y="233" text-anchor="middle" class="svg-small">TCAD</text>
+<rect x="263.3" y="147.9" width="133.3" height="67.1" rx="4" class="bar2"/>
+<text x="330.0" y="141.9" text-anchor="middle" class="svg-small">4.1</text>
+<text x="330.0" y="233" text-anchor="middle" class="svg-small">EDA</text>
+<rect x="476.7" y="149.5" width="133.3" height="65.5" rx="4" class="bar3"/>
+<text x="543.3" y="143.5" text-anchor="middle" class="svg-small">4</text>
+<text x="543.3" y="233" text-anchor="middle" class="svg-small">SIP</text>
+</svg>
+  <table><thead><tr><th>지표</th><th>Q1 2026</th><th>해석</th></tr></thead><tbody>
+    <tr><td>Revenue</td><td>$17.8M, +26% YoY</td><td>컨센서스 상회. Q2 guide는 $18M ±10%.</td></tr>
+    <tr><td>매출 구성</td><td>TCAD 54%, EDA 23%, SIP 23%</td><td>SIP가 Mixel 편입 후 의미 있는 축으로 부상.</td></tr>
+    <tr><td>License / Maintenance</td><td>65% / 35%</td><td>license lumpiness와 recurring maintenance가 혼재.</td></tr>
+    <tr><td>Gross margin</td><td>GAAP 86%, non-GAAP 88%</td><td>software/IP economics는 이미 강함.</td></tr>
+    <tr><td>Operating loss</td><td>GAAP -$5.7M, non-GAAP -$0.5M</td><td>cost reset 후 Q2 non-GAAP operating profit 가능성.</td></tr>
+    <tr><td>Cash</td><td>$10.9M</td><td>reported cash는 낮지만 litigation payment 종료.</td></tr>
+    <tr><td>RPO/backlog</td><td>컨콜 기준 약 $46.6M</td><td>high-40M 유지. Q2 증가 여부가 중요.</td></tr>
+  </tbody></table>
+  <p><b>다음 분기 KPI:</b> bookings ≥$19M, Q2 FTCO 신규 고객 1건 이상, RPO 증가, non-GAAP operating profit, adjusted OCF near breakeven, ATM 추가 사용 규모, SIP sequential growth.</p>
+
+  <h3>4. 고객·파트너·생태계 분석</h3>
+  <table class="dense"><thead><tr><th>회사</th><th>관련성</th><th>판단</th></tr></thead><tbody>
+<tr><td>NVIDIA</td><td>낮음~간접</td><td>AI chip design ecosystem 수혜는 가능하지만 직접 고객/파트너 확인 없음.</td></tr>
+<tr><td>AMD</td><td>낮음~간접</td><td>custom silicon/EDA 수요와만 간접 연결.</td></tr>
+<tr><td>Intel</td><td>중간 후보</td><td>IDM/foundry/equipment-like process modeling 수요는 적합하나 고객 확인 없음.</td></tr>
+<tr><td>Qualcomm</td><td>중간 후보</td><td>Mixel MIPI/mobile IP end-market과 적합. 직접 거래 확인 없음.</td></tr>
+<tr><td>Samsung</td><td>중간 후보</td><td>memory/foundry/display 모두 적합하나 직접 확인 없음.</td></tr>
+<tr><td>TSMC</td><td>높음-ecosystem</td><td>Mixel MIPI IP on TSMC N2P는 확인. 구매 고객으로 단정 금지.</td></tr>
+<tr><td>Microsoft</td><td>낮음/legacy</td><td>과거 Mixel ecosystem 언급은 있으나 현재 핵심 thesis 아님.</td></tr>
+<tr><td>Amazon/Google/Oracle/Apple</td><td>낮음</td><td>hyperscaler/custom silicon 간접성만 있음.</td></tr>
+<tr><td>SpaceX/Globalstar/Gogo/Skylo/Verizon</td><td>낮음</td><td>현재 SVCO thesis는 우주통신/NTN이 아니라 반도체 공정/EDA/SIP.</td></tr>
+</tbody></table>
+
+  <h3>5. 숨은 고객 및 M&A optionality</h3>
+  <table class="dense"><thead><tr><th>후보</th><th>가능성</th><th>근거</th><th>반대 근거</th></tr></thead><tbody>
+<tr><td>Micron / memory peer</td><td>30%</td><td>Micron은 확정 FTCO anchor. Q1/Q2 FTCO 고객 확대 발언과 메모리 공정 digital twin이 일치.</td><td>Customer B가 Micron이라는 직접 증거 없음. 고객 B 10%는 다른 고객일 수도 있음.</td></tr>
+<tr><td>Semiconductor equipment makers: Applied Materials/Lam/TEL/ASML 등</td><td>25%</td><td>컨콜에서 장비 세팅·레시피·depreciation cost 절감 use case를 구체적으로 설명.</td><td>CEO가 아직 OEM arrangement는 아니라고 선을 그음. 특정 장비사 명시 없음.</td></tr>
+<tr><td>Power device / SiC: Infineon, Wolfspeed, onsemi, ST/Rohm, APEC 등</td><td>20%</td><td>APEC 확정 파트너십, CFO의 GaN/Infineon 배경, power semiconductor end-app bookings.</td><td>APEC 외 대형 전력반도체 고객은 미공개.</td></tr>
+<tr><td>Government / CHIPS / research institutes</td><td>15%</td><td>FTCO interest from governments; ITRI, SMART USA 맥락.</td><td>정부 계약 규모·기간 불명.</td></tr>
+<tr><td>Foundry / advanced-node ecosystem: TSMC/Samsung/Intel Foundry</td><td>10%</td><td>TSMC N2P Mixel IP, FTCO/TCAD 고객군 적합성.</td><td>TSMC는 process availability가 확인될 뿐 직접 구매 고객으로 확인되지 않음.</td></tr>
+</tbody></table>
+  <p><b>가장 가능성 높은 후보:</b> Micron 또는 memory-adjacent customer는 확정 anchor 관점에서 가장 가시성이 높지만, Q1 Customer B와 동일하다고 단정하지 않는다. 장비 업체 후보는 컨콜 발언의 구체성이 높아 <b>두 번째로 중요한 upside option</b>이다.</p>
+  <p><b>M&A option 반영:</b> base case에는 주당 $1 이하, bull에는 $2~3, overshoot에는 $5 이상을 narrative premium으로 반영한다. 가족 지배/approval rights 때문에 “항상 팔 수 있다”는 thesis는 위험하지만, control premium과 strategic scarcity를 동시에 만든다.</p>
+
+  <h3>6. 자본구조와 수급 분석</h3>
+  <p>최신 발행주식 수는 2026년 5월 초 약 32.69M주다. $12.17 기준 현 주식 수 implied market cap은 약 $397.8M이고, finance feed market cap은 약 $381.7M로 표시된다. ATM 잔여 $30.7M를 모두 $12.17에 발행하면 약 2.52M주가 추가된다. unrecognized SBC 약 $17.9M은 경제적으로 약 1.47M주 상당으로 보수적 fully diluted valuation share count는 약 37.2M주가 적절하다.</p>
+  <p>최근 주가 상승은 <b>FTCO/Mixel re-rating 60%, Q2 profitability 기대 25%, financing overhang 완화 10%, short covering 5%</b>로 분해한다. short interest가 float의 4.17%, days-to-cover 1.6일 수준이라 pure squeeze로 보긴 어렵다.</p>
+
+  <h3>7. 기술 분석</h3>
+  <p>Silvaco의 강점 레이어는 RF/baseband 단일보다는 <b>TCAD/device physics + analog/mixed-signal EDA + PHY/IP + AI 모델링</b>의 교차점이다. FTCO는 제조 데이터를 기반으로 “digital twin”을 구축하는 공정 최적화 layer이고, Mixel은 MIPI/SerDes PHY라는 실리콘-proven hard IP layer다. 고객 전환비용은 초기에는 낮지만, 공정 데이터/model calibration과 tape-out 검증 이후 급격히 높아진다.</p>
+
+  <h3>8. 컨센서스 리비전 분석</h3>
+  <p>Investing.com 기준 6명의 애널리스트 consensus는 Strong Buy, 평균 목표가 $15.17, high $18, low $14다. MarketScreener도 5명의 analyst 평균 목표가 $15.17을 제시한다. 최근 Q1 beat와 Q2 profitability guide 이후 revenue/EPS estimate가 상향된 흔적이 있으며, SimplyWallSt는 2026 revenue forecast가 $64.5M에서 $68.9M로 상승했다고 집계했다. 다만 본 보고서의 base 2026E $77M는 Q2 guide와 하반기 ramp를 반영한 model estimate로, 아직 sell-side consensus보다 공격적이다.</p>
+  <p><b>지금 시장은 무엇을 사는가?</b> $12.17은 liquidation/bear가 아니라 <b>base transition의 절반</b>을 사는 가격이다. $15~16은 Q2 non-GAAP profitability와 FTCO 고객 추가를 사는 가격이고, $20 이상은 bull/M&A optionality를 사는 가격이다.</p>
+
+  <h3>9. 이벤트 드리븐 분석</h3>
+  <p><b>다음 실적:</b> 공개 캘린더상 다음 call은 2026년 8월 초로 예상된다. 핵심 질문은 다음 7개다.</p>
+  <ol>
+    <li>Q2에 언급한 추가 FTCO 고객은 실제 계약되었는가?</li>
+    <li>FTCO 계약은 term license, services, usage, royalty 중 무엇인가?</li>
+    <li>Q2 bookings $19M ±10%에서 FTCO/SIP 기여는 얼마인가?</li>
+    <li>RPO가 $46.6M에서 증가했는가?</li>
+    <li>ATM을 Q2 중 얼마나 사용했는가?</li>
+    <li>Mixel IP pipeline doubled의 organic 기준은 무엇인가?</li>
+    <li>positive operating cash flow 목표 시점은 Q3 그대로인가?</li>
+  </ol>
+  <p><b>실적 후 오르려면:</b> beat만으로는 부족하다. <b>beat + raise + FTCO 고객/출하/booking detail + OCF 개선</b>이 필요하다. 실적 후 빠지는 조건은 Q2 customer 미확인, RPO 하락, ATM 공격적 사용, SIP sequential miss다.</p>
+
+  <h3>10. 밸류에이션</h3>
+  <svg viewBox="0 0 640 260" class="chart" role="img" aria-label="매출 경로: 레거시 EDA/TCAD에서 FTCO+SIP 확장으로">
+<text x="18" y="24" class="svg-title">매출 경로: 레거시 EDA/TCAD에서 FTCO+SIP 확장으로</text>
+<line x1="45" y1="215" x2="620" y2="215" class="axis"/>
+<rect x="50.0" y="158.4" width="57.1" height="56.6" rx="4" class="bar1"/>
+<text x="78.6" y="152.4" text-anchor="middle" class="svg-small">59.7</text>
+<text x="78.6" y="233" text-anchor="middle" class="svg-small">2024A</text>
+<rect x="141.4" y="155.2" width="57.1" height="59.8" rx="4" class="bar2"/>
+<text x="170.0" y="149.2" text-anchor="middle" class="svg-small">63.1</text>
+<text x="170.0" y="233" text-anchor="middle" class="svg-small">2025A</text>
+<rect x="232.9" y="142.1" width="57.1" height="72.9" rx="4" class="bar3"/>
+<text x="261.4" y="136.1" text-anchor="middle" class="svg-small">77</text>
+<text x="261.4" y="233" text-anchor="middle" class="svg-small">2026E</text>
+<rect x="324.3" y="125.0" width="57.1" height="90.0" rx="4" class="bar4"/>
+<text x="352.9" y="119.0" text-anchor="middle" class="svg-small">95</text>
+<text x="352.9" y="233" text-anchor="middle" class="svg-small">2027E</text>
+<rect x="415.7" y="103.2" width="57.1" height="111.8" rx="4" class="bar1"/>
+<text x="444.3" y="97.2" text-anchor="middle" class="svg-small">118</text>
+<text x="444.3" y="233" text-anchor="middle" class="svg-small">2028E</text>
+<rect x="507.1" y="77.6" width="57.1" height="137.4" rx="4" class="bar2"/>
+<text x="535.7" y="71.6" text-anchor="middle" class="svg-small">145</text>
+<text x="535.7" y="233" text-anchor="middle" class="svg-small">2029E</text>
+<rect x="598.6" y="49.2" width="57.1" height="165.8" rx="4" class="bar3"/>
+<text x="627.1" y="43.2" text-anchor="middle" class="svg-small">175</text>
+<text x="627.1" y="233" text-anchor="middle" class="svg-small">2030E</text>
+</svg>
+  <table class="dense"><thead><tr><th>방식</th><th>주당가치</th><th>주요 가정</th></tr></thead><tbody>
+<tr><td>DCF Bear</td><td>$2.1</td><td>2030 매출 $110M, FCF margin 8%, WACC 14%, terminal 15x FCF. 상업화 지연 시 소형 적자주 DCF는 매우 낮다.</td></tr>
+<tr><td>DCF Base</td><td>$11.9</td><td>2030 매출 $175M, FCF $31.5M, WACC 12%, terminal 22x FCF, fully diluted 37.2M주.</td></tr>
+<tr><td>DCF Bull</td><td>$23.9</td><td>2030 매출 $220M, FCF $55M, WACC 11%, terminal 25x FCF.</td></tr>
+<tr><td>FCF Yield</td><td>$14~18</td><td>2028 normalized FCF $18~25M에 4.5~5.5% yield, 희석 37~38M주.</td></tr>
+<tr><td>상대가치</td><td>$13~17</td><td>TTM EV/Sales 약 5.6x. FTCO/IP 증명 전에는 Cadence/Synopsys 프리미엄 대비 discount 필요.</td></tr>
+<tr><td>리레이팅/M&A option</td><td>$20~31</td><td>2027~2028 sales $110~150M에 7~8x, strategic buyer optionality/lock-in premium 반영.</td></tr>
+</tbody></table>
+  <p><b>상대가치:</b> 직접 대형 비교대상은 Cadence, Synopsys, Siemens EDA이며, 인접 비교대상은 Ansys/Keysight simulation, CEVA/Rambus/Alphawave/indie 같은 IP·connectivity 업체다. SVCO는 규모·고객집중·내부통제·cash risk 때문에 discount가 필요하지만, FTCO가 공정 digital twin category로 증명되면 small-cap scarcity premium을 받을 수 있다.</p>
+  <p><b>Valuation bridge:</b> 현재 legacy EDA/IP discount 4~5x sales → FTCO/SIP proof 6x → multi-customer reference platform 7~8x → strategic M&A/overshoot 8~10x. 이 bridge의 핵심은 “매출 성장률”보다 <b>계약 반복성, 고객명, RPO, OCF</b>다.</p>
+
+  <h3>11. 목표가 체계</h3>
+  <svg viewBox="0 0 640 260" class="chart" role="img" aria-label="목표가 체계 ($/share)">
+<text x="18" y="24" class="svg-title">목표가 체계 ($/share)</text>
+<line x1="45" y1="215" x2="620" y2="215" class="axis"/>
+<rect x="50.0" y="164.7" width="100.0" height="50.3" rx="4" class="bar1"/>
+<text x="100.0" y="158.7" text-anchor="middle" class="svg-small">9.5</text>
+<text x="100.0" y="233" text-anchor="middle" class="svg-small">내재</text>
+<rect x="210.0" y="130.3" width="100.0" height="84.7" rx="4" class="bar2"/>
+<text x="260.0" y="124.3" text-anchor="middle" class="svg-small">16</text>
+<text x="260.0" y="233" text-anchor="middle" class="svg-small">Base</text>
+<rect x="370.0" y="93.2" width="100.0" height="121.8" rx="4" class="bar3"/>
+<text x="420.0" y="87.2" text-anchor="middle" class="svg-small">23</text>
+<text x="420.0" y="233" text-anchor="middle" class="svg-small">Bull</text>
+<rect x="530.0" y="50.9" width="100.0" height="164.1" rx="4" class="bar4"/>
+<text x="580.0" y="44.9" text-anchor="middle" class="svg-small">31</text>
+<text x="580.0" y="233" text-anchor="middle" class="svg-small">Overshoot</text>
+</svg>
+  <table class="dense"><thead><tr><th>Target</th><th>가격</th><th>적용 매출/Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody>
+<tr><td>보수적 내재가치</td><td>$9.50</td><td>2026E $70~77M 매출, DCF base 할인·ATM overhang</td><td>37.2M</td><td>25%</td><td>Q2 guide 유지, 현금 방어</td><td>FTCO 고객 추가 실패/ATM 저가 매도</td></tr>
+<tr><td>12개월 base target</td><td>$16.00</td><td>2027E 매출 $95M × 6.0x EV/Sales + ATM 후 net cash</td><td>37.2M</td><td>40%</td><td>Q2 non-GAAP profit, FTCO 고객 1건 추가, bookings ≥$19M</td><td>RPO 하락·Q2 bookings miss</td></tr>
+<tr><td>Bull target</td><td>$23.00</td><td>2028E 매출 $140M × 6.0x 또는 2027E $110M × 7.5x</td><td>38.0M</td><td>20%</td><td>FTCO multi-customer proof, SIP N2P design wins</td><td>Mixel 성장 acquired-only로 판명</td></tr>
+<tr><td>Overshoot target</td><td>$31.00</td><td>2028/29E 매출 $180M × 6.5x + M&A scarcity premium</td><td>39.0M</td><td>10%</td><td>고객명 공개/M&A rumor/전략적 파트너십</td><td>ATM aggressive sales, 고객명 실망</td></tr>
+<tr><td>실적 전 trading target</td><td>$14.00~15.50</td><td>컨센서스 평균 PT $15.17 근처의 기대값</td><td>32.7~37.2M</td><td>단기</td><td>Q2 직전 기대감</td><td>거래량 감소·ATM 물량 확인</td></tr>
+<tr><td>실적 후 재평가 target</td><td>$18.00</td><td>Q2 beat+raise+FTCO customer+OCF 개선 확인 시</td><td>37.2M</td><td>조건부</td><td>beat + raise + shipment/bookings detail</td><td>beat만 있고 guide/FTCO 공백</td></tr>
+</tbody></table>
+
+  <h3>12. 2020~2030 멀티플 밴드</h3>
+  <table class="dense"><thead><tr><th>기간</th><th>실제/가정</th><th>멀티플 밴드</th><th>해석</th></tr></thead><tbody>
+<tr><td>2020~2023</td><td>비상장</td><td>public P/S/P/E/EV/EBITDA/FCF band 없음</td><td>보고서의 actual band에서는 제외. 사업 실적만 historical로 참고.</td></tr>
+<tr><td>2024 IPO</td><td>$19 IPO</td><td>IPO EV/Sales 대략 9x 내외</td><td>IPO optimism; 이후 실적/소송/cash burn으로 multiple collapse.</td></tr>
+<tr><td>2025-06-30</td><td>$4.72</td><td>FY25 sales 기준 market cap/sales 약 2.3x</td><td>public float $45.1M, severe small-cap discount.</td></tr>
+<tr><td>2026-06-02</td><td>$12.17</td><td>TTM EV/Sales 약 5.6x</td><td>FTCO/Mixel/수익성 전환 일부 반영.</td></tr>
+<tr><td>2027E Base</td><td>$95M sales</td><td>EV/Sales 5.5~6.5x</td><td>FTCO multi-customer proof 필요.</td></tr>
+<tr><td>2028E Bull</td><td>$140M sales</td><td>EV/Sales 6.5~7.5x</td><td>N2P SIP + FTCO reference platform 증명 필요.</td></tr>
+<tr><td>2030E Bull</td><td>$220M sales</td><td>P/FCF 20~25x</td><td>FCF margin 25% 달성 필요.</td></tr>
+</tbody></table>
+  <p>중요: SVCO는 2024년 5월 상장했기 때문에 2020~2023 public multiple은 존재하지 않는다. 따라서 actual market multiple은 2024 IPO 이후만 사용하고, 2027~2030은 본 보고서의 시나리오 가정으로 분리했다.</p>
+
+  <h3>13. 리스크 관리 — thesis break trigger</h3>
+  <table class="dense"><thead><tr><th>리스크</th><th>Thesis break trigger</th><th>가격 신호</th><th>확인 시점</th><th>대응</th></tr></thead><tbody>
+<tr><td>출하/FTCO 지연</td><td>Q2 신규 FTCO 고객 부재, TCAD bookings <$17M, FTCO가 Q&A에서 vague</td><td>$9.50 이하</td><td>Q2 실적/컨콜</td><td>신규 진입 중단, 50% 축소</td></tr>
+<tr><td>Gross margin 정상화 리스크</td><td>non-GAAP GM 88%가 82% 이하로 하락하거나 SIP mix가 저마진 service로 이동</td><td>$10.50</td><td>분기별</td><td>multiple 6x→4x 적용</td></tr>
+<tr><td>현금/희석</td><td>ATM 추가 매각이 $10M 이상이고 주가 <$10에서 진행</td><td>$9.00</td><td>10-Q/424B5</td><td>position cap 1% 이하</td></tr>
+<tr><td>고객 집중</td><td>Customer B/F 매출 감소 또는 AR concentration 악화</td><td>$8.50</td><td>10-Q footnote</td><td>thesis 재검토</td></tr>
+<tr><td>익명 고객 오판</td><td>고객이 전략 고객이 아니라 일회성 정부/컨설팅 프로젝트로 판명</td><td>$8.00</td><td>고객명/계약조건 공개</td><td>bull case 제거</td></tr>
+<tr><td>경쟁사 대체</td><td>대형 EDA/내부 솔루션으로 migration 언급</td><td>$8.00</td><td>고객사 발표/컨콜</td><td>매도</td></tr>
+<tr><td>인증/규제/위성/항공</td><td>현재 직접 우주통신 thesis 아님. 관련 기대가 가격에 들어가면 거품</td><td>무관/과열</td><td>상시</td><td>우주통신 narrative는 제외</td></tr>
+<tr><td>short squeeze 이후 급락</td><td>거래량 급증 후 3일 연속 하락·borrow/short 데이터 변화 없음</td><td>$11 이하</td><td>일별</td><td>추격매수 금지</td></tr>
+<tr><td>M&A 기대 과열</td><td>공시 없이 EV/Sales >9x로 상승</td><td>$25 이상</td><td>주가</td><td>overshoot에서는 50% 이상 차익</td></tr>
+</tbody></table>
+
+  <h3>14. 포트폴리오 실행안</h3>
+  <p>현재 보유 수량 0주, 비중 0% 기준. 추천 행동은 <b>비중 확대 / 3차 분할 신규 진입</b>이다. 단, 최근 5거래일 급등 후 chase risk가 있으므로 full position을 즉시 만들지 않는다.</p>
+  <table><thead><tr><th>구분</th><th>가격/조건</th><th>목표 비중</th><th>수량 예시: $100,000 포트폴리오</th></tr></thead><tbody>
+    <tr><td>1차</td><td>$12.20 이하 또는 현재가 부근</td><td>0.60%</td><td>약 49주</td></tr>
+    <tr><td>2차</td><td>$10.50 이하 pullback</td><td>0.45%</td><td>약 43주</td></tr>
+    <tr><td>3차</td><td>Q2 실적 후 FTCO 고객+profitability 확인, $14.50 이하</td><td>0.45%</td><td>약 31주</td></tr>
+    <tr><td>최대</td><td>bull confirmation 전</td><td>1.50%</td><td>총 약 123주</td></tr>
+    <tr><td>확인 후 추가</td><td>Q2/Q3 OCF 및 고객명 공개</td><td>최대 3.00%</td><td>리스크 예산 재산정 후</td></tr>
+  </tbody></table>
+  <p><b>보유 수량 기준 기대손익:</b> 현재 보유 0주이므로 현재 포지션 기준 기대손익은 $0. $100,000 포트폴리오에서 1.5% 목표 비중(123주)을 실행하면 base target $16에서 약 $471, bull $23에서 약 $1,332, overshoot $31에서 약 $2,316, downside $8.50에서 약 $-451다.</p>
+
+  <h3>15. 보고서 전 자체 점검</h3>
+  <table><thead><tr><th>점검 질문</th><th>답변</th></tr></thead><tbody>
+    <tr><td>단순 컨센서스 요약인가?</td><td>아니다. 공시·M&A·자본구조·컨콜 발언을 사건 체인으로 재구성했다.</td></tr>
+    <tr><td>고객/공급망/자금조달을 시간순 연결했는가?</td><td>예. Micron→Cadence/Tech-X/Mixel→management reset→FTCO customer→ATM→N2P를 연결했다.</td></tr>
+    <tr><td>익명 고객 추정 시 사실과 추론을 분리했는가?</td><td>예. Micron 외 고객명은 후보로만 제시했다.</td></tr>
+    <tr><td>bull case를 과도하게 눌렀는가?</td><td>아니다. overshoot $31까지 제시하되, 검증조건을 명시했다.</td></tr>
+    <tr><td>루머를 사실처럼 쓴 부분은 없는가?</td><td>우주통신/NTN 및 hyperscaler 직접 관련성은 낮음으로 표시했다.</td></tr>
+    <tr><td>희석과 자본구조를 반영했는가?</td><td>예. valuation shares 37~39M을 사용했다.</td></tr>
+    <tr><td>왜 지금 변곡점인가?</td><td>Q1 FTCO 고객·Q2 profitability·N2P IP·ATM upsize·KPMG engagement가 2026년 5월에 집중됐다.</td></tr>
+    <tr><td>다음 실적에서 수정 조건은?</td><td>FTCO 고객 추가 실패, RPO 하락, ATM 공격적 사용, OCF 악화 시 target과 position size를 낮춘다.</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>최종 투자 행동 요약</h2>
+  <table><tbody>
+    <tr><th>현재 주가</th><td>$12.17</td></tr>
+    <tr><th>보수적 내재가치</th><td>$9.50</td></tr>
+    <tr><th>12개월 base target</th><td>$16.00</td></tr>
+    <tr><th>bull target</th><td>$23.00</td></tr>
+    <tr><th>overshoot target</th><td>$31.00</td></tr>
+    <tr><th>실적 발표 전 trading target</th><td>$14.00~$15.50</td></tr>
+    <tr><th>실적 발표 후 재평가 target</th><td>$18.00 / 조건: beat + raise + FTCO 고객 + OCF 개선</td></tr>
+    <tr><th>하방 리스크</th><td>$8.00~$9.50; thesis break 시 $7.50 이하</td></tr>
+    <tr><th>12개월 기대수익률</th><td>base 31.5%, bull 89.0%, overshoot 154.7%</td></tr>
+    <tr><th>보유 수량 기준 기대손익</th><td>현재 0주 = $0. 예시: $100K 포트폴리오 1.5%/123주 진입 시 base +$471, bull +$1,332, overshoot +$2,316, downside $8.50 -$451</td></tr>
+    <tr><th>추천 행동</th><td>Buy / 비중 확대. 단, 3차 분할 신규 진입.</td></tr>
+    <tr><th>목표 비중</th><td>초기 1.5%, Q2/Q3 검증 후 최대 3.0%</td></tr>
+    <tr><th>실적 발표 전 행동</th><td>$12.20 이하 1차만. $14.50 이상 추격매수 금지.</td></tr>
+    <tr><th>실적 발표 후 행동</th><td>FTCO 고객+bookings+OCF 확인 시 3차. 부재 시 중단.</td></tr>
+    <tr><th>목표가 도달 시 행동</th><td>$16에서 25% 회수, $23에서 50% 회수, $31 overshoot에서는 70% 이상 회수.</td></tr>
+    <tr><th>thesis 훼손 시 행동</th><td>Q2 FTCO 고객 실패/RPO 하락/ATM 저가 대량 매각 시 50~100% 축소.</td></tr>
+    <tr><th>가장 중요한 체크포인트</th><td>Q2 추가 FTCO 고객이 실제 계약인지, 규모와 반복성이 있는지.</td></tr>
+    <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>FTCO가 Micron 외 확장되지 않고, Mixel 성장이 acquired-only이며, Q3까지 adjusted OCF가 개선되지 않는 경우.</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>Sources</h2>
+  <ol>
+<li>OpenAI Finance quote feed / MarketScreener price page — SVCO 정규장 $12.17, 6/2 종가 +14.06%, finance feed current price $12.17, market cap feed 약 $381.7M.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026033869/svco-20260331.htm">https://www.sec.gov/Archives/edgar/data/1943289/000162828026033869/svco-20260331.htm</a> — FY2026 Q1 10-Q: cash, revenue mix, customer concentration, ATM sales, Tech-X contingent consideration, NXP vendor financing, restructuring, litigation settlement.</li>
+    <li><a href="https://investors.silvaco.com/news-releases/news-release-details/silvaco-reports-first-quarter-2026-financial-results">https://investors.silvaco.com/news-releases/news-release-details/silvaco-reports-first-quarter-2026-financial-results</a> — FY2026 Q1 earnings release: revenue $17.8M, TCAD/SIP/EDA mix, bookings, Q2 guide, AI FTCO customer commentary, cash/OCF commentary.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026017378/svco-20251231.htm">https://www.sec.gov/Archives/edgar/data/1943289/000162828026017378/svco-20251231.htm</a> — FY2025 10-K: business model, FTCO description, customer mix, revenue, RPO, acquisitions, risks, controlled-company provisions.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000121390026054014/ea0289765-8k_silvaco.htm">https://www.sec.gov/Archives/edgar/data/1943289/000121390026054014/ea0289765-8k_silvaco.htm</a> — May 8 2026 8-K / ATM supplement: ATM increased to $35M; remaining capacity about $30.7M at May 7 2026.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026038540/svco-20260521.htm">https://www.sec.gov/Archives/edgar/data/1943289/000162828026038540/svco-20260521.htm</a> — May 2026 auditor change: Baker Tilly dismissed, KPMG engaged; no disagreements disclosed, material weakness referenced.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000194328925000014/svco-20250904.htm">https://www.sec.gov/Archives/edgar/data/1943289/000194328925000014/svco-20250904.htm</a> — CFO appointment: Chris Zegarelli joined Sep 15 2025; prior Infineon/GaN Systems/indie Semiconductor/Broadcom/Qualcomm/Intel roles.</li>
+    <li><a href="https://www.globenewswire.com/news-release/2025/08/22/3137635/0/en/silvaco-announces-ceo-transition.html">https://www.globenewswire.com/news-release/2025/08/22/3137635/0/en/silvaco-announces-ceo-transition.html</a> — CEO transition: Wally Rhines appointed CEO Aug 2025 after Babak Taheri departure.</li>
+    <li><a href="https://silvaco.com/news/silvaco-to-acquire-mixel-inc-provider-low-power-high-performance-mixed-signal-connectivity-ip-solutions/">https://silvaco.com/news/silvaco-to-acquire-mixel-inc-provider-low-power-high-performance-mixed-signal-connectivity-ip-solutions/</a> — Mixel definitive acquisition release: low-power connectivity silicon IP, MIPI PHY/SerDes portfolio.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026017378/svco-20251231.htm">https://www.sec.gov/Archives/edgar/data/1943289/000162828026017378/svco-20251231.htm</a> — 10-K acquisition details: Mixel purchase price $22.5M; Tech-X purchase price $8.2M; Cadence OPC asset purchase $11.5M.</li>
+    <li><a href="https://silvaco.com/news/silvaco-announces-immediate-availability-of-mixel-mipi-c-phy-d-phy-combo-ip-on-tsmc-n2p-process/">https://silvaco.com/news/silvaco-announces-immediate-availability-of-mixel-mipi-c-phy-d-phy-combo-ip-on-tsmc-n2p-process/</a> — May 2026 Mixel MIPI C-PHY/D-PHY Combo IP on TSMC N2P process.</li>
+    <li><a href="https://silvaco.com/news/silvaco-partners-with-itri-to-support-mcu-development-and-startup-innovation/">https://silvaco.com/news/silvaco-partners-with-itri-to-support-mcu-development-and-startup-innovation/</a> — Apr 2026 ITRI partnership; SmartSpice deployed at Nankang IC Design Incubation Center.</li>
+    <li><a href="https://silvaco.com/news/silvaco-announces-strategic-partnership-with-apec-to-advance-silicon-carbide-power-device-development/">https://silvaco.com/news/silvaco-announces-strategic-partnership-with-apec-to-advance-silicon-carbide-power-device-development/</a> — Mar 2026 Advanced Power Electronics Corp. / SiC device development partnership.</li>
+    <li><a href="https://silvaco.com/news/silvaco-expands-ai-driven-digital-twin-partnership-with-micron-technology/">https://silvaco.com/news/silvaco-expands-ai-driven-digital-twin-partnership-with-micron-technology/</a> — Apr 2024 Micron partnership / FTCO AI digital twin validation.</li>
+    <li><a href="https://www.micron.com/about/blog/company/insights/micron-strategic-investment-in-silvaco">https://www.micron.com/about/blog/company/insights/micron-strategic-investment-in-silvaco</a> — Micron blog: strategic investment in Silvaco ahead of IPO; FTCO memory process focus.</li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828024029145/silvaco-424b3prospectussup.htm">https://www.sec.gov/Archives/edgar/data/1943289/000162828024029145/silvaco-424b3prospectussup.htm</a> — IPO prospectus supplement: May 13 2024 IPO, 6M shares at $19, gross proceeds $114M.</li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/SVCO/short-interest/">https://www.marketbeat.com/stocks/NASDAQ/SVCO/short-interest/</a> — MarketBeat short interest: May 15 2026 709,320 shares short, 4.17% of float, 1.6 days to cover.</li>
+    <li><a href="https://www.nasdaq.com/market-activity/stocks/svco/option-chain">https://www.nasdaq.com/market-activity/stocks/svco/option-chain</a> — Nasdaq options chain page: option chain currently not available.</li>
+    <li><a href="https://www.investing.com/equities/silvaco%2C-consensus-estimates">https://www.investing.com/equities/silvaco%2C-consensus-estimates</a> — Investing.com consensus: 6 analysts, average PT $15.17, high $18, low $14, Strong Buy.</li>
+    <li><a href="https://www.investing.com/equities/silvaco-historical-data">https://www.investing.com/equities/silvaco-historical-data</a> — Investing.com historical data: 6/2/2026 close $12.17, volume 1.47M, +14.06%; five-day/month calculations in report are derived from displayed daily prices.</li>
+
+  </ol>
+  <p class="footer">주의: 본 보고서는 투자 자문이 아니며, 공개자료 기반의 forensic research입니다. 고객명·계약규모·ATM 사용속도·borrow fee 등 공개 확인이 제한된 항목은 “추론/검증 필요”로 분리했습니다.</p>
+</section>
+</main>
+</body>
+</html>

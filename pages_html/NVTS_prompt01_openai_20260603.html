@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NVTS Forensic Deep Dive — 2026-06-03</title>
+<style>
+:root {
+  --ink:#1d2430; --muted:#677082; --paper:#f7f3ea; --card:#fffaf0; --line:#2f3b52;
+  --teal:#0f766e; --ochre:#c17732; --coral:#d65f4b; --blue:#375a7f; --green:#4b7f52;
+  --soft:#e6decf; --cream:#fffdf6;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; line-height:1.62; }
+a { color:#194f78; text-decoration:underline; text-underline-offset:2px; }
+.hero { position:relative; padding:54px 7vw 42px; border-bottom:3px solid var(--line); overflow:hidden; background:var(--cream); }
+.hero h1 { max-width:980px; margin:0; font-size:42px; line-height:1.1; letter-spacing:-1.2px; }
+.hero p { max-width:880px; color:var(--muted); font-size:18px; margin:18px 0 0; }
+.poster { position:absolute; right:5vw; top:28px; width:260px; height:190px; }
+main { max-width:1120px; margin:0 auto; padding:30px 24px 90px; }
+section { background:var(--card); border:2px solid var(--line); margin:24px 0; padding:26px; box-shadow:8px 8px 0 #d8cdbb; }
+section.compact { padding:18px 22px; }
+h2 { margin:0 0 14px; font-size:28px; line-height:1.25; letter-spacing:-.5px; }
+h3 { margin:26px 0 10px; font-size:20px; }
+h4 { margin:20px 0 8px; font-size:16px; text-transform:uppercase; letter-spacing:.04em; color:var(--blue); }
+.kicker { display:inline-block; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); border:1px solid var(--teal); padding:3px 8px; border-radius:999px; margin-bottom:10px; }
+.gridcards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; }
+.card { background:#fff; border:2px solid var(--line); padding:15px; min-height:128px; }
+.card b { display:block; font-size:13px; color:var(--muted); margin-bottom:7px; }
+.card strong { display:block; font-size:24px; line-height:1.15; }
+.card span { display:block; margin-top:8px; color:var(--muted); font-size:13px; }
+.callout { border-left:8px solid var(--coral); background:#fff; padding:16px 18px; margin:16px 0; }
+.bull { border-left-color:var(--teal); } .anti { border-left-color:var(--coral); }
+.tablewrap { overflow:auto; margin:14px 0; border:2px solid var(--line); background:white; }
+table { border-collapse:collapse; width:100%; min-width:780px; font-size:13.5px; }
+th,td { border-bottom:1px solid #d8d0c2; border-right:1px solid #e0d8cb; padding:10px 11px; vertical-align:top; }
+th { background:#efe6d7; text-align:left; font-weight:800; }
+tr:last-child td { border-bottom:0; }
+ul { padding-left:22px; }
+li { margin:7px 0; }
+.tag { display:inline-block; padding:2px 7px; border:1px solid var(--line); border-radius:999px; font-size:12px; margin:2px 4px 2px 0; background:#fff; }
+.badgeA { color:#0f5d3d; font-weight:800; } .badgeB { color:#876100; font-weight:800; } .badgeC { color:#8a2f23; font-weight:800; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.chart, .ecosystem { width:100%; height:auto; margin:8px 0; border:2px solid var(--line); background:#fff; }
+.canvas,.posterbg { fill:#fffdf6; }
+.grid { stroke:#d8d0c2; stroke-width:1; }
+.axis,.caption { fill:#677082; font-size:12px; }
+.label { fill:#1d2430; font-size:14px; font-weight:700; }
+.value { fill:#1d2430; font-size:14px; font-weight:800; }
+.line { stroke:var(--teal); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.dot { fill:#fff; stroke:var(--teal); stroke-width:3; }
+.bar { fill:#d8cdbb; }
+.bridgebar { fill:#c17732; }
+.cashbar { fill:#0f766e; } .burnbar { fill:#d65f4b; }
+.bearline { stroke:#d65f4b; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.baseline { stroke:#375a7f; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.bullline { stroke:#0f766e; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+.legend { fill:#1d2430; font-size:13px; }
+.node { stroke:#2f3b52; stroke-width:2; }
+.supplier { fill:#efe6d7; } .core { fill:#f6c26b; } .partner { fill:#b8d5c4; } .customer { fill:#d8e3ef; } .end { fill:#f0b4a6; }
+.nodeTitle { fill:#1d2430; font-size:15px; font-weight:800; text-anchor:middle; } .nodeTitle.big { font-size:22px; } .nodeText { fill:#1d2430; font-size:12px; text-anchor:middle; }
+.arrow,.dotted { fill:none; stroke:#2f3b52; stroke-width:3; marker-end:url(#arrow); } .dotted { stroke-dasharray:7 7; }
+.finalbox { background:#1d2430; color:white; padding:20px; border:0; } .finalbox h2,.finalbox h3 { color:white; } .finalbox table { color:#1d2430; }
+.source-list li { margin:8px 0; }
+.small { color:var(--muted); font-size:13px; }
+@media (max-width:900px) { .gridcards,.two,.three { grid-template-columns:1fr; } .poster { display:none; } .hero h1 { font-size:32px; } section { padding:18px; } }
+@media print { body { background:white; } section { box-shadow:none; page-break-inside:avoid; } .hero { page-break-after:avoid; } a { color:#111; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <svg class="poster" viewBox="0 0 300 220" aria-hidden="true">
+    <rect x="12" y="14" width="276" height="192" rx="22" fill="#efe6d7" stroke="#2f3b52" stroke-width="4"/>
+    <circle cx="230" cy="64" r="30" fill="#d65f4b" stroke="#2f3b52" stroke-width="4"/>
+    <rect x="54" y="68" width="88" height="104" fill="#0f766e" stroke="#2f3b52" stroke-width="4"/>
+    <rect x="154" y="92" width="72" height="80" fill="#375a7f" stroke="#2f3b52" stroke-width="4"/>
+    <line x1="68" y1="88" x2="128" y2="88" stroke="#fffdf6" stroke-width="5"/>
+    <line x1="68" y1="116" x2="128" y2="116" stroke="#fffdf6" stroke-width="5"/>
+    <line x1="68" y1="144" x2="128" y2="144" stroke="#fffdf6" stroke-width="5"/>
+    <path d="M38 180 L262 180" stroke="#2f3b52" stroke-width="4"/>
+    <path d="M132 78 C178 58 203 74 232 92" fill="none" stroke="#2f3b52" stroke-width="4"/>
+  </svg>
+  <span class="kicker">Forensic equity deep dive · NVTS · 기준일 2026-06-03</span>
+  <h1>Navitas Semiconductor: “GaN charger stock”에서 AI Factory 전력 표준 레이어로 리레이팅될 수 있는가?</h1>
+  <p>이 보고서는 숫자 요약보다 공시·고객/파트너·공급망·자금조달·컨콜 발언을 시간순으로 연결해, 시장이 놓친 구조적 변곡점과 그 반대 thesis를 동시에 검증합니다.</p>
+</header>
+<main>
+<section class="compact">
+  <div class="gridcards">
+    <div class="card"><b>현재 주가 snapshot</b><strong>$30.84</strong><span>6/3 close 기준. 일부 실시간 소스는 6/4 장중 $29대도 표시되어 변동성 큼.</span></div>
+    <div class="card"><b>현재 보유</b><strong>25주</strong><span>포트폴리오 비중 0.2% 미만. 매입가/수익률 미제공.</span></div>
+    <div class="card"><b>Pro forma cash</b><strong>약 $343M</strong><span>Q1 cash $221M + ATM net $122M, 단순 추정.</span></div>
+    <div class="card"><b>평가 결론</b><strong>Hold / Trim</strong><span>기술 옵션은 강하지만 현재가는 base보다 bull/overshoot에 가까움.</span></div>
+  </div>
+  <p class="small">주의: 본 보고서는 공개자료 기반 분석이며 투자자문이 아닙니다. 실시간 가격·컨센서스·short/borrow 데이터는 장중 변동 및 공급사별 차이가 큽니다.</p>
+</section>
+
+<section>
+  <span class="kicker">1단계 Thesis Discovery</span>
+  <h2>내가 처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>숨은 신호</th><th>근거</th><th>신뢰도</th><th>투자 의미</th></tr></thead><tbody><tr><td>1</td><td>“모바일 GaN 충전기 회사”가 아니라 <b>AI 전력/그리드용 고전압 전력 플랫폼</b>으로 재정의되는 중</td><td>10-K의 Navitas 2.0, Q1 컨콜의 고전력 매출 비중 확대</td><td>A</td><td>멀티플은 소비재 부품 P/S가 아니라 AI 인프라 전력 레이어 옵션으로 재평가될 수 있음</td></tr><tr><td>2</td><td>2025년 매출 붕괴는 단순 실패가 아니라 <b>중국 모바일/소비자 채널 정리</b> 신호</td><td>FY2025 매출 -45%, Distributor A 종료, end-customer China 비중 하락</td><td>A</td><td>과거 매출 추세만 보면 오판. 미래 매출 질은 개선될 수 있으나 단기 숫자는 공백</td></tr><tr><td>3</td><td>NVIDIA MGX는 “고객 확정”이 아니라 <b>표준 아키텍처 전환에 올라탄 데모/생태계 신호</b></td><td>GTC → PCIM → Partner Ceremony → COMPUTEX MGX showcase 연쇄</td><td>A</td><td>주가는 이미 이를 design win처럼 가격 반영. 실제 PO/backlog 확인 전까지 과열 위험</td></tr><tr><td>4</td><td>800V→6V PDB는 48/50V 중간 버스를 건너뛰는 <b>시스템 아키텍처 베팅</b></td><td>20kW PDB, 650V GaNFast 16개, 97.5% peak, 1MHz</td><td>A</td><td>단품 ASP보다 reference board/turnkey 설계 레이어 가치가 핵심</td></tr><tr><td>5</td><td>GaN + 고전압 SiC 조합은 <b>grid-to-rack-to-GPU</b> 풀스택 서사를 만든다</td><td>GaNFast + GeneSiC, 1200V/2300V/3300V, SST/PSU/PDB</td><td>A</td><td>AI 데이터센터 전력체인 전체를 말할 수 있는 소형주는 드묾</td></tr><tr><td>6</td><td>CEO/CFO 교체는 창업자 기술 스토리에서 <b>스케일링·수익성·IR/재무 집행</b> 스토리로 전환</td><td>Chris Allexandre CEO, Tonya Stevens CFO</td><td>A</td><td>리레이팅은 기술보다 execution credibility에 달림</td></tr><tr><td>7</td><td>$100M 사모증자와 $125M ATM은 생존자금보다 <b>램프·공급망·M&A 선택권</b>에 가깝다</td><td>$100M @ $6.75, ATM net $122M, pro forma cash 약 $343M</td><td>A</td><td>현금 runway가 길어져 파산 리스크는 낮지만 희석/매도 오버행은 이미 발생</td></tr><tr><td>8</td><td>ATM이 매우 빠르게 소화된 것은 <b>수급 오버행 해소 + 모멘텀 수요</b> 신호</td><td>6.53M주, net $122M, 이후 주가 $30대</td><td>A</td><td>단기 squeeze 가능성을 높였지만 회사는 낮은 가격에 희석 발행한 셈</td></tr><tr><td>9</td><td>TSMC GaN 생산 종료 예정은 숨겨진 <b>공급망 전환 리스크</b></td><td>TSMC가 2027년 7월 GaN 생산 중단 의향 통보</td><td>A</td><td>고객 lock-in보다 먼저 대체 wafer path 검증이 필요</td></tr><tr><td>10</td><td>18~19% short interest와 110M 거래량은 <b>펀더멘털 리레이팅 + short squeeze</b> 혼합을 시사</td><td>May 15 short interest 38.45M주, Jun 3 거래량 110.8M</td><td>A</td><td>현재 주가는 base case보다 overshoot/optionality를 산 가격일 가능성</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <span class="kicker">0. Executive Summary</span>
+  <h2>한 문장 thesis / anti-thesis</h2>
+  <div class="callout bull"><b>투자 thesis:</b> NVTS는 단순 GaN 충전기/모바일 부품사가 아니라, 800VDC AI factory 전력 아키텍처에서 GaNFast + GeneSiC + reference PDB/SST를 묶어 <b>rack-to-GPU와 grid-to-rack의 전력 설계 레이어</b>로 재평가될 수 있다.</div>
+  <div class="callout anti"><b>Anti-thesis:</b> 현재 주가는 실제 주문·backlog·named customer보다 NVIDIA MGX 쇼케이스, short covering, M&A/AI narrative를 먼저 산 가격이며, 매출 $40M대 회사에 $7B+ 시총을 부여하려면 flawless execution이 필요하다.</div>
+  <div class="gridcards">
+    <div class="card"><b>투자 등급</b><strong>Hold / Trim bias</strong><span>기술 thesis는 강하지만 현재 가격은 base case가 아니라 bull/overshoot를 상당 부분 선반영</span></div><div class="card"><b>포트폴리오 행동</b><strong>일부 차익실현</strong><span>25주 중 5주 트림, 20주는 이벤트 콜옵션 보유. 매입가 미제공이므로 수익률 기준은 보정 필요</span></div><div class="card"><b>핵심 촉매</b><strong>Q2 beat + raise + order visibility</strong><span>단순 NVIDIA 언급보다 named design win, backlog, shipment guide가 중요</span></div><div class="card"><b>핵심 리스크</b><strong>valuation + supply chain</strong><span>현재 EV/Sales가 극단적. TSMC GaN 전환과 희석/수급이 변동성의 본질</span></div>
+  </div>
+  <ul>
+    <li><b>현재 시장이 보는 회사:</b> 적자 GaN/SiC 소형주 + NVIDIA AI 전력 테마주.</li>
+    <li><b>내가 새롭게 보는 회사:</b> 고전압 AI 전력 reference platform이 될 가능성이 있는 fabless power semiconductor design house.</li>
+    <li><b>리레이팅이 가능한 이유:</b> 800VDC 전환은 단품 스펙보다 시스템 아키텍처 변화이며, NVTS는 GaN과 고전압 SiC 양쪽을 모두 말할 수 있다.</li>
+    <li><b>리레이팅 실패 조건:</b> MGX 전시가 design win/order로 이어지지 않거나, TSMC GaN 전환·경쟁사 reference slot·희석이 upside를 잠식하는 경우.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="kicker">1. 시장이 놓친 핵심 변곡점</span>
+  <h2>확정 사실, 합리적 추론, 검증되지 않은 가설</h2>
+  <div class="two">
+    <div>
+      <h3>발견 1 — 매출 구조의 고통스러운 리셋</h3>
+      <ul>
+        <li><b>확정:</b> FY2025 매출은 $45.9M으로 전년 $83.3M 대비 급감했고, 회사는 모바일/소비자 중심에서 고전력 시장으로 pivot한다고 공시했다.</li>
+        <li><b>추론:</b> 과거 매출 감소는 단순 침체가 아니라 저품질 채널/지역 노출 축소와 연결되어 있을 가능성이 높다.</li>
+        <li><b>가설:</b> 2026~2027년 고전력 매출이 이 공백을 대체하면 시장은 “성장률 둔화 회사”가 아니라 “재상장된 AI 전력회사”로 볼 수 있다.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>발견 2 — NVIDIA는 고객명보다 표준 레이어 신호</h3>
+      <ul>
+        <li><b>확정:</b> NVTS의 800V→6V PDB가 NVIDIA MGX ecosystem showcase에 등장했다.</li>
+        <li><b>추론:</b> 이는 제품이 AI rack power architecture 논의에 들어갔다는 신호다.</li>
+        <li><b>가설:</b> NVIDIA reference path에 반복적으로 등재되고 rack OEM PO가 붙으면 multiple rerating이 가능하다.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="two">
+    <div>
+      <h3>발견 3 — 자본조달은 runway보다 optionality</h3>
+      <ul>
+        <li><b>확정:</b> 2025년 $100M 사모증자와 2026년 $122M ATM 순유입으로 현금은 pro forma 약 $343M 수준.</li>
+        <li><b>추론:</b> 단순 생존자금보다는 ramp inventory, 공급망 전환, 소규모 M&A bridge 역할이 더 크다.</li>
+        <li><b>가설:</b> 고전력 고객이 실제로 붙으면 “현금이 많은 적자주”가 아니라 “ramp 가능한 platform asset”으로 보일 수 있다.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>발견 4 — 가장 큰 비고객 리스크는 TSMC</h3>
+      <ul>
+        <li><b>확정:</b> TSMC는 GaN 생산을 2027년 7월 중단할 의향을 통보했고, NVTS는 mitigation을 공시했다.</li>
+        <li><b>추론:</b> AI 전력 ramp thesis는 고객보다 먼저 supply qualification을 요구한다.</li>
+        <li><b>가설:</b> 대체 foundry가 공개되면 리스크 프리미엄이 내려가고, 미공개면 리레이팅은 제한된다.</li>
+      </ul>
+    </div>
+  </div>
+  <p><b>왜 아직 완전히 반영되지 않았나?</b> 시장은 NVIDIA headline과 주가 급등을 반영했지만, 고전력 매출 비중·고객명·주문·공급망 전환을 아직 수치로 확인하지 못했다. 반대로 단기 주가는 평균 목표가를 크게 넘어섰으므로 “반영이 덜 됐다”기보다는 “좋은 thesis와 비싼 가격이 공존한다”가 정확하다.</p>
+</section>
+
+<section>
+  <span class="kicker">2. 전통적 비즈니스 모델의 진화</span>
+  <h2>레거시 부품 판매에서 reference platform layer로</h2>
+  <div class="three">
+    <div class="card"><b>레거시</b><strong>Mobile / consumer GaN</strong><span>중국·아시아 중심, 충전기/consumer channel, distributor concentration.</span></div>
+    <div class="card"><b>현재 성장 축</b><strong>AI data center + grid</strong><span>GaNFast PDB, GeneSiC PSU/SST, high-power majority.</span></div>
+    <div class="card"><b>진화 판단</b><strong>Component → Reference</strong><span>아직 turnkey/platform은 검증 전. 그러나 PDB/SST demo는 reference layer 방향.</span></div>
+  </div>
+  <p>이 변화가 멀티플을 바꾸려면 “GaN/SiC 칩 판매”만으로는 부족하다. 고객이 NVTS board/architecture를 그대로 설계 기준으로 채택하고, 재설계 비용·인증·RF/thermal tuning·rack qualification이 switching cost를 만들어야 한다. 현재는 <b>진화 중</b>이지 완료된 platform은 아니다.</p>
+</section>
+
+<section>
+  <span class="kicker">3. 실적으로 증명되는 실체</span>
+  <h2>최근 숫자와 다음 KPI</h2>
+  <div class="gridcards">
+    <div class="card"><b>Q1 2026 revenue</b><strong>$8.6M</strong><span>Q/Q +18%, Y/Y -39%.</span></div>
+    <div class="card"><b>Non-GAAP GM</b><strong>39.0%</strong><span>GAAP GM -9.3%와 괴리. 조정 항목 확인 필요.</span></div>
+    <div class="card"><b>Non-GAAP op loss</b><strong>-$11.7M</strong><span>Q1 GAAP operating loss -$27.8M.</span></div>
+    <div class="card"><b>Q2 guide</b><strong>$10.0M ±0.5M</strong><span>midpoint Q/Q +16%.</span></div>
+  </div>
+  <h3>다음 분기에 반드시 확인할 KPI</h3>
+  <ul>
+    <li><b>Revenue:</b> $10.5M 이상이면 단순 guide beat, $11M+와 Q3 raise가 붙어야 주가 유지 가능.</li>
+    <li><b>High-power mix:</b> 회사가 “large majority” 대신 정량 비중을 공개하는지.</li>
+    <li><b>Orders/backlog:</b> design win, PO, backlog, shipment schedule 중 하나라도 수치로 제시되는지.</li>
+    <li><b>GM:</b> non-GAAP GM 39~40% 이상 유지. 고전력 mix가 올라가는데 GM이 하락하면 yield/pricing 이슈.</li>
+    <li><b>Cash burn:</b> 분기 operating cash use가 $16M대에서 관리되는지, 또는 램프 재고로 의도적 증가인지.</li>
+  </ul>
+  <svg class="chart" viewBox="0 0 860 260" role="img" aria-label="현금과 런웨이">
+      <rect x="0" y="0" width="860" height="260" class="canvas"/>
+      <text x="18" y="56" class="label">Q1 현금</text><rect x="140" y="35" width="417.4" height="26" class="cashbar"/><text x="565.4" y="54" class="value">$221.0M</text><text x="18" y="99" class="label">ATM 순유입</text><rect x="140" y="78" width="230.4" height="26" class="cashbar"/><text x="378.4" y="97" class="value">$122.0M</text><text x="18" y="142" class="label">Pro forma 현금</text><rect x="140" y="121" width="647.9" height="26" class="cashbar"/><text x="795.9" y="140" class="value">$343.0M</text><text x="18" y="185" class="label">분기 burn</text><rect x="140" y="164" width="31.0" height="26" class="burnbar"/><text x="179.0" y="183" class="value">$16.4M</text>
+      <text x="140" y="248" class="caption">Q1 operating cash burn $16.4M 기준 단순 runway 약 20분기+; 램프 재고/공급 전환 비용은 별도 리스크</text>
+    </svg>
+</section>
+
+<section>
+  <span class="kicker">4. 고객·파트너·생태계 분석</span>
+  <h2>직접 고객, 간접 고객, 최종 수혜 고객</h2>
+  <svg class="ecosystem" viewBox="0 0 980 520" role="img" aria-label="NVTS 고객 생태계 관계도"><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#2f3b52"/></marker></defs>
+      <rect x="0" y="0" width="980" height="520" class="posterbg"/>
+      <rect x="30" y="48" width="170" height="90" rx="12" class="node supplier"/><text x="115" y="82" class="nodeTitle">Foundry / OSAT</text><text x="115" y="108" class="nodeText">TSMC GaN 전환 리스크</text><text x="115" y="128" class="nodeText">SiC foundry · assembly</text>
+      <rect x="30" y="188" width="170" height="90" rx="12" class="node supplier"/><text x="115" y="222" class="nodeTitle">IP / Process</text><text x="115" y="248" class="nodeText">GaNFast · GeneSiC</text><text x="115" y="268" class="nodeText">컨트롤러 · isolator</text>
+      <rect x="300" y="120" width="210" height="145" rx="16" class="node core"/><text x="405" y="160" class="nodeTitle big">Navitas</text><text x="405" y="190" class="nodeText">800V→6V PDB</text><text x="405" y="214" class="nodeText">650V GaNFast FETs</text><text x="405" y="238" class="nodeText">1200/3300V SiC</text>
+      <rect x="610" y="40" width="170" height="95" rx="12" class="node partner"/><text x="695" y="74" class="nodeTitle">NVIDIA MGX</text><text x="695" y="100" class="nodeText">ecosystem showcase</text><text x="695" y="120" class="nodeText">비독점 검증 필요</text>
+      <rect x="610" y="180" width="170" height="95" rx="12" class="node customer"/><text x="695" y="214" class="nodeTitle">PSU / Rack OEM</text><text x="695" y="240" class="nodeText">Delta·Vertiv·Eaton?</text><text x="695" y="260" class="nodeText">후보, 미확정</text>
+      <rect x="610" y="330" width="170" height="95" rx="12" class="node customer"/><text x="695" y="364" class="nodeTitle">Grid / SST OEM</text><text x="695" y="390" class="nodeText">EPFL demo</text><text x="695" y="410" class="nodeText">utility-scale option</text>
+      <rect x="810" y="130" width="145" height="120" rx="12" class="node end"/><text x="882" y="164" class="nodeTitle">AI Factories</text><text x="882" y="190" class="nodeText">MSFT·AMZN·GOOG</text><text x="882" y="210" class="nodeText">Oracle·Meta?</text><text x="882" y="230" class="nodeText">간접 수혜</text>
+      <rect x="810" y="318" width="145" height="95" rx="12" class="node end"/><text x="882" y="352" class="nodeTitle">Power Majors</text><text x="882" y="378" class="nodeText">Infineon·ST도 MGX</text><text x="882" y="398" class="nodeText">경쟁/인수 후보</text>
+      <path d="M200 92 C240 90 260 132 300 150" class="arrow"/><path d="M200 236 C242 234 260 216 300 204" class="arrow"/>
+      <path d="M510 160 C550 120 570 90 610 88" class="arrow"/><path d="M510 198 C550 204 570 214 610 226" class="arrow"/><path d="M510 240 C555 315 570 360 610 376" class="arrow"/>
+      <path d="M780 228 C795 215 800 205 810 194" class="arrow"/><path d="M780 376 C790 374 800 372 810 368" class="arrow"/>
+      <path d="M780 88 C830 86 858 104 882 130" class="dotted"/>
+      <text x="488" y="475" class="caption">실선 = 확인된 기술·생태계 연결 / 점선 = 경제적 수혜 추론 / 후보 고객명은 확정 아님</text>
+    </svg>
+  <div class="two">
+    <div>
+      <h3>직접 고객/채널</h3>
+      <ul>
+        <li>공시상 매출은 상당 부분 전문 유통사를 통해 인식된다. Q1 2026에는 Distributor A가 59%로 고객 집중이 높다.</li>
+        <li>진짜 thesis는 distributor 명칭보다 그 뒤의 OEM/ODM/rack power customer가 누구인지다.</li>
+        <li>NDA 구조상 고객명이 공개되지 않을 수 있으므로, 10% 고객 공시만으로 최종 고객을 단정하면 안 된다.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>간접/최종 수혜 고객</h3>
+      <ul>
+        <li><b>NVIDIA:</b> MGX ecosystem/architecture relevance 높음. 다만 NVTS 매출 고객이라고 단정 불가.</li>
+        <li><b>Hyperscalers:</b> Microsoft, Amazon, Google, Oracle, Meta 등은 AI factory 전력 효율의 최종 수혜자이나 직접 고객 근거는 미확인.</li>
+        <li><b>관련성 낮음:</b> Apple·Qualcomm·Samsung은 모바일 레거시 측면 외 high-power thesis 직접성 낮음. SpaceX·Globalstar·Gogo·Skylo·Verizon은 현재 확인된 직접 연관 낮음.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>경쟁/협력 맵</h3>
+  <p><span class="tag">Infineon</span><span class="tag">STMicroelectronics</span><span class="tag">onsemi</span><span class="tag">Power Integrations</span><span class="tag">Vicor</span><span class="tag">Monolithic Power</span><span class="tag">Renesas</span><span class="tag">Texas Instruments</span></p>
+  <p>중요한 반대 근거는 NVIDIA 800VDC 생태계가 NVTS 단독 트랙이 아니라는 점이다. Infineon도 NVIDIA MGX 800VDC ecosystem 참여를 발표했고, ST도 800V HVDC 데이터센터 보드를 전면에 내세운다. 따라서 NVTS의 우위는 “NVIDIA와 사진 찍었다”가 아니라, 실제 PDB/SST 스펙·효율·thermal·qualification·supply로 증명되어야 한다.</p>
+</section>
+
+<section>
+  <span class="kicker">5. 숨은 고객 및 M&A optionality</span>
+  <h2>후보는 제시하되, 확정 사실처럼 쓰지 않는다</h2>
+  <div class="tablewrap"><table><thead><tr><th>후보군</th><th>근거</th><th>반대 근거</th><th>가능성</th><th>다음 증거</th></tr></thead><tbody><tr><td>NVIDIA MGX/rack OEM ecosystem</td><td>COMPUTEX MGX showcase, GTC PDB, Partner Ceremony</td><td>NVIDIA가 매출 고객이라는 증거 없음. MGX는 생태계형 reference일 수 있음</td><td>간접 촉매 35%, 직접 고객 10% 미만</td><td>NVIDIA reference doc, ODM PO, joint roadmap</td></tr><tr><td>PSU/rack power OEM: Delta·Flex·Vertiv·Eaton·Schneider 후보</td><td>800VDC rack power, PSU/SST 필요, high-power customer가 익명</td><td>공시·PR상 고객명 미확인, 경쟁사도 접근 중</td><td>개별 10~25%</td><td>10-Q 고객 집중 변화, 고객사 product launch</td></tr><tr><td>Hyperscaler: MSFT·AMZN·GOOG·Oracle·Meta 후보</td><td>AI factory 전력 효율의 최종 경제성 수혜</td><td>대부분 직접 부품 소싱보다 OEM/ODM 경유. NVTS와 직접 계약 근거 없음</td><td>간접 end-demand 20~40%</td><td>rack architecture 발표, co-design mention</td></tr><tr><td>Grid/SST OEM 및 utility infrastructure</td><td>EPFL 250kW SST, 1200/3300V SiC</td><td>데모와 상용 주문은 다름. 인증/utility sales cycle 길다</td><td>10~20%</td><td>pilot order, utility-grade certification</td></tr></tbody></table></div>
+  <h3>M&A optionality</h3>
+  <ul>
+    <li><b>전략적 인수 후보:</b> Infineon, STMicro, onsemi, Renesas, Texas Instruments, Power Integrations, Monolithic Power, Vicor, Broadcom 전력/AI 인프라 관련 사업부.</li>
+    <li><b>방어적 인수 후보:</b> 경쟁사가 NVTS의 800V reference/SiC IP를 가져가면 불리해지는 power major. NVIDIA나 hyperscaler의 직접 인수는 가능성 낮지만, supply assurance/strategic investment는 더 현실적.</li>
+    <li><b>가격 반영:</b> base case에는 5% 이하, bull case에는 10~15%, overshoot에는 20~25% sentiment premium만 반영. 현재 시총에서는 M&A가 오히려 인수자의 경제성을 약화시킨다.</li>
+    <li><b>타이밍:</b> 고객 PO와 supply qualification 직전/직후가 최적. 너무 이르면 기술 리스크, 너무 늦으면 가격이 비싸다.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="kicker">6. 자본구조와 수급 분석</span>
+  <h2>소형 적자 성장주의 주가는 자본구조가 지배한다</h2>
+  <div class="gridcards">
+    <div class="card"><b>Basic shares</b><strong>약 240M</strong><span>May 2026 233.7M + ATM 6.53M 단순 합산.</span></div>
+    <div class="card"><b>Practical FD shares</b><strong>약 262M</strong><span>RSU·option·earnout 포함, future reserve 제외.</span></div>
+    <div class="card"><b>ATM</b><strong>$122M net</strong><span>6.53M주 판매 후 사실상 완료.</span></div>
+    <div class="card"><b>Short interest</b><strong>38.45M</strong><span>float 약 18~19%, May 15 기준.</span></div>
+  </div>
+  <ul>
+    <li><b>전환사채:</b> 최신 10-Q에서 material convertible debt/warrant는 확인되지 않았다. 대신 RSU/option/earnout과 shelf/ATM이 dilution source다.</li>
+    <li><b>희석:</b> ATM은 오버행을 해소했지만 $18대 기준으로 대규모 희석이 완료된 셈이다. 현재 $30대 가격은 ATM 투자자에게 큰 buffer를 제공한다.</li>
+    <li><b>수급 분해:</b> 6/3 급등은 NVIDIA MGX headline + 단기 AI power rerating + short covering + ATM overhang 해소가 결합된 것으로 보는 것이 합리적이다.</li>
+    <li><b>borrow fee:</b> 접근 가능한 공개자료에서 독립 확인하지 못했다. short interest는 높지만 days-to-cover는 거래량 급증으로 낮아졌다.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="kicker">7. 기술 분석</span>
+  <h2>소프트웨어가 아니라 실리콘·전력 아키텍처 문제</h2>
+  <div class="two">
+    <div>
+      <h3>핵심 제품/아키텍처</h3>
+      <ul>
+        <li><b>800V→6V DC-DC Power Delivery Board:</b> 20kW급, 48/50V intermediate bus 제거, 650V GaNFast FET 16개, 11mΩ, DFN8×8 dual-cooled, 1MHz 목표.</li>
+        <li><b>GaNFast:</b> 고주파·고밀도·fast transient response가 GPU 인접 전력 변환에 중요.</li>
+        <li><b>GeneSiC:</b> 1200V Gen5 SiC MOSFET, 2300/3300V SiC modules로 grid-to-rack/SST에 적합.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>왜 필요한가?</h3>
+      <ul>
+        <li>AI rack 전력은 전류·동손·copper bulk·변환 단계가 병목이다. 800VDC는 낮은 전류와 변환 단계 축소를 노린다.</li>
+        <li>이 문제는 software optimization만으로 해결되지 않는다. switching frequency, thermal, isolation, device reliability, board layout이 결합된다.</li>
+        <li>채택 후에는 certification, thermal tuning, rack-level validation, reliability qualification이 switching cost를 만든다.</li>
+      </ul>
+    </div>
+  </div>
+  <h3>모방 난이도</h3>
+  <p>경쟁사가 원리 자체를 복제하는 것은 가능하다. 실제 장벽은 “device + controller + package + board thermal + high-voltage safety + customer qualification”의 누적 경험이다. 따라서 NVTS의 기술 장벽은 특허 하나보다 <b>design-in 후 변경 비용</b>에서 발생한다. 아직 그 lock-in은 증명 전이다.</p>
+</section>
+
+<section>
+  <span class="kicker">C. 사건 체인 분석</span>
+  <h2>최근 24개월 핵심 사건 타임라인</h2>
+  <div class="tablewrap"><table><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>확인해야 할 다음 증거</th></tr></thead><tbody><tr><td>2024 말</td><td>Distributor A 종료</td><td>주요 유통사 관계 종료, bad debt·재고·R&D write-down 발생</td><td>레거시 중국/모바일 채널 정리의 시작</td><td>과거 매출 질 훼손, 단기 매출 공백</td><td>A</td><td>신규 고전력 고객 매출이 실제로 대체하는지</td></tr><tr><td>2025-01-20</td><td>구조조정 계획</td><td>19% workforce reduction, 계약 종료, 자산손상</td><td>비핵심 비용 제거와 시장 재선택</td><td>비용절감보다 정체성 전환 신호</td><td>A</td><td>Opex가 실제로 $14~15M/q 수준에서 통제되는지</td></tr><tr><td>2025-07-01</td><td>TSMC GaN 생산 종료 통보</td><td>TSMC가 2027년 7월 GaN 생산 중단 의향</td><td>대체 foundry/버퍼재고 확보 필요</td><td>가장 중요한 비고객 리스크</td><td>A</td><td>대체 foundry 이름·qualification 일정</td></tr><tr><td>2025-08-25</td><td>CEO 교체 발표</td><td>Chris Allexandre가 CEO/이사회 합류, Gene Sheridan 사임</td><td>Renesas power 출신의 운영/상업화형 리더십</td><td>founder tech story → execution story</td><td>A</td><td>대형 고객 계약/공급망 재편 진행 속도</td></tr><tr><td>2025 하반기</td><td>Navitas 2.0</td><td>AI data center, grid, performance computing, industrial electrification 집중</td><td>모바일/소비자·저전압 SiC·EV 일부를 후순위화</td><td>밸류체인 재정의의 공식화</td><td>A</td><td>고전력 매출 비중과 주문 visibility</td></tr><tr><td>2025-11-07</td><td>사모증자 $100M</td><td>14.81M주 @ $6.75, gross $100M</td><td>생존자금이라기보다 pivot 자금</td><td>cash runway 확보, 희석 발생</td><td>A</td><td>resale overhang과 cash deployment</td></tr><tr><td>2025-Q4</td><td>고전력 매출 과반</td><td>CFO/컨콜 기준 Q4에 high-power majority 최초 달성</td><td>매출 구조 변곡점</td><td>미래 매출 quality가 과거와 달라질 수 있음</td><td>B</td><td>분기별 high-power % 정량 공개</td></tr><tr><td>2026-03-11</td><td>CFO 선임</td><td>Tonya Stevens, Mar 30 effective</td><td>Lattice/Intel 경험, IR·treasury·scaling 역할</td><td>자본시장/수익성 로드맵 강화</td><td>A</td><td>ATM·M&A·운전자본 집행 품질</td></tr><tr><td>2026-03-16</td><td>NVIDIA GTC 800V→6V PDB</td><td>96.5% 효율 목표, 1MHz, 중간버스 제거</td><td>MGX 아키텍처 초기 탑승</td><td>AI rack power reference option</td><td>A</td><td>NVIDIA/ODM 실제 채택·PO</td></tr><tr><td>2026-03/04</td><td>EPFL 250kW SST</td><td>SiC 기반 solid-state transformer demo</td><td>rack 바깥 grid-to-rack 스토리 강화</td><td>GaN 단품보다 전체 전력체인 thesis</td><td>B</td><td>utility/OEM design win</td></tr><tr><td>2026-05-05</td><td>Q1 실적</td><td>Revenue $8.6M, non-GAAP GM 39%, cash $221M, Q2 guide $10M</td><td>고전력 pivot 초기 숫자 확인</td><td>아직 절대 매출은 작음</td><td>A</td><td>Q2 beat+raise, H2 acceleration</td></tr><tr><td>2026-05-11</td><td>S-3/ATM $125M</td><td>Craig-Hallum/UBS, 최대 $125M, potential acquisitions 포함</td><td>고평가 국면에서 balance sheet 강화</td><td>희석 vs 전략 optionality</td><td>A</td><td>실제 판매 속도·평균단가</td></tr><tr><td>2026-05-12/13</td><td>ATM 대부분 완료</td><td>6.53M주 판매, net $122M</td><td>오버행 단기 해소</td><td>현금 약 $343M pro forma</td><td>A</td><td>추가 shelf/insider sale 여부</td></tr><tr><td>2026-05-29</td><td>NVIDIA Partner Ceremony</td><td>Navitas가 NVIDIA 파트너 행사 참가</td><td>관계가 단순 PR보다 공식 생태계 쪽에 가까움</td><td>인식 리레이팅 촉매</td><td>A</td><td>NVIDIA reference docs에 반복 등재 여부</td></tr><tr><td>2026-06-02~05</td><td>COMPUTEX MGX showcase</td><td>800V→6V PDB가 MGX Ecosystem Showcase에 전시</td><td>아키텍처 베팅의 public validation</td><td>주가 급등 촉매</td><td>A</td><td>named design win/order/backlog</td></tr><tr><td>2026-06-03</td><td>주가 +19.3%, 110M 거래</td><td>close $30.84, intraday high $34.17</td><td>short covering + thematic chase 가능성</td><td>base case보다 overshoot pricing</td><td>A</td><td>거래량 정상화 후 가격 유지 여부</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <span class="kicker">8. 컨센서스 리비전 분석</span>
+  <h2>현재 시장은 base가 아니라 overshoot를 사고 있다</h2>
+  <div class="tablewrap"><table><thead><tr><th>항목</th><th>수치/관찰</th><th>해석</th></tr></thead><tbody><tr><td>현재 평균 목표가</td><td>MarketBeat $12.87 / StockAnalysis·Investing 약 $14.46</td><td>현재 $30.84는 평균 목표가 대비 2배 이상</td></tr><tr><td>최고 목표가</td><td>$21</td><td>최고치도 현재가보다 낮음. 이미 analyst bull case를 초과</td></tr><tr><td>Q1 actual</td><td>Revenue $8.6M, non-GAAP EPS -$0.04</td><td>소폭 beat. thesis를 증명하기에는 아직 절대 규모 작음</td></tr><tr><td>2026~2028 매출 기대</td><td>2026E 약 $42M, 2027E $72.9M, 2028E $124.6M</td><td>현재 EV/Sales는 2026E 기준 130~170x 범위</td></tr><tr><td>컨센서스가 못 본 변수</td><td>800V reference platform 가치, high-power mix, M&A/전략옵션</td><td>반대로 analyst가 옳다면 현재가는 overshoot</td></tr></tbody></table></div>
+  <p>최고 목표가 $21을 역산하면 diluted 262M주 기준 equity value는 약 $5.5B, pro forma EV는 약 $5.1B다. 이는 2028E revenue $125M에 약 41x EV/Sales를 부여한 수준이다. 현재 $30.84는 pro forma EV 약 $7.1B, 2028E sales 기준 약 57x, 2026E sales 기준 160x 내외다. 따라서 지금 시장은 <b>base case가 아니라 bull case와 squeeze premium의 중간</b>을 사고 있다.</p>
+  <svg class="chart" viewBox="0 0 860 300" role="img" aria-label="NVTS 최근 주가와 거래량">
+      <rect x="0" y="0" width="860" height="300" class="canvas"/>
+      <line x1="56" y1="218.2" x2="836" y2="218.2" class="grid"/><text x="14" y="222.2" class="axis">$20</text><line x1="56" y1="162.4" x2="836" y2="162.4" class="grid"/><text x="14" y="166.4" class="axis">$24</text><line x1="56" y1="106.7" x2="836" y2="106.7" class="grid"/><text x="14" y="110.7" class="axis">$28</text><line x1="56" y1="50.9" x2="836" y2="50.9" class="grid"/><text x="14" y="54.9" class="axis">$32</text><line x1="56" y1="23.0" x2="836" y2="23.0" class="grid"/><text x="14" y="27.0" class="axis">$34</text><rect x="514.0" y="238.6" width="20" height="13.4" class="bar"><title>5/28: 21.2M shares</title></rect><rect x="592.0" y="237.4" width="20" height="14.6" class="bar"><title>5/29: 23.1M shares</title></rect><rect x="670.0" y="236.4" width="20" height="15.6" class="bar"><title>6/1: 24.7M shares</title></rect><rect x="748.0" y="236.1" width="20" height="15.9" class="bar"><title>6/2: 25.1M shares</title></rect><rect x="826.0" y="182.0" width="20" height="70.0" class="bar"><title>6/3: 110.8M shares</title></rect>
+      <polyline fill="none" points="56.0,226.2 134.0,176.5 212.0,157.1 290.0,89.3 368.0,53.8 446.0,94.4 524.0,99.6 602.0,126.2 680.0,150.5 758.0,136.5 836.0,67.1" class="line"/>
+      <text x="56.0" y="282" text-anchor="middle" class="axis">5/19</text><circle cx="56.0" cy="226.2" r="4" class="dot"><title>5/19: $19.43</title></circle><circle cx="134.0" cy="176.5" r="4" class="dot"><title>5/20: $22.99</title></circle><text x="212.0" y="282" text-anchor="middle" class="axis">5/21</text><circle cx="212.0" cy="157.1" r="4" class="dot"><title>5/21: $24.38</title></circle><circle cx="290.0" cy="89.3" r="4" class="dot"><title>5/22: $29.25</title></circle><text x="368.0" y="282" text-anchor="middle" class="axis">5/26</text><circle cx="368.0" cy="53.8" r="4" class="dot"><title>5/26: $31.79</title></circle><circle cx="446.0" cy="94.4" r="4" class="dot"><title>5/27: $28.88</title></circle><text x="524.0" y="282" text-anchor="middle" class="axis">5/28</text><circle cx="524.0" cy="99.6" r="4" class="dot"><title>5/28: $28.51</title></circle><circle cx="602.0" cy="126.2" r="4" class="dot"><title>5/29: $26.60</title></circle><text x="680.0" y="282" text-anchor="middle" class="axis">6/1</text><circle cx="680.0" cy="150.5" r="4" class="dot"><title>6/1: $24.86</title></circle><circle cx="758.0" cy="136.5" r="4" class="dot"><title>6/2: $25.86</title></circle><text x="836.0" y="282" text-anchor="middle" class="axis">6/3</text><circle cx="836.0" cy="67.1" r="4" class="dot"><title>6/3: $30.84</title></circle>
+      <text x="56" y="20" class="caption">최근 주가: 5/19 $19.43 → 6/3 $30.84, 6/3 거래량 110.8M</text>
+    </svg>
+</section>
+
+<section>
+  <span class="kicker">9. 이벤트 드리븐 분석</span>
+  <h2>다음 실적에서 “beat”만으로 충분하지 않다</h2>
+  <ul>
+    <li><b>실적 발표일:</b> 공개 캘린더들은 2026년 8월 초~중순으로 엇갈린다. IR 공식 일정 확인 필요.</li>
+    <li><b>오르기 위한 조건:</b> Q2 revenue $10.5M+ beat, Q3/H2 raise, high-power mix 정량 공개, 800V PDB design win/order/backlog 또는 고객 qualification timeline.</li>
+    <li><b>빠지기 위한 조건:</b> revenue가 guide midpoint 수준에 그치고, NVIDIA 관련 질문에 “early engagement” 수준의 답변만 반복하는 경우.</li>
+    <li><b>컨콜 질문:</b> ① 800V→6V PDB의 고객 qualification stage ② NVIDIA MGX 내 역할이 reference, evaluation, PO 중 무엇인지 ③ TSMC GaN 대체 foundry 일정 ④ high-power revenue % ⑤ backlog/RPO/design win 수치 ⑥ ATM proceeds 사용계획.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="kicker">10. 밸류에이션</span>
+  <h2>DCF, FCF Yield, 상대가치, 리레이팅 가치</h2>
+  <div class="tablewrap"><table><thead><tr><th>방식</th><th>주당 가치</th><th>핵심 가정</th><th>메모</th></tr></thead><tbody><tr><td>DCF Bear</td><td>$5~7</td><td>2026E $42M → 2030E $300M, GM 43→47%, 2030 FCF margin 5%, WACC 15%, terminal 10x sales/low FCF</td><td>희석 262M 반영</td></tr><tr><td>DCF Base</td><td>$14~18</td><td>2026E $42M → 2030E $420M, GM 39→50%, 2030 FCF margin 10%, WACC 14%, terminal 12~15x sales</td><td>AI power design wins 일부 반영</td></tr><tr><td>DCF Bull</td><td>$28~34</td><td>2026E $42M → 2030E $650M, GM 52%, 2030 FCF margin 18%, WACC 13%, terminal 15~18x sales</td><td>800V architecture 채택·대형 고객 ramp 전제</td></tr><tr><td>FCF Yield</td><td>$12~22</td><td>2030 normalized FCF $40~70M, 4~5% yield, 4년 할인</td><td>현재 가격은 FCF yield 관점 과도</td></tr><tr><td>상대가치</td><td>$10~21</td><td>전력반도체/전력모듈 고성장 peer 8~25x forward sales 범위 적용</td><td>현재는 peer upper-tail 초과</td></tr><tr><td>리레이팅/옵션</td><td>$34~45</td><td>2028E sales $125M에 65~90x 또는 2030E sales 650M에 18x 이상</td><td>short squeeze·M&A·NVIDIA narrative 포함</td></tr></tbody></table></div>
+  <h3>Revenue & multiple band: 실제 데이터와 미래 가정 분리</h3>
+  <svg class="chart" viewBox="0 0 860 330" role="img" aria-label="매출 밴드">
+      <rect x="0" y="0" width="860" height="330" class="canvas"/>
+      <line x1="70" y1="276.0" x2="832" y2="276.0" class="grid"/><text x="16" y="280.0" class="axis">0</text><line x1="70" y1="241.7" x2="832" y2="241.7" class="grid"/><text x="16" y="245.7" class="axis">100</text><line x1="70" y1="190.1" x2="832" y2="190.1" class="grid"/><text x="16" y="194.1" class="axis">250</text><line x1="70" y1="104.3" x2="832" y2="104.3" class="grid"/><text x="16" y="108.3" class="axis">500</text><line x1="70" y1="52.8" x2="832" y2="52.8" class="grid"/><text x="16" y="56.8" class="axis">650</text>
+      <polyline fill="none" points="70.0,247.4 197.0,260.2 324.0,261.6 451.0,251.0 578.0,233.2 705.0,203.9 832.0,173.0" class="bearline"/>
+      <polyline fill="none" points="70.0,247.4 197.0,260.2 324.0,261.6 451.0,251.0 578.0,233.2 705.0,186.7 832.0,131.8" class="baseline"/>
+      <polyline fill="none" points="70.0,247.4 197.0,260.2 324.0,261.6 451.0,251.0 578.0,233.2 705.0,166.1 832.0,52.8" class="bullline"/>
+      <text x="70.0" y="308" text-anchor="middle" class="axis">2024A</text><text x="197.0" y="308" text-anchor="middle" class="axis">2025A</text><text x="324.0" y="308" text-anchor="middle" class="axis">2026E</text><text x="451.0" y="308" text-anchor="middle" class="axis">2027E</text><text x="578.0" y="308" text-anchor="middle" class="axis">2028E</text><text x="705.0" y="308" text-anchor="middle" class="axis">2029E</text><text x="832.0" y="308" text-anchor="middle" class="axis">2030E</text>
+      <text x="70" y="20" class="caption">Revenue actual/consensus/assumption bands ($M): 2024A~2028E는 공개자료, 2029~2030은 본 보고서 가정</text>
+      <text x="600" y="50" class="legend">— Bear  — Base  — Bull</text>
+    </svg>
+  <h3>Valuation bridge</h3>
+  <svg class="chart" viewBox="0 0 860 340" role="img" aria-label="NVTS 목표가 브릿지">
+       <rect x="0" y="0" width="860" height="340" class="canvas"/>
+       <text x="18" y="52" class="label">보수적 내재가치</text><rect x="170" y="30" width="90.3" height="28" class="bridgebar"/><text x="268.3" y="50" class="value">$7</text><text x="170" y="73" class="axis">성장 지연·peer multiple reset</text><text x="18" y="100" class="label">12개월 base</text><rect x="170" y="78" width="232.1" height="28" class="bridgebar"/><text x="410.1" y="98" class="value">$18</text><text x="170" y="121" class="axis">beat+raise는 있으나 named order 전</text><text x="18" y="148" class="label">현재 주가</text><rect x="170" y="126" width="397.7" height="28" class="bridgebar"/><text x="575.7" y="146" class="value">$31</text><text x="170" y="169" class="axis">bull/overshoot 일부 선반영</text><text x="18" y="196" class="label">Bull target</text><rect x="170" y="174" width="438.5" height="28" class="bridgebar"/><text x="616.5" y="194" class="value">$34</text><text x="170" y="217" class="axis">design win/order 확인</text><text x="18" y="244" class="label">Overshoot</text><rect x="170" y="222" width="580.4" height="28" class="bridgebar"/><text x="758.4" y="242" class="value">$45</text><text x="170" y="265" class="axis">squeeze+M&amp;A narrative</text>
+       <text x="170" y="332" class="caption">주: 262M diluted share base, pro forma cash 약 $343M, 공개자료+가정 기반</text>
+    </svg>
+</section>
+
+<section>
+  <span class="kicker">11. 목표가 체계</span>
+  <h2>6개 target 구분</h2>
+  <div class="tablewrap"><table><thead><tr><th>Target</th><th>주당가치</th><th>적용 매출/EPS/FCF</th><th>적용 multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody><tr><td>보수적 내재가치</td><td>$7</td><td>2028E sales $125M</td><td>10x EV/Sales</td><td>262M</td><td>20%</td><td>valuation reset, no named orders</td><td>MGX가 PR에 그침</td></tr><tr><td>12개월 base target</td><td>$18</td><td>2028E sales $125M</td><td>35x EV/Sales</td><td>262M</td><td>45%</td><td>Q2/Q3 beat+raise, high-power mix 상승</td><td>revenue guide 미달, GM 하락</td></tr><tr><td>Bull target</td><td>$34</td><td>2028E sales $125M 또는 2030E $420M</td><td>$65x 2028 sales 또는 20x 2030 sales</td><td>262M</td><td>25%</td><td>named design win, backlog/order, TSMC 대체 경로</td><td>고객명이 끝내 비공개/주문 부재</td></tr><tr><td>Overshoot target</td><td>$45</td><td>2030E bull sales $650M</td><td>18x+ EV/Sales + squeeze premium</td><td>262M</td><td>10%</td><td>NVIDIA 관련 2차 뉴스, short squeeze</td><td>거래량 식고 $30 하회</td></tr><tr><td>실적 전 trading target</td><td>$32</td><td>Q2 기대감/모멘텀</td><td>event premium</td><td>240~262M</td><td>—</td><td>실적 전 과열</td><td>$34 부근 추격매수 금지</td></tr><tr><td>실적 후 재평가 target</td><td>$24 / $36</td><td>Q2 revenue $10~11M+</td><td>beat만이면 $24, beat+raise+order이면 $36</td><td>262M</td><td>—</td><td>guidance와 주문 가시성</td><td>단순 beat만으로는 부족</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <span class="kicker">12. 2020~2030 멀티플 밴드</span>
+  <h2>과거 실적, 현재 multiple, 미래 가정</h2>
+  <p><b>2020~2021:</b> SPAC/상장 전후 구간은 사업·주가 데이터 연속성이 낮아 비교 신뢰도가 낮다. <b>2024~2025 실제:</b> 매출은 $83.3M → $45.9M으로 감소했다. <b>2026 현재:</b> 매출 기대는 약 $40M대인데 시총은 $7B대라, EV/Sales는 일반 power semiconductor peer와 비교하기 어려운 극단 영역이다. <b>2027~2030:</b> 본 보고서의 bear/base/bull은 실제 데이터가 아니라 architecture adoption 가정이다.</p>
+  <div class="three">
+    <div class="card"><b>Bear 2030</b><strong>$300M sales</strong><span>MGX visibility는 있으나 broad adoption 지연. Target multiple 6~10x.</span></div>
+    <div class="card"><b>Base 2030</b><strong>$420M sales</strong><span>일부 AI rack/PSU/SST design win. Target multiple 10~15x.</span></div>
+    <div class="card"><b>Bull 2030</b><strong>$650M sales</strong><span>800VDC architecture winners 중 하나. Target multiple 15~20x.</span></div>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">13. 리스크 관리</span>
+  <h2>단순 리스크가 아니라 thesis break trigger</h2>
+  <div class="tablewrap"><table><thead><tr><th>리스크</th><th>Thesis break trigger</th><th>가격대</th><th>확인 시점</th><th>대응 행동</th></tr></thead><tbody><tr><td>출하/양산 지연</td><td>Q2 revenue < $9.5M 또는 Q3 guide가 $11.5M 미만</td><td>$24 하회 시작, $18에서 base reset</td><td>Q2/Q3 실적</td><td>25주 중 최소 10주 축소</td></tr><tr><td>GM 정상화 실패</td><td>non-GAAP GM <38%가 고전력 mix와 함께 반복</td><td>$18~21</td><td>매 분기</td><td>신규매수 금지, thesis 재검토</td></tr><tr><td>현금소진/희석</td><td>분기 burn >$25M, 추가 ATM/shelf 사용</td><td>$18</td><td>분기 현금흐름/8-K</td><td>비중 0.1% 이하 축소</td></tr><tr><td>고객 집중/익명 고객 오판</td><td>Distributor revenue >50% 지속, named OEM/order 부재</td><td>$20</td><td>10-Q 고객집중 주석</td><td>플랫폼 thesis에서 부품 thesis로 격하</td></tr><tr><td>TSMC GaN 전환</td><td>2027년 전까지 대체 foundry qualification 미공개</td><td>$14~18</td><td>2026 하반기~2027 상반기</td><td>핵심 보유 thesis 훼손</td></tr><tr><td>경쟁사 대체</td><td>Infineon/ST/PI/Vicor가 MGX reference power slot 주도</td><td>$18~22</td><td>NVIDIA/파트너 발표</td><td>NVTS premium multiple 제거</td></tr><tr><td>short squeeze unwind</td><td>거래량 급감 + $24 이탈</td><td>$18~24</td><td>일간 차트/short interest</td><td>남은 20주 중 5~10주 추가 축소</td></tr><tr><td>M&A 기대 과열</td><td>M&A 루머만 있고 고객/매출 증거 없음</td><td>$30 위</td><td>상시</td><td>루머 기반 추가매수 금지</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <span class="kicker">14. 포트폴리오 실행안</span>
+  <h2>25주 보유 기준 액션 플랜</h2>
+  <div class="callout anti"><b>명확한 제안:</b> 현재 $30.84 기준으로는 <b>일부 차익실현</b>이 우위다. 25주 중 5주를 $31~34 구간에서 트림하고, 20주는 event-driven 옵션으로 보유한다. 매입가가 $25 이상이라면 세금/수수료를 고려해 전량 보유도 허용되지만, 신규 매수는 금지한다.</div>
+  <div class="tablewrap"><table><thead><tr><th>구분</th><th>행동</th><th>수량/가격</th><th>논리</th></tr></thead><tbody><tr><td>목표 비중</td><td>0.10~0.15%</td><td>최대 0.25% 초과 금지</td><td>현재 가격은 base target보다 높아 포지션을 키울 구간 아님</td></tr><tr><td>실적 발표 전</td><td>5주 트림</td><td>가격 $31~34</td><td>NVIDIA/MGX 기대가 이미 반영된 구간</td></tr><tr><td>추가 매수</td><td>금지, 단 $17~20 재진입만 검토</td><td>5~10주</td><td>base target 근처로 내려오고 thesis가 훼손되지 않았을 때</td></tr><tr><td>강한 매수 구간</td><td>조건부 <$14</td><td>10~15주</td><td>고객/공급망 thesis 유지 + valuation reset일 때만</td></tr><tr><td>Bull 도달</td><td>추가 5주 매도</td><td>$34~36</td><td>named order 전 bull target 도달 시 리스크 관리</td></tr><tr><td>Overshoot</td><td>10주 이상 매도</td><td>$40~45</td><td>squeeze/루머 구간. 남은 소량만 콜옵션 보유</td></tr><tr><td>Thesis 훼손</td><td>절반 이상 축소</td><td>$18 하회 또는 Q2/Q3 trigger 실패</td><td>플랫폼 thesis에서 부품주 thesis로 격하</td></tr></tbody></table></div>
+  <h3>보유 수량 기준 기대손익</h3>
+  <div class="tablewrap"><table><thead><tr><th>시나리오</th><th>가격</th><th>현재가 대비</th><th>25주 기준 손익</th><th>20주 잔여 보유 시 손익</th></tr></thead><tbody><tr><td>Conservative intrinsic</td><td>$7</td><td>-77.3%</td><td>-$596</td><td>-$477</td></tr><tr><td>Base target</td><td>$18</td><td>-41.6%</td><td>-$321</td><td>-$257</td></tr><tr><td>Bull target</td><td>$34</td><td>+10.2%</td><td>+$79</td><td>+$63</td></tr><tr><td>Overshoot</td><td>$45</td><td>+45.9%</td><td>+$354</td><td>+$283</td></tr></tbody></table></div>
+</section>
+
+<section>
+  <span class="kicker">G. 반대 thesis</span>
+  <h2>Bull case와 같은 강도의 반대 논리</h2>
+  <ul>
+    <li><b>모든 연결이 우연일 가능성:</b> NVIDIA MGX showcase는 ecosystem demo일 뿐, 구매 계약이 아니다.</li>
+    <li><b>고객 오판:</b> distributor concentration이 높아 실제 end customer를 잘못 추론할 수 있다.</li>
+    <li><b>출하 지연:</b> high-voltage rack/grid qualification은 길고, AI data center architecture는 표준이 아직 유동적이다.</li>
+    <li><b>재고 구축 착시:</b> 초기 양산 발주가 실제 end-demand가 아니라 channel/inventory build일 수 있다.</li>
+    <li><b>희석 잠식:</b> ATM은 끝났지만 shelf/RSU/earnout/future awards가 upside를 분산시킬 수 있다.</li>
+    <li><b>대기업 대체:</b> Infineon·ST·onsemi·Renesas 등은 고객 신뢰, supply scale, package portfolio에서 강점이 있다.</li>
+    <li><b>기술은 좋아도 상업화 지연:</b> 설계 채택과 매출 인식 사이에는 1년 이상 lag가 발생할 수 있다.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="kicker">15. 보고서 전 자체 점검</span>
+  <h2>자체 검증</h2>
+  <div class="tablewrap"><table><thead><tr><th>점검 질문</th><th>답변</th></tr></thead><tbody><tr><td>단순 컨센서스만 요약했는가?</td><td>아니오. CEO/CFO, Navitas 2.0, TSMC, ATM, MGX, short interest를 사건 체인으로 연결했다.</td></tr><tr><td>고객/공급망/자금조달/공시를 시간순으로 연결했는가?</td><td>예. timeline 표에 사건·해석·다음 증거를 분리했다.</td></tr><tr><td>익명 고객 추정을 확정처럼 썼는가?</td><td>아니오. 후보군과 반대 근거, 가능성을 명시했다.</td></tr><tr><td>Bull case를 너무 보수적으로 눌렀는가?</td><td>Bull $34, overshoot $45로 구분했다. 다만 현재가가 이미 bull에 가까운 점을 반영했다.</td></tr><tr><td>루머를 확정 사실처럼 쓴 부분은?</td><td>없음. NVIDIA 고객 여부, hyperscaler, M&A는 모두 추론/검증 필요로 표시했다.</td></tr><tr><td>자본구조와 희석을 반영했는가?</td><td>예. ATM, pro forma shares, RSU/option/earnout, short interest를 반영했다.</td></tr><tr><td>왜 지금이 변곡점인가?</td><td>Q1 high-power majority, 2026 MGX/PDB 공개, ATM 완료, 주가/short squeeze가 동시에 발생했기 때문이다.</td></tr><tr><td>다음 실적에서 무엇이 확인되면 수정해야 하는가?</td><td>Q2 revenue, Q3 guide, high-power mix %, order/backlog, TSMC alternative, cash burn.</td></tr></tbody></table></div>
+</section>
+
+<section class="finalbox">
+  <h2>마지막 요약</h2>
+  <div class="tablewrap">
+  <table><tbody>
+    <tr><th>현재 주가</th><td>$30.84</td></tr>
+    <tr><th>보수적 내재가치</th><td>$7</td></tr>
+    <tr><th>12개월 base target</th><td>$18</td></tr>
+    <tr><th>bull target</th><td>$34</td></tr>
+    <tr><th>overshoot target</th><td>$45</td></tr>
+    <tr><th>실적 발표 전 trading target</th><td>$32, 단 $34 이상 추격매수 금지</td></tr>
+    <tr><th>실적 발표 후 재평가 target</th><td>$24 base / $36 if beat + raise + order visibility</td></tr>
+    <tr><th>하방 리스크</th><td>$18 1차, $14 analyst/valuation reset, $7 conservative intrinsic</td></tr>
+    <tr><th>12개월 기대수익률</th><td>Base 기준 -41.6%; 확률가중 기대수익률도 음수 구간</td></tr>
+    <tr><th>보유 수량 기준 기대손익</th><td>25주 기준 base -$321, bull +$79, overshoot +$354</td></tr>
+    <tr><th>추천 행동</th><td>일부 차익실현: 25주 중 5주 매도, 20주 이벤트 옵션 보유</td></tr>
+    <tr><th>목표 비중</th><td>0.10~0.15%, 최대 0.25% 초과 금지</td></tr>
+    <tr><th>실적 발표 전 행동</th><td>$31~34 구간에서 5주 트림, 신규 매수 금지</td></tr>
+    <tr><th>실적 발표 후 행동</th><td>beat만이면 추가 축소, beat+raise+order면 20주 유지</td></tr>
+    <tr><th>목표가 도달 시 행동</th><td>$34~36에서 추가 5주 축소, $40~45에서 대부분 축소</td></tr>
+    <tr><th>thesis 훼손 시 행동</th><td>$18 하회 또는 Q2/Q3 KPI 실패 시 절반 이상 축소</td></tr>
+    <tr><th>가장 중요한 체크포인트</th><td>800V PDB가 전시에서 실제 design win/order/backlog로 전환되는지</td></tr>
+    <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>Q2/Q3에서 named customer 없이도 revenue가 가파르게 accelerate하고, non-GAAP GM 40%+와 cash burn 안정, TSMC 대체 경로가 동시에 확인되는 경우</td></tr>
+  </tbody></table>
+  </div>
+</section>
+
+<section>
+  <span class="kicker">참조 자료</span>
+  <h2>주요 출처 링크</h2>
+  <ol class="source-list">
+    <li><a href="https://www.google.com/finance/quote/NVTS:NASDAQ" target="_blank" rel="noopener">NVTS 실시간/종가 quote</a></li>
+    <li><a href="https://stockanalysis.com/stocks/nvts/history/" target="_blank" rel="noopener">NVTS historical price/volume</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1821769/000162828026030524/nvts-20260331.htm" target="_blank" rel="noopener">SEC Form 10-Q, quarter ended Mar. 31, 2026</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1821769/000182176926000007/nvts-20251231.htm" target="_blank" rel="noopener">SEC Form 10-K, FY2025</a></li>
+    <li><a href="https://navitassemi.com/navitas-semiconductor-announces-first-quarter-2026-financial-results/" target="_blank" rel="noopener">Navitas Q1 2026 earnings release</a></li>
+    <li><a href="https://www.globenewswire.com/news-release/2026/06/03/3306044/0/en/navitas-collaborates-with-nvidia-mgx-ecosystem-to-accelerate-800-vdc-ai-infrastructure.html" target="_blank" rel="noopener">Navitas–NVIDIA MGX ecosystem press release, Jun. 3, 2026</a></li>
+    <li><a href="https://www.nvidia.com/en-us/data-center/technologies/800-vdc-architecture/" target="_blank" rel="noopener">NVIDIA 800 VDC architecture overview</a></li>
+    <li><a href="https://navitassemi.com/navitas-debuts-revolutionary-800-v-6-v-power-delivery-board-at-nvidia-gtc-2026/" target="_blank" rel="noopener">Navitas GTC 2026 800V→6V PDB announcement</a></li>
+    <li><a href="https://navitassemi.com/navitas-announces-private-placement-of-common-stock-for-proceeds-of-100-million/" target="_blank" rel="noopener">Navitas $100M private placement</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1821769/000110465926058727/tm2613239d2_424b5.htm" target="_blank" rel="noopener">SEC 424B5 ATM prospectus supplement</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1821769/000110465926059828/tm2614473d1_8k.htm" target="_blank" rel="noopener">SEC 8-K: ATM sales completed / $122M net proceeds</a></li>
+    <li><a href="https://navitassemi.com/navitas-semiconductor-names-chris-allexandre-as-president-and-chief-executive-officer/" target="_blank" rel="noopener">CEO appointment: Chris Allexandre</a></li>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1821769/000110465926026385/tm268482d1_ex99-1.htm" target="_blank" rel="noopener">CFO appointment: Tonya Stevens</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/NVTS/short-interest/" target="_blank" rel="noopener">MarketBeat short interest</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/NVTS/forecast/" target="_blank" rel="noopener">MarketBeat analyst forecast</a></li>
+    <li><a href="https://stockanalysis.com/stocks/nvts/forecast/" target="_blank" rel="noopener">StockAnalysis analyst forecast</a></li>
+    <li><a href="https://www.barrons.com/articles/navitas-semiconductor-stock-price-nvidia-712398cc" target="_blank" rel="noopener">Barron’s: valuation/FactSet consensus context</a></li>
+    <li><a href="https://www.powerelectronicsnews.com/infineon-joins-nvidia-mgx-ecosystem-for-800-vdc-ai-power-architectures/" target="_blank" rel="noopener">Infineon joins NVIDIA MGX 800VDC ecosystem</a></li>
+    <li><a href="https://blog.st.com/800-v-hvdc-data-center/" target="_blank" rel="noopener">STMicroelectronics 800V HVDC data center reference context</a></li>
+  </ol>
+</section>
+</main>
+</body>
+</html>

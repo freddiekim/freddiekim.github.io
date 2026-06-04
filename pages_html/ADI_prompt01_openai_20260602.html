@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ADI Forensic Deep Dive Investment Report — 2026-06-02</title>
+<style>
+:root {
+  --ink:#16202A;
+  --muted:#5F6B73;
+  --paper:#FBF7EE;
+  --card:#FFFFFF;
+  --navy:#153A5B;
+  --teal:#6FA7A1;
+  --mustard:#D8A447;
+  --rust:#C56C4E;
+  --sage:#9AAE7A;
+  --line:#DDD5C6;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Arial,sans-serif;
+  line-height:1.55;
+}
+header {
+  padding:54px 6vw 40px;
+  background:var(--navy);
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+}
+header:after {
+  content:"";
+  position:absolute;
+  right:6vw;
+  top:36px;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  background:var(--mustard);
+}
+header:before {
+  content:"";
+  position:absolute;
+  right:13vw;
+  top:116px;
+  width:260px;
+  height:72px;
+  background:var(--teal);
+}
+header .content { position:relative; z-index:2; max-width:1160px; }
+.kicker { letter-spacing:.12em; text-transform:uppercase; font-size:12px; opacity:.82; }
+h1 { margin:12px 0 10px; font-size:42px; line-height:1.12; max-width:880px; }
+.subtitle { max-width:840px; font-size:18px; opacity:.94; }
+main { max-width:1220px; margin:0 auto; padding:34px 24px 70px; }
+section { margin:34px 0; }
+h2 { font-size:28px; margin:0 0 14px; color:var(--navy); }
+h3 { font-size:21px; margin:28px 0 10px; color:#20364B; }
+h4 { font-size:16px; margin:18px 0 8px; color:#20364B; }
+p { margin:9px 0; }
+.small { font-size:12px; color:var(--muted); }
+.muted { color:var(--muted); }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.card {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 2px 0 rgba(0,0,0,.04);
+}
+.metric .label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+.metric .value { font-size:27px; font-weight:800; color:var(--navy); margin-top:4px; }
+.metric .note { font-size:12px; color:var(--muted); }
+.badge {
+  display:inline-block;
+  border:1px solid var(--line);
+  border-radius:99px;
+  padding:5px 10px;
+  background:#fff;
+  margin:3px 5px 3px 0;
+  font-size:12px;
+}
+.badge.good { border-color:var(--teal); color:#245E59; }
+.badge.warn { border-color:var(--mustard); color:#72500B; }
+.badge.risk { border-color:var(--rust); color:#7A301B; }
+table {
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+}
+th, td {
+  padding:10px 11px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+  font-size:13px;
+}
+th { background:#F1E9DA; text-align:left; color:#233A4F; }
+tr:last-child td { border-bottom:none; }
+.figure {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  margin:18px 0;
+}
+.bar {
+  display:flex; align-items:center; gap:10px; margin:8px 0;
+}
+.bar .name { width:150px; font-size:13px; color:#2E3E4D; }
+.bar .track { flex:1; height:18px; background:#EFE7D9; border-radius:99px; overflow:hidden; }
+.bar .fill { height:100%; border-radius:99px; background:var(--teal); }
+.bar .fill.mustard { background:var(--mustard); }
+.bar .fill.rust { background:var(--rust); }
+.bar .fill.navy { background:var(--navy); }
+.bar .num { width:90px; font-size:12px; color:var(--muted); text-align:right; }
+.timeline {
+  position:relative;
+  padding-left:20px;
+}
+.timeline:before {
+  content:""; position:absolute; left:7px; top:5px; bottom:5px; width:2px; background:var(--line);
+}
+.titem { position:relative; margin:13px 0; padding:12px 14px; background:#fff; border:1px solid var(--line); border-radius:12px; }
+.titem:before { content:""; position:absolute; left:-19px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--mustard); }
+.tdate { font-weight:800; color:var(--navy); font-size:13px; }
+.callout {
+  border-left:6px solid var(--mustard);
+  background:#fff;
+  padding:16px 18px;
+  border-radius:12px;
+  border-top:1px solid var(--line);
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.three { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.svgwrap { overflow:auto; }
+.footerbox {
+  background:#16202A;
+  color:#fff;
+  border-radius:18px;
+  padding:24px;
+}
+.footerbox table { color:var(--ink); }
+a { color:#174F7E; }
+@media (max-width: 900px) {
+  .grid, .two, .three { grid-template-columns:1fr; }
+  h1 { font-size:32px; }
+  header:before, header:after { opacity:.28; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="content">
+    <div class="kicker">Forensic Equity Research · Analog Devices, Inc. · ADI</div>
+    <h1>시장이 “아날로그 사이클”로 보는 회사를, AI 전력·광학·정밀 센싱 플랫폼으로 다시 읽기</h1>
+    <p class="subtitle">분석 기준일 2026-06-02 · 실시간 가격 확인 기준 2026-06-03 UTC 장중/마감 데이터 · 보유 20주, 매입가 $314, 포트폴리오 1.5%</p>
+  </div>
+</header>
+
+<main>
+<section>
+  <div class="grid">
+    <div class="card metric"><div class="label">현재 주가</div><div class="value">$432.78</div><div class="note">최신 확인값, ADI finance feed</div></div>
+    <div class="card metric"><div class="label">보유 평가액</div><div class="value">$8,656</div><div class="note">20주 기준</div></div>
+    <div class="card metric"><div class="label">미실현 손익</div><div class="value">$2,376</div><div class="note">+37.8% vs $314</div></div>
+    <div class="card metric"><div class="label">권고 행동</div><div class="value">Trim</div><div class="note">4주 차익실현, 16주 코어 보유</div></div>
+  </div>
+  <p class="small">주의: 본 보고서는 투자 판단 보조용 분석이며, 개인별 세금·현금흐름·위험한도·전체 포트폴리오 맥락을 대체하지 않는다.</p>
+</section>
+
+<section class="callout">
+  <h2>한 문장 결론</h2>
+  <p><b>투자 thesis:</b> ADI는 더 이상 단순한 경기민감 아날로그 반도체 업체가 아니라, AI 데이터센터의 전력 밀도·광학 연결·정밀 제어 병목을 해결하는 “physical intelligence control layer”로 재평가될 수 있다.</p>
+  <p><b>Anti-thesis:</b> 그러나 현재 주가는 이미 상당한 bull case를 반영하고 있어, Q3 이후 데이터센터·Industrial 램프가 둔화되거나 73%대 조정 gross margin이 정상화되면 멀티플이 먼저 꺾일 수 있다.</p>
+  <p><b>행동:</b> 20주 중 4주를 $430~440 구간에서 차익실현하고, 16주는 보유. $385~405 재진입, $515 이상에서는 추가 4~6주 분할 매도.</p>
+</section>
+
+<section>
+  <h2>[1단계] 내가 발견한 핵심 변곡점: 처음 보면 놓칠 수 있는 10가지 숨은 신호</h2>
+  <table>
+    <thead><tr><th>#</th><th>숨은 신호</th><th>확정 사실</th><th>해석</th><th>신뢰도</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Communications 안의 실질 엔진은 “통신장비”가 아니라 데이터센터</td><td>Q2 FY26에서 Communications는 매출의 15%, 그 안에서 data center가 75% 이상, YoY 90%+ 성장</td><td>ADI의 AI 노출은 GPU 판매가 아니라 전력·광학·모니터링 인프라 병목에 붙어 있다.</td><td>A</td></tr>
+      <tr><td>2</td><td>Empower 인수는 작은 bolt-on이 아니라 vertical power delivery 옵션</td><td>$1.5B 현금 인수, IVR·silicon capacitor, 2026년 하반기 종결 예상</td><td>ADI가 “grid-to-chip”에서 “grid-to-core”로 더 깊숙이 들어가려는 사건이다.</td><td>A</td></tr>
+      <tr><td>3</td><td>Industrial의 반등은 단순 재고 보충보다 ATE·A&D·ETM 램프 신호</td><td>Industrial +56% YoY, ATE/Aerospace & Defense/Energy transition 언급</td><td>AI 반도체 테스트, 방산, 전력망 투자가 동시에 같은 방향을 가리킨다.</td><td>A</td></tr>
+      <tr><td>4</td><td>가격 인상은 성장의 본질이 아니다</td><td>경영진은 FY26 pricing action이 성장에 “couple points” 수준이라고 언급</td><td>성장의 대부분은 mix·volume·AI/Industrial 수요에서 나온다.</td><td>A</td></tr>
+      <tr><td>5</td><td>“design-in substitution effectively zero”가 lock-in의 핵심</td><td>경영진은 높은 ASP와 대체 난이도를 강조</td><td>ADI의 moat는 칩 단품보다 검증·튜닝·수명주기·고객 설계 삽입이다.</td><td>A</td></tr>
+      <tr><td>6</td><td>57% distributor 채널이 최종 고객을 흐리게 만든다</td><td>Q2 매출: distributor 57%, direct 42%</td><td>투자자는 최종 hyperscaler/AI chip maker 노출을 직접 보기 어렵다. 이 불투명성이 mispricing의 원천이자 리스크다.</td><td>A</td></tr>
+      <tr><td>7</td><td>소형주식 자본구조 리스크는 ADI에는 거의 해당 없음</td><td>현금+ST 투자 $3.44B, debt $8.77B, buyback 잔여 $8.5B, net leverage 0.8x</td><td>ATM/전환사채/워런트 overhang이 아니라 valuation overhang이 핵심이다.</td><td>A</td></tr>
+      <tr><td>8</td><td>Short squeeze thesis는 약하다</td><td>Short interest 2.17% float, days to cover 2.82, borrow fee 0.4%대</td><td>최근 상승은 숏커버보다 실적·가이던스·AI 멀티플 재평가 성격이 강하다.</td><td>A</td></tr>
+      <tr><td>9</td><td>ADI는 “인수 대상”보다 “인수자”</td><td>시총 약 $212B, Empower 현금 인수 진행</td><td>M&A optionality는 ADI가 팔리는 이벤트보다 ADI가 power/optical/control 스택을 보강하는 방향으로 봐야 한다.</td><td>A</td></tr>
+      <tr><td>10</td><td>지금은 base가 아니라 bull에 가까운 가격</td><td>현재가 $432.78, 컨센서스 평균 $431~446, 최고 $515</td><td>상방은 남아 있지만 리스크/보상은 이미 비대칭적으로 좋아진 뒤다.</td><td>A/B</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>A. 기업 정체성 재정의</h2>
+  <div class="two">
+    <div class="card">
+      <h3>시장이 보는 ADI</h3>
+      <p>전통적으로 ADI는 <b>고마진 아날로그·혼합신호 반도체 업체</b>로 분류된다. 투자자는 Industrial·Automotive 재고 사이클, gross margin, channel inventory, P/E 밴드를 먼저 본다.</p>
+      <span class="badge">Analog cycle</span><span class="badge">Industrial inventory</span><span class="badge">Auto content</span>
+    </div>
+    <div class="card">
+      <h3>실제로 이동 중인 밸류체인</h3>
+      <p>Q2 FY26 이후의 ADI는 <b>AI 데이터센터 전력 밀도, optical control, 정밀 전력/센싱, ATE, A&D, BMS, GMSL/A2B</b>가 결합된 시스템 레이어로 이동 중이다.</p>
+      <span class="badge good">Grid-to-core power</span><span class="badge good">Optical control</span><span class="badge good">Physical intelligence</span>
+    </div>
+  </div>
+  <p>핵심은 ADI가 NVIDIA처럼 “AI accelerator”를 파는 회사가 아니라는 점이다. ADI의 AI 노출은 accelerator 수가 늘수록 더 심해지는 전력 밀도, 열, 광학 interconnect, 테스트, 전력 모니터링 병목에 있다. 이것은 매출 구조상 Communications와 Industrial로 흩어져 보여 컨센서스 화면에서는 덜 직관적으로 보인다.</p>
+</section>
+
+<section>
+  <h2>B. 고객·공급망·파트너 맵</h2>
+  <div class="svgwrap figure">
+    <svg width="1080" height="360" role="img" aria-label="ADI ecosystem map">
+      <rect x="0" y="0" width="1080" height="360" fill="#FFFFFF"/>
+      <rect x="440" y="135" width="200" height="90" rx="16" fill="#153A5B"/>
+      <text x="540" y="172" fill="#fff" text-anchor="middle" font-size="22" font-weight="700">ADI</text>
+      <text x="540" y="198" fill="#fff" text-anchor="middle" font-size="13">Power · Optical · Sensing · Mixed Signal</text>
+
+      <rect x="40" y="42" width="235" height="70" rx="14" fill="#F1E9DA" stroke="#DDD5C6"/>
+      <text x="158" y="72" text-anchor="middle" font-weight="700" fill="#153A5B">직접 고객</text>
+      <text x="158" y="94" text-anchor="middle" font-size="12">OEM · distributor · module/system makers</text>
+
+      <rect x="40" y="145" width="235" height="72" rx="14" fill="#F1E9DA" stroke="#DDD5C6"/>
+      <text x="158" y="176" text-anchor="middle" font-weight="700" fill="#153A5B">중간 생태계</text>
+      <text x="158" y="198" text-anchor="middle" font-size="12">AI silicon · optical module · ATE · Tier-1</text>
+
+      <rect x="40" y="250" width="235" height="72" rx="14" fill="#F1E9DA" stroke="#DDD5C6"/>
+      <text x="158" y="281" text-anchor="middle" font-weight="700" fill="#153A5B">최종 수혜 고객</text>
+      <text x="158" y="303" text-anchor="middle" font-size="12">hyperscaler · automaker · utility · defense</text>
+
+      <line x1="275" y1="77" x2="440" y2="160" stroke="#6FA7A1" stroke-width="3"/>
+      <line x1="275" y1="181" x2="440" y2="180" stroke="#D8A447" stroke-width="3"/>
+      <line x1="275" y1="286" x2="440" y2="202" stroke="#C56C4E" stroke-width="3"/>
+
+      <rect x="790" y="32" width="245" height="64" rx="14" fill="#EAF1EF" stroke="#DDD5C6"/>
+      <text x="912" y="61" text-anchor="middle" font-weight="700" fill="#153A5B">AI Data Center</text>
+      <text x="912" y="82" text-anchor="middle" font-size="12">power density · optical · monitoring</text>
+
+      <rect x="790" y="115" width="245" height="64" rx="14" fill="#F6EDDA" stroke="#DDD5C6"/>
+      <text x="912" y="144" text-anchor="middle" font-weight="700" fill="#153A5B">Industrial / ATE / A&D</text>
+      <text x="912" y="165" text-anchor="middle" font-size="12">test equipment · defense · energy</text>
+
+      <rect x="790" y="198" width="245" height="64" rx="14" fill="#F3E1D9" stroke="#DDD5C6"/>
+      <text x="912" y="227" text-anchor="middle" font-weight="700" fill="#153A5B">Automotive</text>
+      <text x="912" y="248" text-anchor="middle" font-size="12">BMS · GMSL · A2B · safety power</text>
+
+      <rect x="790" y="281" width="245" height="54" rx="14" fill="#EEF0E4" stroke="#DDD5C6"/>
+      <text x="912" y="313" text-anchor="middle" font-weight="700" fill="#153A5B">Consumer / Edge</text>
+
+      <line x1="640" y1="160" x2="790" y2="64" stroke="#6FA7A1" stroke-width="3"/>
+      <line x1="640" y1="176" x2="790" y2="147" stroke="#D8A447" stroke-width="3"/>
+      <line x1="640" y1="195" x2="790" y2="230" stroke="#C56C4E" stroke-width="3"/>
+      <line x1="640" y1="210" x2="790" y2="307" stroke="#9AAE7A" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <table>
+    <thead><tr><th>구분</th><th>대표 노출</th><th>근거</th><th>lock-in 구조</th><th>관련성 판정</th></tr></thead>
+    <tbody>
+      <tr><td>직접 고객</td><td>distributor, OEM, module/system maker</td><td>Q2 매출 distributor 57%, direct 42%</td><td>제품 인증, 레퍼런스 설계, 장기 product lifecycle</td><td>높음</td></tr>
+      <tr><td>최종 고객</td><td>hyperscaler, AI silicon developer</td><td>Empower 발표에서 “leading hyperscalers and AI silicon providers” 협업 언급</td><td>전력 아키텍처가 보드/패키지/서버 설계에 깊게 들어가 전환비용 상승</td><td>높음, 단 고객명은 미공개</td></tr>
+      <tr><td>NVIDIA/AMD/Intel/ASIC</td><td>AI accelerator ecosystem</td><td>AI accelerator power/optical/test 병목에 간접 노출</td><td>직접 공급 여부는 검증 필요. ATE와 power chain으로 간접성 큼</td><td>중간~높음, 단정 금지</td></tr>
+      <tr><td>Microsoft/Amazon/Google/Oracle</td><td>AI 데이터센터 capex</td><td>hyperscaler power density와 energy footprint 문제 해결 수요</td><td>시스템 전력 효율/TCO 개선이면 채택 지속 가능</td><td>간접 높음, 고객명 미확정</td></tr>
+      <tr><td>Apple/SpaceX/Globalstar/Gogo/Skylo/Verizon</td><td>위성·통신·단말 생태계</td><td>ADI의 RF/통신/항공우주 제품군과 넓은 관련성은 있으나 본 thesis 핵심은 아님</td><td>특정 계약 확인 필요</td><td>낮음~중간</td></tr>
+      <tr><td>Samsung/TSMC/OSAT</td><td>제조·파운드리·패키징</td><td>ADI는 하이브리드 제조 모델, 외부 optionality를 언급</td><td>공급망 이원화/내재화 혼합</td><td>중간, 직접 계약 검증 필요</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>C. 최근 24개월 사건 체인 분석</h2>
+  <div class="timeline">
+    <div class="titem"><div class="tdate">2024-11</div><b>FY24 저점 통과</b><br/>재고 조정과 산업 수요 둔화가 주가·실적의 핵심 리스크였던 구간. 이후 FY25는 회복의 출발점이 됨.</div>
+    <div class="titem"><div class="tdate">2025 FY</div><b>회복이 FCF로 증명</b><br/>FY25 매출 $11.0B, OCF $4.8B, FCF $4.3B. R&D는 software/digital/AI로 확장.</div>
+    <div class="titem"><div class="tdate">2026-02-19</div><b>Q1 FY26</b><br/>매출 $3.16B, Industrial·data center 주문 강세, record orders in Data Center 언급.</div>
+    <div class="titem"><div class="tdate">2026-05-19</div><b>Empower Semiconductor 인수 발표</b><br/>$1.5B 현금 인수. IVR·silicon capacitors로 AI power density와 vertical power delivery를 보강.</div>
+    <div class="titem"><div class="tdate">2026-05-20</div><b>Q2 FY26 record quarter</b><br/>매출 $3.62B, 조정 GM 73.0%, 조정 EPS $3.09. Communications +79%, Industrial +56%.</div>
+    <div class="titem"><div class="tdate">2026-05-20 이후</div><b>애널리스트 목표가 일제 상향</b><br/>KeyBanc $500, Wells Fargo $515, Evercore $474, Citi/BofA $460 등으로 multiple 재평가 확산.</div>
+    <div class="titem"><div class="tdate">2026-06-02~03</div><b>주가가 컨센서스 평균권에 도달</b><br/>6/2 종가 $423.20, 최신 확인 $432.78. 이제 “발견 구간”보다 “검증 구간”으로 이동.</div>
+  </div>
+
+  <h3>사건 체인 표</h3>
+  <table>
+    <thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead>
+    <tbody>
+      <tr><td>2024 FY</td><td>아날로그 다운사이클</td><td>FY24 매출 $9.43B, FY23 대비 감소</td><td>재고 조정의 바닥 형성</td><td>낮은 기저가 FY25/FY26 회복률을 키움</td><td>A</td><td>channel inventory weeks</td></tr>
+      <tr><td>2025 FY</td><td>FCF 회복</td><td>FY25 FCF $4.28B, FCF margin 39%</td><td>수요 회복이 현금창출로 전환</td><td>고멀티플 방어의 기반</td><td>A</td><td>FY26 FCF margin 유지 여부</td></tr>
+      <tr><td>2026-02</td><td>Q1 record data center orders</td><td>Industrial/Comms booking strength</td><td>AI 인프라 수요가 ADI backlog에 반영 시작</td><td>AI thesis 초기 확인</td><td>A</td><td>Q2/Q3 data center revenue</td></tr>
+      <tr><td>2026-05-19</td><td>Empower 인수</td><td>$1.5B cash, IVR/silicon capacitor</td><td>AI 전력 병목을 platform화하려는 전략</td><td>리레이팅 optionality</td><td>A</td><td>HSR closing, design wins, revenue contribution</td></tr>
+      <tr><td>2026-05-20</td><td>Q2 실적</td><td>매출 $3.62B, EPS $3.09, adj GM 73%</td><td>단순 restocking보다 end demand 가능성</td><td>base case 상향</td><td>A</td><td>Q3 beat+raise 필요</td></tr>
+      <tr><td>2026-05-20</td><td>data center disclosure</td><td>Comms의 75%+, YoY 90%+</td><td>AI 매출이 화면상 숨어 있음</td><td>가장 중요한 hidden KPI</td><td>A</td><td>Comms 내 data center 비중 지속 공개</td></tr>
+      <tr><td>2026-05~06</td><td>목표가 상향</td><td>최고 $515, 평균 $431~446권</td><td>시장은 이미 일부 리레이팅 반영</td><td>추격매수 리스크 상승</td><td>A/B</td><td>EPS revision follow-through</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>D. 자본구조 forensic 분석</h2>
+  <table>
+    <thead><tr><th>항목</th><th>수치/상태</th><th>해석</th><th>투자 영향</th></tr></thead>
+    <tbody>
+      <tr><td>현금+단기투자</td><td>$3.44B</td><td>Empower 현금 인수 후에도 유동성 충분</td><td>생존자금 이슈 없음</td></tr>
+      <tr><td>총부채</td><td>$8.77B</td><td>commercial paper 포함, 장기만기 분산</td><td>net debt 약 $5.33B</td></tr>
+      <tr><td>net leverage</td><td>0.8x</td><td>경영진이 낮은 레버리지 강조</td><td>M&A/자사주 여력</td></tr>
+      <tr><td>ATM/shelf/전환사채/warrant</td><td>소형주형 희석 구조 없음</td><td>주가를 지배하는 것은 financing overhang이 아님</td><td>valuation risk가 핵심</td></tr>
+      <tr><td>buyback authorization</td><td>잔여 $8.5B</td><td>현 시총 대비 약 4% 수준</td><td>하방 완충, 단 고평가 시 효율성 저하</td></tr>
+      <tr><td>short interest</td><td>float 2.17%, days-to-cover 2.82</td><td>강한 short squeeze 구조 아님</td><td>최근 상승은 fundamentals/multiple 성격</td></tr>
+      <tr><td>borrow fee</td><td>약 0.4% annualized</td><td>공매도 비용 낮음</td><td>수급 squeeze thesis 낮음</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>E. 기술 장벽 분석</h2>
+  <table>
+    <thead><tr><th>제품/기술 레이어</th><th>구체 기술</th><th>왜 필요한가</th><th>복제 난이도/lock-in</th></tr></thead>
+    <tbody>
+      <tr><td>AI 데이터센터 전력</td><td>power management, hot-swap, monitoring, IVR, silicon capacitor</td><td>GPU/ASIC power density·열·전압 droop·TCO 문제</td><td>board/package/server architecture에 깊게 들어가면 교체가 어렵다.</td></tr>
+      <tr><td>Optical control</td><td>고속 광통신 제어·전력·신호 무결성</td><td>AI cluster bandwidth와 latency 병목</td><td>광모듈 검증과 장기 신뢰성 때문에 vendor 변경 비용 큼</td></tr>
+      <tr><td>ATE</td><td>precision signal chain, power, test equipment</td><td>AI semiconductor 생산 테스트 복잡도 증가</td><td>테스트 장비/프로세스 인증 주기가 길다.</td></tr>
+      <tr><td>Automotive BMS</td><td>wired/wireless BMS, OTA, cybersecurity</td><td>EV/ESS 안전·수명·충전 성능 최적화</td><td>차량 인증·functional safety·소프트웨어 도구가 lock-in</td></tr>
+      <tr><td>GMSL</td><td>high-speed serial link for cameras/displays</td><td>ADAS/infotainment 고대역폭 영상 전송</td><td>케이블, 카메라, ECU validation 일체형</td></tr>
+      <tr><td>A2B</td><td>low-latency digital audio bus</td><td>차량 audio, noise cancellation, in-cabin comms</td><td>네트워크 토폴로지와 소프트웨어/튜닝 결합</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>F. 생태계 game theory와 M&A optionality</h2>
+  <div class="three">
+    <div class="card">
+      <h3>누가 ADI를 필요로 하나</h3>
+      <p>hyperscaler, AI silicon developer, optical module 업체, ATE 업체, automaker/Tier-1, ESS/utility, defense prime.</p>
+    </div>
+    <div class="card">
+      <h3>누가 ADI를 방어적으로 원할 수 있나</h3>
+      <p>AI power delivery, optical control, precision sensing 스택을 내부화하려는 대형 반도체/시스템 업체. 다만 시총 $200B+라 실현 가능성은 낮다.</p>
+    </div>
+    <div class="card">
+      <h3>M&A를 가격에 반영할 정도</h3>
+      <p>Base case: 0~2%. Bull case: Empower 매출 시너지 3~5%. Overshoot: AI power platform narrative 5~8%.</p>
+    </div>
+  </div>
+  <p>가장 중요한 구분: ADI의 M&A optionality는 “누가 ADI를 사느냐”보다 “ADI가 무엇을 사서 AI 전력·광학 플랫폼을 완성하느냐”에 있다. Empower는 이 optionality가 실제 행동으로 드러난 사례다.</p>
+</section>
+
+<section>
+  <h2>G. 반대 thesis</h2>
+  <table>
+    <thead><tr><th>반대 thesis</th><th>가능한 현실</th><th>무엇을 보면 알 수 있나</th><th>대응</th></tr></thead>
+    <tbody>
+      <tr><td>AI 연결이 과대평가</td><td>data center 매출이 일시적 ATE/optical 주문일 수 있음</td><td>Q3/Q4 Communications 성장 둔화, 고객 재고 증가</td><td>$385 이하까지 추가 매수 금지</td></tr>
+      <tr><td>Industrial 램프가 restocking</td><td>실수요보다 channel 재고 보충</td><td>bookings 둔화, channel inventory weeks 상승</td><td>보유 16주 중 4주 추가 축소</td></tr>
+      <tr><td>GM 73%가 피크</td><td>utilization·mix·pricing benefit 정상화</td><td>adj GM 71% 이하, guide miss</td><td>target multiple 36x→30x로 낮춤</td></tr>
+      <tr><td>Empower 통합 리스크</td><td>IVR 양산/고객 전환 지연</td><td>closing 지연, design win 미공개</td><td>M&A premium 제거</td></tr>
+      <tr><td>Valuation 과열</td><td>좋은 회사지만 너무 비쌈</td><td>주가가 EPS revision 없이 $500+ 돌파</td><td>추가 분할 매도</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>[2단계] 정식 보고서</h2>
+
+  <h3>0. Executive Summary</h3>
+  <table>
+    <tbody>
+      <tr><th>한 문장 투자 thesis</th><td>ADI는 AI 데이터센터의 전력·광학·정밀 제어 bottleneck에 붙어, 아날로그 사이클주에서 physical intelligence platform으로 리레이팅될 수 있다.</td></tr>
+      <tr><th>한 문장 anti-thesis</th><td>주가는 이미 컨센서스 평균권을 넘어섰고, FY26E 기준 높은 P/E·FCF multiple은 Q3 beat+raise가 없으면 방어가 어렵다.</td></tr>
+      <tr><th>현재 시장이 보는 회사</th><td>고품질 아날로그 반도체, Industrial/Auto 회복주, AI 수혜 일부 반영.</td></tr>
+      <tr><th>새롭게 보는 회사</th><td>AI power density, optical control, ATE, BMS/GMSL/A2B가 결합된 “physical-to-digital control layer”.</td></tr>
+      <tr><th>리레이팅 가능한 이유</th><td>data center가 Communications의 75%+, YoY 90%+ 성장, Empower로 vertical power delivery 확장, Industrial 내 ATE/A&D 강세.</td></tr>
+      <tr><th>리레이팅 실패 조건</th><td>Q3/Q4에서 data center·Industrial bookings 둔화, adj GM 71% 이하, channel inventory 상승, Empower closing/design win 지연.</td></tr>
+      <tr><th>투자 등급</th><td><b>Trim / Hold core</b></td></tr>
+      <tr><th>포트폴리오 행동</th><td><b>일부 차익실현</b>: 20주 중 4주 매도, 16주 보유.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1. 시장이 놓친 핵심 변곡점</h3>
+  <table>
+    <thead><tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>미검증 가설</th><th>왜 아직 완전 반영 안 됐나</th></tr></thead>
+    <tbody>
+      <tr><td>AI 매출이 Communications 안에 숨어 있음</td><td>data center >75% of Comms, +90% YoY</td><td>AI cluster power/optical capex 수혜</td><td>특정 hyperscaler/AI chip 고객</td><td>ADI는 GPU/ASIC가 아니라 analog로 분류되어 화면상 AI pure-play가 아님</td></tr>
+      <tr><td>Empower가 TAM을 바꿀 수 있음</td><td>$1.5B 인수, IVR·silicon capacitor</td><td>grid-to-core power 플랫폼화</td><td>AI accelerator reference design 채택</td><td>매출 기여가 아직 숫자로 안 보임</td></tr>
+      <tr><td>Industrial recovery의 질</td><td>Industrial +56%, ATE/A&D/ETM 강세</td><td>단순 재고 보충보다 구조적 수요 가능성</td><td>multi-year ATE cycle</td><td>Industrial은 원래 경기민감으로 할인받음</td></tr>
+      <tr><td>자본구조는 리스크가 아니라 방어력</td><td>FCF $4.6B TTM, buyback $8.5B 잔여</td><td>고멀티플을 일부 방어</td><td>추가 M&A roll-up</td><td>대형주라 dramatic mispricing은 제한</td></tr>
+    </tbody>
+  </table>
+
+  <h3>2. 전통적 비즈니스 모델의 진화</h3>
+  <p>ADI는 여전히 product sales 중심 회사다. 그러나 BMS, GMSL, A2B, power management, optical control, IVR처럼 고객 시스템 설계에 깊게 들어가는 영역에서는 단순 부품보다 <b>reference design·platform·system solution</b> 성격이 강해진다. 이 변화가 유지되면 ADI는 기존 analog multiple 상단보다 높은 “AI infrastructure enabler” multiple을 받을 수 있다.</p>
+
+  <h3>3. 실적으로 증명되는 실체</h3>
+  <div class="figure">
+    <h4>Q2 FY26 매출 구성</h4>
+    <div class="bar"><div class="name">Industrial</div><div class="track"><div class="fill navy" style="width:50%"></div></div><div class="num">$1.80B · 50%</div></div>
+    <div class="bar"><div class="name">Automotive</div><div class="track"><div class="fill teal" style="width:24%"></div></div><div class="num">$0.87B · 24%</div></div>
+    <div class="bar"><div class="name">Communications</div><div class="track"><div class="fill mustard" style="width:15%"></div></div><div class="num">$0.55B · 15%</div></div>
+    <div class="bar"><div class="name">Consumer</div><div class="track"><div class="fill rust" style="width:11%"></div></div><div class="num">$0.40B · 11%</div></div>
+  </div>
+  <table>
+    <thead><tr><th>KPI</th><th>최근 수치</th><th>판단</th><th>다음 분기 확인</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td>Q2 $3.623B, +37% YoY</td><td>cycle recovery + AI/Industrial 램프</td><td>Q3 guide $3.9B 달성/상회</td></tr>
+      <tr><td>Adjusted GM</td><td>73.0%</td><td>mix, utilization, pricing 일부</td><td>71.5~73% 유지 여부</td></tr>
+      <tr><td>Adjusted EPS</td><td>$3.09, Q3 guide $3.30±$0.15</td><td>operating leverage 강함</td><td>FY26E $12+ 가능성</td></tr>
+      <tr><td>TTM FCF</td><td>$4.565B, 36% margin</td><td>품질 높은 FCF compounder</td><td>Empower 이후 FCF dilution 여부</td></tr>
+      <tr><td>Data center</td><td>Comms의 >75%, +90% YoY</td><td>핵심 hidden KPI</td><td>Comms low/mid-teens QoQ 이상 필요</td></tr>
+      <tr><td>Channel inventory</td><td>Q3 guide에서 flat weeks 언급</td><td>restocking 과열은 아직 제한적</td><td>weeks 상승 시 경계</td></tr>
+    </tbody>
+  </table>
+
+  <h3>4. 고객·파트너·생태계 분석</h3>
+  <p>ADI의 고객명 공개는 제한적이다. 따라서 본 보고서는 NVIDIA, AMD, Intel, Qualcomm, Samsung, TSMC, Microsoft, Amazon, Google, Oracle, Apple, SpaceX, Globalstar, Gogo, Skylo, Verizon을 확정 고객으로 단정하지 않는다. 관련성이 높은 축은 hyperscaler/AI silicon developer/optical module/ATE/automotive Tier-1이며, 위성·통신사·단말 관련 기업은 현재 thesis에서는 부차적이다.</p>
+
+  <h3>5. 숨은 고객 및 M&A optionality</h3>
+  <table>
+    <thead><tr><th>후보군</th><th>근거</th><th>반대 근거</th><th>가능성</th></tr></thead>
+    <tbody>
+      <tr><td>대형 hyperscaler</td><td>Empower 발표의 “leading hyperscalers” 문구, data center power density 문제</td><td>고객명 비공개, distributor/모듈 경유 가능</td><td>높음, 단 개별사 특정 금지</td></tr>
+      <tr><td>AI silicon developer</td><td>IVR가 accelerator 전력 공급에 직접 연결</td><td>ADI가 직접 silicon vendor에 들어가는지 검증 필요</td><td>중간~높음</td></tr>
+      <tr><td>Optical module/networking 업체</td><td>data center growth가 optical and power에 의해 equally fueled</td><td>최종 고객은 hyperscaler라도 직접 고객은 모듈업체일 수 있음</td><td>높음</td></tr>
+      <tr><td>Automaker/Tier-1</td><td>BMS, GMSL, A2B 제품군</td><td>Auto는 Q2 +2% YoY로 AI보다 약함</td><td>중간</td></tr>
+    </tbody>
+  </table>
+
+  <h3>6. 자본구조와 수급 분석</h3>
+  <p>ADI에는 소형 적자 성장주의 전환사채·ATM·VWAP 할인·워런트·lock-up 만료 리스크가 사실상 없다. 주가를 누르는 구조는 financing overhang이 아니라 <b>고멀티플에 대한 검증 부담</b>이다.</p>
+
+  <h3>7. 기술 분석</h3>
+  <p>핵심 제품군은 power management/IVR/silicon capacitor, optical control, BMS, GMSL, A2B, ATE signal chain이다. 이들은 소프트웨어만으로 해결되지 않는 물리적 문제—전압, 열, 노이즈, 지연, 신호 무결성, 안전 인증—에 걸려 있어 실리콘/RF/baseband/전력 아키텍처 레벨의 장벽이 존재한다.</p>
+
+  <h3>8. 컨센서스 리비전 분석</h3>
+  <table>
+    <thead><tr><th>기관/출처</th><th>최근 목표가</th><th>변화</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td>Wells Fargo</td><td>$515</td><td>$470 → $515</td><td>AI/data center 재평가의 상단</td></tr>
+      <tr><td>KeyBanc</td><td>$500</td><td>$430 → $500</td><td>bull multiple 인정</td></tr>
+      <tr><td>Evercore</td><td>$474</td><td>$387 → $474</td><td>Q2 이후 큰 폭 상향</td></tr>
+      <tr><td>Citi / BofA</td><td>$460</td><td>$400~425 → $460</td><td>base target 상향</td></tr>
+      <tr><td>컨센서스 평균권</td><td>$431~446</td><td>현 주가와 유사</td><td>현재가는 이미 평균 target 부근</td></tr>
+    </tbody>
+  </table>
+  <p>최고 목표가 $515를 역산하면 FY26E adjusted EPS $12.2~12.4에 약 41~42x multiple, 또는 FY27E EPS $13.5에 38x 수준을 인정해야 한다. 이는 단순 cyclical analog가 아니라 AI infrastructure enabler로 보는 가정이다.</p>
+
+  <h3>9. 이벤트 드리븐 분석</h3>
+  <table>
+    <thead><tr><th>이벤트</th><th>확인 질문</th><th>오르기 위한 조건</th><th>빠지기 위한 조건</th></tr></thead>
+    <tbody>
+      <tr><td>Q3 FY26 실적</td><td>Comms 내 data center 비중과 QoQ 성장?</td><td>매출 $4.0B+, EPS $3.45+, Q4 raise</td><td>가이드만 충족, data center 성장 둔화</td></tr>
+      <tr><td>Empower closing</td><td>HSR/closing 일정, 고객 design win?</td><td>close + early hyperscaler/AI silicon 언급</td><td>closing 지연 또는 TAM 언급 약화</td></tr>
+      <tr><td>Industrial bookings</td><td>ATE/A&D/ETM 지속?</td><td>multi-quarter backlog 확인</td><td>restocking 신호</td></tr>
+      <tr><td>Gross margin</td><td>73%대 유지 가능한가?</td><td>72%+ 유지, mix tailwind</td><td>71% 이하 guide</td></tr>
+    </tbody>
+  </table>
+
+  <h3>10. 밸류에이션</h3>
+  <h4>A. DCF</h4>
+  <table>
+    <thead><tr><th>시나리오</th><th>매출 성장</th><th>GM/OPM/FCF margin</th><th>할인율</th><th>terminal</th><th>희석 후 주당가치</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td>FY26 이후 3~5%</td><td>GM 68~70%, FCF 28~31%</td><td>9.0%</td><td>20~22x FCF</td><td>$285~320</td></tr>
+      <tr><td>Base</td><td>FY26 이후 6~8%</td><td>GM 70~72%, FCF 33~36%</td><td>8.5%</td><td>24~27x FCF</td><td>$350~400</td></tr>
+      <tr><td>Bull</td><td>FY26 이후 8~10%</td><td>GM 72~74%, FCF 36~39%</td><td>8.0%</td><td>30~32x FCF</td><td>$445~490</td></tr>
+    </tbody>
+  </table>
+  <p>DCF는 현재 주가를 완전히 정당화하려면 장기 FCF margin 36%+와 terminal premium을 동시에 요구한다. 따라서 보수적 내재가치는 현재가보다 낮다.</p>
+
+  <h4>B. FCF Yield / Owner Earnings</h4>
+  <table>
+    <thead><tr><th>normalized FCF</th><th>적정 FCF yield</th><th>적정 시총</th><th>주당가치</th><th>해석</th></tr></thead>
+    <tbody>
+      <tr><td>$5.2B</td><td>3.2%</td><td>$162.5B</td><td>$330</td><td>legacy analog quality</td></tr>
+      <tr><td>$5.7B</td><td>2.7%</td><td>$211B</td><td>$430</td><td>현재 시장 수준</td></tr>
+      <tr><td>$6.2B</td><td>2.45%</td><td>$253B</td><td>$515</td><td>AI platform bull</td></tr>
+    </tbody>
+  </table>
+
+  <h4>C. 상대가치</h4>
+  <table>
+    <thead><tr><th>기업</th><th>역할</th><th>현재 P/E</th><th>ADI 대비 해석</th></tr></thead>
+    <tbody>
+      <tr><td>TXN</td><td>analog peer</td><td>약 53x</td><td>고품질 analog premium peer</td></tr>
+      <tr><td>NXPI</td><td>auto/industrial mixed-signal</td><td>약 31x</td><td>ADI가 더 높은 FCF/AI premium 받는 구조</td></tr>
+      <tr><td>MCHP</td><td>embedded/analog cycle</td><td>N/M</td><td>cycle downturn 회복 비교대상</td></tr>
+      <tr><td>AVGO</td><td>AI infrastructure comp</td><td>약 121x</td><td>ADI가 AI infra로 읽힐 때 narrative benchmark, 직접 peer는 아님</td></tr>
+    </tbody>
+  </table>
+
+  <h4>D. 리레이팅 가치와 valuation bridge</h4>
+  <div class="figure svgwrap">
+    <svg width="1000" height="260">
+      <rect width="1000" height="260" fill="#fff"/>
+      <text x="28" y="32" font-size="18" font-weight="700" fill="#153A5B">Valuation Bridge: Legacy Analog → AI Physical Intelligence</text>
+      <rect x="60" y="170" width="130" height="38" fill="#C56C4E"/><text x="125" y="194" fill="#fff" text-anchor="middle" font-weight="700">$350</text><text x="125" y="226" text-anchor="middle" font-size="12">Conservative</text>
+      <rect x="230" y="145" width="130" height="63" fill="#D8A447"/><text x="295" y="181" fill="#fff" text-anchor="middle" font-weight="700">$405</text><text x="295" y="226" text-anchor="middle" font-size="12">Cycle recovery</text>
+      <rect x="400" y="125" width="130" height="83" fill="#6FA7A1"/><text x="465" y="171" fill="#fff" text-anchor="middle" font-weight="700">$450</text><text x="465" y="226" text-anchor="middle" font-size="12">Base target</text>
+      <rect x="570" y="92" width="130" height="116" fill="#153A5B"/><text x="635" y="155" fill="#fff" text-anchor="middle" font-weight="700">$515</text><text x="635" y="226" text-anchor="middle" font-size="12">AI platform bull</text>
+      <rect x="740" y="60" width="130" height="148" fill="#9AAE7A"/><text x="805" y="141" fill="#fff" text-anchor="middle" font-weight="700">$575</text><text x="805" y="226" text-anchor="middle" font-size="12">Overshoot</text>
+      <line x1="60" y1="208" x2="900" y2="208" stroke="#DDD5C6"/>
+    </svg>
+  </div>
+
+  <h3>11. 목표가 체계</h3>
+  <table>
+    <thead><tr><th>Target</th><th>가격</th><th>적용 EPS/FCF</th><th>Multiple/Yield</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead>
+    <tbody>
+      <tr><td>보수적 내재가치</td><td>$335~360</td><td>FCF $5.2B / EPS $12.0</td><td>3.2% FCF yield / 28~30x EPS</td><td>490M</td><td>25%</td><td>valuation mean reversion</td><td>AI growth 지속</td></tr>
+      <tr><td>12개월 base target</td><td>$450</td><td>FY26E EPS $12.3</td><td>36~37x</td><td>490M</td><td>40%</td><td>Q3 beat, Q4 raise</td><td>GM/Comms 둔화</td></tr>
+      <tr><td>Bull target</td><td>$515</td><td>FY27E EPS $13.5</td><td>38x 또는 FY26E 42x</td><td>488~490M</td><td>25%</td><td>data center + Industrial multi-quarter acceleration</td><td>AI optical/power growth 둔화</td></tr>
+      <tr><td>Overshoot target</td><td>$560~585</td><td>FY27E EPS $13.8~14.2</td><td>40~42x</td><td>488M</td><td>10%</td><td>Empower hyperscaler design win, AI narrative 과열</td><td>EPS revision 부재</td></tr>
+      <tr><td>실적 전 trading target</td><td>$430~455</td><td>현 컨센서스 평균권</td><td>already re-rated</td><td>490M</td><td>-</td><td>earnings run-up</td><td>기대치 과열</td></tr>
+      <tr><td>실적 후 재평가 target</td><td>$475</td><td>Q3 beat+raise 반영</td><td>38~39x FY26E EPS</td><td>490M</td><td>-</td><td>Q3 매출 $4.0B+, EPS $3.45+</td><td>guide only in-line</td></tr>
+    </tbody>
+  </table>
+
+  <h3>12. 2020~2030 멀티플 밴드</h3>
+  <p class="small">아래는 공개 연간 매출/FCF와 연말·현재 시가총액 기반의 방향성 추정 밴드다. 정확한 일별 historical multiple은 Bloomberg/FactSet로 재검증해야 한다.</p>
+  <div class="figure svgwrap">
+    <svg width="1060" height="360">
+      <rect width="1060" height="360" fill="#fff"/>
+      <text x="30" y="32" font-size="18" font-weight="700" fill="#153A5B">P/S band: 2020~2030 actual/estimate split</text>
+      <line x1="70" y1="300" x2="1010" y2="300" stroke="#DDD5C6"/>
+      <line x1="70" y1="60" x2="70" y2="300" stroke="#DDD5C6"/>
+      <text x="24" y="66" font-size="11" fill="#5F6B73">18x</text>
+      <text x="30" y="144" font-size="11" fill="#5F6B73">12x</text>
+      <text x="36" y="222" font-size="11" fill="#5F6B73">6x</text>
+      <text x="36" y="303" font-size="11" fill="#5F6B73">0x</text>
+      <polyline points="90,174 180,142 270,208 360,194 450,154 540,146 630,78 720,122 810,144 900,168 990,184" fill="none" stroke="#153A5B" stroke-width="4"/>
+      <line x1="585" y1="54" x2="585" y2="304" stroke="#C56C4E" stroke-dasharray="6 5"/>
+      <text x="596" y="73" font-size="12" fill="#C56C4E">Actual → Estimate</text>
+      <g font-size="11" fill="#5F6B73">
+        <text x="76" y="324">2020</text><text x="166" y="324">2021</text><text x="256" y="324">2022</text><text x="346" y="324">2023</text>
+        <text x="436" y="324">2024</text><text x="526" y="324">2025</text><text x="616" y="324">2026E</text><text x="706" y="324">2027E</text>
+        <text x="796" y="324">2028E</text><text x="886" y="324">2029E</text><text x="976" y="324">2030E</text>
+      </g>
+      <g fill="#153A5B">
+        <circle cx="90" cy="174" r="5"/><circle cx="180" cy="142" r="5"/><circle cx="270" cy="208" r="5"/><circle cx="360" cy="194" r="5"/>
+        <circle cx="450" cy="154" r="5"/><circle cx="540" cy="146" r="5"/><circle cx="630" cy="78" r="5"/>
+      </g>
+      <g fill="#9AAE7A">
+        <circle cx="720" cy="122" r="5"/><circle cx="810" cy="144" r="5"/><circle cx="900" cy="168" r="5"/><circle cx="990" cy="184" r="5"/>
+      </g>
+    </svg>
+  </div>
+  <table>
+    <thead><tr><th>연도</th><th>매출</th><th>P/S band</th><th>P/E band</th><th>EV/EBITDA</th><th>P/FCF</th><th>메모</th></tr></thead>
+    <tbody>
+      <tr><td>2020</td><td>~$5.6B</td><td>~9~10x</td><td>high 30s</td><td>mid/high 20s</td><td>~30x</td><td>pre-Maxim, high-quality analog premium</td></tr>
+      <tr><td>2021</td><td>$7.3B</td><td>~12x</td><td>40x+</td><td>30x+</td><td>30x+</td><td>Maxim deal transition</td></tr>
+      <tr><td>2022</td><td>~$12.0B</td><td>~7x</td><td>mid/high 20s</td><td>high teens</td><td>mid 20s</td><td>cycle peak earnings</td></tr>
+      <tr><td>2023</td><td>$12.3B</td><td>~8x</td><td>high 20s</td><td>low 20s</td><td>mid/high 20s</td><td>industrial strength</td></tr>
+      <tr><td>2024</td><td>$9.43B</td><td>~11x</td><td>30x+</td><td>mid 20s</td><td>30x+</td><td>downcycle earnings trough</td></tr>
+      <tr><td>2025</td><td>$11.02B</td><td>~11~12x</td><td>30x+</td><td>mid/high 20s</td><td>~30x</td><td>recovery + FCF margin 39%</td></tr>
+      <tr><td>2026E</td><td>~$14.7B</td><td>~16~17x</td><td>~35~37x adj EPS</td><td>30x+</td><td>~40x+</td><td>AI rerating 현재 구간</td></tr>
+      <tr><td>2027~2030E</td><td>$16~19B+</td><td>bear 8x / base 10~13x / bull 14x+</td><td>bear 26x / base 34~38x / bull 40x+</td><td>시나리오별</td><td>2.4~3.5% yield</td><td>AI power/optical 지속성이 결정</td></tr>
+    </tbody>
+  </table>
+
+  <h3>13. 리스크 관리: thesis break trigger</h3>
+  <table>
+    <thead><tr><th>리스크</th><th>Thesis break 지표</th><th>시장 반영 가격</th><th>확인 시점</th><th>대응</th></tr></thead>
+    <tbody>
+      <tr><td>출하 지연</td><td>Q3 매출 $3.8B 이하 또는 Q4 guide 하향</td><td>$390 이하</td><td>Q3 실적</td><td>4주 추가 축소</td></tr>
+      <tr><td>GM 정상화</td><td>adj GM 71% 이하 지속</td><td>$375~390</td><td>분기별</td><td>multiple 36x→30x</td></tr>
+      <tr><td>현금/희석</td><td>대규모 debt-funded M&A가 FCF 희석</td><td>$400 이하</td><td>Empower closing 이후</td><td>buyback/FCF policy 확인</td></tr>
+      <tr><td>고객 집중/익명 고객 오판</td><td>data center 성장 둔화, 특정 고객 부재</td><td>$360~385</td><td>컨콜</td><td>AI premium 제거</td></tr>
+      <tr><td>경쟁사 대체</td><td>hyperscaler 자체 IVR/PMIC 또는 기존 공급사 확대</td><td>$350 이하</td><td>고객 발표/tear-down</td><td>core만 보유</td></tr>
+      <tr><td>M&A 기대 과열</td><td>Empower 매출 전 숫자 없이 주가 $550+</td><td>오히려 과열</td><td>주가/뉴스</td><td>추가 차익실현</td></tr>
+    </tbody>
+  </table>
+
+  <h3>14. 포트폴리오 실행안</h3>
+  <table>
+    <tbody>
+      <tr><th>현재 보유</th><td>20주, 매입가 $314, 현재가 $432.78, 평가액 $8,656, 미실현손익 $2,376</td></tr>
+      <tr><th>추천 행동</th><td><b>B. 일부 차익실현</b></td></tr>
+      <tr><th>목표 비중</th><td>현재 1.5% → 단기 1.2% 내외. Q3 beat+raise 확인 시 1.5~2.0% 재확대 가능.</td></tr>
+      <tr><th>실행</th><td>1차: $430~440에서 4주 매도. 2차: $515 도달 시 4주 추가 매도 검토. 3차: $560+ overshoot 시 4~6주 추가 매도.</td></tr>
+      <tr><th>재매수</th><td>$385~405에서 4주 재매수. $360 이하에서는 Q3/Q4 thesis 확인 후만 매수.</td></tr>
+      <tr><th>실적 전 행동</th><td>이미 trading target 진입. 신규 매수 금지, 4주 trim 우선.</td></tr>
+      <tr><th>실적 후 행동</th><td>Q3 beat+raise와 data center/Industrial 램프 확인 시 16주 보유 유지. in-line이면 추가 trim.</td></tr>
+      <tr><th>손절/축소 기준</th><td>adj GM 71% 이하, Comms 성장 둔화, Industrial bookings 약화, Empower 지연 중 2개 이상 확인 시 8~12주까지 축소.</td></tr>
+    </tbody>
+  </table>
+
+  <h4>보유 20주 기준 기대손익</h4>
+  <table>
+    <thead><tr><th>시나리오</th><th>목표가</th><th>현재가 대비</th><th>20주 손익</th></tr></thead>
+    <tbody>
+      <tr><td>Conservative intrinsic</td><td>$350</td><td>-19.1%</td><td>$-1,656</td></tr><tr><td>12M base</td><td>$450</td><td>+4.0%</td><td>$+344</td></tr><tr><td>Bull</td><td>$515</td><td>+19.0%</td><td>$+1,644</td></tr><tr><td>Overshoot</td><td>$575</td><td>+32.9%</td><td>$+2,844</td></tr><tr><td>Thesis break</td><td>$350</td><td>-19.1%</td><td>$-1,656</td></tr>
+    </tbody>
+  </table>
+
+  <h3>15. 보고서 전 자체 점검</h3>
+  <table>
+    <thead><tr><th>점검 질문</th><th>답변</th></tr></thead>
+    <tbody>
+      <tr><td>단순 컨센서스 요약인가?</td><td>아님. 핵심은 Communications 안의 data center, Empower, Industrial/ATE/A&D 체인이다.</td></tr>
+      <tr><td>고객/공급망/공시를 시간순 연결했나?</td><td>FY24 저점 → FY25 FCF 회복 → Q1 data center orders → Empower → Q2 record demand 순으로 연결했다.</td></tr>
+      <tr><td>익명 고객을 확정처럼 썼나?</td><td>아님. hyperscaler/AI silicon은 후보군으로만 제시했다.</td></tr>
+      <tr><td>자본구조와 희석을 반영했나?</td><td>ADI는 소형주형 희석 리스크가 낮고, 대신 valuation risk가 핵심임을 반영했다.</td></tr>
+      <tr><td>왜 지금이 변곡점인가?</td><td>실적과 M&A가 동시에 AI power/optical thesis를 확인한 첫 구간이기 때문이다.</td></tr>
+      <tr><td>다음 실적에서 무엇을 수정해야 하나?</td><td>Comms 내 data center 성장률, Industrial bookings, GM, Empower closing/design win이 보고서 수정 trigger다.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>최종 요약</h2>
+  <div class="footerbox">
+    <table>
+      <tbody>
+        <tr><th>현재 주가</th><td>$432.78</td></tr>
+        <tr><th>보수적 내재가치</th><td>$335~360</td></tr>
+        <tr><th>12개월 base target</th><td>$450</td></tr>
+        <tr><th>bull target</th><td>$515</td></tr>
+        <tr><th>overshoot target</th><td>$560~585</td></tr>
+        <tr><th>실적 발표 전 trading target</th><td>$430~455 — 이미 진입</td></tr>
+        <tr><th>실적 발표 후 재평가 target</th><td>$475, 단 Q3 beat+raise 필요</td></tr>
+        <tr><th>하방 리스크</th><td>$360~385 1차, thesis break 시 $335~350</td></tr>
+        <tr><th>12개월 기대수익률</th><td>Base +4.0%, Bull +19.0%, 확률가중 약 +5~7% + 배당</td></tr>
+        <tr><th>보유 수량 기준 기대손익</th><td>Base +$344, Bull +$1,644, Overshoot +$2,844, 보수적 하방 -$1,656</td></tr>
+        <tr><th>추천 행동</th><td>일부 차익실현</td></tr>
+        <tr><th>목표 비중</th><td>단기 1.2%, 검증 후 1.5~2.0%</td></tr>
+        <tr><th>실적 발표 전 행동</th><td>신규 매수 금지, 4주 trim</td></tr>
+        <tr><th>실적 발표 후 행동</th><td>beat+raise면 16주 보유, in-line/GM 하락이면 추가 trim</td></tr>
+        <tr><th>목표가 도달 시 행동</th><td>$515에서 4주 추가 매도, $560+에서 4~6주 추가 매도</td></tr>
+        <tr><th>thesis 훼손 시 행동</th><td>8~12주까지 축소</td></tr>
+        <tr><th>가장 중요한 체크포인트</th><td>Communications 내 data center 성장 지속성과 Empower의 hyperscaler/AI silicon design win</td></tr>
+        <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>Q3/Q4에서 data center·Industrial 성장이 둔화되고, adj GM이 71% 이하로 내려가며, Empower가 실질 고객 traction을 보여주지 못하는 경우</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>참조 자료</h2>
+  <table>
+    <thead><tr><th>출처</th><th>사용 내용</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://investor.analog.com/news-releases/news-release-details/analog-devices-reports-record-fiscal-second-quarter-2026">ADI FY26 Q2 Earnings Release</a></td><td>Q2 매출, EPS, margin, FCF, Q3 guidance</td></tr>
+      <tr><td><a href="https://investor.analog.com/node/30481/html">ADI FY26 Q2 Form 10-Q</a></td><td>주식 수, 현금, debt, 채널별 매출, buyback authorization</td></tr>
+      <tr><td><a href="https://investor.analog.com/static-files/74245ffb-8308-4b7d-bdc4-db7abf2ce11b">ADI Q2 FY26 Earnings Call Transcript</a></td><td>data center 비중, Empower 전략, pricing, GM, channel inventory</td></tr>
+      <tr><td><a href="https://investor.analog.com/news-releases/news-release-details/analog-devices-acquire-empower-semiconductor-expanding-its-next">ADI to Acquire Empower Semiconductor</a></td><td>$1.5B acquisition, IVR, silicon capacitor, vertical power delivery</td></tr>
+      <tr><td><a href="https://investor.analog.com/news-releases/news-release-details/analog-devices-reports-fiscal-first-quarter-2026-results">ADI FY26 Q1 Earnings Release</a></td><td>Q1 revenue, bookings, dividend increase</td></tr>
+      <tr><td><a href="https://investor.analog.com/news-releases/news-release-details/analog-devices-reports-fiscal-2025-fourth-quarter-and-fiscal">ADI FY25 Results</a></td><td>FY25 매출, FCF, 주주환원</td></tr>
+      <tr><td><a href="https://www.analog.com/en/solutions/data-center.html">ADI Data Center Solutions</a></td><td>AI/data center power, optical, sensing product positioning</td></tr>
+      <tr><td><a href="https://www.analog.com/en/solutions/battery-management-systems.html">ADI Battery Management Systems</a></td><td>BMS 기술·system-level solution</td></tr>
+      <tr><td><a href="https://www.analog.com/en/solutions/technology/a2b-audio-bus.html">ADI A2B Audio Bus</a></td><td>A2B latency/connectivity</td></tr>
+      <tr><td><a href="https://www.analog.com/en/solutions/technology/gigabit-multimedia-serial-link.html">ADI GMSL</a></td><td>GMSL automotive/ADAS link</td></tr>
+      <tr><td>Finance feed / Market data / Analyst target aggregators</td><td>현재가, 시총, peer P/E, short interest, borrow fee, sell-side target range</td></tr>
+    </tbody>
+  </table>
+  <p class="small">작성 시각: 2026-06-03 16:34:15 KST. Historical multiple 표는 방향성 추정치이며, 실제 매매·회계 검증에는 Bloomberg/FactSet/CapIQ 원자료로 대체하는 것이 바람직하다.</p>
+</section>
+
+</main>
+</body>
+</html>

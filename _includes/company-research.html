@@ -27,6 +27,17 @@
                 {% assign covered_marker = "|" | append: ticker | append: "|" %}
                 {% assign covered_tickers = covered_tickers | append: covered_marker %}
                 {% assign earnings_links = site.data.earnings_presentations[ticker] %}
+                {% assign role_label = "" %}
+                {% case company.portfolio_role %}
+                    {% when "striker" %}
+                        {% assign role_label = "공격수" %}
+                    {% when "midfielder" %}
+                        {% assign role_label = "미드필더" %}
+                    {% when "defender" %}
+                        {% assign role_label = "수비수" %}
+                    {% when "other" %}
+                        {% assign role_label = "기타" %}
+                {% endcase %}
                 {% assign report_count = 0 %}
                 {% for report in report_files %}
                     {% assign current_ticker = report.name | split: "_" | first | upcase %}
@@ -44,6 +55,9 @@
                                 <span class="portfolio-weight">Portfolio {{ company.portfolio_weight }}%</span>
                             {% else %}
                                 <span class="portfolio-weight portfolio-weight-watch">Research List</span>
+                            {% endif %}
+                            {% if role_label != "" %}
+                                <span class="portfolio-role portfolio-role-{{ company.portfolio_role }}">{{ role_label }}</span>
                             {% endif %}
                         </div>
                         <p>{{ company.thesis }}</p>
