@@ -326,6 +326,10 @@ a:focus {
     z-index: 1200;
 }
 
+.sidebar-nav {
+    padding-bottom: 30px;
+}
+
 .sidebar-nav li a {
     color: var(--poster-cream) !important;
     font-weight: 700;
@@ -338,6 +342,55 @@ a:focus {
 
 .sidebar-nav .sidebar-section-label {
     color: var(--poster-sun) !important;
+}
+
+.sidebar-nav .sidebar-role-label {
+    border-top: 2px solid rgba(255, 247, 232, 0.16);
+    color: var(--poster-sun) !important;
+    margin: 14px 18px 2px;
+    padding: 12px 0 0;
+}
+
+.sidebar-nav .sidebar-role-label-striker {
+    color: #f4a083 !important;
+}
+
+.sidebar-nav .sidebar-role-label-midfielder {
+    color: var(--poster-sky) !important;
+}
+
+.sidebar-nav .sidebar-role-label-defender {
+    color: var(--poster-sun) !important;
+}
+
+.sidebar-nav .sidebar-role-label-other {
+    color: #7fd0a6 !important;
+}
+
+.sidebar-nav li a.sidebar-report-link {
+    border-left: 4px solid transparent;
+    border-radius: 0;
+    color: var(--poster-cream) !important;
+}
+
+.sidebar-nav li a.sidebar-report-link small {
+    color: var(--poster-sun) !important;
+}
+
+.sidebar-nav .sidebar-company-item-striker a.sidebar-report-link {
+    border-left-color: var(--poster-red);
+}
+
+.sidebar-nav .sidebar-company-item-midfielder a.sidebar-report-link {
+    border-left-color: var(--poster-blue);
+}
+
+.sidebar-nav .sidebar-company-item-defender a.sidebar-report-link {
+    border-left-color: var(--poster-sun);
+}
+
+.sidebar-nav .sidebar-company-item-other a.sidebar-report-link {
+    border-left-color: var(--poster-green);
 }
 
 .research-library-section,
@@ -486,12 +539,12 @@ a:focus {
     max-width: 1120px;
 }
 
-.comments-widget {
-    background: var(--poster-cream) !important;
-    border: 5px solid var(--poster-line) !important;
-    border-radius: 8px !important;
-    min-height: 220px;
-    padding: 22px;
+.comments-container .disqus {
+    background: #fff !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    min-height: 520px;
+    padding: 28px 0;
 }
 
 .report-company-grid,

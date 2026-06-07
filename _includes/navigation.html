@@ -24,13 +24,39 @@
     {% assign report_ticker_list = report_tickers | split: "|" %}
     {% assign covered_tickers = "" %}
     {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
-    {% for company in companies %}
-      {% assign ticker = company.ticker | upcase %}
-      {% assign covered_marker = "|" | append: ticker | append: "|" %}
-      {% assign covered_tickers = covered_tickers | append: covered_marker %}
-      <li>
-        <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">{{ ticker }}</a>
-      </li>
+    {% assign role_order = "striker|midfielder|defender|other" | split: "|" %}
+    {% for role in role_order %}
+      {% case role %}
+        {% when "striker" %}
+          {% assign role_label = "공격수" %}
+        {% when "midfielder" %}
+          {% assign role_label = "미드필더" %}
+        {% when "defender" %}
+          {% assign role_label = "수비수" %}
+        {% else %}
+          {% assign role_label = "기타" %}
+      {% endcase %}
+      <li class="sidebar-role-label sidebar-role-label-{{ role }}">{{ role_label }}</li>
+      {% for company in companies %}
+        {% assign ticker = company.ticker %}
+        {% assign ticker_key = ticker | upcase %}
+        {% assign company_role = company.portfolio_role %}
+        {% if company_role == nil or company_role == "" %}
+          {% assign company_role = "other" %}
+        {% endif %}
+        {% if company_role == role %}
+          {% assign covered_marker = "|" | append: ticker_key | append: "|" %}
+          {% assign covered_tickers = covered_tickers | append: covered_marker %}
+          <li class="sidebar-company-item sidebar-company-item-{{ role }}">
+            <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">
+              <span>{{ ticker }}</span>
+              {% if company.portfolio_weight %}
+                <small>{{ company.portfolio_weight }}%</small>
+              {% endif %}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
     {% endfor %}
     {% assign has_other_reports = false %}
     {% for ticker in report_ticker_list %}
@@ -42,8 +68,10 @@
       {% endif %}
     {% endfor %}
     {% if has_other_reports %}
-      <li>
-        <a class="sidebar-report-link" href="#other-reports">기타</a>
+      <li class="sidebar-company-item sidebar-company-item-other">
+        <a class="sidebar-report-link" href="#other-reports">
+          <span>신규 리포트</span>
+        </a>
       </li>
     {% endif %}
     <li>

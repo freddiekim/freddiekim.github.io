@@ -767,12 +767,13 @@ title: My Portfolio
             <div class="research-company-list">
               {% for company in research_companies %}
                 {% if company.portfolio_rank <= 20 and company.portfolio_role == role %}
-                  {% assign ticker = company.ticker | upcase %}
-                  {% assign earnings_links = site.data.earnings_presentations[ticker] %}
+                  {% assign ticker = company.ticker %}
+                  {% assign ticker_key = ticker | upcase %}
+                  {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
                   {% assign latest_company_report = "" %}
                   {% for report in analysis_report_files %}
                     {% assign report_ticker = report.name | split: "_" | first | upcase %}
-                    {% if report_ticker == ticker %}
+                    {% if report_ticker == ticker_key %}
                       {% assign latest_company_report = report.path | relative_url %}
                     {% endif %}
                   {% endfor %}
@@ -813,11 +814,12 @@ title: My Portfolio
         <div class="other-chip-list">
           {% for company in research_companies %}
             {% if company.portfolio_rank > 20 %}
-              {% assign ticker = company.ticker | upcase %}
+              {% assign ticker = company.ticker %}
+              {% assign ticker_key = ticker | upcase %}
               {% assign latest_company_report = "" %}
               {% for report in analysis_report_files %}
                 {% assign report_ticker = report.name | split: "_" | first | upcase %}
-                {% if report_ticker == ticker %}
+                {% if report_ticker == ticker_key %}
                   {% assign latest_company_report = report.path | relative_url %}
                 {% endif %}
               {% endfor %}

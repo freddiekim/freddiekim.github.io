@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>MU Forensic Deep Dive — 2026-06-07</title>
+<style>
+:root { --ink:#111111; --paper:#FAF7EE; --panel:#FFFDF7; --line:#111111; --brick:#C2603B; --teal:#2F6F73; --sand:#F7E7CE; --muted:#666; --pale:#EFE2C6; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; line-height:1.55; }
+header { padding:52px 56px 36px; border-bottom:3px solid var(--line); background:var(--panel); }
+.kicker { font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); font-weight:800; }
+h1 { margin:14px 0 10px; font-size:44px; line-height:1.05; max-width:1040px; }
+.subtitle { max-width:1050px; font-size:18px; color:#222; }
+.meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+.pill { border:2px solid var(--line); background:var(--sand); padding:8px 12px; border-radius:999px; font-weight:700; font-size:13px; }
+main { max-width:1220px; margin:0 auto; padding:34px 26px 80px; }
+section { margin:34px 0; padding:28px; background:var(--panel); border:2px solid var(--line); box-shadow:8px 8px 0 var(--ink); }
+h2 { margin:0 0 18px; font-size:28px; line-height:1.15; }
+h3 { margin:16px 0 8px; font-size:19px; }
+h4 { margin:20px 0 8px; }
+p { margin:8px 0; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.card { border:2px solid var(--line); background:var(--paper); padding:18px; min-height:190px; position:relative; }
+.card .num { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; background:var(--brick); color:white; font-weight:900; margin-bottom:10px; }
+.callout { padding:18px; border:2px solid var(--line); background:var(--pale); font-weight:700; }
+.small { font-size:13px; color:var(--muted); }
+.warning { border-left:10px solid var(--brick); padding:16px 18px; background:var(--sand); }
+table { width:100%; border-collapse:collapse; margin:14px 0 4px; font-size:13px; }
+th, td { border:1.5px solid var(--line); padding:9px 8px; vertical-align:top; }
+th { background:var(--sand); text-align:left; font-weight:800; }
+td.price { font-weight:900; color:var(--brick); font-size:15px; }
+.trust { font-weight:900; text-align:center; }
+svg { max-width:100%; height:auto; display:block; }
+.map { border:2px solid var(--line); background:var(--paper); }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+.badge { display:inline-block; padding:3px 8px; border:1.5px solid var(--line); background:#fff; font-size:12px; margin:2px; }
+ul.tight li { margin:6px 0; }
+.footer-list a { color:var(--teal); font-weight:700; text-decoration:none; border-bottom:1px solid var(--teal); }
+.final { font-size:17px; }
+.final .row { display:grid; grid-template-columns:270px 1fr; border-bottom:1px solid var(--line); padding:8px 0; }
+.final b { color:var(--brick); }
+@media (max-width: 850px) { header { padding:34px 22px; } h1 { font-size:32px; } .grid,.grid3,.two { grid-template-columns:1fr; } section { box-shadow:none; padding:20px; } .final .row { grid-template-columns:1fr; } }
+@media print { body { background:white; } section { box-shadow:none; break-inside:avoid; } a { color:#111; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Forensic Equity Research · MU · 2026-06-07</div>
+  <h1>Micron Technology: commodity memory가 아니라 AI memory allocation infrastructure인가?</h1>
+  <p class="subtitle">일반 애널리스트 체크리스트가 아니라, 공시·고객사·공급망·자금조달·컨콜/보도 발언을 시간순으로 연결해 “시장이 아직 완전히 가격에 반영하지 못한 구조적 변곡점”을 찾는 보고서입니다.</p>
+  <div class="meta">
+    <span class="pill">현재 주가: $864.01</span>
+    <span class="pill">보유: 40주</span>
+    <span class="pill">포트폴리오 비중: 7%</span>
+    <span class="pill">투자 등급: Hold / 일부 차익실현</span>
+    <span class="pill">다음 실적: 2026-06-24</span>
+  </div>
+</header>
+<main>
+<section>
+  <h2>0. 먼저 결론 — 내가 발견한 핵심 변곡점</h2>
+  <div class="callout">한 문장 thesis: MU는 더 이상 단순 DRAM/NAND spot-cycle 주식만이 아니라, NVIDIA Vera Rubin 세대와 hyperscale AI capex에서 HBM·SOCAMM·DDR·data-center SSD를 공급 배분하는 전략적 병목자산으로 재평가될 가능성이 있다.</div>
+  <p><b>한 문장 anti-thesis:</b> 현재 가격은 이미 commodity-to-AI re-rating의 상당 부분을 반영하고 있으며, Q3 실적에서 “beat + raise + 2027 HBM visibility”가 동시에 나오지 않으면 2028 공급과잉 우려와 금리상승이 멀티플을 빠르게 압축할 수 있다.</p>
+  <div class="grid3">
+    <div class="card"><h3>현재 시장이 보는 회사</h3><p>AI HBM 수혜를 크게 받은 미국 memory producer. 다만 여전히 DRAM/NAND cyclicality와 ASP peak 우려로 할인된다.</p></div>
+    <div class="card"><h3>내가 새롭게 보는 회사</h3><p>GPU platform, hyperscaler, US industrial policy를 동시에 잇는 AI memory hierarchy 공급자. 단, 아직 “platform company”는 아니고 “platform-attached strategic supplier”가 더 정확하다.</p></div>
+    <div class="card"><h3>행동 요약</h3><p><b>일부 차익실현:</b> 40주 중 10주를 실적 전 반등 시 우선 축소, 30주는 thesis 확인용 보유. 목표 비중 5~5.5%.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>1단계: Thesis Discovery — 처음 보면 놓치기 쉬운 10가지 숨은 신호</h2>
+  <div class="grid"><article class="card"><div class="num">1</div><h3>CMBU 신설은 단순 세그먼트 변경이 아니라 ‘대형 hyperscale + HBM 할당’ 회계 레이어의 탄생이다.</h3><p><b>확정 사실:</b> FY2025 10-K에서 CMBU가 대형 hyperscale cloud와 모든 data-center HBM 고객을 담당하도록 재편되었다. 이는 과거 CNBU/MBU/SBU 식 제품·시장 분류보다 AI 고객·공급배분 중심이다.</p><p><b>투자 해석:</b> 멀티플은 ‘DRAM spot cycle’에서 ‘AI capacity allocation rights’로 이동할 수 있다.</p></article><article class="card"><div class="num">2</div><h3>2025년 17% 고객 집중은 위험이자 lock-in 신호다.</h3><p><b>확정 사실:</b> 10-K는 2025년 한 고객이 매출 17%, 주로 CMBU에서 발생했다고 공시한다. 고객명은 비공개이며, NVIDIA/하이퍼스케일러/AI OEM 후보를 단정할 수 없다.</p><p><b>투자 해석:</b> 확정 고객명보다 중요한 것은 한 고객이 Micron의 새 AI memory book에서 이미 material customer가 되었다는 점이다.</p></article><article class="card"><div class="num">3</div><h3>HBM4, SOCAMM2, PCIe Gen6 SSD가 모두 NVIDIA Vera Rubin 세대와 연결된다.</h3><p><b>확정 사실:</b> Micron은 HBM4 36GB 12-high를 Vera Rubin용으로 high-volume production 중이라고 발표했고, 192GB SOCAMM2와 PCIe Gen6 SSD도 같은 AI platform 전환기에 제시했다.</p><p><b>투자 해석:</b> Micron은 ‘칩 하나’가 아니라 GPU node의 메모리·스토리지 reference stack에 진입 중이다.</p></article><article class="card"><div class="num">4</div><h3>CHIPS 보조금 계약 안의 HBM packaging milestone은 사실상 전략자산 옵션이다.</h3><p><b>확정 사실:</b> 10-K 전시물에는 HBM packaging operational capability 관련 조건이 redaction된 형태로 포함된다. 숫자는 가려졌지만 조항 존재 자체는 정부가 HBM 패키징을 전략 capacity로 본다는 신호다.</p><p><b>투자 해석:</b> 미국 내 유일 대형 memory supplier 프리미엄과 동시에 capital-return 제약이 생긴다.</p></article><article class="card"><div class="num">5</div><h3>Q2의 74% gross margin과 Q3 81% guide는 단순 회복 사이클을 넘어선 pricing regime이다.</h3><p><b>확정 사실:</b> Q2 매출 238.6억 달러, GM 74%, Q3 매출 335억 달러±7.5억 및 GM 약 81% 가이던스가 제시됐다.</p><p><b>투자 해석:</b> 시장은 구조적 GM인지 peak GM인지 아직 결론을 못 냈다. 이것이 valuation dispersion의 핵심이다.</p></article><article class="card"><div class="num">6</div><h3>Powerchip Taiwan fab 인수와 Singapore incentive는 ‘부족한 wafer/packaging control’의 증거다.</h3><p><b>확정 사실:</b> Micron은 2026년 3월 Powerchip Taiwan wafer fab를 18억 달러 installment cash로 인수했고, Singapore 인센티브 arrangement를 최종화했다.</p><p><b>투자 해석:</b> 이는 생존 자금조달이 아니라 AI memory supply chain control 투자로 해석된다.</p></article><article class="card"><div class="num">7</div><h3>자본구조 forensic에서 핵심은 희석이 아니라 CHIPS 조건과 capex funding이다.</h3><p><b>확정 사실:</b> 현금·투자자산 166.3억 달러, 총부채 101.4억 달러, revolver 35억 달러 미사용. ATM/전환사채/warrant overhang은 핵심이 아니다.</p><p><b>투자 해석:</b> 소형주 템플릿으로 보면 놓친다. MU는 ‘희석 리스크’보다 ‘cycle peak에서 250억 달러+ capex를 집행하는 리스크’를 봐야 한다.</p></article><article class="card"><div class="num">8</div><h3>Computex 메시지는 HBM만이 아니라 tiered memory architecture다.</h3><p><b>확정 사실:</b> Micron은 HBM, SOCAMM/DDR/LPDDR, data-center SSD가 LLM inference·KV cache·AI data lake를 구성한다고 설명했다.</p><p><b>투자 해석:</b> HBM 공급사가 아니라 AI inference memory hierarchy provider라는 정체성 변화를 암시한다.</p></article><article class="card"><div class="num">9</div><h3>경쟁사 증설은 bull thesis의 증거이자 2028 downside의 씨앗이다.</h3><p><b>확정 사실:</b> SK Hynix는 wafer capacity를 5년간 두 배로 늘릴 계획을 언급했고, HBM 병목이 2030년까지 지속될 수 있다고도 했다.</p><p><b>투자 해석:</b> 지금은 shortage premium, 미래는 oversupply trigger다. 목표가는 12개월과 2028을 분리해야 한다.</p></article><article class="card"><div class="num">10</div><h3>6월 5일 급락은 Micron 개별 thesis 붕괴보다 crowded semiconductor unwind + 금리확률 재가격화다.</h3><p><b>확정 사실:</b> 강한 고용보고서 이후 12월 금리인상 확률이 68~70%대로 상승했고, 반도체 섹터가 동반 급락했다. MU도 약 13% 급락했다.</p><p><b>투자 해석:</b> 실적 전에는 fundamental thesis보다 discount-rate와 crowded positioning이 가격을 지배할 수 있다.</p></article></div>
+</section>
+
+<section>
+  <h2>A. 기업 정체성 재정의</h2>
+  <div class="two">
+    <div>
+      <h3>레거시 잣대</h3>
+      <p>Micron은 전통적으로 DRAM/NAND spot pricing, inventory cycle, capex discipline, Samsung/SK Hynix와의 공급경쟁으로 평가받았다. 이 프레임에서는 peak EPS에 낮은 P/E를 주고, ASP 하락 시 빠르게 de-rating한다.</p>
+      <h3>새로운 밸류체인</h3>
+      <p>2025~2026년 공시와 제품 발표는 MU가 AI 서버의 <b>HBM 실행 메모리</b>, <b>SOCAMM/DDR CPU-side memory</b>, <b>data-center SSD/KV cache</b>, <b>미국 내 DRAM/HBM packaging capacity</b>로 이동 중임을 보여준다.</p>
+    </div>
+    <div class="warning">
+      <h3>판단</h3>
+      <p>MU는 아직 software platform이나 turnkey system vendor는 아니다. 그러나 NVIDIA Vera Rubin 설계와 동시 최적화되는 HBM4/SOCAMM2/SSD를 내놓으면서 <b>reference platform에 붙는 memory layer</b>로 진화하고 있다. 이 변화가 지속되면 매출은 spot commodity보다 장기공급·qualification·allocation 중심으로 바뀌고, gross margin과 P/E/Sales multiple의 바닥이 올라갈 수 있다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>B. 고객·공급망·파트너 맵</h2>
+  <svg class="map" viewBox="0 0 980 520" role="img" aria-label="MU ecosystem map">
+<defs></defs>
+<rect x="410" y="210" width="160" height="80" rx="8" fill="#111"/><text x="490" y="245" fill="#fff" text-anchor="middle" font-size="20" font-weight="700">Micron</text><text x="490" y="270" fill="#fff" text-anchor="middle" font-size="12">HBM · DDR · SOCAMM · SSD</text>
+<g fill="#F7E7CE" stroke="#111" stroke-width="1.5">
+<rect x="60" y="70" width="210" height="70" rx="8"/><rect x="60" y="220" width="210" height="70" rx="8"/><rect x="60" y="370" width="210" height="70" rx="8"/>
+<rect x="710" y="50" width="210" height="70" rx="8"/><rect x="710" y="165" width="210" height="70" rx="8"/><rect x="710" y="280" width="210" height="70" rx="8"/><rect x="710" y="395" width="210" height="70" rx="8"/>
+</g>
+<g font-size="13" fill="#111" text-anchor="middle">
+<text x="165" y="100" font-weight="700">GPU / Platform</text><text x="165" y="122">NVIDIA Vera Rubin 확정</text>
+<text x="165" y="250" font-weight="700">Hyperscalers</text><text x="165" y="272">MSFT · AMZN · GOOGL · Oracle · Meta 후보</text>
+<text x="165" y="400" font-weight="700">US Gov / CHIPS</text><text x="165" y="422">Idaho · NY · Virginia · HBM packaging</text>
+<text x="815" y="80" font-weight="700">Server OEM / ODM</text><text x="815" y="102">Dell · Supermicro · whitebox</text>
+<text x="815" y="195" font-weight="700">AI Cloud / Neocloud</text><text x="815" y="217">CoreWeave 등 SSD·memory pull-through</text>
+<text x="815" y="310" font-weight="700">CPU / Interconnect</text><text x="815" y="332">AMD · Intel · Astera · Marvell</text>
+<text x="815" y="425" font-weight="700">Low relevance bucket</text><text x="815" y="447">SpaceX · Globalstar · Gogo · Skylo · Verizon</text>
+</g>
+<g stroke="#2F6F73" stroke-width="2" fill="none">
+<path d="M270 105 C350 120 360 210 410 240"/><path d="M270 255 C340 255 360 250 410 250"/><path d="M270 405 C360 390 360 290 410 270"/>
+<path d="M570 240 C650 160 655 90 710 85"/><path d="M570 245 C650 215 660 200 710 200"/><path d="M570 260 C650 290 660 310 710 315"/><path d="M570 275 C650 360 660 425 710 430"/>
+</g>
+</svg>
+  <table>
+    <thead><tr><th>구분</th><th>확정/가능 고객</th><th>근거</th><th>관련성</th><th>lock-in 구조</th></tr></thead>
+    <tbody>
+      <tr><td>직접/플랫폼</td><td>NVIDIA</td><td>HBM4 36GB 12-high가 Vera Rubin용 high-volume production이라고 회사가 발표</td><td><b>높음 / 확정</b></td><td>HBM qualification, power/thermal, package integration, platform timing</td></tr>
+      <tr><td>대형 cloud</td><td>Microsoft, Amazon, Google, Oracle, Meta 등 후보</td><td>CMBU가 large hyperscale cloud customers 담당. 2025년 한 고객 17% 매출은 주로 CMBU이나 고객명 비공개</td><td>높음 / 후보</td><td>AI cluster BOM, memory allocation, SSD/KV cache, LTSA 가능성</td></tr>
+      <tr><td>Server OEM/ODM</td><td>Dell, Supermicro, whitebox</td><td>SSD/AI memory ecosystem quote 및 platform qualification</td><td>중~높음</td><td>server qualification cycle, dual-source 승인, firmware validation</td></tr>
+      <tr><td>CPU/Interconnect</td><td>AMD, Intel, Astera, Marvell</td><td>PCIe Gen6 SSD, SOCAMM/DDR memory ecosystem에서 상호보완</td><td>중간</td><td>platform interoperability, memory controller validation</td></tr>
+      <tr><td>Mobile/consumer</td><td>Apple, Qualcomm, Samsung mobile ecosystem</td><td>MCBU는 여전히 중요하지만 현재 hidden thesis의 중심은 CMBU/HBM</td><td>중~낮음</td><td>LPDDR/UFS qualification, mobile cycle</td></tr>
+      <tr><td>통신/위성</td><td>SpaceX, Globalstar, Gogo, Skylo, Verizon</td><td>직접 고객/계약 증거는 본 분석 범위의 공개자료에서 확인 불가. 네트워크/edge/telecom 장비용 memory 수요의 간접 관련성만 있음</td><td><b>낮음</b></td><td>일반 통신장비 qualification 외 전략 thesis 기여 제한적</td></tr>
+    </tbody>
+  </table>
+  <p class="small">익명 고객 추정은 확정 사실과 분리해야 한다. 17% 고객은 “CMBU 중심의 material customer”라는 사실까지만 확정이며, 특정 회사명은 검증 필요다.</p>
+</section>
+
+<section>
+  <h2>C. 최근 24개월 사건 체인 분석</h2>
+  <table>
+    <thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>확인해야 할 다음 증거</th></tr></thead>
+    <tbody><tr><td>2024-12-09</td><td>CHIPS direct funding agreement 체결</td><td>up to $6.1B direct funding 및 US DRAM fab 지원</td><td>단순 보조금이 아니라 미국 내 memory security capacity 확보</td><td>미국 유일 대형 memory supplier 프리미엄</td><td class="trust">A</td><td>보조금 인식 속도·조건 위반 가능성</td></tr><tr><td>2025-06-11</td><td>CHIPS 수정: Idaho 2nd fab, Manassas $275M 추가</td><td>10-K에 추가 direct funding/투자세액공제/NY 인센티브 공시</td><td>capex cycle이 정부 정책과 결합</td><td>미국 capacity premium + buyback 제약</td><td class="trust">A</td><td>보조금 현금 유입과 capex 집행 차이</td></tr><tr><td>FY2025 Q4</td><td>CMBU/CDBU/MCBU/AEBU 세그먼트 재편</td><td>CMBU=대형 hyperscale cloud 및 모든 data-center HBM 고객</td><td>AI 고객/할당 중심 사업부 체계</td><td>정체성 변화의 회계적 증거</td><td class="trust">A</td><td>CMBU 고객 집중·마진 지속성</td></tr><tr><td>FY2025 Q4</td><td>HBM3E 12-high가 HBM shipment majority</td><td>HBM4 36GB 12-high samples to multiple key customers</td><td>HBM 전환이 이미 shipment mix에 반영</td><td>commodity DRAM보다 sticky한 qualification cycle</td><td class="trust">A</td><td>HBM4 수율·고객별 volume ramp</td></tr><tr><td>2025-07-29</td><td>PCIe Gen6 SSD / 245TB SSD roadmap</td><td>Micron 9650 28GB/s read, 5.5M IOPS; 6600 ION 245TB planned</td><td>AI data lake/KV cache layer 공략</td><td>HBM 외 second leg</td><td class="trust">A</td><td>neocloud 구매·qualification 확대</td></tr><tr><td>2025-11-19</td><td>Singapore incentive arrangement finalized</td><td>10-Q에서 Singapore arrangement 및 incentive 언급</td><td>HBM/advanced packaging capacity 확보</td><td>capex burden 완충</td><td class="trust">A</td><td>정부 인센티브 현금 수취 시점</td></tr><tr><td>2026-03-15</td><td>Powerchip Taiwan wafer fab acquisition 완료</td><td>Tongluo fab cash consideration $1.8B installments</td><td>부족한 wafer capacity/control 확보</td><td>공급망 control + Taiwan concentration risk</td><td class="trust">A</td><td>통합 비용·node 전환 계획</td></tr><tr><td>2026-03-16</td><td>HBM4 36GB 12H HVP designed for NVIDIA Vera Rubin</td><td>>2.8TB/s, >20% power efficiency, 48GB 16H samples</td><td>NVIDIA 플랫폼 co-optimization 증거</td><td>platform attach value 상승</td><td class="trust">A</td><td>NVIDIA ramp timing·shipment share</td></tr><tr><td>2026-03-18</td><td>FY2Q26 실적 및 FY3Q26 가이던스</td><td>Revenue $23.86B, GM 74%, Q3 revenue $33.5B±$0.75B, GM ~81%</td><td>pricing regime가 급변</td><td>base case가 빠르게 재설정</td><td class="trust">A</td><td>Q4 guide와 2027 LTSA</td></tr><tr><td>2026-05-12</td><td>256GB DDR5 RDIMM sampling</td><td>1-gamma, up to 9200 MT/s, 3DS/TSV, key server ecosystem</td><td>HBM 외 CPU memory density bottleneck 공략</td><td>tiered AI memory thesis 강화</td><td class="trust">A</td><td>server CPU platform qualification</td></tr><tr><td>2026-05-22</td><td>Manassas 1-alpha DRAM expansion</td><td>1-alpha DRAM in US, qualified production by end-CY2026</td><td>US mature/critical industry supply security</td><td>defense/auto/industrial option value</td><td class="trust">A</td><td>qualification revenue contribution</td></tr><tr><td>2026-06-01</td><td>Computex 2026 AI memory hierarchy 발표</td><td>HBM + SOCAMM/DDR/LPDDR + SSD architecture</td><td>단일 HBM 공급사가 아닌 AI memory stack provider</td><td>멀티플 확장 narrative</td><td class="trust">A</td><td>고객 reference design 채택</td></tr><tr><td>2026-06-02</td><td>Reuters: Nvidia nudge, $1T market cap narrative</td><td>Nvidia CEO meeting 이후 HBM roadmap alignment 보도</td><td>고객 pull-driven roadmap 변화</td><td>market reclassification 촉매</td><td class="trust">B</td><td>계약 구조·가격 공식</td></tr><tr><td>2026-06-02</td><td>SK Hynix wafer capacity doubling plan</td><td>HBM share SK 58%, Samsung 21%, Micron 21% 보도</td><td>부족은 사실이나 미래 공급도 늘어남</td><td>2028 oversupply risk</td><td class="trust">B</td><td>capacity timing/yields</td></tr><tr><td>2026-06-05</td><td>강한 고용보고서와 반도체 selloff</td><td>MU -13%대, SOX -10%대, 금리인상 확률 상승</td><td>crowded trade de-risking</td><td>실적 전 volatility 확대</td><td class="trust">A</td><td>금리확률·volume·put/call</td></tr><tr><td>2026-06-24</td><td>FY3Q26 earnings 예정</td><td>회사 IR: 4:30pm ET earnings call</td><td>beat만으로 부족, raise와 shipment guide 필요</td><td>이벤트 드리븐 재평가</td><td class="trust">A</td><td>Q4 guide, 2027 sold-out commentary</td></tr></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>D. 자본구조 forensic 분석</h2>
+  <div class="grid3">
+    <div class="card"><h3>현금·부채</h3><p>FY2Q26 기준 cash + investments 약 <b>$16.63B</b>, total debt 약 <b>$10.14B</b>. 단순 net cash는 약 <b>$6.49B</b>.</p></div>
+    <div class="card"><h3>Runway</h3><p>적자 성장주가 아니라 대규모 흑자/현금창출 국면. FY2Q26 한 분기 operating cash flow는 <b>$11.90B</b>, adjusted FCF는 <b>$6.90B</b>.</p></div>
+    <div class="card"><h3>희석/ATM</h3><p>최신 10-Q 기준 active ATM·warrant·생존형 전환사채 overhang은 핵심 thesis driver가 아니다. diluted shares는 약 <b>1.14B</b>.</p></div>
+  </div>
+  <table>
+    <thead><tr><th>항목</th><th>분석</th><th>투자 의미</th></tr></thead>
+    <tbody>
+      <tr><td>ATM / shelf / warrant</td><td>소형주식 생존자금 조달 구조와 달리, 공개자료상 주가를 지배할 정도의 ATM·warrant 구조는 확인되지 않음</td><td>수급 리스크는 희석보다 sector unwind와 capex/ASP cycle</td></tr>
+      <tr><td>전환사채</td><td>과거 convertibles는 있었지만 현재 핵심 overhang 아님. 총부채는 plain senior notes 중심</td><td>fully diluted 산정은 RSU/ESPP 중심으로 약 1.15~1.16B 가정</td></tr>
+      <tr><td>Buyback</td><td>10-Q상 6개월간 $650M repurchase, 누적 authorization 사용 $7.84B</td><td>주주환원은 있으나 CHIPS 조건이 buyback/dividend에 제약을 줄 수 있음</td></tr>
+      <tr><td>Short interest / borrow</td><td>Nasdaq page는 현재 short interest data not available. Yahoo 기사에서는 2026년 5월 약 3,730만 주 수준의 short interest를 언급</td><td>유의미한 숏 베팅은 있으나, $1T급 대형주에서 최근 급락의 1차 원인은 short squeeze가 아니라 crowded semi trade unwind로 판단</td></tr>
+      <tr><td>거래량</td><td>최근 거래량 7,725만 주 vs 평균 5,131만 주 수준</td><td>6월 5일 하락은 개별 펀더멘털 붕괴보다는 섹터 de-risking·금리확률 재가격화와 연결</td></tr>
+      <tr><td>Capex</td><td>2026년 net capex가 $25B 이상으로 제시됨</td><td>공급부족을 잡기 위한 공격 투자이나, 2028 이후 supply response 위험도 키움</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>E. 기술 장벽 분석</h2>
+  <table>
+    <thead><tr><th>제품/레이어</th><th>구체 내용</th><th>왜 필요한가</th><th>모방 난이도/lock-in</th></tr></thead>
+    <tbody>
+      <tr><td>HBM4 36GB 12-high</td><td>Vera Rubin용 high-volume production, >2.8TB/s, pin speed >11Gb/s, 전력효율 20%+ 개선</td><td>LLM training/inference는 GPU compute보다 memory bandwidth와 power가 병목</td><td>TSV stacking, thermal, yield, package co-validation. 바꾸기 어려움</td></tr>
+      <tr><td>HBM4 48GB 16-high</td><td>고객 sample 단계</td><td>capacity per stack 증가로 model/context size 대응</td><td>적층·열·수율 난이도 상승</td></tr>
+      <tr><td>SOCAMM2 192GB/256GB</td><td>Vera Rubin NVL72 대응, CPU당 최대 2TB, 1.2TB/s 목표</td><td>GPU hot memory 밖 long-context/orchestration memory 병목 완화</td><td>server CPU/platform qualification이 lock-in</td></tr>
+      <tr><td>256GB DDR5 RDIMM</td><td>1-gamma, 최대 9200 MT/s, 3DS/TSV, 128GB 2개 대비 module 수 감소·전력 40%+ 절감</td><td>AI server의 CPU memory density와 power budget 문제 해결</td><td>ecosystem co-validation 필요</td></tr>
+      <tr><td>Micron 9650 PCIe Gen6 SSD</td><td>28GB/s read, 5.5M random read IOPS</td><td>AI data lake, checkpoint, KV cache, inference pipeline의 persistent storage 병목 완화</td><td>NAND + controller + firmware vertical integration</td></tr>
+      <tr><td>6600 ION 245TB SSD</td><td>고용량 QLC data-center SSD roadmap</td><td>AI dataset·warm storage economics</td><td>capacity, endurance, firmware validation</td></tr>
+    </tbody>
+  </table>
+  <p><b>핵심 판단:</b> 이 문제는 소프트웨어만으로 해결되지 않는다. 대역폭, 전력, 열, 적층 수율, package routing, GPU/CPU memory-controller validation이 모두 실리콘·패키징 레벨 문제다.</p>
+</section>
+
+<section>
+  <h2>F. 생태계 game theory와 M&A optionality</h2>
+  <div class="grid">
+    <div class="card"><h3>누가 MU를 필요로 하나?</h3><p>NVIDIA는 HBM4 공급 안정성, hyperscaler는 allocation diversity, 미국 정부는 domestic memory security, server OEM/ODM은 validated memory/storage BOM이 필요하다.</p></div>
+    <div class="card"><h3>누가 MU를 빼앗기면 피해를 보나?</h3><p>AI GPU platform vendor, 미국 정부, 미국 hyperscaler 모두가 피해를 본다. 특히 해외 경쟁사가 MU capacity를 통제하는 시나리오는 정치·규제적으로 매우 어렵다.</p></div>
+    <div class="card"><h3>인수 가능성</h3><p>시총이 약 $1T인 MU의 전사 M&A는 base case에 거의 반영하면 안 된다. 전략적 supply agreement, JV, packaging partnership은 가능성이 더 높다.</p></div>
+    <div class="card"><h3>M&A 가치 반영</h3><p>Base: 0~1%, Bull: 1~2%, Overshoot: 3~5% rumor/strategic scarcity premium. 전사 인수보다 strategic option 가치로만 취급.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>G. 반대 thesis — bull case와 같은 강도로 보기</h2>
+  <ul class="tight">
+    <li><b>우연일 가능성:</b> CMBU 재편, HBM4, SOCAMM, SSD, CHIPS 조항이 모두 같은 방향처럼 보이지만, 각각은 단순 포트폴리오 관리일 수 있다.</li>
+    <li><b>고객 오판:</b> 17% 고객이 NVIDIA 또는 특정 hyperscaler라는 추정은 확정이 아니다. 실제로는 distributor/OEM 구조일 수도 있다.</li>
+    <li><b>출하 지연:</b> HBM4 yield, 16-high stacking, SOCAMM validation이 늦어지면 Q4/Q1 revenue slope가 꺾인다.</li>
+    <li><b>재고 구축:</b> 고객 구매가 실수요가 아니라 AI cluster 공급망 선점용 inventory build라면 2027~2028 ASP가 급락할 수 있다.</li>
+    <li><b>capex 역풍:</b> $25B+ net capex와 경쟁사 증설이 2028 공급과잉을 만들 수 있다.</li>
+    <li><b>금리/밸류에이션:</b> 실업률 4.3%, 강한 고용, 금리인상 확률 상승은 high multiple AI semiconductor의 할인율을 높인다.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>2단계 정식 보고서</h2>
+  <h3>0. Executive Summary</h3>
+  <table>
+    <tbody>
+      <tr><th>투자 thesis</th><td>MU는 commodity DRAM cycle에서 NVIDIA/hyperscale AI memory allocation infrastructure로 재분류되는 중이다.</td></tr>
+      <tr><th>Anti-thesis</th><td>현재 가격은 이미 bull case의 상당 부분을 사고 있으며, Q3 실적에서 raise가 약하면 peak-cycle de-rating이 빠르게 올 수 있다.</td></tr>
+      <tr><th>리레이팅 이유</th><td>CMBU 재편, 17% CMBU 고객, HBM4 Vera Rubin HVP, SOCAMM/SSD stack, CHIPS/HBM packaging 조건.</td></tr>
+      <tr><th>실패 조건</th><td>Q3/Q4 guide 부진, GM 78% 이하, HBM4 yield/ramp 지연, 2027 capacity oversupply 신호.</td></tr>
+      <tr><th>투자 등급</th><td><b>Hold</b></td></tr>
+      <tr><th>포트폴리오 행동</th><td><b>일부 차익실현</b> — 40주 중 10주 축소, 30주 보유.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>1. 시장이 놓친 핵심 변곡점 5개</h3>
+  <ol>
+    <li><b>확정:</b> CMBU 재편과 17% 고객 집중. <b>추론:</b> AI allocation economics가 매출 구조를 바꾸는 중. <b>가설:</b> 장기 공급계약이 spot volatility를 완화할 수 있다.</li>
+    <li><b>확정:</b> HBM4가 Vera Rubin용 HVP. <b>추론:</b> NVIDIA roadmap에 직접 attach. <b>가설:</b> HBM4/HBM4E share gain.</li>
+    <li><b>확정:</b> SOCAMM2/DDR5/SSD가 같은 AI memory hierarchy로 제시. <b>추론:</b> HBM 외 attach revenue. <b>가설:</b> inference era에서 SSD/KV cache가 second leg.</li>
+    <li><b>확정:</b> $25B+ capex와 government incentives. <b>추론:</b> shortage가 multi-year라고 회사가 판단. <b>가설:</b> 2028 과잉공급을 피할 수 있다.</li>
+    <li><b>확정:</b> 강한 고용 이후 금리인상 확률 상승과 섹터 selloff. <b>추론:</b> near-term price는 macro/crowding에 취약. <b>가설:</b> Q3 실적 전 반등은 trim 기회.</li>
+  </ol>
+
+  <h3>2. 전통적 비즈니스 모델의 진화</h3>
+  <p>레거시 사업은 DRAM/NAND commodity memory 판매였다. 성장 축은 CMBU의 HBM/DDR/data-center memory와 SSD, 그리고 AI inference를 위한 storage hierarchy다. 과거 고객군은 PC/mobile/OEM/distributor 중심이었고, 미래 고객군은 NVIDIA 플랫폼, 대형 hyperscaler, AI cloud, server ecosystem 중심이다. MU는 turnkey platform 기업은 아니지만, reference platform에 붙는 strategic memory layer로 진화 중이다.</p>
+
+  <h3>3. 실적으로 증명되는 실체</h3>
+  <div class="two">
+    <div><svg viewBox="0 0 720 220" role="img" aria-label="bar chart"><line x1="60" y1="180" x2="700" y2="180" stroke="#111" stroke-width="1"/><rect x="60" y="34.1" width="36" height="145.9" fill="#C2603B"/><text x="78.0" y="200" text-anchor="middle" font-size="11">CMBU</text><text x="78.0" y="28.1" text-anchor="middle" font-size="11">7.749B</text><rect x="124" y="73.0" width="36" height="107.0" fill="#C2603B"/><text x="142.0" y="200" text-anchor="middle" font-size="11">CDBU</text><text x="142.0" y="67.0" text-anchor="middle" font-size="11">5.687B</text><rect x="188" y="34.9" width="36" height="145.1" fill="#C2603B"/><text x="206.0" y="200" text-anchor="middle" font-size="11">MCBU</text><text x="206.0" y="28.9" text-anchor="middle" font-size="11">7.711B</text><rect x="252" y="129.0" width="36" height="51.0" fill="#C2603B"/><text x="270.0" y="200" text-anchor="middle" font-size="11">AEBU</text><text x="270.0" y="123.0" text-anchor="middle" font-size="11">2.708B</text></svg><p class="small">FY2Q26 segment revenue, $B</p></div>
+    <div><table><thead><tr><th>지표</th><th>FY2Q26</th></tr></thead><tbody><tr><td>Revenue</td><td>$23.86B</td></tr><tr><td>Gross margin</td><td>74%</td></tr><tr><td>Operating income</td><td>$16.14B</td></tr><tr><td>GAAP EPS</td><td>$12.07</td></tr><tr><td>Operating cash flow</td><td>$11.90B</td></tr><tr><td>Adjusted FCF</td><td>$6.90B</td></tr><tr><td>Cash + investments</td><td>$16.63B</td></tr><tr><td>Q3 guide</td><td>Revenue $33.5B±$0.75B, GM ~81%, EPS $19.15±$0.40</td></tr></tbody></table></div>
+  </div>
+  <p><b>다음 분기 KPI:</b> Q4 revenue guide, GM 82% 이상 지속 여부, HBM4 shipment timing, 2027 sold-out/LTSA 언급, capex intensity, CMBU customer concentration 변화.</p>
+
+  <h3>4. 고객·파트너·생태계 분석</h3>
+  <p>NVIDIA 관련성은 확정적으로 높다. AMD/Intel/Astera/Marvell/Dell/CoreWeave는 ecosystem co-validation 및 SSD/memory attach 측면에서 중간~높다. Microsoft/Amazon/Google/Oracle/Meta는 CMBU large hyperscale customer 후보이나 고객명 비공개로 검증 필요다. Qualcomm/Apple/Samsung mobile ecosystem은 MCBU에서 중요하지만 현재 re-rating thesis 중심은 아니다. SpaceX/Globalstar/Gogo/Skylo/Verizon은 공개자료상 직접 관련성이 낮다.</p>
+
+  <h3>5. 숨은 고객 및 M&A optionality</h3>
+  <table><thead><tr><th>후보</th><th>근거</th><th>반대 근거</th><th>확률</th></tr></thead><tbody>
+    <tr><td>Top hyperscaler</td><td>CMBU는 large hyperscale cloud customer 담당, AI cluster memory 수요</td><td>고객명 비공개, distributor/OEM 경유 가능</td><td>40%</td></tr>
+    <tr><td>NVIDIA / GPU platform ecosystem</td><td>HBM4 Vera Rubin HVP, Reuters의 HBM co-development narrative</td><td>매출 고객이 GPU vendor인지 hyperscaler인지 불명확</td><td>35%</td></tr>
+    <tr><td>Server OEM/AI cloud integrator</td><td>SSD/memory BOM qualification, AI cloud capex</td><td>17% 대형 고객이 되기에는 구조 확인 필요</td><td>15%</td></tr>
+    <tr><td>기타 distributor/mobile customer</td><td>과거에는 Kingston/WPG 등 고객 집중 사례 존재</td><td>2025 17% 고객은 주로 CMBU로 공시되어 mobile/distributor만으로 보기 어려움</td><td>10%</td></tr>
+  </tbody></table>
+  <p>전략적 인수 후보는 현실적으로 제한적이다. NVIDIA·hyperscaler·미국 정부 모두 Micron capacity 접근권은 원하지만, $1T 규모 전사 인수는 반독점·국가안보·자본비용 때문에 base case에 넣기 어렵다. 가격에는 전사 M&A가 아니라 strategic supply optionality만 반영한다.</p>
+
+  <h3>6. 자본구조와 수급 분석</h3>
+  <p>주식 수는 outstanding 약 1.128B, diluted 약 1.14B다. Fully diluted valuation에는 1.15~1.16B shares를 사용했다. 현 주가 상승은 펀더멘털 개선, HBM multiple expansion, UBS류 target reset, scarcity narrative의 결합이다. 6월 5일 급락은 financing overhang 해소/악화가 아니라 rate-hike odds와 crowded semiconductor unwind가 더 설명력이 높다.</p>
+
+  <h3>7. 기술 분석</h3>
+  <p>MU의 기술 강점 레이어는 RF/baseband가 아니라 <b>DRAM process node, HBM TSV/stacking, advanced packaging, memory module, SSD controller/firmware vertical integration</b>이다. 고객 전환비용은 qualification cycle과 platform timing에서 발생한다. 일단 NVIDIA/Hyperscaler AI cluster BOM에 들어가면 제품 변경은 yield, power, thermal, firmware, supply allocation을 다시 검증해야 하므로 간단하지 않다.</p>
+
+  <h3>8. 컨센서스 리비전 분석</h3>
+  <p>공개 데이터 기준 평균 목표가는 Google Finance의 29명 평균 $860.20, 최고 $1,750, 최저 $400이고 Investing.com Korea는 평균 $739.48, 최고 $1,750, 최저 $249로 제시한다. 분산이 큰 이유는 시장이 MU를 base case로 살지, bull case로 살지, overshoot scarcity trade로 살지 합의하지 못했기 때문이다.</p>
+  <p><b>역산:</b> 최고 목표가 $1,750은 약 $2.0T 시가총액에 해당한다. 이는 FY27~FY28 bull EPS $110~120에 15x+ 또는 sales $170B에 11~12x 수준의 scarcity multiple을 가정해야 정당화된다. 즉 최고 목표가는 base case가 아니라 <b>AI memory shortage가 2028까지 이어지는 overshoot case</b>다.</p>
+
+  <h3>9. 이벤트 드리븐 분석</h3>
+  <table><thead><tr><th>이벤트</th><th>확인 질문</th><th>오르는 조건</th><th>빠지는 조건</th></tr></thead><tbody>
+    <tr><td>FY3Q26 실적 2026-06-24</td><td>Q4 revenue/GM guide, HBM4 ramp, 2027 allocation, CMBU customer mix</td><td>Beat + raise + GM 82%+ + 2027 sold-out commentary</td><td>Beat만 있고 Q4 guide 약함, GM peak 언급, capex 증가만 강조</td></tr>
+    <tr><td>Computex/제품 후속 발표</td><td>SOCAMM2/SSD 고객 qualification</td><td>reference design/고객명 확대</td><td>시제품 발표만 있고 revenue timing 부재</td></tr>
+    <tr><td>경쟁사 capex/HBM 발표</td><td>SK/Samsung HBM4/HBM5 yield와 capacity</td><td>수요가 공급보다 더 빠르다는 증거</td><td>2027 공급과잉 시그널</td></tr>
+    <tr><td>고용·금리 데이터</td><td>rate hike odds, 10Y, dollar</td><td>금리 인상 확률 하락</td><td>금리 인상 확률 추가 상승</td></tr>
+  </tbody></table>
+
+  <h3>10. 밸류에이션</h3>
+  <div class="two"><div><svg viewBox="0 0 720 220" role="img" aria-label="bar chart"><line x1="60" y1="180" x2="700" y2="180" stroke="#111" stroke-width="1"/><rect x="60" y="124.9" width="36" height="55.1" fill="#C2603B"/><text x="78.0" y="200" text-anchor="middle" font-size="11">보수</text><text x="78.0" y="118.9" text-anchor="middle" font-size="11">620</text><rect x="124" y="97.3" width="36" height="82.7" fill="#C2603B"/><text x="142.0" y="200" text-anchor="middle" font-size="11">Base</text><text x="142.0" y="91.3" text-anchor="middle" font-size="11">930</text><rect x="188" y="68.9" width="36" height="111.1" fill="#C2603B"/><text x="206.0" y="200" text-anchor="middle" font-size="11">Bull</text><text x="206.0" y="62.9" text-anchor="middle" font-size="11">1250</text><rect x="252" y="33.3" width="36" height="146.7" fill="#C2603B"/><text x="270.0" y="200" text-anchor="middle" font-size="11">Overshoot</text><text x="270.0" y="27.3" text-anchor="middle" font-size="11">1650</text></svg><p class="small">목표가 bridge, $/share</p></div><div><svg viewBox="0 0 720 220" role="img" aria-label="bar chart"><line x1="60" y1="180" x2="700" y2="180" stroke="#111" stroke-width="1"/><rect x="60" y="157.2" width="36" height="22.8" fill="#C2603B"/><text x="78.0" y="200" text-anchor="middle" font-size="11">2020A</text><text x="78.0" y="151.2" text-anchor="middle" font-size="11">21.4B</text><rect x="124" y="150.5" width="36" height="29.5" fill="#C2603B"/><text x="142.0" y="200" text-anchor="middle" font-size="11">2021A</text><text x="142.0" y="144.5" text-anchor="middle" font-size="11">27.7B</text><rect x="188" y="147.1" width="36" height="32.9" fill="#C2603B"/><text x="206.0" y="200" text-anchor="middle" font-size="11">2022A</text><text x="206.0" y="141.1" text-anchor="middle" font-size="11">30.8B</text><rect x="252" y="163.5" width="36" height="16.5" fill="#C2603B"/><text x="270.0" y="200" text-anchor="middle" font-size="11">2023A</text><text x="270.0" y="157.5" text-anchor="middle" font-size="11">15.5B</text><rect x="316" y="153.2" width="36" height="26.8" fill="#C2603B"/><text x="334.0" y="200" text-anchor="middle" font-size="11">2024A</text><text x="334.0" y="147.2" text-anchor="middle" font-size="11">25.1B</text><rect x="380" y="140.1" width="36" height="39.9" fill="#C2603B"/><text x="398.0" y="200" text-anchor="middle" font-size="11">2025A</text><text x="398.0" y="134.1" text-anchor="middle" font-size="11">37.4B</text><rect x="444" y="62.7" width="36" height="117.3" fill="#C2603B"/><text x="462.0" y="200" text-anchor="middle" font-size="11">2026E</text><text x="462.0" y="56.7" text-anchor="middle" font-size="11">110B</text><rect x="508" y="36.0" width="36" height="144.0" fill="#C2603B"/><text x="526.0" y="200" text-anchor="middle" font-size="11">2027E</text><text x="526.0" y="30.0" text-anchor="middle" font-size="11">135B</text><rect x="572" y="49.9" width="36" height="130.1" fill="#C2603B"/><text x="590.0" y="200" text-anchor="middle" font-size="11">2028E</text><text x="590.0" y="43.9" text-anchor="middle" font-size="11">122B</text><rect x="636" y="41.3" width="36" height="138.7" fill="#C2603B"/><text x="654.0" y="200" text-anchor="middle" font-size="11">2029E</text><text x="654.0" y="35.3" text-anchor="middle" font-size="11">130B</text><rect x="700" y="25.3" width="36" height="154.7" fill="#C2603B"/><text x="718.0" y="200" text-anchor="middle" font-size="11">2030E</text><text x="718.0" y="19.3" text-anchor="middle" font-size="11">145B</text></svg><p class="small">2020~2030 revenue: 2020~2025 actual, 2026~2030 internal scenario, $B</p></div></div>
+  <h4>A. DCF</h4>
+  <table><thead><tr><th>시나리오</th><th>매출 성장률</th><th>GM</th><th>Operating margin</th><th>FCF margin</th><th>WACC</th><th>Terminal</th><th>희석 전/후 주당가치</th></tr></thead><tbody>
+    <tr><td>Bear</td><td>2026 peak 후 -10~0%</td><td>55→45%</td><td>25→18%</td><td>10~12%</td><td>11%</td><td>2.5% / 10x FCF</td><td>$560 / <b>$520</b></td></tr>
+    <tr><td>Base</td><td>2026 $110B, 2027 $135B, 이후 cycle normalization</td><td>75→58%</td><td>55→35%</td><td>18~22%</td><td>10.5%</td><td>3% / 14x FCF</td><td>$980 / <b>$930</b></td></tr>
+    <tr><td>Bull</td><td>AI memory stack 지속, 2030 $145B+</td><td>70%대 중반→60%대</td><td>45~50%</td><td>24~28%</td><td>10%</td><td>3.5% / 17x FCF</td><td>$1,330 / <b>$1,250</b></td></tr>
+  </tbody></table>
+  <h4>B. FCF Yield / Owner Earnings</h4>
+  <p>Normalized FCF를 $45B로 보면 5% FCF yield에서 시총 $900B, 주당 약 $780. Bull normalized FCF $65B에 4.5% yield를 주면 시총 $1.44T, 주당 약 $1,250. 현재 가격은 이미 normalized FCF $50B+와 5%대 초반 yield를 요구한다.</p>
+  <h4>C. 상대가치</h4>
+  <p>직접 경쟁사는 SK Hynix, Samsung Memory, Kioxia/Sandisk, CXMT/YMTC다. 전략적 비교 대상은 NVIDIA supply chain, AI server component bottleneck, data-center storage vendors다. MU가 프리미엄을 받을 이유는 HBM4/Vera Rubin attach, 미국 전략자산, CMBU customer concentration이다. 디스카운트를 받을 이유는 memory cyclicality, capex, 경쟁사 supply response다.</p>
+  <h4>D. 리레이팅 가치</h4>
+  <table><thead><tr><th>가치 레이어</th><th>현재 multiple</th><th>변곡점 이후 target multiple</th><th>가치 기여</th></tr></thead><tbody>
+    <tr><td>Commodity DRAM/NAND</td><td>6~8x peak EPS</td><td>8~10x</td><td>$500~650</td></tr>
+    <tr><td>HBM allocation</td><td>spot cycle discount</td><td>12~16x EPS 또는 8~10x sales</td><td>$250~450</td></tr>
+    <tr><td>Reference memory stack</td><td>부분 반영</td><td>AI component bottleneck premium</td><td>$100~250</td></tr>
+    <tr><td>M&A/전략 optionality</td><td>거의 0</td><td>0~5% premium</td><td>$0~80</td></tr>
+  </tbody></table>
+
+  <h3>11. 목표가 체계</h3>
+  <table><thead><tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody><tr><td>보수적 내재가치</td><td class="price">$620</td><td>FY27 normalized EPS $55</td><td>11x P/E 또는 5.5x sales</td><td>1.15B</td><td>25%</td><td>GM 정상화, 금리상승</td><td>Q3 GM <78% 또는 Q4 guide 하향</td></tr><tr><td>12개월 base target</td><td class="price">$930</td><td>FY26E EPS $61~63 / FY27E $72</td><td>~15x FY26E EPS, ~7.8x FY27 sales</td><td>1.15B</td><td>40%</td><td>Q3 beat + Q4 raise + HBM4 ramp</td><td>LTSA/고객 집중이 모호해질 때</td></tr><tr><td>Bull target</td><td class="price">$1,250</td><td>FY27 revenue $145B, EPS $90+</td><td>~14x bull EPS 또는 10x sales</td><td>1.16B</td><td>25%</td><td>HBM4 sold-out, SOCAMM/SSD attach, 2027 allocation visibility</td><td>SK/Samsung capacity가 pricing을 먼저 압박</td></tr><tr><td>Overshoot target</td><td class="price">$1,650</td><td>FY27 revenue $155B, EPS $105</td><td>~15.5x bull EPS + scarcity premium</td><td>1.16B</td><td>10%</td><td>UBS류 $1.8T 시총 narrative, short/crowded upside</td><td>금리·섹터 multiple compression</td></tr><tr><td>실적 전 trading target</td><td class="price">$940</td><td>현재 guide 유지</td><td>rebound to pre-selloff lower band</td><td>1.14B</td><td>35%</td><td>selloff reversal, rate odds stabilization</td><td>실적 기대 과열/반도체 추가 de-risking</td></tr><tr><td>실적 후 재평가 target</td><td class="price">$1,050</td><td>Q4 revenue $38~40B, GM ≥82%</td><td>~16x FY26E EPS or 8.5x sales</td><td>1.15B</td><td>35%</td><td>beat + raise + 2027 HBM commentary</td><td>beat만 있고 raise가 약한 경우</td></tr></tbody></table>
+
+  <h3>12. 2020~2030 멀티플 밴드</h3>
+  <table><thead><tr><th>연도</th><th>P/S</th><th>P/E</th><th>EV/EBITDA</th><th>P/FCF</th><th>비고</th></tr></thead><tbody><tr><td>2020A</td><td>~3.5x</td><td>~30x</td><td>~10x</td><td>~18x</td><td>실제 filing revenue/EPS, market multiple은 연말가 기준 방향성</td></tr><tr><td>2021A</td><td>~3.3x</td><td>~16x</td><td>~8x</td><td>~13x</td><td>DRAM upcycle</td></tr><tr><td>2022A</td><td>~2.0x</td><td>~7x</td><td>~5x</td><td>~9x</td><td>cycle peak 후 de-rating</td></tr><tr><td>2023A</td><td>N/M</td><td>N/M</td><td>N/M</td><td>N/M</td><td>downcycle, losses</td></tr><tr><td>2024A</td><td>~4.0x</td><td>~25x</td><td>~15x</td><td>N/M</td><td>AI 기대 초기 반영</td></tr><tr><td>2025A</td><td>~12x</td><td>~110x</td><td>~60x</td><td>~70x</td><td>HBM re-rating이 earnings보다 먼저 발생</td></tr><tr><td>2026E</td><td>~8.9x</td><td>~14x</td><td>~12x</td><td>~22x</td><td>현재 $864와 FY26E revenue/EPS 내부 추정</td></tr><tr><td>2027E Base</td><td>~7.2x</td><td>~12x</td><td>~10x</td><td>~18x</td><td>HBM shortage 지속 가정</td></tr><tr><td>2028E Base</td><td>~8.0x</td><td>~16x</td><td>~13x</td><td>~24x</td><td>capacity expansion으로 ASP 정상화 가정</td></tr><tr><td>2030E Bull</td><td>~6.7x</td><td>~11x</td><td>~9x</td><td>~16x</td><td>AI memory stack provider 지속 가정</td></tr></tbody></table>
+  <p class="small">주의: 2020~2025 revenue/EPS는 filings 기반, multiple은 공개 시장가격을 사용한 방향성 재구성이다. 2026~2030은 본 보고서의 시나리오 추정으로 실제 데이터가 아니다.</p>
+
+  <h3>13. 리스크 관리 — thesis break trigger</h3>
+  <table><thead><tr><th>리스크</th><th>깨지는 지표</th><th>시장 반영 가격대</th><th>확인 시점</th><th>대응</th></tr></thead><tbody>
+    <tr><td>출하 지연</td><td>HBM4/SOCAMM ramp가 Q4/Q1 revenue guide에 미반영</td><td>$760 이하</td><td>6/24 실적</td><td>10~15주 추가 축소</td></tr>
+    <tr><td>GM 정상화</td><td>Q3/Q4 GM guide 78% 이하 또는 peak margin 발언</td><td>$700~760</td><td>6/24 및 다음 분기</td><td>목표 비중 3~4%</td></tr>
+    <tr><td>Capex/FCF 악화</td><td>net capex 상향, FCF guide 둔화</td><td>$720 이하</td><td>컨콜</td><td>재매수 금지</td></tr>
+    <tr><td>고객 집중</td><td>17% 고객 관련 수요 둔화 또는 단가 재협상</td><td>$650~720</td><td>10-K/컨콜</td><td>bull target 제거</td></tr>
+    <tr><td>경쟁사 대체</td><td>SK/Samsung HBM4 share gain이 Micron allocation을 압박</td><td>$700 이하</td><td>경쟁사 실적</td><td>base target $780으로 하향</td></tr>
+    <tr><td>금리/섹터 unwind</td><td>rate hike odds 75%+, SOX 추가 급락</td><td>$780~820</td><td>고용/CPI/FOMC</td><td>실적 전 trim 우선</td></tr>
+    <tr><td>M&A 기대 과열</td><td>전사 인수 루머만으로 $1,400+ 도달</td><td>$1,400~1,650</td><td>가격 행동</td><td>추가 5~10주 매도</td></tr>
+  </tbody></table>
+
+  <h3>14. 포트폴리오 실행안</h3>
+  <div class="callout">추천 행동: <b>B. 일부 차익실현</b>. 현재 40주, 7% 비중, 수익률 142%로 해석 시 추정 원가는 주당 약 $357.03. 실적 전 반등 또는 현재가 기준 10주를 축소하면 비중은 약 5.25%로 내려간다.</div>
+  <table><thead><tr><th>항목</th><th>실행</th></tr></thead><tbody>
+    <tr><td>목표 비중</td><td>5.0~5.5%</td></tr>
+    <tr><td>매수 가격</td><td>$760~780에서만 3~5주씩 재매수 검토. Q3 guide가 thesis를 훼손하지 않아야 함</td></tr>
+    <tr><td>매도 가격</td><td>실적 전 $920~975 반등 시 10주 매도. $1,250 도달 시 추가 5주, $1,650 overshoot 시 10주 추가 매도</td></tr>
+    <tr><td>수량/분할</td><td>1차 10주 trim → 30주 보유. 이후 2차 5주, 3차 10주 조건부</td></tr>
+    <tr><td>실적 발표 전 행동</td><td>반등 시 10주 trim. 반등 없으면 최소 5~10주 축소로 event risk 관리</td></tr>
+    <tr><td>실적 발표 후 행동</td><td>Beat + raise + 2027 visibility면 30주 보유. Beat만이면 5주 추가 축소. Miss/guide down이면 15주까지 축소</td></tr>
+    <tr><td>Thesis 훼손 기준</td><td>Q3/Q4 GM <78%, HBM4 ramp 지연, 2027 allocation visibility 부재, 경쟁사 공급과잉 신호</td></tr>
+    <tr><td>Base 기대손익</td><td>40주 전량 보유 시 base target $930까지 추가 $2,640. 10주 trim 후 30주 보유 시 추가 $1,980 + 추정 실현이익 $5,070</td></tr>
+  </tbody></table>
+
+  <h3>15. 보고서 전 자체 점검</h3>
+  <table><tbody>
+    <tr><th>컨센서스 요약만 했는가?</th><td>아니다. CMBU 재편, 17% 고객, HBM4/Vera Rubin, CHIPS HBM packaging 조항, capex/Powerchip acquisition을 연결했다.</td></tr>
+    <tr><th>고객/공급망/자금조달/공시를 시간순으로 연결했는가?</th><td>예. 사건 체인 표에 정리했다.</td></tr>
+    <tr><th>익명 고객 추정을 분리했는가?</th><td>예. 확정 사실은 17% CMBU 고객뿐이며 특정 고객명은 후보로만 제시했다.</td></tr>
+    <tr><th>Bull case를 너무 보수적으로 눌렀는가?</th><td>아니다. Bull $1,250, overshoot $1,650까지 열어두었다.</td></tr>
+    <tr><th>루머를 확정처럼 썼는가?</th><td>아니다. Reuters/공개자료와 회사 공시를 분리했고, 고객명/M&A는 검증 필요로 표시했다.</td></tr>
+    <tr><th>자본구조와 희석을 반영했는가?</th><td>예. 단 MU는 소형주가 아니라 net cash·plain debt·CHIPS 조건·capex가 핵심이라고 재정의했다.</td></tr>
+    <tr><th>다음 실적에서 무엇을 확인해야 하는가?</th><td>Q4 revenue/GM guide, HBM4 ramp, 2027 sold-out/LTSA, CMBU 고객 집중, capex/FCF.</td></tr>
+  </tbody></table>
+</section>
+
+<section>
+  <h2>최종 투자 행동 요약</h2>
+  <div class="final">
+    <div class="row"><span>현재 주가:</span><b>$864.01</b></div>
+    <div class="row"><span>보수적 내재가치:</span><b>$620</b></div>
+    <div class="row"><span>12개월 base target:</span><b>$930</b></div>
+    <div class="row"><span>bull target:</span><b>$1250</b></div>
+    <div class="row"><span>overshoot target:</span><b>$1650</b></div>
+    <div class="row"><span>실적 발표 전 trading target:</span><b>$940</b></div>
+    <div class="row"><span>실적 발표 후 재평가 target:</span><b>$1050</b></div>
+    <div class="row"><span>하방 리스크:</span><b>$650~700, extreme bear $520</b></div>
+    <div class="row"><span>12개월 기대수익률:</span><b>base 기준 +7.6%</b></div>
+    <div class="row"><span>보유 수량 기준 기대손익:</span><b>40주 전량 보유 시 base까지 +$2,640; 10주 trim 후 30주 보유 시 +$1,980 + 추정 실현이익 $5,070</b></div>
+    <div class="row"><span>추천 행동:</span><b>일부 차익실현</b></div>
+    <div class="row"><span>목표 비중:</span><b>5.0~5.5%</b></div>
+    <div class="row"><span>실적 발표 전 행동:</span><b>$920~975 반등 시 10주 매도. 반등이 없더라도 최소 5~10주 trim 검토</b></div>
+    <div class="row"><span>실적 발표 후 행동:</span><b>beat + raise + 2027 visibility면 30주 보유; beat만이면 5주 추가 축소; miss/guide down이면 15주까지 축소</b></div>
+    <div class="row"><span>목표가 도달 시 행동:</span><b>$1,250에서 5주, $1,650 overshoot에서 10주 추가 매도</b></div>
+    <div class="row"><span>thesis 훼손 시 행동:</span><b>Q3/Q4 GM <78%, HBM4 지연, 2027 allocation 부재 시 목표 비중 3~4%로 축소</b></div>
+    <div class="row"><span>가장 중요한 체크포인트:</span><b>6/24 FY3Q26 컨콜의 Q4 guide, HBM4 ramp, 2027 HBM allocation/LTSA 발언</b></div>
+    <div class="row"><span>내가 틀렸다고 인정해야 하는 조건:</span><b>AI memory shortage가 실제 수요가 아니라 재고 축적이었다는 신호, 경쟁사 공급이 2027 pricing을 압박, MU의 CMBU 고객 집중이 성장보다 단가 리스크로 전환</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>참조 자료 / 링크</h2>
+  <ol class="footer-list"><li><a href="https://www.google.com/finance/beta/quote/MU:NASDAQ" target="_blank" rel="noopener">Google Finance: MU real-time/market data</a></li><li><a href="https://kr.investing.com/equities/micron-tech" target="_blank" rel="noopener">Investing.com Korea: MU price, analyst target, next earnings</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-technology-inc-reports-results-second-quarter-fiscal-2026" target="_blank" rel="noopener">Micron FY2Q26 earnings release</a></li><li><a href="https://investors.micron.com/node/49436/html" target="_blank" rel="noopener">Micron FY2025 Form 10-K</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/723125/000072312526000006/mu-20260226.htm" target="_blank" rel="noopener">Micron FY2Q26 Form 10-Q</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-high-volume-production-hbm4-designed-nvidia-vera-rubin" target="_blank" rel="noopener">Micron HBM4 / NVIDIA Vera Rubin press release</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-unveils-portfolio-industry-first-ssds-power-ai-revolution" target="_blank" rel="noopener">Micron data-center SSD portfolio press release</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-redefines-ai-performance-sampling-256gb-ddr5-server" target="_blank" rel="noopener">Micron 256GB DDR5 RDIMM sampling press release</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-advances-made-america-memory-manufacturing-expansion" target="_blank" rel="noopener">Micron Make-in-America / Manassas 1-alpha DRAM</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-powers-ai-everywhere-computex-2026" target="_blank" rel="noopener">Micron Computex 2026 AI memory/storage architecture</a></li><li><a href="https://investors.micron.com/news-releases/news-release-details/micron-technology-report-fiscal-third-quarter-results-june-24" target="_blank" rel="noopener">Micron fiscal Q3 2026 earnings date</a></li><li><a href="https://www.reuters.com/world/asia-pacific/how-nudge-nvidia-propelled-frugal-micron-into-ai-boom-1-trillion-market-cap-2026-06-02/" target="_blank" rel="noopener">Reuters: Nvidia nudge and Micron AI/HBM pivot</a></li><li><a href="https://www.reuters.com/business/micron-closes-1-trillion-market-value-ubs-triples-share-price-target-2026-05-26/" target="_blank" rel="noopener">Reuters: Micron approaches $1T, UBS target increase</a></li><li><a href="https://www.reuters.com/world/asia-pacific/sk-hynix-plans-double-wafer-capacity-next-five-years-group-chairman-says-2026-06-02/" target="_blank" rel="noopener">Reuters: SK Hynix wafer capacity plan and HBM share</a></li><li><a href="https://www.reuters.com/business/media-telecom/chip-selloff-erases-over-1-trillion-stock-market-value-2026-06-05/" target="_blank" rel="noopener">Reuters: chip selloff after jobs/rates concern</a></li><li><a href="https://www.reuters.com/business/us-rate-futures-raise-rate-hike-odds-december-after-jobs-data-2026-06-05/" target="_blank" rel="noopener">Reuters: rate-hike odds after US jobs data</a></li><li><a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" rel="noopener">BLS Employment Situation, May 2026</a></li><li><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch Tool</a></li><li><a href="https://fred.stlouisfed.org/series/DFEDTARU" target="_blank" rel="noopener">FRED Federal Funds Target Upper Limit</a></li><li><a href="https://www.nasdaq.com/market-activity/stocks/mu/short-interest" target="_blank" rel="noopener">Nasdaq MU short interest page</a></li><li><a href="https://finance.yahoo.com/markets/stocks/articles/short-sellers-keep-placing-bets-150002931.html" target="_blank" rel="noopener">Yahoo Finance article on MU short interest</a></li><li><a href="https://www.sec.gov/Archives/edgar/data/723125/000072312522000048/mu-20220901.htm" target="_blank" rel="noopener">Micron FY2022 Form 10-K</a></li></ol>
+  <p class="small">면책: 이 보고서는 공개자료 기반 분석이며 투자자문이 아닙니다. 실시간 옵션 체인·borrow fee·유료 consensus database 수치는 본 보고서 작성 시점의 공개 웹 접근에서 완전 검증하지 못했으므로 “검증 필요”로 처리했습니다.</p>
+</section>
+</main>
+</body></html>

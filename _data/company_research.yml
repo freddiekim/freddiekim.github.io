@@ -154,7 +154,7 @@
     - "배당 수익률과 배당성향 유지 여부"
     - "5G 가입자 증가율과 ARPU"
     - "AI 사업(A.) 매출 기여와 성장률"
-    - "SKT-SK하이닉스 AI DC 협력 구체화"
+    - "SKT-SKHynix AI DC 협력 구체화"
   risks:
     - "국내 이통 시장 성장 정체와 요금 경쟁"
     - "AI 신사업이 배당 여력을 잠식할 가능성"
@@ -269,8 +269,8 @@
     - "5G 기지국 수요 회복 지연"
   next_update: "Q1 FY2027 실적에서 데이터센터 가이던스와 custom ASIC 매출 기여가 thesis를 뒷받침하는지 확인합니다."
 
-- ticker: SK_HYNIX
-  name: SK하이닉스
+- ticker: SKHynix
+  name: SKHynix
   portfolio_rank: 17
   portfolio_weight: 1.6
   portfolio_role: midfielder
@@ -372,7 +372,7 @@
     - "파운드리(SFMC) 외부 고객 점유율"
     - "배당 정책 유지와 자사주 매입"
   risks:
-    - "HBM 경쟁에서 SK하이닉스·Micron 대비 지속 열위"
+    - "HBM 경쟁에서 SKHynix·Micron 대비 지속 열위"
     - "파운드리 TSMC와의 기술 격차 확대"
     - "글로벌 IT 수요 부진과 세트 부문 부진"
   next_update: "분기 실적에서 HBM 납품 재개 여부와 DS 영업이익 방향을 점검합니다."

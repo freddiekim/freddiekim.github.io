@@ -1,18 +1,27 @@
+{% assign disqus_shortname = site.disqus_shortname | default: "freddiekim" %}
+{% assign disqus_path = page.url | default: "/" | replace: "index.html", "" %}
+{% assign disqus_url = "https://freddiekim.github.io" | append: disqus_path %}
+
 <section class="comments-section" id="comments">
   <div class="comments-container">
-    <div class="comments-heading">
-      <p class="analysis-kicker">Conversation</p>
-      <h2>Comments</h2>
-    </div>
-    <div class="comments-widget">
-      <script src="https://utteranc.es/client.js"
-              repo="freddiekim/freddiekim.github.io"
-              issue-term="pathname"
-              label="comments"
-              theme="github-light"
-              crossorigin="anonymous"
-              async>
-      </script>
-    </div>
+    <div class="disqus" id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = "{{ disqus_url }}";
+        this.page.identifier = "{{ disqus_path }}";
+      };
+
+      (function () {
+        var d = document;
+        var s = d.createElement("script");
+        s.src = "https://{{ disqus_shortname }}.disqus.com/embed.js";
+        s.setAttribute("data-timestamp", String(Date.now()));
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>
+      Please enable JavaScript to view the
+      <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
   </div>
 </section>

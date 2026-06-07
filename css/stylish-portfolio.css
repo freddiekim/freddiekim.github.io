@@ -76,9 +76,9 @@ hr.small {
     z-index: 1000;
     position: fixed;
     right: 0;
-    width: 250px;
+    width: 320px;
     height: 100%;
-    margin-right: -250px;
+    margin-right: -320px;
     overflow-y: auto;
     background: #222;
     -webkit-transition: all 0.4s ease 0s;
@@ -91,7 +91,7 @@ hr.small {
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 250px;
+    width: 320px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -144,10 +144,39 @@ hr.small {
     text-transform: uppercase;
 }
 
+.sidebar-nav .sidebar-role-label {
+    color: #d8b46a;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0;
+    line-height: 26px;
+    margin-top: 12px;
+    padding: 0 18px;
+    text-indent: 0;
+    text-transform: uppercase;
+}
+
+.sidebar-nav li.sidebar-company-item {
+    line-height: normal;
+    text-indent: 0;
+}
+
 .sidebar-nav li a.sidebar-report-link {
     color: #cfcfcf;
-    font-size: 13px;
-    line-height: 30px;
+    display: flex;
+    font-size: 15px;
+    gap: 12px;
+    justify-content: space-between;
+    line-height: 1.2;
+    padding: 8px 18px 8px 28px;
+    text-indent: 0;
+}
+
+.sidebar-nav li a.sidebar-report-link small {
+    color: #d8b46a;
+    flex: 0 0 auto;
+    font-size: 11px;
+    font-weight: 900;
 }
 
 #menu-toggle {
@@ -158,8 +187,8 @@ hr.small {
 }
 
 #sidebar-wrapper.active {
-    right: 250px;
-    width: 250px;
+    right: 320px;
+    width: 320px;
     -webkit-transition: all 0.4s ease 0s;
     -moz-transition: all 0.4s ease 0s;
     -ms-transition: all 0.4s ease 0s;

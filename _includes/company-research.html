@@ -23,10 +23,11 @@
 
         <div class="company-research-list">
             {% for company in companies %}
-                {% assign ticker = company.ticker | upcase %}
-                {% assign covered_marker = "|" | append: ticker | append: "|" %}
+                {% assign ticker = company.ticker %}
+                {% assign ticker_key = ticker | upcase %}
+                {% assign covered_marker = "|" | append: ticker_key | append: "|" %}
                 {% assign covered_tickers = covered_tickers | append: covered_marker %}
-                {% assign earnings_links = site.data.earnings_presentations[ticker] %}
+                {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
                 {% assign role_label = "" %}
                 {% case company.portfolio_role %}
                     {% when "striker" %}
@@ -41,7 +42,7 @@
                 {% assign report_count = 0 %}
                 {% for report in report_files %}
                     {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                    {% if current_ticker == ticker %}
+                    {% if current_ticker == ticker_key %}
                         {% assign report_count = report_count | plus: 1 %}
                     {% endif %}
                 {% endfor %}
@@ -118,7 +119,7 @@
                                 <div class="company-report-links">
                                     {% for report in report_files %}
                                         {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                                        {% if current_ticker == ticker %}
+                                        {% if current_ticker == ticker_key %}
                                             {% assign report_parts = report.name | remove: ".html" | split: "_" %}
                                             {% assign report_date_raw = report_parts | last %}
                                             {% assign first_part = report.name | split: "_" | first %}

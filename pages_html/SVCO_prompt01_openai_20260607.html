@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVCO 금리 쇼크 보완 보고서 — 2026-06-07</title>
+<style>
+:root{
+  --ink:#1f2a2e; --muted:#627177; --paper:#fbfaf5; --card:#ffffff; --line:#d9dedb;
+  --mint:#9ed7c3; --terr:#e8a37d; --blue:#8db4d7; --yellow:#f0d77b; --red:#d87972; --green:#7fb493; --slate:#445055;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.62}
+a{color:#255b6f;text-decoration:none;border-bottom:1px solid #255b6f}
+.cover{padding:58px 42px 38px;border-bottom:1px solid var(--line);background:#f3efe5;position:relative;overflow:hidden}
+.cover h1{font-size:38px;line-height:1.12;margin:0 0 14px;letter-spacing:-.04em}
+.cover .sub{font-size:16px;color:var(--muted);max-width:1000px}
+.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}
+.poster{position:absolute;right:35px;top:30px;width:220px;height:220px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px}
+.container{max-width:1180px;margin:0 auto;padding:34px 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+h2{font-size:25px;margin:0 0 16px;letter-spacing:-.03em}
+h3{font-size:19px;margin:22px 0 10px;letter-spacing:-.02em}
+p{margin:9px 0}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.col4{grid-column:span 4} .col6{grid-column:span 6} .col8{grid-column:span 8} .col12{grid-column:span 12}
+.metric{background:#f7f5ee;border:1px solid var(--line);border-radius:16px;padding:16px}
+.metric .label{color:var(--muted);font-size:13px}
+.metric .value{font-size:28px;font-weight:800;letter-spacing:-.03em}
+.metric .note{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+th{background:#f1eee5;text-align:left;font-weight:700}
+tr:last-child td{border-bottom:0}
+.dense th,.dense td{font-size:12px;padding:9px 10px}
+.callout{border-left:6px solid var(--terr);background:#fff8ef;border-radius:14px;padding:16px;margin:14px 0}
+.good{border-left-color:var(--green);background:#f3faf6}
+.bad{border-left-color:var(--red);background:#fff3f2}
+.neutral{border-left-color:var(--blue);background:#f3f8fc}
+.tag{display:inline-block;padding:3px 8px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:2px 4px 2px 0;background:#fff}
+ul{padding-left:20px} li{margin:5px 0}
+.chart{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0}
+.svg-title{font:700 18px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}
+.small{font:12px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}
+.tiny{font:11px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#627177}
+.axis{stroke:#c8cfcb;stroke-width:1}
+.oldbar{fill:#8db4d7}
+.newbar{fill:#e8a37d}
+.node-core{fill:#f0d77b;stroke:#1f2a2e;stroke-width:1.5}
+.node-a{fill:#9ed7c3;stroke:#1f2a2e} .node-b{fill:#8db4d7;stroke:#1f2a2e} .node-c{fill:#e8a37d;stroke:#1f2a2e} .node-d{fill:#d87972;stroke:#1f2a2e}
+.link{stroke:#627177;stroke-width:2;fill:none}
+.footer{font-size:12px;color:var(--muted);padding:20px 0 50px}
+@media(max-width:800px){.cover{padding:38px 20px}.poster{display:none}.container{padding:22px 14px}.col4,.col6,.col8{grid-column:span 12}th,td{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="cover">
+  <svg class="poster" viewBox="0 0 240 240" aria-hidden="true">
+    <rect x="20" y="20" width="200" height="200" rx="30" fill="#ffffff" stroke="#d9dedb"/>
+    <circle cx="72" cy="72" r="30" fill="#9ed7c3"/>
+    <rect x="112" y="52" width="62" height="62" rx="10" fill="#f0d77b" stroke="#1f2a2e"/>
+    <path d="M46 146h148" stroke="#1f2a2e" stroke-width="6" stroke-linecap="round"/>
+    <path d="M70 174h92" stroke="#8db4d7" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="166" cy="146" r="22" fill="#d87972" stroke="#1f2a2e"/>
+    <path d="M122 84 L168 146" stroke="#1f2a2e" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <div class="kicker">Forensic Update · Silvaco Group, Inc. (SVCO) · 2026-06-07 KST</div>
+  <h1>금리 인상 공포 이후 보완 보고서:<br>기존 SVCO thesis에서 빠졌던 “duration·ATM·수급” 리스크</h1>
+  <div class="sub">이 문서는 2026-06-02 기준 기존 forensic deep dive의 <b>추가 보완판</b>입니다. 결론은 thesis 폐기가 아니라, 금리 경로와 ATM overhang을 반영해 목표가·진입 가격·포지션 사이즈를 낮추는 쪽입니다.</div>
+  <div class="badges">
+    <span class="badge">현재 주가: $11.30</span>
+    <span class="badge">전일 대비: -13.7%</span>
+    <span class="badge">새 Base Target: $13.50</span>
+    <span class="badge">행동: 추격 금지, $10.80 이하 1차만</span>
+  </div>
+</header>
+<main class="container">
+<section class="card">
+  <h2>0. 결론 먼저 — 금리 충격은 “회사 thesis break”가 아니라 “밸류에이션 regime break”</h2>
+  <div class="grid">
+    <div class="metric col4"><div class="label">현재 주가</div><div class="value">$11.30</div><div class="note">latest finance feed 기준</div></div>
+    <div class="metric col4"><div class="label">전일 종가 대비</div><div class="value">-13.7%</div><div class="note">$13.09 → $11.30</div></div>
+    <div class="metric col4"><div class="label">장중 고점 대비 저점</div><div class="value">-22.4%</div><div class="note">$14.205 → $11.03</div></div>
+  </div>
+  <div class="callout neutral"><b>핵심 수정:</b> “금리 인상”은 아직 실제 결정이 아니라, 강한 고용지표 이후 시장이 2026년 말 Fed 인상 가능성을 다시 가격에 넣은 사건으로 봐야 합니다. 따라서 SVCO의 제품 thesis가 훼손된 것이 아니라, 장기 cash flow를 멀리서 사던 투자자들이 요구수익률을 올린 것입니다.</div>
+  <table class="dense"><thead><tr><th>구분</th><th>기존 보고서 판단</th><th>이번 보완 후 판단</th><th>투자 행동 변화</th></tr></thead><tbody>
+    <tr><td>사업 thesis</td><td>FTCO + Mixel + TCAD/IP platform 전환</td><td>유지. Q1 자료상 AI FTCO 신규 고객, Q2 추가 고객 기대, SIP 성장 근거는 아직 유효.</td><td>폐기 아님</td></tr>
+    <tr><td>시장 regime</td><td>고성장 소형 EDA에 6x+ EV/Sales 적용 가능</td><td>금리 재가격화 후 5x 전후가 더 적절. terminal multiple도 10~20% haircut 필요.</td><td>목표가 하향</td></tr>
+    <tr><td>자본구조</td><td>ATM은 희석 리스크지만 bridge capital로 해석 가능</td><td>금리 상승 국면에서는 ATM 자체가 주가 상단을 누르는 공급원으로 더 크게 할인되어야 함.</td><td>진입 가격 하향</td></tr>
+    <tr><td>매매</td><td>$12.20 이하 1차 가능</td><td>$10.80 이하 1차, $9.50~10.00 2차, Q2 확인 후 3차. $12.50 이상 반등 추격 금지.</td><td>보수화</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>1. 어제 급락의 forensic chain</h2>
+  <table><thead><tr><th>체인</th><th>확정 사실</th><th>SVCO에 주는 의미</th><th>신뢰도</th></tr></thead><tbody>
+    <tr><td>강한 고용지표</td><td>Reuters는 2026-06-05 미국 고용이 예상보다 강했고, 시장이 Fed의 hawkish pivot 가능성을 가격에 넣었다고 보도.</td><td>고성장/적자/소형주 cash flow discount rate 상승.</td><td>A</td></tr>
+    <tr><td>반도체·기술주 집중 매도</td><td>Nasdaq -4.18%, S&P 500 -2.64%, SOX는 2020년 3월 이후 최대 일일 하락률.</td><td>SVCO 단독 악재가 아니라 tech/semiconductor factor deleveraging에 함께 맞은 가능성.</td><td>A</td></tr>
+    <tr><td>SVCO 가격 반응</td><td>finance feed 기준 $13.09 전일 종가 → $11.30, 장중 $14.205 고점 후 $11.03 저점.</td><td>단순 하락보다 “초반 돌파 실패 후 liquidity vacuum” 성격. 유통주식 적은 소형주에서 자주 발생.</td><td>A</td></tr>
+    <tr><td>ATM overhang</td><td>5/8 공시 기반 기사: ATM 총액 $35M, 5/7 기준 잔여 $30.67M, public float $175.27M으로 baby shelf 제한 해제.</td><td>거래량이 급증하면 투자자는 “회사가 매도했나?”를 의심한다. 확인 전까지 multiple discount 요인.</td><td>B</td></tr>
+  </tbody></table>
+  <svg class="chart" viewBox="0 0 980 300" role="img" aria-label="SVCO price shock chain">
+    <text x="22" y="34" class="svg-title">Price Shock Chain: macro → factor selloff → SVCO liquidity gap</text>
+    <line x1="70" y1="205" x2="900" y2="205" class="axis"/>
+    <g>
+      <rect x="80" y="105" width="140" height="100" rx="12" fill="#9ed7c3" stroke="#1f2a2e"/>
+      <text x="105" y="145" class="small">Jobs surprise</text><text x="105" y="166" class="tiny">rate-hike bets</text>
+      <path d="M225 155 H330" class="link"/>
+      <rect x="335" y="92" width="150" height="113" rx="12" fill="#f0d77b" stroke="#1f2a2e"/>
+      <text x="358" y="140" class="small">Tech/SOX selloff</text><text x="358" y="162" class="tiny">duration compression</text>
+      <path d="M490 155 H592" class="link"/>
+      <rect x="600" y="82" width="150" height="123" rx="12" fill="#e8a37d" stroke="#1f2a2e"/>
+      <text x="635" y="138" class="small">SVCO -13.7%</text><text x="635" y="160" class="tiny">liquidity vacuum</text>
+      <path d="M755 155 H835" class="link"/>
+      <rect x="840" y="98" width="90" height="107" rx="12" fill="#d87972" stroke="#1f2a2e"/>
+      <text x="854" y="140" class="small">ATM?</text><text x="850" y="162" class="tiny">verify</text>
+    </g>
+  </svg>
+</section>
+
+<section class="card">
+  <h2>2. 기존 보고서가 충분히 반영하지 못했던 추가 리스크 8개</h2>
+  <table><thead><tr><th>#</th><th>누락/과소반영 요소</th><th>왜 지금 중요해졌나</th><th>새로운 체크포인트</th></tr></thead><tbody>
+    <tr><td>1</td><td><b>금리 duration convexity</b></td><td>SVCO의 bull case 가치는 2028~2030 FTCO/IP 확장에 몰려 있다. 금리가 오르면 먼 cash flow의 현재가치가 비선형적으로 줄어든다.</td><td>10Y 4.7% 돌파 또는 Dec hike 확률 50% 이상이면 target 추가 10~15% haircut.</td></tr>
+    <tr><td>2</td><td><b>ATM price cap</b></td><td>잔여 $30.67M ATM은 좋은 뉴스 때 주가를 누르는 latent supply가 된다.</td><td>다음 10-Q/8-K에서 ATM 발행 주식 수·평균 매도가 확인 필요.</td></tr>
+    <tr><td>3</td><td><b>비구속 $10M revolver의 실행 리스크</b></td><td>회사는 Q1에 은행과 $10M revolver non-binding term sheet를 언급했지만, 금리 상승 시 조건이 불리해질 수 있다.</td><td>확정 credit agreement, 이자율, covenant, borrowing base.</td></tr>
+    <tr><td>4</td><td><b>고객 예산의 재우선순위화</b></td><td>TCAD/EDA는 mission-critical이지만, 신규 FTCO rollout은 고객 capex/opex budget 재검토에 밀릴 수 있다.</td><td>Q2 bookings $19M±10% 유지 여부와 FTCO 신규 고객명/산업군.</td></tr>
+    <tr><td>5</td><td><b>Power/SiC cycle 민감도</b></td><td>APEC·power semiconductor thesis는 자동차/산업/renewables capex cycle 영향을 받는다.</td><td>power applications bookings commentary, SiC customer renewal/expansion.</td></tr>
+    <tr><td>6</td><td><b>반도체 factor crowding</b></td><td>SVCO는 개별주 liquidity가 얕아 SOX/AI basket unwind 때 실제 펀더멘털보다 크게 움직일 수 있다.</td><td>SOX 3거래일 안정화, SVCO 거래량 정상화, VWAP 회복.</td></tr>
+    <tr><td>7</td><td><b>컨센서스 target의 금리 민감도</b></td><td>기존 평균 목표가 $15대는 low-rate multiple을 일부 포함했을 수 있다.</td><td>애널리스트 리비전: 목표가/2027E EV/Sales 하향 여부.</td></tr>
+    <tr><td>8</td><td><b>“좋은 회사 뉴스”와 “나쁜 시장 tape”의 충돌</b></td><td>Mixel N2P 같은 좋은 뉴스가 있어도, 금리 shock tape에서는 multiple expansion보다 de-risking이 우선된다.</td><td>뉴스 당일 가격 반응보다 5~10일 누적 상대수익률 관찰.</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>3. Valuation bridge — 목표가 하향 조정</h2>
+  <div class="callout bad"><b>기존 목표가를 그대로 유지하지 않는 이유:</b> 회사의 Q1 실적/제품 thesis는 유지되지만, 금리 인상 가능성 재가격화는 WACC와 terminal multiple을 동시에 압박한다. 특히 SVCO의 upside 대부분은 2027~2030 매출 구조 변화에 있으므로, 할인율 150bp 상승과 EV/Sales 15~25% haircut을 반영해야 한다.</div>
+  <table><thead><tr><th>항목</th><th>기존</th><th>수정</th><th>변화</th><th>근거</th></tr></thead><tbody>
+    <tr><td>DCF Bear</td><td>WACC 14%, terminal 15x FCF</td><td>WACC 15.5%, terminal 13x</td><td>더 보수화</td><td>적자/소형주 risk premium 상승.</td></tr>
+    <tr><td>DCF Base</td><td>WACC 12%, terminal 22x</td><td>WACC 13.5%, terminal 19x</td><td>주당가치 약 15~20% 하락</td><td>장기 cash flow 현재가치 압축.</td></tr>
+    <tr><td>DCF Bull</td><td>WACC 11%, terminal 25x</td><td>WACC 12.5%, terminal 22x</td><td>주당가치 약 15~25% 하락</td><td>M&A/strategic scarcity premium 유지하되 금리 discount 적용.</td></tr>
+    <tr><td>2027E EV/Sales</td><td>6.0x base</td><td>5.0x base</td><td>-17%</td><td>tech multiple compression 반영.</td></tr>
+    <tr><td>희석 주식 수</td><td>37.2M base</td><td>37.5M base</td><td>소폭 상향</td><td>ATM 발행 가능성을 더 보수적으로 반영.</td></tr>
+  </tbody></table>
+  <svg class="chart" viewBox="0 0 980 380" role="img" aria-label="Old and revised SVCO targets">
+    <text x="22" y="32" class="svg-title">Old vs Revised Targets after rate-shock haircut</text>
+    <text x="20" y="68" class="small">보수적 내재가치</text>
+    <rect x="185" y="55" width="98.1" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="71" width="86.7" height="13" rx="6" class="newbar"/>
+    <text x="288.1" y="66" class="tiny">old $9.50</text>
+    <text x="276.7" y="82" class="tiny">new $8.40</text>
+<text x="20" y="118" class="small">12개월 base target</text>
+    <rect x="185" y="105" width="165.2" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="121" width="139.4" height="13" rx="6" class="newbar"/>
+    <text x="355.2" y="116" class="tiny">old $16.00</text>
+    <text x="329.4" y="132" class="tiny">new $13.50</text>
+<text x="20" y="168" class="small">bull target</text>
+    <rect x="185" y="155" width="237.4" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="171" width="206.5" height="13" rx="6" class="newbar"/>
+    <text x="427.4" y="166" class="tiny">old $23.00</text>
+    <text x="396.5" y="182" class="tiny">new $20.00</text>
+<text x="20" y="218" class="small">overshoot target</text>
+    <rect x="185" y="205" width="320.0" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="221" width="268.4" height="13" rx="6" class="newbar"/>
+    <text x="510.0" y="216" class="tiny">old $31.00</text>
+    <text x="458.4" y="232" class="tiny">new $26.00</text>
+<text x="20" y="268" class="small">실적 전 trading target</text>
+    <rect x="185" y="255" width="152.3" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="271" width="130.1" height="13" rx="6" class="newbar"/>
+    <text x="342.3" y="266" class="tiny">old $14.75</text>
+    <text x="320.1" y="282" class="tiny">new $12.60</text>
+<text x="20" y="318" class="small">실적 후 재평가 target</text>
+    <rect x="185" y="305" width="185.8" height="13" rx="6" class="oldbar"/>
+    <rect x="185" y="321" width="160.0" height="13" rx="6" class="newbar"/>
+    <text x="375.8" y="316" class="tiny">old $18.00</text>
+    <text x="350.0" y="332" class="tiny">new $15.50</text>
+    <text x="185" y="358" class="tiny">파란색: 기존 목표가 · 주황색: 수정 목표가</text>
+  </svg>
+  <table class="dense"><thead><tr><th>목표가</th><th>수정값</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody>
+    <tr><td>보수적 내재가치</td><td>$8.40</td><td>25%</td><td>Q2 가이던스 유지, 현금 방어</td><td>ATM 저가 대량 매각, bookings miss</td></tr>
+    <tr><td>12개월 base target</td><td>$13.50</td><td>40%</td><td>Q2 non-GAAP profit, FTCO 고객 1건 추가, bookings ≥ $17.1M</td><td>FTCO 추가 고객 지연, RPO/계약자산 악화</td></tr>
+    <tr><td>Bull target</td><td>$20.00</td><td>20%</td><td>FTCO multi-customer proof, SIP N2P design win, ATM overhang 해소</td><td>Mixel 성장 acquired-only, customer concentration 악화</td></tr>
+    <tr><td>Overshoot target</td><td>$26.00</td><td>7%</td><td>고객명 공개, M&A 루머, 전략적 파트너십</td><td>금리 추가 상승, aggressive ATM, 반도체 factor 약세</td></tr>
+    <tr><td>실적 전 trading target</td><td>$11.80~13.20</td><td>단기</td><td>SOX 반등, 거래량 안정</td><td>$12.50 이상에서 거래량 없는 반등은 bull trap 가능</td></tr>
+    <tr><td>실적 후 재평가 target</td><td>$15.50</td><td>조건부</td><td>beat + raise + FTCO 고객 + positive adjusted OCF path</td><td>beat만 있고 guide/FTCO/OCF 공백</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>4. 회사 thesis는 왜 아직 폐기하지 않는가</h2>
+  <div class="grid">
+    <div class="col6">
+      <h3>유효한 확정 사실</h3>
+      <ul>
+        <li>Q1 매출 $17.8M, 전년 대비 +26%; TCAD +22%, SIP +270%.</li>
+        <li>Q1 gross bookings $17.2M, 전년 대비 +26%.</li>
+        <li>AI FTCO 신규 고객을 Q1에 확보했고, Q2에도 신규 고객 win을 기대한다고 회사가 밝혔다.</li>
+        <li>Q2 가이던스는 bookings $19M±10%, revenue $18M±10%, non-GAAP gross margin 약 88%.</li>
+        <li>Mixel MIPI C/D-PHY Combo IP가 TSMC N2P에서 즉시 사용 가능하다고 발표.</li>
+      </ul>
+    </div>
+    <div class="col6">
+      <h3>이번에 보수화해야 하는 부분</h3>
+      <ul>
+        <li>미래 FTCO 고객을 현재 multiple에 너무 많이 선반영하면 안 된다.</li>
+        <li>ATM이 남아 있어 급등 구간에서 supply가 나올 수 있다.</li>
+        <li>금리 상승 국면에서는 “2030년 FCF”보다 “다음 분기 현금흐름”이 더 큰 가격 결정 요인이 된다.</li>
+        <li>반도체 factor selloff가 지속되면 SVCO 개별 호재가 1~2분기 지연 반영될 수 있다.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout good"><b>핵심:</b> 금리 shock은 SVCO의 제품 경쟁력을 직접 훼손하지 않는다. 그러나 주식시장에서는 제품 thesis가 맞아도 <b>discount rate, ATM, liquidity</b>가 동시에 나빠지면 목표가는 내려간다. 그래서 행동은 “매도”가 아니라 “더 낮은 가격에서 더 작게 시작”이다.</div>
+</section>
+
+<section class="card">
+  <h2>5. 실행안 — 보유 수량 0주 기준</h2>
+  <table><thead><tr><th>구간</th><th>행동</th><th>비중</th><th>이유</th></tr></thead><tbody>
+    <tr><td>$12.50 이상</td><td><b>신규 매수 금지</b></td><td>0%</td><td>반등 초입에서 ATM/시장 factor 확인 전 추격 위험이 큼.</td></tr>
+    <tr><td>$10.80~11.30</td><td>관찰 또는 아주 작은 1차</td><td>0.3~0.5%</td><td>현재가 부근. base upside는 생겼지만 macro tape가 아직 불안정.</td></tr>
+    <tr><td>$9.50~10.00</td><td>2차 매수</td><td>추가 0.7~1.0%</td><td>보수적 내재가치 근처. 희석/금리 리스크가 상당 부분 반영되는 가격.</td></tr>
+    <tr><td>Q2 실적 후 FTCO+bookings 확인</td><td>3차 매수</td><td>최대 2.0%</td><td>비즈니스 thesis가 수치로 확인되면 multiple 복원 가능.</td></tr>
+    <tr><td>$8.25 이탈 + 악재 동반</td><td>thesis break 검토</td><td>0~0.5%</td><td>단순 market selloff가 아니라 ATM/실적/고객 지연이 동반되면 구조 훼손.</td></tr>
+  </tbody></table>
+  <h3>손절·축소 기준</h3>
+  <table class="dense"><thead><tr><th>Trigger</th><th>의미</th><th>대응</th></tr></thead><tbody>
+    <tr><td>Q2 bookings가 $17.1M 미만</td><td>가이던스 하단 이탈. FTCO/IP ramp 가정 약화.</td><td>목표 비중 0.5% 이하로 제한.</td></tr>
+    <tr><td>Q2 신규 FTCO 고객 win 부재</td><td>Micron anchor에서 multi-customer platform 전환 실패.</td><td>base target $11~12로 재하향.</td></tr>
+    <tr><td>ATM 발행 평균가가 $11 이하로 확인</td><td>회사가 낮은 가격에도 현금화를 우선했다는 신호.</td><td>신규 매수 중단.</td></tr>
+    <tr><td>10Y 4.7% 이상 + SOX 추가 -8%</td><td>회사 문제가 아니라 factor multiple 압축 지속.</td><td>가격보다 시간 분산. 실적 전 매수 금지.</td></tr>
+    <tr><td>cash가 $8M 이하로 하락하고 revolver 확정 없음</td><td>runway 신뢰도 훼손.</td><td>현금 확보 전까지 관망.</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>6. 다음 확인 질문 — 기존 보고서에 추가해야 할 컨콜 질문</h2>
+  <ol>
+    <li>Q2 신규 AI FTCO customer는 기존 Micron-style manufacturing data engagement인가, 아니면 proof-of-concept인가?</li>
+    <li>FTCO 계약은 license, subscription, services, usage-based, milestone 중 어떤 구조인가?</li>
+    <li>ATM은 5/8 이후 얼마나 사용했으며 평균 발행가는 얼마인가?</li>
+    <li>$10M revolver는 확정됐는가? 이자율·covenant·사용 목적은?</li>
+    <li>금리 상승과 반도체 capex 조정이 고객의 PO timing에 영향을 주고 있는가?</li>
+    <li>Mixel N2P IP는 이미 customer engagement/design win으로 이어졌는가, 아니면 availability 발표 단계인가?</li>
+    <li>Q2 non-GAAP operating profitability 이후 adjusted operating cash flow positive 시점은 여전히 2026년 하반기인가?</li>
+  </ol>
+</section>
+
+<section class="card">
+  <h2>7. 최종 요약</h2>
+  <table><tbody>
+    <tr><th>현재 주가</th><td>$11.30</td></tr>
+    <tr><th>보수적 내재가치</th><td>$8.40</td></tr>
+    <tr><th>12개월 base target</th><td>$13.50</td></tr>
+    <tr><th>bull target</th><td>$20.00</td></tr>
+    <tr><th>overshoot target</th><td>$26.00</td></tr>
+    <tr><th>실적 발표 전 trading target</th><td>$11.80~$13.20</td></tr>
+    <tr><th>실적 발표 후 재평가 target</th><td>$15.50</td></tr>
+    <tr><th>하방 리스크</th><td>$8.25~$8.40, thesis break 시 $7.50</td></tr>
+    <tr><th>12개월 기대수익률</th><td>base 기준 +19.5%, bull 기준 +77.0%</td></tr>
+    <tr><th>보유 수량 기준 기대손익</th><td>현재 0주이므로 $0. 예시: $100,000 포트폴리오에서 0.5%만 44주 매수 시 base 약 +$97, bull 약 +$383, downside $8.00 약 -$145.</td></tr>
+    <tr><th>추천 행동</th><td>신규 매수 금지에 가까운 보수적 관망. 단, $10.80 이하에서만 0.3~0.5% 탐색 매수.</td></tr>
+    <tr><th>목표 비중</th><td>실적 전 최대 0.5%, Q2 검증 후 최대 2.0%</td></tr>
+    <tr><th>실적 발표 전 행동</th><td>$12.50 이상 추격 금지. SOX 안정과 ATM 사용 여부 확인.</td></tr>
+    <tr><th>실적 발표 후 행동</th><td>beat + raise + FTCO 신규 고객 + OCF path가 모두 확인되면 2차/3차.</td></tr>
+    <tr><th>목표가 도달 시 행동</th><td>$13.50에서 25% 회수, $20에서 50% 회수, $26 overshoot에서는 70% 이상 회수.</td></tr>
+    <tr><th>thesis 훼손 시 행동</th><td>Q2 bookings miss, FTCO 추가 고객 실패, ATM 저가 대량 발행, cash runway 악화 시 신규 매수 중단 및 보유분 축소.</td></tr>
+    <tr><th>가장 중요한 체크포인트</th><td>Q2 신규 FTCO 고객의 실체와 ATM 사용량.</td></tr>
+    <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>금리 shock 후에도 Q2에서 FTCO 확장·bookings·cash flow가 동시에 확인되지 않고, 회사가 낮은 가격에서 ATM을 공격적으로 사용한 경우.</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://www.reuters.com/business/nasdaq-sp-futures-slip-semiconductors-drag-payrolls-focus-2026-06-05/">Reuters — Wall Street ends sharply lower as chips slide, jobs data fuels rate hike fears</a></li>
+    <li><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-06-05/">Reuters — Stocks fall sharply as strong jobs data fuels rate hike bets</a></li>
+    <li><a href="https://investors.silvaco.com/news-releases/news-release-details/silvaco-reports-first-quarter-2026-financial-results">Silvaco IR — Q1 2026 financial results</a></li>
+    <li><a href="https://www.investing.com/news/sec-filings/silvaco-group-expands-atthemarket-offering-program-to-35-million-93CH-4674416">Investing.com / SEC filing summary — ATM expanded to $35M</a></li>
+    <li><a href="https://investors.silvaco.com/news-releases/news-release-details/silvaco-announces-immediate-availability-mixel-mipi-c-phyd-phy">Silvaco IR — Mixel MIPI C-PHY/D-PHY IP on TSMC N2P</a></li>
+    <li><a href="https://investors.silvaco.com/news-releases/news-release-details/silvaco-announces-strategic-partnership-apec-advance-silicon">Silvaco IR — APEC silicon carbide partnership</a></li>
+  </ul>
+  <p class="footer">주의: 본 문서는 투자 조언이 아니라 리서치 목적의 분석입니다. 수치와 목표가는 공개자료·실시간 feed·가정 기반 추정이며, 특히 ATM 사용량/short interest/borrow fee는 다음 공시 전까지 검증 필요 항목입니다.</p>
+</section>
+</main>
+</body></html>

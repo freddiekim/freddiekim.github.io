@@ -23,6 +23,7 @@ copyright:
 
 # API settings
 google_api_key:
+disqus_shortname: freddiekim
 
 # Build settings
 markdown: kramdown

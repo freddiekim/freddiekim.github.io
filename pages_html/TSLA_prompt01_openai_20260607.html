@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TSLA Forensic Deep Dive — 2026-06-07</title>
+<style>
+:root{
+  --ink:#17212b; --muted:#66717d; --paper:#f8f5ee; --card:#fffdf7; --line:#d9d0c0;
+  --navy:#243b53; --blue:#3f6b8f; --red:#a34a3c; --green:#53735a; --yellow:#c89d41; --slate:#465362;
+}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;line-height:1.62}
+a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--blue)}
+.wrap{max-width:1280px;margin:0 auto;padding:26px}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;border:2px solid var(--ink);background:var(--card);padding:34px;margin-bottom:22px;box-shadow:8px 8px 0 #e2d9c8}
+.badge{display:inline-block;border:1.5px solid var(--ink);padding:4px 10px;border-radius:999px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;background:#fff}
+h1{font-size:44px;line-height:1.05;margin:14px 0 12px;letter-spacing:-.04em} h2{font-size:28px;margin:34px 0 14px;letter-spacing:-.03em;border-top:2px solid var(--ink);padding-top:18px} h3{font-size:20px;margin:24px 0 8px;letter-spacing:-.02em}
+.kicker{font-size:16px;color:var(--muted);max-width:720px}.meta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.tile{background:#fff;border:1.5px solid var(--line);padding:14px;border-radius:14px}.tile b{display:block;font-size:22px}.tile span{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.callout{border:2px solid var(--ink);background:#fff;padding:18px 20px;border-radius:18px;margin:18px 0}.callout.red{border-color:var(--red)}.callout.green{border-color:var(--green)}.callout.blue{border-color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.signal{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:14px;min-height:160px}.signal .n{font-weight:800;color:var(--red);font-size:18px}.signal b{display:block;margin:6px 0}.signal small{color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1.5px solid var(--line);margin:12px 0 24px;font-size:13px}th,td{border-bottom:1px solid #e6dece;padding:10px;vertical-align:top;text-align:left}th{background:#eee6d6;font-size:12px;text-transform:uppercase;letter-spacing:.04em}tr:last-child td{border-bottom:0}.num{text-align:right;font-variant-numeric:tabular-nums}.tag{display:inline-block;padding:2px 7px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:11px;color:var(--muted)}.A{color:var(--green);font-weight:800}.B{color:var(--yellow);font-weight:800}.C{color:var(--red);font-weight:800}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.note{color:var(--muted);font-size:13px}.quote{font-size:19px;font-weight:700;border-left:6px solid var(--red);padding-left:16px;margin:20px 0}.svgbox{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:10px;margin:14px 0}.section{background:rgba(255,255,255,.46);border:1px solid #e9dfcf;border-radius:18px;padding:18px;margin:18px 0}.mono{font-family:"SFMono-Regular",Consolas,monospace;font-size:12px}.footer{font-size:12px;color:var(--muted);border-top:2px solid var(--ink);margin-top:34px;padding-top:18px}.toc{columns:2;background:#fff;border:1.5px solid var(--line);padding:18px;border-radius:18px}.toc a{display:block;border:0;margin:5px 0}.pill{display:inline-block;border-radius:12px;padding:8px 12px;margin:4px;background:#fff;border:1px solid var(--line)}
+@media(max-width:980px){.hero,.grid,.grid3,.two{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.meta{grid-template-columns:1fr 1fr}h1{font-size:34px}.wrap{padding:16px}table{font-size:12px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <span class="badge">Forensic Equity Deep Dive · TSLA · 2026-06-07 KST</span>
+      <h1>Tesla: 자동차 주식인가, 물리 AI 콜옵션인가</h1>
+      <p class="kicker">본 보고서는 숫자 요약보다 공시·컨콜·규제·자본지출·AI 칩·Robotaxi/FSD 사건을 시간순으로 연결해 시장이 덜 가격화한 구조적 변곡점을 찾는 데 초점을 둔다. 결론은 명확하다. TSLA는 이미 단순 자동차 회사 밸류에이션이 아니며, 현재 주가는 near-term base가 아니라 <b>Robotaxi/FSD/AI silicon/Optimus/energy optionality</b>가 섞인 장기 콜옵션을 매수하는 가격이다.</p>
+      <div class="meta">
+        <div class="tile"><span>Latest quote</span><b>$391.00</b><small>2026-06-06 close/quote</small></div>
+        <div class="tile"><span>Position</span><b>100주</b><small>portfolio weight 7.9%</small></div>
+        <div class="tile"><span>Action</span><b>Hold + 조건부 확대</b><small>target 8.5–10.0%</small></div>
+      </div>
+    </div>
+    <div class="svgbox">
+      <svg viewBox="0 0 560 420" width="100%" height="auto" aria-label="Tesla physical AI vector illustration">
+        <rect x="20" y="20" width="520" height="380" rx="28" fill="#f4ecdc" stroke="#17212b" stroke-width="3"/>
+        <circle cx="285" cy="205" r="132" fill="#ffffff" stroke="#17212b" stroke-width="3"/>
+        <path d="M125 240 L180 182 L258 182 L310 240 Z" fill="#3f6b8f" stroke="#17212b" stroke-width="3"/>
+        <path d="M310 240 L352 174 L424 174 L464 240 Z" fill="#53735a" stroke="#17212b" stroke-width="3"/>
+        <circle cx="190" cy="246" r="29" fill="#17212b"/><circle cx="190" cy="246" r="12" fill="#f8f5ee"/>
+        <circle cx="405" cy="246" r="29" fill="#17212b"/><circle cx="405" cy="246" r="12" fill="#f8f5ee"/>
+        <rect x="236" y="74" width="110" height="78" rx="14" fill="#c89d41" stroke="#17212b" stroke-width="3"/>
+        <path d="M258 92h66M258 112h66M258 132h66" stroke="#17212b" stroke-width="4"/>
+        <path d="M291 152v36M224 112h-40M346 112h40M184 112v58M386 112v58" stroke="#17212b" stroke-width="3" fill="none"/>
+        <rect x="75" y="298" width="92" height="48" rx="12" fill="#a34a3c" stroke="#17212b" stroke-width="3"/>
+        <rect x="393" y="298" width="92" height="48" rx="12" fill="#465362" stroke="#17212b" stroke-width="3"/>
+        <text x="121" y="328" font-size="19" text-anchor="middle" fill="#fff" font-weight="700">FSD</text>
+        <text x="439" y="328" font-size="19" text-anchor="middle" fill="#fff" font-weight="700">AI5/6</text>
+        <path d="M165 322 C235 382 330 382 400 322" stroke="#17212b" stroke-width="3" fill="none"/>
+        <text x="282" y="376" font-size="17" text-anchor="middle" fill="#17212b" font-weight="700">Physical AI flywheel</text>
+      </svg>
+    </div>
+  </section>
+
+  <div class="toc">
+    <a href="#signals">0. 내가 발견한 핵심 변곡점</a>
+    <a href="#discovery">1단계 Thesis Discovery</a>
+    <a href="#timeline">사건 체인 타임라인</a>
+    <a href="#capital">자본구조 forensic</a>
+    <a href="#report">2단계 정식 보고서</a>
+    <a href="#valuation">밸류에이션·목표가</a>
+    <a href="#band">2020~2030 멀티플 밴드</a>
+    <a href="#portfolio">포트폴리오 실행안</a>
+    <a href="#sources">참조 출처</a>
+  </div>
+
+  <section id="signals">
+    <h2>내가 처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+    <div class="cards">
+      <div class="signal"><span class="n">01</span><b>정체성 문구가 바뀌었다</b><small>FY2025 자료는 “hardware-centric”에서 “physical AI company”로 전환을 직접 언급한다. 이는 자동차 멀티플이 아니라 AI 플랫폼/운영체제 멀티플 논쟁으로 이동한다.</small></div>
+      <div class="signal"><span class="n">02</span><b>$2B AI hardware M&A</b><small>10-Q의 사후 사건: AI hardware 회사를 최대 $2B 주식/보상으로 인수, $1.8B는 성공 배치·근속 조건. 단순 acqui-hire보다 deployment-linked lock-up에 가깝다.</small></div>
+      <div class="signal"><span class="n">03</span><b>Capex $25B+는 비용이 아니라 옵션 프리미엄</b><small>AI initiatives, compute, data centers, company-operated AI-enabled assets까지 포함된다. 2026 FCF 훼손은 마진 미스이면서 동시에 장기 옵션 구축이다.</small></div>
+      <div class="signal"><span class="n">04</span><b>AI5/AI6·Samsung·SpaceX·Research Fab</b><small>AI5 final design, AI6 Samsung 2nm 공급망, SpaceX와 칩 팹 협력 언급은 완성차 OEM을 넘어 edge inference silicon stack을 내재화하려는 신호다.</small></div>
+      <div class="signal"><span class="n">05</span><b>FSD 유료 전환율의 갭</b><small>누적 차량 920만 대 대비 active FSD subscriptions 128만. 침투율이 낮은 것은 리스크이지만, 성공 시 반복 매출 레버리지의 원천이다.</small></div>
+      <div class="signal"><span class="n">06</span><b>RDW 네덜란드 승인: beachhead, not L4</b><small>네덜란드 type approval은 EU 확장의 regulatory beachhead이나 명시적으로 driver-supervised다. 과대해석은 금물.</small></div>
+      <div class="signal"><span class="n">07</span><b>Robotaxi 이벤트가 데모에서 운영으로 이동</b><small>Austin → safety monitor removal → Dallas/Houston → Austin Metro 확장. 규모는 작지만 사건의 방향은 일관된다.</small></div>
+      <div class="signal"><span class="n">08</span><b>Energy gross margin 39.5%</b><small>Q1 에너지 매출은 감소했지만 segment gross margin은 39.5%. 단, 일부 one-time tariff benefit이 있어 정상화 확인이 필요하다.</small></div>
+      <div class="signal"><span class="n">09</span><b>Deferred revenue $4.0B</b><small>FSD·connectivity·free Supercharging·OTA 관련 이연매출은 “소프트웨어 가치가 전혀 없다”는 bear case를 약화시킨다.</small></div>
+      <div class="signal"><span class="n">10</span><b>이번 급락은 squeeze가 아니라 long-duration repricing</b><small>short interest와 borrow fee는 squeeze형 구조가 아니다. 고용 강세와 금리 인상 확률 상승에 따른 long-duration/AI multiple 압축으로 해석하는 편이 더 정확하다.</small></div>
+    </div>
+  </section>
+
+  <section id="discovery">
+    <h2>[1단계] Thesis Discovery</h2>
+    <div class="quote">한 문장 hidden thesis: <b>TSLA의 핵심 자산은 차량 판매가 아니라 차량·충전·에너지·칩·AI 모델·규제 승인을 하나의 물리 AI 운영체제로 묶는 closed-loop deployment layer</b>다. 다만 현재 주가는 이미 그 옵션의 상당 부분을 선반영하고 있다.</div>
+
+    <h3>A. 기업 정체성 재정의</h3>
+    <table>
+      <tr><th>시장 프레임</th><th>실제 이동 중인 밸류체인</th><th>멀티플 영향</th><th>검증 필요</th></tr>
+      <tr><td>고PER 전기차 OEM, 가격 인하와 수요 둔화에 취약한 자동차 주식</td><td>EV fleet + FSD software + Robotaxi operations + energy storage + edge AI silicon + robotics로 구성된 physical AI stack</td><td>단순 auto P/E로는 설명 불가. 그러나 AI 옵션이 실적·규제·FCF로 증명되지 않으면 2022식 multiple compression 가능</td><td>Robotaxi unit economics, FSD take-rate, AI5/AI6 생산·원가, Energy margin 지속성</td></tr>
+    </table>
+
+    <h3>B. 고객·공급망·파트너 맵</h3>
+    <div class="svgbox">
+      <svg viewBox="0 0 1120 520" width="100%" height="auto" role="img" aria-label="Tesla ecosystem map">
+        <rect x="20" y="20" width="1080" height="480" rx="22" fill="#fffdf7" stroke="#17212b" stroke-width="2"/>
+        <rect x="455" y="205" width="210" height="110" rx="18" fill="#243b53" stroke="#17212b" stroke-width="2"/>
+        <text x="560" y="250" text-anchor="middle" font-size="24" fill="#fff" font-weight="800">TESLA</text>
+        <text x="560" y="278" text-anchor="middle" font-size="13" fill="#fff">EV · FSD · Robotaxi · Energy · AI silicon</text>
+        <g font-size="14" font-weight="700" fill="#17212b">
+          <rect x="70" y="75" width="200" height="74" rx="14" fill="#f4ecdc" stroke="#17212b"/><text x="170" y="110" text-anchor="middle">직접 고객</text><text x="170" y="132" text-anchor="middle" font-size="12">EV/FSD subscribers</text>
+          <rect x="70" y="220" width="200" height="74" rx="14" fill="#f4ecdc" stroke="#17212b"/><text x="170" y="255" text-anchor="middle">에너지 고객</text><text x="170" y="277" text-anchor="middle" font-size="12">utilities / C&I / storage</text>
+          <rect x="70" y="365" width="200" height="74" rx="14" fill="#f4ecdc" stroke="#17212b"/><text x="170" y="400" text-anchor="middle">최종 수혜 고객</text><text x="170" y="422" text-anchor="middle" font-size="12">riders · grid · data centers</text>
+          <rect x="850" y="70" width="200" height="74" rx="14" fill="#e9f0e5" stroke="#17212b"/><text x="950" y="105" text-anchor="middle">핵심 공급망</text><text x="950" y="127" text-anchor="middle" font-size="12">Samsung · LGES · Panasonic</text>
+          <rect x="850" y="205" width="200" height="74" rx="14" fill="#e9f0e5" stroke="#17212b"/><text x="950" y="240" text-anchor="middle">전략 파트너</text><text x="950" y="262" text-anchor="middle" font-size="12">SpaceX · internal fab</text>
+          <rect x="850" y="340" width="200" height="74" rx="14" fill="#e9f0e5" stroke="#17212b"/><text x="950" y="375" text-anchor="middle">규제/검증</text><text x="950" y="397" text-anchor="middle" font-size="12">NHTSA · RDW · EU</text>
+          <rect x="450" y="60" width="220" height="72" rx="14" fill="#fde9e5" stroke="#17212b"/><text x="560" y="95" text-anchor="middle">경쟁/대체</text><text x="560" y="117" text-anchor="middle" font-size="12">Waymo · Zoox · OEM ADAS</text>
+          <rect x="450" y="388" width="220" height="72" rx="14" fill="#f7edd3" stroke="#17212b"/><text x="560" y="423" text-anchor="middle">M&A optionality</text><text x="560" y="445" text-anchor="middle" font-size="12">Tesla as acquirer, not target</text>
+        </g>
+        <g stroke="#17212b" stroke-width="2" fill="none">
+          <path d="M270 112 C350 112 390 230 455 245"/><path d="M270 257 C350 257 390 260 455 260"/><path d="M270 402 C350 402 390 300 455 285"/>
+          <path d="M665 245 C740 215 780 108 850 107"/><path d="M665 260 C740 252 780 240 850 242"/><path d="M665 285 C740 325 780 370 850 377"/>
+          <path d="M560 132 V205"/><path d="M560 315 V388"/>
+        </g>
+      </svg>
+    </div>
+    <table>
+      <tr><th>분류</th><th>기업/주체</th><th>관련성</th><th>판단</th></tr>
+      <tr><td>고객</td><td>EV 구매자, FSD subscriber, Robotaxi rider, energy storage 고객</td><td>높음</td><td>대형 단일 고객 의존 구조보다 fleet conversion/take-rate 구조. 10-K에는 매출채권 10% 이상 단일 entity가 없다고 공시.</td></tr>
+      <tr><td>공급망</td><td>Samsung</td><td>높음</td><td>AI6 2nm/장기 공급망의 핵심 후보. AI silicon 내재화 thesis의 가장 중요한 외부 파운드리 축.</td></tr>
+      <tr><td>공급망</td><td>LG Energy Solution, Panasonic, CATL/BYD 등</td><td>중~높음</td><td>Energy storage와 EV battery localization에 중요. 특정 계약 규모·기간은 출처별 차이가 있어 보수적으로 반영.</td></tr>
+      <tr><td>전략</td><td>SpaceX</td><td>높음</td><td>Q1 자료에 대형 칩 팹 협력 및 semiconductor vertical integration 언급. 단, related-party/거버넌스 리스크도 동반.</td></tr>
+      <tr><td>경쟁</td><td>Waymo, Zoox, OEM ADAS, Mobileye/Qualcomm 계열</td><td>높음</td><td>Robotaxi에서는 Waymo가 운행 규모/규제 경험에서 앞선다. Tesla의 차별점은 fleet scale과 camera-based low-cost deployment.</td></tr>
+      <tr><td>AI infra</td><td>NVIDIA, AMD, Intel, TSMC</td><td>중/검증 필요</td><td>AI compute 생태계 비교 대상이나, TSLA의 직접 고객/공급 관계는 확인된 범위가 제한적. 과잉 연결 금지.</td></tr>
+      <tr><td>Hyperscaler</td><td>Microsoft, Amazon, Google, Oracle</td><td>낮음~중</td><td>AI/전력/데이터센터 수요의 간접 고객·비교 대상. TSLA 직접 고객 thesis로 두면 안 됨.</td></tr>
+      <tr><td>통신/위성</td><td>Apple, SpaceX, Globalstar, Gogo, Skylo, Verizon</td><td>SpaceX 제외 낮음</td><td>사용자 요청상 확인했으나 TSLA 투자 thesis의 핵심 연결고리는 확인되지 않음. 관련성 낮음.</td></tr>
+    </table>
+  </section>
+
+  <section id="timeline">
+    <h2>C. 최근 24개월 사건 체인 분석</h2>
+    <table>
+      <tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr>
+      <tr><td>2025 FY</td><td>정체성 전환 공시</td><td>FY2025 업데이트에서 hardware-centric → physical AI company 전환을 명시</td><td>시장 프레임을 자동차에서 AI deployment로 바꾸려는 공식 narrative</td><td>멀티플 상방의 근거이나 실적 증명 필요</td><td class="A">A</td><td>FSD/Robotaxi 매출 분리, fleet economics 공개</td></tr>
+      <tr><td>2025</td><td>Robotaxi launch</td><td>2025년에 Robotaxi 서비스를 시작했다고 회사가 보고</td><td>기술 데모가 아니라 상용 운영 레이어 구축 시작</td><td>AI software 가치의 첫 번째 실전 검증</td><td class="B">B</td><td>운행 횟수, 사고/개입률, 원가/mile</td></tr>
+      <tr><td>2025-07</td><td>Samsung AI6 supply chain</td><td>Reuters는 Samsung의 장기 AI6 chip 공급 계약을 보도</td><td>AI inference silicon의 외부 파운드리 기반 확보</td><td>edge AI stack 내재화 thesis 강화</td><td class="B">B</td><td>AI6 tape-out, yield, unit cost, H2 2027 양산</td></tr>
+      <tr><td>2025-07</td><td>LFP battery localization</td><td>LGES와 Tesla 에너지 저장용 LFP 배터리 공급 보도가 존재</td><td>Megapack/energy storage 원가·IRA·관세 리스크 완화</td><td>Energy gross margin 지속성에 중요</td><td class="C">C</td><td>회사/고객명 공식 확인, 셀 원가/공급량</td></tr>
+      <tr><td>2026-01</td><td>Austin monitor removal</td><td>Robotaxi 운영에서 safety monitor 제거를 회사가 언급</td><td>운영 리스크를 더 큰 규제/평판 리스크로 교환한 단계</td><td>성공 시 시장은 더 높은 autonomy multiple 부여</td><td class="B">B</td><td>NHTSA 대응, 사고 데이터, 지역 확대</td></tr>
+      <tr><td>2026-03</td><td>NHTSA Engineering Analysis</td><td>NHTSA가 FSD 장착 320만 대 관련 visibility issue 조사를 EA 단계로 확대</td><td>camera-only/vision stack의 regulatory overhang</td><td>bull case의 가장 큰 thesis break trigger 중 하나</td><td class="A">A</td><td>리콜 여부, software fix 충분성, 운행 제한</td></tr>
+      <tr><td>2026-04-10</td><td>RDW Netherlands approval</td><td>RDW가 FSD Supervised에 네덜란드 provisional validity type approval을 부여. Driver-supervised임을 명시</td><td>EU regulatory beachhead이나 L4 승인으로 해석하면 오류</td><td>EU 확장 optionality + 과대기대 리스크 동시 발생</td><td class="A">A</td><td>EU-wide approval, country-by-country rollout, take-rate</td></tr>
+      <tr><td>2026-04</td><td>Dallas/Houston Robotaxi</td><td>Reuters는 Dallas/Houston robotaxi rollout을 보도</td><td>Austin 단일 지역 리스크 감소. 단 fleet size는 미공개/소규모</td><td>서비스 사업 전환 신뢰도 상승</td><td class="B">B</td><td>fleet count, paid rides, utilization</td></tr>
+      <tr><td>2026-Q1</td><td>Active FSD subs 128만</td><td>Q1 자료에서 active FSD subscriptions 1.28M, 누적 차량 9.2M</td><td>침투율 gap이 소프트웨어 upside와 adoption risk를 동시에 의미</td><td>software monetization의 핵심 KPI</td><td class="A">A</td><td>Q2 subs, attach rate, churn, price</td></tr>
+      <tr><td>2026-Q1</td><td>AI5 final design</td><td>Q1 자료에서 next-generation AI5 inference processor final design 완료 언급</td><td>FSD/Optimus/Robotaxi의 edge inference 원가를 장기적으로 낮추려는 움직임</td><td>칩셋 road map이 auto gross margin과 AI margin을 동시에 좌우</td><td class="A">A</td><td>AI5 양산, AI6 tape-out, chip ASP/원가</td></tr>
+      <tr><td>2026-04</td><td>$2B AI hardware acquisition</td><td>10-Q: AI hardware company 인수 최대 $2B, $1.8B 조건부</td><td>deployment milestone 기반의 기술/인력 잠금. AI silicon bottleneck을 사는 행위</td><td>M&A optionality를 Tesla as acquirer 관점으로 재평가</td><td class="A">A</td><td>대상 기업명, 기술 적용처, 통합 일정</td></tr>
+      <tr><td>2026-Q1</td><td>Capex $25B+ 계획</td><td>10-Q/Reuters: 2026 capex >$25B, AI initiatives·compute·data centers·AI-enabled fleet 포함</td><td>2026 FCF 압박은 의도된 투자 사이클일 가능성</td><td>현 주가는 이 capex가 미래 플랫폼 수익으로 전환된다는 믿음을 산다</td><td class="A">A</td><td>capex ROI, utilization, 2027 FCF 회복</td></tr>
+      <tr><td>2026-06-03</td><td>Austin Metro expansion</td><td>Reuters는 Austin Metro 전체로 unsupervised robotaxi 확대, 약 50대 활동 보도</td><td>방향은 긍정적이나 Waymo와 비교하면 규모는 아직 작음</td><td>상용화 증거 축적, 하지만 unit economics 부재</td><td class="B">B</td><td>차량 수, 지역 수, safety disengagement</td></tr>
+      <tr><td>2026-06-05</td><td>고용 강세·Fed hike odds 상승</td><td>5월 실업률 4.3%, futures는 12월 인상 확률을 68.4%로 반영</td><td>TSLA 같은 long-duration AI optionality 주식의 할인율 상승</td><td>단기 멀티플 압축/가격 변동성 확대</td><td class="A">A</td><td>CPI/PCE, Fed 점도표, 10Y real yield</td></tr>
+    </table>
+  </section>
+
+  <section id="capital">
+    <h2>D. 소형주 방식으로 본 자본구조 forensic — 단, TSLA는 소형주가 아니다</h2>
+    <div class="grid">
+      <div class="callout blue"><b>핵심 결론</b><br/>TSLA는 ATM·convertible·warrant overhang으로 주가가 눌리는 소형 적자 성장주가 아니다. 오버행은 <b>operating execution + capex ROI + stock-based compensation + Musk/key-person/pledged-share risk</b>다.</div>
+      <div class="callout red"><b>자본구조보다 중요한 2026 변수</b><br/>Q1 FCF는 +$1.44B였지만, CFO/Reuters 맥락상 2026 남은 기간에는 AI capex로 FCF가 음수화될 수 있다. 현금은 충분하지만 multiple은 할인율과 FCF 신뢰도에 민감하다.</div>
+    </div>
+    <table>
+      <tr><th>항목</th><th>수치/상태</th><th>해석</th></tr>
+      <tr><td>현금+투자자산</td><td class="num">$44.743B</td><td>Q1 말 유동성은 강하다. capex cycle을 외부 자금 없이 버틸 여력 보유.</td></tr>
+      <tr><td>Debt/finance leases</td><td class="num">약 $9.229B</td><td>current debt/leases $1.447B + noncurrent $7.782B. Net cash 약 $35.5B.</td></tr>
+      <tr><td>Q1 operating cash flow / FCF</td><td class="num">$3.937B / $1.444B</td><td>분기 FCF는 양수이나 capex $2.493B, 2026 전체 투자 부담이 매우 큼.</td></tr>
+      <tr><td>2026 capex plan</td><td class="num">>$25B</td><td>AI initiatives, compute infra, data centers, manufacturing/R&D, AI-enabled fleet 포함.</td></tr>
+      <tr><td>Diluted shares</td><td class="num">약 3.54B Q1, valuation에는 3.60B 사용</td><td>SBC와 AI hardware acquisition을 반영한 보수적 희석 가정.</td></tr>
+      <tr><td>전환사채/ATM/warrant</td><td class="num">핵심 오버행 없음</td><td>소형주식 death-spiral financing 구조와 다름.</td></tr>
+      <tr><td>AI hardware M&A dilution</td><td class="num">최대 $2B stock/equity awards</td><td>$391 기준 약 5.1M주 이론치, diluted shares 대비 0.2% 미만. 조건부 성과보상 중심.</td></tr>
+      <tr><td>Short interest</td><td class="num">약 75.2M주, float 2.5% 내외</td><td>days-to-cover 약 1.3. 구조적 squeeze보다는 long-duration multiple 재평가.</td></tr>
+      <tr><td>Borrow fee</td><td class="num">약 0.25%</td><td>hard-to-borrow 상태 아님. 급등락은 squeeze보다 macro/news beta가 더 큼.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>E. 기술 장벽 분석</h2>
+    <table>
+      <tr><th>레이어</th><th>제품/기술</th><th>왜 필요한가</th><th>복제 난이도·lock-in</th></tr>
+      <tr><td>Software</td><td>FSD v14.3, neural network vision encoder, AI compiler latency reduction</td><td>운전자 보조/Robotaxi/Optimus의 perception·planning·control 품질을 좌우</td><td>데이터 규모와 fleet feedback loop는 장벽. 단 camera-only 접근은 NHTSA visibility risk에 취약.</td></tr>
+      <tr><td>Edge silicon</td><td>AI4/HW4, AI5 inference processor, AI6 roadmap</td><td>차량/로봇에서 저전력·저지연 inference가 필수. 소프트웨어만으로 latency·원가를 해결하기 어려움</td><td>칩 설계와 차량 deployment co-design은 장벽. 하지만 Samsung/TSMC/NVIDIA/Qualcomm 생태계 대체 가능성은 존재.</td></tr>
+      <tr><td>Fleet operations</td><td>Robotaxi network, company-operated AI-enabled assets</td><td>소프트웨어 판매에서 ride/service revenue로 전환</td><td>규제 승인·보험·원격지원·정비·차량 이용률이 lock-in. 아직 규모와 unit economics 미공개.</td></tr>
+      <tr><td>Energy</td><td>Megapack, Powerwall, LFP supply/localization</td><td>AI data center/grid instability 수요에 대응. Auto cycle hedge</td><td>공급망/프로젝트 execution 장벽. margin 39.5% 지속성은 tariff benefit 제거 후 확인 필요.</td></tr>
+      <tr><td>Robotics</td><td>Optimus / Bot</td><td>차량용 AI를 물류·제조·가정 노동으로 확장</td><td>최대 TAM이나 nascent. 회사도 상업화·수요 불확실성을 10-K에서 인정.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>F. 생태계 game theory와 M&A optionality</h2>
+    <div class="two">
+      <div class="section"><h3>누가 TSLA를 필요로 하는가</h3><p>소비자는 차량과 FSD를, grid/data center는 storage를, Samsung/LGES/Panasonic은 장기 수요 anchor를, 규제기관은 안전성과 책임성을, 경쟁사는 Tesla의 fleet data와 cost curve를 의식한다. TSLA의 핵심 교섭력은 단일 부품이 아니라 <b>vehicle fleet + software + silicon + energy + charging + brand</b>를 동시에 움직일 수 있다는 점이다.</p></div>
+      <div class="section"><h3>M&A의 방향</h3><p>TSLA가 인수 대상이 되는 시나리오는 시총·거버넌스·anti-takeover 조항 때문에 현실성이 낮다. 투자자가 가격에 넣어야 할 M&A 옵션은 <b>Tesla as acquirer</b>다. $2B AI hardware acquisition은 chip/robotics bottleneck을 자본으로 제거하려는 첫 신호로 본다.</p></div>
+    </div>
+    <table>
+      <tr><th>시나리오</th><th>Base 반영</th><th>Bull 반영</th><th>Overshoot 반영</th></tr>
+      <tr><td>AI hardware M&A 성공</td><td>$0–20/share</td><td>$50–90/share</td><td>$100+/share narrative premium</td></tr>
+      <tr><td>SpaceX/xAI/Tesla compute ecosystem 재평가</td><td>거버넌스 할인</td><td>chip/fab learning curve 상승</td><td>관련-party premium과 리스크가 동시에 과열 반영</td></tr>
+      <tr><td>TSLA 피인수</td><td>0</td><td>0</td><td>실질적으로 배제</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>G. 반대 thesis — bull case와 같은 강도</h2>
+    <table>
+      <tr><th>반대 가설</th><th>왜 중요한가</th><th>깨지는 지표</th></tr>
+      <tr><td>모든 사건 연결이 narrative일 뿐일 수 있다</td><td>AI5·Robotaxi·Energy·Optimus가 각각 별도 실험이면 복합 플랫폼 멀티플은 정당화 불가</td><td>FSD subs 정체, Robotaxi 지역 확장 없음, AI capex ROI 미공개 지속</td></tr>
+      <tr><td>FSD는 이름과 달리 driver-supervised에 머물 수 있다</td><td>RDW도 driver responsibility를 명시. L4/L5가 아니면 Robotaxi TAM은 크게 작아짐</td><td>유럽/미국 regulatory 승인 지연, NHTSA 리콜/운행 제한</td></tr>
+      <tr><td>Robotaxi 규모가 너무 작다</td><td>50대 수준 운영은 validation이지 economics가 아니다. Waymo가 규모·규제에서 앞선다</td><td>fleet count, paid rides, utilization, cost/mile 공개 부재</td></tr>
+      <tr><td>Capex가 미래 수익이 아니라 cash burn이 될 수 있다</td><td>2026 >$25B capex는 FCF와 multiple을 압박한다</td><td>2027에도 FCF margin 회복 실패, AI-enabled fleet 활용률 저조</td></tr>
+      <tr><td>Auto demand/가격 인하가 AI option을 잠식한다</td><td>아직 현금 창출의 본체는 auto gross profit</td><td>delivery miss, inventory days 상승, auto gross margin ex-credit 하락</td></tr>
+      <tr><td>HW3/legacy fleet upgrade liability</td><td>기존 차량이 unsupervised FSD 요건을 만족하지 못하면 고객 신뢰·비용 리스크 발생</td><td>대규모 retrofit/trade-in 비용, 집단소송/보상</td></tr>
+    </table>
+  </section>
+
+  <section id="report">
+    <h2>[2단계] 정식 보고서</h2>
+    <h3>0. Executive Summary</h3>
+    <table>
+      <tr><th>항목</th><th>결론</th></tr>
+      <tr><td>한 문장 투자 thesis</td><td>TSLA는 2026년에 EV OEM에서 physical AI deployment platform으로 공식 전환 중이며, FSD/Robotaxi/AI silicon/Energy가 동시에 맞물릴 경우 주당 $575–725까지 재평가될 수 있다.</td></tr>
+      <tr><td>한 문장 anti-thesis</td><td>현재 주가는 이미 bull case optionality를 상당 부분 선반영하므로, FSD 규제·Robotaxi scale·FCF 회복이 지연되면 $300 이하로 재평가될 수 있다.</td></tr>
+      <tr><td>시장이 보는 회사</td><td>고성장 둔화 EV 기업 + Elon risk + 고PER</td></tr>
+      <tr><td>내가 새롭게 보는 회사</td><td>차량 fleet을 물리 AI 센서/compute/actuator network로 활용하려는 AI infrastructure operator</td></tr>
+      <tr><td>리레이팅 가능한 이유</td><td>AI hardware M&A, AI5/AI6, Robotaxi 지역 확대, FSD subs 증가, Energy margin/수요</td></tr>
+      <tr><td>리레이팅 실패 조건</td><td>NHTSA 리콜/제한, Q2/Q3 delivery miss, capex만 증가하고 FSD/Robotaxi KPI 미공개, Energy margin 정상화 급락</td></tr>
+      <tr><td>투자 등급</td><td><b>Hold / Opportunistic Buy on evidence or weakness</b></td></tr>
+      <tr><td>포트폴리오 행동</td><td><b>C. 조건부 비중 확대</b> — 현재가 추격매수는 금지, 3차 분할로 8.5–10.0% 목표</td></tr>
+    </table>
+
+    <h3>1. 시장이 놓친 핵심 변곡점</h3>
+    <table>
+      <tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 덜 반영?</th></tr>
+      <tr><td>AI hardware M&A</td><td>10-Q에 최대 $2B AI hardware company 인수 공시</td><td>AI inference bottleneck 제거 목적</td><td>대상 기술이 AI5/AI6/Optimus에 직접 투입</td><td>대상 기업명과 기술 내용이 비공개</td></tr>
+      <tr><td>Capex $25B+</td><td>AI/data center/AI-enabled fleet 포함</td><td>2026 FCF 악화는 전략 투자일 수 있음</td><td>2027 이후 고마진 AI 서비스 매출로 전환</td><td>전통 auto 투자자는 capex를 margin risk로만 본다</td></tr>
+      <tr><td>RDW + Robotaxi 지역 확대</td><td>네덜란드 approval, Dallas/Houston/Austin Metro expansion</td><td>규제와 상용운영이 병렬로 축적</td><td>EU-wide approval과 미국 다도시 robotaxi</td><td>승인 범위가 supervised라서 과대/과소 해석이 공존</td></tr>
+      <tr><td>Energy margin</td><td>Q1 energy gross margin 39.5%</td><td>Megapack/Powerwall이 auto cyclicality hedge</td><td>AI data center 전력 병목과 맞물려 re-rating</td><td>Q1 deployment 감소와 one-time tariff benefit 때문에 신뢰 낮음</td></tr>
+    </table>
+
+    <h3>2. 전통적 비즈니스 모델의 진화</h3>
+    <p>레거시 TSLA는 Model 3/Y 중심의 EV 제조사였다. 현재 성장 축은 FSD subscription, Robotaxi fleet operations, Energy storage, AI compute/silicon, Optimus로 확장된다. 다만 2026년 현재 매출의 절대다수는 여전히 auto/energy/services에서 발생하므로, 투자자는 “이미 바뀐 회사”가 아니라 “바뀌는 증거가 나오기 시작한 회사”로 봐야 한다.</p>
+
+    <h3>3. 실적으로 증명되는 실체</h3>
+    <table>
+      <tr><th>Q1 2026</th><th class="num">수치</th><th>해석</th></tr>
+      <tr><td>Total revenue</td><td class="num">$22.387B</td><td>+16% YoY. 자동차가 핵심이지만 services +42%가 software/fleet narrative의 초기 증거.</td></tr>
+      <tr><td>Automotive revenue</td><td class="num">$16.234B</td><td>regulatory credits $380M 포함. auto gross margin은 핵심 리스크.</td></tr>
+      <tr><td>Energy revenue</td><td class="num">$2.408B</td><td>-12% YoY이나 segment margin은 높다. 일회성 benefit 제외 후 확인 필요.</td></tr>
+      <tr><td>Services/other</td><td class="num">$3.745B</td><td>used vehicles, service, Supercharging, insurance 성장. 반복 매출 quality는 추가 분해 필요.</td></tr>
+      <tr><td>Gross margin</td><td class="num">21.1%</td><td>자동차+에너지 믹스와 tariff/credit 영향이 혼합.</td></tr>
+      <tr><td>Operating income / margin</td><td class="num">$0.941B / 4.2%</td><td>고PER를 정당화하기엔 낮음. AI option이 없으면 밸류에이션 취약.</td></tr>
+      <tr><td>GAAP / non-GAAP diluted EPS</td><td class="num">$0.13 / $0.41</td><td>비용·SBC 조정 격차 주의.</td></tr>
+      <tr><td>Operating cash flow / FCF</td><td class="num">$3.937B / $1.444B</td><td>Q1 양호. 그러나 2026 capex cycle은 FCF volatility를 키운다.</td></tr>
+      <tr><td>Cash + investments</td><td class="num">$44.743B</td><td>투자 사이클을 버틸 수 있는 방어막.</td></tr>
+      <tr><td>Deliveries / FSD subs</td><td class="num">358,023 / 1.28M</td><td>FSD subs +51% YoY. 다음 분기 핵심 KPI.</td></tr>
+    </table>
+
+    <h3>다음 실적에서 반드시 확인할 KPI</h3>
+    <div class="grid3">
+      <div class="section"><b>FSD</b><br/>active subs, attach rate, churn, price, HW3 vs AI4 split</div>
+      <div class="section"><b>Robotaxi</b><br/>fleet count, paid rides, utilization, safety events, cost/mile</div>
+      <div class="section"><b>AI capex</b><br/>2026 capex cadence, AI5/AI6/fab milestones, depreciation path</div>
+      <div class="section"><b>Auto</b><br/>delivery growth, inventory days, auto gross margin ex-credit</div>
+      <div class="section"><b>Energy</b><br/>GWh deployed, backlog, margin ex one-time benefits</div>
+      <div class="section"><b>Regulatory</b><br/>NHTSA findings, RDW/EU expansion, city permits</div>
+    </div>
+
+    <h3>4. 고객·파트너·생태계 분석</h3>
+    <p>직접 고객은 EV 구매자, FSD subscriber, energy storage 고객, Robotaxi 이용자다. 간접 고객은 grid operator, data center/utility ecosystem, 충전/서비스 네트워크 이용자다. 최종 수혜 고객은 이동비 절감과 전력 안정화 수혜자다. NVIDIA·AMD·Intel·Qualcomm·TSMC·Microsoft·Amazon·Google·Oracle·Apple·Globalstar·Gogo·Skylo·Verizon은 투자자가 자주 연결하지만, 확인된 TSLA 핵심 고객/공급망으로 단정할 근거는 제한적이다. Samsung, SpaceX, LGES/Panasonic 계열 배터리 공급망만 높은 관련성으로 둔다.</p>
+
+    <h3>5. 숨은 고객 및 M&A optionality</h3>
+    <table>
+      <tr><th>익명/비공개 항목</th><th>후보</th><th>근거</th><th>반대 근거</th><th>확률</th></tr>
+      <tr><td>AI hardware acquisition 대상</td><td>AI inference accelerator / chip design startup</td><td>공시상 “AI hardware company”, 조건이 deployment-linked</td><td>대상명 비공개</td><td>45%</td></tr>
+      <tr><td></td><td>Robotics actuator/sensor compute company</td><td>Optimus/physical AI와 연결 가능</td><td>hardware라는 표현만으로는 부족</td><td>25%</td></tr>
+      <tr><td></td><td>Data center/fab automation hardware company</td><td>AI compute/data center capex와 연결</td><td>차량 inference와 직접 연결 약함</td><td>20%</td></tr>
+      <tr><td></td><td>기타</td><td>비공개 거래</td><td>확인 불가</td><td>10%</td></tr>
+    </table>
+
+    <h3>6. 자본구조와 수급 분석</h3>
+    <p>최근 주가 상승/하락의 분해는 <b>펀더멘털 25%, multiple expansion/compression 45%, Robotaxi/FSD news flow 20%, short covering 10% 미만</b>으로 본다. short interest와 borrow fee 구조상 TSLA는 squeeze stock이 아니라 고금리·고베타·장기 optionality 주식이다. 주가를 누르는 구조는 financing overhang이 아니라 “AI capex가 실적화되기 전까지의 FCF 공백”이다.</p>
+
+    <h3>7. 기술 분석</h3>
+    <p>핵심 제품명/스택은 Model 3/Y/Cybertruck, Cybercab, Semi, Megapack 3, FSD v14.3, AI4/HW4, AI5 inference processor, AI6 roadmap, Optimus다. 공정 노드는 AI6의 경우 Samsung 2nm 보도가 존재하나 AI5 세부 공정은 회사 확인이 필요하다. 강점은 단일 칩보다 <b>RF가 아니라 vision/baseband/SoC/software/fleet-operation이 결합된 end-to-end layer</b>에 있다. 전환비용은 차량 소유, FSD 학습 데이터, UI/OTA, 충전/서비스 네트워크, 규제 검증 이력에서 발생한다.</p>
+
+    <h3>8. 컨센서스 리비전 분석</h3>
+    <table>
+      <tr><th>항목</th><th>현재</th><th>7일 전</th><th>30일 전</th><th>판단</th></tr>
+      <tr><td>Current-year EPS consensus</td><td class="num">약 $2.05–2.07</td><td class="num">$2.07</td><td class="num">$2.08</td><td>실적 추정은 거의 상향되지 않음. 주가는 Robotaxi/AI option과 multiple로 움직인다.</td></tr>
+      <tr><td>Next-year EPS consensus</td><td class="num">약 $2.76–2.77</td><td class="num">$2.77</td><td class="num">$2.77</td><td>2027 실적 컨센서스도 아직 AI/FSD 변곡점을 크게 반영하지 않음.</td></tr>
+      <tr><td>목표가 평균</td><td class="num">약 $405–420</td><td>자료별 상이</td><td>자료별 상이</td><td>현재가는 평균 목표가 근처. 즉 base case보다 bull optionality를 일부 사는 가격.</td></tr>
+      <tr><td>최고 목표가</td><td class="num">$600</td><td>—</td><td>—</td><td>2030 EPS $7.5와 65–80x AI/robotics multiple을 가정해야 설명 가능.</td></tr>
+    </table>
+
+    <h3>9. 이벤트 드리븐 분석</h3>
+    <table>
+      <tr><th>이벤트</th><th>체크 질문</th><th>오르기 위한 조건</th><th>빠지기 위한 조건</th></tr>
+      <tr><td>Q2 2026 earnings, 예상 2026-07-22 전후</td><td>FSD subs? Robotaxi fleet? capex cadence? Energy margin?</td><td>beat + raise + FSD/Robotaxi KPI 공개 + capex ROI 설명</td><td>delivery miss + margin miss + “capex higher, KPI 없음”</td></tr>
+      <tr><td>NHTSA EA26002</td><td>Software fix로 종결 가능한가?</td><td>리콜/운행 제한 없이 software update로 대응</td><td>대규모 리콜, 기능 제한, liability 비용</td></tr>
+      <tr><td>RDW/EU 확장</td><td>네덜란드 외 국가 승인?</td><td>EU-wide 또는 주요 국가 순차 승인</td><td>driver-supervised 한계만 부각</td></tr>
+      <tr><td>AI5/AI6/M&A</td><td>대상 기업명, tape-out, fab 일정?</td><td>AI5 deployment 및 AI6 timeline 명확화</td><td>M&A 통합 지연, capex 증가만 확인</td></tr>
+    </table>
+  </section>
+
+  <section id="valuation">
+    <h2>10. 밸류에이션</h2>
+    <h3>A. DCF — 숫자는 보수적, 결론은 “현재가는 DCF base가 아니다”</h3>
+    <table>
+      <tr><th>Case</th><th>2030 Revenue</th><th>2030 FCF margin</th><th>WACC</th><th>Terminal multiple</th><th>Equity value</th><th>Per share, 3.60B diluted</th></tr>
+      <tr><td>Bear</td><td class="num">$130B</td><td class="num">5%</td><td class="num">11.5%</td><td class="num">20x FCF</td><td class="num">$119B</td><td class="num">$33</td></tr>
+      <tr><td>Base</td><td class="num">$190B</td><td class="num">11%</td><td class="num">10.5%</td><td class="num">35x FCF</td><td class="num">$509B</td><td class="num">$141</td></tr>
+      <tr><td>Bull</td><td class="num">$350B</td><td class="num">22%</td><td class="num">10.0%</td><td class="num">45x FCF</td><td class="num">$2.29T</td><td class="num">$636</td></tr>
+    </table>
+    <p class="note">DCF는 의도적으로 엄격하게 계산했다. 이 표가 보여주는 핵심은 “$391의 현재가가 near-term FCF DCF로는 설명되지 않는다”는 점이다. 현재가는 2030년 이후 Robotaxi/Optimus/AI silicon optionality를 강하게 할인해 사는 가격이다.</p>
+
+    <h3>B. FCF Yield / Owner Earnings</h3>
+    <table>
+      <tr><th>Scenario</th><th>Normalized FCF</th><th>적정 FCF yield</th><th>적정 시총</th><th>주당가치</th></tr>
+      <tr><td>Auto/Energy normalized only</td><td class="num">$10B</td><td class="num">4.0%</td><td class="num">$250B</td><td class="num">$69</td></tr>
+      <tr><td>AI/FSD 초기 증명</td><td class="num">$18B</td><td class="num">3.0%</td><td class="num">$600B</td><td class="num">$167</td></tr>
+      <tr><td>Robotaxi/FSD 플랫폼화</td><td class="num">$35B</td><td class="num">2.2%</td><td class="num">$1.59T</td><td class="num">$442</td></tr>
+    </table>
+
+    <h3>C. 상대가치</h3>
+    <table>
+      <tr><th>Peer set</th><th>적용 multiple</th><th>TSLA premium/discount 논리</th></tr>
+      <tr><td>Legacy auto</td><td>0.3–1.0x sales, 6–10x EBIT</td><td>TSLA에는 부적절. 소프트웨어/에너지/AI optionality를 0으로 두는 bear floor 용도.</td></tr>
+      <tr><td>EV/growth auto</td><td>2–6x sales</td><td>자동차 단독 기준으로는 현재가 과대. 중국 EV 경쟁/가격 압박 감안.</td></tr>
+      <tr><td>AI software/platform</td><td>10–25x sales</td><td>TSLA가 이 멀티플을 받으려면 FSD/Robotaxi 매출 분리와 high-margin 증명 필요.</td></tr>
+      <tr><td>Energy storage infrastructure</td><td>3–8x sales</td><td>Energy margin 지속 시 중간 multiple 정당화 가능.</td></tr>
+    </table>
+
+    <h3>D. 리레이팅 가치와 valuation bridge</h3>
+    <div class="svgbox">
+      <svg viewBox="0 0 1000 420" width="100%" height="auto" aria-label="Valuation bridge">
+        <rect x="20" y="20" width="960" height="380" rx="20" fill="#fff" stroke="#17212b" stroke-width="2"/>
+        <line x1="90" y1="330" x2="930" y2="330" stroke="#17212b" stroke-width="2"/>
+        <g font-size="13" text-anchor="middle" fill="#17212b">
+          <rect x="90" y="230" width="100" height="100" fill="#a34a3c"/><text x="140" y="350">Auto floor</text><text x="140" y="218">$90</text>
+          <rect x="220" y="180" width="100" height="150" fill="#c89d41"/><text x="270" y="350">Energy</text><text x="270" y="168">+$45</text>
+          <rect x="350" y="132" width="100" height="198" fill="#53735a"/><text x="400" y="350">FSD subs</text><text x="400" y="120">+$75</text>
+          <rect x="480" y="92" width="100" height="238" fill="#3f6b8f"/><text x="530" y="350">Robotaxi</text><text x="530" y="80">+$115</text>
+          <rect x="610" y="62" width="100" height="268" fill="#465362"/><text x="660" y="350">AI silicon</text><text x="660" y="50">+$85</text>
+          <rect x="740" y="30" width="100" height="300" fill="#243b53"/><text x="790" y="350">Bull option</text><text x="790" y="23">+$165</text>
+          <line x1="875" y1="70" x2="875" y2="330" stroke="#17212b" stroke-width="3"/><text x="875" y="55" font-size="20" font-weight="800">Bull $575</text>
+        </g>
+      </svg>
+    </div>
+
+    <h2>11. 목표가 체계</h2>
+    <table>
+      <tr><th>Target</th><th>값</th><th>적용 매출/EPS/FCF</th><th>Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr>
+      <tr><td>보수적 내재가치</td><td class="num">$165</td><td>2026–27 owner earnings $18B</td><td>3% FCF yield / SOTP discount</td><td class="num">3.60B</td><td class="num">20%</td><td>Auto/Energy cashflow 유지</td><td>Auto margin 급락</td></tr>
+      <tr><td>12개월 base target</td><td class="num">$410</td><td>2026E sales ~$102B</td><td>~14x EV/Sales</td><td class="num">3.60B</td><td class="num">45%</td><td>FSD subs 성장+Robotaxi headline</td><td>KPI 부재, capex만 증가</td></tr>
+      <tr><td>Bull target</td><td class="num">$575</td><td>2030 EPS $7.5 또는 2028+ AI revenue ramp</td><td>65–75x future EPS</td><td class="num">3.60B</td><td class="num">25%</td><td>Robotaxi 다도시 확장, AI5/AI6 증명</td><td>NHTSA/규제 제한</td></tr>
+      <tr><td>Overshoot target</td><td class="num">$725</td><td>2030 revenue $200B+ narrative</td><td>~$2.6T mcap</td><td class="num">3.60B</td><td class="num">10%</td><td>AI/robotics mania, short-term squeeze-like momentum</td><td>rate spike, delivery miss</td></tr>
+      <tr><td>실적 전 trading target</td><td class="num">$430</td><td>Q2 expectation reset</td><td>event premium</td><td class="num">3.60B</td><td>—</td><td>Robotaxi/FSD news flow</td><td>매크로 금리 압박</td></tr>
+      <tr><td>실적 후 재평가 target</td><td class="num">$475</td><td>beat+raise+KPI disclosure</td><td>base→bull transition</td><td class="num">3.60B</td><td>—</td><td>Q2 KPI 공개</td><td>beat만 있고 raise/KPI 없음</td></tr>
+    </table>
+  </section>
+
+  <section id="band">
+    <h2>12. 2020~2030 멀티플 밴드</h2>
+    <div class="svgbox">
+      <svg viewBox="0 0 1050 480" width="100%" height="auto" aria-label="Tesla multiples band 2020-2030">
+        <rect x="20" y="20" width="1010" height="430" rx="20" fill="#fff" stroke="#17212b" stroke-width="2"/>
+        <line x1="90" y1="390" x2="980" y2="390" stroke="#17212b"/><line x1="90" y1="60" x2="90" y2="390" stroke="#17212b"/>
+        <g stroke="#e6dece" stroke-width="1"><line x1="90" y1="320" x2="980" y2="320"/><line x1="90" y1="250" x2="980" y2="250"/><line x1="90" y1="180" x2="980" y2="180"/><line x1="90" y1="110" x2="980" y2="110"/></g>
+        <text x="45" y="65" font-size="12">25x</text><text x="45" y="135" font-size="12">20x</text><text x="45" y="205" font-size="12">15x</text><text x="45" y="275" font-size="12">10x</text><text x="52" y="345" font-size="12">5x</text>
+        <polyline points="90,93 179,114 268,323 357,276 446,192 535,158 624,181 713,210 802,236 891,260 980,278" fill="none" stroke="#3f6b8f" stroke-width="4"/>
+        <polyline points="624,230 713,208 802,178 891,142 980,115" fill="none" stroke="#53735a" stroke-width="4" stroke-dasharray="8 6"/>
+        <polyline points="624,230 713,244 802,262 891,280 980,300" fill="none" stroke="#a34a3c" stroke-width="4" stroke-dasharray="8 6"/>
+        <g font-size="12" text-anchor="middle"><text x="90" y="415">2020</text><text x="179" y="415">21</text><text x="268" y="415">22</text><text x="357" y="415">23</text><text x="446" y="415">24</text><text x="535" y="415">25</text><text x="624" y="415">26</text><text x="713" y="415">27E</text><text x="802" y="415">28E</text><text x="891" y="415">29E</text><text x="980" y="415">30E</text></g>
+        <g font-size="13"><rect x="690" y="70" width="14" height="14" fill="#3f6b8f"/><text x="710" y="82">Historical / current P/S</text><line x1="690" y1="105" x2="704" y2="105" stroke="#53735a" stroke-width="4" stroke-dasharray="8 6"/><text x="710" y="110">Bull re-rating</text><line x1="690" y1="130" x2="704" y2="130" stroke="#a34a3c" stroke-width="4" stroke-dasharray="8 6"/><text x="710" y="135">Bear de-rating</text></g>
+      </svg>
+    </div>
+    <table>
+      <tr><th>Year</th><th class="num">Revenue B</th><th class="num">Mkt cap B</th><th class="num">P/S</th><th class="num">P/E</th><th class="num">EV/EBITDA*</th><th class="num">P/FCF</th></tr>
+      <tr><td>2020</td><td class="num">31.5</td><td class="num">668.9</td><td class="num">21.2x</td><td class="num">927.7x</td><td class="num">115.0x</td><td class="num">240.1x</td></tr>
+      <tr><td>2021</td><td class="num">53.8</td><td class="num">1,061.0</td><td class="num">19.7x</td><td class="num">192.2x</td><td class="num">90.5x</td><td class="num">212.9x</td></tr>
+      <tr><td>2022</td><td class="num">81.5</td><td class="num">389.0</td><td class="num">4.8x</td><td class="num">31.0x</td><td class="num">20.1x</td><td class="num">51.4x</td></tr>
+      <tr><td>2023</td><td class="num">96.8</td><td class="num">789.9</td><td class="num">8.2x</td><td class="num">52.7x</td><td class="num">47.5x</td><td class="num">181.3x</td></tr>
+      <tr><td>2024</td><td class="num">97.7</td><td class="num">1,385.0</td><td class="num">14.2x</td><td class="num">195.3x</td><td class="num">86.3x</td><td class="num">386.8x</td></tr>
+      <tr><td>2025</td><td class="num">94.8</td><td class="num">1,580.0</td><td class="num">16.7x</td><td class="num">416.4x</td><td class="num">108.2x</td><td class="num">254.0x</td></tr>
+      <tr><td>2026 current/TTM</td><td class="num">97.9</td><td class="num">1,468.0</td><td class="num">15.0x</td><td class="num">380.1x</td><td class="num">~95.0x</td><td class="num">209.7x</td></tr>
+      <tr><td>2030 Bear/Base/Bull</td><td class="num">130 / 190 / 350</td><td class="num">—</td><td class="num">5–18x</td><td class="num">30–90x</td><td class="num">25–80x</td><td class="num">25–60x</td></tr>
+    </table>
+    <p class="note">* 2020–2025 EV/EBITDA는 year-end market cap 중심의 근사치다. 실제 EV는 net cash/debt 조정에 따라 달라진다. 미래 추정은 실제 데이터가 아니라 scenario assumption이다.</p>
+  </section>
+
+  <section>
+    <h2>13. 리스크 관리 — Thesis break trigger</h2>
+    <table>
+      <tr><th>리스크</th><th>Thesis break trigger</th><th>가격 반영 구간</th><th>확인 시점</th><th>대응</th></tr>
+      <tr><td>출하 지연</td><td>2개 분기 연속 deliveries miss + inventory days 상승</td><td>$340 이하</td><td>분기별 production/delivery</td><td>보유 100주 중 20주 축소</td></tr>
+      <tr><td>Gross margin 정상화</td><td>Auto gross margin ex-credit <15%, Energy margin 급락</td><td>$320–340</td><td>Q2/Q3 실적</td><td>추가 매수 중단</td></tr>
+      <tr><td>Capex/FCF</td><td>2027까지 FCF margin 회복 경로 부재</td><td>$300–320</td><td>2026 Q4~2027 Q1</td><td>비중 5% 이하 축소</td></tr>
+      <tr><td>FSD/NHTSA</td><td>EA가 대규모 리콜/운행 제한으로 확대</td><td>$260–300</td><td>NHTSA 업데이트</td><td>즉시 30–50% 축소</td></tr>
+      <tr><td>Robotaxi</td><td>fleet count/지역 확장 정체, 사고 headline</td><td>$300–330</td><td>월별 news flow</td><td>추가 매수 금지</td></tr>
+      <tr><td>M&A 기대 과열</td><td>대상 기술/통합 일정이 불명확한데 주가만 급등</td><td>$600+</td><td>8-K/10-Q</td><td>10–20주 차익실현</td></tr>
+      <tr><td>금리</td><td>Fed hike odds 상승 + 10Y real yield 급등</td><td>$340–370</td><td>고용/CPI/FOMC</td><td>분할매수 가격 하향</td></tr>
+    </table>
+  </section>
+
+  <section id="portfolio">
+    <h2>14. 포트폴리오 실행안</h2>
+    <div class="callout green">
+      <b>350주 → 100주 축소 판단:</b> 리스크 관리 관점에서는 좋은 선택이었다. 100주가 7.9%라면 350주는 약 27.7% 비중으로, FSD/Robotaxi가 퍼지려는 국면이어도 규제·capex·valuation 리스크를 감당하기엔 과도하다. 그러나 convexity 관리 관점에서는 너무 많이 줄인 측면이 있다. 결론은 <b>350주 복원은 금지, 120–140주까지 조건부 재확대</b>다.
+    </div>
+    <table>
+      <tr><th>항목</th><th>실행안</th></tr>
+      <tr><td>현재 보유</td><td>100주, 현재가 기준 약 $39,100, 포트 7.9%</td></tr>
+      <tr><td>목표 비중</td><td>8.5–10.0%; 강한 KPI 확인 시 최대 11%, 그 이상은 금지</td></tr>
+      <tr><td>1차 매수</td><td>$360 이하 10주</td></tr>
+      <tr><td>2차 매수</td><td>$335 이하 10주</td></tr>
+      <tr><td>3차 매수</td><td>실적 후 beat + raise + FSD/Robotaxi KPI 확인 시 10–20주, $475 이하</td></tr>
+      <tr><td>실적 전 행동</td><td>100주 보유. $430 근접 시 신규 매수 금지. $360 이하에서만 1차</td></tr>
+      <tr><td>실적 후 행동</td><td>KPI 확인 시 120–140주까지 확대. 숫자 없는 beat이면 보유만</td></tr>
+      <tr><td>목표가 도달 시</td><td>$575 도달 시 20주 차익실현. $725 overshoot 시 30–40주 축소</td></tr>
+      <tr><td>Thesis 훼손 시</td><td>NHTSA 제한/Robotaxi 지연/FCF 경로 훼손 시 60–70주로 축소</td></tr>
+    </table>
+
+    <h3>재매수 자금 조달 — 어떤 주식을 팔 것인가</h3>
+    <table>
+      <tr><th>우선순위</th><th>종목</th><th>행동</th><th>이유</th></tr>
+      <tr><td>1</td><td>ADI</td><td>이전 포트폴리오 맥락상 +수익권·trim 제안이 있었으므로 3–6주 축소 후보</td><td>성숙 analog/산업 cycle exposure. TSLA의 비대칭 AI optionality를 늘릴 자금원으로 가장 무난</td></tr>
+      <tr><td>2</td><td>DELL</td><td>AI server crowding이 과열이면 3–6주 축소</td><td>AI infra 수혜는 유지하되 crowded/rate-sensitive. 일부 차익으로 TSLA optionality를 사는 구조</td></tr>
+      <tr><td>3</td><td>NVTS</td><td>5주 축소 가능하나 비중이 작아 자금 효과는 미미</td><td>희석/상업화 리스크가 큰 소형주. 단 proceeds는 작음</td></tr>
+      <tr><td>보류</td><td>NU</td><td>사전 trim 레벨 도달 시에만 일부 축소</td><td>금융/브라질 소비 credit thesis가 TSLA와 상관 낮아 diversification 가치</td></tr>
+      <tr><td>보류</td><td>MU / SK hynix</td><td>HBM thesis 훼손 전까지 TSLA 자금원으로 매도 금지</td><td>AI memory earnings revision이 상대적으로 더 실적 기반</td></tr>
+      <tr><td>검증 필요</td><td>LWLG</td><td>현재 비중·수익률 미확인, 판단 보류</td><td>정보 부족 상태에서 매도 권고 금지</td></tr>
+    </table>
+
+    <h3>100주 기준 기대손익</h3>
+    <table>
+      <tr><th>Case</th><th>목표가</th><th>확률</th><th>현재가 대비 손익</th><th>매입원가 추정 대비 총손익*</th></tr>
+      <tr><td>Bear</td><td class="num">$300</td><td class="num">20%</td><td class="num">-$9,100</td><td class="num">+$11,814</td></tr>
+      <tr><td>Base</td><td class="num">$410</td><td class="num">45%</td><td class="num">+$1,900</td><td class="num">+$22,814</td></tr>
+      <tr><td>Bull</td><td class="num">$575</td><td class="num">25%</td><td class="num">+$18,400</td><td class="num">+$39,314</td></tr>
+      <tr><td>Overshoot</td><td class="num">$725</td><td class="num">10%</td><td class="num">+$33,400</td><td class="num">+$54,314</td></tr>
+      <tr><td>Probability-weighted</td><td class="num">$460.50</td><td class="num">100%</td><td class="num">+$6,950</td><td class="num">+$27,864</td></tr>
+    </table>
+    <p class="note">* 현재 수익률 +115%를 역산하면 평균 매입가는 약 $181.86로 추정된다.</p>
+  </section>
+
+  <section>
+    <h2>15. 보고서 전 자체 점검</h2>
+    <table>
+      <tr><th>점검 질문</th><th>답변</th></tr>
+      <tr><td>단순 컨센서스 자료만 요약했는가?</td><td>아니오. SEC 10-Q, 10-K, IR deck, RDW/NHTSA, Reuters, 컨센서스 자료를 사건 체인으로 연결했다.</td></tr>
+      <tr><td>공시·고객사·공급망·자금조달·컨콜을 시간순으로 연결했는가?</td><td>예. $2B AI hardware M&A, capex $25B+, AI5/AI6, Robotaxi 확장, RDW/NHTSA를 동일 방향성/반대 증거로 정리했다.</td></tr>
+      <tr><td>익명 고객/대상을 추정할 때 사실과 추론을 분리했는가?</td><td>예. AI hardware acquisition 대상은 확정하지 않고 후보와 확률로 표시했다.</td></tr>
+      <tr><td>Bull case를 너무 보수적으로 눌렀는가?</td><td>아니오. $575 bull과 $725 overshoot를 별도 산정했다. 단 $391 현재가는 이미 option premium을 포함한다고 판단했다.</td></tr>
+      <tr><td>루머를 확정 사실처럼 쓴 부분은 없는가?</td><td>LGES/LFP, hyperscaler/telecom 연결은 확인 수준을 낮게 표시했다.</td></tr>
+      <tr><td>자본구조와 희석을 반영했는가?</td><td>예. diluted 3.60B, net cash, AI M&A stock issuance, SBC, short interest/borrow fee를 반영했다.</td></tr>
+      <tr><td>왜 지금이 변곡점인가?</td><td>2026년에는 RDW 승인, Robotaxi 지역 확대, AI hardware M&A, AI5 design, capex $25B+가 동시에 발생했다.</td></tr>
+      <tr><td>다음 실적에서 무엇이 확인되면 수정해야 하는가?</td><td>FSD subs, Robotaxi fleet/utilization, capex cadence, Energy margin ex one-time, NHTSA 업데이트다.</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>최종 요약</h2>
+    <table>
+      <tr><td>현재 주가</td><td><b>$391.00</b></td></tr>
+      <tr><td>보수적 내재가치</td><td>$165</td></tr>
+      <tr><td>12개월 base target</td><td>$410</td></tr>
+      <tr><td>bull target</td><td>$575</td></tr>
+      <tr><td>overshoot target</td><td>$725</td></tr>
+      <tr><td>실적 발표 전 trading target</td><td>$430, 단 $360 이하에서만 1차 매수</td></tr>
+      <tr><td>실적 발표 후 재평가 target</td><td>$475, beat + raise + FSD/Robotaxi KPI가 동반될 때</td></tr>
+      <tr><td>하방 리스크</td><td>$300–320 1차, NHTSA/FCF thesis break 시 $240–260</td></tr>
+      <tr><td>12개월 기대수익률</td><td>Base +4.9%, 확률가중 +17.8%</td></tr>
+      <tr><td>보유 수량 기준 기대손익</td><td>100주 기준 base +$1,900, bull +$18,400, overshoot +$33,400, 확률가중 +$6,950</td></tr>
+      <tr><td>추천 행동</td><td>Hold + 조건부 비중 확대</td></tr>
+      <tr><td>목표 비중</td><td>8.5–10.0%, 강한 KPI 확인 시 최대 11%</td></tr>
+      <tr><td>실적 발표 전 행동</td><td>100주 보유. $360 이하 10주만 추가 가능</td></tr>
+      <tr><td>실적 발표 후 행동</td><td>beat + raise + KPI 확인 시 10–20주 추가</td></tr>
+      <tr><td>목표가 도달 시 행동</td><td>$575에서 20주 차익, $725에서 30–40주 축소</td></tr>
+      <tr><td>thesis 훼손 시 행동</td><td>NHTSA 제한/FCF 경로 훼손/Robotaxi 정체 시 60–70주로 축소</td></tr>
+      <tr><td>가장 중요한 체크포인트</td><td>FSD active subs와 Robotaxi fleet/utilization이 capex를 정당화하는가</td></tr>
+      <tr><td>내가 틀렸다고 인정해야 하는 조건</td><td>2026~2027에 FSD/Robotaxi KPI가 실체화되지 않고, capex만 증가하며, auto/energy margin이 동시에 꺾이는 경우</td></tr>
+    </table>
+  </section>
+
+  <section id="sources">
+    <h2>참조한 자료 출처</h2>
+    <ol>
+      <li><a href="https://ir.tesla.com/">Tesla Investor Relations</a></li>
+      <li><a href="https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q1-2026-Update.pdf">Tesla Q1 2026 Update Deck</a></li>
+      <li><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm">Tesla Form 10-Q, quarter ended March 31, 2026</a></li>
+      <li><a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm">Tesla Form 10-K, fiscal year 2025</a></li>
+      <li><a href="https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q4-2025-Update.pdf">Tesla Q4/FY 2025 Update Deck</a></li>
+      <li><a href="https://www.rdw.nl/en/news/2026/rdw-explanation-of-european-type-approval-tesla-with-provisional-validity-in-the-netherlands">RDW — FSD Supervised type approval explanation</a></li>
+      <li><a href="https://static.nhtsa.gov/odi/inv/2026/INOA-EA26002-10023.pdf">NHTSA EA26002 investigation notice</a></li>
+      <li><a href="https://www.reuters.com/business/autos-transportation/tesla-revenue-misses-estimates-demand-weakens-2026-04-22/">Reuters — Tesla Q1 2026, capex and AI investment</a></li>
+      <li><a href="https://www.reuters.com/business/media-telecom/jp-morgan-upgrades-tesla-neutral-sees-robotics-driving-long-term-growth-2026-06-05/">Reuters — JPMorgan upgrade, robotics/autonomy thesis</a></li>
+      <li><a href="https://www.reuters.com/business/autos-transportation/tesla-rolls-out-unsupervised-robotaxis-austin-2026-06-03/">Reuters — Austin Metro robotaxi rollout</a></li>
+      <li><a href="https://www.reuters.com/business/autos-transportation/tesla-rolls-out-robotaxis-dallas-houston-2026-04-18/">Reuters — Dallas/Houston robotaxi rollout</a></li>
+      <li><a href="https://www.reuters.com/business/autos-transportation/us-auto-safety-regulator-opens-probe-into-tesla-vehicles-with-fsd-2026-03-19/">Reuters — NHTSA FSD probe</a></li>
+      <li><a href="https://www.reuters.com/business/us-rate-futures-raise-rate-hike-odds-december-after-jobs-data-2026-06-05/">Reuters — Fed rate-hike odds after jobs data</a></li>
+      <li><a href="https://www.bls.gov/news.release/empsit.nr0.htm">U.S. BLS Employment Situation, May 2026</a></li>
+      <li><a href="https://companiesmarketcap.com/tesla/marketcap/">CompaniesMarketCap — Tesla market cap history</a></li>
+      <li><a href="https://www.marketbeat.com/stocks/NASDAQ/TSLA/short-interest/">MarketBeat — TSLA short interest</a></li>
+      <li><a href="https://companiesmarketcap.com/tesla/cost-to-borrow/">CompaniesMarketCap — TSLA cost to borrow</a></li>
+      <li><a href="https://www.zacks.com/stock/quote/TSLA/detailed-earning-estimates">Zacks — TSLA detailed earnings estimates</a></li>
+      <li><a href="https://seekingalpha.com/symbol/TSLA/earnings">Seeking Alpha — TSLA earnings estimates/date</a></li>
+      <li><a href="https://www.google.com/finance/quote/TSLA:NASDAQ">Google Finance — TSLA quote and analyst summary</a></li>
+      <li><a href="https://kr.investing.com/equities/tesla-motors">Investing.com Korea — TSLA quote/consensus</a></li>
+    </ol>
+    <p class="footer">면책: 본 자료는 투자 조언이 아니라 리서치 목적의 분석이다. 공시·보도·시장 데이터는 작성 시점 확인 가능한 자료를 바탕으로 했으며, 실시간 가격과 컨센서스는 데이터 벤더별 차이가 있을 수 있다. 확인 불가능한 항목은 추론 또는 검증 필요로 표시했다.</p>
+  </section>
+</div>
+</body>
+</html>

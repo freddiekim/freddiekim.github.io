@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SK하이닉스 Forensic Deep Dive | 000660</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Public+Sans:wght@300;400;500;600;700;800&family=Spectral:wght@300;400;500;600&display=swap');
+
+:root{
+  --paper:#F4EFE6;
+  --ink:#1C1A17;
+  --rust:#C84B31;
+  --mustard:#E0A106;
+  --teal:#2E6E6A;
+  --sky:#4A7BA6;
+  --olive:#6B7A3F;
+  --plum:#7A4A52;
+  --line:#1C1A17;
+  --soft:#E8E0D2;
+  --soft2:#DCD2BE;
+  --green:#3E7C4F;
+  --red:#C84B31;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Public Sans',sans-serif;
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+
+/* ---- TYPOGRAPHY ---- */
+h1,h2,h3,h4{font-family:'Fraunces',serif;line-height:1.1;font-weight:600;}
+.serif{font-family:'Spectral',serif;}
+
+/* ---- TOP BANNER ---- */
+header.masthead{
+  background:var(--ink);
+  color:var(--paper);
+  padding:64px 0 56px;
+  position:relative;
+  overflow:hidden;
+  border-bottom:6px solid var(--rust);
+}
+.masthead .shape{position:absolute;border-radius:50%;}
+.masthead .c1{width:280px;height:280px;background:var(--rust);top:-90px;right:-40px;opacity:.92;}
+.masthead .c2{width:140px;height:140px;background:var(--mustard);bottom:-50px;right:200px;opacity:.9;}
+.masthead .c3{width:0;height:0;border-left:90px solid transparent;border-right:90px solid transparent;border-bottom:150px solid var(--teal);position:absolute;top:30px;right:300px;opacity:.55;transform:rotate(18deg);border-radius:0;}
+.masthead .wrap{position:relative;z-index:2;}
+.kicker{font-family:'Public Sans';font-weight:700;letter-spacing:.32em;text-transform:uppercase;font-size:.72rem;color:var(--mustard);margin-bottom:18px;}
+.masthead h1{font-size:clamp(2.6rem,6vw,4.6rem);font-weight:900;letter-spacing:-.02em;color:var(--paper);max-width:13ch;}
+.masthead h1 em{font-style:italic;color:var(--mustard);font-weight:500;}
+.masthead .sub{margin-top:22px;font-family:'Spectral',serif;font-size:1.18rem;max-width:54ch;color:#E4DDCF;font-weight:300;}
+.tickerbar{display:flex;flex-wrap:wrap;gap:0;margin-top:38px;border:1px solid #4a463f;}
+.tickerbar div{padding:14px 22px;border-right:1px solid #4a463f;}
+.tickerbar div:last-child{border-right:none;}
+.tickerbar .lab{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#9d978a;font-weight:700;}
+.tickerbar .val{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;margin-top:2px;color:var(--paper);}
+.tickerbar .val.dn{color:#F0794F;}
+.tickerbar .val.up{color:#7FB98A;}
+
+/* ---- SECTION FRAME ---- */
+section{padding:60px 0;border-bottom:1px solid var(--soft2);}
+.secnum{font-family:'Fraunces',serif;font-size:.95rem;font-weight:700;color:var(--rust);letter-spacing:.05em;}
+.sectitle{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700;margin:6px 0 8px;letter-spacing:-.015em;max-width:24ch;}
+.secintro{font-family:'Spectral',serif;font-size:1.08rem;color:#46423b;max-width:62ch;margin-bottom:30px;font-weight:300;}
+p{margin-bottom:15px;max-width:74ch;}
+section p strong{font-weight:700;}
+
+/* ---- THESIS CARDS ---- */
+.thesis-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink);}
+.thesis-grid > div{padding:30px 32px;}
+.thesis-grid .bull{background:var(--teal);color:var(--paper);border-right:2px solid var(--ink);}
+.thesis-grid .bear{background:var(--plum);color:var(--paper);}
+.thesis-grid h4{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px;opacity:.85;font-family:'Public Sans';font-weight:700;}
+.thesis-grid p{font-family:'Spectral',serif;font-size:1.16rem;font-weight:400;margin-bottom:0;color:#fff;}
+
+.dualview{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;}
+.dualview .box{padding:26px 28px;border:1.5px solid var(--ink);background:#fff;}
+.dualview .box.old{background:var(--soft);}
+.dualview .box.new{background:#fff;border-color:var(--rust);border-width:2px;}
+.dualview .tag{display:inline-block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:4px 10px;margin-bottom:14px;}
+.dualview .old .tag{background:var(--soft2);color:#5a554c;}
+.dualview .new .tag{background:var(--rust);color:#fff;}
+.dualview h4{font-size:1.25rem;margin-bottom:10px;}
+.dualview p{font-size:.96rem;color:#3a362f;margin-bottom:0;}
+
+/* ---- RATING BADGE ---- */
+.ratingrow{display:flex;flex-wrap:wrap;gap:18px;margin-top:30px;}
+.ratingbadge{flex:1;min-width:230px;border:2px solid var(--ink);padding:22px 24px;background:#fff;}
+.ratingbadge .lab{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#7a756b;font-weight:700;margin-bottom:8px;}
+.ratingbadge .big{font-family:'Fraunces',serif;font-size:2rem;font-weight:900;letter-spacing:-.01em;}
+.ratingbadge.hold{background:var(--mustard);border-color:var(--ink);}
+.ratingbadge.hold .big{color:var(--ink);}
+.ratingbadge.hold .lab{color:#6b5202;}
+.ratingbadge .note{font-size:.85rem;margin-top:6px;color:#4a463f;font-family:'Spectral',serif;}
+
+/* ---- KEY SIGNALS ---- */
+.signals{counter-reset:sig;}
+.signal{display:grid;grid-template-columns:64px 1fr;gap:0;border:1.5px solid var(--ink);margin-bottom:-1.5px;background:#fff;}
+.signal .n{background:var(--ink);color:var(--mustard);font-family:'Fraunces',serif;font-size:1.7rem;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.signal .body{padding:20px 26px;}
+.signal h4{font-size:1.18rem;margin-bottom:6px;}
+.signal p{font-size:.95rem;margin-bottom:0;color:#3a362f;}
+.signal .conf{display:inline-block;font-size:.6rem;font-weight:800;letter-spacing:.1em;padding:2px 8px;border-radius:2px;margin-left:8px;vertical-align:middle;text-transform:uppercase;}
+.conf.A{background:var(--green);color:#fff;}
+.conf.B{background:var(--mustard);color:var(--ink);}
+.conf.C{background:var(--plum);color:#fff;}
+
+/* ---- TABLES ---- */
+.tablewrap{overflow-x:auto;margin:24px 0;border:1.5px solid var(--ink);}
+table{width:100%;border-collapse:collapse;font-size:.88rem;background:#fff;min-width:640px;}
+th{background:var(--ink);color:var(--paper);text-align:left;padding:12px 14px;font-family:'Public Sans';font-weight:700;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;}
+td{padding:11px 14px;border-bottom:1px solid var(--soft2);vertical-align:top;color:#2a2722;}
+tr:last-child td{border-bottom:none;}
+tr:nth-child(even) td{background:var(--paper);}
+td .c-A{color:var(--green);font-weight:700;}
+td .c-B{color:var(--mustard);font-weight:700;}
+td .c-C{color:var(--plum);font-weight:700;}
+.num{font-variant-numeric:tabular-nums;font-family:'Fraunces',serif;font-weight:600;}
+
+/* ---- TIMELINE ---- */
+.timeline{position:relative;margin-top:30px;padding-left:34px;}
+.timeline::before{content:'';position:absolute;left:9px;top:8px;bottom:8px;width:3px;background:var(--ink);}
+.tl-item{position:relative;margin-bottom:26px;}
+.tl-item::before{content:'';position:absolute;left:-31px;top:5px;width:16px;height:16px;border-radius:50%;background:var(--rust);border:3px solid var(--paper);box-shadow:0 0 0 2px var(--ink);}
+.tl-item.teal::before{background:var(--teal);}
+.tl-item.mustard::before{background:var(--mustard);}
+.tl-date{font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;color:var(--rust);}
+.tl-item.teal .tl-date{color:var(--teal);}
+.tl-item.mustard .tl-date{color:#a87c04;}
+.tl-item h4{font-size:1.08rem;margin:2px 0 4px;}
+.tl-item p{font-size:.9rem;margin-bottom:0;color:#3a362f;}
+
+/* ---- STAT STRIP ---- */
+.statstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:2px solid var(--ink);margin:24px 0;}
+.statstrip > div{padding:22px 20px;border-right:1.5px solid var(--ink);}
+.statstrip > div:last-child{border-right:none;}
+.statstrip .v{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:900;letter-spacing:-.01em;line-height:1;}
+.statstrip .l{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:#7a756b;font-weight:700;margin-top:8px;}
+.statstrip .d{font-size:.82rem;color:#4a463f;margin-top:4px;font-family:'Spectral',serif;}
+
+/* ---- ECOSYSTEM MAP ---- */
+.ecomap{background:#fff;border:2px solid var(--ink);padding:30px;margin-top:24px;}
+
+/* ---- VALUATION BRIDGE ---- */
+.bridge{display:flex;align-items:flex-end;gap:4px;margin:30px 0;flex-wrap:wrap;}
+.bridge .bar{flex:1;min-width:90px;text-align:center;}
+.bridge .barfill{border:1.5px solid var(--ink);position:relative;}
+.bridge .barlabel{font-size:.72rem;font-weight:700;margin-top:8px;color:#3a362f;}
+.bridge .barval{font-family:'Fraunces',serif;font-weight:700;font-size:.92rem;margin-bottom:4px;}
+
+/* ---- TARGET TABLE highlight ---- */
+.tgt-base{background:var(--mustard)!important;color:var(--ink);}
+.tgt-base td{background:transparent!important;color:var(--ink)!important;font-weight:600;}
+
+/* ---- RISK CARDS ---- */
+.riskcard{border-left:5px solid var(--rust);background:#fff;border:1.5px solid var(--ink);border-left-width:6px;padding:18px 24px;margin-bottom:16px;}
+.riskcard h4{font-size:1.05rem;margin-bottom:8px;color:var(--ink);}
+.riskcard .trigger{font-family:'Spectral',serif;font-size:.92rem;color:#3a362f;}
+.riskcard .trigger b{color:var(--rust);font-weight:600;}
+
+/* ---- ACTION BOX ---- */
+.actionbox{background:var(--ink);color:var(--paper);padding:38px;border:none;margin-top:10px;}
+.actionbox h3{color:var(--mustard);font-size:1.7rem;margin-bottom:20px;}
+.actionbox .agrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid #45413a;}
+.actionbox .agrid > div{padding:16px 20px;border-right:1px solid #45413a;border-bottom:1px solid #45413a;}
+.actionbox .agrid > div:nth-child(2n){border-right:none;}
+.actionbox .agrid .k{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:#9d978a;font-weight:700;}
+.actionbox .agrid .vv{font-family:'Spectral',serif;font-size:1.05rem;margin-top:4px;color:var(--paper);}
+
+/* ---- FINAL SUMMARY ---- */
+.finalsum{background:var(--rust);color:#fff;padding:42px;border:2px solid var(--ink);}
+.finalsum h2{color:#fff;font-size:2rem;margin-bottom:24px;}
+.finalsum .frow{display:flex;justify-content:space-between;gap:20px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.25);font-family:'Spectral',serif;}
+.finalsum .frow .fk{font-weight:500;opacity:.92;}
+.finalsum .frow .fv{font-family:'Fraunces',serif;font-weight:700;text-align:right;}
+.finalsum .frow:last-child{border-bottom:none;}
+
+/* ---- MISC ---- */
+.callout{background:var(--soft);border-left:5px solid var(--teal);padding:18px 24px;margin:22px 0;font-family:'Spectral',serif;font-size:1.02rem;}
+.callout.warn{border-left-color:var(--rust);background:#F6E5DD;}
+.pill{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border:1.5px solid var(--ink);margin:2px 4px 2px 0;}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+ul.clean{list-style:none;margin:12px 0;}
+ul.clean li{padding:7px 0 7px 26px;position:relative;font-size:.95rem;color:#2f2c26;border-bottom:1px dashed var(--soft2);}
+ul.clean li::before{content:'';position:absolute;left:0;top:14px;width:9px;height:9px;background:var(--rust);}
+ul.clean li:last-child{border-bottom:none;}
+.footnote{font-size:.78rem;color:#7a756b;font-family:'Public Sans';}
+.src{font-size:.8rem;color:var(--sky);word-break:break-all;}
+.disclaimer{background:var(--soft);padding:24px;font-size:.82rem;color:#5a554c;font-family:'Public Sans';line-height:1.6;border:1px solid var(--soft2);}
+
+@media(max-width:780px){
+  .thesis-grid,.dualview,.split2,.statstrip,.actionbox .agrid{grid-template-columns:1fr;}
+  .statstrip > div{border-right:none;border-bottom:1.5px solid var(--ink);}
+  .statstrip > div:last-child{border-bottom:none;}
+  .thesis-grid .bull{border-right:none;border-bottom:2px solid var(--ink);}
+}
+/* chart */
+svg{max-width:100%;height:auto;}
+.chartcard{background:#fff;border:2px solid var(--ink);padding:24px;margin:24px 0;}
+.chartcard h4{font-size:1.1rem;margin-bottom:6px;}
+.chartcard .csub{font-size:.85rem;color:#7a756b;margin-bottom:14px;font-family:'Spectral',serif;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:.78rem;}
+.legend span{display:flex;align-items:center;gap:6px;}
+.legend i{width:14px;height:4px;display:inline-block;}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <span class="shape c1"></span>
+  <span class="shape c2"></span>
+  <span class="shape c3"></span>
+  <div class="wrap">
+    <div class="kicker">Forensic Equity Deep Dive · 비대칭 Thesis 발굴</div>
+    <h1>SK하이닉스 <em>000660</em><br>독점에서 과점으로</h1>
+    <p class="sub">시장이 "AI 메모리 황제"로 부르는 이 회사는, 사실 슈퍼사이클 이익이 정점을 향하는 동시에 독점 내러티브가 과점으로 재편되는 변곡점 한가운데 서 있다. 이 보고서는 6/5 "검은 금요일" 급락이 무엇을 가격에 반영했고 무엇을 아직 반영하지 못했는지를 추적한다.</p>
+    <div class="tickerbar">
+      <div><div class="lab">현재 주가 (6/6 종가)</div><div class="val dn">₩2,070,000</div></div>
+      <div><div class="lab">전일 대비</div><div class="val dn">−9.9%</div></div>
+      <div><div class="lab">52주 범위</div><div class="val">₩227.5K–2,407K</div></div>
+      <div><div class="lab">보유 / 비중</div><div class="val">6주 · 1.6%</div></div>
+      <div><div class="lab">분석 기준일</div><div class="val">6 / 7</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 0. EXECUTIVE SUMMARY ============ -->
+<section id="exec">
+<div class="wrap">
+  <div class="secnum">00 — EXECUTIVE SUMMARY</div>
+  <h2 class="sectitle">한 문장으로 압축한 투자 판단</h2>
+  <p class="secintro">정식 보고서에 앞서, 발견한 핵심을 thesis와 anti-thesis로 충돌시킨다. 핵심은 "좋은 회사인가"가 아니라 "지금 주가가 무엇을 사고 있는가"이다.</p>
+
+  <div class="thesis-grid">
+    <div class="bull">
+      <h4>▲ 투자 Thesis</h4>
+      <p>메모리가 "스팟 가격 코모디티"에서 "선수주·후증설 LTA 모델"로 구조 전환 중이며, SK하이닉스는 이 전환의 최대 수혜자다. 이익의 질(quality)이 바뀌면 코리아 디스카운트·시클리컬 디스카운트가 동시에 풀리는 더블 리레이팅이 가능하다.</p>
+    </div>
+    <div class="bear">
+      <h4>▼ Anti-Thesis</h4>
+      <p>72% 영업이익률과 35조 순현금은 사이클 정점의 모습이며, 6/5 HBM4 멀티벤더 인증은 "독점 70%"를 "과점 ~50%"로 되돌린 첫 신호다. 현재 가격은 base가 아니라 슈퍼사이클이 2027년까지 꺾이지 않는다는 bull case를 사는 중이다.</p>
+    </div>
+  </div>
+
+  <div class="dualview">
+    <div class="box old">
+      <span class="tag">시장이 보는 회사</span>
+      <h4>AI 메모리 독점 황제</h4>
+      <p>엔비디아 HBM 물량의 70%를 쥔 대체 불가능한 단독 공급자. "100만닉스"를 넘어 1조 달러 기업·뉴욕 ADR 상장으로 가는 성장주. 사실상 무위험 AI 베팅.</p>
+    </div>
+    <div class="box new">
+      <span class="tag">내가 새롭게 보는 회사</span>
+      <h4>과점 전환기의 LTA 선점자</h4>
+      <p>독점이 아니라 "선점된 과점(50% 점유)"의 1위. 진짜 변수는 점유율이 아니라 LTA(장기공급계약) 비중 상승으로 이익 변동성이 줄어드느냐다. 그것이 증명되면 멀티플이, 안 되면 사이클이 가격을 지배한다.</p>
+    </div>
+  </div>
+
+  <div class="ratingrow">
+    <div class="ratingbadge hold">
+      <div class="lab">투자 등급</div>
+      <div class="big">HOLD</div>
+      <div class="note">핵심 보유, 신규 비중 확대는 조정 확인 후</div>
+    </div>
+    <div class="ratingbadge">
+      <div class="lab">포트폴리오 행동</div>
+      <div class="big" style="font-size:1.5rem;">전량 보유</div>
+      <div class="note">6주 1.6% 유지 · 조정 시 분할 매수 대기</div>
+    </div>
+    <div class="ratingbadge">
+      <div class="lab">12M Base Target</div>
+      <div class="big" style="color:var(--teal);">₩2,550K</div>
+      <div class="note">현재가 대비 +23%</div>
+    </div>
+  </div>
+
+  <div class="callout"><b>리레이팅이 가능한 이유:</b> LTA 비중 상승으로 메모리 이익이 "예측 가능"해지면 PBR(2.1배)·PER(5~6배)이 받던 시클리컬 디스카운트가 해소되고, ADR 상장이 마이크론(PER 18~34배) 키맞추기를 촉발할 수 있다.</div>
+  <div class="callout warn"><b>리레이팅이 실패하는 조건:</b> ① HBM4 양산 수율에서 삼성·마이크론이 격차를 좁혀 점유율이 50% 아래로, ② 2026년 하반기 일반 D램/NAND 가격이 꺾여 슈퍼사이클 정점이 확인될 때, ③ ADR 신주 발행이 오버행으로 작용할 때.</div>
+</div>
+</section>
+
+<!-- ============ 1. KEY INFLECTION SIGNALS ============ -->
+<section id="signals">
+<div class="wrap">
+  <div class="secnum">01 — 시장이 놓친 핵심 변곡점</div>
+  <h2 class="sectitle">처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+  <p class="secintro">개별 공시는 작아 보여도 시간순으로 연결하면 "독점 성장주"라는 표면 아래 "과점 전환 + 이익 질 변화 + 자본 재배치"라는 큰 구조가 드러난다. 각 신호에 신뢰도(A 확정 / B 합리적 추론 / C 미검증 가설)를 부여했다.</p>
+
+  <div class="signals">
+    <div class="signal">
+      <div class="n">1</div>
+      <div class="body">
+        <h4>6/5 급락은 "실적 악재"가 아니라 "내러티브 재편"이다<span class="conf A">A 확정</span></h4>
+        <p>−9.5% 하락의 트리거는 ① 브로드컴 쇼크 + 예상보다 강한 미국 고용지표(금리인하 기대 후퇴)로 인한 AI주 전반 조정과 ② 엔비디아의 HBM4 <b>멀티벤더(삼성·SK·마이크론)</b> 공식 인증이 겹친 것. 펀더멘털이 아니라 "단독 70% 독점"이라는 스토리가 흔들렸다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">2</div>
+      <div class="body">
+        <h4>점유율은 59%→~50%로 "정상화" 중이다<span class="conf A">A 확정</span></h4>
+        <p>SK하이닉스의 2026년 글로벌 HBM 점유율은 2025년 59%에서 약 50%로 소폭 하락, 삼성은 20%→28%로 상승 전망(외신 추산). Vera Rubin HBM4 초기 물량은 여전히 SK가 ~70% 선점하지만, 마이크론이 Rubin CPX(중급 추론용)로 재진입했다. <b>독점이 아니라 "선점된 과점"</b>이 정확한 표현이다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">3</div>
+      <div class="body">
+        <h4>밸류에이션 방법론 변경 = 리레이팅이자 고점 경계 신호<span class="conf B">B 추론</span></h4>
+        <p>SK증권 등이 평가 기준을 PBR→PER로 바꾸며 목표가를 100만원(액분 전)으로 상향. "선수주 후증설"로 이익이 안정화된다는 논리. <b>다만 2021년 삼성 고점 때도 SOTP로 방법론을 바꿔 목표가를 올렸다</b>—방법론 변경 자체가 사이클 후반의 전형적 시그널일 수 있다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">4</div>
+      <div class="body">
+        <h4>"2026년 물량 전량 예약 판매" = 가시성이자 천장<span class="conf B">B 추론</span></h4>
+        <p>SK하이닉스는 2026년 HBM 물량을 이미 전량 예약 판매. 이는 매출 가시성을 보장하지만, 동시에 <b>2026년 안에는 가격·물량 서프라이즈의 추가 상방이 제한</b>됨을 의미. 다음 주가 동력은 2027년 LTA 조건과 HBM4E(48GB·12단) 양산 시점으로 이동한다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">5</div>
+      <div class="body">
+        <h4>SEC Form F-1 비공개 제출 — ADR 상장은 진행 중<span class="conf A">A 확정</span></h4>
+        <p>3/24 SEC에 ADR 상장용 Form F-1 비공개 제출, 연내 뉴욕 입성·최대 140억달러 조달 추진. 자사주 기반 ADR이 유력하나 신주 발행 가능성도 거론. <b>마이크론 키맞추기(PER 5.6배→18배)</b>가 bull 시나리오의 핵심이지만, 신주는 오버행 리스크.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">6</div>
+      <div class="body">
+        <h4>빅테크 3년+ 장기공급계약(LTA) 협의 = 비즈니스 모델 전환의 본질<span class="conf B">B 추론</span></h4>
+        <p>MS·구글 등이 3년 이상 장기 공급계약 협의 중이라는 보도. 노무라는 "물량·가격·선급금 측면 유리한 LTA"가 성사되면 메모리의 <b>리스크 프리미엄이 낮아져 재평가 근거</b>가 된다고 분석. 이것이 #3 방법론 변경의 실제 근거. 진짜 thesis는 점유율이 아니라 여기에 있다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">7</div>
+      <div class="body">
+        <h4>순현금 35조원 — 자본구조가 성장주에서 캐시카우로<span class="conf A">A 확정</span></h4>
+        <p>1Q26 말 현금성 자산 54.3조, 차입금 19.3조 → <b>순현금 35조원</b>. 차입금은 분기 2.9조 감소. 소형 적자 성장주의 희석·생존 리스크와 정반대 구조. 동시에 청주 M15X·용인 클러스터에 수십조 capex가 들어가, AI 투자가 식으면 거대 고정비 부메랑이 된다.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">8</div>
+      <div class="body">
+        <h4>NAND 출하 −10%는 약세가 아니라 의도된 믹스 전환<span class="conf A">A 확정</span></h4>
+        <p>1Q26 NAND 출하량이 전분기 대비 약 10% 감소했으나 이는 수요 약세가 아니라 <b>고부가 제품(고용량 eSSD) 믹스 전환과 생산 리드타임 증가에 따른 의도적 단품 축소</b>. ASP는 70% 중반 급등. 표면 숫자만 보면 오해할 수 있는 신호.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">9</div>
+      <div class="body">
+        <h4>금리: 강한 고용 = SK하이닉스 밸류에이션에 직접 역풍<span class="conf B">B 추론</span></h4>
+        <p>6/5 급락에 "예상보다 강한 미국 고용지표"가 작용. 2026년 연준은 상반기 집중 인하 후 둔화 전망이나, <b>고용 강세 → 인하 지연 → 고PER 성장주 할인율 상승</b> 경로가 SK하이닉스 같은 고밸류 AI주에 가장 민감하게 작용. 워시 신임 의장 스탠스가 변수.</p>
+      </div>
+    </div>
+    <div class="signal">
+      <div class="n">10</div>
+      <div class="body">
+        <h4>HBM4 16단의 "수율 장벽(Yield Wall)"이 진짜 해자<span class="conf B">B 추론</span></h4>
+        <p>HBM4 16단 적층 시 웨이퍼를 30㎛(머리카락 1/3)까지 깎으면서 수율을 확보해야 함. 소프트웨어가 아니라 <b>MR-MUF 패키징·실리콘·공정 레벨의 물리적 난도</b>가 경쟁사 추격을 늦추는 진짜 lock-in. 사양 경쟁이 아니라 양산 품질 일관성과 납기 신뢰성이 점유율을 가른다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:30px;"><b>왜 아직 주가에 완전히 반영되지 않았는가?</b> 시장은 6/5에 "독점→과점" 디레이팅을 1차로 가격에 반영했지만(−9.5%), LTA 모델 전환에 따른 <b>이익 질 개선(리레이팅 상방)</b>과 <b>슈퍼사이클 정점 리스크(추가 하방)</b>는 둘 다 아직 확정되지 않아 가격이 양방향으로 열려 있다. 다음 실적(7/29)과 ADR 가격 결정이 방향을 정한다.</p></div>
+</div>
+</section>
+
+<!-- ============ 2. BUSINESS MODEL EVOLUTION ============ -->
+<section id="bizmodel">
+<div class="wrap">
+  <div class="secnum">02 — 비즈니스 모델의 진화</div>
+  <h2 class="sectitle">스팟 코모디티에서 선수주 LTA 플랫폼으로</h2>
+  <p class="secintro">이 회사가 진짜 변곡점에 있다면, 그 증거는 점유율이 아니라 "매출 구조"에 있어야 한다. 과거 고객군과 미래 고객군, 그리고 계약 구조가 어떻게 바뀌는지를 본다.</p>
+
+  <div class="split2">
+    <div>
+      <h3 style="font-size:1.3rem;margin-bottom:12px;color:var(--plum);">레거시 모델 (~2023)</h3>
+      <ul class="clean">
+        <li>범용 D램·NAND 중심, 스팟/고정거래가에 이익이 좌우되는 전형적 시클리컬</li>
+        <li>고객 다변화, 단가 협상력 약함 → PBR로 평가받는 "코모디티"</li>
+        <li>다운사이클마다 적자 전환, 이익 변동성이 멀티플을 눌렀음</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:1.3rem;margin-bottom:12px;color:var(--teal);">전환 중인 모델 (2024~)</h3>
+      <ul class="clean">
+        <li>HBM 중심 고부가 믹스 + 빅테크와 3년+ LTA(선수주 후증설)</li>
+        <li>엔비디아·MS·구글 등과 선급금·물량 고정 → reference-grade 공급 파트너</li>
+        <li>이익 가시성 확보 → PER 적용 정당화 시도 (코모디티 탈피 시도)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">단순 부품 공급자에서 "reference/turnkey 공급자"로 진화 중인가? <b>부분적으로 그렇다.</b> HBM은 고객사와 초기 설계 단계부터 협력하는 구조이고, MR-MUF·어드밴스드 패키징까지 통합 제공한다. 다만 여전히 "표준 설계 레이어"를 정의하는 플랫폼(엔비디아 같은)은 아니다. <b>SK하이닉스는 "플랫폼"이 아니라 "플랫폼(엔비디아)의 대체 불가에 가까운 핵심 공급자"</b>다. 이 차이가 멀티플 상한을 규정한다.</div>
+
+  <p>이 변화가 멀티플을 바꿀 수 있는가? — LTA 비중이 매출의 과반을 넘어 이익 변동성이 구조적으로 낮아지면, 시장은 TSMC가 받는 안정 성장 PER(파운드리 프리미엄)에 한 발 다가설 수 있다. 그러나 메모리는 여전히 공급 탄력성이 파운드리보다 크고, 경쟁사가 둘(삼성·마이크론)이나 존재하므로 <b>TSMC 수준 프리미엄은 과도</b>하다. 현실적 리레이팅 목표는 마이크론과의 디스카운트 축소다.</p>
+</div>
+</section>
+
+<!-- ============ 3. PROVEN BY RESULTS ============ -->
+<section id="results">
+<div class="wrap">
+  <div class="secnum">03 — 실적으로 증명되는 실체</div>
+  <h2 class="sectitle">72% 영업이익률 — 황홀하지만 정점일 수 있다</h2>
+  <p class="secintro">1Q26 실적은 의심의 여지 없이 폭발적이다. 문제는 이것이 "지속 가능한 수익성"인지 "사이클 정점"인지를 구분하는 것이다.</p>
+
+  <div class="statstrip">
+    <div><div class="v">52.6조</div><div class="l">1Q26 매출</div><div class="d">YoY +198% · 사상 최초 50조 돌파</div></div>
+    <div><div class="v">37.6조</div><div class="l">영업이익</div><div class="d">YoY +405% · QoQ +96%</div></div>
+    <div><div class="v">72%</div><div class="l">영업이익률</div><div class="d">창사 이래 최고치</div></div>
+    <div><div class="v">35조</div><div class="l">순현금</div><div class="d">현금 54.3조 − 차입 19.3조</div></div>
+  </div>
+
+  <p><strong>제품별 동인:</strong> D램은 출하량 전분기 수준 유지, ASP가 60% 중반 상승(일반 D램 가격 강세 가속). NAND는 출하량 −10%(의도적 믹스 전환)에도 ASP 70% 중반 급등. <b>매출 성장의 본질이 "물량"이 아니라 "가격"</b>이라는 점이 핵심—이는 동시에 가장 큰 하방 리스크다. 가격이 꺾이면 이익률이 빠르게 정상화된다.</p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>지표</th><th>2025 4Q</th><th>2026 1Q</th><th>QoQ</th><th>해석</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td class="num">32.8조</td><td class="num">52.6조</td><td class="num c-A">+60%</td><td>HBM·고용량 서버 D램 주도</td></tr>
+      <tr><td>영업이익</td><td class="num">19.2조</td><td class="num">37.6조</td><td class="num c-A">+96%</td><td>가격 상승 + 고부가 믹스</td></tr>
+      <tr><td>순이익</td><td class="num">—</td><td class="num">40.3조</td><td class="num c-A">순이익률 77%</td><td>일회성 포함 가능, 검증 필요 (B)</td></tr>
+      <tr><td>현금성자산</td><td class="num">34.9조</td><td class="num">54.3조</td><td class="num c-A">+19.4조</td><td>강력한 FCF 창출</td></tr>
+      <tr><td>차입금</td><td class="num">22.2조</td><td class="num">19.3조</td><td class="num c-A">−2.9조</td><td>디레버리징 진행</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="callout warn"><b>다음 분기(2Q26, 7/29 발표)에 반드시 확인할 KPI:</b> ① 일반 D램/NAND ASP 상승세 지속 여부(정점 신호), ② HBM4 매출 비중 및 양산 램프업 속도, ③ HBM4 16단 수율 코멘트, ④ LTA 체결 진행 상황과 2027년 가격·물량 조건, ⑤ capex 가이던스(공급 안정성 vs 과잉투자).</div>
+</div>
+</section>
+
+<!-- ============ 4. EVENT CHAIN ============ -->
+<section id="timeline">
+<div class="wrap">
+  <div class="secnum">04 — 사건 체인 분석</div>
+  <h2 class="sectitle">최근 핵심 이벤트 타임라인</h2>
+  <p class="secintro">개별 사건이 같은 방향을 가리키는지 시간순으로 연결한다. 색: <b style="color:var(--rust)">붉은색=주가/내러티브</b>, <b style="color:var(--teal)">청록=계약/기술</b>, <b style="color:#a87c04">머스터드=자본/구조</b>.</p>
+
+  <div class="timeline">
+    <div class="tl-item teal">
+      <div class="tl-date">2024.09</div>
+      <h4>업계 최초 HBM4 양산 성공</h4>
+      <p>고객사 수요에 맞춰 공급 확대 시작. HBM 기술 선점의 출발점.</p>
+    </div>
+    <div class="tl-item mustard">
+      <div class="tl-date">2026.03.24</div>
+      <h4>SEC Form F-1 비공개 제출 (ADR 상장)</h4>
+      <p>연내 뉴욕 입성·최대 140억달러 조달 추진. 코리아 디스카운트 해소·마이크론 키맞추기 기대 vs 신주 오버행 우려.</p>
+    </div>
+    <div class="tl-item teal">
+      <div class="tl-date">2026.04.23</div>
+      <h4>1Q26 사상 최대 실적 발표</h4>
+      <p>매출 52.6조, 영업이익 37.6조, 영업이익률 72%, 순현금 35조. 컨센서스 소폭 상회(일부 IB의 40조에는 미달).</p>
+    </div>
+    <div class="tl-item teal">
+      <div class="tl-date">2026.05 (컴퓨텍스)</div>
+      <h4>젠슨 황 "Please Make More" 친필 사인</h4>
+      <p>최태원 회장 동행, HBM4E(48GB·12단·4TB/s) 실물 첫 공개. 2026년 물량 전량 예약 판매 확인. 초과수요의 상징.</p>
+    </div>
+    <div class="tl-item teal">
+      <div class="tl-date">2026.06.01 (GTC 타이베이)</div>
+      <h4>Vera Rubin 발표 및 본격 양산 돌입</h4>
+      <p>Grace Blackwell 후속, 에이전틱 AI 워크로드용. NVL72 랙은 Blackwell 대비 와트당 성능 10배.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2026.06.05 (검은 금요일)</div>
+      <h4>HBM4 멀티벤더 인증 + 브로드컴 쇼크 → −9.5%</h4>
+      <p>엔비디아가 삼성·SK·마이크론 3사 HBM4 인증 공식 확인(독점→과점). 동시에 브로드컴 쇼크·강한 고용지표로 AI주 전반 급락. 코스피 −5.54%, 외인 20일 연속 매도.</p>
+    </div>
+    <div class="tl-item mustard">
+      <div class="tl-date">2026.07.29 (예정)</div>
+      <h4>2Q26 실적 발표</h4>
+      <p>슈퍼사이클 정점 여부·HBM4 램프업·LTA 진행을 확인할 가장 중요한 이벤트.</p>
+    </div>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>Thesis 영향</th><th>신뢰도</th></tr></thead>
+    <tbody>
+      <tr><td>06.05</td><td>HBM4 멀티벤더 인증</td><td>3사 모두 인증 통과</td><td>독점 해체, 과점 재편</td><td class="c-C">하방(내러티브)</td><td><span class="c-A">A</span></td></tr>
+      <tr><td>06.05</td><td>강한 미국 고용 + 브로드컴 쇼크</td><td>AI주 전반 급락</td><td>금리 인하 지연, 밸류 부담</td><td class="c-C">하방(매크로)</td><td><span class="c-A">A</span></td></tr>
+      <tr><td>05</td><td>2026 물량 전량 예약</td><td>HBM 완판</td><td>가시성↑ but 상방 제한</td><td class="c-B">중립</td><td><span class="c-B">B</span></td></tr>
+      <tr><td>04.23</td><td>1Q26 영업이익률 72%</td><td>사상 최대</td><td>지속성 vs 정점 논쟁</td><td class="c-A">상방(질) / 하방(정점)</td><td><span class="c-A">A</span></td></tr>
+      <tr><td>03.24</td><td>ADR F-1 제출</td><td>SEC 제출 확정</td><td>리레이팅 vs 오버행</td><td class="c-A">상방(잠재)</td><td><span class="c-A">A</span></td></tr>
+      <tr><td>진행중</td><td>빅테크 3년+ LTA 협의</td><td>보도 단계</td><td>이익 질 구조 개선</td><td class="c-A">상방(핵심)</td><td><span class="c-B">B</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="footnote">다음 확인 증거: 2Q26 컨콜의 LTA 체결 공시, ADR 공모가/규모 확정, HBM4 16단 수율 코멘트, 삼성 HBM4 11Gbps 통과 시점.</p>
+</div>
+</section>
+
+<!-- ============ 5. CAPITAL STRUCTURE ============ -->
+<section id="capital">
+<div class="wrap">
+  <div class="secnum">05 — 자본구조 & 수급</div>
+  <h2 class="sectitle">소형 적자주의 정반대 — 그러나 ADR이 변수다</h2>
+  <p class="secintro">통상 forensic 자본구조 분석은 cash burn·전환사채·희석 리스크를 본다. SK하이닉스는 그 반대다. 35조 순현금의 대형 우량주이므로, 리스크는 "생존"이 아니라 "ADR 신주 오버행"과 "외국인 수급"에 있다.</p>
+
+  <div class="split2">
+    <div>
+      <h3 style="font-size:1.25rem;margin-bottom:10px;color:var(--teal);">강점 (생존 리스크 없음)</h3>
+      <ul class="clean">
+        <li>순현금 35조원, 차입금 분기 2.9조 감소 → 디레버리징</li>
+        <li>분기 19조+ 현금 순증, FCF 창출력 압도적</li>
+        <li>전환사채·ATM·warrant 같은 희석 도구에 의존하지 않음</li>
+        <li>capex(M15X·용인)를 자체 현금으로 충당 가능</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:1.25rem;margin-bottom:10px;color:var(--plum);">수급 리스크</h3>
+      <ul class="clean">
+        <li><b>ADR 신주 발행</b> 시 잠재 오버행(예탁결제원 보관분의 한국 역유입 구조)</li>
+        <li>외국인 20일 연속 순매도(6/5 기준) — 단기 수급 압박</li>
+        <li>최근 급등은 펀더멘털 + 멀티플 확장이 혼재 → 매크로 충격에 취약</li>
+        <li>SK텔레콤 등 그룹 지배구조·자사주 소각 입법 변수</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout"><b>최근 주가 상승의 분해:</b> 1년간 약 +280%(저점 대비). 이 중 상당 부분은 (1) 실적 기반 EPS 급증, (2) PBR→PER 방법론 변경에 따른 멀티플 확장이 결합. <b>순수 short covering이나 financing 해소가 아니라 펀더멘털+리레이팅의 혼합</b>이라는 점에서 질은 양호하나, 멀티플 확장분은 매크로(금리)와 내러티브(점유율)에 민감하다.</div>
+</div>
+</section>
+
+<!-- ============ 6. ECOSYSTEM ============ -->
+<section id="eco">
+<div class="wrap">
+  <div class="secnum">06 — 고객 · 생태계 게임이론</div>
+  <h2 class="sectitle">누가 SK하이닉스를 필요로 하는가</h2>
+  <p class="secintro">고객·고객의 고객·경쟁사·인수 후보를 구분하고, 생태계 내 협상력의 방향을 본다.</p>
+
+  <div class="ecomap">
+    <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, sans-serif">
+      <!-- center -->
+      <rect x="360" y="190" width="180" height="80" fill="#C84B31" stroke="#1C1A17" stroke-width="2.5"/>
+      <text x="450" y="222" text-anchor="middle" fill="#fff" font-size="18" font-weight="800" font-family="Fraunces, serif">SK하이닉스</text>
+      <text x="450" y="246" text-anchor="middle" fill="#fff" font-size="12">HBM · D램 · NAND</text>
+
+      <!-- direct customer NVIDIA -->
+      <line x1="540" y1="210" x2="700" y2="120" stroke="#1C1A17" stroke-width="2.5"/>
+      <rect x="700" y="80" width="150" height="70" fill="#2E6E6A" stroke="#1C1A17" stroke-width="2"/>
+      <text x="775" y="110" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">NVIDIA</text>
+      <text x="775" y="130" text-anchor="middle" fill="#fff" font-size="10.5">직접고객 · HBM4 ~70%</text>
+
+      <!-- end customers -->
+      <line x1="700" y1="115" x2="640" y2="40" stroke="#7a756b" stroke-width="1.5" stroke-dasharray="4"/>
+      <rect x="540" y="10" width="200" height="44" fill="#E8E0D2" stroke="#1C1A17" stroke-width="1.5"/>
+      <text x="640" y="30" text-anchor="middle" fill="#1C1A17" font-size="11" font-weight="700">최종 수혜고객</text>
+      <text x="640" y="46" text-anchor="middle" fill="#1C1A17" font-size="10">MS · Google · Amazon · Meta</text>
+
+      <!-- LTA direct -->
+      <line x1="540" y1="250" x2="700" y2="320" stroke="#1C1A17" stroke-width="2.5" stroke-dasharray="6"/>
+      <rect x="700" y="300" width="150" height="70" fill="#E0A106" stroke="#1C1A17" stroke-width="2"/>
+      <text x="775" y="328" text-anchor="middle" fill="#1C1A17" font-size="13" font-weight="700">빅테크 LTA</text>
+      <text x="775" y="348" text-anchor="middle" fill="#1C1A17" font-size="10">MS·Google 3년+ 직접계약</text>
+
+      <!-- competitors -->
+      <line x1="360" y1="210" x2="200" y2="120" stroke="#7A4A52" stroke-width="2"/>
+      <rect x="50" y="80" width="150" height="70" fill="#7A4A52" stroke="#1C1A17" stroke-width="2"/>
+      <text x="125" y="108" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">삼성전자</text>
+      <text x="125" y="128" text-anchor="middle" fill="#fff" font-size="10">경쟁 · HBM 28%·AMD채널</text>
+
+      <line x1="360" y1="250" x2="200" y2="340" stroke="#7A4A52" stroke-width="2"/>
+      <rect x="50" y="320" width="150" height="70" fill="#7A4A52" stroke="#1C1A17" stroke-width="2"/>
+      <text x="125" y="348" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">마이크론</text>
+      <text x="125" y="368" text-anchor="middle" fill="#fff" font-size="10">경쟁 · Rubin CPX 재진입</text>
+
+      <!-- supply chain -->
+      <line x1="450" y1="270" x2="450" y2="400" stroke="#1C1A17" stroke-width="2"/>
+      <rect x="340" y="400" width="220" height="50" fill="#6B7A3F" stroke="#1C1A17" stroke-width="2"/>
+      <text x="450" y="420" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">공급망 / 장비</text>
+      <text x="450" y="438" text-anchor="middle" fill="#fff" font-size="10">한미반도체(본딩) · TSMC(베이스다이)</text>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#2E6E6A"></i>직접 고객</span>
+      <span><i style="background:#E0A106"></i>LTA 직접계약</span>
+      <span><i style="background:#7A4A52"></i>경쟁사</span>
+      <span><i style="background:#6B7A3F"></i>공급망</span>
+      <span><i style="background:#E8E0D2;border:1px solid #1C1A17"></i>최종 수혜고객</span>
+    </div>
+  </div>
+
+  <p style="margin-top:24px;"><strong>게임이론 핵심:</strong> 엔비디아는 단일 공급사 의존을 싫어하므로 의도적으로 멀티벤더(삼성·마이크론)를 키운다. 이것이 SK하이닉스의 협상력 상한이다. 반대로 빅테크가 엔비디아를 우회해 <b>SK하이닉스와 직접 LTA</b>를 맺기 시작하면(신호 #6), SK는 "엔비디아의 공급자"에서 "AI 인프라의 공통 인프라"로 격상된다. <b>이것이 가장 강력한 잠재 thesis</b>다.</p>
+  <p><strong>M&A optionality:</strong> 시총 ~1,660조원의 대형주이자 SK그룹 핵심 자산으로 <b>피인수 가능성은 사실상 0</b>. M&A 가치는 base/bull/overshoot 어디에도 반영하지 않는다(0%). 인수 시나리오는 이 종목에서 무의미하다.</p>
+</div>
+</section>
+
+<!-- ============ 7. TECH ============ -->
+<section id="tech">
+<div class="wrap">
+  <div class="secnum">07 — 기술 분석</div>
+  <h2 class="sectitle">진짜 해자는 패키징과 수율이다</h2>
+  <p class="secintro">"기술이 좋다"는 일반론이 아니라, 구체적으로 어느 레이어에서 경쟁사가 추격하기 어려운지를 본다.</p>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>제품 / 세대</th><th>핵심 스펙</th><th>적용처</th><th>경쟁 우위</th></tr></thead>
+    <tbody>
+      <tr><td>HBM3E (12단)</td><td>현행 양산 주력</td><td>Blackwell·H200</td><td>점유율 50%+, 검증된 수율</td></tr>
+      <tr><td>HBM4 (16단)</td><td>웨이퍼 30㎛, 수율 장벽</td><td>Vera Rubin (~70% 선점)</td><td>MR-MUF 패키징 노하우</td></tr>
+      <tr><td>HBM4E (12단)</td><td>48GB, 4TB/s 목표</td><td>차세대 (실물 공개)</td><td>선제 개발, 고객 초기 협력</td></tr>
+      <tr><td>321단 QLC NAND</td><td>개발 완료</td><td>고용량 eSSD</td><td>고부가 믹스 전환</td></tr>
+      <tr><td>SOCAMM2</td><td>양산 시작</td><td>엔비디아 차세대 칩용</td><td>모듈 레벨 통합</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>소프트웨어가 아니라 실리콘·패키징 문제:</strong> HBM의 경쟁력은 코드가 아니라 <b>① 12~16단 적층 시 열·전력 관리, ② 웨이퍼를 30㎛까지 얇게 깎으며 수율 확보(Yield Wall), ③ MR-MUF 등 어드밴스드 패키징</b>에서 나온다. 이는 장비·공정·수율 데이터의 누적이 필요해 단기 복제가 어렵다.</p>
+  <p><strong>고객 전환비용:</strong> HBM은 고객(엔비디아)과 초기 설계 단계부터 공동 개발하고, 양산 시점에 맞춰 생산능력을 램프업하는 구조. 한 번 검증되면 품질·납기 신뢰성 때문에 교체가 어렵다. <b>다만 엔비디아가 의도적으로 멀티벤더를 유지하므로 "절대적 lock-in"은 아니다.</b></p>
+</div>
+</section>
+
+<!-- ============ 8 & 9. CONSENSUS + EVENT ============ -->
+<section id="consensus">
+<div class="wrap">
+  <div class="secnum">08 · 09 — 컨센서스 & 이벤트 드리븐</div>
+  <h2 class="sectitle">시장은 지금 base가 아니라 bull을 사고 있다</h2>
+  <p class="secintro">목표가 분포와 실적 이벤트 구조를 본다.</p>
+
+  <div class="statstrip">
+    <div><div class="v">적극매수</div><div class="l">투자의견</div><div class="d">매수 36 / 매도 0</div></div>
+    <div><div class="v">₩2.08M</div><div class="l">평균 목표가</div><div class="d">현재가와 거의 동일</div></div>
+    <div><div class="v">₩4.00M</div><div class="l">최고 목표가</div><div class="d">슈퍼사이클 지속 가정</div></div>
+    <div><div class="v">₩1.03M</div><div class="l">최저 목표가</div><div class="d">정점·디레이팅 가정</div></div>
+  </div>
+
+  <div class="callout warn"><b>중요한 비대칭:</b> 평균 목표가(약 208만원)가 현재가(207만원)와 사실상 같다. 즉 <b>컨센서스는 이미 "추가 상승 여력 거의 없음"으로 수렴</b>했고, 최고(400만)와 최저(103만)의 격차가 4배에 달한다. 이는 시장이 슈퍼사이클의 지속 여부에 대해 극단적으로 의견이 갈린다는 뜻—방향성 베팅이 위험한 구간이다.</div>
+
+  <p><strong>컨센서스가 아직 반영하지 못한 변수:</strong> ① 빅테크 직접 LTA 체결 시 이익 질 재평가(상방), ② HBM4 멀티벤더화에 따른 2027년 가격 협상력 약화(하방), ③ ADR 상장 시 마이크론 키맞추기(상방), ④ 2026 하반기 일반 D램 가격 피크아웃(하방).</p>
+
+  <p><strong>이벤트 구조 (7/29 2Q26 실적):</strong> 실적 전 기대치가 매우 높게 형성되어 있어 <b>단순 beat로는 부족</b>하다. 주가가 오르려면 "beat + HBM4 램프업 가속 + LTA 진전 + capex 규율 확인"이 필요하다. 반대로 ASP 둔화 코멘트나 capex 급증이 나오면 정점 우려가 현실화된다.</p>
+</div>
+</section>
+
+<!-- ============ 10. VALUATION ============ -->
+<section id="valuation">
+<div class="wrap">
+  <div class="secnum">10 — 밸류에이션</div>
+  <h2 class="sectitle">네 가지 방법으로 본 적정가치</h2>
+  <p class="secintro">DCF·FCF Yield·상대가치·리레이팅 가치를 교차한다. 메모리 시클리컬 특성상 단일 방법보다 밴드 접근이 정확하다.</p>
+
+  <div class="split2">
+    <div>
+      <h3 style="font-size:1.2rem;margin-bottom:10px;">A. DCF (시나리오)</h3>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Bear</th><th>Base</th><th>Bull</th></tr></thead>
+        <tbody>
+          <tr><td>26~30 매출 CAGR</td><td>5%</td><td>12%</td><td>20%</td></tr>
+          <tr><td>정상화 영업이익률</td><td>35%</td><td>45%</td><td>55%</td></tr>
+          <tr><td>할인율(WACC)</td><td>11%</td><td>10%</td><td>9.5%</td></tr>
+          <tr><td>영구성장률</td><td>1%</td><td>2%</td><td>2.5%</td></tr>
+          <tr><td>주당가치</td><td class="num c-C">1,55M</td><td class="num c-B">2,45M</td><td class="num c-A">3,40M</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">정점 이익률 72%는 정상화 가정으로 하향 적용. 메모리는 사이클 평균 이익률로 평가해야 과대평가를 피함.</p>
+    </div>
+    <div>
+      <h3 style="font-size:1.2rem;margin-bottom:10px;">C. 상대가치 (vs 마이크론)</h3>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>SK하이닉스</th><th>마이크론</th></tr></thead>
+        <tbody>
+          <tr><td>PER</td><td class="num">~5.6–11배</td><td class="num">~18–34배</td></tr>
+          <tr><td>PBR</td><td class="num">~2.1배</td><td class="num">~3.2배</td></tr>
+          <tr><td>HBM 점유율</td><td class="num">~50%</td><td class="num">소수</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="footnote">SK가 펀더멘털(점유율·이익률) 우위에도 절반 이하 멀티플. <b>코리아 디스카운트 + 시클리컬 디스카운트</b>의 이중 할인. ADR이 이를 좁히는 트리거가 될 수 있으나 즉각적이지 않을 수 있음.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.2rem;margin:24px 0 8px;">B. FCF Yield / D. 리레이팅 가치</h3>
+  <p><strong>B (Owner Earnings):</strong> 분기 19조+ 현금 순증의 절반을 normalized FCF로 보수 가정 시 연 30~40조 FCF. 시총 ~1,660조 대비 FCF yield 약 2~2.4%. 사이클 평균 정상화 FCF(연 20조 가정)로 보면 적정 yield 4~5% → 적정 시총 약 1,300~1,500조. <b>현재가는 정상화 FCF 기준으로는 다소 비싸고, 정점 FCF 기준으로는 싸다</b>—이 양면성이 핵심.</p>
+  <p><strong>D (리레이팅):</strong> 현재 정체성(시클리컬 코모디티) 멀티플에서 "LTA 기반 안정 성장" 멀티플로 이동 시, PER 1~2배 추가 정당화 가능. 다만 TSMC급(20배+)은 과도. <b>현실적 리레이팅 상단은 마이크론과의 디스카운트 절반 축소 수준.</b></p>
+
+  <div class="chartcard">
+    <h4>Valuation Bridge — 현재가에서 시나리오별 목표가까지</h4>
+    <div class="csub">단위: 만원. 막대 높이는 주당가치에 비례.</div>
+    <svg viewBox="0 0 860 320" xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, sans-serif">
+      <!-- baseline -->
+      <line x1="40" y1="280" x2="820" y2="280" stroke="#1C1A17" stroke-width="2"/>
+      <!-- bars: scale 400만 = 240px -->
+      <!-- 보수내재가치 180 -->
+      <rect x="70" y="172" width="90" height="108" fill="#7A4A52" stroke="#1C1A17" stroke-width="2"/>
+      <text x="115" y="165" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif">180만</text>
+      <text x="115" y="300" text-anchor="middle" font-size="11">보수 내재</text>
+      <!-- 현재가 207 -->
+      <rect x="190" y="156" width="90" height="124" fill="#1C1A17" stroke="#1C1A17" stroke-width="2"/>
+      <text x="235" y="149" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif" fill="#1C1A17">207만</text>
+      <text x="235" y="300" text-anchor="middle" font-size="11" font-weight="700">현재가</text>
+      <!-- base 255 -->
+      <rect x="310" y="127" width="90" height="153" fill="#E0A106" stroke="#1C1A17" stroke-width="2"/>
+      <text x="355" y="120" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif">255만</text>
+      <text x="355" y="300" text-anchor="middle" font-size="11">Base 12M</text>
+      <!-- bull 340 -->
+      <rect x="430" y="76" width="90" height="204" fill="#2E6E6A" stroke="#1C1A17" stroke-width="2"/>
+      <text x="475" y="69" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif">340만</text>
+      <text x="475" y="300" text-anchor="middle" font-size="11">Bull</text>
+      <!-- overshoot 400 -->
+      <rect x="550" y="40" width="90" height="240" fill="#C84B31" stroke="#1C1A17" stroke-width="2"/>
+      <text x="595" y="33" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif">400만</text>
+      <text x="595" y="300" text-anchor="middle" font-size="11">Overshoot</text>
+      <!-- downside 155 -->
+      <rect x="670" y="187" width="90" height="93" fill="#9d978a" stroke="#1C1A17" stroke-width="2"/>
+      <text x="715" y="180" text-anchor="middle" font-size="13" font-weight="700" font-family="Fraunces,serif">155만</text>
+      <text x="715" y="300" text-anchor="middle" font-size="11">하방 리스크</text>
+    </svg>
+  </div>
+</div>
+</section>
+
+<!-- ============ 11. TARGET TABLE ============ -->
+<section id="targets">
+<div class="wrap">
+  <div class="secnum">11 — 목표가 체계</div>
+  <h2 class="sectitle">6개 시나리오 목표가</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>구분</th><th>목표가</th><th>적용 근거</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead>
+    <tbody>
+      <tr><td>보수적 내재가치</td><td class="num">₩1,800K</td><td>정상화 이익률 35%, DCF bear</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr class="tgt-base"><td><b>12M Base Target</b></td><td class="num"><b>₩2,550K</b></td><td><b>DCF base, PER 키맞추기 일부</b></td><td><b>45%</b></td><td><b>LTA 진전, ASP 유지</b></td><td><b>ASP 피크아웃</b></td></tr>
+      <tr><td>Bull Target</td><td class="num">₩3,400K</td><td>DCF bull, ADR 리레이팅</td><td>25%</td><td>빅테크 직접 LTA + ADR 성공</td><td>점유율 50% 이탈</td></tr>
+      <tr><td>Overshoot Target</td><td class="num">₩4,000K</td><td>최고 컨센서스, 슈퍼사이클 과열</td><td>10%</td><td>AI capex 재가속, 멀티플 광기</td><td>매크로/금리 충격</td></tr>
+      <tr><td>실적 전 Trading</td><td class="num">₩2,200K</td><td>기대 선반영, 변동성 확대</td><td>—</td><td>실적 기대감</td><td>차익실현 매물</td></tr>
+      <tr><td>실적 후 재평가</td><td class="num">₩2,300–2,800K</td><td>beat+raise 여부에 따라 분기</td><td>—</td><td>beat+가이던스 상향</td><td>ASP 둔화 코멘트</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="footnote">희석 주식 수: ADR 신주 발행 시 한 자릿수% 희석 가능 — bull/overshoot 목표가에는 이를 일부 반영(보수적). 모든 목표가는 액면분할 미반영 본주 기준.</p>
+</div>
+</section>
+
+<!-- ============ 12. MULTIPLE BAND ============ -->
+<section id="band">
+<div class="wrap">
+  <div class="secnum">12 — 2020~2030 멀티플 밴드</div>
+  <h2 class="sectitle">PER 밴드: 실제 데이터 vs 미래 가정</h2>
+  <p class="secintro">메모리는 이익 변동이 커 PER이 역사적으로 들쭉날쭉(다운사이클엔 적자로 N/A). 아래는 실제 추이와 미래 추정의 분리.</p>
+
+  <div class="chartcard">
+    <h4>SK하이닉스 12M Fwd PER 밴드 (배)</h4>
+    <div class="csub">실선=실제 추정 / 점선=미래 시나리오. 시클리컬 특성으로 폭이 넓음.</div>
+    <svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, sans-serif">
+      <!-- axes -->
+      <line x1="60" y1="40" x2="60" y2="320" stroke="#1C1A17" stroke-width="2"/>
+      <line x1="60" y1="320" x2="820" y2="320" stroke="#1C1A17" stroke-width="2"/>
+      <!-- y gridlines: 0,5,10,15,20 -> map 0..20 to 320..40 -->
+      <g font-size="11" fill="#7a756b">
+        <line x1="60" y1="320" x2="820" y2="320" stroke="#DCD2BE"/><text x="40" y="324">0</text>
+        <line x1="60" y1="250" x2="820" y2="250" stroke="#DCD2BE"/><text x="40" y="254">5</text>
+        <line x1="60" y1="180" x2="820" y2="180" stroke="#DCD2BE"/><text x="36" y="184">10</text>
+        <line x1="60" y1="110" x2="820" y2="110" stroke="#DCD2BE"/><text x="36" y="114">15</text>
+        <line x1="60" y1="40" x2="820" y2="40" stroke="#DCD2BE"/><text x="36" y="44">20</text>
+      </g>
+      <!-- x labels: 2020..2030, 11 points, x from 90 to 790 -->
+      <g font-size="11" fill="#3a362f" text-anchor="middle">
+        <text x="90" y="340">'20</text><text x="160" y="340">'21</text><text x="230" y="340">'22</text>
+        <text x="300" y="340">'23</text><text x="370" y="340">'24</text><text x="440" y="340">'25</text>
+        <text x="510" y="340">'26</text><text x="580" y="340">'27E</text><text x="650" y="340">'28E</text>
+        <text x="720" y="340">'29E</text><text x="790" y="340">'30E</text>
+      </g>
+      <!-- actual line: PER fwd (approx): 20:11, 21:9, 22:7(loss-N/A approx), 23:high/normalize ~12, 24:8, 25:7, 26:6 -->
+      <polyline points="90,166 160,194 230,236 300,166 370,208 440,222 510,236" fill="none" stroke="#1C1A17" stroke-width="3"/>
+      <!-- markers -->
+      <g fill="#1C1A17"><circle cx="90" cy="166" r="4"/><circle cx="160" cy="194" r="4"/><circle cx="230" cy="236" r="4"/><circle cx="300" cy="166" r="4"/><circle cx="370" cy="208" r="4"/><circle cx="440" cy="222" r="4"/><circle cx="510" cy="236" r="4"/></g>
+      <!-- bull dashed: 26:6 ->27:9->28:11->29:12->30:13 -->
+      <polyline points="510,236 580,194 650,166 720,152 790,138" fill="none" stroke="#2E6E6A" stroke-width="2.5" stroke-dasharray="7"/>
+      <!-- base dashed: ->27:7->28:8->29:8.5->30:9 -->
+      <polyline points="510,236 580,222 650,208 720,201 790,194" fill="none" stroke="#E0A106" stroke-width="2.5" stroke-dasharray="7"/>
+      <!-- bear dashed: ->27:5->28:4.5->29:5->30:5 -->
+      <polyline points="510,236 580,250 650,257 720,250 790,250" fill="none" stroke="#7A4A52" stroke-width="2.5" stroke-dasharray="7"/>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#1C1A17"></i>실제 Fwd PER (추정)</span>
+      <span><i style="background:#2E6E6A"></i>Bull 시나리오</span>
+      <span><i style="background:#E0A106"></i>Base 시나리오</span>
+      <span><i style="background:#7A4A52"></i>Bear 시나리오</span>
+    </div>
+  </div>
+  <p class="footnote">※ PER 수치는 공개 자료(SK하이닉스 ~5.6–11배, 마이크론 ~18–34배)와 시클리컬 특성을 반영한 애널리스트 추정·재구성이며 정확한 시계열은 검증 필요. 핵심 메시지: SK하이닉스는 역사적으로 한 자릿수~10배 초반 PER에 갇혀 있었고, 리레이팅 thesis는 이 밴드 상단 돌파 여부에 달려 있다.</p>
+</div>
+</section>
+
+<!-- ============ 13. RISK ============ -->
+<section id="risk">
+<div class="wrap">
+  <div class="secnum">13 — 리스크 관리</div>
+  <h2 class="sectitle">Thesis Break Trigger</h2>
+  <p class="secintro">리스크를 나열하지 않고, "어떤 지표가 나오면 thesis가 깨지는가"로 제시한다.</p>
+
+  <div class="riskcard">
+    <h4>① 슈퍼사이클 정점 / ASP 피크아웃</h4>
+    <p class="trigger"><b>Trigger:</b> 2Q26·3Q26 컨콜에서 일반 D램/NAND ASP 상승세 둔화 또는 하락 전환 코멘트. → <b>반영 가격대:</b> ₩1.9M 이하부터 시장이 정점을 반영하기 시작. <b>대응:</b> 비중 확대 중단, 1.6% 유지.</p>
+  </div>
+  <div class="riskcard">
+    <h4>② HBM 점유율 50% 이탈 (경쟁사 추격)</h4>
+    <p class="trigger"><b>Trigger:</b> 삼성 HBM4 11Gbps 통과 + Vera Rubin 물량 재배분, SK 점유율 45% 아래 외신 추산. → <b>대응:</b> Bull thesis 철회, Base로 하향, 일부 차익실현 검토.</p>
+  </div>
+  <div class="riskcard">
+    <h4>③ 금리 / 매크로 역풍</h4>
+    <p class="trigger"><b>Trigger:</b> 미국 고용 지속 강세 → 연준 인하 지연/중단, 고PER AI주 디레이팅. → <b>반영 가격대:</b> 시장 전반 조정 시 ₩1.7M 테스트 가능. <b>대응:</b> 조정은 분할 매수 기회로 활용(thesis 미훼손 시).</p>
+  </div>
+  <div class="riskcard">
+    <h4>④ ADR 신주 오버행</h4>
+    <p class="trigger"><b>Trigger:</b> ADR이 자사주가 아닌 대규모 신주 발행으로 확정, 한국 본주 역유입 우려. → <b>대응:</b> 단기 수급 악재로 인식, 변동성 확대 구간 대비.</p>
+  </div>
+  <div class="riskcard">
+    <h4>⑤ Capex 부메랑</h4>
+    <p class="trigger"><b>Trigger:</b> M15X·용인 대규모 capex 진행 중 AI 투자 둔화 → 고정비 부담. → <b>지표:</b> 빅테크 capex 가이던스 하향. <b>대응:</b> 가동률·재고 모니터링.</p>
+  </div>
+
+  <p class="footnote" style="margin-top:18px;">이 섹션은 투자 의사결정 보조용이며, 본 보고서는 금융투자 자문이 아닙니다. 모든 매매 판단과 책임은 투자자 본인에게 있습니다.</p>
+</div>
+</section>
+
+<!-- ============ 14. PORTFOLIO ACTION ============ -->
+<section id="action">
+<div class="wrap">
+  <div class="secnum">14 — 포트폴리오 실행안</div>
+  <h2 class="sectitle">현재 6주 · 1.6% 비중에서의 행동</h2>
+
+  <div class="actionbox">
+    <h3>권고: 전량 보유 (HOLD) + 조정 시 분할 매수 대기</h3>
+    <div class="agrid">
+      <div><div class="k">목표 비중</div><div class="vv">2.0~2.5% (조정 확인 후 상향)</div></div>
+      <div><div class="k">현재 행동</div><div class="vv">6주 전량 보유, 추격 매수 금지</div></div>
+      <div><div class="k">분할 매수 1차</div><div class="vv">₩1,900K 부근 +2주</div></div>
+      <div><div class="k">분할 매수 2차</div><div class="vv">₩1,700K 부근 +2~3주</div></div>
+      <div><div class="k">차익실현 시작</div><div class="vv">₩3,400K(bull) 도달 시 일부</div></div>
+      <div><div class="k">실적 발표 전(7/29)</div><div class="vv">보유 유지, 신규 진입 자제</div></div>
+      <div><div class="k">실적 발표 후</div><div class="vv">beat+raise면 비중 상향, ASP둔화면 보류</div></div>
+      <div><div class="k">목표가 도달 시</div><div class="vv">₩2,550K 분할 일부 / ₩3,400K 추가 차익</div></div>
+      <div><div class="k">Thesis 훼손 시</div><div class="vv">점유율 45%↓ 또는 ASP 하락 확인 시 비중 축소</div></div>
+      <div><div class="k">손절 기준</div><div class="vv">₩1,650K 이탈 + 펀더멘털 훼손 동반 시</div></div>
+    </div>
+  </div>
+
+  <div class="tablewrap" style="margin-top:24px;">
+  <table>
+    <thead><tr><th>시나리오</th><th>목표가</th><th>6주 기준 평가액</th><th>현재가 대비 손익</th></tr></thead>
+    <tbody>
+      <tr><td>하방 리스크</td><td class="num">₩1,550K</td><td class="num">₩9.30M</td><td class="num c-C">−25%</td></tr>
+      <tr><td>현재가</td><td class="num">₩2,070K</td><td class="num">₩12.42M</td><td class="num">기준</td></tr>
+      <tr class="tgt-base"><td><b>Base</b></td><td class="num"><b>₩2,550K</b></td><td class="num"><b>₩15.30M</b></td><td class="num"><b>+23%</b></td></tr>
+      <tr><td>Bull</td><td class="num">₩3,400K</td><td class="num">₩20.40M</td><td class="num c-A">+64%</td></tr>
+      <tr><td>Overshoot</td><td class="num">₩4,000K</td><td class="num">₩24.00M</td><td class="num c-A">+93%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="footnote">※ 매입가 미제공으로 절대 손익이 아닌 현재가 기준 상대 손익. 비중 1.6%로 작아 단일 종목 리스크는 제한적—이는 "급락에 패닉 매도할 이유가 없다"는 근거이기도 하다.</p>
+</div>
+</section>
+
+<!-- ============ 15. SELF-CHECK ============ -->
+<section id="selfcheck">
+<div class="wrap">
+  <div class="secnum">15 — 보고서 전 자체 점검</div>
+  <h2 class="sectitle">스스로에게 던진 질문</h2>
+  <ul class="clean">
+    <li><b>컨센서스만 요약했는가?</b> 아니다 — 6/5 급락의 이중 트리거(매크로+내러티브)와 "독점→과점" 재편을 핵심 변곡점으로 제시.</li>
+    <li><b>공시·자금조달을 시간순으로 연결했는가?</b> ADR F-1(3월)→실적(4월)→컴퓨텍스/GTC(5~6월)→급락(6/5)을 사건 체인으로 연결.</li>
+    <li><b>bull을 너무 눌렀는가?</b> Bull(₩3.4M)·Overshoot(₩4.0M)을 컨센서스 최고치까지 반영. 다만 정상화 이익률로 DCF를 보수화.</li>
+    <li><b>루머를 사실처럼 썼는가?</b> 빅테크 LTA·점유율 수치는 신뢰도 B(추론)로 명시. ADR·실적·인증은 A(확정).</li>
+    <li><b>자본구조/수급을 반영했는가?</b> 순현금 35조(생존 리스크 없음)와 ADR 오버행·외인 순매도를 구분 분석.</li>
+    <li><b>왜 지금이 변곡점인가?</b> "독점 내러티브 해체 + LTA 모델 전환 + ADR 리레이팅"이 동시에 진행 중이기 때문.</li>
+    <li><b>다음 실적에서 무엇을 확인하면 보고서를 수정하는가?</b> ASP 추세, HBM4 램프업, LTA 체결, capex 규율 — 14절·13절에 명시.</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============ FINAL SUMMARY ============ -->
+<section id="final" style="border-bottom:none;">
+<div class="wrap">
+  <div class="finalsum">
+    <h2>최종 투자 행동 요약</h2>
+    <div class="frow"><span class="fk">현재 주가</span><span class="fv">₩2,070,000 (6/6 종가)</span></div>
+    <div class="frow"><span class="fk">보수적 내재가치</span><span class="fv">₩1,800,000</span></div>
+    <div class="frow"><span class="fk">12개월 base target</span><span class="fv">₩2,550,000 (+23%)</span></div>
+    <div class="frow"><span class="fk">bull target</span><span class="fv">₩3,400,000 (+64%)</span></div>
+    <div class="frow"><span class="fk">overshoot target</span><span class="fv">₩4,000,000 (+93%)</span></div>
+    <div class="frow"><span class="fk">실적 발표 전 trading target</span><span class="fv">₩2,200,000</span></div>
+    <div class="frow"><span class="fk">실적 발표 후 재평가 target</span><span class="fv">₩2,300,000–2,800,000</span></div>
+    <div class="frow"><span class="fk">하방 리스크</span><span class="fv">₩1,550,000 (−25%)</span></div>
+    <div class="frow"><span class="fk">12개월 기대수익률</span><span class="fv">+23% (base, 확률가중 약 +18%)</span></div>
+    <div class="frow"><span class="fk">보유 수량 기준 기대손익</span><span class="fv">6주 → base +₩2.88M, bull +₩7.98M</span></div>
+    <div class="frow"><span class="fk">추천 행동</span><span class="fv">HOLD · 전량 보유</span></div>
+    <div class="frow"><span class="fk">목표 비중</span><span class="fv">2.0~2.5% (조정 확인 후)</span></div>
+    <div class="frow"><span class="fk">실적 발표 전 행동</span><span class="fv">보유 유지, 추격 매수 자제</span></div>
+    <div class="frow"><span class="fk">실적 발표 후 행동</span><span class="fv">beat+raise면 비중 상향, ASP둔화면 보류</span></div>
+    <div class="frow"><span class="fk">목표가 도달 시 행동</span><span class="fv">₩3,400K부터 분할 차익실현</span></div>
+    <div class="frow"><span class="fk">thesis 훼손 시 행동</span><span class="fv">점유율 45%↓ 또는 ASP 하락 시 축소, ₩1,650K 손절</span></div>
+    <div class="frow"><span class="fk">가장 중요한 체크포인트</span><span class="fv">2Q26(7/29) ASP 추세 + HBM4 램프업 + LTA 체결</span></div>
+    <div class="frow"><span class="fk">내가 틀렸다고 인정해야 하는 조건</span><span class="fv">① ASP 하락 전환, ② HBM 점유율 45% 이탈, ③ LTA 모델이 이익 안정화로 이어지지 못함 — 셋 중 둘 이상</span></div>
+  </div>
+</div>
+</section>
+
+<!-- SOURCES -->
+<section style="background:var(--soft);border-bottom:none;">
+<div class="wrap">
+  <div class="secnum">참조 자료</div>
+  <h2 class="sectitle" style="font-size:1.5rem;">출처 (교차검증)</h2>
+  <ul class="clean" style="font-size:.85rem;">
+    <li>Investing.com — SK Hynix 실시간 주가·목표가·실적 일정 <span class="src">kr.investing.com/equities/sk-hynix-inc</span></li>
+    <li>SK하이닉스 Newsroom — 2026년 1분기 경영실적 <span class="src">news.skhynix.co.kr/q1-2026-business-results/</span></li>
+    <li>디일렉 — 1Q26 실적·컨퍼런스콜 전문 <span class="src">thelec.kr/news/articleView.html?idxno=55534</span></li>
+    <li>Investing.com — 엔비디아 Vera Rubin HBM4 3사 인증 <span class="src">kr.investing.com/news/stock-market-news/article-1973995</span></li>
+    <li>MEXC/Korea Economic Daily — HBM4 멀티벤더·점유율 추산 <span class="src">mexc.com/news/885772</span></li>
+    <li>뉴스스페이스 — HBM4 70% 선점·ADR 140억달러 <span class="src">newsspace.kr/news/article.html?no=14169</span></li>
+    <li>CEO Magazine — ADR Form F-1·마이크론 멀티플 비교 <span class="src">ceomagazine.co.kr/ko-kr/articles/34902</span></li>
+    <li>한국경제매거진 — ADR 상장·오버행 분석 <span class="src">magazine.hankyung.com/business/article/202603267016b</span></li>
+    <li>씽크풀/노무라 — 2026~27 영업이익 전망 상향 <span class="src">m.thinkpool.com/compDiscuss/cont/1026011</span></li>
+    <li>Deloitte/KDI/PwC — 2026 미국 금리·고용 전망 <span class="src">deloitte.com · eiec.kdi.re.kr · pwc.com/kr</span></li>
+  </ul>
+  <div class="disclaimer" style="margin-top:24px;">
+    본 보고서는 공개된 자료를 기반으로 한 분석이며, 투자 자문이나 매매 권유가 아닙니다. Claude는 금융 전문가가 아니며, 모든 수치는 발표 시점 기준으로 변동될 수 있습니다. 특히 주가·목표가·점유율·금리 전망은 실시간으로 바뀌므로 매매 전 반드시 최신 데이터(공시·증권사 리포트)를 직접 확인하시기 바랍니다. 신뢰도 A=확정 사실, B=합리적 추론, C=미검증 가설로 구분 표기했습니다. 모든 투자 판단과 책임은 투자자 본인에게 있습니다.
+  </div>
+</div>
+</section>
+
+</body>
+</html>
