@@ -22,7 +22,7 @@
   name: Silvaco Group
   portfolio_rank: 1
   portfolio_weight: 20.5
-  portfolio_role: midfielder
+  portfolio_role: striker
   thesis: "TCAD, EDA, 반도체 IP를 묶어 AI 기반 반도체 설계·공정 최적화를 지원하는 소프트웨어 기업으로 추적합니다."
   observation: "AI FTCO와 TCAD 수요가 실적 회복을 이끌고 있으며, 소형 EDA 기업 특성상 수익성 전환과 현금흐름 안정화가 핵심 검증 포인트입니다."
   metrics:
@@ -58,7 +58,7 @@
   name: Micron Technology
   portfolio_rank: 4
   portfolio_weight: 7.0
-  portfolio_role: striker
+  portfolio_role: midfielder
   thesis: "DRAM/NAND 사이클 기업을 넘어 HBM4, 데이터센터 SSD, 전략 고객 계약을 가진 AI 메모리 슈퍼사이클 수혜주로 추적합니다."
   observation: "HBM 공급 부족과 컨센서스 상향이 강한 리레이팅을 만들고 있지만, 단기 주가에는 이미 최상단 기대가 반영되기 시작했습니다."
   metrics:
@@ -309,7 +309,7 @@
   name: Broadcom
   portfolio_rank: 6
   portfolio_weight: 3.5
-  portfolio_role: striker
+  portfolio_role: defender
   thesis: "네트워킹 반도체와 VMware 소프트웨어를 결합한 AI 인프라·엔터프라이즈 소프트웨어 복합 기업입니다."
   observation: "하이퍼스케일러 AI custom ASIC 2위 공급자로 Google TPU, Meta MTIA 등 대형 프로젝트를 수행하며, VMware 통합을 통한 소프트웨어 경상수익 증가가 밸류에이션 재평가를 뒷받침합니다."
   metrics:

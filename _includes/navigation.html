@@ -36,7 +36,22 @@
         {% else %}
           {% assign role_label = "기타" %}
       {% endcase %}
-      <li class="sidebar-role-label sidebar-role-label-{{ role }}">{{ role_label }}</li>
+      {% assign role_total = 0 %}
+      {% for company in companies %}
+        {% assign company_role = company.portfolio_role %}
+        {% if company_role == nil or company_role == "" %}
+          {% assign company_role = "other" %}
+        {% endif %}
+        {% if company_role == role and company.portfolio_rank <= 20 %}
+          {% assign role_total = role_total | plus: company.portfolio_weight %}
+        {% endif %}
+      {% endfor %}
+      <li class="sidebar-role-label sidebar-role-label-{{ role }}">
+        <span>{{ role_label }}</span>
+        {% if role_total > 0 %}
+          <small>{{ role_total | round: 1 }}%</small>
+        {% endif %}
+      </li>
       {% for company in companies %}
         {% assign ticker = company.ticker %}
         {% assign ticker_key = ticker | upcase %}

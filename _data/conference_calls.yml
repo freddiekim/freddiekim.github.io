@@ -1,0 +1,299 @@
+SVCO:
+  - period: "2026 Q1"
+    date: "2026.05.08"
+    label: "First Quarter 2026 Conference Call"
+    kind: "Prepared Remarks"
+    url: "https://investors.silvaco.com/static-files/8e9eca03-023d-490d-a389-c0f6335d96e1"
+    summary: "AI 기반 TCAD/EDA 수요와 비용 통제의 조합이 핵심입니다. 경영진은 bookings 회복, 높은 소프트웨어 gross margin, 현금 잔고 안정화를 강조했습니다."
+    highlights:
+      - "AI FTCO와 TCAD가 고객 대화의 중심으로 올라왔고, 수주 회복이 다음 분기 확인 포인트입니다."
+      - "소형 EDA 기업답게 매출보다 bookings, 현금흐름, 비GAAP 손익분기점 접근 여부가 중요합니다."
+      - "경쟁은 Cadence/Synopsys 같은 대형 EDA와 겹치지만, 공정 시뮬레이션과 특화 IP에서 틈새가 있습니다."
+    watch:
+      - "Q2 bookings가 가이던스 범위 안에서 회복되는지"
+      - "현금 잔고가 추가 희석 없이 안정되는지"
+
+GLW:
+  - period: "2026 Q1"
+    date: "2026.04.28"
+    label: "Q1 2026 Financial Results"
+    kind: "IR Release"
+    url: "https://investor.corning.com/news-and-events/news/news-details/2026/Corning-Announces-Strong-First-Quarter-2026-Financial-Results-1/default.aspx"
+    summary: "Optical Communications와 AI 데이터센터 연결 수요가 콜의 핵심입니다. Springboard 계획 상향과 고부가 광통신 제품 믹스 개선이 장기 성장의 근거로 제시됐습니다."
+    highlights:
+      - "AI 데이터센터 네트워크 투자가 광섬유·광연결 수요를 끌어올리는 구조가 유지되고 있습니다."
+      - "Springboard 목표 상향은 단순 경기 회복보다 구조적 수요 확대를 전제로 합니다."
+      - "Solar와 일부 소비재 노출은 변동성이 있어, Optical 성장률과 마진이 주가 방어의 핵심입니다."
+    watch:
+      - "Optical 성장률 30% 이상 유지 여부"
+      - "Springboard 추가 상향과 마진 개선 속도"
+
+TSLA:
+  - period: "2026 Q1"
+    date: "2026.04.22"
+    label: "Financial Results and Q&A Webcast"
+    kind: "Webcast"
+    url: "https://ir.tesla.com/webcast-2026-04-22"
+    summary: "차량 인도량보다 가격 정책, 자동차 마진, 에너지 저장장치, 자율주행 일정이 중요했습니다. 경영진의 장기 AI/Robotaxi 메시지와 실제 단기 수익성 사이의 간극을 같이 봐야 합니다."
+    highlights:
+      - "전기차 본업은 가격 경쟁과 수요 탄력성이 핵심 리스크로 남아 있습니다."
+      - "에너지 저장장치와 소프트웨어/FSD가 마진 믹스를 방어할 수 있는지 확인이 필요합니다."
+      - "Robotaxi와 자율주행 발언은 기대를 만들지만 규제·안전 검증 일정이 투자 판단의 병목입니다."
+    watch:
+      - "자동차 gross margin과 재고 흐름"
+      - "에너지 사업 성장률과 FSD 채택률"
+
+MU:
+  - period: "FY2026 Q2"
+    date: "2026.03.18"
+    label: "Fiscal Q2 2026 Financial Conference Call"
+    kind: "Prepared Remarks"
+    url: "https://investors.micron.com/static-files/e089f8c0-065d-47b8-9d02-bfa863cdb357"
+    summary: "HBM과 데이터센터 메모리 수요가 실적의 중심입니다. DRAM/NAND 가격 회복, HBM 고객 계약, 대규모 CapEx가 함께 언급되어 사이클 기업에서 AI 인프라 공급자로 재평가되는 구간입니다."
+    highlights:
+      - "HBM은 단순 매출 증가보다 장기 공급계약과 고객 다변화가 중요합니다."
+      - "가격 상승이 gross margin 확대로 연결되며 실적 레버리지가 커졌습니다."
+      - "CapEx 확대는 기회이자 리스크라서 FCF와 재고 사이클을 같이 봐야 합니다."
+    watch:
+      - "6월 24일 FY2026 Q3 실적과 HBM4 계약 코멘트"
+      - "DRAM 가격 상승이 마진으로 얼마나 전환되는지"
+
+INTC:
+  - period: "2026 Q1"
+    date: "2026.04.23"
+    label: "First Quarter 2026 Earnings Call Comments"
+    kind: "Prepared Remarks"
+    url: "https://download.intel.com/newsroom/2026/earnings/1Q2026-Earnings-Call.pdf"
+    summary: "새 리더십 아래 제품 수요와 공급 확대, 18A/파운드리 실행력, 비용 구조 개선이 핵심 메시지였습니다. 반등의 조건은 외부 파운드리 고객과 마진 회복이 숫자로 확인되는 것입니다."
+    highlights:
+      - "CPU 수요와 공급 확대는 단기 실적을 방어하지만, 파운드리 손실이 여전히 큰 과제입니다."
+      - "18A 수율과 고급 패키징 backlog는 장기 턴어라운드의 핵심 신호입니다."
+      - "비용 절감은 긍정적이나, 구조조정 비용과 회계성 손실을 분리해서 봐야 합니다."
+    watch:
+      - "IFS 외부 고객 공개와 18A ramp 진행률"
+      - "gross margin이 40%대에서 안정되는지"
+
+AVGO:
+  - period: "FY2026 Q2"
+    date: "2026.06.03"
+    label: "Q2 FY2026 Financial Results"
+    kind: "IR Release"
+    url: "https://investors.broadcom.com/news-releases/news-release-details/broadcom-inc-announces-second-quarter-fiscal-year-2026-financial"
+    summary: "AI 반도체와 VMware 기반 인프라 소프트웨어가 동시에 레버리지되는 분기였습니다. AI custom accelerator와 네트워킹 수요가 핵심이며, 소프트웨어는 현금흐름 안정판 역할을 합니다."
+    highlights:
+      - "AI 반도체 매출 성장률이 매우 높아 custom silicon 수요가 thesis의 중심입니다."
+      - "VMware 통합 이후 소프트웨어 마진과 반복 매출이 전체 FCF를 강화합니다."
+      - "대형 고객 집중과 AI 주문 변동성은 계속 관리해야 합니다."
+    watch:
+      - "AI semiconductor revenue와 backlog 지속성"
+      - "VMware 비용 시너지와 renewal 품질"
+
+SKT:
+  - period: "2026 Q1"
+    date: "2026.05.07"
+    label: "Investor Briefing - 2026 1Q Earnings Results"
+    kind: "IR Presentation"
+    url: "https://www.sktelecom.com/img/eng/qua/20260507/1Q26InvestorBriefingENG.pdf"
+    summary: "무선 가입자 회복, AI 데이터센터 성장, 분기 배당 재개가 핵심입니다. 통신 본업의 안정성과 AI DC 성장 옵션을 동시에 보되, 보안·신뢰 회복 비용을 체크해야 합니다."
+    highlights:
+      - "핸드셋 가입자 순증과 모바일 서비스 매출 회복이 본업 안정성을 보여줍니다."
+      - "AI DC 매출 고성장이 SKT의 리레이팅 옵션으로 제시됐습니다."
+      - "분기 배당 재개는 수비수 포지션의 현금흐름 논리를 강화합니다."
+    watch:
+      - "AI DC 매출 성장률과 수익성"
+      - "보안 이슈 이후 고객 이탈/회복 추세"
+
+JBL:
+  - period: "FY2026 Q2"
+    date: "2026.03.18"
+    label: "Jabil Posts Second Quarter Results"
+    kind: "IR Release"
+    url: "https://investors.jabil.com/news/news-details/2026/Jabil-Posts-Second-Quarter-Results/default.aspx"
+    summary: "AI·클라우드 인프라 수요와 regulated industries 성장이 핵심입니다. EMS 저마진 구조를 넘어 고부가 제조 믹스와 FCF/자사주 매입이 투자 포인트입니다."
+    highlights:
+      - "AI 서버와 클라우드 인프라 관련 제조 수요가 성장 동력으로 확인됐습니다."
+      - "core operating margin과 FCF가 단순 매출 성장보다 중요합니다."
+      - "대형 고객 집중과 공급망 변동성은 수비수 포지션에서도 체크해야 합니다."
+    watch:
+      - "AI/클라우드 매출 비중과 마진"
+      - "FCF 창출과 자사주 매입 지속성"
+
+MRVL:
+  - period: "FY2027 Q1"
+    date: "2026.05.27"
+    label: "Q1 FY2027 Financial and Business Results"
+    kind: "Presentation"
+    url: "https://d1io3yog0oux5.cloudfront.net/_e2d2f4fe9c86aed88b55edf42d5a5011/marvell/db/3734/35382/presentation/2026_05_27_Marvell_Q1_FY27_financial_business_results_FINAL.pdf"
+    summary: "custom silicon, 데이터센터 네트워킹, Celestial AI 인수 관련 메시지가 중요합니다. 하이퍼스케일러 ASIC ramp가 thesis의 중심이며, 통신/스토리지 회복은 보조 변수입니다."
+    highlights:
+      - "AI custom silicon은 대형 고객 프로젝트의 timing과 ramp가 매출을 좌우합니다."
+      - "네트워킹 제품은 GPU 클러스터 확장과 함께 구조적 수요가 있습니다."
+      - "인수와 대규모 프로젝트는 실행 리스크와 비용 부담도 함께 봐야 합니다."
+    watch:
+      - "ASIC 매출 ramp와 신규 고객 공개"
+      - "데이터센터 네트워킹 성장률"
+
+HYUNDAI_STEEL:
+  - period: "2026 Q1"
+    date: "2026.04.24"
+    label: "2026 Q1 Financial Results Announcement"
+    kind: "IR Presentation"
+    url: "https://www.hyundai-steel.com/en/ir/ir-home"
+    summary: "매출은 방어됐지만 환율과 원재료 비용 부담으로 이익 회복이 제한됐습니다. 철강 업황 저점에서 ASP 회복과 비용 안정화가 가장 중요한 확인 포인트입니다."
+    highlights:
+      - "자동차·건설 수요 회복보다 원가와 환율 부담이 단기 이익을 좌우합니다."
+      - "현대차그룹향 고부가 강재와 수직 계열화는 장기 방어 논리입니다."
+      - "글로벌 공급 과잉이 지속되면 PBR 매력에도 리레이팅 속도는 제한됩니다."
+    watch:
+      - "ASP 회복과 원재료 스프레드"
+      - "부채비율과 FCF 개선 여부"
+
+AMD:
+  - period: "2026 Q1"
+    date: "2026.05.05"
+    label: "First Quarter 2026 Financial Results"
+    kind: "Press Release / Webcast"
+    url: "https://ir.amd.com/news-events/press-releases/detail/1284/amd-reports-first-quarter-2026-financial-results"
+    summary: "데이터센터가 AMD의 핵심 성장 엔진으로 자리 잡았습니다. EPYC CPU와 Instinct GPU 수요가 실적을 견인했고, 메모리 비용 상승은 PC·게이밍 부문의 리스크로 언급됐습니다."
+    highlights:
+      - "Data Center revenue가 고성장하며 AMD의 이익 중심이 클라이언트에서 서버/AI로 이동했습니다."
+      - "MI 시리즈 GPU와 EPYC CPU의 고객 다변화가 NVIDIA 대안 thesis를 강화합니다."
+      - "메모리·부품 비용 상승은 하반기 client/gaming 수요에 부담입니다."
+    watch:
+      - "MI350/MI450 고객 ramp와 ROCm 생태계"
+      - "서버 CPU 성장률과 gross margin"
+
+CDNS:
+  - period: "2026 Q1"
+    date: "2026.04.28"
+    label: "First Quarter 2026 Financial Results"
+    kind: "Earnings Commentary"
+    url: "https://investor.cadence.com/news/news-details/2026/Cadence-Reports-First-Quarter-2026-Financial-Results/default.aspx"
+    summary: "AI 반도체 설계 수요와 record backlog가 핵심입니다. AgentStack을 중심으로 한 AI 설계 자동화 메시지가 강했고, 2026년 매출 전망 상향이 이를 뒷받침했습니다."
+    highlights:
+      - "EDA 수요는 AI 칩 복잡도 증가와 함께 구조적으로 확대되고 있습니다."
+      - "반복 라이선스와 backlog가 실적 가시성을 높입니다."
+      - "높은 밸류에이션은 성장률과 margin 유지가 계속 확인되어야 정당화됩니다."
+    watch:
+      - "backlog 전환 속도와 2026년 가이던스 추가 상향"
+      - "AI 설계 플랫폼의 고객 채택률"
+
+MPWR:
+  - period: "2026 Q1"
+    date: "2026.04.30"
+    label: "Q1 2026 Earnings Call"
+    kind: "Transcript"
+    url: "https://www.monolithicpower.com/media/investor-relations/events/MPS_Q1_2026_Earnings_Call_Transcript.pdf"
+    summary: "Enterprise Data와 통신 수요가 핵심 성장축입니다. 경영진은 공급 제약보다 선제적 capacity 확보를 강조했고, AI 서버 전력 트리에서 MPS의 위치가 강화되고 있습니다."
+    highlights:
+      - "Enterprise Data 성장률 하한을 높게 제시하며 AI 서버 전력 수요를 강조했습니다."
+      - "capacity 확대는 병목을 줄이는 긍정 요인이지만, 고평가 구간에서는 성장 지속성이 필수입니다."
+      - "전력 IC는 고객 내재화와 경쟁 심화를 계속 체크해야 합니다."
+    watch:
+      - "Enterprise Data 성장률과 고객 다변화"
+      - "gross margin과 capacity 투자 효율"
+
+QCOM:
+  - period: "FY2026 Q2"
+    date: "2026.04.29"
+    label: "Q2 FY2026 Earnings Call"
+    kind: "Transcript"
+    url: "https://s204.q4cdn.com/645488518/files/doc_financials/2026/q2/Q2FY26-Earnings-Call-Transcript_4-30-26_Final.pdf"
+    summary: "핸드셋은 메모리 부족과 중국 채널 조정으로 압박을 받았지만, 자동차·IoT·데이터센터 계획이 다각화 thesis의 중심입니다. Investor Day에서 데이터센터 전략 공개가 다음 촉매입니다."
+    highlights:
+      - "QCT handset는 단기 저점 통과 여부가 중요하며, Q3 가이던스가 보수적입니다."
+      - "Automotive와 IoT는 핸드셋 의존도를 낮추는 핵심 축입니다."
+      - "데이터센터 custom silicon과 6G/robotics/edge AI는 Investor Day 확인이 필요합니다."
+    watch:
+      - "6월 Investor Day의 데이터센터 계획"
+      - "중국 Android 채널 재고와 handset 회복 시점"
+
+PLTR:
+  - period: "2026 Q1"
+    date: "2026.05.04"
+    label: "Q1 2026 Earnings Webcast"
+    kind: "Webcast / Shareholder Letter"
+    url: "https://www.palantir.com/q1-2026-letter/"
+    summary: "미국 상업과 정부 수요가 동시에 가속되며 AIP 채택이 실적을 견인했습니다. 성장률은 매우 강하지만, 높은 밸류에이션과 주식보상 희석은 계속 감시해야 합니다."
+    highlights:
+      - "AIP가 파일럿에서 실제 운영 시스템으로 전환되는 사례가 핵심입니다."
+      - "미국 상업 매출 성장과 정부 계약 확대가 동시에 thesis를 지지합니다."
+      - "Rule of 40과 FCF는 강하지만, 기대치가 매우 높은 주식입니다."
+    watch:
+      - "미국 상업 고객 수와 대형 계약 전환"
+      - "SBC 희석과 valuation 부담"
+
+DELL:
+  - period: "FY2027 Q1"
+    date: "2026.05.28"
+    label: "Fiscal Year 2027 First Quarter Results"
+    kind: "Conference Call / Prepared Remarks"
+    url: "https://www.dell.com/en-us/dt/corporate/newsroom/announcements/detailpage.press-releases~usa~2026~05~dell-technologies-delivers-first-quarter-fiscal-2027-financial-results.htm"
+    summary: "AI-optimized server 매출이 폭발적으로 증가하며 ISG가 실적을 이끌었습니다. 다만 AI 서버는 매출 성장만큼 마진과 운전자본 부담을 함께 봐야 하는 사업입니다."
+    highlights:
+      - "AI-optimized server revenue가 큰 폭으로 늘며 Dell의 AI Factory thesis가 강화됐습니다."
+      - "ISG 영업이익률이 개선되면 저마진 우려를 완화할 수 있습니다."
+      - "AI 서버 주문·출하·백로그가 동시에 유지되는지 확인이 필요합니다."
+    watch:
+      - "AI 서버 backlog와 신규 주문"
+      - "ISG gross margin과 FCF 전환"
+
+ADI:
+  - period: "FY2026 Q2"
+    date: "2026.05.20"
+    label: "Q2 FY2026 Earnings Call"
+    kind: "Transcript"
+    url: "https://investor.analog.com/static-files/74245ffb-8308-4b7d-bdc4-db7abf2ce11b"
+    summary: "산업·자동차·통신 전반에서 회복이 이어졌고, data center 관련 communications 수요가 강하게 언급됐습니다. 가격 정책과 높은 gross margin 유지가 핵심입니다."
+    highlights:
+      - "2분기 매출과 수익성이 가이던스 상단을 넘어 아날로그 사이클 회복을 보여줬습니다."
+      - "data center communications와 전력/RF 솔루션이 새로운 성장축입니다."
+      - "channel inventory와 가격 효과가 정상 범위에 머무는지 확인해야 합니다."
+    watch:
+      - "Q3 revenue guide와 gross margin"
+      - "data center communications 성장률"
+
+SKHYNIX:
+  - period: "2026 Q1"
+    date: "2026.04.23"
+    label: "2026년 1분기 경영실적 발표"
+    kind: "Newsroom / IR"
+    url: "https://news.skhynix.co.kr/q1-2026-business-results/"
+    summary: "HBM과 서버 DRAM 수요가 실적의 중심입니다. AI 메모리 공급 부족이 가격과 마진을 지지하지만, 투자 사이클과 고객 집중도는 함께 봐야 합니다."
+    highlights:
+      - "HBM 리더십은 SKHynix 투자 논리의 가장 중요한 축입니다."
+      - "용인 클러스터와 capacity 계획은 장기 공급 능력의 핵심 변수입니다."
+      - "메모리 슈퍼사이클이 과잉 투자로 바뀌지 않는지 주의해야 합니다."
+    watch:
+      - "HBM4 고객 승인과 양산 일정"
+      - "CapEx와 FCF 균형"
+
+SAMSUNG_ELEC:
+  - period: "2026 Q1"
+    date: "2026.04.30"
+    label: "1Q 2026 Earnings Presentation"
+    kind: "IR Presentation"
+    url: "https://images.samsung.com/is/content/samsung/assets/global/ir/docs/2026_1Q_conference_eng.pdf"
+    summary: "DS 부문과 Memory 사업이 기록적 실적을 이끌었고, HBM4 base-die와 advanced node/foundry ramp가 핵심 메시지였습니다. DX는 플래그십과 AI 디바이스 믹스가 관건입니다."
+    highlights:
+      - "Memory ASP 상승과 HBM 수요가 DS 실적을 크게 끌어올렸습니다."
+      - "2nm/1.4nm와 AI/HPC 고객 확대는 파운드리 재평가의 조건입니다."
+      - "DX는 메모리 가격 상승이 원가 부담으로 작용할 수 있습니다."
+    watch:
+      - "HBM 납품 회복과 DS 영업이익 방향"
+      - "foundry 대형 고객 확보와 수율"
+
+"ON":
+  - period: "2026 Q1"
+    date: "2026.05.04"
+    label: "First Quarter 2026 Results"
+    kind: "IR Release"
+    url: "https://investor.onsemi.com/news-releases/news-release-details/onsemi-reports-first-quarter-2026-results"
+    summary: "전력 반도체 사이클이 아직 회복 초입에 있으며, 비용 구조 최적화와 자동차/산업 수요 회복이 핵심입니다. 단기 실적보다 다음 분기 주문 회복과 margin 확장이 중요합니다."
+    highlights:
+      - "자동차와 산업 수요의 저점 통과 여부가 onsemi thesis를 좌우합니다."
+      - "비용 구조 최적화는 수요 회복 시 operating leverage로 이어질 수 있습니다."
+      - "SiC와 전력 제품은 경쟁과 재고 조정을 계속 봐야 합니다."
+    watch:
+      - "자동차/산업 backlog와 book-to-bill"
+      - "non-GAAP gross margin 회복 속도"

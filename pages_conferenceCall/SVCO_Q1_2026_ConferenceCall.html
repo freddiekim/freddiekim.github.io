@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silvaco Q1'26 Prepared Remarks — 한국어 번역본</title>
+<style>
+:root{
+  --ink:#1f2a2e; --muted:#627177; --paper:#fbfaf5; --card:#ffffff; --line:#d9dedb;
+  --mint:#9ed7c3; --terr:#e8a37d; --blue:#8db4d7; --yellow:#f0d77b; --red:#d87972; --green:#7fb493;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.62}
+a{color:#255b6f;text-decoration:none;border-bottom:1px solid #255b6f}
+.cover{padding:58px 42px 34px;border-bottom:1px solid var(--line);background:#f3efe5;position:relative;overflow:hidden}
+.cover h1{font-size:38px;line-height:1.1;margin:0 0 14px;letter-spacing:-.04em;max-width:840px}
+.cover .sub{font-size:16px;color:var(--muted);max-width:980px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px}
+.poster{position:absolute;right:35px;top:30px;width:205px;height:205px}
+.container{max-width:1180px;margin:0 auto;padding:34px 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+h2{font-size:25px;margin:0 0 16px;letter-spacing:-.03em}
+h3{font-size:19px;margin:24px 0 10px;letter-spacing:-.02em}
+p{margin:9px 0}.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.col4{grid-column:span 4}.col6{grid-column:span 6}.col8{grid-column:span 8}.col12{grid-column:span 12}
+.metric{background:#f7f5ee;border:1px solid var(--line);border-radius:16px;padding:16px}.metric .label{color:var(--muted);font-size:13px}.metric .value{font-size:26px;font-weight:800;letter-spacing:-.03em}.metric .note{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}th{background:#f1eee5;text-align:left;font-weight:700}tr:last-child td{border-bottom:0}.dense th,.dense td{font-size:12px;padding:9px 10px}
+.callout{border-left:6px solid var(--terr);background:#fff8ef;border-radius:14px;padding:16px;margin:14px 0}.good{border-left-color:var(--green);background:#f3faf6}.bad{border-left-color:var(--red);background:#fff3f2}.neutral{border-left-color:var(--blue);background:#f3f8fc}.tag{display:inline-block;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:2px 4px 2px 0;background:#fff}
+ul{padding-left:20px}li{margin:5px 0}.quote{font-size:18px;font-weight:700;letter-spacing:-.02em}.small{font-size:12px;color:var(--muted)}
+hr{border:0;border-top:1px solid var(--line);margin:26px 0}.toc a{display:block;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink)}.toc a:last-child{border-bottom:0}.speaker{display:inline-block;background:#f1eee5;border:1px solid var(--line);border-radius:999px;padding:5px 10px;font-size:12px;font-weight:700;margin:10px 0}.translation p{margin:11px 0}.translation strong{font-weight:800}.foot{color:var(--muted);font-size:12px;margin-top:24px}
+@media(max-width:860px){.poster{display:none}.cover{padding:38px 24px}.cover h1{font-size:30px}.container{padding:22px 16px}.col4,.col6,.col8{grid-column:span 12}}
+@media print{body{background:#fff}.cover,.card{break-inside:avoid}.poster{display:none}}
+</style>
+</head>
+<body>
+<section class="cover">
+  <svg class="poster" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-label="flat vector illustration">
+    <rect x="10" y="10" width="200" height="200" rx="22" fill="#fbfaf5" stroke="#d9dedb"/>
+    <circle cx="65" cy="70" r="28" fill="#9ed7c3"/>
+    <rect x="104" y="46" width="62" height="48" rx="10" fill="#8db4d7"/>
+    <path d="M44 146 C72 106, 120 112, 170 72" fill="none" stroke="#e8a37d" stroke-width="9" stroke-linecap="round"/>
+    <rect x="43" y="146" width="132" height="28" rx="14" fill="#f0d77b"/>
+    <circle cx="176" cy="74" r="11" fill="#d87972"/>
+    <path d="M61 84 L115 70 L153 89 L176 74" fill="none" stroke="#1f2a2e" stroke-width="2.5"/>
+  </svg>
+  <div class="kicker">Korean Translation · Prepared Remarks</div>
+  <h1>Silvaco Q1 FY2026 컨퍼런스콜 준비 발언 한국어 번역본</h1>
+  <p class="sub">원문 문서: <b>Silvaco Q126 Prepared Remarks.pdf</b>. 기존 SVCO 보고서와 유사한 미니멀/에디토리얼 스타일로 구성했습니다. 번역은 의미 보존을 우선하되, 투자자가 읽기 쉽도록 일부 문장 구조를 한국어식으로 자연스럽게 정리했습니다.</p>
+  <div class="badges">
+    <span class="badge">Q1 FY2026</span><span class="badge">FTCO · AI Manufacturing</span><span class="badge">TCAD</span><span class="badge">Mixel IP</span><span class="badge">Non-GAAP Profitability</span>
+  </div>
+</section>
+
+<main class="container">
+  <section class="card">
+    <div class="kicker">Reader's Map</div>
+    <h2>한눈에 보는 핵심 메시지</h2>
+    <div class="grid">
+      <div class="metric col4"><div class="label">Q1 매출</div><div class="value">$17.8M</div><div class="note">전년 대비 +26%, 가이던스 중간값 상회</div></div>
+      <div class="metric col4"><div class="label">Q1 Bookings</div><div class="value">$17.2M</div><div class="note">전년 대비 +26%, TCAD가 견인</div></div>
+      <div class="metric col4"><div class="label">Non-GAAP GM</div><div class="value">87.9%</div><div class="note">구조조정 효과 반영, 중후반 80% 유지 전망</div></div>
+      <div class="metric col4"><div class="label">TCAD Bookings</div><div class="value">$10.5M</div><div class="note">전년 대비 +49%, FTCO 모멘텀</div></div>
+      <div class="metric col4"><div class="label">Q2 가이던스 매출</div><div class="value">$18M ±10%</div><div class="note">Q2 non-GAAP 영업흑자 목표</div></div>
+      <div class="metric col4"><div class="label">Q3 현금흐름 목표</div><div class="value">Positive OCF</div><div class="note">소송/퇴직금 제외 underlying burn 개선</div></div>
+    </div>
+    <div class="callout good">
+      <p class="quote">투자자 관점의 핵심 문장: “Micron은 memory 영역에서 Silvaco가 대형 고객에게 실질적 가치를 제공할 수 있음을 보여주는 사례이며, FTCO는 power, memory, foundry, display로 확장되는 AI 제조 전략의 대표 제품이다.”</p>
+    </div>
+  </section>
+
+  <section class="card toc">
+    <div class="kicker">Contents</div>
+    <h2>문서 구성</h2>
+    <a href="#operator">1. 진행자 및 Safe Harbor</a>
+    <a href="#ceo">2. CEO Wally Rhines 발언</a>
+    <a href="#strategy">3. 전략 전환: AI First, FTCO, 핵심 제품 집중</a>
+    <a href="#segments">4. 사업부별 코멘트: TCAD, SIP, EDA</a>
+    <a href="#cfo">5. CFO Chris Zegarelli 재무 설명</a>
+    <a href="#guidance">6. Q2 가이던스 및 투자자 체크포인트</a>
+  </section>
+
+  <section id="operator" class="card translation">
+    <div class="kicker">Section 1</div>
+    <h2>진행자 및 Safe Harbor 안내</h2>
+    <span class="speaker">Operator</span>
+    <p>안녕하십니까. Silvaco의 2026 회계연도 1분기 컨퍼런스콜에 오신 것을 환영합니다. 모든 참가자는 현재 청취 전용 모드입니다. 발표자들의 프레젠테이션 이후 질의응답 세션이 진행됩니다. 본 행사는 녹음되고 있음을 알려드립니다. 이제 Silvaco의 CFO인 Chris Zegarelli에게 컨퍼런스를 넘기겠습니다.</p>
+
+    <span class="speaker">Chris Zegarelli · CFO</span>
+    <p>감사합니다. 오늘 콜에는 Silvaco의 CEO이자 이사인 Wally Rhines가 함께하고 있습니다. 회사 실적을 요약한 보도자료와 보충 재무자료는 회사 IR 사이트인 investors.silvaco.com에서 확인하실 수 있습니다. 콜 종료 후 제한된 기간 동안 해당 웹사이트에서 다시 듣기 자료도 제공될 예정입니다.</p>
+    <p>오늘 콜에서 경영진은 향후 이벤트와 회사의 미래 재무성과에 관한 발언을 할 예정입니다. 이러한 발언은 Private Securities Litigation Reform Act의 Safe Harbor 조항상 미래예측진술에 해당합니다. 실제 결과는 다양한 리스크와 불확실성으로 인해 이러한 미래예측진술에서 표현된 내용과 중대하게 달라질 수 있습니다. 회사는 법에서 요구하는 경우를 제외하고 이러한 진술을 업데이트할 의무를 부담하지 않습니다.</p>
+    <p>오늘 보도자료와 컨퍼런스콜에 포함된 미래예측진술과 실제 결과가 중대하게 달라질 수 있는 위험요인을 고려해 주시기 바랍니다. 이러한 위험에 관한 설명은 2025년 12월 31일 종료 회계연도에 대한 Silvaco의 Form 10-K 연차보고서 내 Risk Factors 섹션에 포함되어 있습니다.</p>
+    <p>이제 CEO인 Wally Rhines에게 콜을 넘기겠습니다.</p>
+  </section>
+
+  <section id="ceo" class="card translation">
+    <div class="kicker">Section 2</div>
+    <h2>CEO Wally Rhines 발언: Q1 성과와 AI FTCO 모멘텀</h2>
+    <span class="speaker">Wally Rhines · CEO & Director</span>
+    <p>안녕하십니까. 오늘 함께해 주셔서 감사합니다.</p>
+    <p>저는 이번 Q1 실적에 매우 만족하고 있습니다. 여러 측면에서 모멘텀이 계속 형성되고 있습니다. 재무적으로는 견조한 Q1 실적을 기록했고, Q2에 대해서도 설득력 있는 가이던스를 제시했습니다. Q1에는 bookings, revenue, gross margin이 모두 가이던스 범위의 중간값을 상회했고, non-GAAP 영업손실은 전분기 대비 절반으로 줄었습니다. 매출은 전년 대비 26% 성장했습니다.</p>
+    <p>Q2 가이던스는 우리가 중요한 이정표에 도달할 것으로 기대하고 있음을 보여줍니다. 즉, 2024년 4분기 이후 처음으로 non-GAAP 영업흑자를 달성할 것으로 예상하고 있습니다. 현금 측면에서도 Q1은 2024년 5월 IPO 이후 처음으로 대차대조표상 비제한 현금이 전분기 대비 증가한 분기였습니다. 재무 규율과 예측 가능성에 대한 집중이 실질적인 성과를 내고 있습니다. 우리 팀은 이 목표를 중심으로 결집했고, 견조한 결과와 중요한 마일스톤을 달성하고 있습니다.</p>
+    <div class="callout good">
+      <p><strong>AI 관련 좋은 소식부터 말씀드리겠습니다.</strong> 우리는 두 분기 연속으로 신규 FTCO AI 기반 제조 고객 engagement를 확보했습니다. Q1에도 신규 고객을 확보했고, 현재 여러 회사와 논의 중이며 그중 하나는 Q2에 클로징될 것으로 기대하고 있습니다. 또한 기존 FTCO 고객으로부터 신규 기능에 대한 주문도 받았습니다.</p>
+    </div>
+    <p>신규 고객과 기존 고객 양쪽에서 AI 기반 제조 전략에 대한 모멘텀이 계속 형성되고 있습니다. FTCO의 시장 채택은 아직 초기 단계이지만, 이러한 신호들은 모멘텀이 커지고 있으며 시장이 AI 제조 개발이 고객에게 열어줄 수 있는 가능성에 매우 긍정적으로 반응하고 있음을 보여줍니다.</p>
+  </section>
+
+  <section id="strategy" class="card translation">
+    <div class="kicker">Section 3</div>
+    <h2>전략 전환: Silvaco의 강점, AI, 고객 집착, 재무 규율</h2>
+    <p>실적 세부사항으로 들어가기 전에, Chris와 제가 회사에 합류한 이후 집중해 온 회사의 전략적 전환에 대해 업데이트 드리겠습니다. 우리의 원칙은 다음에 맞춰져 있습니다.</p>
+    <ul>
+      <li>Silvaco의 강점을 활용한다.</li>
+      <li>AI를 적극 활용한다.</li>
+      <li>우리가 최상위 프랜차이즈를 구축할 수 있는 시장을 겨냥한다.</li>
+      <li>고객 중심성을 유지한다.</li>
+      <li>재무 규율을 지킨다.</li>
+    </ul>
+    <p>Silvaco의 강점을 활용한다는 것은 목표 시장에서 우리의 선도 지위를 확장하고, 핵심 기술 주변의 해자를 더 깊게 만든다는 의미입니다. 이는 power, memory, foundry, display 세그먼트를 위한 차별화된 AI 기반 솔루션을 제공한다는 뜻입니다.</p>
+    <p>Power 분야에서는 특히 wide bandgap 공정 및 제품 개발에서 독특한 강점을 보유하고 있습니다. Memory 분야에서는 Micron과의 파트너십이 업계에서 가장 크고 우수한 회사들에게 우리가 실질적인 가치를 제공할 수 있음을 보여주는 사례입니다. 기술 측면에서는 FTCO 도입에 핵심적이었던 multi-physics simulation을 포함하여 핵심 영역에서 우리의 선도 지위를 더 넓혀갈 것입니다.</p>
+    <div class="callout neutral">
+      <p><strong>AI는 전략 전환의 핵심 요소입니다.</strong> 우리는 내부적으로 AI를 배포했고 이미 뛰어난 결과를 보고 있습니다. GUI 개발에서는 최대 6배 가속, 신규 기능 설계에서는 최대 10배 가속, IP 검증 테스트에서도 가속 효과를 확인했습니다.</p>
+    </div>
+    <p>우리는 또한 더 많은 솔루션에 AI를 직접 내장했습니다. 가장 분명한 예가 AI 기반 제조, 즉 FTCO입니다. 가상화된 공정 개발은 반도체 산업 전반에서 필수 기능으로 바뀌고 있습니다. 다른 예로는 더 나은 수학적 optimizer와 simulator를 구축하고, 사용 편의성을 높이는 AI assistant를 도입하는 것이 있습니다.</p>
+    <p>EDA 도구에 AI를 배포하면 고객은 SPICE model에 더 빨리 도달하고, 최적화된 layout을 더 빠르게 설계하며, 설계 대상 전반에서 power, performance, area를 최적화할 수 있습니다. 우리의 “AI First” 로드맵 가속 접근법은 고객 요구를 충족하는 최적화 솔루션 개발에 전사적으로 집중한다는 의미입니다.</p>
+    <p>또한 우리는 재무 규율에도 집요하게 집중하고 있습니다. 2천만 달러 규모의 비용 절감 이니셔티브가 대부분 완료되면서, 이제는 규율을 회사 문화에 내재화하고 있습니다. 우리는 효율적인 프로세스, 간소화된 구조, 비용 최적화 관점에서 생각합니다.</p>
+    <p>이러한 전략적 우선순위가 결합되면, 우리는 peer보다 더 빠르게 top line을 성장시키고, 매출보다 더 빠르게 수익성을 개선할 수 있는 위치에 있다고 믿습니다. 향후 분기마다 이러한 전략적 이니셔티브에 대한 업데이트를 보고드리겠습니다.</p>
+  </section>
+
+  <section id="segments" class="card translation">
+    <div class="kicker">Section 4</div>
+    <h2>사업부별 코멘트: TCAD, Semiconductor IP, EDA</h2>
+    <h3>4-1. TCAD: FTCO가 성장 견인</h3>
+    <p>이제 분기 실적으로 다시 돌아가겠습니다. 우리는 TCAD에서 상당한 강세를 계속 보고 있습니다. Q1 TCAD bookings는 전분기 대비 13%, 전년 대비 49% 성장한 1,050만 달러를 기록했습니다. 매출은 전분기 대비 10%, 전년 대비 22% 성장한 960만 달러였습니다.</p>
+    <p>이번 분기 성장은 FTCO의 중요한 마일스톤, 즉 신규 고객 확보와 제품 라인을 신규 기능으로 확장한 점이 견인했습니다. 앞으로도 FTCO에서는 견조한 모멘텀이 보입니다. 정부, power applications, semiconductor equipment companies와의 engagement에서 강한 잠재력을 보고 있습니다.</p>
+    <p>정부 측면에서는 Tech-X 인수를 통해 photonics 관련 engagement를 이어받았습니다. 우리는 더 넓은 Silvaco 포트폴리오를 활용하여 향후 의미 있는 engagement로 확장할 수 있는 실질적인 기회가 있다고 봅니다. Equipment companies와 power applications에서도 FTCO와 digital twin modeling에 대한 관심이 증가하고 있으며, 이는 앞으로 매력적인 성장 기회를 만들어낼 것으로 기대합니다. 우리는 FTCO, 정부 engagement, power 및 equipment companies 관련 트렌드가 향후 여러 분기와 수년에 걸쳐 성장을 견인할 요인이라고 보고 있습니다.</p>
+
+    <h3>4-2. Semiconductor IP: Q1 일시 둔화, Mixel 통합 후 새 기준선 형성</h3>
+    <p>강했던 Q4 이후, semiconductor IP product line은 Q1에 일시적으로 쉬어가는 모습을 보였습니다. Semiconductor IP bookings는 Q1에 300만 달러로, 전분기 대비 41% 감소했지만 전년 대비로는 200% 이상 증가했습니다. IP 매출은 400만 달러로 전분기 대비 21% 감소했지만 전년 대비 270% 증가했습니다.</p>
+    <p>IP의 전분기 대비 약세는 신규 고객 win의 timing 때문이었습니다. 몇몇 핵심 design이 대략 한 분기 정도 지연되었습니다. 반면 전년 대비 추세는 Mixel의 업계 선도 MIPI PHY IP 통합으로 이 사업이 새로운 baseline에 도달했음을 보여줍니다.</p>
+    <p>IP sales pipeline은 계속 성장하고 있으며, 특히 automotive soft IP와 Q1에 도입한 production-ready 제품군인 Mixel Pro에서 성장이 두드러집니다. IP pipeline은 지난 1년 동안 대략 두 배가 되었습니다. 이러한 선행지표들은 올해 남은 기간 동안 IP가 꾸준히 성장할 것이라는 우리의 견해를 뒷받침합니다. 우리는 IP가 Q2에 전분기 대비 성장하고 올해 가장 강한 성장 사업이 될 것으로 기대합니다.</p>
+
+    <h3>4-3. EDA: 핵심 제품 집중 후 안정화 및 성장 재개 목표</h3>
+    <p>EDA에서는 Q1 bookings와 revenue가 감소했습니다. Q1 bookings는 380만 달러, 매출은 410만 달러였습니다. 이 영역에서는 의미 있는 성장을 낼 수 있다고 보는 소수의 핵심 제품으로 우선순위를 전환하는 데 계속 집중하고 있습니다.</p>
+    <p>지난번에는 이러한 핵심 제품 중 하나로 Jivaro의 잠재력을 언급했습니다. 또 다른 집중 영역은 Utmost입니다. Utmost는 device characterization과 SPICE model extraction을 위한 database-driven platform입니다. 우리는 방금 AI 기반 버전의 Utmost를 출시했으며, 이 버전은 최대 10배의 성능 개선, machine learning optimizer, 기타 runtime 개선을 제공합니다. 이는 팀이 차세대 AI 기반 솔루션을 구축하고 있는 또 다른 사례입니다.</p>
+    <p>Jivaro와 Utmost는 우리가 개발, 영업, FAE 자원을 집중하고 있는 성장 드라이버 중 일부입니다. 우리는 단기적으로 이 사업 영역의 안정화를 기대하고, 새로운 우선순위가 결과를 내면서 성장으로 복귀할 것으로 예상합니다.</p>
+    <div class="callout neutral">
+      <p>짧은 기간 동안 이룬 진전이 자랑스럽지만, 동시에 앞으로 해야 할 일이 있다는 점도 인식하고 있습니다. 우리는 사업 안정화, 유동성 강화, 운영 간소화, 그리고 가속 성장과 수익성을 만들어낼 핵심 제품에 대한 전략적 집중에서 큰 진전을 이뤘습니다.</p>
+    </div>
+    <p>우리 모두는 semiconductor IP 사업을 새로운 고점으로 이끌고, EDA를 다시 성장 궤도로 돌려놓으며, FTCO에서 보이는 모멘텀을 더 키워가기를 기대하고 있습니다. 우리는 여전히 최고의 순간은 아직 오지 않았다고 믿습니다. 앞으로 몇 분기 동안 우리가 얼마나 멀리 갈 수 있을지 기대하고 있습니다.</p>
+  </section>
+
+  <section id="cfo" class="card translation">
+    <div class="kicker">Section 5</div>
+    <h2>CFO Chris Zegarelli 재무 설명</h2>
+    <span class="speaker">Chris Zegarelli · CFO</span>
+    <p>감사합니다, Wally. 안녕하십니까, 여러분.</p>
+    <p>Q1에 우리는 bookings 1,720만 달러와 revenue 1,780만 달러를 기록했으며, 두 수치 모두 컨센서스와 가이던스 중간값을 상회했습니다. Bookings와 revenue는 모두 전년 대비 26% 성장했습니다. 이번 분기의 강세는 TCAD에서 나왔습니다. 우리는 분기에 또 다른 신규 FTCO 고객을 확보했고, 기존 FTCO 고객과 협력해 해당 deployment에 신규 기능을 추가했습니다. 앞으로도 FTCO에 대한 강한 관심을 보고 있으며, Q2에 신규 FTCO 고객을 하나 더 클로징할 것으로 기대합니다.</p>
+    <p>지역별로 보면 Q1에서 가장 큰 성장은 Americas region에서 나왔습니다. Americas는 전분기 대비 24% 성장했고, 이번 분기 전체 매출의 44%를 차지했습니다.</p>
+
+    <h3>손익계산서</h3>
+    <p>손익계산서로 내려가 보면, Q1 GAAP gross margin은 86.4%, non-GAAP gross margin은 87.9%였습니다. GAAP 및 non-GAAP gross margin은 전분기 대비 각각 305bp, 235bp 증가했으며, 가이던스와 컨센서스를 상회했습니다. 전년 대비로는 GAAP 및 non-GAAP gross margin이 각각 779bp, 788bp 증가했습니다. GAAP 및 non-GAAP gross margin 모두 구조조정 활동의 수혜를 받았습니다. 우리는 앞으로 gross margin이 mid-to-upper 80% 범위에 머물 것으로 봅니다.</p>
+    <p>GAAP operating expenses는 전분기 대비 4.5% 감소한 2,100만 달러였습니다. Non-GAAP operating expenses는 전분기 대비 3.6% 감소한 1,610만 달러로, 가이던스 범위의 중간값을 상회했습니다. Operating expenses와 cost of sales를 합친 total cost 관점에서는 GAAP total cost가 전분기 대비 6.5% 감소했고, non-GAAP total cost는 5.6% 감소했습니다.</p>
+    <p>Q1 결과는 IPO 이후 처음으로 non-GAAP total spending이 두 분기 연속 감소한 사례입니다. Q2 가이던스도 지출이 전분기 대비 계속 감소할 것으로 예상하고 있음을 보여줍니다.</p>
+    <p>GAAP operating loss는 전분기 대비 개선되어 570만 달러 손실을 기록했습니다. Non-GAAP operating loss는 47만 1천 달러로, Q4 대비 크게 개선됐고 기대치도 상회했습니다. GAAP net loss는 590만 달러, GAAP EPS는 19센트 손실이었습니다. Non-GAAP net loss는 57만 4천 달러, non-GAAP EPS는 2센트 손실이었습니다.</p>
+
+    <h3>대차대조표와 현금흐름</h3>
+    <p>이제 대차대조표와 현금흐름을 보겠습니다. 분기 말 cash and cash equivalents는 1,090만 달러였습니다. Q1 기준으로 더 이상 제한 현금은 대차대조표에 없습니다. 2025년 말 cash, cash equivalents and marketable securities는 1,830만 달러였는데, 여기에는 830만 달러의 restricted cash가 포함되어 있었습니다. 따라서 2025년 말 비제한 현금은 1,000만 달러였습니다. Q1에 비제한 현금은 전분기 대비 거의 10% 증가했으며, 이는 IPO 이후 처음으로 비제한 현금이 전분기 대비 증가한 것입니다.</p>
+    <p>Q1 영업활동에 사용된 순현금은 1,100만 달러로, Q4의 950만 달러보다 증가했습니다. 다만 이 1,100만 달러에는 최종 소송 합의금 830만 달러와 퇴직금 100만 달러가 포함되어 있습니다. 소송 및 퇴직금을 제외하면 Q1 영업현금흐름 사용액은 170만 달러였을 것입니다. 같은 두 항목을 조정하면 Q4 영업현금흐름 사용액은 740만 달러였을 것입니다. 740만 달러에서 170만 달러로 개선된 것은 underlying economics의 의미 있는 개선을 보여줍니다. 이 개선은 우리가 Q3에 positive operating cash flow를 볼 것이라는 견해도 뒷받침합니다.</p>
+    <p>분기 중 우리는 은행 파트너와 1,000만 달러 규모의 revolving line of credit에 대한 non-binding term sheet도 체결했습니다. 우리는 Q2 중 이 facility를 클로징할 것으로 기대합니다.</p>
+  </section>
+
+  <section id="guidance" class="card translation">
+    <div class="kicker">Section 6</div>
+    <h2>Q2 2026 가이던스 및 마무리</h2>
+    <table>
+      <thead><tr><th>항목</th><th>Q2 2026 가이던스</th><th>투자자 해석</th></tr></thead>
+      <tbody>
+        <tr><td>Bookings</td><td>$19M ±10%</td><td>Q1 대비 증가 가정. 신규 FTCO 고객 클로징 여부가 핵심.</td></tr>
+        <tr><td>Revenue</td><td>$18M ±10%</td><td>Q1 $17.8M 수준에서 안정적 성장/유지.</td></tr>
+        <tr><td>Non-GAAP Gross Margin</td><td>약 88%</td><td>FTCO/TCAD 성장에도 margin 유지가 플랫폼성 검증 포인트.</td></tr>
+        <tr><td>Non-GAAP OpEx</td><td>$15.5M ±5%</td><td>비용 통제와 흑자 전환 여부의 핵심.</td></tr>
+        <tr><td>Operating Profitability</td><td>Q2 non-GAAP 영업흑자 기대</td><td>2024년 Q4 이후 첫 non-GAAP 영업흑자 가능성.</td></tr>
+        <tr><td>Operating Cash Flow</td><td>Q3 positive OCF 전망</td><td>일회성 비용 제외 underlying cash burn 개선 확인 필요.</td></tr>
+      </tbody>
+    </table>
+    <p>마무리하며, 우리 팀은 이번 분기에 여러 마일스톤을 달성했습니다. 두 분기 연속으로 신규 AI FTCO 고객을 확보했고, IPO 이후 처음으로 비제한 현금 증가를 달성했으며, IPO 이후 두 분기 연속 지출 감소를 기록했습니다. Gross margin은 다년 고점 수준이고, Q2에는 non-GAAP 영업흑자가 예상됩니다.</p>
+    <p>Wally와 저는 강한 결과를 만들어낸 팀에게 감사드립니다. 우리는 수익성 있는 성장에 대한 약속을 계속 이행해 나가기를 기대합니다. 이제 질의응답을 시작하겠습니다.</p>
+  </section>
+
+  <section class="card">
+    <div class="kicker">Investor Checklist</div>
+    <h2>이 번역본에서 뽑아야 할 SVCO 체크포인트</h2>
+    <table class="dense">
+      <thead><tr><th>체크포인트</th><th>왜 중요한가</th><th>다음 확인 시점</th></tr></thead>
+      <tbody>
+        <tr><td>Q2 신규 FTCO 고객 클로징</td><td>Micron-only thesis인지, 반복 가능한 플랫폼인지 판별</td><td>Q2 실적 발표</td></tr>
+        <tr><td>기존 FTCO 고객 신규 기능 주문</td><td>고객 lock-in 및 확장 주문 가능성</td><td>Bookings/RPO 업데이트</td></tr>
+        <tr><td>Non-GAAP OpEx $15.5M 근처 유지</td><td>FTCO가 인력집약적 프로젝트인지 플랫폼인지 구분</td><td>Q2 손익계산서</td></tr>
+        <tr><td>Gross margin 88% 유지</td><td>고객별 customization 비용이 margin을 훼손하는지 확인</td><td>Q2/Q3</td></tr>
+        <tr><td>IP pipeline doubling</td><td>Mixel 인수가 일회성이 아니라 새 revenue baseline을 만들었는지 확인</td><td>Q2 IP bookings</td></tr>
+        <tr><td>Q3 positive OCF</td><td>ATM/희석 의존도를 낮출 수 있는지 확인</td><td>Q3 실적</td></tr>
+      </tbody>
+    </table>
+    <div class="callout bad">
+      <p><strong>주의:</strong> 문서상 “Q2에 신규 FTCO 고객 하나를 더 클로징할 것으로 기대”는 확정 계약이 아니라 경영진의 기대/전망입니다. 투자 판단에서는 확정 사실과 forward-looking statement를 분리해야 합니다.</p>
+    </div>
+    <p class="foot">본 HTML은 사용자가 업로드한 Silvaco Q1 FY2026 prepared remarks 문서를 한국어로 번역·편집한 자료입니다. 투자 권유가 아니며, 원문에 포함된 미래예측진술과 리스크 요인을 함께 고려해야 합니다.</p>
+  </section>
+</main>
+
+<script src="/js/page-comments.js" data-disqus-shortname="freddiekim" data-site-url="https://freddiekim.github.io"></script>
+</body>
+</html>

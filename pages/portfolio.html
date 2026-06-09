@@ -4,6 +4,7 @@ title: My Portfolio
 ---
 {% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/portfolio/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign analysis_report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign conference_call_files = site.static_files | where_exp: "file", "file.path contains '/pages_conferenceCall/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign latest_report = portfolio_reports | last %}
 {% assign archive_count = portfolio_reports.size | minus: 1 %}
 {% if latest_report %}
@@ -389,10 +390,24 @@ title: My Portfolio
     }
 
     .research-role-head h3 {
+      align-items: center;
+      display: flex;
       font-size: 26px;
       font-weight: 900;
+      gap: 10px;
+      justify-content: space-between;
       margin: 0 0 6px;
       text-transform: uppercase;
+    }
+
+    .research-role-head h3 span {
+      background: var(--ink);
+      border-radius: 999px;
+      color: var(--cream);
+      flex: 0 0 auto;
+      font-size: 14px;
+      line-height: 1;
+      padding: 7px 10px;
     }
 
     .research-role-head p {
@@ -475,6 +490,11 @@ title: My Portfolio
     .research-links a.report-direct,
     .other-chip.report-direct {
       background: var(--gold);
+    }
+
+    .research-links a.conference-direct {
+      background: var(--green);
+      color: var(--cream);
     }
 
     .research-links a:hover,
@@ -759,10 +779,18 @@ title: My Portfolio
               {% assign role_title = "수비수" %}
               {% assign role_desc = "포트폴리오 균형과 변동성 완충을 맡습니다." %}
           {% endcase %}
+          {% assign role_total = 0 %}
+          {% assign role_count = 0 %}
+          {% for company in research_companies %}
+            {% if company.portfolio_rank <= 20 and company.portfolio_role == role %}
+              {% assign role_total = role_total | plus: company.portfolio_weight %}
+              {% assign role_count = role_count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
           <article class="research-role-panel" data-role="{{ role }}">
             <div class="research-role-head">
-              <h3>{{ role_title }}</h3>
-              <p>{{ role_desc }}</p>
+              <h3>{{ role_title }} <span>{{ role_total | round: 1 }}%</span></h3>
+              <p>{{ role_desc }} · {{ role_count }} 종목</p>
             </div>
             <div class="research-company-list">
               {% for company in research_companies %}
@@ -770,6 +798,16 @@ title: My Portfolio
                   {% assign ticker = company.ticker %}
                   {% assign ticker_key = ticker | upcase %}
                   {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
+                  {% assign latest_conference_call_report = "" %}
+                  {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
+                  {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
+                  {% for call_file in conference_call_files %}
+                    {% assign call_file_name_down = call_file.name | downcase %}
+                    {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
+                    {% if call_file_prefix == ticker_file_prefix %}
+                      {% assign latest_conference_call_report = call_file.path | relative_url %}
+                    {% endif %}
+                  {% endfor %}
                   {% assign latest_company_report = "" %}
                   {% for report in analysis_report_files %}
                     {% assign report_ticker = report.name | split: "_" | first | upcase %}
@@ -791,6 +829,9 @@ title: My Portfolio
                       <a href="{{ '/' | relative_url }}#company-{{ ticker | downcase }}" target="_self">기업 분석</a>
                       {% if latest_company_report != "" %}
                         <a class="report-direct" href="{{ latest_company_report }}" target="_self">분석 리포트</a>
+                      {% endif %}
+                      {% if latest_conference_call_report != "" %}
+                        <a class="conference-direct" href="{{ latest_conference_call_report }}" target="_self">어닝콜 요약</a>
                       {% endif %}
                       {% if earnings_links %}
                         {% for item in earnings_links limit: 2 %}
@@ -886,5 +927,7 @@ title: My Portfolio
       {% endif %}
     </section>
   </main>
+
+<script src="/js/page-comments.js" data-disqus-shortname="freddiekim" data-site-url="https://freddiekim.github.io"></script>
 </body>
 </html>

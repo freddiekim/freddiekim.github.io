@@ -145,15 +145,24 @@ hr.small {
 }
 
 .sidebar-nav .sidebar-role-label {
+    align-items: center;
     color: #d8b46a;
+    display: flex;
     font-size: 12px;
     font-weight: 900;
+    justify-content: space-between;
     letter-spacing: 0;
     line-height: 26px;
     margin-top: 12px;
     padding: 0 18px;
     text-indent: 0;
     text-transform: uppercase;
+}
+
+.sidebar-nav .sidebar-role-label small {
+    color: #cfcfcf;
+    font-size: 11px;
+    font-weight: 900;
 }
 
 .sidebar-nav li.sidebar-company-item {

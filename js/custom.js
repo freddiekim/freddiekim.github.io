@@ -3,18 +3,27 @@ document.addEventListener("DOMContentLoaded", function () {
   var menuToggle = document.getElementById("menu-toggle");
   var menuClose = document.getElementById("menu-close");
 
+  function syncSidebarState() {
+    if (!sidebar) {
+      return;
+    }
+    document.body.classList.toggle("sidebar-open", sidebar.classList.contains("active"));
+  }
+
   function toggleSidebar(event) {
     if (event) {
       event.preventDefault();
     }
     if (sidebar) {
       sidebar.classList.toggle("active");
+      syncSidebarState();
     }
   }
 
   function closeSidebar() {
     if (sidebar) {
       sidebar.classList.remove("active");
+      syncSidebarState();
     }
   }
 
@@ -25,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
   if (menuClose) {
     menuClose.addEventListener("click", toggleSidebar);
   }
+
+  syncSidebarState();
 
   document.querySelectorAll('a[href^="#"]').forEach(function (link) {
     link.addEventListener("click", function (event) {

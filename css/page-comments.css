@@ -1,0 +1,59 @@
+.page-comments-section {
+  background: #fff7e8;
+  border-top: 5px solid #17324d;
+  box-sizing: border-box;
+  clear: both;
+  color: #16324a;
+  display: block;
+  flex: 0 0 100%;
+  margin-top: 56px;
+  padding: 42px 20px 56px;
+  width: 100%;
+}
+
+.page-comments-section .comments-container {
+  margin: 0 auto;
+  max-width: 1120px;
+}
+
+.page-comments-section .comments-heading {
+  border-bottom: 4px solid #17324d;
+  margin-bottom: 26px;
+  padding-bottom: 14px;
+}
+
+.page-comments-section .comments-heading p {
+  color: #b93d34;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+
+.page-comments-section .comments-heading h2 {
+  color: #16324a;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.page-comments-section .disqus {
+  background: #fff !important;
+  min-height: 520px;
+  padding: 24px 0;
+}
+
+@media (max-width: 640px) {
+  .page-comments-section {
+    margin-top: 34px;
+    padding: 30px 12px 42px;
+  }
+
+  .page-comments-section .comments-heading h2 {
+    font-size: 28px;
+  }
+}
