@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YOUNG FINANCE · AAOI Forensic Deep Dive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<style>
+  :root{
+    --paper:#F4EFE6;
+    --paper-2:#EDE5D5;
+    --sand:#E5D9C2;
+    --ink:#1E1B16;
+    --ink-soft:#4A4339;
+    --ochre:#E0A526;
+    --teal:#1E6E66;
+    --terra:#C2522F;
+    --slate:#39596F;
+    --line:rgba(30,27,22,.16);
+    --line-strong:rgba(30,27,22,.42);
+    --good:#1E6E66;
+    --bad:#C2522F;
+    --warn:#C98A1E;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Pretendard","Space Grotesk",system-ui,sans-serif;
+    font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+  .mono{font-family:"Space Mono",monospace}
+  .eyebrow{font-family:"Space Mono",monospace;text-transform:uppercase;letter-spacing:.22em;font-size:11.5px;color:var(--terra);font-weight:700}
+  h1,h2,h3,h4{font-family:"Pretendard",sans-serif;font-weight:800;line-height:1.18;letter-spacing:-.01em}
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--line)}
+  a:hover{border-color:var(--teal)}
+
+  /* ---------- MASTHEAD ---------- */
+  header.mast{background:var(--ink);color:var(--paper);padding:0;overflow:hidden;position:relative}
+  .mast-inner{max-width:1080px;margin:0 auto;padding:40px 28px 54px;position:relative;z-index:2}
+  .brand{display:flex;align-items:center;gap:14px;font-family:"Space Mono",monospace;letter-spacing:.28em;font-size:12px;text-transform:uppercase;color:var(--ochre)}
+  .brand .dot{width:10px;height:10px;background:var(--ochre);border-radius:50%}
+  .mast h1{font-size:clamp(38px,7vw,76px);margin:26px 0 6px;color:var(--paper);font-weight:900}
+  .mast h1 .tick{color:var(--ochre)}
+  .mast .sub{font-family:"Fraunces",serif;font-style:italic;font-weight:400;font-size:clamp(17px,2.4vw,23px);color:var(--sand);max-width:42ch}
+  .mast .meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px 26px;font-family:"Space Mono",monospace;font-size:12px;color:rgba(244,239,230,.72)}
+  .mast .meta b{color:var(--paper)}
+  /* flat prism signature */
+  .prism{position:absolute;right:-40px;top:0;height:100%;width:46%;opacity:.92;z-index:1}
+  @media(max-width:760px){.prism{display:none}}
+
+  /* ---------- VERDICT STRIP ---------- */
+  .verdict{background:var(--ochre);color:var(--ink)}
+  .verdict .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0}
+  .vcell{padding:22px 22px;border-right:1px solid rgba(30,27,22,.18)}
+  .vcell:last-child{border-right:none}
+  .vcell .k{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .vcell .v{font-size:23px;font-weight:900;margin-top:4px;line-height:1.1}
+  .vcell .vs{font-size:13px;font-weight:500;color:var(--ink-soft);margin-top:2px}
+  @media(max-width:760px){.verdict .wrap{grid-template-columns:repeat(2,1fr)} .vcell:nth-child(2){border-right:none}}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:54px 0;border-bottom:1px solid var(--line)}
+  .snum{font-family:"Fraunces",serif;font-weight:900;font-size:15px;color:var(--terra);letter-spacing:.04em}
+  h2.sec{font-size:clamp(26px,3.6vw,38px);margin:8px 0 18px}
+  h3{font-size:21px;margin:34px 0 10px;color:var(--ink)}
+  h4{font-size:16px;margin:22px 0 6px;color:var(--slate);font-weight:700}
+  p{margin:12px 0}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .muted{color:var(--ink-soft)}
+  strong,b{font-weight:700}
+  .hl{background:linear-gradient(transparent 62%, rgba(224,165,38,.45) 62%);padding:0 1px}
+
+  /* callouts */
+  .call{border-left:4px solid var(--teal);background:var(--paper-2);padding:16px 20px;margin:20px 0;border-radius:0 6px 6px 0}
+  .call.bad{border-color:var(--terra)}
+  .call.warn{border-color:var(--warn)}
+  .call .ct{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:4px}
+  .call.bad .ct{color:var(--terra)}
+  .call.warn .ct{color:var(--warn)}
+
+  /* tables */
+  .tw{overflow-x:auto;margin:20px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;background:#fff;border:1px solid var(--line-strong)}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--ink);color:var(--paper);font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+  tr:last-child td{border-bottom:none}
+  td.num,th.num{font-family:"Space Mono",monospace;white-space:nowrap}
+  .tagA{color:var(--good);font-weight:700}.tagB{color:var(--warn);font-weight:700}.tagC{color:var(--terra);font-weight:700}
+  tbody tr:nth-child(even){background:var(--paper)}
+
+  /* signal grid */
+  .sig{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:24px 0}
+  @media(max-width:760px){.sig{grid-template-columns:1fr}}
+  .scard{background:#fff;border:1px solid var(--line-strong);border-radius:8px;padding:18px 18px;position:relative;overflow:hidden}
+  .scard .sn{font-family:"Fraunces",serif;font-weight:900;font-size:30px;color:var(--sand);position:absolute;right:14px;top:6px}
+  .scard h4{margin:0 0 6px;color:var(--ink);font-size:15.5px;max-width:88%}
+  .scard p{margin:6px 0 0;font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+  .scard .badge{display:inline-block;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.1em;padding:2px 7px;border-radius:3px;margin-top:10px;text-transform:uppercase}
+  .b-demand{background:rgba(30,110,102,.14);color:var(--teal)}
+  .b-cap{background:rgba(224,165,38,.2);color:var(--warn)}
+  .b-risk{background:rgba(194,82,47,.14);color:var(--terra)}
+
+  /* mini kpi cards */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:#fff;border:1px solid var(--line-strong);padding:14px;border-radius:6px}
+  .kpi .k{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  .kpi .v{font-size:22px;font-weight:900;margin-top:4px}
+  .kpi .d{font-size:12px;margin-top:2px}
+  .up{color:var(--good)}.down{color:var(--bad)}
+
+  /* figure */
+  figure{margin:26px 0;background:#fff;border:1px solid var(--line-strong);border-radius:10px;padding:22px 20px 14px}
+  figcaption{font-family:"Space Mono",monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.04em;margin-top:8px}
+  svg{display:block;width:100%;height:auto}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:"Space Mono",monospace;font-size:11px;margin-top:10px;color:var(--ink-soft)}
+  .legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:5px;vertical-align:middle}
+
+  ul.clean{list-style:none;padding:0;margin:14px 0}
+  ul.clean li{padding:8px 0 8px 26px;border-bottom:1px solid var(--line);position:relative}
+  ul.clean li:before{content:"→";position:absolute;left:0;color:var(--terra);font-weight:700}
+  ul.clean li:last-child{border-bottom:none}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+
+  .pill{display:inline-block;font-family:"Space Mono",monospace;font-size:11px;padding:3px 9px;border:1px solid var(--line-strong);border-radius:20px;margin:3px 4px 3px 0}
+
+  /* final summary */
+  .final{background:var(--ink);color:var(--paper)}
+  .final h2{color:var(--paper)}
+  .final .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border:1px solid rgba(244,239,230,.18);border-radius:10px;overflow:hidden;margin-top:22px}
+  @media(max-width:680px){.final .grid{grid-template-columns:1fr}}
+  .frow{padding:14px 18px;border-bottom:1px solid rgba(244,239,230,.12);border-right:1px solid rgba(244,239,230,.12)}
+  .frow .k{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre)}
+  .frow .v{font-size:17px;font-weight:700;margin-top:3px;color:var(--paper)}
+  .frow .v small{font-weight:400;color:var(--sand);font-size:13px}
+
+  footer{background:var(--paper-2);padding:34px 0;font-size:12.5px;color:var(--ink-soft)}
+  footer .wrap{max-width:1080px}
+  .src{font-size:12px;line-height:1.9}
+  .toc{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:18px}
+  .toc a{font-family:"Space Mono",monospace;font-size:11px;border:1px solid var(--line);border-radius:4px;padding:4px 8px;color:var(--ink-soft)}
+  .disc{font-size:12px;color:var(--ink-soft);font-style:italic;border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+</style>
+</head>
+<body>
+
+<!-- ===================== MASTHEAD ===================== -->
+<header class="mast">
+  <svg class="prism" viewBox="0 0 460 360" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+    <!-- flat mid-century light/prism motif: white beam -> prism -> split fiber rays -->
+    <rect x="0" y="172" width="170" height="10" fill="#F4EFE6"/>
+    <polygon points="170,120 250,240 90,240" fill="#E0A526"/>
+    <polygon points="250,120 250,240 170,120" fill="#C2522F" opacity=".9"/>
+    <rect x="250" y="120" width="220" height="9" fill="#1E6E66" transform="rotate(-14 250 124)"/>
+    <rect x="250" y="150" width="240" height="9" fill="#E0A526" transform="rotate(-5 250 154)"/>
+    <rect x="250" y="178" width="240" height="9" fill="#F4EFE6" transform="rotate(2 250 182)"/>
+    <rect x="250" y="206" width="240" height="9" fill="#39596F" transform="rotate(9 250 210)"/>
+    <rect x="250" y="232" width="220" height="9" fill="#C2522F" transform="rotate(17 250 236)"/>
+    <circle cx="170" cy="177" r="7" fill="#1E1B16" stroke="#F4EFE6" stroke-width="3"/>
+  </svg>
+  <div class="mast-inner">
+    <div class="brand"><span class="dot"></span> YOUNG FINANCE · FORENSIC EQUITY DESK</div>
+    <h1>Applied Optoelectronics <span class="tick">/ AAOI</span></h1>
+    <div class="sub">"케이블 부품사"인가, "AI 옵틱스 1차 공급사"인가 — 시장이 아직 가격에 다 담지 못한 정체성 전환을 추적한다.</div>
+    <div class="meta">
+      <span>분석기준일 <b>2026·06·12</b></span>
+      <span>현재가 <b>≈ $178</b> <small style="color:var(--ochre)">(6/10 종가 · 일중 $150~$200 변동 · 매매 전 실시간 확인)</small></span>
+      <span>시총 <b>≈ $14.6B</b></span>
+      <span>보유 <b>없음 (신규 검토)</b></span>
+      <span>52주 <b>$15.3 – $233.7</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== VERDICT STRIP ===================== -->
+<div class="verdict">
+  <div class="wrap">
+    <div class="vcell"><div class="k">투자 등급</div><div class="v">HOLD</div><div class="vs">신규 매수자 관점 = 추격 금지</div></div>
+    <div class="vcell"><div class="k">포트폴리오 행동</div><div class="v">신규 매수 금지</div><div class="vs">$120–140 풀백 대기·소량 분할</div></div>
+    <div class="vcell"><div class="k">12M Base 목표가</div><div class="v">$145</div><div class="vs">현재가 대비 ≈ −18%</div></div>
+    <div class="vcell"><div class="k">12M 기대수익률</div><div class="v" style="color:var(--terra)">≈ −13%</div><div class="vs">확률가중 (Bear20/Base50/Bull30)</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- TOC -->
+<section style="padding-top:34px">
+  <div class="eyebrow">한 문장 요약</div>
+  <p class="lead" style="margin-top:10px">
+    <strong>Thesis —</strong> AAOI는 자체 DFB 레이저 수직계열화를 무기로 <span class="hl">800G/1.6T 옵틱스 공급이 "수요 부족"이 아니라 "생산능력 부족"으로 제약되는</span> AI 데이터센터 변곡점에 서 있고, 데이터센터 매출이 사상 처음 CATV를 추월하며 멀티플 재설정의 근거가 쌓이고 있다.
+  </p>
+  <p class="lead">
+    <strong style="color:var(--terra)">Anti-thesis —</strong> 그러나 현재가는 이미 <span class="hl">bull case + 숏커버 + 2x 레버리지 ETF 거품</span>이 섞인 가격이며, $600M ATM 희석 머신·FCF −$354M·고객 상위 10개사 98% 집중·미입증 40% 마진 목표·내부자 매도가 동시에 가리키는 방향은 "지금 새로 사기엔 비대칭이 사라졌다"이다.
+  </p>
+  <div class="toc">
+    <a href="#s1">01 변곡점</a><a href="#s2">02 BM 진화</a><a href="#s3">03 실적 실체</a><a href="#s4">04 고객·생태계</a>
+    <a href="#s5">05 숨은 고객·M&A</a><a href="#s6">06 자본구조·수급</a><a href="#s7">07 기술</a><a href="#s8">08 컨센서스</a>
+    <a href="#s9">09 이벤트</a><a href="#s10">10 밸류에이션</a><a href="#s11">11 목표가 체계</a><a href="#s12">12 멀티플 밴드</a>
+    <a href="#s13">13 리스크</a><a href="#s14">14 실행안</a><a href="#summary">최종 요약</a>
+  </div>
+</section>
+
+<!-- ===================== STAGE 1: 10 SIGNALS ===================== -->
+<section id="signals">
+  <div class="snum">STAGE 1 · THESIS DISCOVERY</div>
+  <h2 class="sec">처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+  <p class="muted">정식 보고서 이전에, 공시·컨콜·자금조달·고객 발표를 시간순으로 연결했을 때만 보이는 비대칭 신호 10개를 먼저 분리했다. 보고서 전체는 이 신호들을 축으로 재구성된다.</p>
+
+  <div class="sig">
+    <div class="scard"><span class="sn">01</span><h4>매출은 미스, 가이던스는 상향 — "미스의 성격"이 반대다</h4><p>Q1 매출 $151.1M은 컨센서스 $157M을 하회했지만, 회사는 FY26 가이던스를 $1.0B→<b>$1.1B</b>로 올렸다. 수요 둔화가 아니라 <b>capacity 병목</b>이 매출을 누른 것. 미스를 "약세"로 읽으면 오독이다.</p><span class="badge b-cap">CAPACITY-GATED</span></div>
+
+    <div class="scard"><span class="sn">02</span><h4>3개월 만에 ATM $250M→$500M→$600M</h4><p>단순 생존자금이 아니라 <b>월 100만 모듈 팹 증설 capex</b> 자금. FCF −$354M, capex −$179.5M. 자본구조가 "양산 자금조달 모드"로 전환됐다 — 단, ATH 부근에서 찍는 건 경영진의 밸류에이션 시각도 드러낸다.</p><span class="badge b-cap">FUNDING SHIFT</span></div>
+
+    <div class="scard"><span class="sn">03</span><h4>데이터센터가 사상 처음 CATV를 추월</h4><p>DC $81.4M &gt; CATV $66.8M. 정체성의 무게중심이 <b>레거시 케이블 부품 → AI 옵틱스 1차 공급</b>으로 이동. 시장 멀티플 잣대가 저배수(통신부품)에서 고배수(AI 옵틱스)로 재설정될 근거.</p><span class="badge b-demand">RE-RATING SEED</span></div>
+
+    <div class="scard"><span class="sn">04</span><h4>Amazon "워런트"의 숨은 문법</h4><p>고객이 주식을 받는 구조는 공급계약 + <b>이해정렬 + 잠재적 인수 옵션</b>이다. 행사할수록 지분이 쌓이고 sole-source lock-in과 방어적 인수 씨앗이 된다. Rosenblatt가 "Amazon-related 800G"를 명시 — 급증 수요의 정체와 연결.</p><span class="badge b-demand">OPTIONALITY</span></div>
+
+    <div class="scard"><span class="sn">05</span><h4>Oracle 신규 qualification — 컨센서스 미반영</h4><p>"2번째 고객 출하 임박" 컨콜 발언 + Rosenblatt의 Oracle 언급. MS+Amazon 2개 hyperscaler 의존에서 <b>3번째 앵커</b>로 확장 시 집중 리스크 완화 + TAM 확대. 아직 모델에 거의 안 들어가 있다.</p><span class="badge b-demand">HIDDEN CUSTOMER</span></div>
+
+    <div class="scard"><span class="sn">06</span><h4>자체 DFB 레이저 수직계열화 = 공급난 시대의 무기</h4><p>경쟁사가 외부 레이저·칩 의존으로 공급 제약을 겪을 때 AOI는 <b>레이저–칩–모듈을 내재화</b>해 공급을 통제한다. "demand &gt; supply through mid-2027"에서 이건 점유율·ASP·마진의 숨은 해자.</p><span class="badge b-demand">MOAT</span></div>
+
+    <div class="scard"><span class="sn">07</span><h4>GM 29% → 2027 목표 40%의 갭 = 미입증 옵션</h4><p>시장은 지금 29% 마진으로 평가한다. 1.6T 믹스↑ + 미국 자동화 팹 가동률↑로 40%에 닿으면 <b>영업레버리지 폭발</b>(가이던스 op income &gt;$140M). 마진 재평가가 EPS 재평가로 직결되는 비대칭 — 단 미입증.</p><span class="badge b-cap">MARGIN OPTION</span></div>
+
+    <div class="scard"><span class="sn">08</span><h4>2030 전환사채 — 만기 연장 + 제약조항 제거</h4><p>2026 만기 부채를 2.75% 2030 Notes($125M)로 밀어내며 <b>restrictive covenants 제거</b>. 단기 리파이낸싱 리스크를 없애고 capex/M&A 여력을 확보했다. 자본구조가 성장 모드로 정비됨.</p><span class="badge b-cap">BALANCE-SHEET</span></div>
+
+    <div class="scard"><span class="sn">09</span><h4>숏 14% · DTC 2~3일 · 2x 레버리지 ETF 출시</h4><p>최근 급등의 상당 부분은 <b>숏커버 + 레버리지 ETF 유동성</b>(데이트레이더·알고). 숏 비중이 18%→14%로 줄어 "스퀴즈 연료"는 상당 소진 — 추가 스퀴즈 업사이드는 제한, 모멘텀 청산 시 급락 위험.</p><span class="badge b-risk">FLOW FROTH</span></div>
+
+    <div class="scard"><span class="sn">10</span><h4>ATH 부근 내부자 매도 클러스터 + 신규 주식보상 플랜</h4><p>5월말~6월초 임원 매도 집중(예: Hung-lun Chang 6/9) + 새 equity plan 통과. 펀더멘털 훼손은 아니나 <b>"현 주가는 내부자가 팔고 싶은 가격"</b>이라는 수급 경고. 거시 higher-for-longer와 겹치면 듀레이션 재인식 트리거.</p><span class="badge b-risk">INSIDER FLOW</span></div>
+  </div>
+
+  <div class="call">
+    <div class="ct">신호의 합 (Signal Synthesis)</div>
+    <p style="margin:0">신호 01·03·05·06은 <b>같은 방향(구조적 변곡점은 진짜)</b>을 가리킨다. 신호 02·09·10은 <b>다른 방향(가격은 이미 그 변곡점 + 거품을 선반영)</b>을 가리킨다. 신호 07은 <b>미입증 업사이드 옵션</b>이다. 결론적으로 "회사 = 좋아짐 / 주식 = 비싸짐"이 동시에 참이며, 비보유자에게 의미 있는 행동은 <b>추격 매수가 아니라 풀백 대기</b>다.</p>
+  </div>
+</section>
+
+<!-- ===================== A: IDENTITY ===================== -->
+<section>
+  <div class="snum">STAGE 1 · A — 기업 정체성 재정의</div>
+  <h2 class="sec">시장이 보던 회사 vs. 실제 이동 중인 밸류체인</h2>
+  <div class="twocol">
+    <div>
+      <h4>시장이 붙여둔 레거시 잣대</h4>
+      <p>1997년 설립된 텍사스 슈가랜드의 <b>광통신 부품사</b>. 오랫동안 매출의 중심은 CATV(케이블TV) HFC 장비와 데이터센터 트랜시버였고, 2017년 고점($99) 이후 데이터센터 고객 이탈·중국 경쟁·적자로 <b>"한물간 사이클 부품주"</b>로 분류돼 왔다. 2025년 6월 주가는 $17 수준, 컨센서스 목표가 $22~32에 불과했다.</p>
+    </div>
+    <div>
+      <h4>실제로 이동 중인 밸류체인</h4>
+      <p>AI 데이터센터의 <b>800G/1.6T 옵티컬 트랜시버 1차 공급사</b>로 재편 중. 자체 DFB 레이저 → 칩 → 모듈을 수직계열화한 소수 업체이고, 공급이 수요를 못 따라가는 국면에서 <b>"부품 판매"에서 "hyperscaler reference/qualified 공급 레이어"</b>로 진화하고 있다.</p>
+    </div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>축</th><th>과거 (레거시)</th><th>현재~미래 (변곡점)</th><th class="num">멀티플 함의</th></tr></thead>
+      <tbody>
+        <tr><td>핵심 매출</td><td>CATV HFC · 100G/400G</td><td>800G/1.6T AI 옵틱스</td><td class="num">저배수→고배수</td></tr>
+        <tr><td>고객</td><td>케이블 MSO · 통신장비</td><td>Microsoft·Amazon·(Oracle)</td><td class="num">집중·고성장</td></tr>
+        <tr><td>역할</td><td>단순 부품 공급자</td><td>qualified/내재화 공급 레이어</td><td class="num">전환비용↑</td></tr>
+        <tr><td>마진</td><td>20%대 변동</td><td>GM 29%→27 목표 40%</td><td class="num">레버리지 옵션</td></tr>
+        <tr><td>손익</td><td>구조적 적자</td><td>Q2'26 흑자 전환 가이드</td><td class="num">PER 의미 부여 시작</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="call warn"><div class="ct">판정</div><p style="margin:0">아직 완전한 "turnkey/플랫폼 기업"은 아니다. 그러나 <b>수직계열화 + hyperscaler qualification + 공급 통제력</b>은 단순 부품사보다 한 단계 위의 멀티플을 정당화할 수 있는 "준(準)플랫폼" 위치다. 다만 이 재평가는 <b>마진 40% 입증과 고객 다변화가 확인돼야</b> 완성된다.</p></div>
+</section>
+
+<!-- ===================== B: CUSTOMER MAP ===================== -->
+<section id="s4-pre">
+  <div class="snum">STAGE 1 · B — 고객·공급망·파트너 맵</div>
+  <h2 class="sec">누가 직접 고객이고, 누가 최종 수혜자인가</h2>
+
+  <figure>
+    <svg viewBox="0 0 900 420" role="img" aria-label="AAOI 고객·생태계 관계도">
+      <!-- center -->
+      <rect x="370" y="180" width="160" height="62" rx="8" fill="#1E1B16"/>
+      <text x="450" y="205" text-anchor="middle" fill="#F4EFE6" font-family="Pretendard" font-weight="800" font-size="18">AAOI</text>
+      <text x="450" y="227" text-anchor="middle" fill="#E0A526" font-family="Space Mono" font-size="11">수직계열 옵틱스</text>
+      <!-- links -->
+      <g stroke="#39596F" stroke-width="2.5" fill="none" opacity=".75">
+        <line x1="370" y1="200" x2="190" y2="90"/>
+        <line x1="370" y1="211" x2="190" y2="200"/>
+        <line x1="370" y1="225" x2="190" y2="320"/>
+      </g>
+      <g stroke="#1E6E66" stroke-width="2.5" fill="none" opacity=".75">
+        <line x1="530" y1="200" x2="710" y2="90"/>
+        <line x1="530" y1="211" x2="710" y2="200"/>
+        <line x1="530" y1="225" x2="710" y2="320"/>
+      </g>
+      <!-- left: suppliers/inputs -->
+      <g font-family="Pretendard" font-weight="700" font-size="13">
+        <rect x="40" y="64" width="150" height="52" rx="7" fill="#E5D9C2" stroke="#39596F"/>
+        <text x="115" y="86" text-anchor="middle" fill="#1E1B16">자체 DFB 레이저</text>
+        <text x="115" y="104" text-anchor="middle" fill="#4A4339" font-size="11" font-family="Space Mono">내재화 (해자)</text>
+        <rect x="40" y="174" width="150" height="52" rx="7" fill="#E5D9C2" stroke="#39596F"/>
+        <text x="115" y="196" text-anchor="middle" fill="#1E1B16">美·대만·中 팹</text>
+        <text x="115" y="214" text-anchor="middle" fill="#4A4339" font-size="11" font-family="Space Mono">월100만 모듈 증설</text>
+        <rect x="40" y="294" width="150" height="52" rx="7" fill="#E5D9C2" stroke="#39596F"/>
+        <text x="115" y="316" text-anchor="middle" fill="#1E1B16">CATV 파트너</text>
+        <text x="115" y="334" text-anchor="middle" fill="#4A4339" font-size="11" font-family="Space Mono">Spectrum·Mediacom</text>
+      </g>
+      <!-- right: customers -->
+      <g font-family="Pretendard" font-weight="700" font-size="13">
+        <rect x="710" y="64" width="150" height="52" rx="7" fill="#1E6E66"/>
+        <text x="785" y="86" text-anchor="middle" fill="#fff">Microsoft</text>
+        <text x="785" y="104" text-anchor="middle" fill="#cfe7e3" font-size="11" font-family="Space Mono">앵커(2023~)</text>
+        <rect x="710" y="174" width="150" height="52" rx="7" fill="#1E6E66"/>
+        <text x="785" y="196" text-anchor="middle" fill="#fff">Amazon (AWS)</text>
+        <text x="785" y="214" text-anchor="middle" fill="#cfe7e3" font-size="11" font-family="Space Mono">워런트·800G 급증</text>
+        <rect x="710" y="294" width="150" height="52" rx="7" fill="#C2522F"/>
+        <text x="785" y="316" text-anchor="middle" fill="#fff">Oracle (추정)</text>
+        <text x="785" y="334" text-anchor="middle" fill="#f3d8cd" font-size="11" font-family="Space Mono">qualification 中</text>
+      </g>
+      <text x="115" y="44" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#C2522F" letter-spacing="1">INPUT / 공급</text>
+      <text x="785" y="44" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#1E6E66" letter-spacing="1">CUSTOMER / 수요</text>
+    </svg>
+    <figcaption>고객 상위 10개사 = 매출 98%. 직접 고객(hyperscaler) ↔ 최종 수혜(AI 트레이닝/추론 클러스터) ↔ 케이블 MSO 이원 구조.</figcaption>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th>구분</th><th>주체</th><th>근거 (확정)</th><th>해석 (추론)</th><th class="num">신뢰도</th></tr></thead>
+    <tbody>
+      <tr><td>직접 고객</td><td>Microsoft</td><td>2023.7 설계·공급계약 공시</td><td>역사적 앵커 DC 고객</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td>직접 고객</td><td>Amazon/AWS</td><td>2024~25 워런트 계약; "key hyperscaler 수요 급증"</td><td>800G 급증 수요의 핵심 후보</td><td class="num"><span class="tagB">B+</span></td></tr>
+      <tr><td>잠재 고객</td><td>Oracle</td><td>Rosenblatt "Oracle qualification" 언급; "2nd customer 출하 임박"</td><td>3번째 앵커 후보</td><td class="num"><span class="tagB">B</span></td></tr>
+      <tr><td>CATV</td><td>Charter/Spectrum</td><td>1.8GHz 앰프 SW 배포 공시(2026.6)</td><td>DOCSIS 4.0 안정 캐시카우</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td>CATV</td><td>Mediacom</td><td>DOCSIS 4.0 "Quantum Bandwidth" 채택</td><td>다년 롤아웃, 가동률 유지</td><td class="num"><span class="tagA">A</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="call"><div class="ct">Lock-in 구조</div><p style="margin:0">광 트랜시버는 hyperscaler 네트워크에 <b>qualification(검증)</b>을 통과해야 들어가고, 한 번 양산 라인에 채택되면 RF·신뢰성 재검증 비용 때문에 단기 교체가 어렵다. Amazon 워런트는 여기에 <b>지분 정렬</b>을 더해 전환비용을 한층 높인다.</p></div>
+</section>
+
+<!-- ===================== C: EVENT CHAIN ===================== -->
+<section id="s9-pre">
+  <div class="snum">STAGE 1 · C — 사건 체인 분석</div>
+  <h2 class="sec">24개월 사건 타임라인 — 작은 공시를 이으면 큰 전략이 보인다</h2>
+
+  <figure>
+    <svg viewBox="0 0 900 250" role="img" aria-label="AAOI 주가·이벤트 타임라인">
+      <!-- axis -->
+      <line x1="50" y1="200" x2="870" y2="200" stroke="#1E1B16" stroke-width="1.5"/>
+      <!-- price polyline (schematic: 2025.6 ~$17 -> 2026.5 ATH $223 -> ~$178) -->
+      <polyline fill="none" stroke="#C2522F" stroke-width="3"
+        points="60,188 180,184 300,176 420,150 540,120 660,40 720,70 780,96 840,78"/>
+      <!-- markers -->
+      <g font-family="Space Mono" font-size="10" fill="#4A4339">
+        <circle cx="120" cy="186" r="4" fill="#39596F"/><text x="120" y="222" text-anchor="middle">'23.12 conv'26</text>
+        <circle cx="240" cy="180" r="4" fill="#39596F"/><text x="240" y="222" text-anchor="middle">'24 conv'30+Amazon</text>
+        <circle cx="420" cy="150" r="4" fill="#E0A526"/><text x="420" y="222" text-anchor="middle">'26.2 ATM $250M</text>
+        <circle cx="500" cy="132" r="4" fill="#E0A526"/><text x="500" y="236" text-anchor="middle">'26.3 ATM→$500M</text>
+        <circle cx="600" cy="78" r="4" fill="#1E6E66"/><text x="600" y="222" text-anchor="middle">'26.4 수요급증</text>
+        <circle cx="660" cy="40" r="5" fill="#C2522F"/><text x="660" y="30" text-anchor="middle" fill="#C2522F" font-weight="700">'26.5.13 ATH $223</text>
+        <circle cx="700" cy="58" r="4" fill="#39596F"/><text x="708" y="236" text-anchor="middle">Q1 미스→−12%</text>
+        <circle cx="780" cy="96" r="4" fill="#E0A526"/><text x="790" y="222" text-anchor="middle">'26.6 ATM→$600M</text>
+      </g>
+      <text x="60" y="178" font-family="Space Mono" font-size="10" fill="#C2522F">$17</text>
+      <text x="650" y="58" font-family="Space Mono" font-size="10" fill="#C2522F"></text>
+    </svg>
+    <figcaption>주가(주황) · 자본조달(노랑) · 고객/수요(청록) · 부채(슬레이트). 자금조달이 주가 급등 구간에 집중 — 양산 capex 조달 + ATH 활용의 이중성.</figcaption>
+  </figure>
+
+  <div class="tw"><table>
+    <thead><tr><th class="num">날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>Thesis 영향</th><th class="num">신뢰</th></tr></thead>
+    <tbody>
+      <tr><td class="num">'23.12</td><td>5.25% 2026 전환사채 $80.2M</td><td>발행 확정</td><td>단기 자금 확보</td><td>중립(부채)</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'24</td><td>2030 Notes $125M 교환 + 직접공모</td><td>만기연장·covenant 제거·+$30M</td><td>리파이낸싱 리스크 제거</td><td>+ 재무유연성</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'24~25</td><td>Amazon 워런트 계약</td><td>주식옵션 부여 공시</td><td>공급보장+지분정렬+인수옵션</td><td>+ optionality</td><td class="num"><span class="tagB">B+</span></td></tr>
+      <tr><td class="num">'26.2</td><td>ATM $250M 개설</td><td>S-3 shelf 기반</td><td>capex 자금 시동</td><td>− 희석 / + 증설</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.3.12</td><td>ATM $250M→$500M</td><td>2.48M주 기매도(~$101)</td><td>증설 가속</td><td>− 희석</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.4</td><td>"key hyperscaler 수요 급증"</td><td>주가 +급등</td><td>Amazon 800G 추정</td><td>+ 핵심 촉매</td><td class="num"><span class="tagB">B</span></td></tr>
+      <tr><td class="num">'26.5.7</td><td>Q1'26 실적·FY 가이던스 상향</td><td>매출 $151M, FY $1.1B, 800G 첫 출하</td><td>capacity-gated</td><td>+ 펀더멘털 / − 매출미스</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.5.8</td><td>Rosenblatt $140→$220, Oracle 언급</td><td>목표가 상향</td><td>multi-year AI thesis</td><td>+ 컨센서스</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.5.13</td><td>사상 최고가 $223 (장중 $233.7)</td><td>ATH</td><td>모멘텀·숏커버 정점</td><td>− 과열</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.5~6</td><td>내부자 매도 클러스터</td><td>다수 임원 매도</td><td>ATH 차익실현</td><td>− 수급경고</td><td class="num"><span class="tagB">B</span></td></tr>
+      <tr><td class="num">'26.6.1</td><td>ATM $600M 확대</td><td>신규 프로그램</td><td>대규모 capex 조달</td><td>− 희석 / + 증설</td><td class="num"><span class="tagA">A</span></td></tr>
+      <tr><td class="num">'26.6.5</td><td>PwC 감사인 변경·신규 equity plan 승인</td><td>주총 통과</td><td>거버넌스 정비/보상 희석</td><td>중립~−</td><td class="num"><span class="tagA">A</span></td></tr>
+    </tbody>
+  </table></div>
+  <ul class="clean">
+    <li><b>같은 방향:</b> 수요급증(4월) → 가이던스 상향(5월) → 애널 상향(5월) → ATM 확대(2~6월)는 "수요가 공급을 초과 → 증설 자금 조달" 한 줄로 꿰진다.</li>
+    <li><b>다른 방향:</b> ATH(5/13) → 내부자 매도 → $600M ATM은 "현 주가에서 회사와 내부자가 동시에 주식을 공급"하는 수급 경고선이다.</li>
+  </ul>
+</section>
+
+<!-- ===================== D: CAPITAL STRUCTURE FORENSIC ===================== -->
+<section id="s6">
+  <div class="snum">STAGE 1 · D / §6 — 자본구조 & 수급 Forensic</div>
+  <h2 class="sec">소형 적자 성장주는 펀더멘털보다 자본구조가 주가를 지배한다</h2>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">현금</div><div class="v">$449M</div><div class="d up">전환사채 교환 후 보강</div></div>
+    <div class="kpi"><div class="k">FCF (TTM)</div><div class="v down">−$354M</div><div class="d down">capex −$179.5M 주도</div></div>
+    <div class="kpi"><div class="k">발행주식</div><div class="v">≈80M</div><div class="d down">'25 중반 ~62M → +29%</div></div>
+    <div class="kpi"><div class="k">숏 비중</div><div class="v">14.2%</div><div class="d">18%→감소 · DTC 2~3일</div></div>
+  </div>
+
+  <h4>희석 메커니즘 — "어디서 주식이 나오는가"</h4>
+  <ul class="clean">
+    <li><b>ATM $600M (2026.6):</b> 핵심 희석원. 직전 $250M 트랜치는 평균 ~$101에 2.48M주 매도. 잔여 한도가 크고, <b>주가가 높을수록 같은 금액에 적은 주식</b>이 나가므로 경영진은 고가에서 적극 매도할 유인.</li>
+    <li><b>2030 전환사채 $125M (2.75%):</b> 만기 2030, covenant 제거. 전환 시 추가 희석(전환가 추정 $35~40대, 현재가 훨씬 상회 → 전환 인센티브 높음).</li>
+    <li><b>Amazon 워런트:</b> 구매량 연동 행사. 행사 시 희석이지만 동시에 수요·지분 정렬 신호.</li>
+    <li><b>신규 equity plan + inducement grants:</b> 임직원 RSU/옵션 희석 지속.</li>
+  </ul>
+
+  <div class="call warn"><div class="ct">자금의 성격 판정</div><p style="margin:0">현 financing은 <b>"생존자금"이 아니라 "양산(capex)자금"</b>이다. FCF가 깊은 마이너스인 이유도 매출 둔화가 아니라 월 100만 모듈 팹 증설 때문. 다만 양산자금이라도 <b>희석은 EPS·주당가치를 실질적으로 잠식</b>하므로, "성장 자금 = 좋은 희석"이라는 단순화는 위험하다. 핵심은 증설된 capacity가 약속한 마진(→40%)으로 돌아오느냐다.</p></div>
+
+  <h4>최근 급등의 수급 분해</h4>
+  <div class="tw"><table>
+    <thead><tr><th>동인</th><th>기여 (정성)</th><th>지속성</th></tr></thead>
+    <tbody>
+      <tr><td>펀더멘털(수요급증·가이던스 상향)</td><td>실체 있음 — 매출 +51% YoY</td><td class="tagA">높음</td></tr>
+      <tr><td>멀티플 확장(AI 옵틱스 재평가)</td><td>정체성 전환 반영</td><td class="tagB">중간(입증 필요)</td></tr>
+      <tr><td>숏커버(18%→14%)</td><td>급등 가속</td><td class="tagC">소진 진행</td></tr>
+      <tr><td>2x 레버리지 ETF·옵션</td><td>일중 변동 증폭</td><td class="tagC">투기성</td></tr>
+      <tr><td>financing overhang</td><td>상단을 누르는 힘</td><td class="tagC">상시</td></tr>
+    </tbody>
+  </table></div>
+  <p>즉 현재 주가는 <span class="hl">펀더멘털(진짜) + 멀티플 확장(절반 입증) + 숏커버(소진) + 레버리지 투기(거품)</span>의 합이다. 주가를 누르는 구조(ATM·내부자매도)는 상존하고, 이를 풀 트리거는 "Q2 흑자전환 + 1.6T 출하 확인"이다.</p>
+</section>
+
+<!-- ===================== E: TECH ===================== -->
+<section id="s7">
+  <div class="snum">STAGE 1 · E / §7 — 기술 장벽</div>
+  <h2 class="sec">소프트웨어로 풀 수 없는, 실리콘·RF·레이저 레벨의 문제</h2>
+  <div class="twocol">
+    <div>
+      <h4>제품·로드맵 (구체)</h4>
+      <ul class="clean">
+        <li><b>DC 트랜시버:</b> 100G → 400G → <b>800G(2026 Q1 첫 출하)</b> → <b>1.6T(2026 Q3말 출하)</b>. AI GPU 클러스터의 GPU↔스위치 인터커넥트.</li>
+        <li><b>핵심 부품:</b> 자체 <b>DFB 레이저</b>, photodiode, optical subassembly(TOSA/ROSA) 내재화.</li>
+        <li><b>CATV:</b> DOCSIS 4.0 "Quantum Bandwidth" 앰프, 1.8GHz, 지능형 네트워크관리 SW.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>왜 모방이 어려운가</h4>
+      <ul class="clean">
+        <li><b>레이저 내재화:</b> 대부분 경쟁사가 외부 레이저 의존 → 공급난에 취약. AOI는 공급 통제.</li>
+        <li><b>qualification lock-in:</b> hyperscaler 검증 통과가 진입장벽 + 전환비용.</li>
+        <li><b>물리 문제:</b> 800G/1.6T 신호 무결성은 RF·열·패키징의 하드웨어 난제 — SW만으론 불가.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="call bad"><div class="ct">기술 해자의 한계</div><p style="margin:0">단, 광 트랜시버는 <b>표준화된 폼팩터(QSFP-DD/OSFP)</b> 위에서 경쟁한다. InnoLight·Eoptolink 등 중국 업체가 800G에서 강하고, Marvell의 광 DSP·Coherent/Lumentum의 칩이 생태계를 지배한다. AOI의 해자는 "독점 기술"이 아니라 <b>"수직계열화 + 공급난 시기의 capacity"</b>에 가깝다 — 공급이 풀리면 약해질 수 있는 한시적 해자.</p></div>
+</section>
+
+<!-- ===================== F: GAME THEORY / M&A ===================== -->
+<section id="s5">
+  <div class="snum">STAGE 1 · F / §5 — 생태계 게임이론 & 숨은 M&A optionality</div>
+  <h2 class="sec">이 회사를 누가, 언제 인수하는 것이 합리적인가</h2>
+  <div class="tw"><table>
+    <thead><tr><th>후보</th><th>인수 논리</th><th>반대 논리</th><th class="num">확률(정성)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Amazon (전략·방어)</b></td><td>워런트로 이미 지분 정렬 · 공급 보장 · 경쟁사 차단</td><td>AWS는 자체 칩(Annapurna) 선호, 광은 멀티벤더 유지 유인</td><td class="num"><span class="tagB">중</span></td></tr>
+      <tr><td><b>Marvell / Broadcom (전략)</b></td><td>광 DSP+모듈 수직통합, 레이저 확보</td><td>밸류에이션 부담, 자체/파트너 생태계 보유</td><td class="num"><span class="tagB">중하</span></td></tr>
+      <tr><td><b>Coherent / Lumentum (방어)</b></td><td>레이저·capacity 흡수, 경쟁 제거</td><td>중복 자산, 통합 난이도</td><td class="num"><span class="tagC">하</span></td></tr>
+      <tr><td><b>Microsoft (전략)</b></td><td>앵커 고객, 공급 내재화</td><td>MS는 하드웨어 직접 소유 회피 경향</td><td class="num"><span class="tagC">하</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="call"><div class="ct">인수 타이밍 논리</div><p style="margin:0">고객이 직접 인수하는 게 경제적으로 합리적인 시점은 <b>(1) AOI가 sole/dominant 공급사가 되어 가격결정력이 생기고, (2) 양산 램프가 입증되어 인수 후 즉시 capacity를 흡수할 수 있을 때</b>다. 즉 <b>10-K 고객명 공개·1.6T 양산·Oracle qualification 확정</b> 이후 M&A 기대가 정당화된다. 현 시총 ~$14.6B은 이미 이런 프리미엄의 상당분을 선반영 — M&A는 base case에 <b>0%</b>, bull에 <b>+10~15%</b>, overshoot에 <b>+20%+</b> 정도만 반영하는 게 합리적이다(현 가격엔 이미 일부 들어가 있음).</p></div>
+</section>
+
+<!-- ===================== G: ANTI-THESIS ===================== -->
+<section id="anti">
+  <div class="snum">STAGE 1 · G — 반대 thesis (동일 강도)</div>
+  <h2 class="sec">이 모든 연결이 틀렸을 가능성</h2>
+  <div class="sig">
+    <div class="scard"><span class="sn">i</span><h4>익명 고객 오판</h4><p>"key hyperscaler"가 Amazon이 아닐 수 있고, 단일 고객 아키텍처 변경 한 번에 분기 실적이 붕괴(상위10 = 98%).</p></div>
+    <div class="scard"><span class="sn">ii</span><h4>재고 빌드 vs 진짜 수요</h4><p>800G 발주가 최종 수요가 아니라 hyperscaler 재고 선구축일 가능성 — digestion 분기가 오면 역성장.</p></div>
+    <div class="scard"><span class="sn">iii</span><h4>마진 40% 미달</h4><p>Ciena조차 43~44% 목표. AOI 40% 목표는 미입증. 29%에 정체되면 영업레버리지 스토리 붕괴.</p></div>
+    <div class="scard"><span class="sn">iv</span><h4>희석이 업사이드 잠식</h4><p>$600M ATM + 전환 + 워런트로 주식 수가 20~30% 더 늘면 주당가치 희석이 매출 성장 상쇄.</p></div>
+    <div class="scard"><span class="sn">v</span><h4>대기업 자체/기존 공급 대체</h4><p>InnoLight·Eoptolink·Marvell 생태계가 800G/1.6T를 더 싸게 공급하면 점유율·ASP 압박.</p></div>
+    <div class="scard"><span class="sn">vi</span><h4>스퀴즈 후 급락</h4><p>숏 연료 소진 + 레버리지 ETF 청산 시 펀더멘털과 무관하게 −30~50% 가능(베타 ~2~3.7).</p></div>
+  </div>
+</section>
+
+<!-- ===================== STAGE 2 starts ===================== -->
+<section id="s0">
+  <div class="snum">STAGE 2 · 0 — Executive Summary</div>
+  <h2 class="sec">정식 보고서 요약</h2>
+  <div class="tw"><table>
+    <tbody>
+      <tr><th style="width:30%">한 문장 Thesis</th><td>수직계열 레이저를 무기로 한 800G/1.6T 옵틱스 "공급 부족 수혜주" — 데이터센터가 CATV를 추월하며 멀티플 재설정 변곡점.</td></tr>
+      <tr><th>한 문장 Anti-thesis</th><td>현재가는 bull+숏커버+레버리지 거품이 섞인 가격, $600M ATM과 98% 고객집중·미입증 마진이 비대칭을 지웠다.</td></tr>
+      <tr><th>시장이 보는 회사</th><td>AI 옵틱스 모멘텀주 — 컨센서스 중앙값 목표 $151~160인데 주가는 ~$178로 그 위.</td></tr>
+      <tr><th>내가 보는 회사</th><td>진짜 변곡점 + 진짜 거품이 공존하는 "좋은 회사·비싼 주식". 신규 진입 비대칭은 마이너스.</td></tr>
+      <tr><th>리레이팅 가능 이유</th><td>Q2 흑자전환·1.6T 양산·Oracle 추가·GM 40% 입증 시 EV/Sales 프리미엄 정당화.</td></tr>
+      <tr><th>리레이팅 실패 조건</th><td>capacity 슬립·고객 push-out·GM 29% 정체·과도 희석·숏 연료 소진 후 모멘텀 청산.</td></tr>
+      <tr><th>투자 등급</th><td><b>HOLD</b> (비보유자 = 추격 금지)</td></tr>
+      <tr><th>포트폴리오 행동</th><td><b>신규 매수 금지</b> — $120~140 풀백에서 소량 분할만 대기.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 1 ===================== -->
+<section id="s1">
+  <div class="snum">STAGE 2 · 1</div>
+  <h2 class="sec">시장이 놓친 핵심 변곡점</h2>
+  <h4>발견 ① 미스의 성격 — 수요가 아니라 공급이 매출을 눌렀다 <span class="pill">확정</span></h4>
+  <p>Q1 매출 미스 + FY 가이던스 상향의 조합은 "수요 둔화"가 아니라 "capacity 병목"을 의미한다. 컨콜의 "demand exceeds supply through mid-2027"가 이를 뒷받침. 시장은 미스에 −12% 반응했지만, 구조적으로는 <b>좋은 종류의 미스</b>다.</p>
+  <h4>발견 ② 정체성 전환 — DC &gt; CATV <span class="pill">확정</span></h4>
+  <p>데이터센터 매출이 처음 CATV를 추월. 멀티플 잣대가 통신부품(3~5x EV/S)에서 AI 옵틱스(6~10x)로 이동할 근거. <b>아직 시장은 "혼합 멀티플"을 적용</b>하고 있어 여기엔 업사이드가 남아 있다.</p>
+  <h4>발견 ③ Oracle 3번째 앵커 <span class="pill">추론</span></h4>
+  <p>컨센서스 모델에 거의 미반영. 확정 시 고객집중 리스크 완화 + TAM 확대. <b>검증 필요(다음 컨콜·10-K).</b></p>
+  <h4>왜 아직 주가에 다 반영 안 됐나 (혹은 과반영됐나)</h4>
+  <p>① 마진 40%가 미입증이라 시장이 "완전한 플랫폼 멀티플"을 못 줌(→ 업사이드 여지). 동시에 ② $600M ATM·내부자매도·레버리지 거품이 상단을 누르고, 거시 higher-for-longer가 듀레이션을 할인(→ 다운사이드 압력). <b>두 힘이 상쇄돼 현재가는 "공정가치 상단~과열 경계"</b>에 있다.</p>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<section id="s2">
+  <div class="snum">STAGE 2 · 2</div>
+  <h2 class="sec">비즈니스 모델의 진화</h2>
+  <p>레거시는 CATV HFC + 저속 트랜시버. 현재 성장축은 <b>800G/1.6T DC 옵틱스</b>. 과거 고객군(케이블 MSO·통신장비)과 미래 고객군(hyperscaler)은 성장률·마진·계약구조가 완전히 다르다. 제품 단순 판매에서 <b>qualified·수직계열 공급 레이어</b>로 진화 중이나, 라이선스/구독형 매출은 거의 없어 "순수 플랫폼"은 아니다.</p>
+  <div class="call"><div class="ct">멀티플 변화 가능성</div><p style="margin:0"><b>가능하다. 단 조건부.</b> 흑자 전환(Q2'26) + GM 40% 입증 + 고객 3사화가 동반되면 EV/Sales를 통신부품 평균 위로 끌어올릴 명분이 생긴다. 그러나 이 재평가의 상당 부분이 <b>이미 현재가에 선반영</b>됐다는 점이 핵심.</p></div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<section id="s3">
+  <div class="snum">STAGE 2 · 3</div>
+  <h2 class="sec">실적으로 증명되는 실체</h2>
+  <figure>
+    <svg viewBox="0 0 900 320" role="img" aria-label="분기 매출과 FY 가이던스">
+      <line x1="60" y1="270" x2="870" y2="270" stroke="#1E1B16"/>
+      <!-- bars: Q1'25 99.9, Q4'25 ~134, Q1'26 151.1, Q2'26e 189(mid) -->
+      <g>
+        <rect x="100" y="190" width="90" height="80" fill="#39596F"/><text x="145" y="285" text-anchor="middle" font-family="Space Mono" font-size="11">Q1'25</text><text x="145" y="182" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#39596F">$99.9</text>
+        <rect x="240" y="162" width="90" height="108" fill="#39596F"/><text x="285" y="285" text-anchor="middle" font-family="Space Mono" font-size="11">Q4'25</text><text x="285" y="154" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#39596F">~$134</text>
+        <rect x="380" y="149" width="90" height="121" fill="#1E6E66"/><text x="425" y="285" text-anchor="middle" font-family="Space Mono" font-size="11">Q1'26</text><text x="425" y="141" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#1E6E66">$151.1</text>
+        <rect x="520" y="118" width="90" height="152" fill="#E0A526"/><text x="565" y="285" text-anchor="middle" font-family="Space Mono" font-size="11">Q2'26e</text><text x="565" y="110" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#C98A1E">$180–198</text>
+        <rect x="680" y="70" width="120" height="200" fill="#C2522F" opacity=".88"/><text x="740" y="285" text-anchor="middle" font-family="Space Mono" font-size="11">FY26 가이드</text><text x="740" y="62" text-anchor="middle" font-family="Space Mono" font-size="11" fill="#C2522F">&gt;$1.1B / op&gt;$140M</text>
+      </g>
+    </svg>
+    <figcaption>분기 매출(좌, $M)과 FY26 가이던스(우). DC 비중 상승 + 흑자 전환 임박. ($M 단위, 막대 높이는 도식적)</figcaption>
+  </figure>
+  <div class="tw"><table>
+    <thead><tr><th>지표</th><th class="num">Q1'26</th><th>비고</th><th>다음 분기 확인 KPI</th></tr></thead>
+    <tbody>
+      <tr><td>매출</td><td class="num">$151.1M</td><td>+51% YoY, DC $81.4 / CATV $66.8</td><td>Q2 $180~198M 달성·800G 2nd 고객</td></tr>
+      <tr><td>Non-GAAP GM</td><td class="num">29.2%</td><td>가이던스 부합</td><td>믹스 개선 시 30%+ 진입 여부</td></tr>
+      <tr><td>Non-GAAP EPS</td><td class="num">−$0.07</td><td>Q2 −$0.03~+$0.03 → 흑전 임박</td><td>흑자 전환 확정</td></tr>
+      <tr><td>Adj EBITDA</td><td class="num">+$0.97M</td><td>플러스 전환</td><td>EBITDA 마진 확대</td></tr>
+      <tr><td>현금</td><td class="num">$449M</td><td>전환사채 교환 후</td><td>ATM 발행 속도·주식수</td></tr>
+      <tr><td>FCF(TTM)</td><td class="num">−$354M</td><td>capex −$179.5M</td><td>capex 피크 통과 시점</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">매출은 사실상 <b>제품(하드웨어) 매출</b>이며 반복/구독 매출 비중은 낮다. backlog/RPO를 별도 공시하지 않으므로 "demand &gt; supply" 컨콜 발언과 가이던스가 사실상의 수주 가시성 지표 역할을 한다.</p>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<section id="s4">
+  <div class="snum">STAGE 2 · 4</div>
+  <h2 class="sec">고객·파트너·생태계 (관련성 명시)</h2>
+  <div class="tw"><table>
+    <thead><tr><th>기업</th><th>관련성</th><th>근거</th></tr></thead>
+    <tbody>
+      <tr><td>Microsoft</td><td class="tagA">높음(앵커)</td><td>2023 공급계약, 역사적 최대 DC 고객</td></tr>
+      <tr><td>Amazon/AWS</td><td class="tagA">높음</td><td>워런트, 800G 수요 급증 핵심 후보</td></tr>
+      <tr><td>Oracle</td><td class="tagB">상승 중</td><td>qualification 진행(추론)</td></tr>
+      <tr><td>NVIDIA</td><td class="tagB">간접</td><td>GPU 클러스터가 옵틱스 수요 견인(직접 고객 아님)</td></tr>
+      <tr><td>Marvell / Broadcom</td><td class="tagB">생태계/경쟁</td><td>광 DSP·실리콘포토닉스 — 협력+경쟁 양면</td></tr>
+      <tr><td>Coherent·Lumentum·Fabrinet·Ciena</td><td class="tagB">경쟁/인접</td><td>광부품·트랜시버·제조 경쟁</td></tr>
+      <tr><td>InnoLight·Eoptolink</td><td class="tagC">강력 경쟁</td><td>중국 800G 트랜시버 선두</td></tr>
+      <tr><td>SpaceX·Globalstar·Gogo·Skylo·Verizon</td><td class="tagC">관련성 낮음</td><td>위성/통신 — AAOI thesis와 직접 연결 약함</td></tr>
+      <tr><td>AMD·Intel·Qualcomm·Samsung·TSMC·Apple·Google</td><td class="tagC">관련성 낮음~간접</td><td>AI 인프라 전반 외엔 직접 연결 약함</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 8 ===================== -->
+<section id="s8">
+  <div class="snum">STAGE 2 · 8</div>
+  <h2 class="sec">컨센서스 리비전 분석</h2>
+  <div class="kpis">
+    <div class="kpi"><div class="k">중앙값 목표가</div><div class="v">~$155</div><div class="d down">현재가 대비 하회</div></div>
+    <div class="kpi"><div class="k">최고 (Rosenblatt)</div><div class="v up">$220</div><div class="d">Amazon 800G·Oracle</div></div>
+    <div class="kpi"><div class="k">최저 (Northland)</div><div class="v down">$57.50</div><div class="d">희석·집중 리스크</div></div>
+    <div class="kpi"><div class="k">레이팅</div><div class="v">Buy/Hold 혼재</div><div class="d">중립~매수</div></div>
+  </div>
+  <p>최근 30일 리비전은 <b>강한 상향</b>(Rosenblatt $140→$220, Raymond James $72.5→$160, B.Riley $54→$129). 그러나 <span class="hl">현재가(~$178)가 컨센서스 중앙값($155)을 이미 상회</span> — 즉 시장은 <b>base case가 아니라 bull case를 사고 있다</b>. 최고 목표가 $220조차 FY27 매출 ~$1.8~2.0B + EV/Sales ~9x + GM 35%+를 가정한 값으로 역산된다. 컨센서스가 아직 덜 반영한 변수는 <b>Oracle 추가·M&A optionality</b>지만, 동시에 <b>희석·거시 할인율</b>도 덜 반영돼 있어 방향이 상쇄된다.</p>
+</section>
+
+<!-- ===================== 9 ===================== -->
+<section id="s9">
+  <div class="snum">STAGE 2 · 9</div>
+  <h2 class="sec">이벤트 드리븐 분석</h2>
+  <div class="tw"><table>
+    <thead><tr><th class="num">시점</th><th>이벤트</th><th>확인 포인트</th></tr></thead>
+    <tbody>
+      <tr><td class="num">'26.6.16~17</td><td>FOMC</td><td>동결 확률 96~98% (영향 제한적이나 듀레이션 심리)</td></tr>
+      <tr><td class="num">'26.7월초</td><td>1.6T 주문 출하 시작(예정)</td><td>램프 일정 준수 여부</td></tr>
+      <tr><td class="num">'26.7월말~8월초</td><td>Q2'26 실적</td><td>흑자 전환 + 가이던스 raise + 1.6T/2nd 고객</td></tr>
+      <tr><td class="num">'26.下반기</td><td>Oracle qualification 확정 여부</td><td>3번째 앵커 등장 시 재평가</td></tr>
+    </tbody>
+  </table></div>
+  <div class="twocol">
+    <div><h4>실적 후 오르기 위한 조건</h4><ul class="clean"><li>Q2 <b>흑자 전환 확정</b></li><li>FY 가이던스 <b>재상향(raise)</b></li><li>1.6T 출하 + 2nd/3rd 고객 가시화</li><li>GM 30%+ 진입</li></ul></div>
+    <div><h4>빠지기 위한 조건</h4><ul class="clean"><li>매출 또 컨센 하회(높아진 바)</li><li>GM 29% 정체</li><li>ATM 발행 가속 → 주식수 급증</li><li>capacity/고객 push-out</li></ul></div>
+  </div>
+  <div class="call bad"><div class="ct">바(bar) 경고</div><p style="margin:0">Q1에서 봤듯 <b>beat만으론 부족</b>하다(Q1은 자체 가이드 상회에도 −12%). 현 주가는 <b>beat + raise + 출하 가이던스 + 흑전</b>을 동시에 요구한다. 하나라도 빠지면 −20~30% 플러시 위험.</p></div>
+</section>
+
+<!-- ===================== 10 VALUATION ===================== -->
+<section id="s10">
+  <div class="snum">STAGE 2 · 10</div>
+  <h2 class="sec">밸류에이션 — 4가지 방식</h2>
+  <p class="muted">공통 가정: 희석반영 주식수 <b>~85M</b>(현 ~80M + 전환·워런트·RSU). 순현금 ~$0.3B. 거시: 연준 higher-for-longer → <b>할인율 상향</b>(base WACC 12.5%, bear 14%, bull 11%).</p>
+
+  <h4>A. DCF (bear / base / bull)</h4>
+  <div class="tw"><table>
+    <thead><tr><th>가정</th><th class="num">Bear</th><th class="num">Base</th><th class="num">Bull</th></tr></thead>
+    <tbody>
+      <tr><td>매출 CAGR ('26→'30)</td><td class="num">20%</td><td class="num">35%</td><td class="num">55%</td></tr>
+      <tr><td>정상 GM</td><td class="num">29%</td><td class="num">35%</td><td class="num">40%</td></tr>
+      <tr><td>FCF 마진(정상)</td><td class="num">6%</td><td class="num">12%</td><td class="num">17%</td></tr>
+      <tr><td>WACC</td><td class="num">14%</td><td class="num">12.5%</td><td class="num">11%</td></tr>
+      <tr><td>영구성장</td><td class="num">2.5%</td><td class="num">3%</td><td class="num">3.5%</td></tr>
+      <tr><td><b>주당가치(희석후)</b></td><td class="num"><b>~$70</b></td><td class="num"><b>~$120</b></td><td class="num"><b>~$200</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>B. FCF Yield / Owner Earnings</h4>
+  <p>현재 FCF는 capex 피크로 마이너스 → 정규화 필요. 2028E 정상 FCF ~$220M(base) 가정, 성장주 적정 FCF yield 3.5% 적용 시 적정 시총 ~$6.3B → 주당 ~$74. <span class="muted">(현 시총 $14.6B은 정상 FCF의 ~66배 — 성장 선반영)</span></p>
+
+  <h4>C. 상대가치 (EV/Sales 중심, 적자라 PER 의미 제한)</h4>
+  <div class="tw"><table>
+    <thead><tr><th>비교군</th><th class="num">EV/Sales(FWD)</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>AAOI (현재가, FY26 $1.1B)</td><td class="num">~12.9x</td><td>FY27 $1.8B 기준 ~7.9x</td></tr>
+      <tr><td>Coherent (COHR)</td><td class="num">~4~5x</td><td>성숙·다각화</td></tr>
+      <tr><td>Lumentum (LITE)</td><td class="num">~4~5x</td><td>옵틱스 순수</td></tr>
+      <tr><td>Ciena</td><td class="num">~2~3x</td><td>시스템·저성장</td></tr>
+      <tr><td>InnoLight(중국)</td><td class="num">고성장 프리미엄</td><td>800G 선두</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>프리미엄 정당화 사유:</b> 더 높은 성장률·수직계열화·흑전 임박. <b>디스카운트 사유:</b> 고객집중 98%·희석·미입증 마진·변동성. 균형적으로 <b>FY27 매출에 6~8x EV/Sales</b>가 합리적 레인지.</p>
+
+  <h4>D. 리레이팅 가치</h4>
+  <p>현 정체성(혼합) 멀티플 → 변곡점 후(흑전+GM40%+3고객) target 멀티플로 이동 시 EV/Sales 7→9x 재평가 가능. M&A optionality(base 0% / bull +10~15% / overshoot +20%) 및 고객 lock-in 가치를 더해 <b>bull target ~$220, overshoot ~$285</b> 산출.</p>
+</section>
+
+<!-- ===================== 11 TARGETS + BRIDGE ===================== -->
+<section id="s11">
+  <div class="snum">STAGE 2 · 11</div>
+  <h2 class="sec">목표가 체계 (6종)</h2>
+  <figure>
+    <svg viewBox="0 0 900 300" role="img" aria-label="밸류에이션 브리지">
+      <line x1="60" y1="250" x2="870" y2="250" stroke="#1E1B16"/>
+      <!-- scale: $0 at y250, $300 at y40 -> y = 250 - price*0.7 -->
+      <!-- bear 80, intrinsic 100, base 145, current 178, bull 220, overshoot 285 -->
+      <g font-family="Space Mono" font-size="11">
+        <rect x="90" y="194" width="80" height="56" fill="#C2522F"/><text x="130" y="186" text-anchor="middle" fill="#C2522F">$80</text><text x="130" y="268" text-anchor="middle">하방</text>
+        <rect x="210" y="180" width="80" height="70" fill="#C98A1E"/><text x="250" y="172" text-anchor="middle" fill="#C98A1E">$100</text><text x="250" y="268" text-anchor="middle">내재가치</text>
+        <rect x="330" y="148" width="80" height="102" fill="#39596F"/><text x="370" y="140" text-anchor="middle" fill="#39596F">$145</text><text x="370" y="268" text-anchor="middle">Base 12M</text>
+        <rect x="450" y="125" width="80" height="125" fill="#1E1B16"/><text x="490" y="117" text-anchor="middle" fill="#1E1B16" font-weight="700">$178</text><text x="490" y="268" text-anchor="middle" font-weight="700">현재가</text>
+        <rect x="570" y="96" width="80" height="154" fill="#1E6E66"/><text x="610" y="88" text-anchor="middle" fill="#1E6E66">$220</text><text x="610" y="268" text-anchor="middle">Bull</text>
+        <rect x="690" y="50" width="80" height="200" fill="#E0A526"/><text x="730" y="42" text-anchor="middle" fill="#C98A1E">$285</text><text x="730" y="268" text-anchor="middle">Overshoot</text>
+      </g>
+      <line x1="60" y1="125" x2="870" y2="125" stroke="#1E1B16" stroke-dasharray="4 4" opacity=".5"/>
+      <text x="864" y="120" text-anchor="end" font-family="Space Mono" font-size="10" fill="#4A4339">현재가 라인</text>
+    </svg>
+    <figcaption>현재가($178)는 Base($145)와 Bull($220) 사이, 내재가치($100) 위. = "bull case를 사는" 구간.</figcaption>
+  </figure>
+  <div class="tw"><table>
+    <thead><tr><th>목표</th><th class="num">가격</th><th>적용 매출/멀티플</th><th class="num">희석주식</th><th class="num">확률</th><th>촉매 / 실패조건</th></tr></thead>
+    <tbody>
+      <tr><td>보수적 내재가치</td><td class="num">~$100</td><td>DCF base 하단·정상 FCF</td><td class="num">85M</td><td class="num">—</td><td>마진 35% / GM 정체 시</td></tr>
+      <tr><td>12M Base</td><td class="num">$145</td><td>FY27 $1.7B × 7x EV/S</td><td class="num">85M</td><td class="num">50%</td><td>가이던스 이행 / 미스</td></tr>
+      <tr><td>Bull</td><td class="num">$220</td><td>FY27 $2.0B × 9x + M&A옵션</td><td class="num">85M</td><td class="num">30%</td><td>Oracle+1.6T+GM40% / 슬립</td></tr>
+      <tr><td>Overshoot</td><td class="num">$285</td><td>FY27 $2.2B × 11x + 투기</td><td class="num">85M</td><td class="num">10%</td><td>AI매니아+숏 재점화 / 청산</td></tr>
+      <tr><td>실적 前 trading</td><td class="num">$200~215</td><td>모멘텀 유지 시 프린트 직전</td><td class="num">—</td><td class="num">—</td><td>기대 선반영 / 사전 차익실현</td></tr>
+      <tr><td>실적 後 재평가</td><td class="num">$130~150 (미스) ↔ $230~260 (beat+raise)</td><td>이벤트 분기</td><td class="num">—</td><td class="num">—</td><td>흑전+raise 여부</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 12 BANDS ===================== -->
+<section id="s12">
+  <div class="snum">STAGE 2 · 12</div>
+  <h2 class="sec">2020–2030 멀티플 밴드 (EV/Sales)</h2>
+  <figure>
+    <svg viewBox="0 0 900 320" role="img" aria-label="EV/Sales 밴드 2020-2030">
+      <line x1="60" y1="270" x2="870" y2="270" stroke="#1E1B16"/>
+      <line x1="60" y1="40" x2="60" y2="270" stroke="#1E1B16"/>
+      <!-- y: 0 at 270, 16x at 40 -> y=270-(x*14.4) -->
+      <g font-family="Space Mono" font-size="10" fill="#4A4339">
+        <text x="52" y="274" text-anchor="end">0x</text>
+        <text x="52" y="198" text-anchor="end">5x</text>
+        <text x="52" y="126" text-anchor="end">10x</text>
+        <text x="52" y="54" text-anchor="end">15x</text>
+      </g>
+      <!-- actual line 2020-2026 (schematic): 2020 ~3x, 2021 ~4x, 2022 ~1x, 2023 ~1.5x, 2024 ~2x, 2025 ~3x, 2026 ~12.9x -->
+      <polyline fill="none" stroke="#39596F" stroke-width="3" points="120,228 230,212 340,256 450,248 560,241 670,227 760,84"/>
+      <!-- future band 2027-2030: bull/base/bear -->
+      <polyline fill="none" stroke="#1E6E66" stroke-width="2.5" stroke-dasharray="5 4" points="760,84 820,98 870,112"/>
+      <polyline fill="none" stroke="#C2522F" stroke-width="2.5" stroke-dasharray="5 4" points="760,84 820,170 870,205"/>
+      <g font-family="Space Mono" font-size="10" fill="#4A4339">
+        <text x="120" y="288" text-anchor="middle">'20</text><text x="340" y="288" text-anchor="middle">'22</text>
+        <text x="560" y="288" text-anchor="middle">'24</text><text x="760" y="288" text-anchor="middle">'26</text>
+        <text x="870" y="288" text-anchor="middle">'30E</text>
+      </g>
+      <text x="770" y="74" font-family="Space Mono" font-size="10" fill="#C2522F" font-weight="700">~12.9x (현재, 역사적 고점권)</text>
+    </svg>
+    <figcaption>실선(슬레이트)=실제 EV/Sales. 점선=2027~2030 추정(청록 Bull·주황 Bear). 현재 멀티플은 2017 이후 최고 수준 — 정상화 경로가 곧 다운사이드 경로.</figcaption>
+    <div class="legend"><span><i style="background:#39596F"></i>실제(2020~2026)</span><span><i style="background:#1E6E66"></i>Bull 추정</span><span><i style="background:#C2522F"></i>Bear 추정</span></div>
+  </figure>
+  <p class="muted">실제 데이터(2020~2026)와 미래 가정(2027~2030)을 분리 표기. 핵심: 현재 ~12.9x EV/Sales는 매출 급성장으로 빠르게 희석되겠지만(FY27 ~7.9x), <b>성장이 약속만큼 안 나오면 멀티플 정상화(→4~5x)가 곧 −40% 이상의 다운사이드</b>다.</p>
+</section>
+
+<!-- ===================== 13 RISK ===================== -->
+<section id="s13">
+  <div class="snum">STAGE 2 · 13</div>
+  <h2 class="sec">리스크 = Thesis Break Trigger</h2>
+  <div class="tw"><table>
+    <thead><tr><th>리스크</th><th>Thesis 깨지는 지표</th><th class="num">반영 시작 가격</th><th>대응</th></tr></thead>
+    <tbody>
+      <tr><td>출하/capacity 지연</td><td>1.6T 출하 Q3말 미준수, Q2 매출 가이드 하단</td><td class="num">~$150</td><td>신규진입 보류</td></tr>
+      <tr><td>GM 정상화 실패</td><td>GM 29% 2분기 연속 정체</td><td class="num">~$140</td><td>bull 시나리오 폐기</td></tr>
+      <tr><td>현금소진/과도희석</td><td>ATM로 분기 주식수 +5%↑ 지속</td><td class="num">~$130</td><td>주당가치 재계산</td></tr>
+      <tr><td>고객집중</td><td>상위 1개 고객 push-out 공시</td><td class="num">~$120</td><td>thesis 재검토</td></tr>
+      <tr><td>익명고객 오판</td><td>"key hyperscaler" ≠ Amazon 판명</td><td class="num">~$130</td><td>모델 하향</td></tr>
+      <tr><td>경쟁 대체</td><td>InnoLight/Marvell 800G 점유율 잠식</td><td class="num">~$110</td><td>장기 thesis 약화</td></tr>
+      <tr><td>스퀴즈 후 급락</td><td>레버리지 ETF 청산·모멘텀 붕괴</td><td class="num">−30~50% 갭</td><td>현금 보유가 방어</td></tr>
+      <tr><td>M&A 기대 과열</td><td>루머 기반 급등</td><td class="num">$250+</td><td>차익실현(보유 시)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ===================== 14 EXECUTION ===================== -->
+<section id="s14">
+  <div class="snum">STAGE 2 · 14</div>
+  <h2 class="sec">포트폴리오 실행안 — 현재 보유 "없음" 기준</h2>
+  <div class="call"><div class="ct">선택: D — 신규 매수 금지 (현 가격 추격 금지)</div>
+  <p style="margin:6px 0 0">진짜 변곡점이지만 현재가가 bull case + 거품을 선반영하고, 12M 기대수익률이 마이너스(−13%)이며, $600M ATM·거시 할인율이 상단을 누른다. <b>관심종목 등록 + 풀백 분할 매수 대기</b>가 합리적.</p></div>
+
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>플랜</th></tr></thead>
+    <tbody>
+      <tr><td>목표 비중</td><td>최종 <b>3~5%</b> (소형·고변동 → 캡 엄격). 첫 진입은 1% 이하 스타터.</td></tr>
+      <tr><td>매수 가격 / 분할</td><td><b>1차 $135~140</b>, <b>2차 $115~120</b>, <b>3차 $95~100(내재가치권)</b> — 3차 분할. 현 $178에선 매수 금지.</td></tr>
+      <tr><td>매도/차익 가격</td><td>(보유 시 가정) $220 도달 1차 트림, $260~285 추가 트림.</td></tr>
+      <tr><td>실적 발표 前</td><td>신규 진입 자제(바가 높음). 풀백 미도달 시 대기.</td></tr>
+      <tr><td>실적 발표 後</td><td>미스로 $130~150 플러시 시 1차 스타터 진입 검토. beat+raise면 추격 대신 다음 풀백 대기.</td></tr>
+      <tr><td>목표가 도달 시</td><td>$220+에서는 신규 진입 절대 금지(=현재 상황과 동일 논리).</td></tr>
+      <tr><td>Thesis 훼손 시</td><td>capacity 슬립·GM 정체·고객 push-out 확인 시 진입 계획 자체를 폐기(매수 대기 취소).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Base/Bull/Overshoot별 — "만약 $130에 100주 진입했다면" 기대손익(예시)</h4>
+  <div class="tw"><table>
+    <thead><tr><th>시나리오</th><th class="num">목표가</th><th class="num">100주 평가손익(@$130 진입)</th><th class="num">확률</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td class="num">$80</td><td class="num down">−$5,000</td><td class="num">20%</td></tr>
+      <tr><td>Base</td><td class="num">$145</td><td class="num up">+$1,500</td><td class="num">50%</td></tr>
+      <tr><td>Bull</td><td class="num">$220</td><td class="num up">+$9,000</td><td class="num">30%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted">$130 진입 시 확률가중 기대손익 ≈ <b>+$2,150 (+16.5%)</b> → 진입 가격을 낮추면 비대칭이 (−)에서 (+)로 바뀐다. 이것이 "추격 대신 풀백"의 수치적 근거. 한국 해외주식 양도세 22%는 차익 실현분에만 부과되므로, 신규 진입 자체엔 세금 영향 없음(매도 시점 고려).</p>
+</section>
+
+<!-- ===================== 15 SELF-CHECK ===================== -->
+<section id="s15">
+  <div class="snum">STAGE 2 · 15</div>
+  <h2 class="sec">보고서 전 자체 점검</h2>
+  <ul class="clean">
+    <li><b>컨센서스 요약에 그치지 않았나?</b> → 아니오. 미스의 성격·수직계열화·숏커버 분해 등 비대칭 신호 중심으로 재구성.</li>
+    <li><b>공시·고객·자금조달을 시간순으로 연결했나?</b> → 예. 24개월 사건 체인 표·타임라인 포함.</li>
+    <li><b>익명 고객 추정 시 사실/추론 분리?</b> → 예. Amazon=B+, Oracle=B로 신뢰도 표기.</li>
+    <li><b>bull case를 과도하게 누르지 않았나?</b> → 변곡점은 진짜라고 명시(발견 ①②③). 단 가격이 선반영.</li>
+    <li><b>루머를 사실처럼 쓰지 않았나?</b> → M&A·Oracle은 "추론/검증 필요"로 표기.</li>
+    <li><b>자본구조·희석 반영?</b> → 예. ATM $600M·전환사채·워런트·85M 희석주식.</li>
+    <li><b>소형주 수급(전환사채/ATM/숏) 분석?</b> → 예. §6 수급 분해.</li>
+    <li><b>왜 지금이 변곡점인가?</b> → DC&gt;CATV·800G 첫 출하·흑전 임박·capacity-gated.</li>
+    <li><b>다음 실적에서 무엇을 확인하면 보고서를 수정?</b> → Q2 흑전·1.6T 출하·Oracle·GM 30%+ (아래 체크포인트).</li>
+  </ul>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ===================== FINAL SUMMARY ===================== -->
+<section class="final" id="summary">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--ochre)">최종 투자 행동 요약</div>
+    <h2 class="sec">AAOI · 6/12 기준</h2>
+    <div class="grid">
+      <div class="frow"><div class="k">현재 주가</div><div class="v">≈ $178 <small>(6/10 종가 · 매매 전 실시간 확인 필수)</small></div></div>
+      <div class="frow"><div class="k">보수적 내재가치</div><div class="v">~$100</div></div>
+      <div class="frow"><div class="k">12개월 Base target</div><div class="v">$145 <small>(−18%)</small></div></div>
+      <div class="frow"><div class="k">Bull target</div><div class="v">$220 <small>(확률 30%)</small></div></div>
+      <div class="frow"><div class="k">Overshoot target</div><div class="v">$285 <small>(확률 10%)</small></div></div>
+      <div class="frow"><div class="k">실적 발표 前 trading target</div><div class="v">$200~215</div></div>
+      <div class="frow"><div class="k">실적 발표 後 재평가 target</div><div class="v">$130~150 (미스) ↔ $230~260 (beat+raise)</div></div>
+      <div class="frow"><div class="k">하방 리스크</div><div class="v">~$80 (−55%) <small>· 멀티플 정상화 시</small></div></div>
+      <div class="frow"><div class="k">12개월 기대수익률</div><div class="v" style="color:#E0A526">≈ −13% <small>(확률가중)</small></div></div>
+      <div class="frow"><div class="k">보유 수량 기준 기대손익</div><div class="v">현 보유 0주 → $0 (해당없음)</div></div>
+      <div class="frow"><div class="k">추천 행동</div><div class="v">신규 매수 금지 (현 가격 추격 금지)</div></div>
+      <div class="frow"><div class="k">목표 비중</div><div class="v">최종 3~5% · 첫 스타터 ≤1%</div></div>
+      <div class="frow"><div class="k">실적 발표 前 행동</div><div class="v">신규 진입 자제 · 풀백 대기</div></div>
+      <div class="frow"><div class="k">실적 발표 後 행동</div><div class="v">미스로 $130~150 시 1차 스타터 검토</div></div>
+      <div class="frow"><div class="k">목표가 도달 시 행동</div><div class="v">$220+ 신규 진입 금지</div></div>
+      <div class="frow"><div class="k">Thesis 훼손 시 행동</div><div class="v">capacity 슬립·GM 정체·고객 push-out → 매수 계획 폐기</div></div>
+    </div>
+
+    <h3 style="color:var(--paper);margin-top:34px">가장 중요한 체크포인트</h3>
+    <p style="color:var(--sand)"><b>Q2'26 실적(7월말~8월초): ① 흑자 전환 확정 ② FY 가이던스 재상향 ③ 1.6T 출하 시작 ④ 800G 2nd/3rd 고객(Oracle 포함) ⑤ GM 30%+ 진입</b> — 이 5개가 동시에 확인되면 bull, 하나라도 빠지면 −20~30% 플러시 위험.</p>
+
+    <h3 style="color:var(--paper);margin-top:26px">내가 틀렸다고 인정해야 하는 조건</h3>
+    <p style="color:var(--sand)">① Q2가 <b>큰 폭 beat + 강한 raise</b>로 나오고 1.6T가 조기 양산되어 주가가 풀백 없이 $220→$300으로 직행하면 "추격 금지" 판단이 기회비용 측면에서 틀린 것. ② GM이 예상보다 빨리 35%+로 점프해 멀티플 프리미엄이 정당화되면 "고평가" 진단이 과도했던 것. ③ Oracle 등 3번째 앵커가 확정되어 고객집중 리스크가 구조적으로 해소되면 base target $145가 너무 낮았던 것.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="eyebrow">SOURCES · 교차검증 출처</div>
+    <p class="src">
+      실적/공시: <a href="https://www.stocktitan.net/sec-filings/AAOI/8-k-applied-optoelectronics-inc-reports-material-event-248b6c9a6862.html">Q1'26 8-K (StockTitan)</a> ·
+      <a href="https://finance.yahoo.com/quote/AAOI/earnings/AAOI-Q1-2026-earnings_call-572309.html">Q1'26 컨콜 (Yahoo)</a> ·
+      <a href="https://quartr.com/companies/applied-optoelectronics-inc_5413">IR 요약 (Quartr)</a> ·
+      <a href="https://tickeron.com/earnings/AAOI/">Q1'26 리캡</a> ·
+      <a href="https://sherwood.news/markets/applied-optoelectronics-first-quarter-earnings/">Sherwood</a><br>
+      자본구조/희석: <a href="https://investors.ao-inc.com/news-releases/news-release-details/applied-optoelectronics-closes-exchange-2026-notes-and">2030 전환사채 교환 (IR)</a> ·
+      <a href="https://www.stocktitan.net/sec-filings/AAOI/424b5-applied-optoelectronics-inc-prospectus-supplement-debt-securiti-0447d1e400a8.html">ATM $500M 증액 424B5</a> ·
+      <a href="https://www.sahmcapital.com/news/content/applied-optoelectronics-aaoi-is-up-278-after-600m-atm-to-fund-ai-and-docsis-expansion-has-the-bull-case-changed-2026-05-16">$600M ATM</a> ·
+      <a href="https://earezki.com/ai-financial-news/2026-06-09-aaoi/">FCF/capex</a><br>
+      수급/공매도: <a href="https://www.stocktitan.net/overview/AAOI/">숏 14.2% (StockTitan)</a> ·
+      <a href="https://www.trefis.com/data/companies/AAOI">숏커버·업그레이드 (Trefis)</a> ·
+      <a href="https://www.marketbeat.com/stocks/NASDAQ/AAOI/short-interest">MarketBeat</a><br>
+      목표가: <a href="https://www.timothysykes.com/news/applied-optoelectronics-inc-aaoi-news-2026_06_04/">Rosenblatt $220 / RJ $160</a> ·
+      <a href="https://stockanalysis.com/stocks/aaoi/forecast/">컨센서스 (StockAnalysis)</a> ·
+      <a href="https://tickernerd.com/stock/aaoi-forecast/">목표가 범위</a><br>
+      고객: <a href="https://en.wikipedia.org/wiki/Applied_Optoelectronics">Microsoft'23·Amazon 워런트 (Wikipedia)</a> ·
+      <a href="https://www.cnn.com/markets/stocks/AAOI">CATV(Spectrum/Mediacom) 뉴스 (CNN)</a><br>
+      주가: <a href="https://www.macrotrends.net/stocks/charts/AAOI/applied-optoelectronics/stock-price-history">Macrotrends</a> ·
+      <a href="https://stockstotrade.com/news/applied-optoelectronics-inc-aaoi-news-2026_06_10/">6/10 종가 $178.92</a> ·
+      <a href="https://www.trefis.com/stock/aaoi/articles/601841/why-applied-optoelectronics-sank-13/2026-06-08">6/8 −12.8%</a><br>
+      거시: <a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes20260429.htm">FOMC 4월 의사록</a> ·
+      <a href="https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year">Goldman: 2027까지 동결 전망</a> ·
+      <a href="https://tradingeconomics.com/united-states/interest-rate">Fed funds 3.5–3.75%</a>
+    </p>
+    <p class="disc">본 자료는 정보 제공 목적의 분석이며 투자 자문·매매 권유가 아닙니다. Claude는 투자자문가가 아니며, 모든 투자 판단과 책임은 투자자 본인에게 있습니다. 데이터는 2026년 6월 12일 전후 공개 출처 기준이며 AAOI는 일중 변동이 극심하므로 매매 전 반드시 실시간 시세·최신 공시를 직접 확인하십시오. 익명 고객(Amazon/Oracle)·M&A 시나리오는 추론이며 미검증입니다.</p>
+    <p class="mono" style="margin-top:18px;color:var(--ink-soft)">YOUNG FINANCE · 城主(성주) 투자철학 — 城(core) / 戰利品(short-term) / 配當(cash flow) · forensic equity desk</p>
+  </div>
+</footer>
+
+</body>
+</html>

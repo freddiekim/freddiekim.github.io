@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>COHR Forensic Deep Dive — 2026-06-12</title>
+<style>
+  :root{
+    --ink:#17211b; --muted:#5f6f66; --paper:#faf7ef; --card:#fffdf7; --line:#d9d2c3;
+    --sage:#8da88e; --clay:#c4795a; --navy:#1c3f56; --mustard:#d8aa4b; --blue:#6c8fa3;
+    --green:#476a55; --red:#a65a4c; --cream:#f2eadb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;line-height:1.64}
+  a{color:var(--navy);text-decoration:none;border-bottom:1px solid rgba(28,63,86,.25)}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 24px 80px}
+  .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:stretch;margin-top:14px}
+  .poster{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:0 18px 0 rgba(28,63,86,.06);position:relative;overflow:hidden}
+  .poster:before{content:"";position:absolute;right:-80px;top:-80px;width:270px;height:270px;background:var(--sage);border-radius:45% 55% 50% 50%;opacity:.45}
+  .poster:after{content:"";position:absolute;right:120px;bottom:-100px;width:230px;height:230px;background:var(--mustard);border-radius:50%;opacity:.28}
+  h1{font-size:48px;line-height:1.08;margin:0 0 14px;letter-spacing:-1.2px}
+  h2{font-size:29px;line-height:1.24;margin:44px 0 16px;letter-spacing:-.5px;border-top:2px solid var(--ink);padding-top:18px}
+  h3{font-size:21px;margin:30px 0 12px;letter-spacing:-.2px}
+  h4{font-size:16px;margin:22px 0 8px;color:var(--green)}
+  .kicker{font-size:13px;text-transform:uppercase;letter-spacing:.18em;color:var(--clay);font-weight:800;margin-bottom:8px}
+  .subtitle{font-size:18px;color:var(--muted);max-width:780px}
+  .note{font-size:13px;color:var(--muted)}
+  .badge{display:inline-block;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;margin:3px 6px 3px 0;font-size:12px;font-weight:700;color:var(--navy)}
+  .badge.red{color:var(--red)} .badge.green{color:var(--green)} .badge.clay{color:var(--clay)}
+  .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;min-height:112px}
+  .stat .label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .stat .value{font-size:28px;font-weight:850;letter-spacing:-.6px;margin-top:4px}
+  .stat .sub{font-size:13px;color:var(--muted)}
+  .grid{display:grid;gap:16px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.grid.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px}.card.tight{padding:14px}.card.strong{border-color:var(--ink);box-shadow:8px 8px 0 rgba(23,33,27,.08)}
+  .callout{border-left:6px solid var(--clay);padding:16px 18px;background:#fff7ea;border-radius:14px;margin:16px 0}.callout.green{border-left-color:var(--green);background:#f1f6ee}.callout.blue{border-left-color:var(--navy);background:#eef5f6}.callout.red{border-left-color:var(--red);background:#fff0ed}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);font-size:14px}
+  th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top} th{background:var(--cream);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#405047} tr:last-child td{border-bottom:0}
+  .small{font-size:12px}.right{text-align:right}.center{text-align:center}.muted{color:var(--muted)}.big{font-size:22px;font-weight:850}
+  .section-index{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.section-index a{border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff;font-size:12px;color:var(--muted)}
+  .svgbox{background:#fffdf7;border:1px solid var(--line);border-radius:22px;padding:12px;overflow:hidden}
+  .bar{height:12px;background:#efe5d2;border-radius:99px;overflow:hidden}.bar span{display:block;height:100%;background:var(--green);border-radius:99px}.bar.red span{background:var(--red)}.bar.blue span{background:var(--blue)}.bar.clay span{background:var(--clay)}
+  .timeline{position:relative;margin:24px 0}.timeline:before{content:"";position:absolute;left:118px;top:0;bottom:0;border-left:2px solid var(--line)}.event{display:grid;grid-template-columns:100px 1fr;gap:34px;margin:0 0 18px}.event .date{font-weight:850;color:var(--navy);text-align:right}.event .body{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;position:relative}.event .body:before{content:"";position:absolute;left:-43px;top:18px;width:14px;height:14px;background:var(--clay);border-radius:50%;border:3px solid var(--paper)}
+  .rank{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start;margin-bottom:12px}.rank .num{width:42px;height:42px;border-radius:50%;background:var(--navy);color:white;display:flex;align-items:center;justify-content:center;font-weight:900}.rank .txt{border-bottom:1px dashed var(--line);padding-bottom:12px}
+  .source-list li{margin:8px 0}.footer-summary{background:var(--ink);color:#fff;border-radius:28px;padding:24px;margin-top:36px}.footer-summary table{background:transparent;color:#fff;border-color:rgba(255,255,255,.18)}.footer-summary th,.footer-summary td{border-color:rgba(255,255,255,.18)}.footer-summary th{background:rgba(255,255,255,.07);color:#f8e9cf}.footer-summary .muted{color:#d9d2c3}
+  @media(max-width:900px){.hero,.grid.two,.grid.three,.grid.four{grid-template-columns:1fr}.stats{grid-template-columns:1fr}h1{font-size:38px}.event{grid-template-columns:1fr;gap:8px}.event .date{text-align:left}.timeline:before,.event .body:before{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <section class="poster">
+      <div class="kicker">Forensic Equity Deep Dive · COHR · 기준일 2026-06-12</div>
+      <h1>Coherent는 광부품 사이클주인가, AI 네트워크 병목의 capacity-rights 플랫폼인가?</h1>
+      <p class="subtitle">결론부터 말하면, 숨은 투자 thesis는 명확하다. 그러나 현재 주가 $390은 이미 NVIDIA 전략가치·6인치 InP 증설·CPO/OCS 시스템화를 상당 부분 선반영한다. “좋은 회사”와 “좋은 신규 매수가”는 다르다.</p>
+      <div class="section-index">
+        <a href="#signals">숨은 신호 10개</a><a href="#chain">사건 체인</a><a href="#financials">실적/자본구조</a><a href="#ecosystem">고객·생태계</a><a href="#valuation">밸류에이션</a><a href="#portfolio">포트폴리오</a><a href="#summary">최종 요약</a>
+      </div>
+    </section>
+    <aside class="stats">
+      <div class="stat"><div class="label">현재 주가</div><div class="value">$390.00</div><div class="sub">6/12 장중, 시총 약 $76.3B</div></div>
+      <div class="stat"><div class="label">투자 등급</div><div class="value">Hold</div><div class="sub">신규 매수 금지 / 조정 대기</div></div>
+      <div class="stat"><div class="label">12개월 Base</div><div class="value">$410</div><div class="sub">현재가 대비 +5.1%</div></div>
+      <div class="stat"><div class="label">Bull / Overshoot</div><div class="value">$520 / $650</div><div class="sub">CPO·OCS 확인 시</div></div>
+    </aside>
+  </div>
+
+  <div class="callout red">
+    <b>가장 중요한 판단:</b> COHR의 구조적 변곡점은 진짜다. 하지만 주가는 더 이상 “레거시 광부품주” 가격이 아니다. 현재 $390에서는 base case를 싸게 사는 것이 아니라, <b>bull case와 scarcity premium의 일부를 이미 지불</b>하는 구조다. 따라서 신규 진입은 $330~350 이하 조정 또는 다음 실적에서 backlog→shipment→margin이 동시에 확인될 때만 허용한다.
+  </div>
+
+  <h2 id="signals">1단계 Thesis Discovery — 처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+  <div class="grid two">
+    <div class="card strong">
+      <div class="rank"><div class="num">1</div><div class="txt"><b>NVIDIA $2B는 단순 투자금이 아니라 capacity-rights 구조의 신호다.</b><br>확정 사실: NVIDIA는 2026년 3월 2일 COHR 주식 7,788,161주를 주당 $256.80에 매입했고, 동시에 다년 전략계약에는 multi-billion-dollar purchase commitment와 advanced laser/optical networking 제품에 대한 future access/capacity rights가 포함됐다. <sup><a href="#s1">[1]</a></sup></div></div>
+      <div class="rank"><div class="num">2</div><div class="txt"><b>비독점 계약인데도 경제적으로는 capacity lock-up 성격이 강하다.</b><br>비독점이라 M&A 확정이나 독점 공급은 아니다. 하지만 AI 클러스터 병목이 InP/CPO 레이저라면 “독점”보다 “우선 접근권+구매약정+증설 자금”이 더 실질적인 해자다.</div></div>
+      <div class="rank"><div class="num">3</div><div class="txt"><b>6인치 InP ramp는 매출보다 마진 변곡점이다.</b><br>컨콜에서 회사는 6인치 InP가 EML, CW laser, photodiode에 적용되고 3인치 라인보다 수율이 높으며, 첫 6인치 부품 탑재 transceiver 출하가 매출·GM 개선에 기여했다고 설명했다. <sup><a href="#s7">[7]</a></sup></div></div>
+      <div class="rank"><div class="num">4</div><div class="txt"><b>COHR은 부품 공급자에서 OCS/CPO 시스템 레이어로 올라가고 있다.</b><br>OCS, multi-rail, CPO는 단순 transceiver ASP 상승이 아니라 고객 네트워크 아키텍처의 설계 레이어 진입이다.</div></div>
+      <div class="rank"><div class="num">5</div><div class="txt"><b>A&D와 Munich 사업 매각은 비핵심 정리가 아니라 회사 정체성 재정의다.</b><br>A&D 매각대금 $400M은 부채 감축에 사용되며, AI datacenter/communications 중심으로 포트폴리오를 좁히는 신호다. <sup><a href="#s9">[9]</a></sup></div></div>
+    </div>
+    <div class="card strong">
+      <div class="rank"><div class="num">6</div><div class="txt"><b>FY2025 이미 10% 이상 고객 2곳이 있었다.</b><br>FY2025 매출의 12%, 10% 고객이 있었고 둘 다 주로 Datacenter & Communications에서 구매했다. 이름은 비공개다. <sup><a href="#s6">[6]</a></sup></div></div>
+      <div class="rank"><div class="num">7</div><div class="txt"><b>Backlog가 2028년까지, LTA가 2030년대 초까지 연결된다.</b><br>컨콜 요약 기준 orders는 2028년까지, LTAs는 decade end까지 연장된다. 이는 cycle stock이 아니라 visibility stock으로의 재평가 근거다. <sup><a href="#s7">[7]</a></sup></div></div>
+      <div class="rank"><div class="num">8</div><div class="txt"><b>자본구조 overhang은 줄었지만 FCF overhang은 생겼다.</b><br>Series B preferred는 보통주로 전환됐고 NVIDIA 자금으로 유동성은 강해졌다. 반면 9개월 OCF는 $10M, CapEx는 $547M로 capacity build가 FCF를 압박한다. <sup><a href="#s5">[5]</a></sup></div></div>
+      <div class="rank"><div class="num">9</div><div class="txt"><b>SiC 10kV는 별도의 AI 전력 optionality다.</b><br>COHR은 AI datacenter/industrial power용 10kV급 SiC epitaxy capability를 발표했다. 다만 이 옵션은 optical thesis와 분리해 할인 반영해야 한다. <sup><a href="#s11">[11]</a></sup></div></div>
+      <div class="rank"><div class="num">10</div><div class="txt"><b>주가는 이미 레거시 multiple을 벗어났다.</b><br>현재 EV/Sales는 TTM 기준 대략 11배 이상이다. 따라서 주가 상승의 다음 단계는 “좋은 뉴스”가 아니라 <b>FY2027 성장률 &gt; FY2026 성장률 + GM 42% 접근 + CPO revenue timing</b>이 필요하다.</div></div>
+    </div>
+  </div>
+
+  <h2>0. Executive Summary</h2>
+  <table>
+    <tr><th>항목</th><th>판단</th></tr>
+    <tr><td>한 문장 투자 thesis</td><td>COHR은 AI 데이터센터의 전기적 switching 병목을 optical layer로 이동시키는 과정에서, InP laser·transceiver·OCS·CPO를 모두 가진 capacity-rights 공급 플랫폼으로 재평가될 수 있다.</td></tr>
+    <tr><td>한 문장 anti-thesis</td><td>현재 주가는 이미 NVIDIA scarcity premium을 상당히 반영해, shipment/GM/CPO 일정이 조금만 밀려도 multiple compression이 먼저 올 수 있다.</td></tr>
+    <tr><td>시장이 보는 회사</td><td>광부품·레이저·산업용 포토닉스 복합기업, AI optical demand 수혜주</td></tr>
+    <tr><td>내가 새롭게 보는 회사</td><td>AI scale-out/scale-up network의 bottleneck capacity를 선점한 vertically integrated photonics infrastructure 회사</td></tr>
+    <tr><td>리레이팅 가능 이유</td><td>NVIDIA 전략계약, 6인치 InP cost curve, OCS/CPO 시스템화, backlog/LTA visibility, 비핵심 사업 매각</td></tr>
+    <tr><td>실패 조건</td><td>FY27 성장률이 FY26을 넘지 못함, gross margin 42% target 정체, 1.6T/CPO revenue 지연, capex가 FCF를 계속 잠식, 고객 집중 리스크 확대</td></tr>
+    <tr><td>투자 등급 / 행동</td><td><b>Hold / 신규 매수 금지</b>. 기존 보유자라면 핵심 보유 가능하나, 신규 진입은 $330~350 이하 또는 실적 확인 후 제한적 접근.</td></tr>
+  </table>
+
+  <h2>1. 시장이 놓친 핵심 변곡점 5개</h2>
+  <div class="grid two">
+    <div class="card"><h3>① 정체성 변화: legacy lasers → AI optical infrastructure</h3><p>COHR의 핵심은 “레이저를 잘 만든다”가 아니라 <b>laser, transceiver, OCS, CPO-enabling component, InP wafer fab을 한 회사 안에 가진 vertically integrated supplier</b>라는 점이다. 회사도 10-Q에서 lasers, transceivers, optical/optoelectronic devices, modules/systems, engineered materials를 모두 개발·제조한다고 설명한다. <sup><a href="#s3">[3]</a></sup></p></div>
+    <div class="card"><h3>② 고객 lock-in은 소프트웨어가 아니라 qualification/capacity다</h3><p>800G/1.6T, CW laser, EML, photodiode, CPO 관련 부품은 단순 BOM 교체가 어렵다. 광 파워 예산, thermal envelope, switch ASIC/packaging, qualification cycle, LTA, capacity rights가 고객 전환비용을 만든다.</p></div>
+    <div class="card"><h3>③ 매출 구조 변화는 이미 숫자에 보인다</h3><p>FY2026 Q3 Datacenter & Communications 매출은 $1.36B로 총매출의 약 75%이며, 전년동기 $969M에서 크게 증가했다. Industrial은 divestiture 영향으로 감소했다. <sup><a href="#s4">[4]</a></sup></p></div>
+    <div class="card"><h3>④ Balance sheet는 생존보다 증설 도구가 됐다</h3><p>NVIDIA $2B와 비핵심 사업 매각은 생존자금보다는 증설·R&D·부채축소 조합이다. 하지만 운전자본과 CapEx가 커지므로 “성장 FCF lag”는 주가 리스크다.</p></div>
+    <div class="card"><h3>⑤ 현재 주가는 base가 아니라 base/bull 혼합</h3><p>애널리스트 평균 목표가가 현재가와 비슷하거나 낮고, 고점 목표가도 $460대에 몰려 있다. 따라서 시장은 이미 단기 base를 대부분 반영했고, 추가 상승은 bull evidence가 필요하다. <sup><a href="#s13">[13]</a></sup></p></div>
+    <div class="card"><h3>왜 아직 완전히 반영되지 않았나?</h3><p>반영은 됐다. 다만 아직 완전한 가격 반영이 아닌 부분은 <b>CPO scale-up 매출 시점, 6인치 InP 마진 효과의 크기, OCS/multi-rail이 시스템 매출로 확장되는 속도</b>다. 이 세 가지는 다음 2~4개 분기에서 확인된다.</p></div>
+  </div>
+
+  <h2 id="chain">2. 최근 24개월 사건 체인 — 공시와 컨콜을 시간순으로 연결</h2>
+  <div class="timeline">
+    <div class="event"><div class="date">2024-08</div><div class="body"><b>고효율 CW InP DFB laser 발표.</b> 800G/1.6T silicon photonics module용 O-band 1310nm, 15% power efficiency 개선, Sherman 6-inch InP fab 2026년까지 5배 생산능력 언급. <sup><a href="#s10">[10]</a></sup><br><span class="muted">해석: AI optical bottleneck을 예상하고 6인치 InP를 선제 ramp.</span></div></div>
+    <div class="event"><div class="date">2025-03</div><div class="body"><b>NVIDIA CPO ecosystem collaborator.</b> NVIDIA silicon photonics networking switch/CPO 생태계 발표에 COHR 포함. <sup><a href="#s2">[2]</a></sup><br><span class="muted">해석: 이후 2026년 $2B 계약의 전조.</span></div></div>
+    <div class="event"><div class="date">2025-08</div><div class="body"><b>FY25 실적 + A&D 매각 발표.</b> FY25 매출 $5.81B, GAAP GM 35.2%, non-GAAP EPS $3.53. A&D 사업은 Advent에 $400M 매각, proceeds는 부채 감축. <sup><a href="#s12">[12]</a></sup><br><span class="muted">해석: 레거시 방산/산업 포트폴리오를 축소하고 AI datacenter 중심으로 자본 재배치.</span></div></div>
+    <div class="event"><div class="date">2025-Q4</div><div class="body"><b>Series B preferred 보통주 전환.</b> FY2026 Q2에 모든 Series B preferred가 common으로 전환, 현재 preferred outstanding 없음. <sup><a href="#s5">[5]</a></sup><br><span class="muted">해석: 복잡한 preferred overhang은 감소했지만 common share base는 확대.</span></div></div>
+    <div class="event"><div class="date">2026-03-02</div><div class="body"><b>NVIDIA $2B PIPE + 다년 전략계약.</b> 주당 $256.80, 7.79M주 발행. 계약은 advanced optics technology, manufacturing capacity, R&D, purchase commitment, future access/capacity rights 포함. <sup><a href="#s1">[1]</a></sup><br><span class="muted">해석: NVIDIA가 광 네트워크 병목을 자체 capex처럼 pre-fund한 구조.</span></div></div>
+    <div class="event"><div class="date">2026-03-17</div><div class="body"><b>OFC 2026 InP portfolio 공개.</b> 400mW CW laser, 200G EML, 400G/lane용 differential EML, 200G/400G photodiode, 800G/1.6T IQ modulator 등. <sup><a href="#s10">[10]</a></sup><br><span class="muted">해석: 단일 transceiver가 아니라 CPO/pluggable/scale-up/scale-out 전반의 부품 스택.</span></div></div>
+    <div class="event"><div class="date">2026-04</div><div class="body"><b>SiC 10kV AI datacenter power option.</b> 150mm/200mm thick epitaxy, UPS·고전압 전력분배 등 AI datacenter power application 언급. <sup><a href="#s11">[11]</a></sup><br><span class="muted">해석: optical thesis와 별개의 high-voltage power optionality. 단, base case에는 낮게 반영.</span></div></div>
+    <div class="event"><div class="date">2026-05-06</div><div class="body"><b>Q3 FY26 record revenue와 컨콜.</b> 매출 $1.81B, GAAP GM 37.7%, non-GAAP GM 39.6%, non-GAAP EPS $1.41. 컨콜에서 backlog record, orders to 2028, LTAs to end of decade, InP doubling ahead of plan, CPO H2 2026/H2 2027, OCS &gt;$4B, CPO &gt;$15B TAM 언급. <sup><a href="#s7">[7]</a></sup><br><span class="muted">해석: 현재 주가가 기대하는 것은 Q3 beat가 아니라 FY27 성장 가속.</span></div></div>
+    <div class="event"><div class="date">2026-06-12</div><div class="body"><b>주가 $390 부근.</b> 52주 범위 $76.88~$440, 최근 한 달 +4% 수준이나 6월 초 급등락이 매우 큼. <sup><a href="#s14">[14]</a></sup><br><span class="muted">해석: 장기 thesis와 별개로 단기 수급은 AI optical squeeze/valuation crowding에 가까움.</span></div></div>
+  </div>
+
+  <table>
+    <tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 영향</th><th>신뢰도</th><th>다음 증거</th></tr>
+    <tr><td>2024-08</td><td>InP CW laser</td><td>800G/1.6T용 고효율 laser, Sherman 6-inch</td><td>capacity bottleneck 선제 투자</td><td>마진/매출 ramp option</td><td>A</td><td>6인치 비중, yield, COGS</td></tr>
+    <tr><td>2025-03</td><td>NVIDIA CPO collaborator</td><td>NVIDIA CPO ecosystem에 COHR 포함</td><td>전략계약 전조</td><td>고객 검증</td><td>A</td><td>제품군별 매출 발생</td></tr>
+    <tr><td>2025-08</td><td>A&D 매각</td><td>$400M, 부채 감축</td><td>AI comms 집중</td><td>multiple quality 개선</td><td>A</td><td>추가 divestiture 여부</td></tr>
+    <tr><td>2026-03</td><td>NVIDIA $2B PIPE</td><td>$256.80, 7.79M주, purchase commitment</td><td>capacity-rights financing</td><td>de-risk 및 고객 lock-in</td><td>A</td><td>NVDA purchase volume, 제품군 공개</td></tr>
+    <tr><td>2026-05</td><td>Q3/컨콜</td><td>Q3 $1.81B, GM 39.6% non-GAAP, Q4 guide $1.91~2.05B</td><td>FY27 성장 가속 기대</td><td>valuation support</td><td>A/B</td><td>FY27 guide, GM 42% 진척</td></tr>
+  </table>
+
+  <h2 id="financials">3. 실적으로 증명되는 실체와 자본구조 forensic</h2>
+  <div class="grid two">
+    <div class="card">
+      <h3>매출 구조</h3>
+      <table>
+        <tr><th>구분</th><th>Q3 FY26</th><th>YoY/해석</th></tr>
+        <tr><td>총매출</td><td>$1.806B</td><td>+21% YoY, pro forma +27%</td></tr>
+        <tr><td>Datacenter & Communications</td><td>$1.362B</td><td>총매출 약 75%, AI datacenter/communications 주도</td></tr>
+        <tr><td>Industrial</td><td>$444M</td><td>A&D/Munich divestiture 영향</td></tr>
+        <tr><td>GAAP / non-GAAP GM</td><td>37.7% / 39.6%</td><td>6-inch InP, yield, pricing, mix 개선</td></tr>
+        <tr><td>non-GAAP EPS</td><td>$1.41</td><td>YoY +55%</td></tr>
+      </table>
+      <p class="note">Q4 FY26 가이던스: 매출 $1.91~2.05B, non-GAAP GM 39~41%, EPS $1.52~1.72. <sup><a href="#s7">[7]</a></sup></p>
+    </div>
+    <div class="card">
+      <h3>자본구조</h3>
+      <table>
+        <tr><th>항목</th><th>수치/판단</th></tr>
+        <tr><td>Cash + short-term investments</td><td>약 $2.42B</td></tr>
+        <tr><td>Total debt</td><td>약 $3.19B</td></tr>
+        <tr><td>순부채</td><td>약 $0.78B</td></tr>
+        <tr><td>9M FY26 OCF / CapEx</td><td>$10M / $547M → FCF 약 -$537M</td></tr>
+        <tr><td>NVIDIA PIPE</td><td>$2B, 7.79M주 신규 발행</td></tr>
+        <tr><td>Short interest</td><td>약 7.84M주, float 4.0% 전후, DTC 1.5일 수준</td></tr>
+      </table>
+      <p class="note">핵심은 생존자금 부족이 아니라 capacity ramp에 따른 FCF timing risk다.</p>
+    </div>
+  </div>
+
+  <div class="svgbox" aria-label="Revenue mix chart">
+    <svg width="100%" height="260" viewBox="0 0 1000 260" role="img">
+      <rect x="0" y="0" width="1000" height="260" rx="22" fill="#fffdf7"/>
+      <text x="35" y="42" font-size="22" font-weight="800" fill="#17211b">매출 mix 변화: Datacenter & Communications 중심화</text>
+      <text x="35" y="68" font-size="13" fill="#5f6f66">단위: $B. FY26은 9개월 누적. 비핵심 divestiture로 Industrial 비중은 낮아지고 D&C가 핵심 driver로 부상.</text>
+      <rect x="130" y="108" width="510" height="34" rx="8" fill="#476a55"/><rect x="640" y="108" width="278" height="34" rx="8" fill="#d8aa4b"/>
+      <text x="35" y="132" font-size="15" font-weight="700" fill="#17211b">FY25</text><text x="145" y="132" font-size="14" fill="#fff">D&C $3.76B</text><text x="658" y="132" font-size="14" fill="#17211b">Other/Industrial $2.05B</text>
+      <rect x="130" y="176" width="650" height="34" rx="8" fill="#476a55"/><rect x="780" y="176" width="251" height="34" rx="8" fill="#d8aa4b"/>
+      <text x="35" y="200" font-size="15" font-weight="700" fill="#17211b">FY26 9M</text><text x="145" y="200" font-size="14" fill="#fff">D&C $3.66B</text><text x="793" y="200" font-size="14" fill="#17211b">Industrial $1.41B</text>
+    </svg>
+  </div>
+
+  <h3>소형주식 자본구조 forensic 결론</h3>
+  <table>
+    <tr><th>체크항목</th><th>판단</th></tr>
+    <tr><td>현금/runway</td><td>현금+단기투자 $2.42B와 낮아진 순부채 때문에 단기 생존 리스크는 낮다. 다만 FY26 9M FCF가 큰 폭 음수인 만큼 ramp 실패 시 “증설 자금 → 희석/부채” 우려가 재등장한다.</td></tr>
+    <tr><td>ATM/shelf/warrant</td><td>본 분석에서 확인된 핵심 자금조달은 NVIDIA PIPE, SiC JV, divestiture다. active ATM/warrant 구조는 핵심 overhang으로 확인되지 않았다. 단, 향후 shelf filing은 계속 확인 필요.</td></tr>
+    <tr><td>전환사채/우선주</td><td>Series B preferred는 보통주 전환 완료. 이는 복잡한 preferred overhang 감소이지만, 보통주 diluted base 확대는 이미 반영해야 한다.</td></tr>
+    <tr><td>수급/short</td><td>short interest 4% 전후라 meme식 squeeze보다는 AI optics scarcity + multiple expansion 성격이 강하다. 다만 6월 급등락은 crowding 신호다.</td></tr>
+    <tr><td>자금의 성격</td><td>생존자금이 아니라 양산·capacity·R&D bridge financing. 즉 긍정적 희석에 가깝지만, CAPEX 효율이 검증되지 않으면 부정적 희석으로 재평가될 수 있다.</td></tr>
+  </table>
+
+  <h2 id="ecosystem">4. 고객·파트너·생태계 분석</h2>
+  <div class="svgbox">
+    <svg width="100%" height="420" viewBox="0 0 1000 420" role="img">
+      <rect width="1000" height="420" rx="22" fill="#fffdf7"/>
+      <text x="38" y="42" font-size="24" font-weight="850" fill="#17211b">COHR 고객·공급망·생태계 관계도</text>
+      <text x="38" y="68" font-size="13" fill="#5f6f66">실선 = 확정 공개 관계, 점선 = 합리적 간접 수혜/후보, 얇은 선 = 관련성 낮음 또는 검증 필요</text>
+      <rect x="410" y="150" width="180" height="90" rx="22" fill="#1c3f56"/><text x="500" y="190" text-anchor="middle" font-size="22" font-weight="850" fill="#fff">COHR</text><text x="500" y="215" text-anchor="middle" font-size="13" fill="#f2eadb">InP · Transceiver · OCS · CPO</text>
+      <rect x="70" y="70" width="190" height="70" rx="18" fill="#476a55"/><text x="165" y="102" text-anchor="middle" font-size="18" font-weight="800" fill="#fff">NVIDIA</text><text x="165" y="123" text-anchor="middle" font-size="12" fill="#eef5f6">$2B + purchase commitment</text>
+      <line x1="260" y1="105" x2="410" y2="175" stroke="#476a55" stroke-width="5"/>
+      <rect x="70" y="180" width="210" height="70" rx="18" fill="#8da88e"/><text x="175" y="210" text-anchor="middle" font-size="17" font-weight="800" fill="#17211b">Hyperscalers</text><text x="175" y="232" text-anchor="middle" font-size="12" fill="#17211b">MSFT · AMZN · GOOGL · META · ORCL</text>
+      <line x1="280" y1="215" x2="410" y2="200" stroke="#8da88e" stroke-width="3" stroke-dasharray="8 8"/>
+      <rect x="70" y="295" width="210" height="70" rx="18" fill="#d8aa4b"/><text x="175" y="324" text-anchor="middle" font-size="17" font-weight="800" fill="#17211b">Systems/OEM</text><text x="175" y="346" text-anchor="middle" font-size="12" fill="#17211b">Cisco/Acacia · Ciena · Arista · Nokia</text>
+      <line x1="280" y1="330" x2="410" y2="218" stroke="#d8aa4b" stroke-width="3" stroke-dasharray="8 8"/>
+      <rect x="720" y="70" width="205" height="70" rx="18" fill="#c4795a"/><text x="822" y="101" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">CPO/Scale-up</text><text x="822" y="123" text-anchor="middle" font-size="12" fill="#fff">CW laser · package optics</text>
+      <line x1="590" y1="175" x2="720" y2="105" stroke="#c4795a" stroke-width="4"/>
+      <rect x="720" y="180" width="205" height="70" rx="18" fill="#6c8fa3"/><text x="822" y="210" text-anchor="middle" font-size="17" font-weight="800" fill="#fff">OCS / Multi-rail</text><text x="822" y="232" text-anchor="middle" font-size="12" fill="#fff">systems layer optionality</text>
+      <line x1="590" y1="205" x2="720" y2="215" stroke="#6c8fa3" stroke-width="4"/>
+      <rect x="720" y="295" width="205" height="70" rx="18" fill="#f2eadb" stroke="#d9d2c3"/><text x="822" y="324" text-anchor="middle" font-size="17" font-weight="800" fill="#17211b">SiC Power</text><text x="822" y="346" text-anchor="middle" font-size="12" fill="#17211b">Denso/MELCO JV · 10kV option</text>
+      <line x1="590" y1="225" x2="720" y2="330" stroke="#d9d2c3" stroke-width="3" stroke-dasharray="8 8"/>
+    </svg>
+  </div>
+
+  <table>
+    <tr><th>기업/그룹</th><th>관련성</th><th>확정 사실</th><th>해석</th></tr>
+    <tr><td>NVIDIA</td><td><b>매우 높음</b></td><td>$2B 투자, 다년 전략계약, purchase commitment, CPO 관련 5개 product family 접근</td><td>미래 최상위 고객/전략 파트너 후보. 단, 인수 확정이나 독점은 아님.</td></tr>
+    <tr><td>Microsoft/Amazon/Google/Oracle/Meta</td><td>중간~높음</td><td>직접 고객명 공개 없음</td><td>AI cluster capex의 최종 수혜 고객. COHR은 직접 또는 OEM/NVIDIA 경유 가능.</td></tr>
+    <tr><td>Cisco/Acacia, Ciena, Arista, Nokia</td><td>중간</td><td>직접 고객명 공개 없음</td><td>optical networking/system ecosystem 내 후보. 고객/경쟁/파트너 관계가 제품별로 달라질 수 있음.</td></tr>
+    <tr><td>AMD, Intel</td><td>낮음~중간</td><td>직접 COHR 관계 확인 안 됨</td><td>AI accelerator ecosystem 수혜는 가능하나 COHR thesis의 핵심 고객으로 단정 불가. Intel은 silicon photonics 자체 경쟁축 가능.</td></tr>
+    <tr><td>Qualcomm, Samsung, Apple</td><td>낮음</td><td>본 AI optical thesis에서 직접 근거 약함</td><td>electronics/consumer optical exposure는 가능하지만 현재 re-rating thesis의 핵심은 아님.</td></tr>
+    <tr><td>TSMC</td><td>낮음</td><td>직접 관계 확인 안 됨</td><td>advanced packaging trend와 간접 연결은 가능하나 COHR 고객 thesis로 반영하지 않음.</td></tr>
+    <tr><td>SpaceX, Globalstar, Gogo, Skylo, Verizon</td><td>낮음</td><td>직접 고객/계약 확인 안 됨</td><td>위성/통신 theme와 이름은 연결될 수 있으나, 현재 COHR의 핵심 가치평가에는 낮게 반영.</td></tr>
+  </table>
+
+  <h3>익명 대형 고객 추정 — 확정과 추론 분리</h3>
+  <table>
+    <tr><th>후보군</th><th>근거</th><th>반대 근거</th><th>확률</th></tr>
+    <tr><td>NVIDIA 또는 NVIDIA AI networking ecosystem</td><td>2026년 전략계약과 CPO product family 접근권이 강력한 검증 신호</td><td>FY2025의 12%/10% 고객과 동일하다는 증거는 없음. 계약은 2026년 3월 이후.</td><td>미래 2027+ top customer 후보 35~45%</td></tr>
+    <tr><td>대형 hyperscaler</td><td>AI datacenter transceiver/OCS/scale-across 수요의 최종 수요자</td><td>직접 고객일 수도, OEM/시스템업체 경유일 수도 있음</td><td>집합 30~40%</td></tr>
+    <tr><td>광네트워크 시스템/OEM</td><td>ZR/ZR+, transport, line card, OCS 제품군과 연결</td><td>COHR 자체 시스템화와 고객/OEM 경계가 모호</td><td>20~30%</td></tr>
+    <tr><td>Apple/consumer electronics</td><td>과거 electronics exposure 가능성</td><td>FY2025 major customer가 D&C 중심이라는 공시와 현재 AI optical thesis에는 약함</td><td>낮음</td></tr>
+  </table>
+
+  <h2>5. 기술 장벽 — 제품명·아키텍처별 판단</h2>
+  <table>
+    <tr><th>레이어</th><th>제품/기술</th><th>왜 필요한가</th><th>모방 난이도/lock-in</th></tr>
+    <tr><td>InP wafer/device</td><td>6-inch InP, EML, CW laser, photodiode</td><td>800G/1.6T와 CPO에서 optical power, efficiency, yield가 병목</td><td>Fab yield, reliability, qualification, capacity가 해자. 단순 설계 복제로 해결 어려움.</td></tr>
+    <tr><td>Transceiver</td><td>800G, 1.6T, ZR/ZR+</td><td>AI cluster scale-out 및 data center interconnect 대역폭 확대</td><td>고객 qualification, thermal/power budget, DSP/optics integration이 전환비용.</td></tr>
+    <tr><td>CPO</td><td>High-power CW laser, CPO-enabling components</td><td>scale-up network에서 copper 한계를 optical로 보완/대체</td><td>ASIC/packaging/reference architecture와 엮이면 lock-in 강화.</td></tr>
+    <tr><td>OCS</td><td>Optical Circuit Switch systems</td><td>OEO 변환 감소, power/latency/cost 개선</td><td>시스템 레이어라 ASP와 margin potential이 높지만 ramp execution risk도 큼.</td></tr>
+    <tr><td>Multi-rail</td><td>DCI/scale-across capacity expansion</td><td>분산 AI workload가 데이터센터 간 대역폭을 요구</td><td>2027 revenue ramp 확인 전까지는 optionality.</td></tr>
+    <tr><td>SiC power</td><td>10kV epitaxy, 150/200mm platform</td><td>AI datacenter high-voltage power conversion, UPS, power distribution</td><td>장기 옵션. 현재 optical thesis와는 분리 할인.</td></tr>
+  </table>
+
+  <h2>6. 반대 thesis — bull case와 같은 강도로 보기</h2>
+  <div class="grid two">
+    <div class="callout red"><b>① 연결이 우연일 가능성</b><br>2024 InP, 2025 CPO, 2026 NVIDIA가 같은 방향을 가리키는 것은 맞지만, 이 모든 것이 한 고객의 독점 구조를 의미하지는 않는다.</div>
+    <div class="callout red"><b>② 출하 지연</b><br>capacity rights가 실제 매출로 바뀌지 않으면 CAPEX와 운전자본이 먼저 증가하고 FCF가 뒤처진다.</div>
+    <div class="callout red"><b>③ Gross margin 기대 과열</b><br>6-inch InP cost curve가 좋아도 초기 ramp 비용, price concessions, 고객 mix가 GM 42%를 지연시킬 수 있다.</div>
+    <div class="callout red"><b>④ 대기업 internalization</b><br>NVIDIA/Broadcom/Intel/Cisco 등은 시간이 지나면 optics stack의 일부를 자체화하거나 다른 공급사로 dual-source할 수 있다.</div>
+    <div class="callout red"><b>⑤ 고객 집중</b><br>FY25 이미 10% 이상 고객 2곳. 대형 고객 lock-in은 해자이자 협상력 리스크다.</div>
+    <div class="callout red"><b>⑥ Valuation이 thesis를 앞섰다</b><br>현재가에서 실패 시 downside는 펀더멘털 악화보다 multiple compression이 더 크다.</div>
+  </div>
+
+  <h2>7. 컨센서스·이벤트 드리븐 분석</h2>
+  <table>
+    <tr><th>항목</th><th>판단</th></tr>
+    <tr><td>컨센서스 목표가</td><td>Investing.com 기준 평균 $380.62, 최고 $461.96, 최저 $230, 16 Buy/0 Sell. 현재 주가 $390 부근은 평균 목표가를 이미 상회.</td></tr>
+    <tr><td>다음 실적일</td><td>예상 2026년 8월 11~13일 범위. 회사 공식 일정 재확인 필요.</td></tr>
+    <tr><td>실적 전 기대치</td><td>매우 높음. Q4 guide midpoint $1.98B와 GM 40%가 이미 기준선.</td></tr>
+    <tr><td>실적 후 상승 조건</td><td>매출 $2.05B+, GM 41%+, FY27 성장률이 FY26보다 높다는 정량 guide, CPO H2 2026 revenue confirmation, 1.6T/OCS 출하 구체화.</td></tr>
+    <tr><td>실적 후 하락 조건</td><td>beat만 있고 FY27 성장/GM/CapEx commentary가 약함, backlog가 shipment로 전환되지 않음, 고객 LTA가 가격 압박을 동반.</td></tr>
+    <tr><td>다음 컨콜 질문</td><td>① NVIDIA purchase commitment의 제품 mix와 minimum volume, ② 6-inch InP 생산 비중, ③ 1.6T gross margin uplift, ④ OCS backlog→revenue timing, ⑤ CPO scale-up H2 2027 일정, ⑥ customer-funded capex 회계 처리.</td></tr>
+  </table>
+
+  <h2 id="valuation">8. 밸류에이션 — DCF, FCF yield, 상대가치, 리레이팅</h2>
+  <div class="callout blue"><b>금리/고용 반영:</b> 2026년 5월 미국 고용은 +172k, 실업률 4.3%, 고용률 59.2%, 임금 +3.4% YoY로 노동시장이 급격히 식었다고 보기 어렵다. Fed는 4월 기준금리를 3.50~3.75%로 유지했다. 6월 현재 Reuters는 고용·인플레 때문에 2026년 내 인하 기대가 약해지고, 선물시장이 연말 인상 가능성을 70% 이상 반영한다고 보도했다. 따라서 본 보고서는 WACC를 bear 12.0%, base 10.5%, bull 9.5%로 두고, 금리 인상/10Y 4.75% 돌파 시 target multiple을 1.0~1.5x EV/Sales 낮춘다. <sup><a href="#s15">[15]</a></sup></div>
+
+  <div class="grid two">
+    <div class="card">
+      <h3>A. DCF</h3>
+      <table>
+        <tr><th>Case</th><th>FY26→FY30 매출</th><th>FCF margin</th><th>WACC</th><th>주당가치</th></tr>
+        <tr><td>Bear</td><td>$7.05B → $9.2B</td><td>8% → 13%</td><td>12.0%</td><td>$95~120</td></tr>
+        <tr><td>Base</td><td>$7.1B → $13.8B</td><td>10% → 18%</td><td>10.5%</td><td>$240~270</td></tr>
+        <tr><td>Bull</td><td>$7.2B → $18.5B</td><td>11% → 25%</td><td>9.5%</td><td>$520±</td></tr>
+      </table>
+      <p class="note">DCF는 현재가보다 낮은 base를 제시한다. 즉 현재가는 순수 DCF base가 아니라 strategic scarcity/re-rating을 산다.</p>
+    </div>
+    <div class="card">
+      <h3>B. FCF Yield / Owner Earnings</h3>
+      <table>
+        <tr><th>Case</th><th>Normalized FCF</th><th>적정 FCF Yield</th><th>주당가치</th></tr>
+        <tr><td>Bear</td><td>$1.1B</td><td>5.0%</td><td>$110</td></tr>
+        <tr><td>Base</td><td>$2.35B</td><td>3.0%</td><td>$395~410</td></tr>
+        <tr><td>Bull</td><td>$3.5B</td><td>2.8%</td><td>$620~650</td></tr>
+      </table>
+      <p class="note">Owner earnings 방식은 “capacity ramp 후 FCF normalization”을 전제할 때만 현재가를 설명한다.</p>
+    </div>
+  </div>
+
+  <h3>C. 상대가치와 리레이팅 가치</h3>
+  <table>
+    <tr><th>비교군</th><th>현재 성격</th><th>COHR 프리미엄 근거</th><th>디스카운트 근거</th></tr>
+    <tr><td>Lumentum, AAOI</td><td>AI optical component scarcity</td><td>COHR은 InP/device/transceiver/OCS/CPO 폭이 넓고 NVIDIA 계약이 명확</td><td>동종 AI optical 전반이 이미 고평가/crowded</td></tr>
+    <tr><td>Ciena, Cisco/Acacia</td><td>Optical systems/networking</td><td>OCS/multi-rail 시스템화 시 multiple 상승 가능</td><td>COHR은 아직 시스템 software/platform multiple을 완전히 받을 단계는 아님</td></tr>
+    <tr><td>Marvell/Broadcom</td><td>AI networking silicon</td><td>CPO에서 photonics bottleneck 가치 부각</td><td>반도체 설계 회사의 scale/margin/FCF quality와는 차이</td></tr>
+  </table>
+
+  <div class="svgbox">
+    <svg width="100%" height="350" viewBox="0 0 1000 350" role="img">
+      <rect width="1000" height="350" rx="22" fill="#fffdf7"/>
+      <text x="35" y="42" font-size="24" font-weight="850" fill="#17211b">Valuation Bridge — 현재가가 요구하는 증거</text>
+      <text x="35" y="68" font-size="13" fill="#5f6f66">주당가치 추정. Conservative DCF에서 시작해 strategic scarcity, 6-inch InP margin, CPO/OCS optionality를 더하고 macro/valuation risk를 차감.</text>
+      <line x1="120" y1="285" x2="930" y2="285" stroke="#d9d2c3" stroke-width="2"/>
+      <rect x="120" y="170" width="110" height="115" rx="12" fill="#6c8fa3"/><text x="175" y="160" text-anchor="middle" font-size="16" font-weight="800">$270</text><text x="175" y="306" text-anchor="middle" font-size="12">보수 DCF</text>
+      <rect x="260" y="140" width="110" height="145" rx="12" fill="#8da88e"/><text x="315" y="130" text-anchor="middle" font-size="16" font-weight="800">+ $55</text><text x="315" y="306" text-anchor="middle" font-size="12">NVIDIA/LTA</text>
+      <rect x="400" y="118" width="110" height="167" rx="12" fill="#476a55"/><text x="455" y="108" text-anchor="middle" font-size="16" font-weight="800">+ $65</text><text x="455" y="306" text-anchor="middle" font-size="12">6-inch InP</text>
+      <rect x="540" y="98" width="110" height="187" rx="12" fill="#d8aa4b"/><text x="595" y="88" text-anchor="middle" font-size="16" font-weight="800">+ $80</text><text x="595" y="306" text-anchor="middle" font-size="12">CPO/OCS</text>
+      <rect x="680" y="128" width="110" height="157" rx="12" fill="#a65a4c"/><text x="735" y="118" text-anchor="middle" font-size="16" font-weight="800">- $60</text><text x="735" y="306" text-anchor="middle" font-size="12">Macro/Risk</text>
+      <rect x="820" y="88" width="110" height="197" rx="12" fill="#1c3f56"/><text x="875" y="78" text-anchor="middle" font-size="18" font-weight="900">$410</text><text x="875" y="306" text-anchor="middle" font-size="12">12M Base</text>
+    </svg>
+  </div>
+
+  <h3>D. 2020~2030 멀티플 밴드</h3>
+  <div class="callout"><b>주의:</b> 2022년 II-VI의 Coherent 인수와 회사명 변경 때문에 2020~2022의 historical multiple은 현재 COHR과 직접 비교하기 어렵다. 아래 표는 공개 시가총액·매출 자료를 기반으로 한 <b>방향성 밴드</b>이며, 2027~2030은 본 보고서 추정치다.</div>
+  <table>
+    <tr><th>연도</th><th>구분</th><th>매출/가정</th><th>EV/Sales 또는 P/S</th><th>P/E/EV/EBITDA/P/FCF 해석</th></tr>
+    <tr><td>2020</td><td>실제/구 Coherent·II-VI 비교 왜곡</td><td>pre-merger</td><td>대략 2~4x 범위</td><td>현재와 비교 제한</td></tr>
+    <tr><td>2021</td><td>실제</td><td>optical/industrial cycle</td><td>대략 3~5x</td><td>AI optical premium 전</td></tr>
+    <tr><td>2022</td><td>실제/인수 전환기</td><td>Coherent 인수</td><td>왜곡</td><td>부채·통합 비용 반영</td></tr>
+    <tr><td>2023</td><td>실제</td><td>통합/재고 조정</td><td>1~2x대</td><td>손실·부채 부담</td></tr>
+    <tr><td>2024</td><td>실제</td><td>AI optical early</td><td>2~3x대</td><td>리레이팅 시작</td></tr>
+    <tr><td>2025</td><td>실제</td><td>FY25 매출 $5.81B, 시총 연말 $30B 전후</td><td>약 5x</td><td>AI optical multiple 부여</td></tr>
+    <tr><td>2026</td><td>현재</td><td>TTM 매출 약 $6.6B, EV 약 $77B</td><td>약 11~12x</td><td>bull/scarcity 선반영</td></tr>
+    <tr><td>2027</td><td>Base 추정</td><td>매출 $9.2B</td><td>8.8x</td><td>Base target $410</td></tr>
+    <tr><td>2028</td><td>Bull 추정</td><td>매출 $13.6B</td><td>7.5~8.0x</td><td>Bull target $520</td></tr>
+    <tr><td>2030</td><td>Bull 추정</td><td>매출 $18.5B, FCF margin 25%</td><td>5.5~6.5x</td><td>FCF multiple 25~32x 가능</td></tr>
+  </table>
+
+  <h2>9. 목표가 체계</h2>
+  <table>
+    <tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>Multiple</th><th>희석주식수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr>
+    <tr><td>보수적 내재가치</td><td>$270</td><td>FY30 매출 $13.8B, FCF margin 18% 미만</td><td>DCF/FCF 혼합</td><td>205M</td><td>25%</td><td>none, valuation floor</td><td>GM 37% 이하 재하락</td></tr>
+    <tr><td>12개월 base target</td><td>$410</td><td>FY27 매출 $9.2B</td><td>EV/Sales 8.8x</td><td>205M</td><td>40%</td><td>FY27 성장률 &gt; FY26 확인</td><td>Q4/FY27 guide 미달</td></tr>
+    <tr><td>Bull target</td><td>$520</td><td>FY28 매출 $13.6B, FCF margin 20%</td><td>EV/Sales 7.5~8.0x 또는 30x FCF</td><td>205M</td><td>25%</td><td>CPO/OCS revenue ramp, GM 42% 접근</td><td>CPO 지연, dual-source price pressure</td></tr>
+    <tr><td>Overshoot target</td><td>$650</td><td>FY28~29 매출 $16B+, FCF $3.5B</td><td>2.8% FCF yield / AI scarcity</td><td>205M</td><td>10%</td><td>short/crowding + NVIDIA ecosystem narrative</td><td>금리 인상, AI capex slowdown</td></tr>
+    <tr><td>실적 전 trading target</td><td>$410~435</td><td>Q4 guide beat 기대</td><td>momentum band</td><td>205M</td><td>35%</td><td>옵션/AI optics 수급</td><td>실적 전 기대 과열</td></tr>
+    <tr><td>실적 후 재평가 target</td><td>$455</td><td>Q4 $2.05B+, GM 41%+, FY27 guide raise</td><td>EV/Sales 9x FY27</td><td>205M</td><td>30%</td><td>beat + raise + shipment guide</td><td>beat only / FCF 악화</td></tr>
+  </table>
+
+  <h2>10. 리스크 관리 — Thesis Break Triggers</h2>
+  <table>
+    <tr><th>리스크</th><th>깨지는 지표</th><th>가격 반영 시작</th><th>확인 시점</th><th>대응</th></tr>
+    <tr><td>출하 지연</td><td>Q4 매출 $1.91B 하단 이하 또는 backlog conversion 언급 약화</td><td>$350 이하</td><td>다음 실적</td><td>신규 매수 금지 유지, 보유자는 20~30% trim</td></tr>
+    <tr><td>GM 정상화 실패</td><td>non-GAAP GM 39% 이하, 42% target 지연</td><td>$330</td><td>2개 분기</td><td>base target $410→$340 하향</td></tr>
+    <tr><td>현금/희석</td><td>CapEx 증가에도 OCF 회복 없음, 추가 equity financing</td><td>$320</td><td>분기별 cash flow</td><td>비중 0~1%로 제한</td></tr>
+    <tr><td>고객 집중</td><td>10% 고객 의존 상승 + 가격 압박</td><td>$300</td><td>10-K/10-Q</td><td>multiple 1.5x sales 할인</td></tr>
+    <tr><td>CPO 과열</td><td>H2 2026 scale-out revenue가 정량화되지 않음</td><td>$340</td><td>Q4/FY27 call</td><td>bull target 제거</td></tr>
+    <tr><td>금리 인상</td><td>Fed hike 확률 70%+ 지속, 10Y 4.75% 돌파</td><td>$360</td><td>FOMC/CPI/고용</td><td>target multiple 1.0~1.5x 하향</td></tr>
+    <tr><td>M&A 기대 과열</td><td>근거 없는 takeout rumor로 $600+ 도달</td><td>$600+</td><td>수급</td><td>최소 30~50% 차익실현</td></tr>
+  </table>
+
+  <h2 id="portfolio">11. 포트폴리오 실행안 + TSLA 350주→100주 판단</h2>
+  <div class="grid two">
+    <div class="card strong">
+      <h3>COHR 실행안</h3>
+      <table>
+        <tr><th>항목</th><th>제안</th></tr>
+        <tr><td>현재 보유</td><td>0주</td></tr>
+        <tr><td>추천 행동</td><td><b>D. 신규 매수 금지</b></td></tr>
+        <tr><td>목표 비중</td><td>현재 0%, 조정 시 1차 1%, 확인 후 최대 3%</td></tr>
+        <tr><td>매수 가격</td><td>1차 $350 이하 30%, 2차 $320 이하 40%, 나머지 30%는 실적 후 confirmation buy</td></tr>
+        <tr><td>매도/회피 가격</td><td>실적 전 $430~455 도달 시 신규 진입 금지, 보유자는 일부 차익실현</td></tr>
+        <tr><td>실적 전 행동</td><td>추격매수 금지. $350 이하 조정 전까지 관망.</td></tr>
+        <tr><td>실적 후 행동</td><td>beat + raise + FY27 가속 + GM 41%+이면 1~2% starter 허용.</td></tr>
+      </table>
+    </div>
+    <div class="card strong">
+      <h3>TSLA 350→100주: 좋은 선택인가?</h3>
+      <p><b>결론: 완전히 나쁜 선택은 아니다. 다만 FSD/Robotaxi 확산을 믿는다면 100주는 너무 방어적일 수 있다.</b></p>
+      <p>현재 TSLA 약 $397 기준 100주는 약 $39.8k, 350주는 약 $139k 노출이다. 기존 분석의 100주 비중 7.9%를 기준으로 추정하면, 350주는 포트폴리오 약 27~28%에 해당한다. 이는 단일 종목 concentration risk가 과도하다.</p>
+      <table>
+        <tr><th>구분</th><th>판단</th></tr>
+        <tr><td>350주 유지</td><td>FSD bull에 가장 유리하지만 포트폴리오 리스크가 과함. 권장하지 않음.</td></tr>
+        <tr><td>100주 유지</td><td>리스크 관리 측면에서는 합리적. 다만 FSD option 노출은 줄어듦.</td></tr>
+        <tr><td>권장 균형</td><td><b>150~180주</b>. KPI 확인 전 150주, 확인 후 최대 180~200주.</td></tr>
+        <tr><td>추가 매수 수량</td><td>1차 +25주, 2차 +25주. 총 150주까지 단계 복원.</td></tr>
+        <tr><td>자금 조달 우선순위</td><td>ADI → DELL → NVTS/LWLG 같은 고위험 옵션성 종목. INTC는 $125~135+에서 고객 증거 없을 때만 25~50주. MU/SK하이닉스/NU는 thesis break 전 우선 매도 대상 아님.</td></tr>
+      </table>
+      <p class="note">COHR 신규 매수를 위해 TSLA를 더 줄이는 행동은 권하지 않는다. 오히려 COHR이 $390에서 과열이면, COHR 추격매수 대신 TSLA 150주 균형 복원이 더 합리적일 수 있다.</p>
+    </div>
+  </div>
+
+  <h2>12. 자체 점검</h2>
+  <table>
+    <tr><th>질문</th><th>답변</th></tr>
+    <tr><td>단순 컨센서스 요약인가?</td><td>아니다. NVIDIA 계약, InP ramp, OCS/CPO, divestiture, 자본구조를 시간순으로 연결했다.</td></tr>
+    <tr><td>확정과 추론을 분리했나?</td><td>예. NVIDIA 계약은 확정, 익명 고객명은 가설로 분리했다.</td></tr>
+    <tr><td>희석/자본구조를 반영했나?</td><td>예. NVIDIA PIPE, preferred conversion, FCF/capex lag, short interest를 반영했다.</td></tr>
+    <tr><td>bull case를 충분히 열어뒀나?</td><td>예. CPO/OCS/6-inch InP가 모두 맞으면 $520~650 가능성을 열었다.</td></tr>
+    <tr><td>루머를 사실처럼 썼나?</td><td>아니다. 익명 고객과 M&A는 확률/검증 필요로 표시했다.</td></tr>
+    <tr><td>다음 실적에서 무엇을 확인해야 하나?</td><td>Q4 매출 $2.05B+, GM 41%+, FY27 성장률 가속, CPO/OCS revenue timing, 6-inch InP 비중.</td></tr>
+  </table>
+
+  <h2>13. 참조 자료 출처</h2>
+  <ol class="source-list">
+    <li id="s1"><a href="https://www.sec.gov/Archives/edgar/data/820318/000082031826000007/iivi-20260302.htm">SEC 8-K — NVIDIA $2B private placement and strategic agreement</a>; <a href="https://www.sec.gov/Archives/edgar/data/820318/000119312526046171/d39933dex991.htm">Exhibit 99.1 press release</a></li>
+    <li id="s2"><a href="https://www.coherent.com/news/press-releases/coherent-recognized-as-collaborator-in-nvidia-co-packaged-optics-ecosystem">Coherent — NVIDIA CPO ecosystem collaborator, 2025-03-18</a></li>
+    <li id="s3"><a href="https://www.sec.gov/Archives/edgar/data/820318/000082031826000013/iivi-20260331.htm">SEC 10-Q FY2026 Q3 — business overview</a></li>
+    <li id="s4"><a href="https://www.sec.gov/Archives/edgar/data/820318/000082031826000013/iivi-20260331.htm">SEC 10-Q FY2026 Q3 — segment revenue and profit</a></li>
+    <li id="s5"><a href="https://www.sec.gov/Archives/edgar/data/820318/000082031826000013/iivi-20260331.htm">SEC 10-Q FY2026 Q3 — cash, debt, cash flow, preferred conversion</a></li>
+    <li id="s6"><a href="https://www.sec.gov/Archives/edgar/data/820318/000082031825000024/iivi-20251216_d2.htm">SEC 10-K FY2025 — major customers 12% and 10%</a></li>
+    <li id="s7"><a href="https://www.fool.com/earnings/call-transcripts/2026/05/06/coherent-cohr-q3-2026-earnings-transcript/">Q3 FY2026 earnings call transcript — backlog, InP, CPO, OCS, guide</a></li>
+    <li id="s8"><a href="https://www.coherent.com/news/press-releases/third-quarter-fiscal-year-2026-results">Coherent Q3 FY2026 earnings release</a></li>
+    <li id="s9"><a href="https://www.globenewswire.com/news-release/2025/08/13/3132944/11543/en/coherent-announces-agreement-to-sell-aerospace-and-defense-business-to-advent-for-400-million.html">Coherent A&D divestiture to Advent for $400M</a></li>
+    <li id="s10"><a href="https://www.coherent.com/news/press-releases/coherent-unveils-high-efficiency-continuous-wave-lasers-to-lower-power-consumption-for-high-speed-silicon-photonics-transceivers">Coherent high-efficiency CW InP lasers, 2024-08-28</a>; <a href="https://www.coherent.com/news/press-releases/coherent-demonstrates-inp-technology-innovation-with-a-broad-range-of-products">Coherent InP OFC 2026 portfolio</a></li>
+    <li id="s11"><a href="https://www.coherent.com/news/press-releases/coherent-advances-silicon-carbide-thick-epitaxy-capabilities-for-high-voltage-ai-datacenter-and-industrial-power-applications-up-to-10kv">Coherent SiC 10kV AI datacenter power application</a></li>
+    <li id="s12"><a href="https://www.coherent.com/news/press-releases/fourth-quarter-and-fiscal-year-2025-results">Coherent FY2025 results</a></li>
+    <li id="s13"><a href="https://kr.investing.com/equities/coherent">Investing.com Korea — COHR quote, target price, next earnings date</a>; <a href="https://www.marketbeat.com/stocks/NYSE/COHR/forecast/">MarketBeat — analyst target and short interest</a></li>
+    <li id="s14"><a href="https://www.investing.com/equities/coherent-historical-data">Investing.com — COHR historical daily prices</a>; real-time quote checked via market data tool at 2026-06-12.</li>
+    <li id="s15"><a href="https://www.bls.gov/news.release/empsit.nr0.htm">BLS Employment Situation — May 2026</a>; <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260429a.htm">Federal Reserve FOMC statement, 2026-04-29</a>; <a href="https://www.reuters.com/business/goldman-sachs-pushes-fed-rate-cut-call-2027-strong-us-jobs-data-2026-06-08/">Reuters — Fed hike/cut expectation after jobs data</a></li>
+  </ol>
+
+  <div class="footer-summary" id="summary">
+    <h2 style="border-top:0;margin-top:0;padding-top:0;color:#fff">마지막 요약</h2>
+    <table>
+      <tr><th>항목</th><th>결론</th></tr>
+      <tr><td>현재 주가</td><td>$390.00</td></tr>
+      <tr><td>보수적 내재가치</td><td>$270</td></tr>
+      <tr><td>12개월 base target</td><td>$410</td></tr>
+      <tr><td>bull target</td><td>$520</td></tr>
+      <tr><td>overshoot target</td><td>$650</td></tr>
+      <tr><td>실적 발표 전 trading target</td><td>$410~435</td></tr>
+      <tr><td>실적 발표 후 재평가 target</td><td>$455, 단 beat + raise + FY27 가속 확인 시</td></tr>
+      <tr><td>하방 리스크</td><td>$300~320, thesis break 시 $270</td></tr>
+      <tr><td>12개월 기대수익률</td><td>Base 기준 +5.1%, bull 기준 +33.3%, 보수 내재가치 기준 -30.8%</td></tr>
+      <tr><td>보유 수량 기준 기대손익</td><td>COHR 0주 기준 $0. 100주 가정 시 base +$2,000, bull +$13,000, overshoot +$26,000, 보수 하방 -$12,000 내외</td></tr>
+      <tr><td>추천 행동</td><td>Hold / 신규 매수 금지</td></tr>
+      <tr><td>목표 비중</td><td>현재 0%. 조정 시 1차 1%, 확인 후 최대 3%</td></tr>
+      <tr><td>실적 발표 전 행동</td><td>$350 이하가 아니면 추격매수 금지</td></tr>
+      <tr><td>실적 발표 후 행동</td><td>Q4 매출 $2.05B+, GM 41%+, FY27 성장률 가속이면 1~2% starter</td></tr>
+      <tr><td>목표가 도달 시 행동</td><td>$410~435에서는 신규매수 금지, $520 이상은 일부 차익, $650은 과열로 큰 폭 축소</td></tr>
+      <tr><td>thesis 훼손 시 행동</td><td>GM 39% 이하, FY27 guide 약화, CPO/OCS 지연 시 신규매수 금지 유지 및 보유자는 20~50% 축소</td></tr>
+      <tr><td>가장 중요한 체크포인트</td><td>6-inch InP가 매출과 GM을 동시에 끌어올리는지, 그리고 CPO/OCS가 실제 revenue line으로 들어오는지</td></tr>
+      <tr><td>내가 틀렸다고 인정해야 하는 조건</td><td>FY27 성장률이 FY26을 넘지 못하고, GM 42% 경로가 사라지며, NVIDIA 계약이 실제 출하/마진으로 연결되지 않을 때</td></tr>
+    </table>
+  </div>
+
+  <p class="note" style="margin-top:18px">본 보고서는 투자 조언이 아니라 분석 자료입니다. 숫자는 2026-06-12 기준 공개자료와 실시간 시세 확인값, 그리고 명시적 추정치를 결합했습니다. 익명 고객·M&A·제품별 revenue ramp는 확정 사실이 아닌 확률 가정으로 표시했습니다.</p>
+</div>
+</body>
+</html>

@@ -1,270 +1,186 @@
 {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign conference_call_files = site.static_files | where_exp: "file", "file.path contains '/pages_conferenceCall/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
-{% assign report_tickers = "" %}
-{% for report in report_files %}
-    {% assign report_ticker = report.name | split: "_" | first | upcase %}
-    {% assign report_marker = "|" | append: report_ticker | append: "|" %}
-    {% unless report_tickers contains report_marker %}
-        {% assign report_tickers = report_tickers | append: report_marker %}
-    {% endunless %}
-{% endfor %}
-{% assign report_ticker_list = report_tickers | split: "|" %}
-{% assign covered_tickers = "" %}
+{% assign earnings_summary_files = site.static_files | where_exp: "file", "file.path contains '/pages_Q_earnings/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign qa_files = site.static_files | where_exp: "file", "file.path contains '/pages_QnA/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
+{% assign role_order = "striker|midfielder|defender|other|watchlist" | split: "|" %}
 
-<section class="company-analysis-section" id="company-research">
-    <div class="company-analysis-container">
-        <div class="company-analysis-heading">
-            <p class="analysis-kicker">Company Research</p>
-            <h2>Company Research</h2>
-            <p class="analysis-thesis">
-                보유·관심 기업의 투자 논리, 추적 지표, 리스크, 원문 리포트를 한 화면에서 봅니다.
-            </p>
-        </div>
+<section class="company-analysis-section company-board-section" id="company-research">
+  <div class="company-analysis-container">
+    <div class="company-analysis-heading">
+      <p class="analysis-kicker">Company Research</p>
+      <h2>Company Research</h2>
+      <p class="analysis-thesis">
+        역할별 기업 분석 허브입니다. 자세한 핵심 관찰, 추적 지표, 리스크, 다음 업데이트, 컨퍼런스콜 요약은 각 기업의 개요 페이지에 보관합니다.
+      </p>
+    </div>
 
-        <div class="company-research-list">
-            {% for company in companies %}
-                {% assign ticker = company.ticker %}
-                {% assign ticker_key = ticker | upcase %}
-                {% assign covered_marker = "|" | append: ticker_key | append: "|" %}
-                {% assign covered_tickers = covered_tickers | append: covered_marker %}
-                {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
-                {% assign conference_calls = site.data.conference_calls[ticker_key] %}
-                {% assign role_label = "" %}
-                {% case company.portfolio_role %}
-                    {% when "striker" %}
-                        {% assign role_label = "공격수" %}
-                    {% when "midfielder" %}
-                        {% assign role_label = "미드필더" %}
-                    {% when "defender" %}
-                        {% assign role_label = "수비수" %}
-                    {% when "other" %}
-                        {% assign role_label = "기타" %}
-                {% endcase %}
-                {% assign report_count = 0 %}
-                {% for report in report_files %}
-                    {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                    {% if current_ticker == ticker_key %}
-                        {% assign report_count = report_count | plus: 1 %}
-                    {% endif %}
-                {% endfor %}
-
-                <article class="company-research-item" id="company-{{ ticker | downcase }}">
-                    <div class="company-research-heading">
-                        <p class="analysis-kicker">{{ ticker }}</p>
-                        <h3>{{ company.name }}</h3>
-                        <div class="company-meta-row">
-                            {% if company.portfolio_weight %}
-                                <span class="portfolio-weight">Portfolio {{ company.portfolio_weight }}%</span>
-                            {% else %}
-                                <span class="portfolio-weight portfolio-weight-watch">Research List</span>
-                            {% endif %}
-                            {% if role_label != "" %}
-                                <span class="portfolio-role portfolio-role-{{ company.portfolio_role }}">{{ role_label }}</span>
-                            {% endif %}
-                        </div>
-                        <p>{{ company.thesis }}</p>
-                    </div>
-
-                    <div class="analysis-grid">
-                        <article class="analysis-card analysis-card-wide">
-                            <h3>핵심 관찰</h3>
-                            <p>{{ company.observation }}</p>
-                        </article>
-
-                        <article class="analysis-card">
-                            <h3>추적 지표</h3>
-                            <ul>
-                                {% for metric in company.metrics %}
-                                    <li>{{ metric }}</li>
-                                {% endfor %}
-                            </ul>
-                        </article>
-
-                        <article class="analysis-card">
-                            <h3>리스크</h3>
-                            <ul>
-                                {% for risk in company.risks %}
-                                    <li>{{ risk }}</li>
-                                {% endfor %}
-                            </ul>
-                        </article>
-
-                        <article class="analysis-card">
-                            <h3>다음 업데이트</h3>
-                            <p>{{ company.next_update }}</p>
-                        </article>
-
-                        {% if earnings_links %}
-                            <article class="analysis-card analysis-card-earnings">
-                                <div class="report-company-topline">
-                                    <h3>분기 실적 발표</h3>
-                                    <span class="report-count">{{ earnings_links.size }} link{% if earnings_links.size > 1 %}s{% endif %}</span>
-                                </div>
-                                <div class="company-report-links">
-                                    {% for item in earnings_links %}
-                                        <a class="report-link" href="{{ item.url }}" target="_self">
-                                            {{ item.period }}
-                                            <span>{{ item.label }} · {{ item.kind }}</span>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            </article>
-                        {% endif %}
-
-                        {% if conference_calls %}
-                            <article class="analysis-card analysis-card-calls">
-                                <div class="report-company-topline">
-                                    <h3>컨퍼런스 콜 요약</h3>
-                                    <span class="report-count">{{ conference_calls.size }} call{% if conference_calls.size > 1 %}s{% endif %}</span>
-                                </div>
-                                {% assign company_call_page_count = 0 %}
-                                {% assign latest_conference_call_page = "" %}
-                                {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
-                                {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
-                                {% for call_file in conference_call_files %}
-                                    {% assign call_file_name_down = call_file.name | downcase %}
-                                    {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
-                                    {% if call_file_prefix == ticker_file_prefix %}
-                                        {% assign company_call_page_count = company_call_page_count | plus: 1 %}
-                                        {% assign latest_conference_call_page = call_file.path | relative_url %}
-                                    {% endif %}
-                                {% endfor %}
-                                {% for call in conference_calls %}
-                                    {% capture call_anchor %}call-{{ ticker_key | downcase }}-{{ call.period | slugify }}{% endcapture %}
-                                    <div class="conference-call-item">
-                                        <p class="conference-call-summary">{{ call.summary }}</p>
-                                        {% if call.highlights %}
-                                            <ul class="conference-call-highlights">
-                                                {% for highlight in call.highlights %}
-                                                    <li>{{ highlight }}</li>
-                                                {% endfor %}
-                                            </ul>
-                                        {% endif %}
-                                        {% if call.watch %}
-                                            <div class="conference-call-watch">
-                                                <strong>다음 확인</strong>
-                                                <ul>
-                                                    {% for item in call.watch %}
-                                                        <li>{{ item }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        {% endif %}
-                                        <div class="conference-call-actions">
-                                            <a class="conference-call-source" href="{{ call.url }}" target="_self">
-                                                원문 자료: {{ call.label }}
-                                            </a>
-                                            {% if latest_conference_call_page != "" %}
-                                                <a class="conference-call-source conference-call-page" href="{{ latest_conference_call_page }}" target="_self">
-                                                    어닝콜 요약본
-                                                </a>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </article>
-                        {% endif %}
-
-                        <article class="analysis-card analysis-card-reports">
-                            <div class="report-company-topline">
-                                <h3>분석 리포트</h3>
-                                <span class="report-count">{{ report_count }} report{% if report_count > 1 %}s{% endif %}</span>
-                            </div>
-                            {% if report_count > 0 %}
-                                <div class="company-report-links">
-                                    {% for report in report_files %}
-                                        {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                                        {% if current_ticker == ticker_key %}
-                                            {% assign report_parts = report.name | remove: ".html" | split: "_" %}
-                                            {% assign report_date_raw = report_parts | last %}
-                                            {% assign first_part = report.name | split: "_" | first %}
-                                            {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
-                                            <a class="report-link" href="{{ report.path | relative_url }}" target="_self">
-                                                {% if report_label == "" %}
-                                                    투자 분석 보고서
-                                                {% else %}
-                                                    {{ report_label | replace: "IR", "IR" | replace: "ir", "IR" | replace: "claude", "Claude" | replace: "openai", "OpenAI" | replace: "investment", "Investment" | replace: "report", "Report" | replace: "analysis", "Analysis" }}
-                                                {% endif %}
-                                                {% if report_date_raw.size == 8 %}
-                                                    <span>{{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}</span>
-                                                {% elsif report_date_raw.size == 6 %}
-                                                    <span>20{{ report_date_raw | slice: 0, 2 }}.{{ report_date_raw | slice: 2, 2 }}.{{ report_date_raw | slice: 4, 2 }}</span>
-                                                {% endif %}
-                                            </a>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <p class="report-empty">연결된 HTML 리포트가 아직 없습니다.</p>
-                            {% endif %}
-                        </article>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
-
-        {% assign has_other_reports = false %}
-        {% for ticker in report_ticker_list %}
-            {% if ticker != "" %}
-                {% assign ticker_marker = "|" | append: ticker | append: "|" %}
-                {% unless covered_tickers contains ticker_marker %}
-                    {% assign has_other_reports = true %}
-                {% endunless %}
+    <div class="company-role-board">
+      {% for role in role_order %}
+        {% case role %}
+          {% when "striker" %}
+            {% assign role_label = "공격수" %}
+            {% assign role_desc = "수익률을 끌어올리는 성장 엔진입니다." %}
+          {% when "midfielder" %}
+            {% assign role_label = "미드필더" %}
+            {% assign role_desc = "공격과 수비를 연결하는 핵심 관찰 구간입니다." %}
+          {% when "defender" %}
+            {% assign role_label = "수비수" %}
+            {% assign role_desc = "포트폴리오 균형과 변동성 완충을 맡습니다." %}
+          {% when "watchlist" %}
+            {% assign role_label = "Watch List" %}
+            {% assign role_desc = "현재 포트폴리오 파일에는 없지만 계속 추적하는 기업입니다." %}
+          {% else %}
+            {% assign role_label = "기타" %}
+            {% assign role_desc = "Top 20 밖의 소액 보유 종목과 신규 리포트입니다." %}
+        {% endcase %}
+        {% assign role_total = 0 %}
+        {% assign role_count = 0 %}
+        {% for company in companies %}
+          {% assign company_role = company.portfolio_role %}
+          {% if company_role == nil or company_role == "" %}
+            {% assign company_role = "other" %}
+          {% endif %}
+          {% if company_role == role %}
+            {% if company.portfolio_weight %}
+              {% assign role_total = role_total | plus: company.portfolio_weight %}
             {% endif %}
+            {% assign role_count = role_count | plus: 1 %}
+          {% endif %}
         {% endfor %}
 
-        {% if has_other_reports %}
-            <article class="company-research-item other-reports" id="other-reports">
-                <div class="company-research-heading">
-                    <p class="analysis-kicker">Other Reports</p>
-                    <h3>기타</h3>
-                    <p>요약 카드가 아직 준비되지 않은 신규 리포트입니다. 요약이 추가되면 정식 회사 카드로 이동합니다.</p>
-                </div>
-                <div class="report-company-grid">
-                    {% for ticker in report_ticker_list %}
-                        {% if ticker != "" %}
-                            {% assign ticker_marker = "|" | append: ticker | append: "|" %}
-                            {% unless covered_tickers contains ticker_marker %}
-                                {% assign report_count = 0 %}
-                                {% for report in report_files %}
-                                    {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                                    {% if current_ticker == ticker %}
-                                        {% assign report_count = report_count | plus: 1 %}
-                                    {% endif %}
-                                {% endfor %}
-                                <article class="report-company-card" id="report-{{ ticker | downcase }}">
-                                    <div class="report-company-topline">
-                                        <span class="report-ticker">{{ ticker }}</span>
-                                        <span class="report-count">{{ report_count }} report{% if report_count > 1 %}s{% endif %}</span>
-                                    </div>
-                                    {% for report in report_files %}
-                                        {% assign current_ticker = report.name | split: "_" | first | upcase %}
-                                        {% if current_ticker == ticker %}
-                                            {% assign report_parts = report.name | remove: ".html" | split: "_" %}
-                                            {% assign report_date_raw = report_parts | last %}
-                                            {% assign first_part = report.name | split: "_" | first %}
-                                            {% assign report_label = report.name | remove: ".html" | remove_first: first_part | remove_first: "_" | remove: report_date_raw | replace: "_", " " | strip %}
-                                            <a class="report-link" href="{{ report.path | relative_url }}" target="_self">
-                                                {% if report_label == "" %}
-                                                    투자 분석 보고서
-                                                {% else %}
-                                                    {{ report_label | replace: "IR", "IR" | replace: "ir", "IR" | replace: "claude", "Claude" | replace: "openai", "OpenAI" | replace: "investment", "Investment" | replace: "report", "Report" | replace: "analysis", "Analysis" }}
-                                                {% endif %}
-                                                {% if report_date_raw.size == 8 %}
-                                                    <span>{{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}</span>
-                                                {% elsif report_date_raw.size == 6 %}
-                                                    <span>20{{ report_date_raw | slice: 0, 2 }}.{{ report_date_raw | slice: 2, 2 }}.{{ report_date_raw | slice: 4, 2 }}</span>
-                                                {% endif %}
-                                            </a>
-                                        {% endif %}
-                                    {% endfor %}
-                                </article>
-                            {% endunless %}
+        <article class="company-role-panel company-role-panel-{{ role }}">
+          <header class="company-role-head">
+            <div>
+              <h3>{{ role_label }}</h3>
+              <p>{{ role_desc }} · {{ role_count }} 종목</p>
+            </div>
+            {% if role_total > 0 %}
+              <span>{{ role_total | round: 1 }}%</span>
+            {% endif %}
+          </header>
+
+          <div class="company-board-list">
+            {% for company in companies %}
+              {% assign company_role = company.portfolio_role %}
+              {% if company_role == nil or company_role == "" %}
+                {% assign company_role = "other" %}
+              {% endif %}
+              {% if company_role == role %}
+                {% assign ticker = company.ticker %}
+                {% assign ticker_key = ticker | upcase %}
+                {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
+                {% assign latest_qa_report = "" %}
+                {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
+                {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
+                {% for qa_file in qa_files %}
+                  {% assign qa_file_name_down = qa_file.name | downcase %}
+                  {% assign qa_file_prefix = qa_file_name_down | slice: 0, ticker_file_prefix_size %}
+                  {% if qa_file_prefix == ticker_file_prefix %}
+                    {% assign latest_qa_report = qa_file.path | relative_url %}
+                  {% endif %}
+                {% endfor %}
+
+                <div class="company-board-row" id="company-{{ ticker | downcase }}">
+                  <div class="company-board-main">
+                    <div>
+                      <strong>{{ ticker }}</strong>
+                      <small>{{ company.name }}</small>
+                    </div>
+                    {% if company.portfolio_weight %}
+                      <b>{{ company.portfolio_weight }}%</b>
+                    {% endif %}
+                  </div>
+                  <div class="company-board-links">
+                    <a class="overview-chip" href="{{ '/pages_company/' | append: ticker | append: '.html' | relative_url }}" target="_self">개요</a>
+                    {% for report in report_files reversed %}
+                      {% assign report_ticker = report.name | split: "_" | first | upcase %}
+                      {% if report_ticker == ticker_key %}
+                        {% assign report_parts = report.name | remove: ".html" | split: "_" %}
+                        {% assign report_date_raw = report_parts | last %}
+                        {% if report_date_raw.size == 8 %}
+                          {% assign report_month = report_date_raw | slice: 4, 2 | plus: 0 %}
+                          {% assign report_day = report_date_raw | slice: 6, 2 | plus: 0 %}
+                          <a class="report-chip" href="{{ report.path | relative_url }}" target="_self">기업분석({{ report_month }}/{{ report_day }})</a>
+                        {% else %}
+                          <a class="report-chip" href="{{ report.path | relative_url }}" target="_self">기업분석</a>
                         {% endif %}
+                      {% endif %}
                     {% endfor %}
+                    {% for earnings_summary in earnings_summary_files reversed %}
+                      {% assign earnings_summary_name_down = earnings_summary.name | downcase %}
+                      {% assign earnings_summary_prefix = earnings_summary_name_down | slice: 0, ticker_file_prefix_size %}
+                      {% if earnings_summary_prefix == ticker_file_prefix %}
+                        {% assign earnings_summary_parts = earnings_summary.name | remove: ".html" | split: "_" %}
+                        {% assign earnings_summary_quarter_raw = "" %}
+                        {% assign earnings_summary_year = "" %}
+                        {% for earnings_summary_part in earnings_summary_parts %}
+                          {% assign earnings_summary_part_down = earnings_summary_part | downcase %}
+                          {% assign earnings_summary_part_first = earnings_summary_part_down | slice: 0, 1 %}
+                          {% assign earnings_summary_part_size = earnings_summary_part_down | size %}
+                          {% if earnings_summary_part_first == "q" and earnings_summary_part_size <= 3 %}
+                            {% assign earnings_summary_quarter_raw = earnings_summary_part %}
+                          {% endif %}
+                          {% if earnings_summary_part_size == 4 %}
+                            {% assign earnings_summary_year_number = earnings_summary_part | plus: 0 %}
+                            {% if earnings_summary_year_number >= 2000 and earnings_summary_year_number <= 2099 %}
+                              {% assign earnings_summary_year = earnings_summary_part %}
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                        {% assign earnings_summary_quarter = earnings_summary_quarter_raw | replace: "Q", "" | replace: "q", "" %}
+                        {% if earnings_summary_year != "" and earnings_summary_quarter != "" %}
+                          <a class="earnings-summary-chip" href="{{ earnings_summary.path | relative_url }}" target="_self">{{ earnings_summary_year }} {{ earnings_summary_quarter }}Q 정리</a>
+                        {% else %}
+                          <a class="earnings-summary-chip" href="{{ earnings_summary.path | relative_url }}" target="_self">실적 정리</a>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                    {% for call_file in conference_call_files reversed %}
+                      {% assign call_file_name_down = call_file.name | downcase %}
+                      {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
+                      {% if call_file_prefix == ticker_file_prefix %}
+                        {% assign call_parts = call_file.name | remove: ".html" | split: "_" %}
+                        {% assign call_quarter_raw = "" %}
+                        {% assign call_year = "" %}
+                        {% for call_part in call_parts %}
+                          {% assign call_part_down = call_part | downcase %}
+                          {% assign call_part_first = call_part_down | slice: 0, 1 %}
+                          {% assign call_part_size = call_part_down | size %}
+                          {% if call_part_first == "q" and call_part_size <= 3 %}
+                            {% assign call_quarter_raw = call_part %}
+                          {% endif %}
+                          {% if call_part_size == 4 %}
+                            {% assign call_year_number = call_part | plus: 0 %}
+                            {% if call_year_number >= 2000 and call_year_number <= 2099 %}
+                              {% assign call_year = call_part %}
+                            {% endif %}
+                          {% endif %}
+                        {% endfor %}
+                        {% assign call_quarter = call_quarter_raw | replace: "Q", "" | replace: "q", "" %}
+                        {% assign call_year_short = call_year | slice: 2, 2 %}
+                        {% if call_year_short != "" and call_quarter != "" %}
+                          <a class="call-chip" href="{{ call_file.path | relative_url }}" target="_self">{{ call_year_short }} {{ call_quarter }}Q 어닝콜</a>
+                        {% else %}
+                          <a class="call-chip" href="{{ call_file.path | relative_url }}" target="_self">어닝콜</a>
+                        {% endif %}
+                      {% endif %}
+                    {% endfor %}
+                    {% if latest_qa_report != "" %}
+                      <a class="qa-chip" href="{{ latest_qa_report }}" target="_self">QnA</a>
+                    {% endif %}
+                    {% if earnings_links %}
+                      {% for item in earnings_links limit: 2 %}
+                        <a href="{{ item.url }}" target="_self">{{ item.period }}</a>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
                 </div>
-            </article>
-        {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </article>
+      {% endfor %}
     </div>
+  </div>
 </section>

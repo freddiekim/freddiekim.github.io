@@ -24,7 +24,7 @@
     {% assign report_ticker_list = report_tickers | split: "|" %}
     {% assign covered_tickers = "" %}
     {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
-    {% assign role_order = "striker|midfielder|defender|other" | split: "|" %}
+    {% assign role_order = "striker|midfielder|defender|other|watchlist" | split: "|" %}
     {% for role in role_order %}
       {% case role %}
         {% when "striker" %}
@@ -33,6 +33,8 @@
           {% assign role_label = "미드필더" %}
         {% when "defender" %}
           {% assign role_label = "수비수" %}
+        {% when "watchlist" %}
+          {% assign role_label = "Watch List" %}
         {% else %}
           {% assign role_label = "기타" %}
       {% endcase %}
@@ -42,7 +44,7 @@
         {% if company_role == nil or company_role == "" %}
           {% assign company_role = "other" %}
         {% endif %}
-        {% if company_role == role and company.portfolio_rank <= 20 %}
+        {% if company_role == role and company.portfolio_weight %}
           {% assign role_total = role_total | plus: company.portfolio_weight %}
         {% endif %}
       {% endfor %}
