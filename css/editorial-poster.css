@@ -584,10 +584,6 @@ body.sidebar-open .tooltip-container {
     gap: 0;
 }
 
-.conference-call-summary-links {
-    margin-bottom: 14px;
-}
-
 .conference-call-item + .conference-call-item {
     border-top: 4px solid var(--poster-line);
     margin-top: 16px;
@@ -620,6 +616,13 @@ body.sidebar-open .tooltip-container {
     margin-bottom: 6px;
 }
 
+.conference-call-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
 .conference-call-source {
     align-items: center;
     background: var(--poster-ink) !important;
@@ -629,9 +632,12 @@ body.sidebar-open .tooltip-container {
     display: inline-flex;
     font-size: 13px;
     font-weight: 900;
-    margin-top: 12px;
     padding: 8px 12px;
     text-decoration: none;
+}
+
+.conference-call-page {
+    background: var(--poster-green) !important;
 }
 
 .conference-call-source:hover,

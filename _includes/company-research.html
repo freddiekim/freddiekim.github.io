@@ -119,6 +119,7 @@
                                     <span class="report-count">{{ conference_calls.size }} call{% if conference_calls.size > 1 %}s{% endif %}</span>
                                 </div>
                                 {% assign company_call_page_count = 0 %}
+                                {% assign latest_conference_call_page = "" %}
                                 {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
                                 {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
                                 {% for call_file in conference_call_files %}
@@ -126,23 +127,9 @@
                                     {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
                                     {% if call_file_prefix == ticker_file_prefix %}
                                         {% assign company_call_page_count = company_call_page_count | plus: 1 %}
+                                        {% assign latest_conference_call_page = call_file.path | relative_url %}
                                     {% endif %}
                                 {% endfor %}
-                                {% if company_call_page_count > 0 %}
-                                    <div class="company-report-links conference-call-summary-links">
-                                        {% for call_file in conference_call_files %}
-                                            {% assign call_file_name_down = call_file.name | downcase %}
-                                            {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
-                                            {% if call_file_prefix == ticker_file_prefix %}
-                                                {% assign call_file_label = call_file.name | remove: ".html" | replace: "_", " " | replace: "-", " " %}
-                                                <a class="report-link" href="{{ call_file.path | relative_url }}" target="_self">
-                                                    어닝콜 요약본
-                                                    <span>{{ call_file_label }}</span>
-                                                </a>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
                                 {% for call in conference_calls %}
                                     {% capture call_anchor %}call-{{ ticker_key | downcase }}-{{ call.period | slugify }}{% endcapture %}
                                     <div class="conference-call-item">
@@ -164,9 +151,16 @@
                                                 </ul>
                                             </div>
                                         {% endif %}
-                                        <a class="conference-call-source" href="{{ call.url }}" target="_self">
-                                            원문 자료: {{ call.label }}
-                                        </a>
+                                        <div class="conference-call-actions">
+                                            <a class="conference-call-source" href="{{ call.url }}" target="_self">
+                                                원문 자료: {{ call.label }}
+                                            </a>
+                                            {% if latest_conference_call_page != "" %}
+                                                <a class="conference-call-source conference-call-page" href="{{ latest_conference_call_page }}" target="_self">
+                                                    어닝콜 요약본
+                                                </a>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 {% endfor %}
                             </article>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Micron FQ2 2026 Earnings Deck 상세 정리</title>
+<style>
+:root { --ink:#111111; --paper:#FAF7EE; --panel:#FFFDF7; --line:#111111; --brick:#C2603B; --teal:#2F6F73; --sand:#F7E7CE; --muted:#666; --pale:#EFE2C6; --lav:#D9D2E9; --green:#DDE9D3; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; line-height:1.58; }
+header { position:relative; overflow:hidden; padding:56px 58px 38px; border-bottom:3px solid var(--line); background:var(--panel); }
+.kicker { font-size:13px; letter-spacing:.17em; text-transform:uppercase; color:var(--teal); font-weight:900; }
+h1 { margin:14px 0 10px; font-size:46px; line-height:1.04; max-width:1050px; letter-spacing:-.03em; }
+.subtitle { max-width:1120px; font-size:18px; color:#222; }
+.meta { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; max-width:1160px; }
+.pill { border:2px solid var(--line); background:var(--sand); padding:8px 13px; border-radius:999px; font-weight:800; font-size:13px; }
+.hero-art { position:absolute; right:44px; top:36px; width:260px; height:190px; border:2px solid var(--line); background:var(--paper); box-shadow:8px 8px 0 var(--ink); display:block; }
+.hero-art span { position:absolute; border:2px solid var(--line); background:var(--teal); }
+.hero-art .a { width:110px; height:28px; left:38px; top:38px; }
+.hero-art .b { width:110px; height:28px; left:58px; top:72px; background:var(--brick); }
+.hero-art .c { width:110px; height:28px; left:78px; top:106px; background:var(--sand); }
+.hero-art .d { width:26px; height:110px; right:38px; top:44px; background:var(--green); }
+main { max-width:1220px; margin:0 auto; padding:34px 26px 82px; }
+nav.toc { margin:26px 0 34px; padding:18px; border:2px solid var(--line); background:var(--panel); box-shadow:6px 6px 0 var(--ink); }
+nav.toc a { display:inline-block; margin:4px 6px 4px 0; padding:6px 10px; border:1.5px solid var(--line); background:var(--sand); color:var(--ink); text-decoration:none; font-weight:800; font-size:12px; }
+section { margin:34px 0; padding:28px; background:var(--panel); border:2px solid var(--line); box-shadow:8px 8px 0 var(--ink); }
+h2 { margin:0 0 18px; font-size:30px; line-height:1.15; letter-spacing:-.02em; }
+h3 { margin:16px 0 8px; font-size:20px; }
+h4 { margin:20px 0 8px; font-size:16px; }
+p { margin:8px 0; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.metric-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+.card, .metric-card { border:2px solid var(--line); background:var(--paper); padding:18px; position:relative; }
+.metric-card { min-height:190px; }
+.metric-index { display:inline-flex; align-items:center; justify-content:center; width:35px; height:35px; background:var(--brick); color:white; font-weight:900; margin-bottom:10px; }
+.metric-label { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--teal); font-weight:900; }
+.metric-value { font-size:32px; line-height:1; font-weight:950; margin:8px 0; letter-spacing:-.03em; }
+.metric-delta { display:inline-block; padding:4px 8px; border:1.5px solid var(--line); background:var(--sand); font-size:12px; font-weight:900; }
+.callout { padding:18px; border:2px solid var(--line); background:var(--pale); font-weight:800; }
+.warning { border-left:10px solid var(--brick); padding:16px 18px; background:var(--sand); }
+.note { border:2px solid var(--line); background:var(--green); padding:16px; }
+.small { font-size:13px; color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0 4px; font-size:13px; }
+th, td { border:1.5px solid var(--line); padding:9px 8px; vertical-align:top; }
+th { background:var(--sand); text-align:left; font-weight:900; }
+td.num { font-weight:950; color:var(--brick); }
+.badge { display:inline-block; padding:3px 8px; border:1.5px solid var(--line); background:#fff; font-size:12px; margin:2px; font-weight:800; }
+ul.tight li, ol.tight li { margin:7px 0; }
+.bar-box { border:2px solid var(--line); background:var(--paper); padding:18px; }
+.bar-row { display:grid; grid-template-columns:130px 1fr 90px; gap:12px; align-items:center; margin:11px 0; }
+.bar-label { font-weight:900; }
+.bar-track { height:22px; border:1.5px solid var(--line); background:#fff; }
+.bar-fill { height:100%; background:var(--teal); border-right:1.5px solid var(--line); }
+.bar-value { font-weight:900; text-align:right; color:var(--brick); }
+.svg-card { border:2px solid var(--line); background:var(--paper); padding:16px; margin:16px 0; }
+.svg-card svg { width:100%; height:auto; display:block; }
+.svg-card line { stroke:var(--line); stroke-width:2; }
+.svg-card path { fill:none; stroke:var(--brick); stroke-width:4; }
+.svg-card circle { fill:var(--sand); stroke:var(--line); stroke-width:2; }
+.svg-note { font-size:13px; font-weight:900; fill:var(--ink); }
+.svg-label { font-size:12px; font-weight:800; fill:var(--muted); }
+.timeline { display:grid; gap:12px; }
+.timeline-item { display:grid; grid-template-columns:180px 1fr; gap:16px; border:2px solid var(--line); background:var(--paper); padding:14px; }
+.timeline-item .time { font-weight:950; color:var(--brick); }
+.map { border:2px solid var(--line); background:var(--paper); padding:18px; }
+.source-list a { color:var(--teal); font-weight:800; text-decoration:none; border-bottom:1px solid var(--teal); }
+.footer { font-size:12px; color:#555; }
+@media (max-width: 1000px) { .hero-art { display:none; } .metric-grid,.grid3,.grid { grid-template-columns:1fr; } }
+@media (max-width: 850px) { header { padding:34px 22px; } h1 { font-size:32px; } section { box-shadow:none; padding:20px; } .bar-row { grid-template-columns:1fr; gap:4px; } .bar-value { text-align:left; } .timeline-item { grid-template-columns:1fr; } }
+@media print { body { background:white; } section, nav.toc { box-shadow:none; break-inside:avoid; } a { color:#111; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Micron Technology · FQ2 2026 Earnings Deck · Korean Summary</div>
+  <h1>마이크론 FY2026 2분기 실적보고서 상세 정리</h1>
+  <p class="subtitle">기존 MU 리포트 스타일을 유지하되, 이번 문서는 <b>첨부된 FQ2 2026 Earnings Deck</b>을 기준으로 실적 숫자, AI 메모리 thesis, 사업부별 구조, HBM/DRAM/NAND 기술 로드맵, 공급 확대와 Q3 가이던스를 한 번에 볼 수 있도록 재구성했습니다.</p>
+  <div class="meta">
+    <span class="pill">자료일: 2026-03-18</span>
+    <span class="pill">대상: FQ2 2026</span>
+    <span class="pill">핵심: AI 수요 + 공급제약 + 가격 상승</span>
+    <span class="pill">Q3 가이던스: 매출 $33.5B ± $0.75B</span>
+    <span class="pill">Non-GAAP 기준</span>
+  </div>
+  <div class="hero-art"><span class="a"></span><span class="b"></span><span class="c"></span><span class="d"></span></div>
+</header>
+<main>
+<nav class="toc">
+  <a href="#summary">Executive Summary</a>
+  <a href="#numbers">핵심 숫자</a>
+  <a href="#technology">기술별 매출</a>
+  <a href="#business">사업부별 실적</a>
+  <a href="#ai">AI/데이터센터</a>
+  <a href="#roadmap">제품 로드맵</a>
+  <a href="#supply">공급/Capex</a>
+  <a href="#cash">현금흐름</a>
+  <a href="#guide">Q3 가이던스</a>
+  <a href="#check">체크포인트</a>
+</nav>
+
+<section id="summary">
+  <h2>0. Executive Summary — 이번 분기의 핵심 결론</h2>
+  <div class="callout">한 문장 요약: Micron의 FQ2 2026은 단순 경기회복 분기가 아니라, <b>AI가 메모리를 전략자산으로 재정의하면서 DRAM·NAND·HBM·데이터센터 SSD가 동시에 사상 최고치를 기록한 구조적 리레이팅 분기</b>에 가깝습니다.</div>
+  <div class="grid3">
+    <article class="card"><h3>회사 메시지</h3><p>Micron은 이번 분기 매출, gross margin, EPS, free cash flow 모두에서 기록적 성과를 냈고, DRAM·NAND·HBM 및 모든 사업부가 사상 최고 매출을 기록했다고 제시했습니다. Q3 단일 분기 매출 가이던스는 FY2024까지의 모든 연간 매출보다 높다고 강조했습니다.</p><span class="badge">p.4</span></article>
+    <article class="card"><h3>핵심 원인</h3><p>결과의 본질은 세 가지입니다. 첫째 AI 수요가 메모리 수요를 급격히 끌어올렸고, 둘째 DRAM/NAND 공급이 구조적으로 부족하며, 셋째 Micron의 1γ DRAM·G9 NAND·HBM4 실행력이 가격과 믹스에 반영됐습니다.</p><span class="badge">p.5, p.7-8, p.17</span></article>
+    <article class="card"><h3>투자자 관점</h3><p>이번 deck에서 가장 중요한 문장은 “AI has fundamentally recast memory as a defining strategic asset”입니다. 즉 Micron은 더 이상 단순 commodity memory 업체로만 보기 어렵고, AI compute architecture의 필수 병목 공급자로 재평가될 여지가 있습니다.</p><span class="badge">p.5</span></article>
+  </div>
+  <div class="warning"><b>주의:</b> 숫자는 매우 강하지만, Q3 가이던스와 81% gross margin은 이미 기대치를 크게 높인 상태입니다. 다음 분기 이후에는 “좋은 실적”만으로 부족하고, <b>가격 지속성·HBM4 ramp·2027 공급계약/가시성</b>이 같이 확인돼야 합니다.</div>
+</section>
+
+<section id="numbers">
+  <h2>1. 핵심 숫자 대시보드</h2>
+  <div class="metric-grid">
+    <article class="metric-card">
+          <div class="metric-index">01</div>
+          <div class="metric-label">Revenue</div>
+          <div class="metric-value">$23.860B</div>
+          <div class="metric-delta">75% Q/Q · 196% Y/Y</div>
+          <p>Q2 단일 분기 매출 사상 최고, 전년 동기 대비 약 3배</p>
+        </article>
+<article class="metric-card">
+          <div class="metric-index">02</div>
+          <div class="metric-label">Gross Margin</div>
+          <div class="metric-value">74.9%</div>
+          <div class="metric-delta">+18ppt Q/Q</div>
+          <p>가격 상승, 믹스 개선, 원가 효율이 동시에 기여</p>
+        </article>
+<article class="metric-card">
+          <div class="metric-index">03</div>
+          <div class="metric-label">Operating Income</div>
+          <div class="metric-value">$16.455B</div>
+          <div class="metric-delta">69% margin</div>
+          <p>매출 확대가 거의 그대로 이익 레버리지로 연결</p>
+        </article>
+<article class="metric-card">
+          <div class="metric-index">04</div>
+          <div class="metric-label">Non-GAAP EPS</div>
+          <div class="metric-value">$12.20</div>
+          <div class="metric-delta">155% Q/Q · 682% Y/Y</div>
+          <p>Q3 가이던스는 $19.15±$0.40로 추가 레벨업 제시</p>
+        </article>
+<article class="metric-card">
+          <div class="metric-index">05</div>
+          <div class="metric-label">Operating Cash Flow</div>
+          <div class="metric-value">$11.903B</div>
+          <div class="metric-delta">50% of revenue</div>
+          <p>현금창출력이 capex 증가를 상당 부분 흡수</p>
+        </article>
+<article class="metric-card">
+          <div class="metric-index">06</div>
+          <div class="metric-label">Adjusted FCF</div>
+          <div class="metric-value">$6.899B</div>
+          <div class="metric-delta">Quarterly record</div>
+          <p>순 capex $5.004B 이후에도 기록적 FCF</p>
+        </article>
+  </div>
+  <h3>FQ2-26 손익계산서와 현금흐름 요약</h3>
+  <table>
+    <thead><tr><th>항목</th><th>FQ2-26</th><th>% of revenue</th><th>FQ1-26</th><th>% of revenue</th><th>FQ2-25</th><th>% of revenue</th><th>해석</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="num">$23,860M</td><td>100%</td><td>$13,643M</td><td>100%</td><td>$8,053M</td><td>100%</td><td>전분기 대비 75%, 전년 대비 196% 성장</td></tr>
+      <tr><td>Gross margin</td><td class="num">$17,876M</td><td>75%</td><td>$7,753M</td><td>57%</td><td>$3,053M</td><td>38%</td><td>가격 상승과 믹스 개선이 이익률을 비정상적으로 끌어올림</td></tr>
+      <tr><td>Operating income</td><td class="num">$16,455M</td><td>69%</td><td>$6,419M</td><td>47%</td><td>$2,007M</td><td>25%</td><td>operating leverage 극대화</td></tr>
+      <tr><td>Net income</td><td class="num">$14,021M</td><td>59%</td><td>$5,482M</td><td>40%</td><td>$1,783M</td><td>22%</td><td>세후 수익성도 기록적 수준</td></tr>
+      <tr><td>Diluted EPS</td><td class="num">$12.20</td><td>-</td><td>$4.78</td><td>-</td><td>$1.56</td><td>-</td><td>전년 대비 682% 증가</td></tr>
+      <tr><td>Cash from operations</td><td class="num">$11,903M</td><td>-</td><td>$8,411M</td><td>-</td><td>$3,942M</td><td>-</td><td>매출의 50% 수준의 operating cash flow</td></tr>
+      <tr><td>Cash/investments/restricted cash</td><td class="num">$16,653M</td><td>-</td><td>$12,016M</td><td>-</td><td>$9,601M</td><td>-</td><td>유동성과 투자 여력 확대</td></tr>
+    </tbody>
+  </table>
+  
+    <div class="chart-grid">
+      <div class="svg-card"><h3>매출 추이 및 Q3 가이던스</h3><svg viewBox="0 0 860 290" aria-label="revenue chart"><line x1="70" y1="230" x2="790" y2="230"/><line x1="70" y1="60" x2="70" y2="230"/><path d="M70.0,190.9 L310.0,163.7 L550.0,114.1 L790.0,67.3"/><g><circle cx="70.0" cy="190.9" r="5"/><text x="70.0" y="178.9" text-anchor="middle" class="svg-note">8.053</text><text x="70.0" y="262" text-anchor="middle" class="svg-label">FQ2-25</text><circle cx="310.0" cy="163.7" r="5"/><text x="310.0" y="151.7" text-anchor="middle" class="svg-note">13.643</text><text x="310.0" y="262" text-anchor="middle" class="svg-label">FQ1-26</text><circle cx="550.0" cy="114.1" r="5"/><text x="550.0" y="102.1" text-anchor="middle" class="svg-note">23.86</text><text x="550.0" y="262" text-anchor="middle" class="svg-label">FQ2-26</text><circle cx="790.0" cy="67.3" r="5"/><text x="790.0" y="55.3" text-anchor="middle" class="svg-note">33.5</text><text x="790.0" y="262" text-anchor="middle" class="svg-label">FQ3-26E</text></g></svg><p class="small">단위: $B. Q3는 회사 가이던스 중간값.</p></div>
+      <div class="svg-card"><h3>Gross Margin 추이</h3><svg viewBox="0 0 860 290" aria-label="gross margin chart"><line x1="70" y1="230" x2="790" y2="230"/><line x1="70" y1="60" x2="70" y2="230"/><path d="M70.0,154.0 L310.0,116.0 L550.0,80.2 L790.0,68.0"/><g><circle cx="70.0" cy="154.0" r="5"/><text x="70.0" y="142.0" text-anchor="middle" class="svg-note">38</text><text x="70.0" y="262" text-anchor="middle" class="svg-label">FQ2-25</text><circle cx="310.0" cy="116.0" r="5"/><text x="310.0" y="104.0" text-anchor="middle" class="svg-note">57</text><text x="310.0" y="262" text-anchor="middle" class="svg-label">FQ1-26</text><circle cx="550.0" cy="80.2" r="5"/><text x="550.0" y="68.2" text-anchor="middle" class="svg-note">74.9</text><text x="550.0" y="262" text-anchor="middle" class="svg-label">FQ2-26</text><circle cx="790.0" cy="68.0" r="5"/><text x="790.0" y="56.0" text-anchor="middle" class="svg-note">81</text><text x="790.0" y="262" text-anchor="middle" class="svg-label">FQ3-26E</text></g></svg><p class="small">단위: %. Q3는 약 81% 가이던스.</p></div>
+      <div class="svg-card"><h3>Non-GAAP EPS 추이</h3><svg viewBox="0 0 860 290" aria-label="eps chart"><line x1="70" y1="230" x2="790" y2="230"/><line x1="70" y1="60" x2="70" y2="230"/><path d="M70.0,216.7 L310.0,189.4 L550.0,126.3 L790.0,67.2"/><g><circle cx="70.0" cy="216.7" r="5"/><text x="70.0" y="204.7" text-anchor="middle" class="svg-note">1.56</text><text x="70.0" y="262" text-anchor="middle" class="svg-label">FQ2-25</text><circle cx="310.0" cy="189.4" r="5"/><text x="310.0" y="177.4" text-anchor="middle" class="svg-note">4.78</text><text x="310.0" y="262" text-anchor="middle" class="svg-label">FQ1-26</text><circle cx="550.0" cy="126.3" r="5"/><text x="550.0" y="114.3" text-anchor="middle" class="svg-note">12.2</text><text x="550.0" y="262" text-anchor="middle" class="svg-label">FQ2-26</text><circle cx="790.0" cy="67.2" r="5"/><text x="790.0" y="55.2" text-anchor="middle" class="svg-note">19.15</text><text x="790.0" y="262" text-anchor="middle" class="svg-label">FQ3-26E</text></g></svg><p class="small">단위: 달러. Q3는 $19.15 가이던스 중간값.</p></div>
+    </div>
+</section>
+
+<section id="technology">
+  <h2>2. 기술별 매출 구조 — DRAM과 NAND가 동시에 폭발</h2>
+  <div class="grid">
+    <div class="bar-box">
+      <h3>FQ2-26 Revenue by Technology</h3>
+      <div class="bar-row"><div class="bar-label">DRAM</div><div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div><div class="bar-value">$B18.8</div></div>
+<div class="bar-row"><div class="bar-label">NAND</div><div class="bar-track"><div class="bar-fill" style="width:26.6%"></div></div><div class="bar-value">$B5</div></div>
+<div class="bar-row"><div class="bar-label">Other</div><div class="bar-track"><div class="bar-fill" style="width:2.0%"></div></div><div class="bar-value">$B0.095</div></div>
+      <p class="small">단위: $B. 기타는 주로 NOR.</p>
+    </div>
+    <div class="card">
+      <h3>핵심 해석</h3>
+      <p><b>DRAM:</b> 매출 $18.8B, 전체의 79%. Bit shipment는 전분기 대비 mid-single digits 증가에 그쳤지만, ASP가 mid-60s% 상승했습니다. 즉 이번 실적의 핵심은 물량 폭증보다 <b>가격과 믹스</b>입니다.</p>
+      <p><b>NAND:</b> 매출 $5.0B, 전체의 21%. Bit shipment는 low-single digits 증가였지만, ASP가 high-70s% 상승했습니다. 데이터센터 NAND, SSD, QLC mix가 구조적 공급부족과 결합한 결과입니다.</p>
+      <span class="badge">p.23, p.33-35</span>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>기술</th><th>FQ2-26 매출</th><th>매출 비중</th><th>Q/Q</th><th>Y/Y</th><th>물량/가격 해석</th></tr></thead>
+    <tbody><tr><td>DRAM</td><td class="num">$18.768B</td><td>79%</td><td>74%</td><td>207%</td><td>Bit +mid-single digits, ASP +mid-60s%</td></tr><tr><td>NAND</td><td class="num">$4.997B</td><td>21%</td><td>82%</td><td>169%</td><td>Bit +low-single digits, ASP +high-70s%</td></tr><tr><td>Other</td><td class="num">$0.095B</td><td>~0%</td><td>8%</td><td>27%</td><td>주로 NOR</td></tr></tbody>
+  </table>
+  <div class="note"><b>중요한 결론:</b> DRAM과 NAND 모두 bit shipment 증가율은 제한적이었는데 ASP가 급등했습니다. 이는 수요가 강해서라기보다 <b>공급이 충분하지 않은 상황에서 고부가 제품 mix가 개선되는 pricing regime</b>로 해석해야 합니다.</div>
+</section>
+
+<section id="business">
+  <h2>3. 사업부별 실적 — 모든 BU가 기록적 레벨</h2>
+  <div class="grid">
+    <div class="bar-box">
+      <h3>FQ2-26 Revenue by Business Unit</h3>
+      <div class="bar-row"><div class="bar-label">CMBU</div><div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div><div class="bar-value">$B7.75</div></div>
+<div class="bar-row"><div class="bar-label">CDBU</div><div class="bar-track"><div class="bar-fill" style="width:73.4%"></div></div><div class="bar-value">$B5.69</div></div>
+<div class="bar-row"><div class="bar-label">MCBU</div><div class="bar-track"><div class="bar-fill" style="width:99.5%"></div></div><div class="bar-value">$B7.71</div></div>
+<div class="bar-row"><div class="bar-label">AEBU</div><div class="bar-track"><div class="bar-fill" style="width:34.9%"></div></div><div class="bar-value">$B2.71</div></div>
+      <p class="small">단위: $B. CMBU와 MCBU가 각각 약 32%, CDBU가 24%, AEBU가 11%.</p>
+    </div>
+    <div class="card">
+      <h3>사업부 구조가 말하는 것</h3>
+      <p>이번 분기 매출은 특정 한 제품만의 성장이 아닙니다. CMBU와 CDBU는 AI/데이터센터, MCBU는 PC·모바일 공급제약과 on-device AI memory content, AEBU는 자동차·산업 수요 회복이 동시에 반영됐습니다.</p>
+      <p>특히 gross margin은 CMBU 74%, CDBU 74%, MCBU 79%, AEBU 68%로, 한 사업부만 비정상적으로 좋은 것이 아니라 회사 전체가 가격 상승 국면에 들어갔습니다.</p>
+      <span class="badge">p.24-26, p.36</span>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>사업부</th><th>명칭</th><th>FQ2-26 매출</th><th>비중</th><th>Q/Q</th><th>Y/Y</th><th>Gross Margin</th><th>Operating Margin</th><th>해석</th></tr></thead>
+    <tbody><tr><td><b>CMBU</b></td><td>Cloud Memory</td><td class="num">$7.749B</td><td>32%</td><td>47%</td><td>163%</td><td>74%</td><td>66%</td><td>대형 hyperscale cloud 및 data-center HBM 중심</td></tr><tr><td><b>CDBU</b></td><td>Core Data Center</td><td class="num">$5.687B</td><td>24%</td><td>139%</td><td>211%</td><td>74%</td><td>67%</td><td>전통 서버·데이터센터 DRAM/NAND 수요 회복과 가격 상승</td></tr><tr><td><b>MCBU</b></td><td>Mobile & Client</td><td class="num">$7.711B</td><td>32%</td><td>81%</td><td>245%</td><td>79%</td><td>76%</td><td>PC·모바일 공급제약과 AI PC/AI smartphone content 증가</td></tr><tr><td><b>AEBU</b></td><td>Auto & Embedded</td><td class="num">$2.708B</td><td>11%</td><td>57%</td><td>162%</td><td>68%</td><td>62%</td><td>자동차·산업·임베디드 가격 개선, ADAS/robotics 장기 수요</td></tr></tbody>
+  </table>
+  <div class="grid3">
+    <article class="card"><h3>CMBU</h3><p>Cloud Memory 매출은 $7.7B로 전체 32%. 가격 상승과 favorable mix가 핵심입니다. AI/HBM 고객 기반이 사업부 수익성의 핵심으로 보입니다.</p></article>
+    <article class="card"><h3>CDBU</h3><p>Core Data Center 매출은 $5.7B로 전분기 대비 139% 성장. 가격 상승뿐 아니라 bit shipments 증가도 같이 나타났습니다. 전통 서버 refresh와 AI 파생 workload가 같이 작동했습니다.</p></article>
+    <article class="card"><h3>MCBU</h3><p>Mobile & Client 매출은 $7.7B, gross margin 79%. bit shipment는 일부 감소했지만 가격과 믹스 개선이 압도했습니다. AI PC/AI smartphone content growth가 장기 thesis입니다.</p></article>
+  </div>
+</section>
+
+<section id="ai">
+  <h2>4. AI와 데이터센터 — 이번 보고서의 가장 중요한 축</h2>
+  <div class="callout">Micron이 강조한 핵심 변화는 “AI가 memory demand를 늘렸다”가 아니라, <b>AI가 memory를 compute architecture의 전략자산으로 재정의했다</b>는 점입니다.</div>
+  <div class="grid">
+    <article class="card"><h3>데이터센터 bit TAM</h3><p>AI 수요로 인해 2026년에는 DRAM과 NAND의 데이터센터 bit TAM이 산업 TAM의 50%를 처음으로 넘어설 것으로 제시했습니다. 이는 memory cycle의 중심이 PC/mobile에서 데이터센터/AI로 이동하고 있음을 의미합니다.</p><span class="badge">p.9</span></article>
+    <article class="card"><h3>서버 수요</h3><p>전통 서버도 약하지 않습니다. agentic AI가 촉발한 workload와 광범위한 server refresh가 함께 작동하고 있으며, 2026년 server unit은 low-teens% 성장할 것으로 예상했습니다.</p><span class="badge">p.9</span></article>
+    <article class="card"><h3>HBM4</h3><p>Micron은 HBM4 36GB 12H의 volume shipment를 2026년 1분기에 시작했고, NVIDIA Vera Rubin용으로 설계됐다고 밝혔습니다. HBM4 ramp에서는 HBM3E보다 mature yield에 더 빨리 도달할 것으로 기대합니다.</p><span class="badge">p.10</span></article>
+    <article class="card"><h3>HBM4E</h3><p>HBM4E는 2027년 volume ramp를 목표로 개발 중이며, 1γ DRAM node를 활용합니다. customization 옵션은 고객과의 R&D engagement를 더 깊게 만드는 요소입니다.</p><span class="badge">p.10</span></article>
+    <article class="card"><h3>LP DRAM / SOCAMM2</h3><p>데이터센터용 LP DRAM은 DDR DRAM server module 대비 전력소모가 1/3이라고 설명했습니다. 256GB LP SOCAMM2는 1γ node 기반이며 CPU당 2TB capacity를 가능하게 합니다.</p><span class="badge">p.11</span></article>
+    <article class="card"><h3>데이터센터 NAND</h3><p>AI vector database와 KV cache offload, capacity storage tier에서 SSD 비중 확대가 NAND bit demand를 가속하고 있습니다. 122TB high-capacity SSD는 동일 용량 HDD 구성 대비 sequential read throughput per watt가 16배라고 제시했습니다.</p><span class="badge">p.12</span></article>
+  </div>
+</section>
+
+<section id="roadmap">
+  <h2>5. 기술·제품 로드맵 — 1γ DRAM, G9 NAND, HBM4/HBM4E</h2>
+  <table>
+    <thead><tr><th>제품/기술</th><th>보고서 내용</th><th>투자 해석</th><th>확인해야 할 다음 증거</th></tr></thead>
+    <tbody>
+      <tr><td><b>1γ DRAM</b></td><td>Micron 역사상 최고 volume node가 될 것으로 예상. mature yield에 가장 빠르게 도달했고, 2026년 중반 DRAM bit mix의 majority가 될 예정.</td><td>HBM4E, SOCAMM2, LPDDR 등 고부가 제품의 기반 node. 수율과 volume ramp가 gross margin 지속성의 핵심.</td><td>중반 이후 mix 비중, 비용 절감, HBM4E ramp 준비.</td></tr>
+      <tr><td><b>1δ DRAM / EUV</b></td><td>1δ node에서 최신 EUV tool 채택 확대 계획. cleanroom space 효율과 patterning 최적화 목적.</td><td>공급제약 환경에서 cleanroom 효율은 단순 원가절감 이상으로 capacity leverage를 의미.</td><td>1δ 전환 시점과 EUV capex 효율.</td></tr>
+      <tr><td><b>G9 NAND</b></td><td>2026년 중반 NAND bit mix majority 예정. QLC bit mix도 record.</td><td>데이터센터 SSD와 high-capacity SSD 경쟁력의 기반.</td><td>PCIe Gen6 SSD design win 확대, 122TB/245TB 제품 채택.</td></tr>
+      <tr><td><b>HBM4 36GB 12H</b></td><td>2026년 1분기 volume shipment 시작, NVIDIA Vera Rubin용 설계.</td><td>NVIDIA AI platform roadmap에 직접 attach되는 신호.</td><td>고객별 shipment share, yield, 가격 지속성.</td></tr>
+      <tr><td><b>HBM4 16-high 48GB</b></td><td>sample 완료. HBM4 12H 대비 capacity 33% 증가.</td><td>더 큰 model/context와 inference workload 대응.</td><td>qualification, thermal/yield performance.</td></tr>
+      <tr><td><b>HBM4E</b></td><td>2027년 volume ramp 목표. 1γ DRAM node 활용, customization 옵션 제공.</td><td>단순 commodity HBM을 넘어 고객별 custom memory engagement로 이동 가능.</td><td>2027 allocation/계약 가시성.</td></tr>
+      <tr><td><b>LP SOCAMM2 256GB</b></td><td>업계 최초 sampling. CPU당 2TB capacity 가능.</td><td>AI inference에서 HBM 바깥의 memory hierarchy까지 확장.</td><td>server platform adoption, 고객 design-in.</td></tr>
+      <tr><td><b>LPDDR6 / LPDDR5X</b></td><td>1γ 기반 LPDDR6 sample에 OEM/ecosystem 관심. 10.7Gbps 1γ LPDDR5X 16Gb 제품의 qualification/mass production.</td><td>AI smartphone과 personal AI workstation content growth에 대응.</td><td>flagship smartphone 채택, PC OEM qualification.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="markets">
+  <h2>6. End Market별 의미</h2>
+  <div class="grid">
+    <article class="card"><h3>PC</h3><p>2026년 PC와 smartphone unit은 DRAM/NAND supply constraint 등으로 low-double-digits% 감소 가능성이 있다고 경고했습니다. 그러나 on-device AI가 memory content growth를 견인할 것으로 봅니다. AI PC 권장 memory는 최소 32GB로 평균 PC의 2배이며, personal AI workstation은 128GB 구성이 등장했습니다.</p><span class="badge">p.13</span></article>
+    <article class="card"><h3>Mobile</h3><p>Samsung Galaxy S26, Google Pixel 10 같은 flagship에 agentic AI가 OS에 통합되고 있으며, 12GB 이상 DRAM을 탑재한 flagship smartphone 비중이 전년 20% 미만에서 calendar Q4 약 80%로 상승했습니다.</p><span class="badge">p.14</span></article>
+    <article class="card"><h3>Automotive</h3><p>AEBU는 record 매출을 기록했고, automotive+industrial 매출이 분기 20억 달러를 초과했습니다. 현재 평균 자동차는 16GB DRAM 미만이지만 L4 autonomy는 300GB 이상이 필요하다고 제시했습니다.</p><span class="badge">p.15</span></article>
+    <article class="card"><h3>Robotics</h3><p>Micron은 robotics를 20년 성장 vector로 보고 있으며, humanoid robot은 high-end L4 자동차급 compute platform과 상당한 memory/storage capacity가 필요하다고 설명했습니다.</p><span class="badge">p.16</span></article>
+  </div>
+</section>
+
+<section id="supply">
+  <h2>7. 공급·Capex — 수요가 강한 만큼 증설 부담도 커진다</h2>
+  <div class="grid">
+    <div class="card"><h3>Market Outlook</h3><p>Micron은 2026년 DRAM과 NAND industry bit demand가 모두 공급에 의해 제한될 것으로 봅니다. 또한 DRAM/NAND 공급·수요가 2026년 이후에도 tight하게 유지될 것으로 예상합니다.</p><span class="badge">p.17</span></div>
+    <div class="card"><h3>Capex 메시지</h3><p>FY2026 capex는 $25B 이상으로 제시됐고, FY2027 capex도 HBM·DRAM 투자 지원을 위해 의미 있게 step-up될 전망입니다. FY2027 construction-related capex는 전년 대비 $10B 이상 증가할 것으로 예상했습니다.</p><span class="badge">p.20, p.30</span></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item"><div class="time">Tongluo, Taiwan</div><div><b>Powerchip site 인수 완료.</b> 기존 fab에서 FY2028부터 meaningful product shipment 기대. FY2026 말까지 유사 규모 두 번째 cleanroom 건설 시작 계획.</div></div>
+    <div class="timeline-item"><div class="time">Idaho</div><div><b>첫 번째 Idaho fab:</b> 2027년 중반 initial wafer output 예상. 두 번째 Idaho fab의 ground preparation 시작.</div></div>
+    <div class="timeline-item"><div class="time">New York</div><div><b>첫 번째 NY fab 착공.</b> 초기 ground preparation 활동이 계획보다 앞서 진행 중.</div></div>
+    <div class="timeline-item"><div class="time">Hiroshima, Japan</div><div>future technology transition을 위한 cleanroom expansion ground preparation 진행.</div></div>
+    <div class="timeline-item"><div class="time">Singapore NAND</div><div>새 NAND fab 착공 결정. 2028년 하반기 initial wafer output 예상. R&D cleanroom과 manufacturing co-location이 time-to-market을 단축할 수 있음.</div></div>
+    <div class="timeline-item"><div class="time">India Assembly/Test</div><div>새 facility에서 commercial shipment 시작. 대형 single-floor assembly/test cleanroom이 될 예정.</div></div>
+    <div class="timeline-item"><div class="time">Singapore HBM packaging</div><div>2027년에 Micron HBM supply에 meaningful contribution 예정.</div></div>
+  </div>
+  <div class="warning"><b>투자자 해석:</b> 증설은 긍정과 부정이 동시에 있습니다. 긍정은 고객 수요가 실제로 강하다는 증거이고, 부정은 2028년 이후 공급 증가가 가격 사이클을 꺾을 수 있다는 점입니다. 따라서 이번 보고서의 장기 bull case는 “수요가 증설보다 더 빠르게 증가한다”는 가정에 크게 의존합니다.</div>
+</section>
+
+<section id="cash">
+  <h2>8. 현금흐름과 자본배분</h2>
+  <div class="grid3">
+    <article class="metric-card"><div class="metric-label">Operating Cash Flow</div><div class="metric-value">$11.9B</div><div class="metric-delta">50% of revenue</div><p>분기 영업현금흐름이 매출의 절반 수준까지 상승했습니다.</p></article>
+    <article class="metric-card"><div class="metric-label">Net Capex</div><div class="metric-value">$5.0B</div><div class="metric-delta">FQ2-26</div><p>정부 인센티브와 자산매각 proceeds를 반영한 순 capex 기준입니다.</p></article>
+    <article class="metric-card"><div class="metric-label">Adjusted FCF</div><div class="metric-value">$6.9B</div><div class="metric-delta">Quarterly record</div><p>대규모 투자를 하면서도 기록적 free cash flow를 만들었습니다.</p></article>
+  </div>
+  <table>
+    <thead><tr><th>항목</th><th>FQ2-26</th><th>투자 의미</th></tr></thead>
+    <tbody>
+      <tr><td>Buybacks</td><td class="num">$350M</td><td>CHIPS 조건 하에서도 일부 자사주 매입 실행.</td></tr>
+      <tr><td>Dividend</td><td class="num">$0.15/share</td><td>분기 배당 30% 인상. 4월 15일 지급 예정.</td></tr>
+      <tr><td>Liquidity</td><td class="num">$20.2B</td><td>cash, investments, restricted cash, undrawn revolver 포함.</td></tr>
+      <tr><td>Net cash</td><td class="num">$6.511B</td><td>FQ1-26 $260M, FQ2-25 -$4.754B에서 대폭 개선.</td></tr>
+      <tr><td>FY23~FQ2-26 shareholder return</td><td class="num">$3.2B</td><td>$1.4B buyback + $1.8B dividends.</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Deck p.28, p.42-43 기준.</p>
+</section>
+
+<section id="guide">
+  <h2>9. FQ3-26 가이던스 — 기대치가 매우 높아졌다</h2>
+  <div class="metric-grid">
+    <article class="metric-card"><div class="metric-label">Revenue Guide</div><div class="metric-value">$33.5B</div><div class="metric-delta">± $750M</div><p>Q2 $23.86B에서 한 분기 만에 다시 큰 폭 증가를 제시했습니다.</p></article>
+    <article class="metric-card"><div class="metric-label">Gross Margin</div><div class="metric-value">~81%</div><div class="metric-delta">Q2 74.9% → Q3 81%</div><p>가격 상승, 원가 하락, favorable mix가 모두 기여할 것으로 전망했습니다.</p></article>
+    <article class="metric-card"><div class="metric-label">EPS Guide</div><div class="metric-value">$19.15</div><div class="metric-delta">± $0.40</div><p>희석주식수 약 11.5억 주 기준입니다.</p></article>
+  </div>
+  <table>
+    <thead><tr><th>가이던스 항목</th><th>FQ3-26 Non-GAAP</th><th>해석</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="num">$33.5B ± $0.75B</td><td>회사는 Q3 단일 분기 매출이 FY2024까지의 어떤 연간 매출보다도 높다고 설명했습니다.</td></tr>
+      <tr><td>Gross Margin</td><td class="num">약 81%</td><td>이익률 peak 논쟁의 중심. Q3 이후에도 유지되는지가 중요합니다.</td></tr>
+      <tr><td>Operating Expenses</td><td class="num">약 $1.40B</td><td>Q4에는 53주 회계연도의 추가 1주 효과가 반영될 예정.</td></tr>
+      <tr><td>Diluted EPS</td><td class="num">$19.15 ± $0.40</td><td>Q2 대비 EPS 추가 도약. 실적 발표 후 주가 반응은 Q4/Q2027 commentary에 달려 있습니다.</td></tr>
+      <tr><td>Capex</td><td class="num">FQ3 약 $7B</td><td>강한 영업현금흐름으로 FQ3에도 더 높은 FCF를 기대한다고 설명.</td></tr>
+      <tr><td>Tax rate</td><td class="num">약 15.1%</td><td>FQ3 및 FY2026 기준.</td></tr>
+    </tbody>
+  </table>
+  <div class="warning">가이던스에는 trade/geopolitical development의 잠재 영향이 포함되어 있지 않습니다. 지정학, 수출규제, 공급망 리스크가 발생하면 실제 결과는 달라질 수 있습니다.</div>
+</section>
+
+<section id="interpretation">
+  <h2>10. 투자 해석 — 좋은 숫자보다 중요한 질문</h2>
+  <div class="grid">
+    <article class="card"><h3>왜 이번 실적이 중요한가?</h3><p>매출 증가, gross margin 확장, EPS 레버리지, FCF 창출이 동시에 발생했습니다. 특히 bit shipment 증가보다 ASP 상승이 훨씬 컸다는 점은 memory 공급 부족이 가격 결정력을 만들고 있음을 보여줍니다.</p></article>
+    <article class="card"><h3>무엇이 주가를 더 올릴 수 있나?</h3><p>Q3 실적이 가이던스를 상회하고, Q4 guide가 추가로 상향되며, HBM4/HBM4E 고객 계약과 2027년 물량 가시성이 제시되면 “peak cycle”이 아니라 “multi-year AI memory shortage”로 재평가될 수 있습니다.</p></article>
+    <article class="card"><h3>무엇이 리스크인가?</h3><p>Q3가 좋아도 Q4 commentary가 약하거나, 81% gross margin이 peak라는 인식이 생기면 시장은 높은 EPS에 낮은 cycle multiple을 부여할 수 있습니다. 대규모 capex는 미래 공급과잉 우려도 동반합니다.</p></article>
+    <article class="card"><h3>핵심은 HBM만인가?</h3><p>아닙니다. Deck은 HBM4뿐 아니라 LP SOCAMM2, DDR5, data-center SSD, QLC NAND, LPDDR6까지 제시합니다. 즉 Micron thesis는 HBM 단일 제품보다 <b>AI memory hierarchy 전체</b>에 가깝습니다.</p></article>
+  </div>
+</section>
+
+<section id="check">
+  <h2>11. 다음 실적에서 반드시 확인할 체크포인트</h2>
+  <table>
+    <thead><tr><th>체크포인트</th><th>왜 중요한가</th><th>좋은 신호</th><th>나쁜 신호</th></tr></thead>
+    <tbody>
+      <tr><td>Q4 매출 가이던스</td><td>Q3가 이미 매우 높기 때문에 시장은 다음 분기 slope를 볼 가능성이 큼</td><td>Q3 대비 추가 성장 또는 높은 수준 유지</td><td>Q3가 peak처럼 보이는 commentary</td></tr>
+      <tr><td>Gross margin 유지력</td><td>81% GM이 구조적이면 valuation floor가 상승</td><td>가격 상승·원가 하락·mix 개선 지속</td><td>ASP 둔화 또는 GM normalization 언급</td></tr>
+      <tr><td>HBM4/HBM4E ramp</td><td>NVIDIA Vera Rubin 및 2027 AI platform attach의 핵심</td><td>yield 개선, 고객 확대, 2027 volume visibility</td><td>qualification 지연, mature yield 지연</td></tr>
+      <tr><td>NAND 수급</td><td>NAND는 과거 boom-bust 변동성이 큼</td><td>데이터센터 NAND demand가 공급 초과 상태 유지</td><td>QLC/SSD inventory build 우려</td></tr>
+      <tr><td>SCAs</td><td>기존 LTA보다 강한 multi-year commitment는 cyclicality 완화 가능</td><td>추가 SCA 체결 또는 조건 구체화</td><td>일회성 계약으로 해석될 만한 제한적 발언</td></tr>
+      <tr><td>Capex discipline</td><td>공급부족 대응과 future oversupply의 균형</td><td>고객 수요와 맞춘 phased investment</td><td>수요 둔화에도 공격적 증설 지속</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="source">
+  <h2>12. 자료별 위치 요약</h2>
+  <table>
+    <thead><tr><th>Deck page</th><th>내용</th><th>보고서 반영 위치</th></tr></thead>
+    <tbody>
+      <tr><td>p.4-6</td><td>Overview, 기록적 실적, AI가 메모리를 전략자산으로 재정의, 첫 5년 SCA</td><td>Executive Summary, 투자 해석</td></tr>
+      <tr><td>p.7-8</td><td>1γ DRAM, G9 NAND, EUV, R&D/제조 co-location, 고객 품질 평가</td><td>기술 로드맵</td></tr>
+      <tr><td>p.9-12</td><td>Data center, HBM4/HBM4E, LP DRAM/SOCAMM2, data-center NAND</td><td>AI/데이터센터 thesis</td></tr>
+      <tr><td>p.13-16</td><td>PC, Mobile, Automotive/Embedded, Robotics</td><td>End market 분석</td></tr>
+      <tr><td>p.17-20</td><td>Market outlook, Tongluo, Idaho, New York, Singapore, India, HBM packaging, capex</td><td>공급/Capex 분석</td></tr>
+      <tr><td>p.22-30</td><td>Q2 매출, 기술별/사업부별 성과, cash flow, Q3 guidance</td><td>핵심 숫자, 사업부 표, 가이던스</td></tr>
+      <tr><td>p.32-44</td><td>Non-GAAP financial summary, reconciliations, net cash, share count</td><td>재무표, 현금흐름, EPS/FCF 정리</td></tr>
+    </tbody>
+  </table>
+  <p class="footer">본 HTML은 사용자가 업로드한 <b>micron Q2 2026 Earnings Deck.pdf</b>를 기반으로 한국어로 재구성한 요약 문서입니다. 원문의 forward-looking statement와 non-GAAP 조정 관련 주의사항은 deck p.2 및 appendix p.37-44를 참고해야 합니다.</p>
+</section>
+
+</main>
+</body>
+</html>

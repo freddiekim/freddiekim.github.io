@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SVCO Q&A Forensic Update — FTCO, 고객, 현금, ESG</title>
+<style>
+:root {
+  --ink:#1f2a2e; --muted:#627177; --paper:#fbfaf5; --card:#ffffff; --line:#d9dedb;
+  --mint:#9ed7c3; --terr:#e8a37d; --blue:#8db4d7; --yellow:#f0d77b; --red:#d87972; --green:#7fb493; --violet:#b9aad7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.62}
+a{color:#255b6f;text-decoration:none;border-bottom:1px solid #255b6f}.cover{padding:58px 42px 34px;border-bottom:1px solid var(--line);background:#f3efe5;position:relative;overflow:hidden}.cover h1{font-size:38px;line-height:1.1;margin:0 0 14px;letter-spacing:-.04em}.cover .sub{font-size:16px;color:var(--muted);max-width:980px}.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.badge{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font-size:13px}.poster{position:absolute;right:35px;top:30px;width:190px;height:190px}.container{max-width:1180px;margin:0 auto;padding:34px 28px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin:18px 0;box-shadow:0 1px 0 rgba(0,0,0,.03)}h2{font-size:25px;margin:0 0 16px;letter-spacing:-.03em}h3{font-size:19px;margin:24px 0 10px;letter-spacing:-.02em}p{margin:9px 0}.kicker{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:7px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.col3{grid-column:span 3}.col4{grid-column:span 4}.col6{grid-column:span 6}.col8{grid-column:span 8}.col12{grid-column:span 12}.metric{background:#f7f5ee;border:1px solid var(--line);border-radius:16px;padding:16px}.metric .label{color:var(--muted);font-size:13px}.metric .value{font-size:26px;font-weight:800;letter-spacing:-.03em}.metric .note{font-size:12px;color:var(--muted)}table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}th{background:#f1eee5;text-align:left;font-weight:700}tr:last-child td{border-bottom:0}.dense th,.dense td{font-size:12px;padding:9px 10px}.callout{border-left:6px solid var(--terr);background:#fff8ef;border-radius:14px;padding:16px;margin:14px 0}.good{border-left-color:var(--green);background:#f3faf6}.bad{border-left-color:var(--red);background:#fff3f2}.neutral{border-left-color:var(--blue);background:#f3f8fc}.warn{border-left-color:var(--yellow);background:#fffbea}.tag{display:inline-block;padding:3px 7px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:2px 4px 2px 0;background:#fff}.small{font-size:12px;color:var(--muted)}.toc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.toc a{display:block;background:#f7f5ee;border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--ink);border-bottom:0;font-size:13px}.toc a:hover{background:#fff7e9}.qbox{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:start;margin:10px 0 16px}.qmark{background:var(--ink);color:#fff;border-radius:14px;padding:10px 12px;text-align:center;font-weight:800}.qtext{background:#f7f5ee;border:1px solid var(--line);border-radius:14px;padding:12px 14px}.answer{border-left:4px solid var(--mint);padding-left:15px;margin:12px 0}.chart,.map{width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0}.svg-title{font:700 18px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}.svg-small{font:12px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#627177}.axis{stroke:#c8cfcb;stroke-width:1}.bar1{fill:#8db4d7}.bar2{fill:#9ed7c3}.bar3{fill:#f0d77b}.bar4{fill:#e8a37d}.bar5{fill:#b9aad7}.node-core{fill:#f0d77b;stroke:#1f2a2e;stroke-width:1.5}.node-a{fill:#9ed7c3;stroke:#1f2a2e}.node-b{fill:#8db4d7;stroke:#1f2a2e}.node-c{fill:#e8a37d;stroke:#1f2a2e}.node-d{fill:#c9d6a4;stroke:#1f2a2e}.node-e{fill:#d87972;stroke:#1f2a2e}.link{stroke:#627177;stroke-width:2;fill:none}.map-title{font:800 22px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}.map-text{font:700 15px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#1f2a2e}.map-small{font:12px -apple-system,BlinkMacSystemFont,"Noto Sans KR",sans-serif;fill:#445055}.footer{font-size:12px;color:var(--muted);padding:20px 0 50px}.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.pill{font-size:12px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 9px}.risk{display:grid;grid-template-columns:180px 1fr 160px;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:14px 0}.risk div{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px}.risk div:nth-child(3n+1){background:#f1eee5;font-weight:700}.risk div:nth-last-child(-n+3){border-bottom:0}@media(max-width:900px){.cover{padding:38px 20px}.poster{display:none}.container{padding:22px 14px}.col3,.col4,.col6,.col8{grid-column:span 12}.toc{grid-template-columns:1fr}.qbox{grid-template-columns:1fr}.risk{grid-template-columns:1fr}.risk div{border-bottom:1px solid var(--line)!important}th,td{font-size:12px}}
+</style>
+</head>
+<body>
+<header class="cover">
+  <svg class="poster" viewBox="0 0 220 220" aria-hidden="true">
+    <rect x="18" y="18" width="184" height="184" rx="28" fill="#ffffff" stroke="#d9dedb"/>
+    <circle cx="65" cy="68" r="25" fill="#9ed7c3"/>
+    <rect x="102" y="46" width="62" height="62" rx="12" fill="#f0d77b" stroke="#1f2a2e"/>
+    <path d="M48 142h126" stroke="#1f2a2e" stroke-width="6" stroke-linecap="round"/>
+    <path d="M70 164h82" stroke="#8db4d7" stroke-width="15" stroke-linecap="round"/>
+    <circle cx="155" cy="139" r="20" fill="#e8a37d" stroke="#1f2a2e"/>
+    <path d="M58 104 C95 130, 124 94, 168 118" fill="none" stroke="#7fb493" stroke-width="5" stroke-linecap="round"/>
+  </svg>
+  <div class="kicker">Forensic Q&A Update · Silvaco Group, Inc. (SVCO)</div>
+  <h1>SVCO 투자 문답 정리:<br>FTCO, Micron, 신규 고객, 현금 runway, ESG 리스크</h1>
+  <div class="sub">업로드된 Q&A 초안과 Silvaco Q1’26 prepared remarks, 그리고 이후 대화에서 정리한 쟁점을 기존 SVCO forensic deep dive 양식으로 재구성한 보완 리포트. 핵심은 “AI 공정 디지털 트윈 thesis가 진짜라면 왜 GPU 비용이 안 보이는가, 그리고 신규 FTCO 고객이 실제 매출·흑자·현금흐름으로 연결되는가”이다.</div>
+  <div class="badges">
+    <span class="badge">핵심 thesis: TCAD 기반 FTCO 디지털 트윈</span>
+    <span class="badge">올해 흑자: GAAP가 아니라 Non-GAAP 중심</span>
+    <span class="badge">Q2 일정: 공식 확정 전, 8월 초~중순 예상</span>
+    <span class="badge">주요 리스크: ATM 희석 + 고객 익명성</span>
+    <span class="badge">ESG: E/S보다 Governance 이슈</span>
+  </div>
+</header>
+
+<main class="container">
+<section class="card">
+  <h2>0. 한 장 요약 — 대화에서 바뀐 결론</h2>
+  <div class="grid">
+    <div class="metric col4"><div class="label">Q1’26 매출</div><div class="value">$17.8M</div><div class="note">YoY +26%, bookings도 $17.2M</div></div>
+    <div class="metric col4"><div class="label">Non-GAAP GM</div><div class="value">87.9%</div><div class="note">mid-to-upper 80% 유지 가이던스</div></div>
+    <div class="metric col4"><div class="label">Q2 가이던스</div><div class="value">$18M</div><div class="note">Revenue ±10%, bookings $19M ±10%</div></div>
+    <div class="metric col4"><div class="label">현금</div><div class="value">$10.9M</div><div class="note">Q1 말, restricted cash 없음</div></div>
+    <div class="metric col4"><div class="label">Underlying Q1 burn</div><div class="value">~$1.7M</div><div class="note">소송/퇴직금 제외 기준</div></div>
+    <div class="metric col4"><div class="label">투자 판단의 핵심</div><div class="value">검증 전</div><div class="note">신규 FTCO 고객 + OpEx 통제 확인 필요</div></div>
+  </div>
+  <div class="callout good"><b>정정된 핵심:</b> SVCO의 해자는 “GPU를 많이 가진 AI 회사”가 아니라, <b>TCAD 물리 모델·고객 공정 데이터 캘리브레이션·AI/ML 최적화·EDA/IP workflow 통합</b>이다. 그래서 GPU 서버 CapEx가 크지 않아도 FTCO thesis가 성립할 수 있다.</div>
+  <div class="callout warn"><b>가장 큰 미확인점:</b> 신규 FTCO 고객이 실제 계약으로 찍히더라도, 고객명이 공개되는지·bookings/RPO로 반영되는지·기존 고객 expansion이 있는지에 따라 주가 반응은 완전히 달라진다.</div>
+</section>
+
+<section class="card">
+  <h2>Contents — 이번 Q&A 리포트의 질문 목록</h2>
+  <div class="toc">
+    <a href="#q1">01. FTCO 고객이 무엇인가?</a>
+    <a href="#q2">02. Micron과 TCAD에서 협력하는가?</a>
+    <a href="#q3">03. 2024년 Micron 뉴스가 왜 최근 주가를 움직였나?</a>
+    <a href="#q4">04. AI 디지털 트윈인데 GPU 비용이 왜 안 보이나?</a>
+    <a href="#q5">05. CEO Wally Rhines는 허풍형인가?</a>
+    <a href="#q6">06. Q2 발표일과 핵심 체크포인트는?</a>
+    <a href="#q7">07. 신규 고객이 찍히면 주가/매출에 미치는 영향은?</a>
+    <a href="#q8">08. 매출 구성은 어떻게 되어 있나?</a>
+    <a href="#q9">09. 어떤 회사를 인수했고 왜 인수했나?</a>
+    <a href="#q10">10. 올해/내년 흑자는 GAAP인가 non-GAAP인가?</a>
+    <a href="#q11">11. 2027년까지 버틸 현금이 있나?</a>
+    <a href="#q12">12. Nangate 소송과 ESG 관점은?</a>
+  </div>
+</section>
+
+<section class="card" id="q1">
+  <h2>1. FTCO 고객이 뭐고, 무슨 약자인가?</h2>
+  <div class="qbox"><div class="qmark">Q1</div><div class="qtext">“FTCO 고객이 뭐야? 무슨 약자지?”</div></div>
+  <div class="answer">
+    <p><b>FTCO = Fab Technology Co-Optimization</b>이다. 한국어로는 “반도체 팹/제조공정 기술 공동 최적화”에 가깝다.</p>
+    <p>쉽게 말하면, 실제 웨이퍼를 여러 번 돌리기 전에 <b>TCAD/공정 시뮬레이션 + 제조 데이터 + AI/ML</b>로 가상 실험을 수행해 공정 조건, 수율, 소자 구조를 최적화하는 방식이다.</p>
+  </div>
+  <table class="dense"><thead><tr><th>고객 유형</th><th>FTCO가 필요한 이유</th><th>투자적 의미</th></tr></thead><tbody>
+    <tr><td>메모리/IDM</td><td>공정 조건·수율·소자 특성 최적화</td><td>Micron이 anchor reference 역할</td></tr>
+    <tr><td>파운드리</td><td>고객별 공정·소자 모델 calibration</td><td>도입되면 switching cost 높음</td></tr>
+    <tr><td>전력반도체/SiC/GaN</td><td>wide bandgap 공정/소자 개발 난이도 큼</td><td>APEC 등 power vertical 확장 가능</td></tr>
+    <tr><td>장비회사</td><td>장비 조건과 공정 결과의 상관관계 모델링</td><td>FTCO가 장비/공정 디지털 트윈으로 확장</td></tr>
+    <tr><td>정부/연구기관</td><td>포토닉스·파일럿 라인·국산 공정 개발</td><td>Tech-X 인수와 연결되는 optionality</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>요약:</b> FTCO 고객은 단순 EDA 라이선스 고객이 아니라, SVCO의 물리 시뮬레이션/AI 모델을 제조공정 최적화에 쓰는 고객이다. 핵심은 <b>Micron 이후 두 번째·세 번째 고객이 확인되는가</b>다.</div>
+</section>
+
+<section class="card" id="q2">
+  <h2>2. Micron과 TCAD 영역에서 협력하는 건가?</h2>
+  <div class="qbox"><div class="qmark">Q2</div><div class="qtext">“TCAD 영역에서 마이크론과 협력하는 건가?”</div></div>
+  <div class="answer">
+    <p><b>맞다. 단, 단순 TCAD 라이선스 협력보다 더 확장된 구조</b>로 보는 것이 정확하다. Micron 협력의 뿌리는 TCAD이지만, 투자적으로 중요한 부분은 <b>TCAD 기반 FTCO 디지털 트윈 모델링 툴 개발</b>이다.</p>
+    <p>즉 Micron은 “SVCO의 TCAD 고객”이면서 동시에 “FTCO를 실제 메모리 제조공정 문제에 적용하도록 검증하는 전략적 레퍼런스 파트너”에 가깝다.</p>
+  </div>
+  <svg viewBox="0 0 980 320" class="map" aria-label="Micron FTCO chain">
+    <rect x="44" y="108" width="170" height="82" rx="16" class="node-a"/><text x="129" y="143" text-anchor="middle" class="map-text">Micron</text><text x="129" y="165" text-anchor="middle" class="map-small">Memory fab data</text>
+    <rect x="292" y="86" width="180" height="126" rx="16" class="node-core"/><text x="382" y="126" text-anchor="middle" class="map-title">SVCO TCAD</text><text x="382" y="151" text-anchor="middle" class="map-small">물리 기반 공정/소자 모델</text><text x="382" y="172" text-anchor="middle" class="map-small">Victory / simulation stack</text>
+    <rect x="550" y="86" width="180" height="126" rx="16" class="node-b"/><text x="640" y="126" text-anchor="middle" class="map-title">FTCO</text><text x="640" y="151" text-anchor="middle" class="map-small">AI/ML + DoE</text><text x="640" y="172" text-anchor="middle" class="map-small">digital twin modeling</text>
+    <rect x="806" y="108" width="130" height="82" rx="16" class="node-c"/><text x="871" y="143" text-anchor="middle" class="map-text">New customers</text><text x="871" y="165" text-anchor="middle" class="map-small">Q2/Q3 proof</text>
+    <path d="M214 149 H292" class="link"/><path d="M472 149 H550" class="link"/><path d="M730 149 H806" class="link"/>
+    <text x="253" y="137" text-anchor="middle" class="svg-small">data calibration</text><text x="511" y="137" text-anchor="middle" class="svg-small">optimization</text><text x="768" y="137" text-anchor="middle" class="svg-small">platform proof</text>
+  </svg>
+  <div class="callout good"><b>투자 해석:</b> “Micron 계약”은 과거 뉴스지만, 그것이 <b>FTCO가 Micron 전용 프로젝트가 아니라 여러 팹 고객에게 확장 가능한 reference platform인지</b>를 보는 기준점이 됐다.</div>
+</section>
+
+<section class="card" id="q3">
+  <h2>3. 2024년 계약인데 왜 최근 주가가 움직였나?</h2>
+  <div class="qbox"><div class="qmark">Q3</div><div class="qtext">“24년 계약이 왜 요근래 주가가 많이 오른 거야?”</div></div>
+  <p>정확히는 <b>2024년 Micron 계약 자체가 새로워진 것이 아니라, 2026년 Q1 실적 발언이 2024년 계약을 새롭게 해석하게 만든 것</b>이다.</p>
+  <table class="dense"><thead><tr><th>시점</th><th>시장 해석</th><th>주가에 미친 의미</th></tr></thead><tbody>
+    <tr><td>2024년 Micron 발표</td><td>“좋은 고객/투자자이지만, 실제 매출 확장성은 미확인”</td><td>option value. Micron-only 가능성을 배제 못함</td></tr>
+    <tr><td>Q1’26 prepared remarks</td><td>“2분기 연속 신규 FTCO AI 제조 고객 engagement, Q2에도 추가 고객 기대”</td><td>Micron이 첫 레퍼런스였을 수 있다는 재평가</td></tr>
+    <tr><td>앞으로 Q2/Q3</td><td>신규 고객이 실제 bookings/RPO/매출로 찍히는지 확인</td><td>플랫폼 리레이팅 또는 실망 매물의 분기점</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>핵심 문장:</b> 최근 랠리는 “Micron이 고객이다”가 아니라 <b>“Micron 이후에도 FTCO 고객이 붙는다”는 가능성</b>을 산 것이다.</div>
+</section>
+
+<section class="card" id="q4">
+  <h2>4. 디지털 트윈인데 GPU 비용이 안 보이는 게 말이 되나?</h2>
+  <div class="qbox"><div class="qmark">Q4</div><div class="qtext">“SVCO의 해자는 공정 전 디지털 트윈 기술 아니야? 디지털 트윈인데 GPU자원 비용이 잘 안 잡히는 게 말이 돼?”</div></div>
+  <p>이 지적은 매우 중요하다. 다만 <b>디지털 트윈 = 대규모 GPU 클러스터 사업</b>이라는 전제는 SVCO에는 맞지 않을 가능성이 크다.</p>
+  <table class="dense"><thead><tr><th>오해하기 쉬운 관점</th><th>SVCO에 더 맞는 해석</th></tr></thead><tbody>
+    <tr><td>AI 회사니까 자체 GPU 서버 CapEx가 커야 한다</td><td>FTCO는 범용 LLM 훈련이 아니라, TCAD/물리 시뮬레이션 + 고객 데이터 + ML 최적화 workflow</td></tr>
+    <tr><td>GPU 비용이 안 보이면 기술이 약하다</td><td>해자는 GPU 보유량이 아니라 물리 모델, 공정 데이터 calibration, 고객 workflow lock-in</td></tr>
+    <tr><td>서버비가 없으니 비용을 숨긴다</td><td>현재까지는 R&D/IT/클라우드/고객 환경 실행 비용 안에 흡수될 가능성이 큼. 대규모 CapEx 흔적은 제한적</td></tr>
+  </tbody></table>
+  <div class="grid">
+    <div class="metric col3"><div class="label">Q1 R&D</div><div class="value">$9.2M</div><div class="note">매출 대비 약 52%</div></div>
+    <div class="metric col3"><div class="label">Q1 CapEx</div><div class="value">낮음</div><div class="note">대규모 GPU 서버 구매 흔적 제한적</div></div>
+    <div class="metric col3"><div class="label">진짜 해자</div><div class="value">TCAD</div><div class="note">물리 모델 + 공정 데이터</div></div>
+    <div class="metric col3"><div class="label">검증 포인트</div><div class="value">OpEx</div><div class="note">신규 고객에도 비용 통제되는가</div></div>
+  </div>
+  <div class="callout good"><b>수정된 thesis:</b> SVCO의 해자는 “AI GPU 인프라”가 아니라 <b>TCAD 물리 모델을 고객 제조 데이터와 결합해 공정 최적화용 디지털 트윈을 만드는 domain-specific modeling layer</b>다.</div>
+  <div class="callout bad"><b>반대 thesis:</b> 신규 고객이 늘 때마다 R&D/FAE/커스터마이징 비용이 함께 튄다면 FTCO는 플랫폼이 아니라 고객별 프로젝트로 할인받아야 한다.</div>
+</section>
+
+<section class="card" id="q5">
+  <h2>5. CEO가 유명하다는데 허풍형인가?</h2>
+  <div class="qbox"><div class="qmark">Q5</div><div class="qtext">“CEO가 유명하신 분인데 허풍이 심한 사람이야?”</div></div>
+  <p>현재 CEO <b>Wally Rhines</b>는 전 Mentor Graphics CEO이자 Siemens EDA 리더 경력이 있는 인물이다. 대화 기준 판단은 <b>허풍형 CEO라기보다 EDA 업계 네트워크와 M&A/운영 경험이 강한 turnaround/operator형</b>에 가깝다.</p>
+  <table class="dense"><thead><tr><th>긍정 요인</th><th>주의 요인</th></tr></thead><tbody>
+    <tr><td>EDA 업계에서 긴 운영 경력, Mentor Graphics 매각 경험</td><td>유명 CEO가 왔다고 고객 계약이 자동으로 확정되는 것은 아님</td></tr>
+    <tr><td>Q1 발언이 비용절감·흑자전환·FTCO 고객 중심으로 일관됨</td><td>“Q2에 추가 고객 기대”는 아직 확정 사실이 아니라 가이던스성 기대</td></tr>
+    <tr><td>회사가 핵심 제품/Jivaro/Utmost/FTCO/Mixel에 집중하는 방향을 제시</td><td>익명 고객·계약 규모·반복성 미공개는 여전히 discount 요인</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>투자 결론:</b> CEO 신뢰도는 높게 볼 수 있지만, Q2에서 <b>말한 고객이 실제 계약으로 찍히는지</b>가 CEO 발언 신뢰도를 검증하는 첫 시험대다.</div>
+</section>
+
+<section class="card" id="q6">
+  <h2>6. Q2 발표일과 실적 체크포인트</h2>
+  <div class="qbox"><div class="qmark">Q6</div><div class="qtext">“Q2 발표는 언제이고, 다음 실적에서 뭘 봐야 해?”</div></div>
+  <p>대화 시점 기준으로 회사가 Q2 2026 실적 발표일을 공식 확정했다는 증거는 확인되지 않았다. 제3자 캘린더는 대체로 <b>2026년 8월 초~중순</b>, 특히 8월 5일 전후 가능성을 표시했다. 따라서 보고서에는 특정일을 확정하지 않고 <b>“8월 초~중순 공식 IR 공지 확인”</b>으로 표기한다.</p>
+  <table class="dense"><thead><tr><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th></tr></thead><tbody>
+    <tr><td>신규 FTCO 고객</td><td>Q2 추가 고객 계약 확인, 가능하면 고객명 또는 vertical 공개</td><td>“논의 중”으로만 남거나 Q3로 지연</td></tr>
+    <tr><td>Bookings</td><td>$19M 이상 또는 가이던스 상단</td><td>신규 고객 언급에도 bookings 약함</td></tr>
+    <tr><td>Gross margin</td><td>88% 내외 유지</td><td>customization 비용으로 margin 하락</td></tr>
+    <tr><td>Non-GAAP OpEx</td><td>$15.5M ±5% 내 통제</td><td>신규 고객 확보 비용으로 OpEx 재상승</td></tr>
+    <tr><td>현금흐름</td><td>Q3 positive OCF 재확인</td><td>underlying burn 재확대</td></tr>
+    <tr><td>ATM</td><td>저가 발행 자제</td><td>주가 상승/하락 중 대량 발행</td></tr>
+  </tbody></table>
+  <div class="callout warn"><b>중요 정정:</b> 업로드 초안에 있던 “6/18 실적” 표현은 이번 버전에서 제거했다. Q2 실적은 공식 공지 전까지 <b>8월 초~중순 예상</b>으로 보는 것이 더 안전하다.</div>
+</section>
+
+<section class="card" id="q7">
+  <h2>7. 신규 고객이 찍히면 매출과 주가에 미치는 영향</h2>
+  <div class="qbox"><div class="qmark">Q7</div><div class="qtext">“신규 고객이 있으면 지금 가격은 저렴한 것 같은데? 신규 고객 찍히면 최소 몇 불 예상?”</div></div>
+  <p>신규 고객 하나만으로 주가가 무조건 폭등하는 구조는 아니다. 이미 회사가 Q1에서 Q2 신규 고객 기대를 언급했기 때문에 일부 기대는 선반영되어 있다. 핵심은 <b>신규 고객의 질</b>이다.</p>
+  <table class="dense"><thead><tr><th>발표 강도</th><th>매출 영향</th><th>주가/멀티플 영향</th><th>해석</th></tr></thead><tbody>
+    <tr><td>익명 신규 고객만 확인</td><td>단기 $0.5M~1M급 가능성</td><td>$13~14대 반응 가능</td><td>기대 충족, 그러나 리레이팅은 제한적</td></tr>
+    <tr><td>신규 고객 + bookings $19M 이상</td><td>Q2/Q3 매출 가시성 상승</td><td>$14~16 가능</td><td>가이던스 신뢰도 상승</td></tr>
+    <tr><td>신규 고객 + 기존 고객 기능 확장</td><td>반복/expansion 매출 가능성</td><td>$16~18 가능</td><td>platform lock-in thesis 강화</td></tr>
+    <tr><td>고객명 공개 + 대형 반도체 제조사</td><td>초기 매출보다 reference value 큼</td><td>$18~22 이상 리레이팅 가능</td><td>Micron-only 의심 해소</td></tr>
+    <tr><td>고객명 공개 + 가이던스 상향</td><td>2027 매출/흑자 추정 상향</td><td>$23~26 overshoot 가능</td><td>시장 과열/short covering 결합 가능</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>요약:</b> 신규 고객 확인만으로는 최소 $13~15 구간, <b>신규 고객 + bookings + non-GAAP 흑자 + Q3 OCF</b>가 같이 확인되면 $16~18 이상 재평가가 가능하다.</div>
+</section>
+
+<section class="card" id="q8">
+  <h2>8. 매출 구성 — 어디서 돈을 버는 회사인가?</h2>
+  <div class="qbox"><div class="qmark">Q8</div><div class="qtext">“매출 구성을 설명해주고 신규 고객이 매출에 미칠 영향을 정리해줘.”</div></div>
+  <p>SVCO 매출은 크게 <b>TCAD / EDA / SIP</b> 세 축이다. Q1’26 기준 회사의 실체는 아직 TCAD 중심이며, FTCO는 TCAD 위에 붙는 성장 narrative다.</p>
+  <table class="dense"><thead><tr><th>구분</th><th>Q1’26 매출</th><th>비중</th><th>성장/상태</th><th>투자 의미</th></tr></thead><tbody>
+    <tr><td><b>TCAD</b></td><td>$9.6M</td><td>약 54%</td><td>YoY +22%, bookings YoY +49%</td><td>FTCO와 직접 연결되는 핵심 본업</td></tr>
+    <tr><td><b>EDA</b></td><td>$4.1M</td><td>약 23%</td><td>Q1 부진</td><td>Jivaro/Utmost AI 버전으로 회복 시도</td></tr>
+    <tr><td><b>SIP/IP</b></td><td>$4.0M</td><td>약 23%</td><td>YoY +270%</td><td>Mixel 인수 효과, MIPI PHY/IP 성장축</td></tr>
+    <tr><td><b>합계</b></td><td>$17.8M</td><td>100%</td><td>YoY +26%</td><td>Q2 non-GAAP 흑자 전환의 기반</td></tr>
+  </tbody></table>
+  <svg viewBox="0 0 980 280" class="chart" aria-label="SVCO revenue mix chart">
+    <text x="30" y="36" class="svg-title">Q1’26 매출 구성</text>
+    <text x="30" y="56" class="svg-small">TCAD 중심, SIP/IP가 Mixel 효과로 새 baseline 형성</text>
+    <line x1="90" y1="228" x2="890" y2="228" class="axis"/>
+    <rect x="130" y="74" width="210" height="154" class="bar1"/><text x="235" y="248" text-anchor="middle" class="svg-small">TCAD $9.6M</text><text x="235" y="104" text-anchor="middle" class="map-text">54%</text>
+    <rect x="390" y="162" width="210" height="66" class="bar2"/><text x="495" y="248" text-anchor="middle" class="svg-small">EDA $4.1M</text><text x="495" y="191" text-anchor="middle" class="map-text">23%</text>
+    <rect x="650" y="164" width="210" height="64" class="bar3"/><text x="755" y="248" text-anchor="middle" class="svg-small">SIP/IP $4.0M</text><text x="755" y="193" text-anchor="middle" class="map-text">23%</text>
+  </svg>
+  <div class="callout good"><b>신규 고객 매출 영향:</b> 신규 FTCO 고객 1곳이 당장 대규모 매출을 만들기보다는 license/service engagement로 시작해 기능 확장·renewal·maintenance로 커질 가능성이 높다. 매출보다 먼저 <b>bookings, RPO, 기존 고객 expansion</b>에서 신호가 나와야 한다.</div>
+</section>
+
+<section class="card" id="q9">
+  <h2>9. 어떤 회사를 인수했고 왜 했나?</h2>
+  <div class="qbox"><div class="qmark">Q9</div><div class="qtext">“인수합병은 어떤 회사를 했으며 왜 했는지도 알려줘.”</div></div>
+  <table class="dense"><thead><tr><th>인수/자산</th><th>시점</th><th>가격/구조</th><th>왜 했나</th><th>FTCO/IP thesis 연결</th></tr></thead><tbody>
+    <tr><td><b>Cadence PPC/OPC business</b></td><td>2025년 3월</td><td>약 $11.5M 현금</td><td>computational lithography / OPC 역량 확보</td><td>공정 디지털 트윈 stack을 lithography/패턴 보정 쪽으로 확장</td></tr>
+    <tr><td><b>Tech-X</b></td><td>2025년 4월</td><td>약 $8.2M, 현금+주식+조건부 지급</td><td>photonics, plasma, multi-physics simulation 확보</td><td>FTCO의 multi-physics 엔진 강화, 정부/포토닉스/장비 고객 optionality</td></tr>
+    <tr><td><b>Mixel</b></td><td>2025년 8월</td><td>약 $22.5M, 주로 현금+주식</td><td>MIPI PHY, mixed-signal connectivity IP 확보</td><td>SIP/IP 고성장 축. TCAD/EDA만이 아닌 node-ready IP 회사로 확장</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>해석:</b> 세 인수는 따로 보면 작은 tuck-in이지만, 연결하면 <b>공정 시뮬레이션·포토닉스/플라즈마·리소그래피·실리콘 IP</b>를 묶는 stack 확장이다. 다만 과거 Nangate 소송 때문에 앞으로 M&A 조건과 earn-out 구조는 매우 엄격히 봐야 한다.</div>
+</section>
+
+<section class="card" id="q10">
+  <h2>10. 올해 흑자는 non-GAAP인가? 내년 GAAP 흑자는 가능한가?</h2>
+  <div class="qbox"><div class="qmark">Q10</div><div class="qtext">“올해 흑자는 non-GAAP 흑자를 말하는 거지? 내년에는 실제로 흑자 가능한 구조인가?”</div></div>
+  <p><b>맞다. 올해 회사가 말하는 핵심 흑자는 GAAP 순이익이 아니라 non-GAAP operating profitability</b>다. Q2 가이던스를 단순 계산하면 매출 $18M × non-GAAP GM 88% = gross profit 약 $15.8M이고, non-GAAP OpEx $15.5M이면 소폭 영업흑자 구조가 된다.</p>
+  <table class="dense"><thead><tr><th>흑자 기준</th><th>2026 가능성</th><th>2027 가능성</th><th>설명</th></tr></thead><tbody>
+    <tr><td>Non-GAAP 영업흑자</td><td>높음</td><td>높음</td><td>Q2 milestone로 회사가 직접 제시</td></tr>
+    <tr><td>Non-GAAP EPS 흑자</td><td>가능</td><td>높음</td><td>OpEx 통제와 bookings 유지 필요</td></tr>
+    <tr><td>영업현금흐름 흑자</td><td>Q3 가능</td><td>가능</td><td>소송/퇴직금 일회성 제거 후 확인 필요</td></tr>
+    <tr><td>GAAP 영업/순이익 흑자</td><td>낮음</td><td>조건부 가능</td><td>SBC, 무형자산 상각, 인수 관련 비용 때문에 늦게 보임</td></tr>
+  </tbody></table>
+  <div class="callout good"><b>2027 GAAP 흑자 조건:</b> 연매출이 대략 $85M~90M 이상으로 올라가고, gross margin 85~88% 유지, non-GAAP OpEx가 연간 $62M~65M 부근에 묶이며, 주식보상비/무형자산 상각 부담이 완화되어야 한다.</div>
+  <div class="callout bad"><b>반대 조건:</b> 신규 고객이 파일럿에 그치거나, 고객별 커스터마이징 비용 때문에 R&D/FAE 비용이 다시 증가하면 2027 GAAP 흑자는 뒤로 밀린다.</div>
+</section>
+
+<section class="card" id="q11">
+  <h2>11. 2027년까지 버틸 현금이 있는가? 앞으로 돈 나갈 계획은?</h2>
+  <div class="qbox"><div class="qmark">Q11</div><div class="qtext">“27년 말이나 되어야 흑자 전환할 수 있다는 말처럼 들리는데, 그때까지 버틸 현금이 있는지 알려줘. 앞으로 돈 나갈 계획이 있는지도.”</div></div>
+  <p>SVCO는 <b>현금이 매우 넉넉한 회사는 아니지만, 계획대로라면 2027년 말까지 그냥 버티기만 해야 하는 구조는 아니다.</b> 회사가 제시한 경로는 2026년 Q2 non-GAAP 영업흑자, Q3 positive operating cash flow 가능성이다.</p>
+  <table class="dense"><thead><tr><th>항목</th><th>상태</th><th>해석</th></tr></thead><tbody>
+    <tr><td>현금</td><td>$10.9M</td><td>Q1 말 기준. restricted cash 없음</td></tr>
+    <tr><td>Reported Q1 OCF</td><td>-$11.0M</td><td>$8.3M 최종 소송 합의금과 약 $1M 퇴직금 포함</td></tr>
+    <tr><td>Underlying burn</td><td>약 -$1.7M</td><td>일회성 제외 시 개선. Q3 OCF 흑자 가능성 주장</td></tr>
+    <tr><td>Credit line</td><td>$10M revolving line 추진</td><td>Q2 중 마무리 기대. 아직 완료 여부 확인 필요</td></tr>
+    <tr><td>ATM</td><td>총 $35M, 잔여 약 $30M+</td><td>안전판이지만 희석 리스크</td></tr>
+    <tr><td>대규모 시설투자</td><td>현재 뚜렷한 흔적 제한적</td><td>GPU/서버 CapEx 모델이 아닌 듯함</td></tr>
+  </tbody></table>
+  <div class="risk">
+    <div>좋은 시나리오</div><div>Q2 non-GAAP 흑자, Q3 OCF 흑자, ATM 저가 발행 자제</div><div>2027 runway 충분</div>
+    <div>중립 시나리오</div><div>분기별 burn $1.5M~2M 유지, credit line/ATM 일부 사용</div><div>희석은 있지만 생존 가능</div>
+    <div>나쁜 시나리오</div><div>신규 고객 지연, burn 재확대, 주가 낮은 구간에서 ATM 대량 사용</div><div>주주가치 희석 큼</div>
+  </div>
+  <div class="callout warn"><b>향후 현금 유출:</b> 소송 합의금은 완료, 구조조정 잔여 비용은 제한적, NXP vendor financing 같은 고정 지출은 남아 있다. 추가 M&A는 공식 확정된 계획은 없지만, 발생 시 주식/ATM/현금 사용 가능성을 반드시 봐야 한다.</div>
+</section>
+
+<section class="card" id="q12">
+  <h2>12. Nangate 소송은 어떤 소송이고 ESG 관점에서 어떻게 봐야 하나?</h2>
+  <div class="qbox"><div class="qmark">Q12</div><div class="qtext">“소송은 어떤 소송이고 왜 일어난 거야? ESG 관점에서도 얘기해줘.”</div></div>
+  <p>이 소송은 고객/제품/FTCO 품질 문제가 아니라 <b>2018년 Nangate 인수와 관련된 earn-out 지급 분쟁</b>이다. 즉 기술 thesis를 직접 깨는 소송은 아니지만, <b>Governance 측면에서는 불편한 이력</b>이다.</p>
+  <table class="dense"><thead><tr><th>항목</th><th>내용</th><th>투자 해석</th></tr></thead><tbody>
+    <tr><td>소송 성격</td><td>Nangate 전 주주들과의 earn-out/인수대금 계산 및 지급 분쟁</td><td>제품·고객 신뢰도보다 M&A governance 문제</td></tr>
+    <tr><td>분쟁 확대</td><td>계약 위반, 허위진술, 불공정행위 주장까지 확대</td><td>과거 인수 후 통합/계약 관리가 취약했다는 신호</td></tr>
+    <tr><td>합의</td><td>총 $32.5M settlement, 2026년 Q1에 최종 $8.3M 지급 완료</td><td>현금 유출은 아팠지만 overhang은 제거</td></tr>
+    <tr><td>ESG</td><td>E/S보다 G, 즉 지배구조 리스크</td><td>향후 M&A·earn-out·related-party 거래 감시 필요</td></tr>
+  </tbody></table>
+  <div class="callout bad"><b>ESG discount:</b> 이 사건은 “현재 FTCO 기술이 가짜”라는 증거는 아니지만, <b>과거 M&A governance 실패의 흔적</b>이다. 향후 추가 인수·ATM 발행·이사회 관련 거래는 더 엄격하게 할인해야 한다.</div>
+  <div class="callout good"><b>긍정적 변화:</b> 소송은 종료됐고, Q1 prepared remarks에서도 최종 합의금 지급 후 underlying cash burn 개선을 강조했다. 따라서 앞으로는 소송보다 <b>운영현금흐름 정상화</b>를 봐야 한다.</div>
+</section>
+
+<section class="card">
+  <h2>13. Q&A를 관통하는 최종 투자 프레임</h2>
+  <table><thead><tr><th>질문</th><th>최종 답</th><th>확인해야 할 다음 증거</th></tr></thead><tbody>
+    <tr><td>SVCO는 진짜 AI 디지털 트윈 회사인가?</td><td>“대규모 GPU AI”가 아니라 “TCAD 물리 기반 공정 디지털 트윈” 회사로 보는 게 맞음</td><td>FTCO 고객 수, 고객명, expansion order, gross margin 유지</td></tr>
+    <tr><td>Micron은 왜 중요한가?</td><td>과거 계약 자체보다, FTCO가 실제 팹 문제에 쓰일 수 있다는 anchor reference</td><td>Micron 외 신규 고객이 bookings/RPO로 확인되는지</td></tr>
+    <tr><td>올해 흑자인가?</td><td>GAAP가 아니라 non-GAAP 영업흑자 전환이 핵심</td><td>Q2 non-GAAP operating profit, Q3 OCF</td></tr>
+    <tr><td>내년 GAAP 흑자가 가능한가?</td><td>가능하지만 조건부. 매출 $85M~90M+, GM 85~88%, OpEx 통제 필요</td><td>2027 가이던스, SBC/상각비 추세</td></tr>
+    <tr><td>현금은 버티나?</td><td>현금만 보면 넉넉하지 않지만, 일회성 소송비 종료·credit line·ATM으로 runway는 있음</td><td>ATM 사용 속도, Q2/Q3 cash flow</td></tr>
+    <tr><td>가장 큰 리스크는?</td><td>신규 고객 부재보다 “신규 고객을 따도 비용이 같이 늘어 플랫폼성이 깨지는 것”</td><td>매출 성장 대비 OpEx leverage</td></tr>
+  </tbody></table>
+  <div class="callout neutral"><b>최종 한 줄:</b> SVCO의 thesis는 “Micron 뉴스 재탕”이 아니라 <b>Micron을 첫 레퍼런스로 한 FTCO 고객 확장 + Mixel IP 성장 + 비용절감으로 non-GAAP 흑자 전환</b>이다. 하지만 아직은 고객명·계약 규모·희석 속도가 공개되지 않은 검증 전 구간이다.</div>
+</section>
+
+<section class="card">
+  <h2>14. 실적 전후 행동 체크리스트</h2>
+  <table class="dense"><thead><tr><th>상황</th><th>해석</th><th>행동</th></tr></thead><tbody>
+    <tr><td>Q2 신규 FTCO 고객 확인 + bookings $19M 이상</td><td>기대 충족 이상</td><td>기존 thesis 유지, 급등 시 일부만 회수</td></tr>
+    <tr><td>신규 고객 + 기존 고객 기능 확장 + Q3 OCF 재확인</td><td>플랫폼성 강화</td><td>base target 상향 검토</td></tr>
+    <tr><td>신규 고객 언급 없음 또는 지연</td><td>Micron-only 의심 재부상</td><td>비중 축소 또는 신규 매수 보류</td></tr>
+    <tr><td>매출은 좋지만 GM/OpEx 악화</td><td>고객별 프로젝트 비용 증가</td><td>FTCO multiple 할인</td></tr>
+    <tr><td>ATM 대량 사용</td><td>희석으로 upside 잠식</td><td>목표가 하향, 주식 수 재계산</td></tr>
+    <tr><td>고객명 공개 + 대형 고객 확인</td><td>리레이팅 이벤트</td><td>overshoot 구간까지 일부 보유 가능</td></tr>
+  </tbody></table>
+  <div class="pillrow">
+    <span class="pill">확정 사실과 추론 분리</span>
+    <span class="pill">Q2 공식 발표일 확인</span>
+    <span class="pill">GAAP/non-GAAP 구분</span>
+    <span class="pill">ATM 희석 재계산</span>
+    <span class="pill">신규 고객명/vertical 확인</span>
+  </div>
+</section>
+</main>
+
+<div class="container footer">
+  <p><b>자료 기준:</b> 업로드된 SVCO Q&A 초안, Silvaco Q1’26 prepared remarks, 이전 SVCO forensic deep dive, 그리고 본 대화에서 정리된 질의응답을 기반으로 재작성. 실시간 주가·시총·실적 발표일은 변동 가능하며, 공식 IR 공지 및 차기 10-Q 확인 후 업데이트 필요.</p>
+  <p><b>면책:</b> 본 문서는 투자 판단을 돕기 위한 정리 자료이며 투자 자문이 아닙니다. 익명 고객, 미래 매출, 목표가 및 확률은 검증 전 추론을 포함합니다. 최종 투자 결정과 책임은 투자자 본인에게 있습니다.</p>
+</div>
+</body>
+</html>
