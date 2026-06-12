@@ -50,6 +50,7 @@ title: My Portfolio
       color: var(--ink);
       font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
       margin: 0;
+      overflow-x: hidden;
     }
 
     a {
@@ -60,11 +61,13 @@ title: My Portfolio
       margin: 0 auto;
       max-width: 1180px;
       padding: 28px 20px 76px;
+      width: 100%;
     }
 
     .portfolio-topbar {
       align-items: center;
       display: flex;
+      flex-wrap: wrap;
       gap: 14px;
       justify-content: space-between;
       margin-bottom: 28px;
@@ -85,6 +88,7 @@ title: My Portfolio
       letter-spacing: 0;
       min-height: 46px;
       padding: 10px 16px;
+      text-align: center;
       text-decoration: none;
       text-transform: uppercase;
     }
@@ -100,7 +104,8 @@ title: My Portfolio
       border-radius: 8px;
       display: grid;
       gap: 28px;
-      grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      align-items: end;
       margin-bottom: 28px;
       overflow: hidden;
       padding: 34px;
@@ -200,6 +205,7 @@ title: My Portfolio
     }
 
     .portfolio-side-grid {
+      align-items: stretch;
       display: grid;
       gap: 22px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -212,6 +218,7 @@ title: My Portfolio
       border: 5px solid var(--line);
       border-radius: 8px;
       color: var(--ink);
+      min-width: 0;
     }
 
     .latest-card {
@@ -250,7 +257,7 @@ title: My Portfolio
 
     .preview-frame-wrap {
       background: #ffffff;
-      height: 900px;
+      height: 860px;
       overflow: hidden;
     }
 
@@ -358,6 +365,7 @@ title: My Portfolio
     }
 
     .research-role-grid {
+      align-items: start;
       display: grid;
       gap: 18px;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -436,6 +444,7 @@ title: My Portfolio
       display: flex;
       gap: 10px;
       justify-content: space-between;
+      min-width: 0;
     }
 
     .research-company-main strong {
@@ -451,6 +460,7 @@ title: My Portfolio
       font-size: 13px;
       font-weight: 900;
       margin-top: 4px;
+      overflow-wrap: anywhere;
       text-transform: uppercase;
     }
 
@@ -482,8 +492,10 @@ title: My Portfolio
       display: inline-flex;
       font-size: 13px;
       font-weight: 900;
+      justify-content: center;
       min-height: 34px;
       padding: 6px 9px;
+      text-align: center;
       text-decoration: none;
     }
 
@@ -600,18 +612,18 @@ title: My Portfolio
     @media (max-width: 940px) {
       .portfolio-hero,
       .portfolio-grid,
-      .portfolio-side-grid,
       .research-role-grid {
         grid-template-columns: 1fr;
+      }
+
+      .portfolio-side-grid,
+      .archive-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .portfolio-hero::after {
         height: 86px;
         width: 86px;
-      }
-
-      .archive-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -627,8 +639,15 @@ title: My Portfolio
         flex-direction: column;
       }
 
+      .home-link,
+      .report-action,
+      .archive-link {
+        width: 100%;
+      }
+
       h1 {
-        font-size: 42px;
+        font-size: 38px;
+        line-height: 0.98;
       }
 
       .portfolio-lede {
@@ -636,19 +655,74 @@ title: My Portfolio
       }
 
       .portfolio-hero {
-        padding: 24px;
+        gap: 20px;
+        padding: 22px;
       }
 
       .hero-panel strong {
         font-size: 24px;
       }
 
-      .preview-frame-wrap {
-        height: 760px;
-      }
-
+      .portfolio-side-grid,
       .archive-list {
         grid-template-columns: 1fr;
+      }
+
+      .preview-frame-wrap {
+        height: 640px;
+      }
+
+      .section-heading h2 {
+        font-size: 32px;
+        line-height: 1.05;
+      }
+
+      .section-heading p {
+        max-width: none;
+      }
+
+      .research-role-head h3 {
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: 24px;
+      }
+
+      .research-company-main {
+        flex-direction: column;
+      }
+
+      .research-weight {
+        align-self: flex-start;
+      }
+
+      .research-links {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .research-links a,
+      .research-links span,
+      .other-chip {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .portfolio-shell {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .portfolio-hero {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .preview-frame-wrap {
+        height: 560px;
       }
     }
   </style>
