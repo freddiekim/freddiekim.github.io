@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SVCO 유통물량·내부자 거래 Forensic Report</title>
+<style>
+:root{--paper:#f7f3ea;--ink:#1f2933;--muted:#6b7280;--soft:#fffaf0;--line:#ded6c9;--accent:#c35b3f;--green:#2f7d65;--blue:#2f5f88;--gold:#b58b2b;--red:#b23b3b;--dark:#111827}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Segoe UI",sans-serif;line-height:1.72;font-size:15.8px}.wrap{max-width:1040px;margin:0 auto;padding:0 28px}.hero{padding:58px 0 36px;border-bottom:4px double var(--line)}.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--accent);font-weight:900;text-transform:uppercase}h1{font-size:clamp(30px,5vw,48px);line-height:1.18;margin:14px 0;letter-spacing:-.04em}h2{font-size:25px;line-height:1.28;margin:0 0 12px;letter-spacing:-.03em}p{margin:0 0 14px}b,strong{font-weight:850;color:var(--dark)}.sub{font-size:18px;color:#5d646f;max-width:880px}.byline{font-size:13px;color:var(--muted);margin-top:22px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}.card{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 12px 30px rgba(31,41,51,.05)}.card .lbl{font-size:11px;letter-spacing:.11em;color:var(--muted);font-weight:800;text-transform:uppercase}.card .val{font-size:28px;line-height:1.1;font-weight:900;margin:7px 0 4px}.card .note{font-size:12px;color:var(--muted);line-height:1.45}.up{color:var(--green)!important}.dn{color:var(--red)!important}.blue{color:var(--blue)!important}.gold{color:var(--gold)!important}.section{padding:42px 0;border-bottom:1px solid var(--line)}.tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:900;margin-bottom:8px}.tag b{color:var(--accent)}.callout{background:#fff3dc;border:1px solid #e7d2a6;border-left:5px solid var(--gold);border-radius:14px;padding:18px 20px;margin:20px 0}.good{background:#ecf8f2;border-left-color:var(--green)}.bad{background:#fff0ed;border-left-color:var(--red)}.neutral{background:#eef5fb;border-left-color:var(--blue)}table{width:100%;border-collapse:collapse;margin:18px 0;background:rgba(255,255,255,.45);border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}thead th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#374151;background:#eee6d8;border-bottom:2px solid #cfc5b6}tr:last-child td{border-bottom:none}td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.03em}.pill.buy{background:#d8f3e6;color:#146c4e}.pill.sell{background:#ffe0da;color:#9d2f2f}.pill.grant{background:#e4edf7;color:#28557a}.pill.watch{background:#fff0bd;color:#86620b}.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0}.flow .box{background:white;border:1px solid var(--line);border-radius:16px;padding:16px}.flow .box b{font-size:22px}.source{font-size:12px;color:var(--muted);line-height:1.55}.footer{padding:34px 0 54px;color:var(--muted);font-size:12px}@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr}.wrap{padding:0 18px}table{font-size:13.5px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap"><div class="eyebrow">SVCO Forensic Update · Float & Insider Flow</div><h1>실바코 유통물량·내부자 거래 보고서</h1><p class="sub">어제 6% 상승은 의미가 없는가? 유통주식, 대주주 매도, CEO 매수·RSU, 거래량 회전율을 분리해 본 수급 보고서.</p><p class="byline">기준일: 2026.06.13 · 현재가 약 $12.17 · 수치는 실시간 변동 가능</p></div></header>
+<main class="wrap">
+<div class="grid">
+<div class="card"><div class="lbl">현재가</div><div class="val">$12.17</div><div class="note">전일 대비 +6.23%</div></div>
+<div class="card"><div class="lbl">발행주식</div><div class="val">32.23M</div><div class="note">Q1 10-Q 기준</div></div>
+<div class="card"><div class="lbl">추정 유통주식</div><div class="val">12–13M</div><div class="note">주요 데이터벤더 범위</div></div>
+<div class="card"><div class="lbl">전일 거래량</div><div class="val">~0.53M</div><div class="note">유통주식의 약 4%</div></div>
+</div>
+<section class="section"><div class="tag">Executive <b>Verdict</b></div><h2>결론: 거래량은 “무의미”는 아니지만, “기관성 매집 확정”도 아니다</h2>
+<div class="callout neutral"><p><b>전일 52만 주 거래량은 유통주식 약 12~13M주의 4% 전후</b>입니다. 소형주 기준으로 완전히 작은 거래량은 아니지만, 박스권 상단 돌파를 확정하려면 최소 70만~100만 주 이상, 더 좋게는 100만 주 이상 상승 거래량이 필요합니다.</p><p><b>더 중요한 수급 변수는 내부자 구조</b>입니다. CEO Wally Rhines는 공개시장 매도를 찾기 어렵고 오히려 2025년 말 공개시장 매수가 있었습니다. 반면 창업자/지배주주 그룹인 Ngai-Pesic/Pesic 쪽은 큰 지분을 보유한 상태에서 일부 매도가 계속 나오고 있어, $11~13 구간의 공급 오버행으로 볼 수 있습니다.</p></div></section>
+<section class="section"><div class="tag">01 · Float <b>Structure</b></div><h2>유통물량 구조: 작다. 그래서 오르기도 쉽고, 눌리기도 쉽다</h2>
+<table><thead><tr><th>항목</th><th class="num">수치</th><th>해석</th></tr></thead><tbody>
+<tr><td>발행주식</td><td class="num">32.23M</td><td>2026년 3월 31일 10-Q 기준 common stock issued and outstanding.</td></tr>
+<tr><td>실시간/벤더 발행주식</td><td class="num">~32.7–33.4M</td><td>RSU/S-8/ATM 반영 시점 차이로 벤더마다 다소 차이.</td></tr>
+<tr><td>추정 유통주식</td><td class="num">12.45–12.99M</td><td>실제 tradeable float는 insider lock-up/Rule 144 매도 가능량에 따라 체감상 더 얇을 수 있음.</td></tr>
+<tr><td>내부자 보유</td><td class="num">약 60–64%</td><td>장점은 품절주 효과, 단점은 대주주 매도 시 주가 상단 압박.</td></tr>
+<tr><td>기관 보유</td><td class="num">약 24–25%</td><td>기관 참여는 있으나 대형주처럼 깊은 수급은 아님.</td></tr>
+<tr><td>공매도</td><td class="num">~0.70M</td><td>float 대비 약 4–6% 범위. squeeze 재료는 있으나 매우 높은 수준은 아님.</td></tr>
+</tbody></table>
+<div class="flow"><div class="box"><span class="pill watch">거래량</span><br><b>0.53M주</b><p>전일 거래량. 유통주식의 약 4%라 반등 신호는 되지만 강한 돌파 거래량은 아님.</p></div><div class="box"><span class="pill sell">대주주 매도</span><br><b>200K주</b><p>Katherine Ngai-Pesic 6/11 매도. 전일 거래량의 약 38% 규모라 단기 수급상 의미가 큼.</p></div><div class="box"><span class="pill buy">CEO 매수</span><br><b>53,372주</b><p>Wally Rhines 공개시장 누적 매수. 다만 대부분 $4 전후에서 이뤄져 현재가 검증 매수는 아님.</p></div></div>
+</section>
+<section class="section"><div class="tag">02 · Insider <b>Map</b></div><h2>내부자 거래: CEO는 긍정, 지배주주 그룹은 공급 오버행</h2>
+<table><thead><tr><th>일자</th><th>인물</th><th>직책/관계</th><th>거래</th><th class="num">주식 수</th><th class="num">가격</th><th>해석</th></tr></thead><tbody>
+<tr><td>2026-06-11</td><td>Katherine S. Ngai-Pesic</td><td>Director / 10% owner</td><td><span class="pill sell">Sale</span></td><td class="num">200,000</td><td class="num">$11.2716</td><td>가장 중요한 공급. 매도 후에도 9.176M주 보유라 thesis 포기는 아니지만, 랠리 상단을 누를 수 있음.</td></tr>
+<tr><td>2026-06-03</td><td>Illiya I. Pesic</td><td>Director / 10% owner</td><td><span class="pill sell">Sale</span></td><td class="num">6,000</td><td class="num">$12.955</td><td>규모는 작음. 심리적 매도 신호보다는 유동성/계획 매도에 가까움.</td></tr>
+<tr><td>2026-06-05</td><td>Anthony K.K. Ngai</td><td>Director</td><td><span class="pill buy">Buy</span></td><td class="num">1,000</td><td class="num">$13.07</td><td>현 가격대 위에서 산 소액 매수. 긍정적이나 규모가 작아 강한 시그널은 아님.</td></tr>
+<tr><td>2026-05-22</td><td>Walden C. Rhines</td><td>CEO / Director</td><td><span class="pill grant">RSU Grant</span></td><td class="num">154,745</td><td class="num">$0</td><td>공개시장 매수는 아니고 보상성 RSU. 2027년 3월 31일 vesting 조건으로 CEO alignment 강화.</td></tr>
+<tr><td>2025-12-09</td><td>Walden C. Rhines</td><td>CEO</td><td><span class="pill buy">Buy</span></td><td class="num">13,100</td><td class="num">$4.0077</td><td>CEO 공개시장 매수. 저가 구간에서 강한 자신감 신호.</td></tr>
+<tr><td>2025-11-18</td><td>Walden C. Rhines</td><td>CEO</td><td><span class="pill buy">Buy</span></td><td class="num">29,000</td><td class="num">$4.0747</td><td>가장 큰 CEO 공개시장 매수. 턴어라운드 신호로 긍정적.</td></tr>
+<tr><td>2025-11-17</td><td>Walden C. Rhines</td><td>CEO</td><td><span class="pill buy">Buy</span></td><td class="num">11,272</td><td class="num">$3.9018</td><td>CEO 첫 공개시장 매수. CFO 매수와 동행.</td></tr>
+<tr><td>2025-12-08</td><td>Christopher Zegarelli</td><td>CFO</td><td><span class="pill buy">Buy</span></td><td class="num">10,000</td><td class="num">$3.80</td><td>CFO 매수. 비용절감/흑자전환 전략에 대한 내부 확신으로 해석 가능.</td></tr>
+</tbody></table></section>
+<section class="section"><div class="tag">03 · CEO <b>Signal</b></div><h2>CEO Wally Rhines: 매도보다 “저가 매수 + 보상성 지분” 구조</h2>
+<div class="callout good"><p><b>현재까지 확인한 핵심은 CEO가 최근 공개시장 매도를 했다는 증거는 보이지 않는다는 점</b>입니다. 오히려 2025년 11~12월에 총 53,372주를 약 $214.6K 규모로 공개시장 매수했습니다. 평균 매수단가는 약 $4.02입니다.</p><p>다만 이 매수는 현재 $12대에서의 검증 매수가 아니라 <b>주가가 $4 전후로 눌렸던 턴어라운드 구간의 저가 매수</b>입니다. 현재가에서 CEO가 추가로 공개시장 매수한다면, 그것은 훨씬 강한 신호가 됩니다.</p></div>
+<table><thead><tr><th>CEO 지분 신호</th><th>긍정/부정</th><th>투자 해석</th></tr></thead><tbody>
+<tr><td>2025년 말 공개시장 매수 53,372주</td><td class="up">긍정</td><td>Rhines가 단순 월급 CEO가 아니라 주주 수익률에 직접 베팅한 흔적.</td></tr>
+<tr><td>2026년 5월 RSU 154,745주</td><td class="blue">중립~긍정</td><td>보상성 grant이므로 매수는 아니지만 2027년까지 실행을 묶는 alignment 효과.</td></tr>
+<tr><td>현재 $12대에서 CEO 추가 매수 없음</td><td class="gold">관찰 필요</td><td>현재 가격이 싸다고 CEO가 다시 돈을 넣는지는 아직 미확인.</td></tr>
+<tr><td>CEO 공개시장 매도 미확인</td><td class="up">긍정</td><td>신뢰도 훼손 신호는 아직 없음.</td></tr>
+</tbody></table></section>
+<section class="section"><div class="tag">04 · Supply <b>Overhang</b></div><h2>진짜 부담은 CEO가 아니라 Ngai-Pesic/Pesic 그룹의 물량</h2>
+<p>2026년 3월 Schedule 13G/A 기준, Ngai-Pesic/Pesic 그룹은 합산 18.34M주, 당시 발행주식의 58.3%를 보유한 것으로 보고되었습니다. 이는 회사 지배력과 장기 정렬이라는 장점이 있지만, 동시에 일부 매도만 나와도 유통주식 대비 큰 물량이 됩니다.</p>
+<table><thead><tr><th>인물</th><th class="num">주요 보유량</th><th>최근 거래</th><th>해석</th></tr></thead><tbody>
+<tr><td>Katherine S. Ngai-Pesic</td><td class="num">9.176M주<br><span class="source">6/11 매도 후</span></td><td>200K주 매도 @ $11.2716</td><td>가장 큰 오버행. 200K는 본인 지분의 약 2% 수준이라 탈출은 아니지만, 유통주식의 약 1.5~1.6%라 단기 수급상 큼.</td></tr>
+<tr><td>Illiya I. Pesic</td><td class="num">5.39M주</td><td>6K주 매도 @ $12.955</td><td>규모 작음. 다만 대주주 그룹의 반복 매도 흐름 자체는 체크 필요.</td></tr>
+<tr><td>Yelena Pesic</td><td class="num">3.60M주<br><span class="source">3/19 13G/A 기준</span></td><td>과거 매도 존재</td><td>지분 자체는 크므로 향후 Form 144/Form 4 계속 감시 필요.</td></tr>
+</tbody></table><div class="callout bad"><p><b>수급상 가장 중요한 결론:</b> SVCO가 $13~14로 올라가기 위해서는 “뉴스”뿐 아니라 대주주 물량이 시장에 흡수되는 과정이 필요합니다. 200K주 매도는 회사가 망했다는 신호가 아니라, <b>박스권 상단에서 공급이 실제로 존재한다는 신호</b>입니다.</p></div></section>
+<section class="section"><div class="tag">05 · Trading <b>Read-through</b></div><h2>전일 6% 상승을 어떻게 해석해야 하나?</h2>
+<table><thead><tr><th>질문</th><th>판단</th></tr></thead><tbody>
+<tr><td>거래량이 너무 작아 의미 없나?</td><td><b>완전히 의미 없지는 않다.</b> 유통주식의 약 4% 회전은 저점 방어 신호로 볼 수 있다. 다만 돌파 거래량은 아니다.</td></tr>
+<tr><td>기관 매집인가?</td><td><b>아직 불확실.</b> 100만 주 이상 상승 거래량이 2~3회 반복돼야 매집 가능성을 높일 수 있다.</td></tr>
+<tr><td>내부자 매도가 악재인가?</td><td><b>단기 수급 악재, 장기 thesis 파괴는 아님.</b> 대주주는 여전히 매우 큰 지분을 보유한다.</td></tr>
+<tr><td>CEO 신뢰는 유지되나?</td><td><b>유지.</b> CEO 공개시장 매도는 찾지 못했고, 2025년 말 공개시장 매수가 있다. 단 현재가에서 추가 매수는 아직 없다.</td></tr>
+<tr><td>다음 확인 가격은?</td><td><b>$12.70~13.20</b> 돌파와 거래량 70만~100만 주 이상. 이 조건 없이는 박스권 지속 가능성이 높다.</td></tr>
+</tbody></table></section>
+<section class="section"><div class="tag">06 · Action <b>Plan</b></div><h2>10,000주 보유자 관점 행동 기준</h2>
+<table><thead><tr><th>조건</th><th>수급 해석</th><th>행동</th></tr></thead><tbody>
+<tr><td>$10.40~10.70 지지</td><td>100/200일선 부근 수급 방어</td><td>보유 유지</td></tr>
+<tr><td>$12.70 돌파 + 거래량 70만주+</td><td>단기 추세 개선</td><td>매도 보류, $14 테스트 대기</td></tr>
+<tr><td>$13.20 돌파 + 거래량 100만주+</td><td>박스권 돌파 신뢰도 상승</td><td>보유 강화. 신규 고객 기대 반영 가능</td></tr>
+<tr><td>$13~14에서 Form 4 대주주 추가 매도</td><td>상단 공급 재확인</td><td>1,000~1,500주 일부 회수 고려</td></tr>
+<tr><td>CEO 현재가 공개시장 추가 매수</td><td>강한 내부 확신 신호</td><td>보유 지속, 추가 매도 보류</td></tr>
+<tr><td>$10 종가 이탈 + 거래량 70만주+</td><td>지지 실패</td><td>2,000주 방어 매도</td></tr>
+</tbody></table><div class="callout neutral"><p><b>최종 판단:</b> 지금은 대량 매도할 국면은 아닙니다. 다만 전일 상승을 “바닥 확정”으로 보기에는 거래량이 부족합니다. 핵심은 다음 2주 동안 <b>대주주 추가 Form 4가 나오는지, 그리고 $12.70~13.20을 거래량으로 돌파하는지</b>입니다.</p></div></section>
+<section class="section"><div class="tag">Sources <b>& Notes</b></div><h2>주요 출처</h2><p class="source">SEC 10-Q Q1 2026, Form 4 filings, Schedule 13G/A, StockTitan Form 4 summaries, Yahoo Finance key statistics, MarketWatch statistics, Finviz, MarketBeat short interest, SEC/Investor Relations filings. 본 보고서는 공개 공시와 시장 데이터 기준이며, 내부자 거래는 신고일/거래일 차이와 데이터벤더별 업데이트 차이가 있을 수 있습니다.</p></section>
+</main><footer class="wrap footer"><p><b>면책:</b> 본 문서는 투자 자문이 아니라 수급·공시 기반 분석입니다. 실제 매매 판단은 본인의 리스크 허용도와 포트폴리오 비중을 기준으로 결정해야 합니다.</p></footer>
+</body></html>

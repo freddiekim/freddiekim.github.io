@@ -310,7 +310,6 @@
           <div class="link-grid">
             {% capture ticker_file_prefix %}{{ company.ticker | downcase }}_{% endcapture %}
             {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
-            {% assign latest_qa_report = "" %}
             {% for report in report_files reversed %}
               {% assign report_ticker = report.name | split: "_" | first | upcase %}
               {% if report_ticker == ticker_key %}
@@ -384,16 +383,21 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
-            {% for qa_file in qa_files %}
+            {% for qa_file in qa_files reversed %}
               {% assign qa_file_name_down = qa_file.name | downcase %}
               {% assign qa_file_prefix = qa_file_name_down | slice: 0, ticker_file_prefix_size %}
               {% if qa_file_prefix == ticker_file_prefix %}
-                {% assign latest_qa_report = qa_file.path | relative_url %}
+                {% assign qa_parts = qa_file.name | remove: ".html" | split: "_" %}
+                {% assign qa_date_raw = qa_parts | last %}
+                {% if qa_date_raw.size == 8 %}
+                  {% assign qa_month = qa_date_raw | slice: 4, 2 | plus: 0 %}
+                  {% assign qa_day = qa_date_raw | slice: 6, 2 | plus: 0 %}
+                  <a class="link-chip qa" href="{{ qa_file.path | relative_url }}" target="_self">QnA({{ qa_month }}/{{ qa_day }})</a>
+                {% else %}
+                  <a class="link-chip qa" href="{{ qa_file.path | relative_url }}" target="_self">QnA</a>
+                {% endif %}
               {% endif %}
             {% endfor %}
-            {% if latest_qa_report != "" %}
-              <a class="link-chip qa" href="{{ latest_qa_report }}" target="_self">QnA</a>
-            {% endif %}
             {% if earnings_links %}
               {% for item in earnings_links limit: 2 %}
                 <a class="link-chip" href="{{ item.url }}" target="_self">{{ item.period }}</a>
@@ -409,6 +413,7 @@
       </section>
     {% endif %}
   </main>
+  <script src="/js/link-title-tooltips.js"></script>
   <script src="/js/page-comments.js" data-disqus-shortname="freddiekim" data-site-url="https://freddiekim.github.io"></script>
 </body>
 </html>

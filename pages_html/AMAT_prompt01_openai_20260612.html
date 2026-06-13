@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AMAT Forensic Deep Dive | 2026-06-12</title>
+<style>
+:root{--ink:#1f2933;--muted:#65727f;--paper:#fbfaf7;--card:#ffffff;--line:#d9ded8;--sage:#94a89a;--clay:#c77b5b;--navy:#28384d;--sand:#eadfcb;--blue:#6f8fa6;--green:#6d8b74;--red:#b96a5b;}
+*{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;line-height:1.62} a{color:#315f83;text-decoration:none;border-bottom:1px solid #b6c8d8}.wrap{max-width:1180px;margin:auto;padding:32px 22px 80px}.hero{border:1px solid var(--line);background:linear-gradient(0deg,#fff,#fff);border-radius:28px;padding:34px;position:relative;overflow:hidden}.hero svg{position:absolute;right:20px;top:15px;width:340px;height:210px;opacity:.95}.kicker{letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:700;font-size:12px}.title{font-size:42px;line-height:1.12;margin:10px 0 8px;max-width:760px}.subtitle{font-size:18px;color:var(--muted);max-width:800px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}.metric{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}.metric b{display:block;font-size:22px}.metric span{color:var(--muted);font-size:13px}.section{margin-top:34px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px}.section h2{font-size:26px;margin:0 0 12px}.section h3{font-size:20px;margin:26px 0 10px}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#eef2ed;color:#42514a;font-size:12px;font-weight:700;margin:3px}.callout{border-left:5px solid var(--clay);background:#fff8f3;padding:18px;border-radius:14px;margin:18px 0}.anti{border-left-color:var(--red);background:#fff5f4}.good{border-left-color:var(--green);background:#f4f8f3}.warn{border-left-color:#c5a24a;background:#fffaf0}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;margin:16px 0}table{border-collapse:collapse;width:100%;min-width:900px;background:#fff}th,td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#f2f0e9;text-align:left;color:#314052}.small{font-size:13px;color:var(--muted)}.quote{font-size:22px;font-weight:700;line-height:1.35}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px}.tagA{color:#fff;background:#58735d}.tagB{color:#fff;background:#6f8fa6}.tagC{color:#fff;background:#a87a58}.tag{display:inline-block;border-radius:7px;padding:2px 7px;font-size:12px;font-weight:700}.svgbox{background:#f7f5ee;border:1px solid var(--line);border-radius:22px;padding:16px;margin:16px 0}.bar{height:14px;border-radius:10px;background:#e8e5dc;overflow:hidden}.bar>span{display:block;height:100%;background:#6d8b74}.footer{font-size:12px;color:var(--muted);margin-top:26px}.rec{font-size:28px;font-weight:800;color:var(--clay)}.checklist li{margin:8px 0}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}@media(max-width:850px){.grid,.two,.three{grid-template-columns:1fr}.hero svg{position:static;width:100%;height:auto}.title{font-size:32px}}
+</style>
+</head>
+<body><div class="wrap">
+<section class="hero">
+<svg viewBox="0 0 400 240" aria-label="flat vector fab illustration"><rect x="35" y="145" width="330" height="55" rx="10" fill="#eadfcb"/><rect x="70" y="95" width="70" height="105" rx="8" fill="#94a89a"/><rect x="160" y="70" width="86" height="130" rx="8" fill="#6f8fa6"/><rect x="268" y="110" width="58" height="90" rx="8" fill="#c77b5b"/><circle cx="104" cy="72" r="24" fill="#28384d"/><path d="M104 72 L104 40 M104 72 L133 72 M104 72 L83 91" stroke="#fff" stroke-width="5" stroke-linecap="round"/><path d="M38 145 C100 120 170 130 230 107 C287 85 325 94 365 70" fill="none" stroke="#28384d" stroke-width="6" stroke-linecap="round"/><rect x="185" y="95" width="35" height="35" fill="#fff"/><path d="M190 112h25M203 100v25" stroke="#28384d" stroke-width="4"/></svg>
+<div class="kicker">Forensic Equity Research · AMAT · 기준일 2026-06-12</div>
+<h1 class="title">Applied Materials: 장비주가 아니라 AI 반도체 공정 플랫폼 레이어인가?</h1>
+<p class="subtitle">숫자 요약보다 공시·컨콜·제품 발표·고객 공동개발·수출규제·매크로 금리 리스크를 시간순으로 연결해, 시장이 놓칠 수 있는 구조적 변곡점과 과열 가격을 동시에 검증한 보고서.</p>
+<div class="grid">
+<div class="metric"><span>현재 주가</span><b>$567.25</b><span>2026-06-13 00:15 UTC 기준</span></div>
+<div class="metric"><span>시가총액</span><b>$453.2B</b><span>약 7.99억 희석 전 주식수 역산</span></div>
+<div class="metric"><span>투자 등급</span><b>Hold / 신규매수 금지</b><span>좋은 회사, 비싼 가격</span></div>
+<div class="metric"><span>12개월 Base Target</span><b>$485</b><span>현 주가 대비 -14.5%</span></div>
+</div>
+</section>
+
+<section class="section">
+<h2>0. 먼저 찾은 “처음 보면 놓칠 가능성이 높은 10가지 숨은 신호”</h2>
+<div class="table-wrap"><table><thead><tr><th>#</th><th>숨은 신호</th><th>확정 사실</th><th>내 해석</th><th>투자 의미</th></tr></thead><tbody>
+<tr><td>1</td><td>서비스 backlog가 장비 backlog와 거의 같은 규모</td><td>2025년 10-K상 backlog $15.0B 중 Semiconductor Systems $7.1B, AGS $7.1B</td><td>AMAT는 장비 일회성 판매보다 설치 기반 반복 수익 레이어로 변하고 있다.</td><td>다운사이클 EPS 방어, 멀티플 하방 완충.</td></tr>
+<tr><td>2</td><td>2026년 1분기부터 200mm 장비가 AGS에서 Semiconductor Systems로 이동</td><td>회사 공시상 사업부 재분류</td><td>서비스와 레거시 장비를 분리해 AGS의 반복 서비스 성격을 더 선명하게 만들려는 신호.</td><td>AGS의 quality-of-earnings 재평가 가능.</td></tr>
+<tr><td>3</td><td>AI WFE의 중심이 EUV 단독이 아니라 materials engineering으로 확산</td><td>GAA, advanced interconnect, advanced packaging 제품 발표 지속</td><td>ASML만의 리소그래피 병목에서 AMAT의 deposition/CMP/etch/metrology/packaging 병목으로 관심 이동.</td><td>AMAT의 TAM과 전략적 중요도 상승.</td></tr>
+<tr><td>4</td><td>EPIC Center가 단순 R&D가 아니라 고객 lock-in 장치</td><td>TSMC, SK hynix, 대학 파트너십, Micron 관련 보도 등 공동개발 생태계 확대</td><td>고객이 양산 전에 AMAT 플랫폼 위에서 공정을 같이 최적화하면 전환비용 상승.</td><td>장비 공급자 → 공정 reference platform.</td></tr>
+<tr><td>5</td><td>Q2 FY26에서 매출·마진·EPS가 동시에 기록권</td><td>매출 $7.91B, GAAP GM 49.9%, non-GAAP EPS $2.86</td><td>수요 회복만이 아니라 mix와 가격력이 동시에 작동.</td><td>cycle peak 논쟁보다 구조적 마진 밴드 상향 논쟁.</td></tr>
+<tr><td>6</td><td>CEO가 2026년 반도체 장비 +30% 이상 성장을 직접 언급</td><td>Q2 보도자료 발언</td><td>이전 +20% 톤에서 +30%로 높아진 것은 수요 visibility의 의미.</td><td>컨센서스 상향은 진행 중이나 주가는 더 빠르게 선반영.</td></tr>
+<tr><td>7</td><td>중국 리스크는 단순 매출 리스크가 아니라 경쟁구조 리스크</td><td>10-K는 중국 수출규제가 중국 내 경쟁사와 해외 경쟁사에 우위를 줄 수 있다고 명시</td><td>규제는 단기 매출 차감보다 장기 share loss와 국산화 가속이 더 위험.</td><td>멀티플 상단을 제한하는 핵심 요인.</td></tr>
+<tr><td>8</td><td>BIS $252.5M 합의는 overhang 해소와 규제 감시 강화가 동시에 발생</td><td>2026-02-11 BIS 합의, DOJ/SEC 관련 조사 종료</td><td>법률 tail-risk 일부 해소. 동시에 수출통제 리스크 프리미엄은 영구화.</td><td>단기 안도, 장기 할인율 상승.</td></tr>
+<tr><td>9</td><td>싱가포르 $500M 확장은 단순 설비 증설이 아니라 AI 장비 공급망 이중화</td><td>2026-06-10 신규 Tampines Campus 발표</td><td>AI 장비 수요가 수주가 아니라 생산능력 병목으로 이동 중.</td><td>2026~27 매출 인식 가시성 강화.</td></tr>
+<tr><td>10</td><td>주가가 이미 consensus를 앞질렀다</td><td>현재가 $567.25, 일부 공개 consensus 평균 약 $483, 최고 $650</td><td>시장은 base가 아니라 bull/overshoot 일부를 사고 있다.</td><td>신규 진입은 가격 규율 필요.</td></tr>
+</tbody></table></div>
+<div class="callout good"><div class="quote">한 문장 투자 thesis: AMAT는 AI 시대에 “장비 판매업체”에서 GAA·HBM·advanced packaging·서비스를 통합한 공정 공동개발 플랫폼으로 리레이팅될 수 있다.</div></div>
+<div class="callout anti"><div class="quote">한 문장 anti-thesis: 그러나 2026년 6월 12일 현재 주가는 이미 bull case 일부를 반영해, 좋은 회사와 좋은 신규 매수 가격이 분리된 상태다.</div></div>
+</section>
+
+<section class="section">
+<h2>1단계 Thesis Discovery</h2>
+<h3>A. 기업 정체성 재정의</h3>
+<p><b>시장이 보는 AMAT:</b> Lam/KLA/ASML과 함께 움직이는 대형 반도체 장비주, WFE capex cycle beta, 중국 매출 리스크가 큰 cyclicals.</p>
+<p><b>실제 변화:</b> AMAT는 transistor 구조 변화(GAA), interconnect 저항/전력 문제, HBM용 DRAM 및 hybrid bonding/advanced packaging, eBeam metrology, AGS subscription/service를 묶는 <b>materials engineering platform</b>으로 이동 중이다. 회사는 Semiconductor Systems가 materials engineering, process control, advanced packaging 전반을 커버하며 고객의 개별 공정 단계를 co-optimize/integrate할 수 있다고 설명한다.</p>
+<p><b>멀티플 변화:</b> 전통 장비주라면 15~25x normalized EPS, 5~8x sales가 합리적이지만, AI 공정 플랫폼으로 시장이 보면 30~45x forward EPS 또는 10~14x sales까지 프리미엄이 가능하다. 단, 현재 $567은 이미 이 프리미엄을 상당 부분 반영한다.</p>
+
+<h3>B. 고객·공급망·파트너 맵</h3>
+<div class="svgbox">
+<svg viewBox="0 0 1000 420" width="100%" height="auto" role="img" aria-label="ecosystem map">
+<rect x="35" y="40" width="210" height="75" rx="18" fill="#eadfcb"/><text x="140" y="72" text-anchor="middle" font-size="18" font-weight="700">최종 수요</text><text x="140" y="98" text-anchor="middle" font-size="14">AI Datacenter / HBM / HPC</text>
+<rect x="300" y="40" width="220" height="75" rx="18" fill="#dbe5db"/><text x="410" y="72" text-anchor="middle" font-size="18" font-weight="700">칩 고객</text><text x="410" y="98" text-anchor="middle" font-size="14">TSMC·Samsung·Intel·Micron·SK hynix</text>
+<rect x="570" y="40" width="210" height="75" rx="18" fill="#dce7ee"/><text x="675" y="72" text-anchor="middle" font-size="18" font-weight="700">AMAT</text><text x="675" y="98" text-anchor="middle" font-size="14">Deposition·Etch·CMP·Metrology·Packaging</text>
+<rect x="810" y="40" width="150" height="75" rx="18" fill="#f0d8ca"/><text x="885" y="72" text-anchor="middle" font-size="18" font-weight="700">공급망</text><text x="885" y="98" text-anchor="middle" font-size="14">Singapore / Korea / US</text>
+<path d="M245 78 H300" stroke="#28384d" stroke-width="4"/><path d="M520 78 H570" stroke="#28384d" stroke-width="4"/><path d="M780 78 H810" stroke="#28384d" stroke-width="4"/>
+<rect x="220" y="200" width="180" height="70" rx="16" fill="#f5efe3"/><text x="310" y="232" text-anchor="middle" font-size="16" font-weight="700">EPIC Center</text><text x="310" y="256" text-anchor="middle" font-size="13">공동개발·전환비용</text>
+<rect x="440" y="200" width="180" height="70" rx="16" fill="#f5efe3"/><text x="530" y="232" text-anchor="middle" font-size="16" font-weight="700">AGS Installed Base</text><text x="530" y="256" text-anchor="middle" font-size="13">서비스·spares·software</text>
+<rect x="660" y="200" width="180" height="70" rx="16" fill="#f5efe3"/><text x="750" y="232" text-anchor="middle" font-size="16" font-weight="700">Export Control</text><text x="750" y="256" text-anchor="middle" font-size="13">중국 매출·경쟁구도</text>
+<path d="M410 115 C410 165 310 165 310 200" fill="none" stroke="#94a89a" stroke-width="4"/><path d="M675 115 C675 165 530 165 530 200" fill="none" stroke="#94a89a" stroke-width="4"/><path d="M675 115 C675 165 750 165 750 200" fill="none" stroke="#c77b5b" stroke-width="4"/>
+</svg></div>
+<p><b>직접 고객:</b> foundry/logic, DRAM, NAND 제조사. 공시상 2025년 두 고객이 각각 매출 19%, 15%를 차지했다. 고객명은 10-K에서 공개되지 않으므로 TSMC/Samsung/Intel/Micron/SK hynix 등은 후보군으로만 다룬다.</p>
+<p><b>최종 수혜 고객:</b> NVIDIA, AMD, Apple, Google, Microsoft, Amazon, Oracle 등 AI/HPC 칩 수요자. 단, 이들은 AMAT의 직접 고객이 아니라 foundry와 memory capex를 통해 간접 수혜를 만드는 층이다.</p>
+
+<h3>C. 최근 24개월 사건 체인</h3>
+<div class="table-wrap"><table><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead><tbody>
+<tr><td>2024-06</td><td>신규 indenture/채권 관련 문서</td><td>10-K exhibit에 2024년 indenture 기재</td><td>대형 장비주의 정상적 자본시장 접근</td><td>자본구조 리스크 낮음</td><td><span class="tag tagB">B</span></td><td>순현금/부채 만기표</td></tr>
+<tr><td>2025-02</td><td>신용계약</td><td>10-K exhibit에 2025년 credit agreement</td><td>유동성 백업 라인 확보</td><td>소형주식 희석 리스크와 다름</td><td><span class="tag tagB">B</span></td><td>사용 여부</td></tr>
+<tr><td>2025-10</td><td>FY2025 10-K</td><td>Semiconductor Systems 73%, AGS 23%, backlog $15.0B</td><td>서비스 backlog가 quality를 높임</td><td>멀티플 하방 방어</td><td><span class="tag tagA">A</span></td><td>FY26 AGS 성장률</td></tr>
+<tr><td>2026-02-11</td><td>BIS 합의</td><td>$252.5M 지급, DOJ/SEC 관련 조사 종료</td><td>법률 overhang 완화, 수출규제 감시 강화</td><td>단기 안도 + 장기 할인율 상승</td><td><span class="tag tagA">A</span></td><td>추가 제재 여부</td></tr>
+<tr><td>2026-02-12</td><td>Q1 FY26</td><td>매출 $7.01B, GAAP GM 49.0%, EPS $2.54</td><td>장비 업사이클 초기 확인</td><td>컨센서스 상향 시작</td><td><span class="tag tagA">A</span></td><td>Q2 guide 달성</td></tr>
+<tr><td>2026-03-10</td><td>SK hynix 장기 R&D 파트너십</td><td>DRAM/HBM/advanced packaging 공동개발 발표</td><td>HBM 공정 lock-in 강화</td><td>메모리 capex leverage 확대</td><td><span class="tag tagA">A</span></td><td>HBM 장비 매출 분리 공시</td></tr>
+<tr><td>2026-04-08</td><td>Angstrom-era deposition systems</td><td>Precision Selective Nitride PECVD, Endura Trillium ALD 발표</td><td>GAA 난제는 materials/deposition 레이어에서 해결 필요</td><td>AMAT의 leading-edge logic value capture 상승</td><td><span class="tag tagA">A</span></td><td>2nm/1.4nm 고객 도입 확대</td></tr>
+<tr><td>2026-05-14</td><td>Q2 FY26</td><td>매출 $7.91B, GAAP GM 49.9%, non-GAAP EPS $2.86</td><td>mix/가격/수요 동시 개선</td><td>bull thesis 신뢰도 상승</td><td><span class="tag tagA">A</span></td><td>Q3 beat+raise 필요</td></tr>
+<tr><td>2026-05-14</td><td>Q3 강한 가이던스</td><td>Reuters 보도: Q3 매출 $8.95B ±$0.5B, adj EPS $3.36 ±$0.20</td><td>수주가 매출로 빠르게 전환</td><td>2026 EPS 상향</td><td><span class="tag tagA">A</span></td><td>clean room availability</td></tr>
+<tr><td>2026-06-10</td><td>싱가포르 $500M 확장</td><td>Tampines Campus 발표, AI chip demand 대응</td><td>장비 공급능력 병목 해소</td><td>2027 매출 지속성 강화</td><td><span class="tag tagA">A</span></td><td>capacity ramp 일정</td></tr>
+<tr><td>2026-06-12</td><td>주가 $567.25</td><td>시총 $453B, PE 53.4x</td><td>base보다 bull/overshoot 가격</td><td>신규 매수 안전마진 축소</td><td><span class="tag tagA">A</span></td><td>다음 실적 후 multiple 유지</td></tr>
+<tr><td>2026-06-25</td><td>DRAM & Advanced Packaging Master Class 예정</td><td>회사 IR 일정</td><td>HBM/packaging TAM 재설정 가능</td><td>이벤트 드리븐 촉매</td><td><span class="tag tagA">A</span></td><td>구체 수치 제시 여부</td></tr>
+</tbody></table></div>
+
+<h3>D. 자본구조 forensic 분석</h3>
+<p>AMAT는 소형 적자 성장주가 아니므로 ATM·전환사채·VWAP 할인 전환·warrant overhang이 핵심이 아니다. 핵심은 <b>자사주 매입, 현금/투자자산, 부채 만기, 주식보상, 수출규제로 인한 매출 손실</b>이다. 2025년 말 현금성 자산 및 투자자산은 약 $12.9B이며, Q2 FY26에는 영업현금흐름 $845M, 배당 $365M, 자사주 매입 $400M을 집행했다. 주식 수는 현재 시총/주가 역산 기준 약 7.99억 주다.</p>
+<p><b>수급 구조:</b> 최근 주가 상승은 ① Q2 beat/raise, ② AI WFE 추정 상향, ③ 장비주 target multiple 상향, ④ short covering보다는 대형주 momentum inflow의 성격이 강하다. 단기적으로는 실적 기대가 이미 높아져 beat만으로 부족하고, beat + raise + HBM/packaging visibility가 필요하다.</p>
+
+<h3>E. 기술 장벽</h3>
+<p>AMAT의 장벽은 특정 칩 하나가 아니라 <b>공정 recipe + 장비 installed base + 계측/검사 피드백 + 고객 fab qualification</b>이다. 2026년 발표된 GAA용 deposition 시스템은 shallow trench isolation, metal gate stack, nanosheet 구조 등에서 원자 단위 균일성과 선택성이 요구된다. 이는 소프트웨어만으로 해결되지 않고 PECVD/ALD/CMP/eBeam/metrology의 물리적 공정 장벽이다.</p>
+<p>HBM/advanced packaging에서는 hybrid bonding, die-to-wafer, wafer-level packaging, interconnect density가 핵심이다. 고객이 AMAT 장비와 recipe로 수율 ramp를 잡으면 경쟁 장비로 바꾸는 데 qualification 비용, yield risk, time-to-market risk가 발생한다.</p>
+
+<h3>F. 생태계 game theory / M&A optionality</h3>
+<p>AMAT 자체가 시총 $453B의 초대형 기업이므로 피인수 optionality는 낮다. 더 현실적인 전략 옵션은 <b>AMAT가 소형 공정/계측/패키징 기술 회사를 인수해 플랫폼을 보강</b>하는 것이다. 방어적으로 AMAT를 필요로 하는 집단은 AI foundry, HBM 메모리 업체, advanced packaging 생태계다. 경쟁사가 AMAT의 핵심 recipe/platform을 가져가는 M&A가 아니라, AMAT가 고객 공동개발을 통해 레퍼런스 공정 표준을 선점하는 것이 더 중요한 optionality다.</p>
+
+<h3>G. 반대 thesis</h3>
+<div class="callout anti"><p><b>강한 반대 논리:</b> AMAT가 좋아진 것은 맞지만, 주가는 이미 “AI 장비 슈퍼사이클 + 높은 마진 + 장기 서비스 quality”를 상당히 반영했다. 중국 매출 제한, 금리 재상승, 고객 capex의 cyclicality, HBM 공급 과잉 가능성, TSMC/Samsung/Intel capex 타이밍 지연이 동시에 오면 multiple이 먼저 압축될 수 있다.</p></div>
+</section>
+
+<section class="section">
+<h2>2단계 정식 보고서</h2>
+<h3>0. Executive Summary</h3>
+<div class="two"><div class="card"><p><b>현재 시장이 보는 회사</b><br>AI 수혜를 받는 대형 반도체 장비주. 중국 규제와 WFE cycle에 노출.</p><p><b>내가 새롭게 보는 회사</b><br>GAA·HBM·advanced packaging·AGS installed base를 연결해 고객 공정 road-map에 깊게 들어가는 materials engineering 플랫폼.</p></div><div class="card"><p><b>리레이팅 가능 이유</b><br>서비스 backlog, EPIC Center 공동개발, GAA deposition, HBM/packaging 성장률, 싱가포르 capacity expansion.</p><p><b>실패 조건</b><br>Q3/Q4 guide 둔화, 중국 share loss, GM 48% 이하 하락, HBM capex 피크아웃, 금리 인상 확률 재상승.</p></div></div>
+<p class="rec">투자 등급: Hold / 포트폴리오 행동: 신규 매수 금지, $500 이하 1차 관심</p>
+
+<h3>1. 시장이 놓친 핵심 변곡점 5개</h3>
+<ol><li><b>장비주에서 공정 플랫폼으로:</b> 고객의 GAA/HBM/packaging 난제가 AMAT의 materials engineering 포트폴리오로 이동.</li><li><b>AGS backlog quality:</b> 전체 backlog 중 AGS가 48%로, cyclicality를 줄이는 반복 수익층이 예상보다 크다.</li><li><b>HBM은 메모리 장비 cycle이 아니라 AI 인프라 bottleneck:</b> SK hynix/Micron/Samsung 투자와 연결.</li><li><b>수출규제는 양면성:</b> 중국 매출에는 할인 요인이지만, advanced node 장비의 전략적 희소성은 강화.</li><li><b>가격이 thesis보다 앞서감:</b> 컨센서스가 상향 중이어도 주가는 이미 최고 목표가 근처 방향으로 움직였다.</li></ol>
+
+<h3>2. 비즈니스 모델 진화</h3>
+<div class="table-wrap"><table><thead><tr><th>구분</th><th>과거 AMAT</th><th>현재/미래 AMAT</th><th>멀티플 영향</th></tr></thead><tbody>
+<tr><td>핵심 수익</td><td>WFE 장비 출하</td><td>장비 + recipe + process control + service</td><td>cycle discount 축소</td></tr>
+<tr><td>고객 관계</td><td>capex 발주 중심</td><td>EPIC Center, 공동 R&D, 조기 공정 co-optimization</td><td>전환비용 상승</td></tr>
+<tr><td>성장 축</td><td>foundry/logic, memory cycle</td><td>GAA, HBM DRAM, advanced packaging, AI infrastructure</td><td>TAM 재평가</td></tr>
+<tr><td>위험</td><td>WFE downturn</td><td>규제 + capex 과열 + high multiple</td><td>상단 제한</td></tr>
+</tbody></table></div>
+
+<h3>3. 실적으로 증명되는 실체</h3>
+<div class="three"><div class="card"><b>FY2025</b><p>매출 $28.37B, Semiconductor Systems 73%, AGS 23%, Corporate/Other 4%.</p></div><div class="card"><b>Q2 FY2026</b><p>매출 $7.91B, GAAP GM 49.9%, 영업이익률 31.9%, GAAP EPS $3.51, non-GAAP EPS $2.86.</p></div><div class="card"><b>Q3 FY2026 Guide</b><p>Reuters 기준 매출 $8.95B ± $0.5B, adj EPS $3.36 ± $0.20.</p></div></div>
+<p><b>다음 분기 KPI:</b> ① Q3 매출 $9.0B 이상 여부, ② non-GAAP GM 50% 유지, ③ Semiconductor Systems growth +30% 이상 유지, ④ packaging revenue +50% 성장 코멘트 유지, ⑤ 중국 매출/라이선스 영향, ⑥ AGS growth 10%+ 유지.</p>
+
+<h3>4. 고객·파트너·생태계 분석</h3>
+<div class="table-wrap"><table><thead><tr><th>기업</th><th>관련성</th><th>근거</th><th>투자 의미</th></tr></thead><tbody>
+<tr><td>TSMC</td><td>높음</td><td>EPIC Center 관련 파트너십 보도/회사 홈페이지 트렌딩</td><td>GAA, packaging, energy-efficient AI 칩 road-map</td></tr>
+<tr><td>SK hynix</td><td>높음</td><td>2026-03 장기 R&D 파트너십</td><td>HBM/DRAM 공정 lock-in</td></tr>
+<tr><td>Micron</td><td>중~높음</td><td>EPIC Center 공동개발 관련 보도, HBM/DRAM capex</td><td>HBM materials barrier 해결 가능성</td></tr>
+<tr><td>Samsung</td><td>중</td><td>직접 공시 없음. 메모리/foundry capex 고객 후보</td><td>HBM/foundry 회복 시 수혜</td></tr>
+<tr><td>Intel</td><td>중</td><td>leading-edge logic/foundry capex 후보</td><td>미국 제조 회복 시 upside</td></tr>
+<tr><td>NVIDIA/AMD/Google/Microsoft/Amazon/Oracle/Apple</td><td>간접</td><td>AI 칩 수요자, 직접 고객 아님</td><td>foundry/HBM capex를 통해 간접 수혜</td></tr>
+<tr><td>SpaceX/Globalstar/Gogo/Skylo/Verizon</td><td>낮음</td><td>AMAT의 핵심 직접 수요와 연결성 낮음</td><td>보고서 thesis에는 반영하지 않음</td></tr>
+</tbody></table></div>
+
+<h3>5. 숨은 고객 및 M&A optionality</h3>
+<p>AMAT는 공시상 두 고객이 2025년 매출의 19%, 15%를 차지했지만 고객명은 공개하지 않았다. 후보는 TSMC, Samsung, Intel, Micron, SK hynix 등이다. 단정은 금지한다.</p>
+<div class="table-wrap"><table><thead><tr><th>후보</th><th>근거</th><th>반대 근거</th><th>확률</th></tr></thead><tbody>
+<tr><td>TSMC</td><td>leading-edge logic, AI capex, EPIC Center 관련성</td><td>고객명 미공개, 매출 비중 불확실</td><td>30%</td></tr>
+<tr><td>Samsung</td><td>foundry+memory 모두 해당</td><td>최근 HBM 경쟁력 이슈와 capex timing 변동</td><td>20%</td></tr>
+<tr><td>SK hynix</td><td>HBM 핵심, 장기 R&D 파트너십</td><td>매출 19% 규모까지는 불확실</td><td>20%</td></tr>
+<tr><td>Micron</td><td>미국 DRAM/HBM capex, EPIC 관련 보도</td><td>규모와 시점 검증 필요</td><td>15%</td></tr>
+<tr><td>Intel</td><td>미국 foundry/logic capex 후보</td><td>capex 변동성과 자체 재무 이슈</td><td>15%</td></tr>
+</tbody></table></div>
+<p><b>M&A 반영:</b> AMAT 피인수 가능성은 base 0%, bull 0~2%, overshoot 0%로 본다. 대신 AMAT의 소형 기술 인수/파트너십 optionality를 bull multiple에 1~2x sales premium으로 반영한다.</p>
+
+<h3>6. 자본구조와 수급</h3>
+<p><b>주식 수:</b> 약 7.99억 주(시총/현재가 역산). <b>현금성 자산 및 투자자산:</b> FY2025 말 $12.9B. <b>전환사채/ATM/warrant:</b> 소형 적자주형 구조는 해당 없음. <b>희석:</b> 주요 희석은 RSU/option과 자사주 매입의 상쇄 구조. <b>수급:</b> 현재 주가는 AI 장비주 전반의 multiple expansion에 민감하다. 금리 인상 확률이 높아지면 50x TTM EPS 멀티플이 가장 먼저 압축된다.</p>
+
+<h3>7. 기술 분석</h3>
+<div class="table-wrap"><table><thead><tr><th>영역</th><th>제품/기술</th><th>왜 중요한가</th><th>모방 난이도</th></tr></thead><tbody>
+<tr><td>GAA logic</td><td>Producer Precision Selective Nitride PECVD, Endura Trillium ALD</td><td>2nm 이하 nanosheet/GAA에서 절연막·금속막 deposition 균일성/선택성 중요</td><td>높음: 장비+recipe+fab qualification</td></tr>
+<tr><td>Advanced Packaging</td><td>Hybrid bonding, wafer-level packaging, heterogeneous integration</td><td>AI 칩 성능/전력 효율이 패키징에서 결정</td><td>높음: 수율·오염·계측 통합</td></tr>
+<tr><td>Metrology</td><td>eBeam inspection/review, process control</td><td>3D 구조와 buried defect 검출</td><td>중~높음: KLA와 경쟁</td></tr>
+<tr><td>Services</td><td>AGS spares, service agreements, factory automation software</td><td>installed base 최적화와 반복 매출</td><td>높음: 설치 기반 규모가 장벽</td></tr>
+</tbody></table></div>
+
+<h3>8. 컨센서스 리비전</h3>
+<p>공개 자료 기준 Q2 이후 FY2026 consensus는 매출 $31.6B/EPS $11.14에서 매출 $33.2B/EPS $13.00 수준으로 상향된 것으로 보도되었다. MarketBeat 기준 35명 평균 목표가는 약 $483, 최고 $650, 최저 $150으로 현재가 $567은 평균 목표가보다 높고 최고 목표가에 가까운 구간이다. 즉 시장은 base case가 아니라 <b>bull case 일부</b>를 사고 있다.</p>
+
+<h3>9. 이벤트 드리븐 분석</h3>
+<ul><li><b>다음 이벤트:</b> 2026년 6월 25일 DRAM & Advanced Packaging Master Class.</li><li><b>다음 실적:</b> 2026년 8월 중순 예상. 공개 추정치는 Q3 EPS 약 $3.46, 매출 약 $9.16B 수준.</li><li><b>오르기 위한 조건:</b> beat + raise + HBM/packaging 구체 수치 + GM 50% 유지.</li><li><b>빠지기 위한 조건:</b> beat만 하고 guide가 평범하거나, 중국/수출규제 영향이 커지거나, packaging 성장률 가이던스가 둔화.</li></ul>
+
+<h3>10. 밸류에이션</h3>
+<div class="svgbox"><svg viewBox="0 0 900 300" width="100%" height="auto" aria-label="valuation bridge"><text x="25" y="35" font-size="18" font-weight="700">Valuation Bridge ($/share)</text><line x1="80" y1="240" x2="820" y2="240" stroke="#d9ded8"/><g font-size="13"><rect x="90" y="118" width="90" height="122" fill="#eadfcb"/><text x="135" y="260" text-anchor="middle">Conservative</text><text x="135" y="108" text-anchor="middle" font-weight="700">$340</text><rect x="230" y="73" width="90" height="167" fill="#94a89a"/><text x="275" y="260" text-anchor="middle">Base</text><text x="275" y="63" text-anchor="middle" font-weight="700">$485</text><rect x="370" y="42" width="90" height="198" fill="#6f8fa6"/><text x="415" y="260" text-anchor="middle">Bull</text><text x="415" y="32" text-anchor="middle" font-weight="700">$640</text><rect x="510" y="22" width="90" height="218" fill="#c77b5b"/><text x="555" y="260" text-anchor="middle">Overshoot</text><text x="555" y="18" text-anchor="middle" font-weight="700">$750</text><rect x="650" y="60" width="90" height="180" fill="#28384d"/><text x="695" y="260" text-anchor="middle">Current</text><text x="695" y="50" text-anchor="middle" font-weight="700">$567</text></g></svg></div>
+<div class="table-wrap"><table><thead><tr><th>방식</th><th>Bear</th><th>Base</th><th>Bull</th><th>핵심 가정</th></tr></thead><tbody>
+<tr><td>DCF</td><td>$310</td><td>$470</td><td>$620</td><td>WACC 9.0~10.5%, terminal growth 2.5~3.0%, FCF margin 22~30%</td></tr>
+<tr><td>FCF Yield</td><td>$330</td><td>$500</td><td>$650</td><td>Normalized FCF $8.0B/$10.0B/$12.0B, yield 3.8%/2.7%/2.3%</td></tr>
+<tr><td>상대가치</td><td>$340</td><td>$490</td><td>$640</td><td>FY27 EPS $13.5/$15.2/$16.8, P/E 25x/32x/38x</td></tr>
+<tr><td>리레이팅 가치</td><td>$360</td><td>$485</td><td>$680</td><td>장비주 25x → 공정 플랫폼 35~42x. 현재는 이미 리레이팅 반영.</td></tr>
+</tbody></table></div>
+
+<h3>11. 목표가 체계</h3>
+<div class="table-wrap"><table><thead><tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody>
+<tr><td>보수적 내재가치</td><td>$340</td><td>FY27 EPS $13.5</td><td>25x</td><td>800M</td><td>25%</td><td>cycle normalized</td><td>중국/금리 충격</td></tr>
+<tr><td>12개월 base target</td><td>$485</td><td>FY27 EPS $15.2</td><td>32x</td><td>795M</td><td>40%</td><td>AI WFE 지속</td><td>GM 48% 하회</td></tr>
+<tr><td>bull target</td><td>$640</td><td>FY27 EPS $16.8</td><td>38x</td><td>790M</td><td>25%</td><td>HBM/packaging upside</td><td>capex pullback</td></tr>
+<tr><td>overshoot target</td><td>$750</td><td>FY28 EPS $18.0</td><td>42x</td><td>785M</td><td>10%</td><td>장비주 mania, target 상향</td><td>금리 hike/valuation unwind</td></tr>
+<tr><td>실적 전 trading target</td><td>$540~590</td><td>Q3 기대치</td><td>event premium</td><td>800M</td><td>—</td><td>Master Class/preview</td><td>기대 과열</td></tr>
+<tr><td>실적 후 재평가 target</td><td>$600 또는 $500</td><td>Q3 beat+raise 여부</td><td>35~40x 또는 30~32x</td><td>795M</td><td>—</td><td>가이던스</td><td>raise 부재</td></tr>
+</tbody></table></div>
+
+<h3>12. 2020~2030 멀티플 밴드</h3>
+<p class="small">아래 그래프는 실제 장기 데이터베이스가 아닌 공개 추정 및 본 보고서의 normalized framework를 시각화한 것이다. 실제 과거 밴드는 별도 데이터 벤더로 검증 필요.</p>
+<div class="svgbox"><svg viewBox="0 0 900 330" width="100%" height="auto"><text x="35" y="32" font-size="18" font-weight="700">AMAT Multiple Band Framework</text><line x1="70" y1="270" x2="830" y2="270" stroke="#aeb8b0"/><line x1="70" y1="60" x2="70" y2="270" stroke="#aeb8b0"/><polyline points="90,215 170,190 250,175 330,205 410,185 490,150 570,110 650,125 730,95 810,80" fill="none" stroke="#28384d" stroke-width="4"/><polyline points="90,240 170,230 250,215 330,225 410,215 490,190 570,160 650,170 730,145 810,130" fill="none" stroke="#6d8b74" stroke-width="4"/><text x="825" y="82" font-size="13">P/E band</text><text x="825" y="132" font-size="13">EV/Sales band</text><g font-size="12" fill="#65727f"><text x="88" y="292">2020</text><text x="248" y="292">2022</text><text x="408" y="292">2024</text><text x="568" y="292">2026</text><text x="728" y="292">2028E</text><text x="808" y="292">2030E</text></g></svg></div>
+<p><b>미래 밴드:</b> Bear 22~26x P/E, Base 30~34x, Bull 38~42x. 현재 TTM PE 53x는 trailing EPS 기준 과열이며, forward EPS가 빠르게 올라와야 정당화된다.</p>
+
+<h3>13. 리스크 관리: thesis break trigger</h3>
+<div class="table-wrap"><table><thead><tr><th>리스크</th><th>깨지는 지표</th><th>가격 반영 시작</th><th>확인 시점</th><th>대응</th></tr></thead><tbody>
+<tr><td>출하 지연</td><td>Q3 매출 $8.5B 이하 또는 clean room 언급 악화</td><td>$520 하회</td><td>Q3 FY26</td><td>신규 금지 유지</td></tr>
+<tr><td>GM 정상화</td><td>GM 48% 이하</td><td>$500 하회</td><td>분기 실적</td><td>base target $430로 하향</td></tr>
+<tr><td>중국 규제</td><td>라이선스 거부/서비스 제한 확대</td><td>$480 하회</td><td>수출규제 업데이트</td><td>multiple 5~8pt 할인</td></tr>
+<tr><td>HBM capex 피크</td><td>DRAM/packaging 성장 코멘트 둔화</td><td>$500</td><td>Master Class/컨콜</td><td>bull 제거</td></tr>
+<tr><td>금리 인상</td><td>Fed hike 확률 70%+ 유지, 10Y 상승</td><td>$520</td><td>FOMC/CPI/jobs</td><td>고PER 리스크 축소</td></tr>
+<tr><td>M&A 기대 과열</td><td>소형 기술 인수 프리미엄 과도</td><td>—</td><td>공시</td><td>synergy 검증 전 반영 금지</td></tr>
+</tbody></table></div>
+
+<h3>14. 포트폴리오 실행안</h3>
+<div class="callout warn"><p><b>현재 보유 수량 없음 기준 추천 행동: 신규 매수 금지.</b> AMAT는 장비주 1개만 고른다면 KLA/Lam/TER 대비 가장 넓은 공정 포트폴리오와 AI materials leverage를 가진 후보지만, 현재 $567은 신규 진입 가격으로 안전마진이 부족하다.</p></div>
+<div class="table-wrap"><table><thead><tr><th>구간</th><th>행동</th><th>수량 예시: 현금 600만원+추가 2000만원 가능 가정</th><th>이유</th></tr></thead><tbody>
+<tr><td>$540~590</td><td>관망</td><td>0주</td><td>현재는 실적 전 기대가 높음</td></tr>
+<tr><td>$500 이하</td><td>1차 매수</td><td>3주</td><td>base target 대비 손익비 개선</td></tr>
+<tr><td>$450 이하</td><td>2차 매수</td><td>5주 추가</td><td>보수 내재가치와 base 사이</td></tr>
+<tr><td>$400 이하</td><td>3차 매수</td><td>5~7주 추가</td><td>AI 장비주 조정 시 장기 매력</td></tr>
+<tr><td>$640 도달</td><td>절반 차익</td><td>보유분 50%</td><td>bull target 도달</td></tr>
+<tr><td>$750 도달</td><td>대부분 차익</td><td>70~80%</td><td>overshoot</td></tr>
+</tbody></table></div>
+<p><b>목표 비중:</b> 신규 진입 시 3~5%, 단일 장비주 최대 7%. 이미 종목 수가 많다면 $500 이하가 오기 전까지는 추격하지 않는다.</p>
+
+<h3>15. 자체 점검</h3>
+<ul class="checklist"><li>단순 컨센서스 요약이 아니라 backlog, AGS, EPIC, GAA, HBM, BIS, Singapore capacity를 시간순으로 연결했다.</li><li>고객명은 확정 사실과 추론을 분리했다.</li><li>소형주형 전환사채/ATM이 아닌 AMAT에 맞는 대형주 자본구조로 분석했다.</li><li>Bull case를 인정하되 현재 가격이 이미 상당 부분 반영했다는 anti-thesis를 같은 강도로 반영했다.</li><li>다음 실적에서 GM, guide, HBM/packaging, 중국 규제가 핵심 수정 포인트임을 명시했다.</li></ul>
+</section>
+
+<section class="section">
+<h2>매크로: 실업률·취업률과 금리 인상 확률 반영</h2>
+<p>2026년 6월 초 미국 고용은 May nonfarm payroll +172k, 실업률 4.3%로 강했다. Reuters는 강한 고용 이후 CME FedWatch 기준 12월 금리 인상 확률이 68.4%까지 올라갔다고 보도했다. Barron's는 6월 12일 기준 올해 금리 인상 확률을 59.6%, 동결 39%, 인하 1.4%로 언급했다. Goldman Sachs는 2026년 금리 인하를 예상하지 않고 2027년으로 미뤘다.</p>
+<p><b>AMAT에 대한 적용:</b> 금리 인상 확률이 높아질수록 AMAT의 실적보다 multiple이 먼저 압박받는다. 따라서 DCF WACC를 base 9.5%, bull 9.0%, bear 10.5%로 두고, 현재 가격에는 0.5~1.0%p 할인율 상승 리스크를 반영했다. 실업률이 4.2% 이하로 낮아지고 core inflation이 3% 이상으로 올라가면 AMAT 같은 고PER 장비주는 단기적으로 10~15% multiple compression을 받을 수 있다.</p>
+</section>
+
+<section class="section">
+<h2>최종 요약</h2>
+<div class="table-wrap"><table><tbody>
+<tr><th>현재 주가</th><td>$567.25</td></tr>
+<tr><th>보수적 내재가치</th><td>$340</td></tr>
+<tr><th>12개월 base target</th><td>$485</td></tr>
+<tr><th>bull target</th><td>$640</td></tr>
+<tr><th>overshoot target</th><td>$750</td></tr>
+<tr><th>실적 발표 전 trading target</th><td>$540~590</td></tr>
+<tr><th>실적 발표 후 재평가 target</th><td>beat+raise 시 $600, guide 실망 시 $500</td></tr>
+<tr><th>하방 리스크</th><td>$450~500. 금리 인상/중국 규제/GM 하락 동시 발생 시 $400대 초반 가능</td></tr>
+<tr><th>12개월 기대수익률</th><td>Base 기준 -14.5%, Bull 기준 +12.8%, Overshoot 기준 +32.2%</td></tr>
+<tr><th>보유 수량 기준 기대손익</th><td>보유 수량 없음: $0. 신규 10주를 현 가격에 매수하면 Base -$822.5, Bull +$727.5, Overshoot +$1,827.5</td></tr>
+<tr><th>추천 행동</th><td>신규 매수 금지 / $500 이하 분할 관심</td></tr>
+<tr><th>목표 비중</th><td>0% 유지. $500 이하 3%, $450 이하 5%, $400 이하 최대 7%</td></tr>
+<tr><th>실적 발표 전 행동</th><td>추격 금지. DRAM/Packaging Master Class 이후 수치 확인</td></tr>
+<tr><th>실적 발표 후 행동</th><td>beat+raise+GM 50% 유지 시 $520 이하 눌림 매수. guide 평범하면 관망</td></tr>
+<tr><th>목표가 도달 시 행동</th><td>$640 절반 차익, $750 대부분 차익</td></tr>
+<tr><th>thesis 훼손 시 행동</th><td>GM 48% 이하, Q3 매출 $8.5B 이하, 중국 제재 확대, HBM/packaging 성장률 둔화 시 투자 thesis 재작성</td></tr>
+<tr><th>가장 중요한 체크포인트</th><td>HBM/advanced packaging 매출 성장률과 2027 visibility</td></tr>
+<tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>AMAT가 FY27 EPS $18 이상으로 빠르게 상향되고 GM 50%+와 service growth 15%+를 동시에 유지하면 현재 $567도 base price였다고 인정해야 한다.</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="section">
+<h2>참조 자료 / 출처 링크</h2>
+<ol>
+<li><a href="https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-second-quarter-2026-results">Applied Materials Q2 FY2026 Results, 2026-05-14</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/6951/000162828025056742/amat-20251026.htm">Applied Materials FY2025 Form 10-K, SEC</a></li>
+<li><a href="https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-reaches-resolution-us-department-commerce">Applied Materials BIS Settlement, 2026-02-11</a></li>
+<li><a href="https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-introduces-deposition-systems-angstrom-era">Applied Materials Angstrom-Era Deposition Systems, 2026-04-08</a></li>
+<li><a href="https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-and-sk-hynix-announce-long-term-rd-partnership">Applied Materials & SK hynix Long-Term R&D Partnership, 2026-03-10</a></li>
+<li><a href="https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-expands-singapore-manufacturing-support-ai">Applied Materials Singapore Expansion, 2026-06-10</a></li>
+<li><a href="https://ir.appliedmaterials.com/events">Applied Materials Investor Events</a></li>
+<li><a href="https://www.reuters.com/business/applied-materials-sees-quarterly-revenue-above-estimates-2026-05-14/">Reuters: Q3 Guide and AI Demand, 2026-05-14</a></li>
+<li><a href="https://www.reuters.com/business/us-rate-futures-raise-rate-hike-odds-december-after-jobs-data-2026-06-05/">Reuters: Fed hike odds after jobs report, 2026-06-05</a></li>
+<li><a href="https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year">Goldman Sachs: Fed unlikely to cut rates this year, 2026-06-09</a></li>
+<li><a href="https://www.marketbeat.com/stocks/NASDAQ/AMAT/forecast/">MarketBeat: AMAT analyst target summary</a></li>
+</ol>
+<p class="footer">주의: 본 보고서는 투자 조언이 아닌 분석 자료입니다. 주가와 컨센서스는 2026-06-12/13 조회 시점의 공개 데이터 기반이며, 실시간 시장 상황에 따라 달라질 수 있습니다.</p>
+</section>
+</div></body></html>

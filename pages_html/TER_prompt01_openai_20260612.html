@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TER Forensic Deep Dive — Teradyne 투자 보고서</title>
+<style>
+:root {
+  --ink:#263238; --muted:#607075; --paper:#F7F4EC; --card:#FFFDF7; --line:#D8D0C0;
+  --navy:#2F4858; --clay:#C06C59; --sand:#D7A86E; --sage:#B8C0A0; --lav:#7A6F9B; --sky:#9CBBC5;
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif; background:var(--paper); color:var(--ink); line-height:1.62; }
+a { color:#1F5E7A; text-decoration:none; border-bottom:1px solid #1F5E7A33; }
+.report { max-width:1180px; margin:0 auto; padding:42px 24px 80px; }
+.hero { display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; padding:36px; border:2px solid var(--ink); background:#fff8ea; border-radius:28px; box-shadow:8px 8px 0 #263238; }
+.eyebrow { font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--clay); font-size:12px; }
+h1 { font-size:46px; line-height:1.08; margin:10px 0 14px; letter-spacing:-.04em; }
+h2 { font-size:28px; margin:46px 0 14px; letter-spacing:-.03em; border-left:10px solid var(--sand); padding-left:14px; }
+h3 { font-size:20px; margin:26px 0 10px; }
+.kicker { font-size:18px; color:var(--muted); max-width:780px; }
+.badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+.badge { border:2px solid var(--ink); background:var(--card); padding:8px 12px; border-radius:999px; font-weight:700; }
+.badge.warn { background:#F7D9C7; } .badge.good { background:#DAE5CE; } .badge.blue { background:#DDECF0; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.card { background:var(--card); border:2px solid var(--line); border-radius:22px; padding:20px; }
+.card.strong { border-color:var(--ink); box-shadow:5px 5px 0 #263238; }
+.metric { font-size:13px; color:var(--muted); font-weight:700; }
+.value { font-size:28px; font-weight:850; letter-spacing:-.03em; }
+.note { color:var(--muted); font-size:14px; }
+.callout { background:#E8EFE3; border:2px solid var(--ink); border-radius:22px; padding:20px; margin:22px 0; }
+.anti { background:#F4D7CA; }
+table { width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border:2px solid var(--line); border-radius:18px; background:var(--card); margin:16px 0; font-size:14px; }
+th,td { padding:12px 13px; vertical-align:top; border-bottom:1px solid var(--line); }
+th { background:#ECE5D5; text-align:left; font-size:13px; letter-spacing:-.01em; }
+tr:last-child td { border-bottom:0; }
+.tag { display:inline-block; padding:2px 8px; border:1.5px solid var(--ink); border-radius:999px; background:#fff; font-weight:750; font-size:12px; }
+.svg-bg { fill:#fffdf7; stroke:#D8D0C0; stroke-width:2; }
+.chart,.map { width:100%; height:auto; margin:12px 0 22px; }
+.grid { stroke:#D8D0C0; stroke-width:1; }
+.axis { fill:#607075; font-size:12px; font-weight:700; }
+.caption { fill:#607075; font-size:12px; font-weight:650; }
+.small { fill:#263238; font-size:12px; font-weight:750; }
+.label { fill:#263238; font-size:13px; font-weight:800; }
+.line { fill:none; stroke-width:4; stroke-linejoin:round; stroke-linecap:round; }
+.actual { stroke:#2F4858; } .base { stroke:#D7A86E; } .bull { stroke:#C06C59; } .bear { stroke:#7A6F9B; stroke-dasharray:8 6; }
+.band { fill:#F2DDC8; opacity:.9; }
+.bulltxt { fill:#C06C59; } .basetxt { fill:#D7A86E; } .beartxt { fill:#7A6F9B; }
+.barval { fill:#263238; font-size:14px; font-weight:900; }
+.timeline-line { stroke:#2F4858; stroke-width:4; } .dot { fill:#D7A86E; stroke:#263238; stroke-width:3; }
+.edge { stroke:#9AA4A8; stroke-width:2.4; } .edge.partner { stroke:#C06C59; } .edge.option { stroke:#7A6F9B; }
+.node { stroke:#263238; stroke-width:2; fill:#fff; } .node.central { fill:#DDECF0; } .node.client { fill:#E8EFE3; } .node.partner { fill:#F7D9C7; } .node.option { fill:#ECE3F2; }
+.nodetitle { font-size:14px; font-weight:900; fill:#263238; } .nodesub { font-size:11px; font-weight:650; fill:#607075; }
+.final { background:#263238; color:#FFFDF7; border-radius:26px; padding:28px; margin-top:44px; }
+.final table { background:#fffdf7; color:#263238; }
+.src { font-size:13px; }
+hr { border:none; border-top:2px solid var(--line); margin:34px 0; }
+@media(max-width:850px) { .hero,.grid2,.grid3 { grid-template-columns:1fr; } h1{font-size:34px;} }
+</style>
+</head>
+<body>
+<div class="report">
+<section class="hero">
+  <div>
+    <div class="eyebrow">Forensic Deep Dive · TER · 기준일 2026-06-12</div>
+    <h1>Teradyne: 테스트 장비주가 아니라 AI 데이터센터의 “검증 인프라 레이어”로 재정의되는가?</h1>
+    <p class="kicker">결론부터 말하면, 회사의 질은 매우 좋아졌지만 현재 주가 403.20달러는 이미 base case가 아니라 bull case 일부를 사고 있다. 따라서 신규 매수는 현재가 추격보다 실적 후 확인 또는 330~350달러 pullback을 기다리는 쪽이 더 합리적이다.</p>
+    <div class="badges">
+      <span class="badge warn">투자의견: Hold / Watch</span>
+      <span class="badge warn">포트폴리오 행동: 신규 매수 금지</span>
+      <span class="badge good">핵심 thesis: AI test platform</span>
+      <span class="badge blue">핵심 리스크: H2 cliff + multiple</span>
+    </div>
+  </div>
+  <div>
+    <div class="card strong">
+      <div class="metric">현재 주가</div><div class="value">$403.20</div>
+      <div class="note">6/12 종가·실시간 피드 기준. 시가총액 약 $63.6B, 추정 희석주식수 약 157.6M.</div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="card"><div class="metric">보수 내재가치</div><div class="value">$285</div></div>
+      <div class="card"><div class="metric">12M base</div><div class="value">$360</div></div>
+      <div class="card"><div class="metric">Bull</div><div class="value">$470</div></div>
+      <div class="card"><div class="metric">Overshoot</div><div class="value">$560</div></div>
+    </div>
+  </div>
+</section>
+
+<h2>보고서 작성 전: 내가 발견한 핵심 변곡점 10개</h2>
+<div class="grid2">
+<div class="card"><h3>1. 정체성 이동</h3><p>시장은 TER를 반도체 ATE/로봇 사이클주로 보지만, 회사 발언은 ‘wafer-to-AI data center’ 테스트 플랫폼으로 이동 중임을 보여준다.</p></div><div class="card"><h3>2. 고객명보다 구매 경로</h3><p>10-K의 ‘specifying customer’와 ‘direct purchasing customer’ 구분은 hyperscaler/fabless가 장비를 지정하고 foundry/OSAT/CM이 구매하는 구조를 숨긴다.</p></div><div class="card"><h3>3. AI 매출 비중의 가속</h3><p>AI 관련 수요가 Q4 약 60%에서 Q1 거의 70%로 상승했다. 이는 일회성 peak보다 제품 믹스 전환일 가능성이 크다.</p></div><div class="card"><h3>4. KGD/advanced packaging 표준화</h3><p>TEL Prexa SDP와 UltraFLEXplus 통합은 단품 테스터 판매가 아니라 고가 chiplet 패키징의 known-good-device 검사 cell을 표준화하려는 움직임이다.</p></div><div class="card"><h3>5. MultiLane+TestInsight+Omnyx</h3><p>고속 I/O, design-to-test software, board/sub-assembly test가 연결되며 wafer 이후 데이터센터 장비 레벨로 TAM을 확장한다.</p></div><div class="card"><h3>6. Merchant GPU optionality</h3><p>첫 merchant GPU multi-system production orders가 Q1에 들어왔고 Q2 ship/install/production으로 넘어간다. 2026년 수치는 작아도 share-of-socket option은 크다.</p></div><div class="card"><h3>7. 마진 하락의 오해</h3><p>Q2 gross margin 하락 가이드는 mix 악화만이 아니라 Q1의 비반복 운영효과 정상화가 절반이다. 하지만 이 정상화가 반복되면 multiple 압박 요인이다.</p></div><div class="card"><h3>8. 가시성은 개선됐지만 H2가 핵심</h3><p>visibility가 기존 13주에서 한 분기 더 보이기 시작했지만, H1이 연간 55~60%라는 말은 H2 cliff risk도 동시에 뜻한다.</p></div><div class="card"><h3>9. Nasdaq-100 편입 수급</h3><p>6월 22일 편입은 index buying과 momentum을 만들 수 있지만, 펀더멘털 리레이팅과 구분해야 한다.</p></div><div class="card"><h3>10. 자본구조는 생존 문제가 아님</h3><p>현금/증권 약 3.94억 달러, Q1 부채 0, revolver 7.5억 달러. ATM/전환사채/워런트 overhang은 핵심 이슈가 아니며, 오히려 M&amp;A roll-up 자금 신호다.</p></div>
+</div>
+
+<h2>0. Executive Summary</h2>
+<div class="grid2">
+  <div class="callout"><b>한 문장 투자 thesis</b><br/>TER는 AI chiplet·HBM·custom ASIC·merchant GPU·CPO/SiPh·board/system test까지 이어지는 검증 인프라 플랫폼으로 진화하고 있으며, 고객이 한번 test flow에 넣으면 switching cost가 높은 구조다.</div>
+  <div class="callout anti"><b>한 문장 anti-thesis</b><br/>하지만 현재 가격은 이미 AI test supercycle과 Nasdaq-100 수급을 상당 부분 반영했으며, H2 매출 cliff 또는 gross margin 정상화가 확인되면 multiple compression이 먼저 온다.</div>
+</div>
+<table>
+<tr><th>항목</th><th>판단</th></tr>
+<tr><td>현재 시장이 보는 TER</td><td>반도체 ATE 1위권 + 로봇 자회사 보유 장비주. AI/HBM 수혜로 최근 실적이 급등한 고품질 cyclical.</td></tr>
+<tr><td>내가 새롭게 보는 TER</td><td>wafer, KGD, advanced package, board, high-speed interconnect, software, physical AI automation까지 연결하는 AI 데이터센터 검증 플랫폼.</td></tr>
+<tr><td>리레이팅 가능한 이유</td><td>AI 비중 70% 근접, TEL KGD cell, MultiLane/TestInsight/Omnyx, merchant GPU production order, hyperscaler/custom ASIC wave가 같은 방향을 가리킨다.</td></tr>
+<tr><td>리레이팅 실패 조건</td><td>Q2 beat만 나오고 H2·2027 order visibility가 늘지 않거나, gross margin 58% 이하로 내려가고 merchant GPU/Omnyx/SiPh 수주가 지연되는 경우.</td></tr>
+<tr><td>투자 등급</td><td><b>Hold / Watch</b>. 회사는 좋아졌지만 주가는 이미 base를 넘어섰다.</td></tr>
+<tr><td>포트폴리오 행동</td><td><b>신규 매수 금지</b>. 330~350달러 pullback 또는 실적 후 beat+raise+H2 visibility 확인 시 2~3% starter.</td></tr>
+</table>
+
+<h2>1. 시장이 놓친 핵심 변곡점</h2>
+<svg class="chart" viewBox="0 0 760 180" role="img" aria-label="Event chain timeline"><rect x="0" y="0" width="760" height="180" rx="18" class="svg-bg"/><line x1="70" y1="90" x2="700" y2="90" class="timeline-line"/><circle cx="70.0" cy="90" r="11" class="dot"/><text x="70.0" y="62" class="axis" text-anchor="middle">2023.11</text><text x="70.0" y="126" class="small" text-anchor="middle">Technoprobe
+전략 투자</text><circle cx="196.0" cy="90" r="11" class="dot"/><text x="196.0" y="62" class="axis" text-anchor="middle">2025.Q4</text><text x="196.0" y="126" class="small" text-anchor="middle">AI compute
+매출 급증</text><circle cx="322.0" cy="90" r="11" class="dot"/><text x="322.0" y="62" class="axis" text-anchor="middle">2026.01</text><text x="322.0" y="126" class="small" text-anchor="middle">MultiLane
+JV 발표</text><circle cx="448.0" cy="90" r="11" class="dot"/><text x="448.0" y="62" class="axis" text-anchor="middle">2026.03</text><text x="448.0" y="126" class="small" text-anchor="middle">Omnyx/UR AI
+제품 확장</text><circle cx="574.0" cy="90" r="11" class="dot"/><text x="574.0" y="62" class="axis" text-anchor="middle">2026.04</text><text x="574.0" y="126" class="small" text-anchor="middle">Q1 record
+AI 70%</text><circle cx="700.0" cy="90" r="11" class="dot"/><text x="700.0" y="62" class="axis" text-anchor="middle">2026.06</text><text x="700.0" y="126" class="small" text-anchor="middle">TEL KGD
+Nasdaq-100</text></svg>
+<table>
+<tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 완전 반영되지 않았나</th></tr>
+<tr><td><b>Wafer-to-data-center</b></td><td>Q1 콜에서 CEO가 AI data center strategy, verticalization, wafer-to-AI data center를 반복.</td><td>TER는 단일 테스터가 아니라 AI hardware 검증 stack을 넓히는 중.</td><td>이 stack이 de facto reference platform이 될 수 있는지.</td><td>대부분 모델은 아직 Semi Test cyclic revenue로 본다.</td></tr>
+<tr><td><b>KGD/advanced packaging</b></td><td>TEL과 2.5D/3D package용 integrated test cell 상용화.</td><td>고가 chiplet package에서 bad die 방지는 필수; test flow lock-in 강화.</td><td>CoWoS/SoIC/OSAT 라인에서 대규모 채택되는지.</td><td>뉴스는 작지만 전략 위치는 매우 크다.</td></tr>
+<tr><td><b>고객 구조 비대칭</b></td><td>2025년 10-K에서 10%+ specifying customer 2곳과 10%+ direct purchaser 1곳 언급.</td><td>실제 수요 결정자는 hyperscaler/fabless일 수 있고 구매자는 OSAT/foundry일 수 있음.</td><td>후보가 Google/AWS/NVIDIA/AMD/기타인지.</td><td>고객명이 익명이라 컨센서스가 revenue durability를 보수적으로 본다.</td></tr>
+<tr><td><b>Nasdaq-100 수급</b></td><td>6월 22일 편입 예정, 발표 당일 주가 급등.</td><td>단기 index buying과 short covering이 valuation을 더 밀어올릴 수 있음.</td><td>편입 이후에도 fund flow가 지속되는지.</td><td>현재 주가에는 fundamentals와 수급이 섞여 있다.</td></tr>
+</table>
+
+<h2>2. 전통적 비즈니스 모델의 진화</h2>
+<div class="grid3">
+  <div class="card"><h3>레거시</h3><p>SoC, memory, wireless, storage, industrial test와 robotics. 과거에는 mobile/consumer cycle에 민감한 ATE 업체로 분류됐다.</p></div>
+  <div class="card"><h3>현재 성장 축</h3><p>AI compute, HBM/DRAM, networking, storage, merchant GPU, custom ASIC, SiPh/CPO, PCB/sub-assembly test, physical AI robotics.</p></div>
+  <div class="card"><h3>멀티플 변화</h3><p>단순 cyclical equipment라면 6~8x sales도 비싸지만, AI validation platform으로 인정받으면 10~13x forward sales가 가능하다. 현재는 그 상단을 이미 시험 중이다.</p></div>
+</div>
+<p>중요한 변화는 “장비를 파는 회사”에서 “고객의 silicon-to-system 양산 flow에 박히는 reference/turnkey test layer”로의 전환 가능성이다. TEL, Technoprobe, MultiLane, TestInsight, Omnyx는 서로 다른 뉴스처럼 보이지만 하나로 묶으면 wafer probe → package KGD → high-speed interconnect → board/system test → software analytics라는 연속된 test chain이다.</p>
+
+<h2>3. 실적으로 증명되는 실체</h2>
+<table>
+<tr><th>지표</th><th>Q1’26</th><th>Q1’25</th><th>해석</th></tr>
+<tr><td>매출</td><td>$1.282B</td><td>$686M</td><td>+87% YoY. 과거 mobile peak보다 큰 AI-driven peak.</td></tr>
+<tr><td>Semi Test</td><td>$1.111B</td><td>$543M</td><td>TER 재평가의 핵심. AI compute/memory가 견인.</td></tr>
+<tr><td>Product Test</td><td>$80M</td><td>$74M</td><td>Omnyx/MultiLane으로 AI data center 장비 test로 확장 가능.</td></tr>
+<tr><td>Robotics</td><td>$91M</td><td>$69M</td><td>아직 이익 기여 제한적이나 physical AI option 존재.</td></tr>
+<tr><td>Gross margin</td><td>60.9%</td><td>-</td><td>Q2는 58~59% guide. Q1 일회성 운영효과 정상화 주의.</td></tr>
+<tr><td>현금+시장성증권</td><td>$394M</td><td>-</td><td>생존형 dilution이 아니라 M&A/플랫폼 확장 자금력.</td></tr>
+<tr><td>Operating cash flow</td><td>$265M</td><td>$162M</td><td>단기 working capital 부담보다 수익성이 더 큼.</td></tr>
+</table>
+<p><b>다음 분기 KPI:</b> Q2 revenue midpoint 상회 여부보다 더 중요한 것은 H2 guide, customer advances, merchant GPU repeat order, HBM tester mix, Omnyx/MultiLane/TestInsight early revenue, gross margin 58~59% 방어 여부다. Beat-only는 충분하지 않고 <b>beat + raise + H2/2027 visibility</b>가 필요하다.</p>
+
+<h2>4. 고객·파트너·생태계 분석</h2>
+<svg class="map" viewBox="0 0 760 370" role="img" aria-label="Teradyne ecosystem map">
+<rect x="0" y="0" width="760" height="370" rx="22" class="svg-bg"/>
+<line x1="380" y1="170" x2="165" y2="60" class="edge client"/><line x1="380" y1="170" x2="155" y2="170" class="edge client"/><line x1="380" y1="170" x2="170" y2="280" class="edge client"/><line x1="380" y1="170" x2="590" y2="60" class="edge partner"/><line x1="380" y1="170" x2="610" y2="145" class="edge partner"/><line x1="380" y1="170" x2="610" y2="230" class="edge partner"/><line x1="380" y1="170" x2="585" y2="310" class="edge partner"/><line x1="380" y1="170" x2="380" y2="60" class="edge option"/><line x1="380" y1="170" x2="380" y2="300" class="edge option"/>
+<rect x="298" y="136" width="164" height="68" rx="16" class="node central"/><text x="380" y="162" text-anchor="middle" class="nodetitle">TER</text><text x="380" y="182" text-anchor="middle" class="nodesub">Teradyne
+wafer→data center</text><rect x="83" y="26" width="164" height="68" rx="16" class="node client"/><text x="165" y="52" text-anchor="middle" class="nodetitle">Hyperscalers</text><text x="165" y="72" text-anchor="middle" class="nodesub">ASIC/AI chip
+specifiers</text><rect x="73" y="136" width="164" height="68" rx="16" class="node client"/><text x="155" y="162" text-anchor="middle" class="nodetitle">Foundry/OSAT</text><text x="155" y="182" text-anchor="middle" class="nodesub">fab·package
+purchasers</text><rect x="88" y="246" width="164" height="68" rx="16" class="node client"/><text x="170" y="272" text-anchor="middle" class="nodetitle">HBM/Memory</text><text x="170" y="292" text-anchor="middle" class="nodesub">DRAM/HBM/SSD
+test demand</text><rect x="508" y="26" width="164" height="68" rx="16" class="node partner"/><text x="590" y="52" text-anchor="middle" class="nodetitle">TEL</text><text x="590" y="72" text-anchor="middle" class="nodesub">Prexa SDP
+KGD cell</text><rect x="528" y="111" width="164" height="68" rx="16" class="node partner"/><text x="610" y="137" text-anchor="middle" class="nodetitle">Technoprobe</text><text x="610" y="157" text-anchor="middle" class="nodesub">probe/interface
+10% stake</text><rect x="528" y="196" width="164" height="68" rx="16" class="node partner"/><text x="610" y="222" text-anchor="middle" class="nodetitle">MultiLane</text><text x="610" y="242" text-anchor="middle" class="nodesub">high-speed I/O
+test JV</text><rect x="503" y="276" width="164" height="68" rx="16" class="node partner"/><text x="585" y="302" text-anchor="middle" class="nodetitle">TestInsight</text><text x="585" y="322" text-anchor="middle" class="nodesub">design-to-test
+software</text><rect x="298" y="26" width="164" height="68" rx="16" class="node option"/><text x="380" y="52" text-anchor="middle" class="nodetitle">Merchant GPU</text><text x="380" y="72" text-anchor="middle" class="nodesub">production orders
+Q2 ship/install</text><rect x="298" y="266" width="164" height="68" rx="16" class="node option"/><text x="380" y="292" text-anchor="middle" class="nodetitle">Robotics</text><text x="380" y="312" text-anchor="middle" class="nodesub">physical AI
+data centers</text>
+<text x="28" y="344" class="caption">굵은 결론: 고객명보다 중요한 것은 “specifying customer → foundry/OSAT/direct purchaser”로 이어지는 구매 경로다.</text>
+</svg>
+<table>
+<tr><th>후보/기업</th><th>관련성</th><th>근거</th><th>반대 근거</th></tr>
+<tr><td>Google/TPU 생태계</td><td>높음/검증 필요</td><td>hyperscaler ASIC 대형 프로그램 후보. TER는 hyperscaler compute programs at scale을 언급했으나 고객명 미공개.</td><td>직접 고객이라는 증거 없음. 구매자는 foundry/OSAT/CM일 수 있음.</td></tr><tr><td>AWS Trainium/Inferentia</td><td>높음/검증 필요</td><td>custom AI ASIC 대형 ramp 후보. verticalized tech company 수요와 부합.</td><td>고객명/수주 확인 없음.</td></tr><tr><td>Microsoft Maia / Meta MTIA</td><td>중간</td><td>2027 custom ASIC wave 후보. TER의 2027 unramped parts/dual-source 발언과 방향성 부합.</td><td>현재 10% 고객이라는 증거 없음.</td></tr><tr><td>NVIDIA</td><td>중간</td><td>merchant GPU production test order, robotics/physical AI ecosystem과 관련성. 그러나 TER는 고객명을 밝히지 않음.</td><td>Advantest 등 기존 생태계와 dual-source 경쟁 가능.</td></tr><tr><td>AMD</td><td>중간~낮음</td><td>merchant GPU/AI accelerator 후보군. TER의 first merchant GPU orders와 논리적으로 연결 가능.</td><td>확정 고객 증거 없음.</td></tr><tr><td>Samsung / HBM memory</td><td>중간~높음</td><td>HBM/DRAM test 수요와 메모리 고객군은 직접 관련. 삼성·SK하이닉스·마이크론 모두 후보군.</td><td>개별 고객명 미확인. 한국 고객별 분해 불가.</td></tr><tr><td>TSMC / OSAT</td><td>중간</td><td>KGD/advanced packaging 테스트 흐름에서 foundry/OSAT 구매 경로 가능.</td><td>TEL과의 통합이 곧 TSMC 수주를 의미하지는 않음.</td></tr><tr><td>Intel / Qualcomm / Apple</td><td>낮음~중간</td><td>기존 반도체·모바일 test ecosystem 관련성은 존재 가능.</td><td>현재 AI data center 리레이팅의 핵심 고객으로 단정 불가.</td></tr><tr><td>Oracle/neocloud</td><td>낮음</td><td>GPU data center 수혜 고객일 수 있으나 TER 직접 구매 가능성 낮음.</td><td>TER 장비 구매자는 chip/device maker 또는 제조 파트너일 가능성.</td></tr><tr><td>SpaceX/Globalstar/Gogo/Skylo/Verizon</td><td>낮음</td><td>무선/항공/통신 test와 느슨한 연관은 있으나 이번 TER thesis의 핵심 증거는 없음.</td><td>관련성 낮음으로 처리.</td></tr>
+</table>
+<div class="callout"><b>고객 추정 원칙:</b> TER는 고객명을 밝히지 않았다. 따라서 Google/AWS/NVIDIA/AMD/Samsung/TSMC 등은 “가능 후보”일 뿐 확정 사실이 아니다. 확정 사실은 ① AI 매출 비중 상승, ② 10%+ specifying/direct customer 존재, ③ merchant GPU production order, ④ hyperscaler compute programs at scale 언급이다.</div>
+
+<h2>5. 숨은 고객 및 M&A optionality</h2>
+<table>
+<tr><th>익명 고객 후보</th><th>가능성</th><th>근거</th><th>반대 근거</th><th>확률</th></tr>
+<tr><td>대형 hyperscaler custom ASIC 1: Google/AWS 유형</td><td>높음</td><td>custom ASIC wave, verticalized tech company, specifying customer 구조와 부합</td><td>직접 구매자가 아닐 수 있고 고객명 비공개</td><td>30~35%</td></tr>
+<tr><td>대형 hyperscaler custom ASIC 2: Microsoft/Meta 유형</td><td>중간</td><td>2027 unramped parts와 dual-source 경쟁 발언과 부합</td><td>volume timing이 2027 이후일 가능성</td><td>20~25%</td></tr>
+<tr><td>Merchant GPU vendor: NVIDIA/AMD 유형</td><td>중간</td><td>첫 merchant GPU production order와 Q2 install 언급</td><td>2026 line-of-sight가 $50M에 불과, 고객명 미공개</td><td>15~20%</td></tr>
+<tr><td>HBM/DRAM memory customer</td><td>중간~높음</td><td>HBM/DRAM test 수요 강세, AI memory wave</td><td>메모리 cycle과 가격/장비 pull-in 리스크</td><td>25~30%</td></tr>
+</table>
+<p><b>M&A 관점:</b> TER가 인수 대상이 될 가능성은 시총 635억 달러 이상에서는 낮다. 오히려 TER가 MultiLane, TestInsight처럼 data-center test stack의 빈 레이어를 사들이는 consolidator로 보는 편이 현실적이다. 전략적 인수 후보로 TER를 보는 경우 AMAT/KLA/Keysight/대형 chip maker를 상상할 수 있지만 base case에는 반영하지 않는다. M&A optionality는 base $0~10/share, bull $20~30/share, overshoot narrative에서만 $40~50/share 수준으로 제한 반영한다.</p>
+
+<h2>6. 자본구조와 수급 분석</h2>
+<table>
+<tr><th>항목</th><th>확인 내용</th><th>투자 의미</th></tr>
+<tr><td>현금/증권</td><td>Q1 말 약 $394M</td><td>생존 runway 우려보다 M&A/투자 여력</td></tr>
+<tr><td>부채</td><td>Q1 말 revolver 잔액 0, $750M facility, 만기 2026년 12월</td><td>Q2 M&A 자금으로 일부 draw 가능. 단, 시총 대비 작음.</td></tr>
+<tr><td>ATM/전환사채/warrant</td><td>확인된 핵심 overhang 없음</td><td>소형 적자주와 달리 dilution thesis가 핵심이 아님</td></tr>
+<tr><td>자사주 매입</td><td>Q1 buyback은 사실상 미미, 누적 $1.314B 집행</td><td>고가 구간에서 buyback보다 M&A와 플랫폼 확장을 우선</td></tr>
+<tr><td>Short interest</td><td>5/29 기준 약 6.88M주, float의 약 4.41%, days-to-cover 약 2.0</td><td>강한 squeeze 조건은 아니지만 Nasdaq-100 편입과 결합하면 단기 수급 영향 가능</td></tr>
+<tr><td>최근 상승 분해</td><td>실적 상향 + AI multiple + Nasdaq-100 편입 + 일부 short covering 가능</td><td>fundamental 리레이팅과 technical overshoot를 분리해야 함</td></tr>
+</table>
+
+<h2>7. 기술 장벽 분석</h2>
+<table>
+<tr><th>제품/레이어</th><th>구체 내용</th><th>왜 필요한가</th><th>전환비용/모방 난이도</th></tr>
+<tr><td>UltraFLEXplus + TEL Prexa SDP</td><td>2.5D/3D AI package용 KGD screening integrated test cell</td><td>고가 chiplet package에서 하나의 bad die가 전체 패키지를 망가뜨리는 위험 방지</td><td>테스터·프로버·열·전력·handler 통합 검증이 필요해 단순 소프트웨어로 대체 불가</td></tr>
+<tr><td>Photon 100 / SiPh/CPO test</td><td>UltraFLEXplus 기반 silicon photonics/co-packaged optics test</td><td>AI 데이터센터 네트워크 병목은 optical I/O로 이동 중</td><td>active alignment, optical/electrical mixed test, fab-to-fab repeatability가 lock-in</td></tr>
+<tr><td>Omnyx</td><td>PCB/sub-assembly operational/structural/high-speed interconnect test</td><td>AI 서버는 board/tray level에서 thermal, power, high-speed signal 검증이 필요</td><td>테스트 커버리지와 throughput을 고객 제조 flow에 맞춰야 해 교체 비용 높음</td></tr>
+<tr><td>MultiLane JV</td><td>AI data center 고속 data connection test</td><td>GPU/ASIC cluster의 병목은 chip 자체뿐 아니라 interconnect 품질</td><td>계측기·PHY 지식·customer debug loop가 결합되어 진입장벽</td></tr>
+<tr><td>TestInsight</td><td>design-to-test software</td><td>design phase부터 test coverage/수율/디버그를 단축</td><td>설계·양산 데이터 feedback loop가 쌓일수록 lock-in 강화</td></tr>
+</table>
+
+<h2>8. 컨센서스 리비전 분석</h2>
+<table>
+<tr><th>항목</th><th>수치/관찰</th><th>해석</th></tr>
+<tr><td>애널리스트 목표가</td><td>소스별 차이: Investing.com 평균 약 $374.82, high $470, low $270. MarketBeat는 평균 약 $339.80.</td><td>현재가 $403은 이미 평균 목표가를 상회하고 high target에 가까운 구간.</td></tr>
+<tr><td>2026 컨센서스</td><td>최근 결과 후 2026E revenue 약 $4.45B, EPS 약 $6.92로 상향된 자료 확인.</td><td>Q1/Q2는 이미 모델에 상당 반영. 추가 상향은 H2와 2027 visibility 필요.</td></tr>
+<tr><td>최고 목표가 역산</td><td>$470은 약 FY28E EPS $11.75 × 40x 또는 forward sales 12~13x 수준.</td><td>이는 base가 아니라 AI platform bull case.</td></tr>
+<tr><td>시장 상태</td><td>현재 가격은 base case가 아니라 <b>bull case 일부 + Nasdaq-100 technical premium</b>.</td><td>신규 매수자는 margin of safety가 낮다.</td></tr>
+</table>
+
+<h2>9. 이벤트 드리븐 분석</h2>
+<table>
+<tr><th>이벤트</th><th>시점</th><th>확인 질문</th><th>주가 반응 조건</th></tr>
+<tr><td>Nasdaq-100 편입</td><td>2026-06-22 장전</td><td>편입 전후 거래량, passive flow, short covering 지속 여부</td><td>단기 $420~440 overshoot 가능. 이후 수급 소진 리스크.</td></tr>
+<tr><td>FOMC</td><td>2026-06-17, 07-29</td><td>고용 강세와 금리 인상 확률 변화</td><td>금리 인상 확률 상승 시 high multiple TER에 8~15% multiple compression.</td></tr>
+<tr><td>Q2 실적</td><td>2026년 7월 말 예상, 회사 공식일정 확인 필요</td><td>H2 revenue guide, merchant GPU repeat order, HBM, gross margin 58~59% 방어</td><td>beat + raise + 2027 visibility면 $470 재평가. beat-only면 $360 회귀.</td></tr>
+<tr><td>TEL KGD cell follow-up</td><td>2026 H2</td><td>fabless/foundry/OSAT 양산 고객, line count, package type</td><td>reference platform narrative 강화 시 sales multiple 상단 유지.</td></tr>
+<tr><td>Omnyx/MultiLane/TestInsight 통합</td><td>2026 H2~2027</td><td>초기 매출, attach rate, gross margin, customer design-in</td><td>Product Test가 AI infra test segment로 재평가.</td></tr>
+</table>
+
+<h2>10. 밸류에이션</h2>
+<svg class="chart" viewBox="0 0 760 300" role="img" aria-label="Valuation bridge">
+<rect x="0" y="0" width="760" height="300" rx="18" class="svg-bg"/>
+<line x1="52" y1="250.0" x2="720" y2="250.0" class="grid"/><text x="18" y="254.0" class="axis">$0</text><line x1="52" y1="195.0" x2="720" y2="195.0" class="grid"/><text x="18" y="199.0" class="axis">$150</text><line x1="52" y1="140.0" x2="720" y2="140.0" class="grid"/><text x="18" y="144.0" class="axis">$300</text><line x1="52" y1="85.0" x2="720" y2="85.0" class="grid"/><text x="18" y="89.0" class="axis">$450</text><line x1="52" y1="30.0" x2="720" y2="30.0" class="grid"/><text x="18" y="34.0" class="axis">$600</text>
+<rect x="70" y="145.5" width="86" height="104.5" rx="8" fill="#B8C0A0"/><text x="113.0" y="137.5" class="barval" text-anchor="middle">$285</text><text x="113.0" y="278" class="axis" text-anchor="middle">보수 내재</text><rect x="208" y="118.0" width="86" height="132.0" rx="8" fill="#D7A86E"/><text x="251.0" y="110.0" class="barval" text-anchor="middle">$360</text><text x="251.0" y="278" class="axis" text-anchor="middle">Base</text><rect x="346" y="102.2" width="86" height="147.8" rx="8" fill="#2F4858"/><text x="389.0" y="94.2" class="barval" text-anchor="middle">$403</text><text x="389.0" y="278" class="axis" text-anchor="middle">현재가</text><rect x="484" y="77.7" width="86" height="172.3" rx="8" fill="#C06C59"/><text x="527.0" y="69.7" class="barval" text-anchor="middle">$470</text><text x="527.0" y="278" class="axis" text-anchor="middle">Bull</text><rect x="622" y="44.7" width="86" height="205.3" rx="8" fill="#7A6F9B"/><text x="665.0" y="36.7" class="barval" text-anchor="middle">$560</text><text x="665.0" y="278" class="axis" text-anchor="middle">Overshoot</text>
+<text x="60" y="30" class="caption">가격은 훌륭한 회사와 별개로 이미 bull 일부를 선반영</text>
+</svg>
+<h3>A. DCF</h3>
+<table>
+<tr><th>시나리오</th><th>FY26 매출</th><th>2026~2030 성장</th><th>FCF margin</th><th>할인율</th><th>Terminal multiple</th><th>희석 후 주당가치</th></tr>
+<tr><td>Bear</td><td>$4.35B</td><td>H2 cliff 후 mid-single 성장</td><td>16~18%</td><td>10.5%</td><td>22x FCF</td><td>$250~300</td></tr>
+<tr><td>Base</td><td>$4.55B</td><td>custom ASIC/HBM 유지, 2027~2028 성장 둔화</td><td>19~21%</td><td>10.5%</td><td>28x FCF</td><td>$330~380</td></tr>
+<tr><td>Bull</td><td>$4.75B</td><td>merchant GPU+KGD+SiPh+CPO+Omnyx 동시 ramp</td><td>22~24%</td><td>10.5%</td><td>32x FCF</td><td>$430~500</td></tr>
+</table>
+<p>실업률 4.3%와 연말 금리 인상 확률 상승을 반영해 할인율을 9.5~10.0%가 아니라 10.5%로 적용했다. TER처럼 duration이 긴 high-multiple AI 장비주는 금리 민감도가 높다.</p>
+<h3>B. FCF Yield / Owner Earnings</h3>
+<table><tr><th>구분</th><th>정상화 FCF</th><th>적정 FCF yield</th><th>적정 시총</th><th>주당가치</th></tr>
+<tr><td>Conservative</td><td>$1.45B</td><td>3.2%</td><td>$45B</td><td>$280~290</td></tr>
+<tr><td>Base</td><td>$1.65B</td><td>2.9%</td><td>$57B</td><td>$355~365</td></tr>
+<tr><td>Bull</td><td>$1.95B</td><td>2.6%</td><td>$75B</td><td>$460~475</td></tr></table>
+<h3>C. 상대가치</h3>
+<p>직접 경쟁사는 Advantest, Cohu, FormFactor, Keysight 일부, 인접 비교군은 KLA/AMAT/Lam/Technoprobe/Aehr, 전략적 비교군은 AI infrastructure 장비·계측·검증 플랫폼이다. TER가 프리미엄을 받을 이유는 AI/HBM/custom ASIC test socket과 high gross margin, customer lock-in이다. 디스카운트 받을 이유는 customer concentration, H1-heavy revenue, Advantest와의 경쟁, robotics margin drag다.</p>
+<h3>D. 리레이팅 가치</h3>
+<table><tr><th>구성</th><th>Base 반영</th><th>Bull 반영</th><th>Overshoot 반영</th></tr>
+<tr><td>현재 정체성 multiple</td><td>8~9x forward sales</td><td>10x</td><td>12x</td></tr>
+<tr><td>AI test platform multiple</td><td>10x</td><td>12~13x</td><td>15x+</td></tr>
+<tr><td>고객 lock-in 가치</td><td>$20/share</td><td>$50/share</td><td>$80/share</td></tr>
+<tr><td>Reference platform 가치</td><td>$10/share</td><td>$30/share</td><td>$50/share</td></tr>
+<tr><td>M&A optionality</td><td>$0~10/share</td><td>$20~30/share</td><td>$40~50/share</td></tr></table>
+
+<h2>11. 목표가 체계</h2>
+<table>
+<tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr>
+<tr><td>보수적 내재가치</td><td><b>$285</b></td><td>FY26E EPS $6.9 × 41x, 또는 정상화 FCF yield 3.5%</td><td>160M</td><td>25%</td><td>AI mix 유지 + valuation de-risk</td><td>H2 cliff, GM &lt;58%</td></tr><tr><td>12개월 base target</td><td><b>$360</b></td><td>FY27E EPS $9.0 × 40x / EV/Sales 약 10x</td><td>160M</td><td>45%</td><td>Q2 beat는 하되 H2 보수적</td><td>2027 custom ASIC ramp 부재</td></tr><tr><td>Bull case target</td><td><b>$470</b></td><td>FY28E EPS $11.75 × 40x 또는 2027E sales 12~13x</td><td>160M</td><td>25%</td><td>merchant GPU, HBM, KGD cell, Omnyx 동시 확인</td><td>Advantest/dual-source로 share 제한</td></tr><tr><td>Overshoot target</td><td><b>$560</b></td><td>AI infra melt-up 15x+ forward sales / 50x+ EPS</td><td>160M</td><td>5~10%</td><td>Nasdaq-100 flows + short squeeze + 2027 guide pull-forward</td><td>index flow 종료, rate shock</td></tr><tr><td>실적 전 trading target</td><td><b>$420~440</b></td><td>수급/기대치 multiple, fundamentals 미확인</td><td>157~160M</td><td>30%</td><td>Nasdaq-100 편입, Q2 기대</td><td>실적 전 기대 과열</td></tr><tr><td>실적 후 재평가 target</td><td><b>$330~470</b></td><td>Q2 beat+raise 여부로 band 재설정</td><td>160M</td><td>조건부</td><td>H2 guide와 2027 orders</td><td>beat-only, no raise</td></tr>
+</table>
+
+<h2>12. 2020~2030 멀티플 밴드</h2>
+
+<svg class="chart" viewBox="0 0 760 340" role="img" aria-label="TER P/S multiple band 2020 to 2030">
+  <rect x="0" y="0" width="760" height="340" rx="18" class="svg-bg"/>
+  <line x1="60" y1="290.0" x2="730" y2="290.0" class="grid"/><text x="18" y="294.0" class="axis">0x</text><line x1="60" y1="229.8" x2="730" y2="229.8" class="grid"/><text x="18" y="233.8" class="axis">5x</text><line x1="60" y1="169.5" x2="730" y2="169.5" class="grid"/><text x="18" y="173.5" class="axis">10x</text><line x1="60" y1="109.3" x2="730" y2="109.3" class="grid"/><text x="18" y="113.3" class="axis">15x</text><line x1="60" y1="49.1" x2="730" y2="49.1" class="grid"/><text x="18" y="53.1" class="axis">20x</text>
+  <text x="60.0" y="320" class="axis" text-anchor="middle">2020</text><text x="194.0" y="320" class="axis" text-anchor="middle">2022</text><text x="328.0" y="320" class="axis" text-anchor="middle">2024</text><text x="462.0" y="320" class="axis" text-anchor="middle">2026</text><text x="596.0" y="320" class="axis" text-anchor="middle">2028</text><text x="730.0" y="320" class="axis" text-anchor="middle">2030</text>
+  <polygon points="529.0,133.4 596.0,145.5 663.0,169.5 730.0,187.6 730.0,217.7 663.0,211.7 596.0,199.7 529.0,187.6" class="band"/>
+  <polyline points="60.0,212.9 127.0,203.3 194.0,238.2 261.0,215.3 328.0,200.9 395.0,164.7 462.0,143.0" class="line actual"/>
+  <polyline points="462.0,143.0 529.0,169.5 596.0,181.6 663.0,193.6 730.0,205.7" class="line base"/>
+  <polyline points="462.0,143.0 529.0,133.4 596.0,145.5 663.0,169.5 730.0,187.6" class="line bull"/>
+  <polyline points="462.0,143.0 529.0,187.6 596.0,199.7 663.0,211.7 730.0,217.7" class="line bear"/>
+  <text x="70" y="42" class="label">실제 P/S: 2020~2026</text>
+  <text x="500" y="72" class="label bulltxt">Bull band</text>
+  <text x="500" y="120" class="label basetxt">Base</text>
+  <text x="500" y="186" class="label beartxt">Bear</text>
+  <text x="60" y="318" class="caption">자료: CompaniesMarketCap/Macrotrends 기반, 2027~2030은 본 보고서 추정</text>
+</svg>
+<table><tr><th>구분</th><th>2020~2026 실제</th><th>2027~2030 추정</th><th>해석</th></tr>
+<tr><td>P/S</td><td>대략 4.3x~12.2x 범위. 2026은 AI re-rating으로 상단.</td><td>Bear 6~8.5x, Base 7~10x, Bull 8.5~13x</td><td>현재는 역사적 상단을 넘어선 re-rating 구간.</td></tr>
+<tr><td>P/E</td><td>2020~2025 연말 기준 대략 20~56x, 2026 현재는 70~90x대 자료 존재.</td><td>Base는 FY27 EPS $9 × 40x</td><td>EPS가 따라오지 못하면 multiple이 먼저 깨짐.</td></tr>
+<tr><td>EV/EBITDA</td><td>LTM 50x+로 표시되는 소스 존재, 과거 평균보다 높음.</td><td>AI platform 인정 시 30~40x 유지 가능</td><td>현재는 과거 장비주 밴드를 넘어선 상태.</td></tr></table>
+
+<h2>13. 리스크 관리: thesis break trigger</h2>
+<table>
+<tr><th>리스크</th><th>깨지는 지표</th><th>가격 신호</th><th>확인 시점</th><th>대응</th></tr>
+<tr><td>출하 지연</td><td>merchant GPU Q2 install/production 지연, repeat order 부재</td><td>$360 하향 이탈</td><td>Q2/Q3 콜</td><td>신규 매수 금지 유지, 보유 시 30~50% 축소</td></tr>
+<tr><td>Gross margin 정상화</td><td>58% 미만 지속 또는 AI mix에도 마진 하락</td><td>$330~350</td><td>Q2 guide/Q3 actual</td><td>base target $330으로 하향</td></tr>
+<tr><td>현금/희석</td><td>대형 M&A로 net debt 급증, buyback 중단 장기화</td><td>$320</td><td>10-Q</td><td>M&A ROIC 확인 전 진입 금지</td></tr>
+<tr><td>고객 집중</td><td>10%+ 고객 감소 또는 order pushout</td><td>$300~330</td><td>10-Q/10-K</td><td>thesis 재검토</td></tr>
+<tr><td>익명 고객 오판</td><td>hyperscaler/custom ASIC이 아니라 단기 inventory build로 확인</td><td>$300</td><td>H2 guidance</td><td>AI platform multiple 제거</td></tr>
+<tr><td>경쟁사 대체</td><td>Advantest/기존 공급사 dual-source로 share cap</td><td>$330</td><td>2027 주문 코멘트</td><td>bull target 삭제</td></tr>
+<tr><td>규제/인증 지연</td><td>SiPh/CPO/KGD cell 양산 검증 미뤄짐</td><td>$350</td><td>H2 product update</td><td>reference platform 가치 축소</td></tr>
+<tr><td>Short squeeze 후 급락</td><td>Nasdaq-100 편입 후 volume 감소, failure to hold $400</td><td>$390 이탈</td><td>6월 말~7월</td><td>추격 매수 금지</td></tr>
+<tr><td>M&A 기대 과열</td><td>시총 대비 작은 bolt-on M&A를 과대평가</td><td>$420 이상 과열</td><td>거래 발표 후</td><td>valuation discipline 유지</td></tr>
+</table>
+
+<h2>14. 포트폴리오 실행안</h2>
+<div class="callout anti"><b>명확한 제안:</b> 현재 보유 0주 기준, 지금 2,000만 원을 TER 한 종목에 몰아서 사는 것은 추천하지 않는다. 현 주가는 평균 목표가를 넘어섰고, Q2 전 기대치가 높다. 매수는 “가격 pullback” 또는 “실적 후 H2/2027 visibility 확인” 중 하나가 필요하다.</div>
+<table>
+<tr><th>항목</th><th>실행안</th></tr>
+<tr><td>목표 비중</td><td>현재가 기준 0%. 330~350달러 pullback 시 2~3% starter, 실적 후 beat+raise 확인 시 최대 5%.</td></tr>
+<tr><td>매수 가격</td><td>1차 $350 이하 12주, 2차 $320 이하 12주, 3차 실적 후 $430 돌파+raise 확인 시 8주. 단, 현재가에서는 0주.</td></tr>
+<tr><td>매도/축소 가격</td><td>$470 도달 시 절반 차익, $540~560 overshoot 시 대부분 차익. $300~320 thesis break면 신규 진입 중단/보유 축소.</td></tr>
+<tr><td>분할</td><td>3차 분할. 2,000만 원 기준 현재가 32주가 가능하지만, 권장 실행은 대기.</td></tr>
+<tr><td>실적 발표 전</td><td>추격 매수 금지. Nasdaq-100 편입 수급은 trading catalyst일 뿐 장기 margin of safety가 아님.</td></tr>
+<tr><td>실적 발표 후</td><td>beat + raise + H2 visibility + merchant GPU repeat order 확인 시 starter 허용.</td></tr>
+<tr><td>목표가 도달 시</td><td>$470에서는 bull이 현실화된 것이므로 일부 차익, $560은 overshoot로 판단.</td></tr>
+<tr><td>손절/축소 기준</td><td>Q2/Q3에서 H2 revenue guide 약화, GM <58%, merchant GPU/Omnyx/SiPh 업데이트 부재 시 $330 전후에서도 보수적으로 재평가.</td></tr>
+</table>
+<h3>2,000만 원을 현재가에 샀다고 가정한 32주 기준 기대손익</h3>
+<table><tr><th>시나리오</th><th>가격</th><th>손익 USD</th><th>손익 KRW</th></tr>
+<tr><td>보수적 내재가치</td><td>$285</td><td>-3,782달러</td><td>-5.74백만원</td></tr><tr><td>하방 리스크</td><td>$310</td><td>-2,982달러</td><td>-4.53백만원</td></tr><tr><td>12개월 base</td><td>$360</td><td>-1,382달러</td><td>-2.10백만원</td></tr><tr><td>현재가</td><td>$403</td><td>0달러</td><td>0.00백만원</td></tr><tr><td>bull</td><td>$470</td><td>2,138달러</td><td>3.24백만원</td></tr><tr><td>overshoot</td><td>$560</td><td>5,018달러</td><td>7.62백만원</td></tr>
+</table>
+
+<h2>15. 보고서 전 자체 점검</h2>
+<table>
+<tr><th>질문</th><th>점검 결과</th></tr>
+<tr><td>단순 컨센서스 자료만 요약했는가?</td><td>아니다. TEL, MultiLane, TestInsight, Omnyx, Technoprobe, customer concentration, Q1 콜 발언을 사건 체인으로 연결했다.</td></tr>
+<tr><td>익명 고객을 추정할 때 확정 사실과 추론을 분리했는가?</td><td>예. Google/AWS/NVIDIA/AMD 등은 후보로만 제시했고 확정 고객으로 쓰지 않았다.</td></tr>
+<tr><td>Bull case를 너무 보수적으로 눌렀는가?</td><td>아니다. $470 bull, $560 overshoot를 열어두었다. 다만 현재가가 이미 그 방향을 일부 반영한다고 판단했다.</td></tr>
+<tr><td>루머를 확정 사실처럼 쓴 부분은 없는가?</td><td>고객명, M&A, NVIDIA/AMD 관련성은 모두 검증 필요로 표기했다.</td></tr>
+<tr><td>자본구조와 희석을 충분히 반영했는가?</td><td>예. TER는 ATM/convertible overhang보다 clean balance sheet와 M&A funding이 핵심이라고 재정의했다.</td></tr>
+<tr><td>왜 지금이 변곡점인가?</td><td>Q1 record, AI 70%, merchant GPU order, TEL KGD cell, Nasdaq-100 편입이 2026년 2분기에 동시에 나타났기 때문이다.</td></tr>
+<tr><td>다음 실적에서 무엇이 확인되면 수정해야 하는가?</td><td>H2 guide, merchant GPU repeat order, gross margin, customer advances, Omnyx/MultiLane 매출이 핵심 수정 변수다.</td></tr>
+</table>
+
+<div class="final">
+<h2 style="border-left-color:#FFFDF7; margin-top:0; color:#FFFDF7;">최종 요약</h2>
+<table>
+<tr><th>항목</th><th>결론</th></tr>
+<tr><td>현재 주가</td><td>$403.20</td></tr>
+<tr><td>보수적 내재가치</td><td>$285</td></tr>
+<tr><td>12개월 base target</td><td>$360</td></tr>
+<tr><td>bull target</td><td>$470</td></tr>
+<tr><td>overshoot target</td><td>$560</td></tr>
+<tr><td>실적 발표 전 trading target</td><td>$420~440</td></tr>
+<tr><td>실적 발표 후 재평가 target</td><td>$330~470, beat+raise 여부에 따라 재설정</td></tr>
+<tr><td>하방 리스크</td><td>$300~320, H2 cliff 또는 GM <58% 지속 시</td></tr>
+<tr><td>12개월 기대수익률</td><td>확률가중 약 -2% 내외. Base 기준 -10.7%, bull 기준 +16.6%</td></tr>
+<tr><td>보유 수량 기준 기대손익</td><td>현재 0주 기준 $0. 2,000만 원을 현재가에 매수한 32주 기준 base 손실 약 -$1,382 / -2.10백만원, bull 이익 약 +$2,138 / +3.25백만원.</td></tr>
+<tr><td>추천 행동</td><td>신규 매수 금지. 관심종목 유지.</td></tr>
+<tr><td>목표 비중</td><td>현재 0%. pullback/실적 확인 후 2~3%, 최대 5%.</td></tr>
+<tr><td>실적 발표 전 행동</td><td>추격 매수 금지. Nasdaq-100 수급은 trading event로만 본다.</td></tr>
+<tr><td>실적 발표 후 행동</td><td>beat + raise + H2 visibility + merchant GPU/Omnyx 증거 확인 시 starter 매수.</td></tr>
+<tr><td>목표가 도달 시 행동</td><td>$470 절반 차익, $540~560 overshoot 구간 대폭 차익.</td></tr>
+<tr><td>thesis 훼손 시 행동</td><td>Q2/Q3에서 H2 cliff, GM <58%, AI order 지연 확인 시 신규 매수 중단 및 기존 보유분 축소.</td></tr>
+<tr><td>가장 중요한 체크포인트</td><td>Q2 실적보다 H2 revenue visibility와 2027 custom ASIC/merchant GPU order가 핵심.</td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td>TER가 Q2 이후에도 FY26/FY27 가이던스를 상향하고, merchant GPU·KGD·HBM·Omnyx가 동시 ramp되어 $6B revenue model이 2027~2028로 앞당겨지는 경우. 이때 $403은 비싼 가격이 아니라 early re-rating price였다고 인정해야 한다.</td></tr>
+</table>
+</div>
+
+<h2>참조 자료</h2>
+<ol class="src">
+<li id="S1"><b>S1</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/440/teradyne-reports-first-quarter-2026-results" target="_blank" rel="noopener">Teradyne Q1 2026 earnings release</a></li><li id="S2"><b>S2</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/433/teradyne-reports-fourth-quarter-and-full-year-2025-results" target="_blank" rel="noopener">Teradyne Q4/FY 2025 earnings release</a></li><li id="S3"><b>S3</b> — <a href="https://investors.teradyne.com/sec-filings/all-sec-filings/content/0001193125-26-201058/ter-20260329.htm" target="_blank" rel="noopener">Teradyne Q1 2026 Form 10-Q</a></li><li id="S4"><b>S4</b> — <a href="https://www.investing.com/news/transcripts/earnings-call-transcript-teradyne-q1-2026-sets-records-stock-drops-93CH-4645591" target="_blank" rel="noopener">Teradyne Q1 2026 earnings call transcript</a></li><li id="S5"><b>S5</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/443/teradyne-introduces-integrated-test-solution-for-ai-and-data-center-devices-in-collaboration-with-tokyo-electron" target="_blank" rel="noopener">Teradyne + Tokyo Electron integrated test solution</a></li><li id="S6"><b>S6</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/432/teradyne-and-multilane-announce-formation-of-joint-venture-multilane-test-products" target="_blank" rel="noopener">Teradyne + MultiLane joint venture</a></li><li id="S7"><b>S7</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/439/teradyne-acquires-testinsight-accelerating-time-to-market-for-ai-and-data-center-devices" target="_blank" rel="noopener">Teradyne acquires TestInsight</a></li><li id="S8"><b>S8</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/435/teradyne-introduces-omnyx-redefining-board-test-for-the-ai-era" target="_blank" rel="noopener">Teradyne Omnyx board/sub-assembly test platform</a></li><li id="S9"><b>S9</b> — <a href="https://investors.teradyne.com/news-events/press-releases/detail/39/teradyne-and-technoprobe-announce-strategic-agreements-to-drive-semiconductor-test-interface-innovation-and-accelerate-growth" target="_blank" rel="noopener">Teradyne and Technoprobe strategic agreements</a></li><li id="S10"><b>S10</b> — <a href="https://ir.nasdaq.com/news-releases/news-release-details/nasdaq-100-indexr-june-2026-quarterly-changes" target="_blank" rel="noopener">Nasdaq-100 June 2026 quarterly changes</a></li><li id="S11"><b>S11</b> — <a href="https://www.bls.gov/news.release/empsit.nr0.htm" target="_blank" rel="noopener">BLS Employment Situation, May 2026</a></li><li id="S12"><b>S12</b> — <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">Investing.com Fed Rate Monitor</a></li><li id="S13"><b>S13</b> — <a href="https://www.marketbeat.com/stocks/NASDAQ/TER/short-interest/" target="_blank" rel="noopener">MarketBeat TER short interest</a></li><li id="S14"><b>S14</b> — <a href="https://kr.investing.com/equities/teradyne-inc" target="_blank" rel="noopener">Investing.com TER snapshot and analyst targets</a></li><li id="S15"><b>S15</b> — <a href="https://companiesmarketcap.com/teradyne/ps-ratio/" target="_blank" rel="noopener">CompaniesMarketCap TER P/S history</a></li><li id="S16"><b>S16</b> — <a href="https://www.macrotrends.net/stocks/charts/TER/teradyne/price-sales" target="_blank" rel="noopener">Macrotrends TER price-to-sales history</a></li><li id="S17"><b>S17</b> — <a href="https://www.reuters.com/business/media-telecom/skild-ai-nvidia-deploy-robot-brain-on-blackwell-assembly-lines-2026-03-16/" target="_blank" rel="noopener">Reuters: Skild AI and Nvidia physical AI deployment</a></li><li id="S18"><b>S18</b> — <a href="https://www.universal-robots.com/news-and-media/news-center/universal-robots-scale-ai-launch-imitation-learning-system-accelerate-ai-training-lab-to-factory/" target="_blank" rel="noopener">Universal Robots + Scale AI imitation learning system</a></li>
+</ol>
+<p class="note">주의: 본 보고서는 투자 조언이 아니라 의사결정 보조용 분석입니다. 고객명 미공개, 옵션 체인/borrow fee의 실시간 제한, 소스별 컨센서스 차이는 모두 명시적으로 불확실성으로 처리했습니다.</p>
+</div>
+</body>
+</html>
