@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRVL Forensic Deep Dive — 2026-06-13</title>
+<style>
+:root {
+  --ink:#17231f; --muted:#5f6962; --paper:#f7f3e8; --card:#fffaf0; --line:#d9d0bd;
+  --teal:#2a6f6a; --orange:#d6813c; --blue:#405f8c; --red:#b7584b; --green:#6f8d62; --sand:#efe5ce;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Segoe UI",sans-serif;line-height:1.65}
+.container{max-width:1180px;margin:0 auto;padding:36px 28px 80px}
+.hero{border:2px solid var(--ink);background:var(--card);padding:32px;border-radius:26px;position:relative;overflow:hidden}
+.hero h1{font-size:42px;line-height:1.1;margin:0 0 10px;letter-spacing:-1.4px}
+.hero .subtitle{font-size:17px;color:var(--muted);max-width:860px}
+.poster{position:absolute;right:26px;top:28px;width:210px;height:148px}
+.badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.badge{border:1.5px solid var(--ink);border-radius:999px;padding:7px 12px;background:#fff; font-weight:700;font-size:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:22px;margin:18px 0}
+.kpi{font-size:26px;font-weight:900;letter-spacing:-.5px}
+.kpi small{display:block;font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0}
+h2{font-size:29px;margin:38px 0 12px;letter-spacing:-.7px;border-top:2px solid var(--ink);padding-top:22px}
+h3{font-size:21px;margin:24px 0 8px}
+p{margin:8px 0}
+strong{font-weight:900}
+.note{font-size:13px;color:var(--muted)}
+.callout{border-left:8px solid var(--orange);background:#fff7e8;padding:18px 20px;border-radius:16px;margin:16px 0}
+.anti{border-left-color:var(--red)}
+table{border-collapse:separate;border-spacing:0;width:100%;margin:14px 0;border:1.5px solid var(--line);border-radius:16px;overflow:hidden;background:#fffdf7;font-size:13px}
+th{background:var(--sand);text-align:left;color:var(--ink);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child, th:first-child{font-weight:800}
+.svgchart{width:100%;height:auto;background:#fffdf7;border:1.5px solid var(--line);border-radius:22px;padding:10px;margin:12px 0}
+.chart-title{font-weight:900;font-size:17px;fill:var(--ink)}
+.axis,.grid{stroke:#d7cbb7;stroke-width:1.3}
+.grid{stroke-dasharray:4 6}
+.bar{stroke:#17231f;stroke-width:1.2}
+.b0{fill:var(--teal)} .b1{fill:var(--orange)} .b2{fill:var(--blue)} .b3{fill:var(--red)} .b4{fill:var(--green)}
+.value,.xlabel,.ylabel,.legend{fill:var(--ink);font-size:12px;font-weight:700}
+.line{stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.s1{stroke:var(--teal);fill:var(--teal)} .s2{stroke:var(--orange);fill:var(--orange)} .s3{stroke:var(--blue);fill:var(--blue)}
+.dot{stroke:#fff;stroke-width:2}
+.ecosystem{position:relative;height:420px;border:1.5px solid var(--line);border-radius:22px;background:#fffdf7;margin:14px 0;overflow:hidden}
+.node{position:absolute;border:2px solid var(--ink);background:#fff;border-radius:18px;padding:10px 14px;font-weight:900;text-align:center;box-shadow:4px 4px 0 #e7dcc7}
+.node small{display:block;font-weight:700;color:var(--muted);font-size:11px}
+.n-mrvl{left:455px;top:170px;background:#f2e8cc}
+.n-nvda{left:60px;top:55px} .n-hyp{left:60px;top:270px} .n-found{right:55px;top:55px} .n-broad{right:70px;top:270px} .n-cel{left:420px;top:40px} .n-osat{left:430px;top:305px}
+.ecosystem svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.node{z-index:2}
+hr{border:0;border-top:1.5px solid var(--line);margin:28px 0}
+.source-list li{margin:7px 0}
+a{color:#174f8a;text-decoration:none;border-bottom:1px solid #174f8a}
+.footer-summary{background:#17231f;color:#fff;border-radius:24px;padding:26px;margin-top:32px}
+.footer-summary table{background:#17231f;color:#fff;border-color:#405048}
+.footer-summary th{background:#25342f;color:#fff}
+.footer-summary td{border-color:#405048}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}.poster{display:none}.hero h1{font-size:32px}.n-mrvl{left:35%;}}
+</style>
+</head>
+<body>
+<div class="container">
+<section class="hero">
+<svg class="poster" viewBox="0 0 210 148" aria-hidden="true">
+  <rect x="4" y="4" width="202" height="140" rx="20" fill="#efe5ce" stroke="#17231f" stroke-width="2"/>
+  <circle cx="62" cy="52" r="28" fill="#d6813c" stroke="#17231f" stroke-width="2"/>
+  <rect x="112" y="30" width="52" height="88" rx="10" fill="#2a6f6a" stroke="#17231f" stroke-width="2"/>
+  <path d="M18 120 C55 78, 87 98, 118 64 S170 58, 192 32" fill="none" stroke="#405f8c" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="118" cy="64" r="7" fill="#b7584b" stroke="#17231f" stroke-width="2"/>
+</svg>
+<h1>MRVL Forensic Deep Dive</h1>
+<p class="subtitle">일반 반도체 리포트가 아니라, <strong>Marvell이 “레거시 데이터 인프라 칩 회사”에서 AI custom XPU·광 인터커넥트·CXL/PCIe·AI switch 플랫폼으로 재분류되는가</strong>를 검증한 투자 보고서.</p>
+<div class="badges">
+<span class="badge">분석 기준: 2026-06-13</span>
+<span class="badge">현재가: $279.70</span>
+<span class="badge">보유: 80주</span>
+<span class="badge">수익률: +81%</span>
+<span class="badge">추천: Trim / 일부 차익실현</span>
+</div>
+</section>
+
+<section class="grid3">
+<div class="card"><div class="kpi">$249.9B<small>실시간 시가총액 기준</small></div></div>
+<div class="card"><div class="kpi">74%<small>FY26 매출 중 Data Center 비중</small></div></div>
+<div class="card"><div class="kpi">$10B+<small>FY2029 custom chip revenue 목표/전망</small></div></div>
+</section>
+
+<h2>[1단계] Thesis Discovery — 내가 발견한 핵심 변곡점</h2>
+<div class="callout">
+<strong>한 문장 hidden thesis:</strong> MRVL은 더 이상 “스토리지/네트워크 부품주”가 아니라, hyperscaler가 NVIDIA 의존도를 낮추고 AI cluster 전력·메모리·네트워크 병목을 풀기 위해 쓰는 <strong>custom XPU + optical fabric + CXL/PCIe + AI switch reference layer</strong>로 이동 중이다.
+</div>
+<div class="callout anti">
+<strong>한 문장 anti-thesis:</strong> 하지만 현재 주가는 이미 평균 컨센서스가 아니라 bull/overshoot 일부를 사고 있으며, Q2 이후 “beat + raise + 출하 가시성”이 없으면 S&P 편입 이후 급락할 수 있다.
+</div>
+
+<h3>처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h3>
+<table class=""><thead><tr><th>#</th><th>숨은 신호</th><th>확정 사실</th><th>투자 해석</th></tr></thead><tbody><tr><td>1</td><td>매출 정체성 전환</td><td>FY24 Data Center 40% → FY26 74%, Q1 FY27도 AI/데이터센터가 성장을 지배</td><td>레거시 스토리지/네트워킹 멀티플이 아니라 AI 인프라 플랫폼 멀티플로 재평가</td></tr><tr><td>2</td><td>고객 warrant</td><td>고객 매출 조건에 따라 vesting되는 warrant 4.2M + 1.0M</td><td>단순 고객관계가 아니라 장기 물량/공동설계 락인 신호</td></tr><tr><td>3</td><td>NVIDIA $2B preferred</td><td>NVLink Fusion 파트너십과 전환우선주, 최대 약 21.8M주 전환 가능</td><td>엔비디아 생태계의 주변 부품사가 아니라 scale-up 네트워크/커스텀 XPU 레이어로 편입</td></tr><tr><td>4</td><td>Celestial AI + XConn + Polariton</td><td>광 인터커넥트, CXL/PCIe 스위칭, plasmonics를 4개월 안에 연쇄 확보</td><td>AI 클러스터 병목인 전력·메모리·랙간 연결을 모두 겨냥한 M&A 체인</td></tr><tr><td>5</td><td>Teralynx T100</td><td>102.4Tbps, 3nm, 512-port, ESUN/UEC, CPO/CPC 옵션, 샘플링 시작</td><td>Broadcom Tomahawk/NVIDIA Spectrum-X와 붙는 AI 네트워크 스위치 포지셔닝</td></tr><tr><td>6</td><td>Distributor A 45%</td><td>Q1 FY27 매출의 45%가 Distributor A, Direct Customer A 16%</td><td>실제 최종 고객은 hyperscaler/ODM chain일 가능성이 크며 집중위험과 램프 신호가 동시에 존재</td></tr><tr><td>7</td><td>자동차 Ethernet 매각</td><td>Infineon에 $2.5B 현금 매각</td><td>비핵심 사업을 팔아 AI 데이터센터 M&A/자본구조 재편에 사용</td></tr><tr><td>8</td><td>CFO 영입</td><td>Adobe CFO Dan Durn 영입, GlobalFoundries/Freescale/NXP/AMAT 경험</td><td>대규모 capex 고객·파운드리·M&A·AI 인프라 성장기 재무 리더십 강화</td></tr><tr><td>9</td><td>컨센서스와 가격 괴리</td><td>평균 목표가가 현 주가 아래에 존재하나 최고 목표가는 $345</td><td>주가는 이미 base를 넘어 bull/overshoot 일부를 사고 있음</td></tr><tr><td>10</td><td>S&P 500 편입</td><td>6/22 편입 예정, 최근 1개월 급등</td><td>펀더멘털 리레이팅 + 패시브 수급 + 숏커버가 겹친 구간</td></tr></tbody></table>
+
+<h3>A. 기업 정체성 재정의</h3>
+<p>시장은 오랫동안 MRVL을 storage controller, enterprise/carrier networking, Ethernet/PHY/DPU 등 <strong>분산된 데이터 인프라 반도체 회사</strong>로 보았다. 그런데 FY24~FY26의 매출 구조와 2026년 M&A/파트너십 체인을 연결하면 회사의 중심축은 명확히 AI 데이터센터로 이동했다. FY24에는 Data Center가 매출의 40%였으나 FY26에는 74%까지 상승했다. Q1 FY27에도 AI bookings와 800G/1.6T optics, custom XPU, switch, scale-up optical 솔루션이 가이던스 상향의 핵심으로 제시됐다.</p>
+<p>핵심은 단순 chip 공급자가 아니라 <strong>고객 설계에 들어가는 reference/platform layer</strong>로 진화하고 있느냐이다. 고객 warrant, NVIDIA preferred, NVLink Fusion 호환, CXL/PCIe switch, Photonic Fabric, Teralynx T100까지 연결하면 MRVL은 “한 부품”보다 “AI cluster architecture의 연결 표준 설계 레이어”에 가까워진다.</p>
+
+<h3>B. 고객·공급망·파트너 맵</h3>
+<div class="ecosystem">
+<svg viewBox="0 0 1100 420">
+<line x1="230" y1="105" x2="520" y2="190" stroke="#405f8c" stroke-width="5" stroke-linecap="round"/>
+<line x1="245" y1="315" x2="520" y2="220" stroke="#d6813c" stroke-width="5" stroke-linecap="round"/>
+<line x1="620" y1="190" x2="865" y2="105" stroke="#2a6f6a" stroke-width="5" stroke-linecap="round"/>
+<line x1="620" y1="220" x2="860" y2="315" stroke="#b7584b" stroke-width="5" stroke-linecap="round"/>
+<line x1="540" y1="95" x2="550" y2="170" stroke="#6f8d62" stroke-width="5" stroke-linecap="round"/>
+<line x1="552" y1="255" x2="552" y2="305" stroke="#6f8d62" stroke-width="5" stroke-linecap="round"/>
+</svg>
+<div class="node n-mrvl">MRVL<small>Custom XPU / optics / switch / CXL</small></div>
+<div class="node n-nvda">NVIDIA<small>NVLink Fusion / $2B preferred</small></div>
+<div class="node n-hyp">Hyperscalers<small>AWS·Google·MSFT·Meta 후보</small></div>
+<div class="node n-found">Foundry/OSAT<small>5nm·3nm·2nm ramp</small></div>
+<div class="node n-broad">Broadcom/NVIDIA<small>경쟁·방어적 M&A benchmark</small></div>
+<div class="node n-cel">Celestial/XConn/Polariton<small>Optical + CXL + plasmonics</small></div>
+<div class="node n-osat">ODM/Distributor A<small>45% Q1 revenue concentration</small></div>
+</div>
+<table class=""><thead><tr><th>주체</th><th>확정 사실</th><th>가능한 해석</th><th>반대 근거</th><th>신뢰도</th></tr></thead><tbody><tr><td>Direct Customer A</td><td>16% of Q1 FY27 revenue / 14% FY26</td><td>미공개 hyperscaler 또는 대형 OEM/ODM 가능</td><td>확정 불가. 10-K/10-Q 고객명 미공개</td><td>A for concentration / C for identity</td></tr><tr><td>Distributor A</td><td>45% of Q1 FY27 revenue / 37% FY26</td><td>ODM·CM·글로벌 배포 채널을 통한 최종 hyperscaler 수요</td><td>유통상 재고/채널 stuffing 리스크도 같이 존재</td><td>A</td></tr><tr><td>NVIDIA</td><td>전략 파트너·$2B preferred 투자</td><td>NVLink Fusion, custom XPU, scale-up networking, silicon photonics</td><td>고객인지 생태계 파트너인지는 분리 필요</td><td>A</td></tr><tr><td>AWS / Google / Microsoft / Meta</td><td>Reuters: U.S. hyperscalers 전반 custom engagement</td><td>custom ASIC/XPU, optics, switch, storage attach 후보</td><td>개별 프로그램은 미확정</td><td>B/C</td></tr><tr><td>Broadcom</td><td>직접 경쟁사</td><td>custom ASIC과 switching에서 가장 큰 benchmark</td><td>Marvell bull case의 멀티플 ceiling과 경쟁 압박</td><td>A</td></tr><tr><td>TSMC / advanced foundries</td><td>5nm/3nm/2nm platform 필요</td><td>대형 ASIC·switch 생산의 병목</td><td>공급 allocation/원가 미공개</td><td>B</td></tr><tr><td>Apple / SpaceX / Globalstar / Gogo / Skylo / Verizon</td><td>현재 MRVL 핵심 AI thesis와 직접 연결 약함</td><td>통신/위성/NTN 관심 종목군과는 thematic overlap</td><td>확정 고객으로 보면 안 됨</td><td>C/낮음</td></tr></tbody></table>
+
+<h3>C. 최근 24개월 사건 체인 분석</h3>
+<table class=""><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>신뢰도</th><th>확인해야 할 다음 증거</th></tr></thead><tbody><tr><td>2025-06-30</td><td>2025 Revolver 및 장기채</td><td>차입여력 확보, 2030/2035 notes 발행</td><td>AI 인프라 M&A와 운전자본 램프를 위한 재무 탄약</td><td>B</td><td>추가 debt covenant, buyback 속도</td></tr><tr><td>2025-08-14</td><td>Automotive Ethernet 매각</td><td>Infineon에 $2.5B 현금 매각</td><td>비핵심/저멀티플 사업에서 AI 데이터센터로 자본 재배치</td><td>A</td><td>매각대금 사용처, M&A ROI</td></tr><tr><td>FY2025~FY2026</td><td>Customer warrant</td><td>고객 매출 조건 기반 4.2M+1.0M주 warrant</td><td>고객이 단순 구매자가 아니라 생산 램프에 옵션으로 참여</td><td>A</td><td>warrant vesting, 고객명 공개</td></tr><tr><td>2026-02-02</td><td>Celestial AI 인수 완료</td><td>현금+주식, 추가 성과보상 가능</td><td>AI scale-up optical fabric 확보</td><td>A</td><td>FY28/FY29 revenue contribution</td></tr><tr><td>2026-02-10</td><td>XConn 인수 완료</td><td>PCIe/CXL switching 확보</td><td>AI memory wall과 rack-level pooling에 진입</td><td>A</td><td>CXL 3.0 switch sampling/customer</td></tr><tr><td>2026-03-05</td><td>FY26 실적</td><td>FY26 매출 $8.195B, Data Center $6.10B</td><td>데이터센터가 이미 회사의 본체가 됨</td><td>A</td><td>FY27 가이던스 acceleration</td></tr><tr><td>2026-03-17</td><td>Structera PCIe/CXL 발표</td><td>260-lane PCIe 6.0, 260-lane CXL 3.0</td><td>GPU/XPU scale-up fabric의 실리콘 레이어 확장</td><td>A</td><td>Q3 샘플링·고객 채택</td></tr><tr><td>2026-03-31</td><td>NVIDIA NVLink Fusion</td><td>$2B 투자, custom XPU/NVLink-compatible scale-up networking</td><td>MRVL이 NVIDIA AI factory 생태계의 보완재로 격상</td><td>A</td><td>NVLink Fusion 고객명, 전환 여부</td></tr><tr><td>2026-04-22</td><td>Polariton 인수</td><td>plasmonics 기반 silicon photonics</td><td>3.2T+ optical roadmap 가속</td><td>B</td><td>제품화 일정, yield/power data</td></tr><tr><td>2026-05-27</td><td>Q1 FY27 실적/가이던스</td><td>매출 $2.418B, Q2 $2.7B, FY27/FY28 outlook 상향</td><td>실적이 story를 추격하기 시작</td><td>A</td><td>Q2 beat+raise 여부</td></tr><tr><td>2026-06-01</td><td>Teralynx T100</td><td>102.4Tbps AI switch, 3nm, <1000W, sampling</td><td>AI networking 전력벽을 겨냥한 clean-sheet switch</td><td>A</td><td>샘플 고객, 2027 production</td></tr><tr><td>2026-06-11</td><td>CFO Transition</td><td>Dan Durn 영입, Q2 outlook 재확인</td><td>대형 AI 인프라 성장/자본시장 대응 리더십</td><td>B</td><td>운전자본/마진/FCF discipline</td></tr><tr><td>2026-06-22</td><td>S&P 500 편입 예정</td><td>Pool 대체</td><td>패시브 수급과 기관 소유 구조 변화</td><td>A</td><td>편입 후 sell-the-news 여부</td></tr></tbody></table>
+
+<h3>D. 자본구조 forensic</h3>
+<table class=""><thead><tr><th>항목</th><th>수치/조건</th><th>투자 해석</th></tr></thead><tbody><tr><td>현금</td><td>$3.84B</td><td>Q1 FY27 말 현금. M&A 이후에도 유동성 충분</td></tr><tr><td>장기부채</td><td>$4.96B</td><td>부채 절대규모는 커졌으나 현금흐름이 개선되는 구간</td></tr><tr><td>Q1 CFO / Capex</td><td>$638.8M / $155.7M</td><td>FCF 약 $483M. 적자 성장주가 아니라 FCF 전환 중</td></tr><tr><td>Preferred</td><td>NVIDIA $2.0B</td><td>초기 전환가 약 $91.84, 최대 약 21.8M주</td></tr><tr><td>Customer warrants</td><td>최대 5.2M주</td><td>매출 조건 vesting, 고객 lock-in의 증거이자 희석요인</td></tr><tr><td>Q2 guide diluted shares</td><td>915M</td><td>목표가 산정은 930M fully diluted 기준 사용</td></tr><tr><td>Short interest</td><td>약 35.2M주 / float 4.0% / 1.1 DTC</td><td>수급 squeeze 가능성은 있으나 핵심 thesis는 아님</td></tr></tbody></table>
+<p>MRVL은 전형적인 소형 적자 성장주의 ATM 생존자금 구조가 아니다. 핵심은 <strong>성장 자금 + 전략적 희석</strong>이다. NVIDIA preferred와 customer warrants는 희석이지만, 동시에 고객/생태계 lock-in 증거다. 따라서 희석 자체보다 “희석으로 산 자산이 FY28~FY29 custom/optical 매출로 전환되는가”가 핵심이다.</p>
+
+<h3>E. 기술 장벽</h3>
+<table class=""><thead><tr><th>레이어</th><th>제품/기술</th><th>왜 필요한가</th><th>모방 난이도/락인</th></tr></thead><tbody><tr><td>Custom compute</td><td>Custom XPU / XPU attach ASIC</td><td>hyperscaler가 workload별 ASIC으로 전력/성능/TCO 최적화</td><td>설계 기간·검증·소프트웨어 stack·공급망 lock-in</td></tr><tr><td>Scale-up networking</td><td>NVLink Fusion-compatible networking, Photonic Fabric</td><td>GPU/XPU rack-scale 연결에서 bandwidth/latency 병목 해소</td><td>NVIDIA ecosystem 호환성과 고객 공동설계가 장벽</td></tr><tr><td>Memory fabric</td><td>Structera CXL switch / PCIe 6.0 switch</td><td>KV-cache와 memory wall 해결, rack-level memory pooling</td><td>CXL 3.0·PCIe 6.0 signal integrity와 검증 시간</td></tr><tr><td>Scale-out switch</td><td>Teralynx T100 102.4Tbps 3nm</td><td>AI cluster에서 switch power가 rack power 15~25%까지 차지</td><td>3nm monolithic, 512 radix, traffic management, SONiC/OCP SAI ecosystem</td></tr><tr><td>Optics</td><td>800G/1.6T PAM DSP, coherent/coherent-lite, CPO/NPO, Polariton plasmonics</td><td>동선/구리 reach 한계와 전력벽 해결</td><td>RF/analog DSP, silicon photonics yield, 고객 인증</td></tr></tbody></table>
+
+<h3>F. 생태계 game theory</h3>
+<p>MRVL을 가장 필요로 하는 쪽은 hyperscaler와 NVIDIA 생태계다. Hyperscaler는 NVIDIA GPU 공급 제약과 비용을 낮추기 위해 custom ASIC/XPU를 원하지만, rack-scale networking과 optics까지 직접 internalize하기는 어렵다. NVIDIA는 자체 GPU 생태계를 유지하면서도 고객의 custom XPU 수요를 흡수하려면 NVLink Fusion-compatible 파트너가 필요하다. Broadcom은 custom ASIC과 switching의 강자이므로, MRVL의 성공은 Broadcom의 AI ASIC/networking 독점력을 견제한다.</p>
+<p><strong>전략적 인수 후보:</strong> NVIDIA, Broadcom, AMD, Qualcomm, hyperscaler 중 일부. 다만 NVIDIA는 이미 preferred로 upside를 확보했고 규제 리스크가 있어 base case 인수 확률은 낮다. hyperscaler 직접 인수는 고객 집중이 커지고 타 hyperscaler 매출이 훼손될 수 있어 “특정 프로그램이 절대적으로 커진 이후”에만 경제성이 생긴다.</p>
+
+<h3>G. 반대 thesis</h3>
+<p>가장 강한 반대 thesis는 단순하다. <strong>MRVL이 맞는 방향에 있어도 지금 가격이 너무 앞서갔을 수 있다.</strong> Q1 GAAP EPS는 $0.04에 불과했고, 현재 주가는 FY28~FY29 성장을 상당 부분 할인하고 있다. Distributor A 45%는 최종 수요 ramp일 수도 있지만, 재고 구축/채널 concentration일 수도 있다. NVIDIA preferred는 생태계 인증이지만 동시에 희석이다. Teralynx T100, CXL, Photonic Fabric은 기술적으로 매력적이나, 양산과 고객 설계 채택은 아직 증거가 더 필요하다.</p>
+
+<h2>[2단계] 정식 보고서</h2>
+
+<h3>0. Executive Summary</h3>
+<table class=""><thead><tr><th>항목</th><th>결론</th></tr></thead><tbody><tr><td>투자 thesis</td><td>AI 클러스터의 병목이 compute에서 connectivity/power/memory로 이동하면서 MRVL은 custom XPU + optics + switch + CXL reference layer로 리레이팅될 수 있다.</td></tr><tr><td>Anti-thesis</td><td>현재 주가는 이미 base case보다 bull case 일부를 가격에 반영했고, beat만으로는 부족하다.</td></tr><tr><td>시장이 보는 회사</td><td>AI custom chip 기대가 붙은 데이터 인프라 반도체 회사</td></tr><tr><td>새롭게 보는 회사</td><td>NVIDIA와 hyperscaler 사이의 AI connectivity/scale-up 표준 설계 레이어</td></tr><tr><td>리레이팅 이유</td><td>FY26 Data Center 74%, NVIDIA $2B, Celestial/XConn/Polariton, T100, FY29 custom $10B+ path</td></tr><tr><td>실패 조건</td><td>FY27 revenue acceleration이 꺾이고 custom/optical/switch 매출 전환이 늦어질 때</td></tr><tr><td>투자 등급</td><td><strong>Trim</strong></td></tr><tr><td>포트폴리오 행동</td><td><strong>일부 차익실현</strong>: 80주 중 20주 매도, 60주 core 보유</td></tr></tbody></table>
+
+<h3>1. 시장이 놓친 핵심 변곡점 5개</h3>
+<table class=""><thead><tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 완전 반영 안 됐나</th></tr></thead><tbody><tr><td>부품주 → AI infrastructure platform</td><td>Data Center 74%</td><td>멀티플이 전통 반도체에서 AI infra로 이동</td><td>reference platform 지위</td><td>고객명이 익명이고 매출이 아직 초입</td></tr><tr><td>NVIDIA preferred의 의미</td><td>$2B preferred + NVLink Fusion</td><td>NVIDIA ecosystem 인증</td><td>NVIDIA가 방어적 지분 확보</td><td>투자/파트너와 실제 revenue는 별개</td></tr><tr><td>M&A가 한 방향</td><td>Celestial/XConn/Polariton</td><td>광·CXL·PCIe·plasmonics 연결 체인</td><td>통합 플랫폼 매출</td><td>제품화 시차와 integration risk</td></tr><tr><td>고객 warrant</td><td>매출 조건 vesting</td><td>고객 lock-in</td><td>sole-source/dual-source 구조</td><td>고객명 비공개</td></tr><tr><td>S&P 500 편입</td><td>6/22 예정</td><td>passive flow와 institution base 변화</td><td>수급 overshoot</td><td>편입 후 sell-the-news 가능</td></tr></tbody></table>
+
+<h3>2. 전통적 비즈니스 모델의 진화</h3>
+<p>레거시 사업은 storage, Ethernet/PHY, enterprise/carrier, embedded/security 등이다. 현재 성장 축은 Data Center 안에서도 custom silicon, electro-optics, switches, CXL/PCIe, storage attach로 바뀌었다. 과거 고객군은 enterprise/networking OEM과 broad-based distributor였다면, 미래 고객군은 hyperscaler, AI accelerator platform, ODM/CM, cloud network architecture team이다.</p>
+<svg viewBox="0 0 780 330" class="svgchart" role="img" aria-label="매출 구조 변화: Data Center 중심으로 재편 ($B)">
+<text x="60" y="25" class="chart-title">매출 구조 변화: Data Center 중심으로 재편 ($B)</text>
+<line x1="60" y1="274.0" x2="750" y2="274.0" class="grid"/>
+<text x="52" y="278.0" class="ylabel" text-anchor="end">0</text>
+<line x1="60" y1="216.0" x2="750" y2="216.0" class="grid"/>
+<text x="52" y="220.0" class="ylabel" text-anchor="end">8</text>
+<line x1="60" y1="158.0" x2="750" y2="158.0" class="grid"/>
+<text x="52" y="162.0" class="ylabel" text-anchor="end">15</text>
+<line x1="60" y1="100.0" x2="750" y2="100.0" class="grid"/>
+<text x="52" y="104.0" class="ylabel" text-anchor="end">22</text>
+<line x1="60" y1="42.0" x2="750" y2="42.0" class="grid"/>
+<text x="52" y="46.0" class="ylabel" text-anchor="end">30</text>
+<polyline points="60.0,231.4 175.0,229.4 290.0,210.7 405.0,186.6 520.0,146.4 635.0,115.5 750.0,69.1" class="line s1" fill="none"/>
+<circle cx="60.0" cy="231.4" r="4.5" class="dot s1"/>
+<circle cx="175.0" cy="229.4" r="4.5" class="dot s1"/>
+<circle cx="290.0" cy="210.7" r="4.5" class="dot s1"/>
+<circle cx="405.0" cy="186.6" r="4.5" class="dot s1"/>
+<circle cx="520.0" cy="146.4" r="4.5" class="dot s1"/>
+<circle cx="635.0" cy="115.5" r="4.5" class="dot s1"/>
+<circle cx="750.0" cy="69.1" r="4.5" class="dot s1"/>
+<text x="746" y="61.1" class="legend" text-anchor="end">총매출</text>
+<polyline points="60.0,256.8 175.0,241.8 290.0,226.8 405.0,206.7 520.0,174.2 635.0,146.4 750.0,120.9" class="line s2" fill="none"/>
+<circle cx="60.0" cy="256.8" r="4.5" class="dot s2"/>
+<circle cx="175.0" cy="241.8" r="4.5" class="dot s2"/>
+<circle cx="290.0" cy="226.8" r="4.5" class="dot s2"/>
+<circle cx="405.0" cy="206.7" r="4.5" class="dot s2"/>
+<circle cx="520.0" cy="174.2" r="4.5" class="dot s2"/>
+<circle cx="635.0" cy="146.4" r="4.5" class="dot s2"/>
+<circle cx="750.0" cy="120.9" r="4.5" class="dot s2"/>
+<text x="746" y="112.9" class="legend" text-anchor="end">Data Center</text>
+<text x="60.0" y="305" class="xlabel" text-anchor="middle">FY24A</text>
+<text x="175.0" y="305" class="xlabel" text-anchor="middle">FY25A</text>
+<text x="290.0" y="305" class="xlabel" text-anchor="middle">FY26A</text>
+<text x="405.0" y="305" class="xlabel" text-anchor="middle">FY27E</text>
+<text x="520.0" y="305" class="xlabel" text-anchor="middle">FY28E</text>
+<text x="635.0" y="305" class="xlabel" text-anchor="middle">FY29E</text>
+<text x="750.0" y="305" class="xlabel" text-anchor="middle">FY30E</text>
+</svg>
+
+<h3>3. 실적으로 증명되는 실체</h3>
+<table class=""><thead><tr><th>지표</th><th>최근 수치</th><th>해석</th></tr></thead><tbody><tr><td>Q1 FY27 revenue</td><td>$2.418B, +28% YoY</td><td>AI 관련 bookings와 데이터센터가 견인</td></tr><tr><td>Q2 FY27 guide</td><td>$2.700B ±5%, +35% YoY</td><td>가속 성장 요구치가 높아짐</td></tr><tr><td>Q1 GAAP / non-GAAP GM</td><td>52.1% / 58.9%</td><td>custom mix 확대에도 non-GAAP GM 방어 필요</td></tr><tr><td>Q1 GAAP / non-GAAP EPS</td><td>$0.04 / $0.80</td><td>GAAP 수익성은 아직 acquisition/SBC/비용 영향</td></tr><tr><td>Q1 CFO / FCF</td><td>$638.8M / 약 $483M</td><td>FCF가 valuation의 핵심으로 부상</td></tr><tr><td>Cash / LT debt</td><td>$3.84B / $4.96B</td><td>재무여력은 충분하나 preferred/earnout 희석 점검 필요</td></tr><tr><td>다음 KPI</td><td>Data Center revenue, GM, custom XPU bookings, 800G/1.6T optics, T100/CXL sampling</td><td>beat보다 raise와 출하 가이던스가 중요</td></tr></tbody></table>
+
+<h3>4. 고객·파트너·생태계 분석</h3>
+<p>직접 고객과 최종 고객을 반드시 분리해야 한다. MRVL의 SEC 공시는 Direct Customer A와 Distributor A를 공개하지만, 이름은 공개하지 않는다. Distributor A의 비중이 매우 높아, 최종 고객이 hyperscaler라도 회계상 유통/ODM chain으로 잡힐 수 있다. NVIDIA는 확정 파트너이자 투자자지만, “매출 고객”으로 단정하면 안 된다.</p>
+
+<h3>5. 숨은 고객 및 M&A optionality</h3>
+<table class=""><thead><tr><th>후보</th><th>근거</th><th>반대 근거</th><th>추정 확률</th></tr></thead><tbody><tr><td>AWS</td><td>custom silicon/Trainium 계열, AI capex, Reuters의 hyperscaler custom engagement</td><td>Annapurna 내부 설계와 기존 공급망 존재</td><td>25%</td></tr><tr><td>Google</td><td>TPU 및 AI networking, Broadcom benchmark와 dual sourcing 가능성</td><td>Broadcom incumbency 강함</td><td>20%</td></tr><tr><td>Microsoft</td><td>Maia/Cobalt, Azure AI infra 확장</td><td>직접 MRVL public tie 부족</td><td>18%</td></tr><tr><td>Meta</td><td>MTIA/AI cluster, optics/switch 수요</td><td>custom ASIC 프로그램 외부 공급사 불명확</td><td>15%</td></tr><tr><td>NVIDIA</td><td>NVLink Fusion과 $2B preferred 확정</td><td>고객보다 생태계 파트너 성격이 강함</td><td>높음 as partner / 낮음 as revenue concentration</td></tr></tbody></table>
+<p><strong>M&A optionality 반영:</strong> base case에는 $0~$10/share만 반영한다. bull에는 $20~$35/share, overshoot에는 $50+/share까지 sentiment premium으로 반영 가능하다. 실제 인수 가능성보다는 “전략적 가치가 있는 독립 플랫폼”이라는 멀티플 프리미엄이 더 현실적이다.</p>
+
+<h3>6. 자본구조와 수급 분석</h3>
+<p>최근 상승은 네 가지가 겹쳤다: ① Q1 FY27 실적과 FY27/FY28 outlook 상향, ② NVIDIA $2B/NVLink Fusion halo, ③ S&P 500 편입 패시브 수급, ④ 낮지 않은 short interest의 빠른 cover 가능성. 그러나 short interest는 약 4% 수준으로, 구조적 숏스퀴즈가 본질은 아니다.</p>
+
+<h3>7. 기술 분석</h3>
+<p>MRVL의 강점은 digital compute 하나가 아니라 <strong>analog/RF/optical DSP + SerDes + switching + custom ASIC + software ecosystem</strong>의 결합이다. AI cluster에서 GPU가 많아질수록 문제는 compute 자체보다 interconnect, memory bandwidth, power envelope, network latency로 이동한다. 이 병목은 단순 소프트웨어 튜닝만으로 해결하기 어렵고, silicon/RF/baseband/optical 수준의 공동 설계가 필요하다.</p>
+
+<h3>8. 컨센서스 리비전 분석</h3>
+<p>공개 애널리스트 집계 기준 평균 목표가는 현재 주가 아래에 있고, 최고 목표가는 $345 수준이다. 이는 시장이 이미 평균 base case가 아니라 bull case의 일부를 사고 있음을 의미한다. 따라서 다음 실적에서 필요한 것은 단순 beat가 아니라 <strong>beat + raise + FY28/FY29 custom silicon path 재확인</strong>이다.</p>
+
+<h3>9. 이벤트 드리븐 분석</h3>
+<table class=""><thead><tr><th>이벤트</th><th>확인 질문</th><th>오르기 위한 조건</th><th>빠지는 조건</th></tr></thead><tbody><tr><td>Q2 FY27 실적</td><td>Data Center revenue가 $2B 근처로 가는가?</td><td>Q2 beat + Q3 guide raise + GM 방어</td><td>Q2만 beat, Q3 보수적</td></tr><tr><td>6/22 S&P 편입</td><td>편입 후 거래량과 가격 유지?</td><td>편입 후 $260 이상 지지</td><td>sell-the-news로 $240 이탈</td></tr><tr><td>T100 샘플링</td><td>샘플 고객과 생산 일정?</td><td>hyperscaler adoption hint</td><td>샘플링만 있고 production visibility 없음</td></tr><tr><td>CXL/PCIe</td><td>Structera sampling이 고객 rack design에 들어갔나?</td><td>memory pooling 수요 확인</td><td>CXL 채택 지연</td></tr><tr><td>NVIDIA preferred</td><td>HSR/전환/공동고객 발표?</td><td>NVLink Fusion 고객명 공개</td><td>파트너십 홍보만 반복</td></tr></tbody></table>
+
+<h3>10. 밸류에이션</h3>
+<table class=""><thead><tr><th>방법</th><th>주당가치</th><th>가정</th><th>판단</th></tr></thead><tbody><tr><td>DCF Bear</td><td>$95~130</td><td>FY30 매출 $18.5B, FCF margin 20%, WACC 10.8%, terminal multiple 22~30x</td><td>금리/AI capex 둔화 반영</td></tr><tr><td>DCF Base</td><td>$190~245</td><td>FY30 매출 $26.5B, FCF margin 25%, WACC 9.5%, terminal multiple 40~50x</td><td>현재 가격은 이 상단 이상을 요구</td></tr><tr><td>DCF Bull</td><td>$300~340</td><td>FY30 매출 $33B, FCF margin 30%, WACC 8.8%, terminal multiple 40~45x</td><td>custom silicon + optics + switch 모두 성공</td></tr><tr><td>FCF Yield</td><td>$235~285</td><td>FY30 normalized FCF $6.6B, 2.5~3.0% yield</td><td>base target의 중심</td></tr><tr><td>Relative / Rerating</td><td>$300~345</td><td>FY28E 매출 $16.5B에 17~19x EV/Sales</td><td>Broadcom/NVIDIA AI-infra scarcity premium</td></tr><tr><td>Overshoot</td><td>$420</td><td>FY28E 매출 $16.5B에 23~24x EV/Sales</td><td>S&P 편입·NVIDIA halo·trillion-dollar narrative</td></tr></tbody></table>
+<svg viewBox="0 0 760 300" class="svgchart" role="img" aria-label="목표가 체계 ($/share)">
+<text x="70" y="24" class="chart-title">목표가 체계 ($/share)</text>
+<line x1="70" y1="246" x2="730" y2="246" class="axis"/>
+<rect x="104.7" y="161.3" width="95.7" height="84.7" rx="6" class="bar b0"/>
+<text x="152.5" y="153.3" class="value" text-anchor="middle">185</text>
+<text x="152.5" y="276" class="xlabel" text-anchor="middle">보수적</text>
+<rect x="269.6" y="127.0" width="95.7" height="119.0" rx="6" class="bar b1"/>
+<text x="317.5" y="119.0" class="value" text-anchor="middle">260</text>
+<text x="317.5" y="276" class="xlabel" text-anchor="middle">Base</text>
+<rect x="434.6" y="88.1" width="95.7" height="157.9" rx="6" class="bar b2"/>
+<text x="482.5" y="80.1" class="value" text-anchor="middle">345</text>
+<text x="482.5" y="276" class="xlabel" text-anchor="middle">Bull</text>
+<rect x="599.6" y="53.7" width="95.7" height="192.3" rx="6" class="bar b3"/>
+<text x="647.5" y="45.7" class="value" text-anchor="middle">420</text>
+<text x="647.5" y="276" class="xlabel" text-anchor="middle">Overshoot</text>
+</svg>
+
+<h3>11. 목표가 체계</h3>
+<table class=""><thead><tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF·multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody><tr><td>보수적 내재가치</td><td>$185</td><td>FY30E FCF $5.2~5.8B / 3.5% yield or low DCF</td><td>930M</td><td>25%</td><td>금리 상승, AI capex 둔화</td><td>Data center 성장률 20% 이하</td></tr><tr><td>12개월 Base</td><td>$260</td><td>FY28E revenue $16.5B / 14.5x EV/Sales</td><td>930M</td><td>45%</td><td>Q2 beat+raise, FY28 유지</td><td>가이던스가 $2.70B 이하로 flat</td></tr><tr><td>Bull</td><td>$345</td><td>FY28E revenue $16.5B / 19x EV/Sales</td><td>930M</td><td>20%</td><td>custom chip FY29 $10B path, T100 고객 채택</td><td>Broadcom/NVIDIA 대비 design win 부진</td></tr><tr><td>Overshoot</td><td>$420</td><td>FY28E revenue $16.5B / 23~24x EV/Sales</td><td>930M</td><td>10%</td><td>S&P flow, Jensen/NVIDIA halo, short/option gamma</td><td>sell-the-news, 금리 재상승</td></tr><tr><td>실적 전 Trading</td><td>$295</td><td>momentum/squeeze target</td><td>930M</td><td>—</td><td>편입 전 수급</td><td>거래량 둔화·$260 이탈</td></tr><tr><td>실적 후 재평가</td><td>$315</td><td>Q2 beat+raise + GM 유지 시</td><td>930M</td><td>—</td><td>Q2 actual + Q3 guide</td><td>beat만 있고 raise 없을 때</td></tr></tbody></table>
+
+<h3>12. 2020~2030 멀티플 밴드</h3>
+<p class="note">아래 그래프는 2020~현재 실제 구간은 공개 연매출/시총 기반의 대략적 밴드, 2027~2030은 본 보고서의 추정치다. 정확한 일별 EV/Sales, P/FCF, EV/EBITDA는 Bloomberg/FactSet terminal 기준으로 재검증이 필요하다.</p>
+<svg viewBox="0 0 780 330" class="svgchart" role="img" aria-label="2020~2030 EV/Sales 밴드: 실제/추정 분리">
+<text x="60" y="25" class="chart-title">2020~2030 EV/Sales 밴드: 실제/추정 분리</text>
+<line x1="60" y1="274.0" x2="750" y2="274.0" class="grid"/>
+<text x="52" y="278.0" class="ylabel" text-anchor="end">0</text>
+<line x1="60" y1="216.0" x2="750" y2="216.0" class="grid"/>
+<text x="52" y="220.0" class="ylabel" text-anchor="end">9</text>
+<line x1="60" y1="158.0" x2="750" y2="158.0" class="grid"/>
+<text x="52" y="162.0" class="ylabel" text-anchor="end">18</text>
+<line x1="60" y1="100.0" x2="750" y2="100.0" class="grid"/>
+<text x="52" y="104.0" class="ylabel" text-anchor="end">26</text>
+<line x1="60" y1="42.0" x2="750" y2="42.0" class="grid"/>
+<text x="52" y="46.0" class="ylabel" text-anchor="end">35</text>
+<polyline points="60.0,234.2 136.7,207.7 213.3,194.5 290.0,221.0 366.7,201.1 443.3,167.9 520.0,154.7 596.7,75.1 673.3,174.6 750.0,207.7" class="line s3" fill="none"/>
+<circle cx="60.0" cy="234.2" r="4.5" class="dot s3"/>
+<circle cx="136.7" cy="207.7" r="4.5" class="dot s3"/>
+<circle cx="213.3" cy="194.5" r="4.5" class="dot s3"/>
+<circle cx="290.0" cy="221.0" r="4.5" class="dot s3"/>
+<circle cx="366.7" cy="201.1" r="4.5" class="dot s3"/>
+<circle cx="443.3" cy="167.9" r="4.5" class="dot s3"/>
+<circle cx="520.0" cy="154.7" r="4.5" class="dot s3"/>
+<circle cx="596.7" cy="75.1" r="4.5" class="dot s3"/>
+<circle cx="673.3" cy="174.6" r="4.5" class="dot s3"/>
+<circle cx="750.0" cy="207.7" r="4.5" class="dot s3"/>
+<text x="746" y="199.7" class="legend" text-anchor="end">EV/Sales band</text>
+<text x="60.0" y="305" class="xlabel" text-anchor="middle">FY20</text>
+<text x="136.7" y="305" class="xlabel" text-anchor="middle">FY21</text>
+<text x="213.3" y="305" class="xlabel" text-anchor="middle">FY22</text>
+<text x="290.0" y="305" class="xlabel" text-anchor="middle">FY23</text>
+<text x="366.7" y="305" class="xlabel" text-anchor="middle">FY24</text>
+<text x="443.3" y="305" class="xlabel" text-anchor="middle">FY25</text>
+<text x="520.0" y="305" class="xlabel" text-anchor="middle">FY26</text>
+<text x="596.7" y="305" class="xlabel" text-anchor="middle">현재</text>
+<text x="673.3" y="305" class="xlabel" text-anchor="middle">FY28E</text>
+<text x="750.0" y="305" class="xlabel" text-anchor="middle">FY30E</text>
+</svg>
+<table class=""><thead><tr><th>구간</th><th>실제/추정</th><th>P/S·EV/Sales 판단</th><th>P/E·FCF 판단</th></tr></thead><tbody><tr><td>2020~2023</td><td>실제 과거</td><td>6~12x 박스권</td><td>M&A/사이클 영향으로 변동 큼</td></tr><tr><td>2024~2025</td><td>실제 과거</td><td>AI 매출 초입에서 11~16x</td><td>GAAP 수익성보다 AI revenue mix 중시</td></tr><tr><td>2026 현재</td><td>실시간/현재</td><td>약 30x TTM sales 근처</td><td>P/E 약 96x, 이미 high-growth premium</td></tr><tr><td>2027~2028</td><td>추정</td><td>base 14~19x</td><td>FCF 전환과 custom revenue visibility 필요</td></tr><tr><td>2029~2030</td><td>추정</td><td>bear 8~10x, base 10~14x, bull 14~18x</td><td>AI infra platform 유지 여부가 결정</td></tr></tbody></table>
+
+<h3>13. 리스크 관리 — thesis break trigger</h3>
+<table class=""><thead><tr><th>리스크</th><th>Thesis break trigger</th><th>시장 반영 가격</th><th>확인 시점</th><th>대응</th></tr></thead><tbody><tr><td>출하 지연</td><td>Q2/Q3 revenue guide가 순차 성장하지 않음</td><td>$240 하회</td><td>다음 실적</td><td>60주→40주</td></tr><tr><td>Gross margin 훼손</td><td>non-GAAP GM 57% 아래, custom mix 압박</td><td>$230</td><td>분기별</td><td>추가 매수 금지</td></tr><tr><td>고객 집중</td><td>Direct A/Distributor A 매출 급감 또는 재고 조정</td><td>$220</td><td>10-Q/10-K</td><td>절반 축소</td></tr><tr><td>희석</td><td>preferred 전환/earnout/RSU가 EPS 성장보다 빠름</td><td>$250</td><td>매분기</td><td>valuation share count 상향</td></tr><tr><td>금리 상승</td><td>실업률 4.2% 이하 + core/PCE 재가속 → hike pricing</td><td>$235</td><td>FOMC/CPI/NFP</td><td>고멀티플 축소</td></tr><tr><td>M&A 기대 과열</td><td>소문만 있고 매출/고객 증거 없음</td><td>$300 이상</td><td>뉴스 플로우</td><td>20주 이상 차익실현</td></tr><tr><td>경쟁사 대체</td><td>Broadcom/NVIDIA 자체 스위치/ASIC wins 우위</td><td>$210</td><td>고객 발표</td><td>core만 유지</td></tr><tr><td>S&P 편입 후 급락</td><td>6/22 이후 거래량 급감·$260 이탈</td><td>$260</td><td>편입 후 1주</td><td>트레이딩 물량 정리</td></tr></tbody></table>
+
+<h3>14. 포트폴리오 실행안</h3>
+<table class=""><thead><tr><th>항목</th><th>실행안</th></tr></thead><tbody><tr><td>현재 보유</td><td>80주, 현재가 $279.70, 평가액 $22,376</td></tr><tr><td>추정 매입가</td><td>수익률 +81% 기준 약 $154.53/주, 원금 약 $12,362, 평가이익 약 $10,014</td></tr><tr><td>현재 비중</td><td>4.5%</td></tr><tr><td>목표 비중</td><td>3.0~3.5%</td></tr><tr><td>즉시 행동</td><td>20주 차익실현, 60주 core 보유</td></tr><tr><td>추가 매수</td><td>$235~245 이하 또는 실적 후 beat+raise 확인 시 10주만</td></tr><tr><td>신규 매수 금지</td><td>$260 이상에서는 신규 매수 금지</td></tr><tr><td>실적 전</td><td>$295 접근 시 추가 10주 trimming 가능</td></tr><tr><td>실적 후</td><td>Q2 beat+raise이면 60주 유지/재매수 검토, inline이면 40주로 축소</td></tr><tr><td>목표가 도달</td><td>$345 도달 시 15~20주 추가 차익실현, $420 overshoot 시 core 20~30주만 남김</td></tr><tr><td>손절/축소</td><td>$235 하회 + 가이던스 하향이면 40주 이하로 축소</td></tr></tbody></table>
+
+<h3>15. 보고서 전 자체 점검</h3>
+<table class=""><thead><tr><th>점검 질문</th><th>답변</th></tr></thead><tbody><tr><td>단순 컨센서스 요약인가?</td><td>아니오. 고객 warrant, NVIDIA preferred, M&A chain, distributor concentration, S&P 수급을 사건 체인으로 연결했다.</td></tr><tr><td>확정 사실과 추론을 분리했는가?</td><td>예. 고객 후보는 확률과 반대 근거를 명시했다.</td></tr><tr><td>희석을 반영했는가?</td><td>예. valuation target은 930M fully diluted 기준을 사용했다.</td></tr><tr><td>소형주 수급을 분석했는가?</td><td>MRVL은 소형 적자주는 아니지만, preferred/warrant/short/S&P flow를 수급 변수로 반영했다.</td></tr><tr><td>왜 지금 변곡점인가?</td><td>FY26 Data Center 74%, Q1 FY27 acceleration, 2026년 M&A·NVIDIA·T100·S&P 편입이 한 시점에 겹쳤다.</td></tr><tr><td>다음 실적에서 수정해야 할 조건은?</td><td>Q2 beat+raise 실패, GM 57% 이하, custom/optics/switch 출하 지연, customer concentration 악화.</td></tr></tbody></table>
+
+<div class="footer-summary">
+<h2 style="border-top:0;padding-top:0;margin-top:0;color:#fff">최종 투자 행동 요약</h2>
+<table class=""><thead><tr><th>항목</th><th>요약</th></tr></thead><tbody><tr><td>현재 주가</td><td>$279.70</td></tr><tr><td>보수적 내재가치</td><td>$185</td></tr><tr><td>12개월 base target</td><td>$260</td></tr><tr><td>bull target</td><td>$345</td></tr><tr><td>overshoot target</td><td>$420</td></tr><tr><td>실적 발표 전 trading target</td><td>$295</td></tr><tr><td>실적 발표 후 재평가 target</td><td>$315 / 실패 시 $220</td></tr><tr><td>하방 리스크</td><td>$185~205, 고멀티플 축소 시 -25~-35%</td></tr><tr><td>12개월 기대수익률</td><td>확률가중 약 -2%: 현재 가격은 이미 base보다 높음</td></tr><tr><td>보유 수량 기준 기대손익</td><td>Base -$1,576 / Bull +$5,224 / Overshoot +$11,224 / Bear -$7,576</td></tr><tr><td>추천 행동</td><td>일부 차익실현</td></tr><tr><td>목표 비중</td><td>3.0~3.5%</td></tr><tr><td>실적 발표 전 행동</td><td>20주 매도, 60주 보유. $295 접근 시 10주 추가 trimming 가능</td></tr><tr><td>실적 발표 후 행동</td><td>beat+raise+GM 방어 시 보유, inline/guide 약하면 40주로 축소</td></tr><tr><td>목표가 도달 시 행동</td><td>$345 도달 시 15~20주 차익실현, $420 overshoot 시 core만 유지</td></tr><tr><td>thesis 훼손 시 행동</td><td>$235 하회 + 가이던스 하향/GM 악화 시 축소 또는 퇴각</td></tr><tr><td>가장 중요한 체크포인트</td><td>Q2/Q3 가이던스, FY28 $16.5B·FY29 custom $10B path, NVIDIA/NVLink 고객 증거, T100/CXL 샘플링 고객</td></tr><tr><td>내가 틀렸다고 인정해야 하는 조건</td><td>Data Center acceleration이 멈추고, custom/optical/switch가 양산 매출로 전환되지 않으며, 고객 warrant/Distributor A가 실수요가 아니라 재고 신호로 드러나는 경우</td></tr></tbody></table>
+</div>
+
+<h2>참조 자료 링크</h2>
+<ul class="source-list">
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1023/marvell-technology-inc-reports-first-quarter-of-fiscal-year-2027-financial-results">Marvell Q1 FY2027 Earnings Release</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1835632/000183563226000011/mrvl-20260131.htm">Marvell FY2026 Form 10-K</a></li>
+<li><a href="https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000019/mrvl-20260502.htm">Marvell Q1 FY2027 Form 10-Q</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1019/nvidia-ai-ecosystem-expands-as-marvell-joins-forces-through-nvlink-fusion">NVIDIA AI Ecosystem Expands as Marvell Joins Forces Through NVLink Fusion</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1017/marvell-launches-next-generation-cxl-switch-enabling-memory-pooling-to-break-through-the-ai-memory-wall">Structera CXL Switch Launch</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1016/marvell-launches-industrys-first-260-lane-pcie-6-0-switch-for-ai-data-center-scale-up-infrastructure">Structera PCIe 6.0 Switch Launch</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1020/marvell-announces-acquisition-of-polariton-technologies-advancing-optical-performance-scaling-to-3-2t-and-beyond">Polariton Acquisition</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1024/marvell-announces-availability-of-industrys-first-102-4-tbps-switch-purpose-built-for-ai-and-cloud-data-center-infrastructure">Teralynx T100 102.4Tbps Switch</a></li>
+<li><a href="https://investor.marvell.com/news-events/press-releases/detail/1025/marvell-announces-cfo-transition">Marvell CFO Transition</a></li>
+<li><a href="https://www.reuters.com/technology/marvell-technology-forecasts-quarterly-revenue-above-estimates-2026-05-27/">Reuters: Marvell custom chip revenue outlook</a></li>
+<li><a href="https://www.reuters.com/business/marvell-shares-jump-after-chipmaker-wins-spot-sp-500-2026-06-08/">Reuters: Marvell S&P 500 inclusion and stock rally</a></li>
+<li><a href="https://www.bls.gov/news.release/empsit.nr0.htm">BLS Employment Situation — May 2026</a></li>
+<li><a href="https://www.reuters.com/business/fed-hold-rates-this-year-cut-calls-fade-war-inflation-persists-economists-say-2026-06-09/">Reuters Poll: Fed rate outlook</a></li>
+</ul>
+<p class="note">주의: 이 보고서는 투자 조언이 아니라 공개자료 기반 분석입니다. short borrow fee, 옵션 체인, 일부 sell-side 목표가 변화는 실시간 유료 데이터가 필요해 공개 데이터로 확인 가능한 범위에서만 반영했습니다.</p>
+</div>
+</body>
+</html>

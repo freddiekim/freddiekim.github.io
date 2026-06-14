@@ -77,6 +77,7 @@
     .link-chip.call { background: var(--green); color: var(--cream); }
     .link-chip.earnings-summary { background: #f4a083; }
     .link-chip.qa { background: var(--sky); }
+    .link-chip.audio { background: #8f63d8; color: var(--cream); }
     .hero {
       background: var(--sky);
       border: 6px solid var(--line);
@@ -398,6 +399,26 @@
                 {% endif %}
               {% endif %}
             {% endfor %}
+            {% assign audio_count = 0 %}
+            {% capture audio_track_links %}
+              {% for audio in site.data.company_audio %}
+                {% assign audio_ticker = audio.ticker | upcase %}
+                {% assign audio_title = audio.title | default: audio.tilte %}
+                {% assign audio_href = audio.link_address | default: audio.link | default: audio.url %}
+                {% if audio_ticker == ticker_key and audio_href %}
+                  {% assign audio_count = audio_count | plus: 1 %}
+                  {% if audio_title %}
+                    <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-title="{{ audio_title | escape }}" data-audio-ticker="{{ company.ticker | escape }}" hidden></span>
+                  {% else %}
+                    <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-ticker="{{ company.ticker | escape }}" hidden></span>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            {% endcapture %}
+            {% if audio_count > 0 %}
+              <a class="link-chip audio js-audio-playlist-trigger" href="#" data-audio-ticker="{{ company.ticker | escape }}" data-audio-count="{{ audio_count }}">음성</a>
+              {{ audio_track_links }}
+            {% endif %}
             {% if earnings_links %}
               {% for item in earnings_links limit: 2 %}
                 <a class="link-chip" href="{{ item.url }}" target="_self">{{ item.period }}</a>
@@ -414,6 +435,7 @@
     {% endif %}
   </main>
   <script src="/js/link-title-tooltips.js"></script>
+  <script src="/js/company-audio-playlist.js"></script>
   <script src="/js/page-comments.js" data-disqus-shortname="freddiekim" data-site-url="https://freddiekim.github.io"></script>
 </body>
 </html>

@@ -865,6 +865,11 @@ body.sidebar-open .tooltip-container {
     background: var(--poster-sky);
 }
 
+.company-board-links a.audio-chip {
+    background: #8f63d8;
+    color: var(--poster-cream) !important;
+}
+
 .company-board-links a:hover,
 .company-board-links a:focus {
     background: var(--poster-coral);

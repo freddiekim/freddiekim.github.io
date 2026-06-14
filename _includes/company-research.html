@@ -173,6 +173,26 @@
                         {% endif %}
                       {% endif %}
                     {% endfor %}
+                    {% assign audio_count = 0 %}
+                    {% capture audio_track_links %}
+                      {% for audio in site.data.company_audio %}
+                        {% assign audio_ticker = audio.ticker | upcase %}
+                        {% assign audio_title = audio.title | default: audio.tilte %}
+                        {% assign audio_href = audio.link_address | default: audio.link | default: audio.url %}
+                        {% if audio_ticker == ticker_key and audio_href %}
+                          {% assign audio_count = audio_count | plus: 1 %}
+                          {% if audio_title %}
+                            <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-title="{{ audio_title | escape }}" data-audio-ticker="{{ ticker | escape }}" hidden></span>
+                          {% else %}
+                            <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-ticker="{{ ticker | escape }}" hidden></span>
+                          {% endif %}
+                        {% endif %}
+                      {% endfor %}
+                    {% endcapture %}
+                    {% if audio_count > 0 %}
+                      <a class="audio-chip js-audio-playlist-trigger" href="#" data-audio-ticker="{{ ticker | escape }}" data-audio-count="{{ audio_count }}">음성</a>
+                      {{ audio_track_links }}
+                    {% endif %}
                     {% if earnings_links %}
                       {% for item in earnings_links limit: 2 %}
                         <a href="{{ item.url }}" target="_self">{{ item.period }}</a>

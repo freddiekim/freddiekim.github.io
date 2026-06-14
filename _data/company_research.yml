@@ -859,3 +859,21 @@
     - "반도체 고객 투자 사이클 둔화"
     - "테스트 장비 경쟁과 고객 내재화 가능성"
   next_update: "다음 실적에서 AI test 매출, 가이던스, H2 수요 지속성, 마진 방어 여부를 확인합니다."
+
+- ticker: PL
+  name: Planet Labs PBC
+  portfolio_rank: 919
+  portfolio_role: watchlist
+  thesis: "위성 이미지 구독 기업을 넘어 방산, 국가안보, AI 지구 데이터 인프라와 sovereign satellite service 옵션을 가진 기업으로 추적합니다."
+  observation: "신규 리포트의 핵심은 PL이 단순 지구 관측 이미지 판매에서 국가안보 워크플로우, AI 분석, Pelican/Tanager 위성 서비스, Google Suncatcher 옵션까지 묶는 데이터 인프라로 재정의될 수 있는지입니다. 다만 주가가 이미 상당한 리레이팅을 반영해 분할 진입과 희석 리스크 점검이 필요합니다."
+  metrics:
+    - "Defense & Intelligence 매출 성장률과 RPO/backlog"
+    - "NDR, recurring ACV, 대형 고객 확장"
+    - "Pelican/Tanager 발사 일정과 satellite services 계약"
+    - "현금 잔고, FCF, ATM 발행에 따른 희석 강도"
+  risks:
+    - "대규모 ATM과 전환사채에 따른 주식 희석"
+    - "위성 발사, 제조, 규제 승인 지연"
+    - "고멀티플 우주·AI 테마주의 밸류에이션 압축"
+    - "정부 계약 집중과 갱신 리스크"
+  next_update: "다음 실적에서 D&I 성장, RPO 재가속, Pelican/Tanager 진행, ATM 실제 발행 여부와 자금 사용처를 확인합니다."
