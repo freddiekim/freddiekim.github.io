@@ -38,7 +38,7 @@
   function trackFromElement(element) {
     var title = cleanText(element.getAttribute("data-audio-title") || element.getAttribute("title"));
     var ticker = cleanText(element.getAttribute("data-audio-ticker"));
-    var href = element.getAttribute("data-audio-href") || element.getAttribute("href");
+    var href = cleanText(element.getAttribute("data-audio-href") || element.getAttribute("href"));
     var driveId = getDriveFileId(href);
 
     if (!title) {
@@ -61,7 +61,7 @@
     tracks = [];
 
     Array.prototype.forEach.call(document.querySelectorAll(TRACK_SELECTOR), function (element) {
-      var href = element.getAttribute("data-audio-href") || element.getAttribute("href");
+      var href = cleanText(element.getAttribute("data-audio-href") || element.getAttribute("href"));
       var linkTicker = cleanText(element.getAttribute("data-audio-ticker")).toUpperCase();
       if (!href || href === "#") {
         return;

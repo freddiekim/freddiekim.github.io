@@ -12,6 +12,7 @@
 {% assign qa_files = site.static_files | where_exp: "file", "file.path contains '/pages_QnA/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
 {% assign conference_calls = site.data.conference_calls[ticker_key] %}
+{% assign annual_links = site.data.annual_reports[ticker_key] %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -76,6 +77,7 @@
     .link-chip.report { background: var(--gold); }
     .link-chip.call { background: var(--green); color: var(--cream); }
     .link-chip.earnings-summary { background: #f4a083; }
+    .link-chip.annual { background: #285f8f; color: var(--cream); }
     .link-chip.qa { background: var(--sky); }
     .link-chip.audio { background: #8f63d8; color: var(--cream); }
     .hero {
@@ -402,9 +404,9 @@
             {% assign audio_count = 0 %}
             {% capture audio_track_links %}
               {% for audio in site.data.company_audio %}
-                {% assign audio_ticker = audio.ticker | upcase %}
-                {% assign audio_title = audio.title | default: audio.tilte %}
-                {% assign audio_href = audio.link_address | default: audio.link | default: audio.url %}
+                {% assign audio_ticker = audio.ticker | strip | upcase %}
+                {% assign audio_title = audio.title | default: audio.tilte | strip %}
+                {% assign audio_href = audio.link_address | default: audio.link | default: audio.url | strip %}
                 {% if audio_ticker == ticker_key and audio_href %}
                   {% assign audio_count = audio_count | plus: 1 %}
                   {% if audio_title %}
@@ -422,6 +424,12 @@
             {% if earnings_links %}
               {% for item in earnings_links limit: 2 %}
                 <a class="link-chip" href="{{ item.url }}" target="_self">{{ item.period }}</a>
+              {% endfor %}
+            {% endif %}
+            {% if annual_links %}
+              {% for annual in annual_links limit: 1 %}
+                {% assign annual_chip_label = annual.chip | default: "2025 연간보고서" %}
+                <a class="link-chip annual" href="{{ annual.url }}" target="_self">{{ annual_chip_label }}</a>
               {% endfor %}
             {% endif %}
           </div>

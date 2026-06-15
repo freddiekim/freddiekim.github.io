@@ -337,3 +337,93 @@ DB_HITEK:
     label: "2025년 4분기 실적발표"
     kind: "IR"
     url: "https://www.dbhitek.com/kor/ir/performance.do"
+
+LWLG:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results & Business Update"
+    kind: "PDF"
+    url: "https://irp.cdn-website.com/a5f8ef96/files/uploaded/Lightwave%2BLogic%2BQ1%2B2026%2BFinancial%2BResults%2Band%2BBusiness%2BUpdate.pdf"
+  - period: "2025 Q4"
+    label: "Q4 & FY2025 Business Update"
+    kind: "IR"
+    url: "https://www.lightwavelogic.com/press-releases"
+
+HIMS:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investors.hims.com/news-events/news-releases"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://investors.hims.com/news-events/news-releases"
+
+TEM:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investors.tempus.com/news-events/news-releases"
+  - period: "2025 Q4"
+    label: "Q4 & FY 2025 Financial Results"
+    kind: "IR"
+    url: "https://investors.tempus.com/news-events/news-releases"
+
+AAOI:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investors.ao-inc.com/news-events/press-releases"
+  - period: "2025 Q4"
+    label: "Q4 2025 Financial Results"
+    kind: "IR"
+    url: "https://investors.ao-inc.com/news-events/press-releases"
+
+NU:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://international.nubank.com.br/company/nu-holdings-ltd-reports-first-quarter-2026-financial-results/"
+  - period: "2025 Q4"
+    label: "Q4 & FY2025 Financial Results"
+    kind: "IR"
+    url: "https://international.nubank.com.br/company/nu-holdings-ltd-reports-fourth-quarter-and-full-year-2025-financial-results/"
+
+NVTS:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://ir.navitassemi.com/news-events/press-releases"
+  - period: "2025 Q4"
+    label: "Q4 & FY2025 Financial Results"
+    kind: "IR"
+    url: "https://ir.navitassemi.com/news-events/press-releases"
+
+AMAT:
+  - period: "FY2026 Q2"
+    label: "Q2 FY2026 Results"
+    kind: "IR"
+    url: "https://ir.appliedmaterials.com/events-and-presentations"
+  - period: "FY2026 Q1"
+    label: "Q1 FY2026 Results"
+    kind: "IR"
+    url: "https://ir.appliedmaterials.com/events-and-presentations"
+
+TER:
+  - period: "2026 Q1"
+    label: "Q1 2026 Financial Results"
+    kind: "IR"
+    url: "https://investors.teradyne.com/events-and-presentations/events"
+  - period: "2025 Q4"
+    label: "Q4 2025 Financial Results"
+    kind: "IR"
+    url: "https://investors.teradyne.com/events-and-presentations/events"
+
+PL:
+  - period: "FY2027 Q1"
+    label: "Q1 FY2027 Financial Results"
+    kind: "IR"
+    url: "https://investors.planet.com/news-events/events-presentations"
+  - period: "FY2026 Q4"
+    label: "Q4 FY2026 Financial Results"
+    kind: "IR"
+    url: "https://investors.planet.com/news-events/events-presentations"

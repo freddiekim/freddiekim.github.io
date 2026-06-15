@@ -297,3 +297,273 @@ SAMSUNG_ELEC:
     watch:
       - "자동차/산업 backlog와 book-to-bill"
       - "non-GAAP gross margin 회복 속도"
+
+GCTS:
+  - period: "2026 Q1"
+    date: "2026.05.12"
+    label: "Q1 2026 Business Update"
+    chip: "26 1Q 어닝콜"
+    kind: "IR Release"
+    url: "https://www.businesswire.com/news/home/20260512443937/en/GCT-Semiconductor-Holding-Inc.-Provides-Business-Update-and-Reports-First-Quarter-2026-Financial-Results"
+    summary: "5G/FWA와 위성 단말 ramp가 핵심입니다. 매출 규모는 아직 작지만 design win이 실제 출하로 바뀌는지와 희석 강도를 함께 봐야 합니다."
+    highlights:
+      - "위성·FWA 고객 일정이 하반기 매출 전환의 핵심입니다."
+      - "gross margin보다 출하량, 현금, 주식수 변화가 더 중요한 구간입니다."
+    watch:
+      - "5G 출하량과 H2 위성 고객 출하 일정"
+      - "ATM 및 전환증권 사용 속도"
+
+SOFI:
+  - period: "2026 Q1"
+    date: "2026.04.28"
+    label: "Q1 2026 Earnings Materials"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.sofi.com/overview/default.aspx"
+    summary: "회원 성장, 금융서비스 수익성, Tech Platform 회복, 신용 품질이 핵심입니다. 대출 성장과 손실률이 균형을 이루는지가 리레이팅 조건입니다."
+    highlights:
+      - "회원과 상품 수가 늘어도 신용비용이 안정되어야 합니다."
+      - "Galileo/Technisys 회복은 은행 플랫폼 thesis의 확인 포인트입니다."
+    watch:
+      - "Tech Platform 매출 성장률"
+      - "NCO와 provision 흐름"
+
+COHR:
+  - period: "FY2025 Q3"
+    date: "2025.05.07"
+    label: "Q3 FY2025 Financial Results"
+    chip: "25 3Q 어닝콜"
+    kind: "IR Release"
+    url: "https://ir.coherent.com/news-releases/news-release-details/coherent-reports-third-quarter-fiscal-2025-financial-results"
+    summary: "AI 데이터센터 광트랜시버와 레이저 수요가 핵심입니다. 부채와 마진 개선이 광학 인프라 thesis의 현실성을 결정합니다."
+    highlights:
+      - "800G/1.6T 전환 속도가 ASP와 마진을 좌우합니다."
+      - "II-VI 합병 이후 부채 부담과 FCF 전환을 계속 확인해야 합니다."
+    watch:
+      - "데이터센터 매출 성장률"
+      - "gross margin과 부채 축소 속도"
+
+MELI:
+  - period: "2026 Q1"
+    date: "2026.05.07"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR Release"
+    url: "https://investor.mercadolibre.com/news-releases/news-release-details/mercadolibre-inc-reports-first-quarter-2026-financial-results"
+    summary: "이커머스 GMV, Mercado Pago TPV, 대출 포트폴리오의 질이 핵심입니다. 성장률과 신용위험이 동시에 관리되는지 봐야 합니다."
+    highlights:
+      - "브라질·멕시코 GMV 성장과 물류 효율이 핵심입니다."
+      - "핀테크 대출 성장은 NPL과 함께 봐야 합니다."
+    watch:
+      - "GMV와 TPV 성장률"
+      - "신용 포트폴리오 연체율"
+
+IBM:
+  - period: "2026 Q1"
+    date: "2026.04.23"
+    label: "1Q 2026 Earnings"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://www.ibm.com/investor/financials/financial-reporting"
+    summary: "Red Hat, 소프트웨어, IBM Z, FCF가 핵심입니다. 컨설팅 부진이 소프트웨어 리레이팅을 훼손하는지 확인해야 합니다."
+    highlights:
+      - "소프트웨어 성장과 FCF가 방어적 thesis를 지지합니다."
+      - "컨설팅 성장 둔화는 밸류에이션 상단을 제한할 수 있습니다."
+    watch:
+      - "Red Hat 성장률"
+      - "컨설팅 회복과 FCF 가이던스"
+
+AGYS:
+  - period: "FY2026 Q4"
+    date: "2026.05.19"
+    label: "Q4 FY2026 Earnings"
+    chip: "26 4Q 어닝콜"
+    kind: "IR"
+    url: "https://ir.agilysys.com/events-and-presentations/events"
+    summary: "호텔·리조트 SaaS의 구독 매출과 대형 고객 구현 일정이 핵심입니다. 매출 성장보다 반복 매출 비중과 EBITDA 마진을 봐야 합니다."
+    highlights:
+      - "PMS/POS/결제 모듈 번들링이 고객 락인을 만듭니다."
+      - "대형 구현 지연은 단기 매출 인식 리스크입니다."
+    watch:
+      - "구독 매출 성장률"
+      - "조정 EBITDA 마진"
+
+BE:
+  - period: "2026 Q1"
+    date: "2026.05.06"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR Release"
+    url: "https://www.bloomenergy.com/news/bloom-energy-reports-first-quarter-2026-financial-results/"
+    summary: "AI 데이터센터 전력 병목과 onsite power 수요가 핵심입니다. backlog가 매출과 FCF로 전환되는지 확인해야 합니다."
+    highlights:
+      - "제품 backlog는 성장 신호지만 현금흐름 전환이 중요합니다."
+      - "전력 대안 경쟁과 밸류에이션 과열을 같이 봐야 합니다."
+    watch:
+      - "backlog 전환률"
+      - "non-GAAP gross margin과 FCF"
+
+LPTH:
+  - period: "FY2026 Q3"
+    date: "2026.05.08"
+    label: "Q3 FY2026 Financial Results"
+    chip: "26 3Q 어닝콜"
+    kind: "IR"
+    url: "https://ir.lightpath.com/news-releases"
+    summary: "방산 IR 카메라와 BlackDiamond 소재, backlog 매출 전환이 핵심입니다. 대형 주문이 반복 가능한 프로그램인지 확인해야 합니다."
+    highlights:
+      - "advanced IR camera 주문은 subsystem 업체로의 전환 가능성을 보여줍니다."
+      - "gross margin과 cash burn이 리레이팅 지속성을 결정합니다."
+    watch:
+      - "backlog 매출 전환"
+      - "gross margin과 EBITDA 흑자"
+
+LWLG:
+  - period: "2026 Q1"
+    date: "2026.05.13"
+    label: "Q1 2026 Earnings Transcript"
+    chip: "26 1Q 어닝콜"
+    kind: "Transcript"
+    url: "https://www.fool.com/earnings/call-transcripts/2026/05/13/lightwave-logic-lwlg-q1-2026-earnings-transcript/"
+    summary: "EO 폴리머 상용화 단계와 PDK/파운드리 이전이 핵심입니다. 아직 매출 증명 전 단계라 고객 단계 전환과 현금 소진이 가장 중요합니다."
+    highlights:
+      - "Stage 3에서 Stage 4로 넘어가는 고객 증거가 필요합니다."
+      - "PDK 1.1과 foundry transfer는 기술 thesis의 핵심 확인점입니다."
+    watch:
+      - "고객 계약 또는 NRE 매출 확대"
+      - "현금 burn과 ATM 사용 여부"
+
+PENG:
+  - period: "FY2026 Q2"
+    date: "2026.04.09"
+    label: "Q2 FY2026 Earnings"
+    chip: "26 2Q 어닝콜"
+    kind: "IR"
+    url: "https://ir.penguinsolutions.com/news-releases"
+    summary: "MemoryAI, CXL/KV cache, AI factory 통합 역량이 핵심입니다. SKT/SK hynix 협력이 실제 반복 매출로 이어지는지 확인해야 합니다."
+    highlights:
+      - "Integrated Memory와 AI infrastructure project 수요를 분리해서 봐야 합니다."
+      - "SK 지분과 전환증권 오버행은 수급 리스크입니다."
+    watch:
+      - "MemoryAI 반복 주문"
+      - "gross margin과 FCF 품질"
+
+HIMS:
+  - period: "2026 Q1"
+    date: "2026.05.05"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.hims.com/news-events/news-releases"
+    summary: "구독자 성장, 마케팅 효율, 체중관리 카테고리 지속성이 핵심입니다. 규제와 공급 이슈가 성장률을 훼손하는지 봐야 합니다."
+    highlights:
+      - "구독형 모델은 반복 매출이 강점이지만 CAC가 중요합니다."
+      - "GLP-1/체중관리 관련 규제 변화가 변동성을 키울 수 있습니다."
+    watch:
+      - "구독자 수와 월평균 매출"
+      - "마케팅 비용 효율과 EBITDA"
+
+TEM:
+  - period: "2026 Q1"
+    date: "2026.05.06"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.tempus.com/news-events/news-releases"
+    summary: "정밀의료 데이터, 진단 매출, 제약사 파트너십이 핵심입니다. 성장률만큼 손실 축소와 데이터 네트워크 품질을 같이 봐야 합니다."
+    highlights:
+      - "병원·제약사 파트너십의 반복성이 중요합니다."
+      - "AI 제품이 실제 임상 워크플로우에 들어가는지 확인해야 합니다."
+    watch:
+      - "진단 및 데이터 서비스 매출 성장"
+      - "gross margin과 영업손실 축소"
+
+AAOI:
+  - period: "2026 Q1"
+    date: "2026.05.08"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.ao-inc.com/news-events/press-releases"
+    summary: "AI 데이터센터 광트랜시버 수요와 증설 실행이 핵심입니다. 주문 증가가 마진과 현금흐름으로 이어지는지 확인해야 합니다."
+    highlights:
+      - "800G/1.6T 전환은 매출 성장의 핵심 촉매입니다."
+      - "광부품 업종 특성상 고객 주문 변동성이 큽니다."
+    watch:
+      - "데이터센터 매출 성장률"
+      - "gross margin과 현금흐름"
+
+NU:
+  - period: "2026 Q1"
+    date: "2026.05.14"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR Release"
+    url: "https://international.nubank.com.br/company/nu-holdings-ltd-reports-first-quarter-2026-financial-results/"
+    summary: "고객 성장보다 ARPAC, ROE, 신용비용, 멕시코 확장이 핵심입니다. 높은 성장과 은행형 리스크 관리를 동시에 확인해야 합니다."
+    highlights:
+      - "저비용 예금과 AI 신용평가가 ROE를 지지합니다."
+      - "대출 성장에는 NPL migration 확인이 필요합니다."
+    watch:
+      - "NPL과 risk-adjusted NIM"
+      - "멕시코 고객 성장과 수익성"
+
+NVTS:
+  - period: "2026 Q1"
+    date: "2026.05.05"
+    label: "Q1 2026 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://ir.navitassemi.com/news-events/press-releases"
+    summary: "GaN/SiC 전력반도체가 AI 데이터센터 전력 체인으로 실제 진입하는지가 핵심입니다. design win과 실제 매출 사이의 간극을 확인해야 합니다."
+    highlights:
+      - "고전력 전환은 긍정적이지만 아직 절대 매출은 작습니다."
+      - "현금 runway와 희석 여부가 소형주 리스크입니다."
+    watch:
+      - "AI 데이터센터 설계채택과 매출 전환"
+      - "cash burn과 gross margin"
+
+AMAT:
+  - period: "FY2026 Q2"
+    date: "2026.05.15"
+    label: "Q2 FY2026 Results"
+    chip: "26 2Q 어닝콜"
+    kind: "IR"
+    url: "https://ir.appliedmaterials.com/events-and-presentations"
+    summary: "GAA, HBM, advanced packaging 장비와 AGS 서비스 성장이 핵심입니다. AI 장비 기대가 실제 backlog와 마진으로 이어지는지 확인해야 합니다."
+    highlights:
+      - "materials engineering 수요가 AI 반도체 capex와 연결됩니다."
+      - "중국 규제와 WFE 사이클 둔화는 주요 반증 포인트입니다."
+    watch:
+      - "AGS 성장률과 backlog"
+      - "중국 규제 영향과 gross margin"
+
+TER:
+  - period: "2026 Q1"
+    date: "2026.04.23"
+    label: "Q1 2026 Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.teradyne.com/events-and-presentations/events"
+    summary: "AI/HPC 반도체 테스트 수요와 HBM/advanced packaging 검증 병목이 핵심입니다. H2 수요 둔화 여부를 같이 봐야 합니다."
+    highlights:
+      - "테스트 장비는 AI 가속기 복잡도 증가의 수혜를 받을 수 있습니다."
+      - "고객 capex 사이클에 민감해 가이던스 확인이 중요합니다."
+    watch:
+      - "AI test 매출과 수주 가시성"
+      - "마진 방어와 H2 수요"
+
+PL:
+  - period: "FY2027 Q1"
+    date: "2026.06.05"
+    label: "Q1 FY2027 Financial Results"
+    chip: "26 1Q 어닝콜"
+    kind: "IR"
+    url: "https://investors.planet.com/news-events/events-presentations"
+    summary: "Defense & Intelligence, recurring ACV, Pelican/Tanager 위성 서비스가 핵심입니다. 희석과 정부계약 집중 리스크를 같이 봐야 합니다."
+    highlights:
+      - "D&I 매출 성장과 RPO 재가속이 thesis를 지지합니다."
+      - "위성 발사 일정과 ATM 사용은 주요 리스크입니다."
+    watch:
+      - "D&I 성장률과 RPO"
+      - "Pelican/Tanager 일정과 현금 사용"

@@ -2,7 +2,7 @@
 layout: null
 title: My Portfolio
 ---
-{% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/portfolio/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/pages_portfolio/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign latest_report = portfolio_reports | last %}
 {% assign archive_count = portfolio_reports.size | minus: 1 %}
 {% if latest_report %}

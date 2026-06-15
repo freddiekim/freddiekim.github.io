@@ -70,6 +70,8 @@
                 {% assign ticker = company.ticker %}
                 {% assign ticker_key = ticker | upcase %}
                 {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
+                {% assign conference_links = site.data.conference_calls[ticker_key] %}
+                {% assign annual_links = site.data.annual_reports[ticker_key] %}
                 {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
                 {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
 
@@ -158,6 +160,37 @@
                         {% endif %}
                       {% endif %}
                     {% endfor %}
+                    {% if company_role == "watchlist" and conference_links %}
+                      {% for call in conference_links limit: 2 %}
+                        {% assign call_chip_label = call.chip %}
+                        {% if call_chip_label == nil or call_chip_label == "" %}
+                          {% assign call_period_parts = call.period | split: " " %}
+                          {% assign call_year_from_period = "" %}
+                          {% assign call_quarter_from_period = "" %}
+                          {% for call_period_part in call_period_parts %}
+                            {% assign call_period_clean = call_period_part | remove: "FY" %}
+                            {% assign call_period_size = call_period_clean | size %}
+                            {% assign call_period_first = call_period_clean | slice: 0, 1 | downcase %}
+                            {% if call_period_size == 4 %}
+                              {% assign call_period_year_number = call_period_clean | plus: 0 %}
+                              {% if call_period_year_number >= 2000 and call_period_year_number <= 2099 %}
+                                {% assign call_year_from_period = call_period_clean %}
+                              {% endif %}
+                            {% endif %}
+                            {% if call_period_first == "q" %}
+                              {% assign call_quarter_from_period = call_period_clean | remove: "Q" | remove: "q" %}
+                            {% endif %}
+                          {% endfor %}
+                          {% assign call_year_short = call_year_from_period | slice: 2, 2 %}
+                          {% if call_year_short != "" and call_quarter_from_period != "" %}
+                            {% capture call_chip_label %}{{ call_year_short }} {{ call_quarter_from_period }}Q 어닝콜{% endcapture %}
+                          {% else %}
+                            {% assign call_chip_label = "어닝콜" %}
+                          {% endif %}
+                        {% endif %}
+                        <a class="call-chip" href="{{ call.url }}" target="_self">{{ call_chip_label }}</a>
+                      {% endfor %}
+                    {% endif %}
                     {% for qa_file in qa_files reversed %}
                       {% assign qa_file_name_down = qa_file.name | downcase %}
                       {% assign qa_file_prefix = qa_file_name_down | slice: 0, ticker_file_prefix_size %}
@@ -176,9 +209,9 @@
                     {% assign audio_count = 0 %}
                     {% capture audio_track_links %}
                       {% for audio in site.data.company_audio %}
-                        {% assign audio_ticker = audio.ticker | upcase %}
-                        {% assign audio_title = audio.title | default: audio.tilte %}
-                        {% assign audio_href = audio.link_address | default: audio.link | default: audio.url %}
+                        {% assign audio_ticker = audio.ticker | strip | upcase %}
+                        {% assign audio_title = audio.title | default: audio.tilte | strip %}
+                        {% assign audio_href = audio.link_address | default: audio.link | default: audio.url | strip %}
                         {% if audio_ticker == ticker_key and audio_href %}
                           {% assign audio_count = audio_count | plus: 1 %}
                           {% if audio_title %}
@@ -196,6 +229,12 @@
                     {% if earnings_links %}
                       {% for item in earnings_links limit: 2 %}
                         <a href="{{ item.url }}" target="_self">{{ item.period }}</a>
+                      {% endfor %}
+                    {% endif %}
+                    {% if annual_links %}
+                      {% for annual in annual_links limit: 1 %}
+                        {% assign annual_chip_label = annual.chip | default: "2025 연간보고서" %}
+                        <a class="annual-chip" href="{{ annual.url }}" target="_self">{{ annual_chip_label }}</a>
                       {% endfor %}
                     {% endif %}
                   </div>

@@ -1,0 +1,125 @@
+GCTS:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=GCTS&type=10-K&dateb=&owner=exclude&count=40"
+
+SOFI:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=SOFI&type=10-K&dateb=&owner=exclude&count=40"
+
+COHR:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=COHR&type=10-K&dateb=&owner=exclude&count=40"
+
+MELI:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=MELI&type=10-K&dateb=&owner=exclude&count=40"
+
+IBM:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=IBM&type=10-K&dateb=&owner=exclude&count=40"
+
+AGYS:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AGYS&type=10-K&dateb=&owner=exclude&count=40"
+
+BE:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=BE&type=10-K&dateb=&owner=exclude&count=40"
+
+LPTH:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=LPTH&type=10-K&dateb=&owner=exclude&count=40"
+
+LWLG:
+  - period: "2025"
+    label: "FY2025 Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/Archives/edgar/data/1325964/000107997326000348/lwlg_10k-123125.htm"
+
+PENG:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=PENG&type=10-K&dateb=&owner=exclude&count=40"
+
+HIMS:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=HIMS&type=10-K&dateb=&owner=exclude&count=40"
+
+TEM:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TEM&type=10-K&dateb=&owner=exclude&count=40"
+
+AAOI:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AAOI&type=10-K&dateb=&owner=exclude&count=40"
+
+NU:
+  - period: "2025"
+    label: "FY2025 Audited Financial Statements"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/Archives/edgar/data/1691493/000129281426000499/nufs4q25_6k.htm"
+
+NVTS:
+  - period: "2025"
+    label: "FY2025 Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/Archives/edgar/data/1821769/000182176926000007/nvts-20251231.htm"
+
+AMAT:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AMAT&type=10-K&dateb=&owner=exclude&count=40"
+
+TER:
+  - period: "2025"
+    label: "2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=TER&type=10-K&dateb=&owner=exclude&count=40"
+
+PL:
+  - period: "FY2025"
+    label: "FY2025 Annual Report / Form 10-K"
+    chip: "2025 연간보고서"
+    kind: "SEC"
+    url: "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=PL&type=10-K&dateb=&owner=exclude&count=40"

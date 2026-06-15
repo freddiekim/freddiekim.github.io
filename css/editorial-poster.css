@@ -861,6 +861,11 @@ body.sidebar-open .tooltip-container {
     background: #f4a083;
 }
 
+.company-board-links a.annual-chip {
+    background: var(--poster-blue);
+    color: var(--poster-cream);
+}
+
 .company-board-links a.qa-chip {
     background: var(--poster-sky);
 }
