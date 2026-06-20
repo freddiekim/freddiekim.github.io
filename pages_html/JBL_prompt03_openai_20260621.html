@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>JBL 자빌 Forensic Investor Memo — 2026-06-18 · Dashboard Style</title>
+<style>
+:root {
+  --ink:#24302f;
+  --muted:#6f6a60;
+  --paper:#f6f1e8;
+  --card:#fffdf8;
+  --line:#ded6c9;
+  --accent:#2d3a3a;
+  --accent2:#c46c42;
+  --accent3:#5b7c84;
+  --good:#2e675f;
+  --warn:#9b6d25;
+  --bad:#b54a35;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Arial,sans-serif;
+  line-height:1.55;
+}
+.page { max-width:1160px; margin:0 auto; padding:34px 22px 60px; }
+.hero {
+  display:grid; grid-template-columns:1.5fr .9fr; gap:22px; align-items:stretch;
+  border:1px solid var(--line); border-radius:26px; background:var(--card);
+  padding:28px; box-shadow:0 1px 0 rgba(36,48,47,.04);
+}
+.eyebrow { font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:800; }
+h1 { font-size:35px; line-height:1.16; margin:8px 0 12px; letter-spacing:-.03em; }
+h2 { font-size:23px; margin:34px 0 14px; letter-spacing:-.02em; }
+h3 { font-size:17px; margin:18px 0 8px; }
+p { margin:7px 0; }
+.small { font-size:12px; color:var(--muted); }
+.lead { font-size:16px; color:#384442; max-width:780px; }
+.badge {
+  display:inline-flex; align-items:center; gap:7px; padding:6px 10px; border-radius:999px;
+  background:#ece6da; color:#384442; font-size:12px; font-weight:800; margin:3px 4px 3px 0;
+}
+.badge.buy { background:#e4eee9; color:#235a51; }
+.badge.hold { background:#f1e7d6; color:#8a5d1d; }
+.badge.risk { background:#f4dfd8; color:#9c3d2c; }
+.grid { display:grid; gap:16px; }
+.grid.cols-2 { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.grid.cols-3 { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.grid.cols-4 { grid-template-columns:repeat(4,minmax(0,1fr)); }
+.card {
+  background:var(--card); border:1px solid var(--line); border-radius:20px; padding:18px;
+}
+.card .k { color:var(--muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; }
+.card .v { font-size:23px; font-weight:900; margin-top:3px; letter-spacing:-.02em; }
+.card .sub { font-size:12px; color:var(--muted); margin-top:4px; }
+.callout {
+  border-left:5px solid var(--accent2); background:#fff8ef; padding:14px 16px; border-radius:14px; margin:12px 0;
+}
+table { width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border:1px solid var(--line); border-radius:16px; background:var(--card); font-size:13px; }
+th,td { padding:10px 12px; vertical-align:top; border-bottom:1px solid var(--line); }
+th { background:#ece6da; text-align:left; font-size:12px; letter-spacing:.02em; }
+tr:last-child td { border-bottom:none; }
+td.num { text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.tag { font-size:11px; font-weight:900; padding:3px 7px; border-radius:999px; display:inline-block; }
+.A { background:#dcebe6; color:#225c52; }
+.B { background:#eee2ca; color:#7d5317; }
+.C { background:#f2dcd5; color:#973c2c; }
+.chart-card {
+  background:var(--card); border:1px solid var(--line); border-radius:20px; padding:14px; margin:12px 0;
+}
+.chart-title { font-weight:900; font-size:14px; margin:2px 0 6px; }
+.svg-chart { width:100%; height:auto; display:block; }
+.legend { display:flex; gap:12px; flex-wrap:wrap; font-size:11px; color:var(--muted); margin-bottom:5px; }
+.legend-item i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+.note { color:var(--muted); font-size:12.5px; }
+.section {
+  margin-top:24px;
+}
+.timeline td:nth-child(1) { white-space:nowrap; font-weight:800; }
+.checklist { padding-left:18px; }
+.checklist li { margin:7px 0; }
+.source-list a { color:#394f59; text-decoration:none; border-bottom:1px solid #b8c6c9; }
+.mini {
+  display:inline-block; padding:2px 7px; border-radius:7px; background:#eee7dc; color:#5e574c; font-size:11px; font-weight:800;
+}
+.footer-summary {
+  background:#24302f; color:#fbfaf6; border-radius:24px; padding:22px; margin-top:28px;
+}
+.footer-summary table { background:transparent; color:#fbfaf6; border-color:#55605d; }
+.footer-summary th { background:#34413f; color:#fbfaf6; }
+.footer-summary td { border-color:#55605d; }
+
+
+/* Screenshot-like dashboard chart/table style, adapted to the original JBL warm color palette */
+.dash-card {
+  background:var(--card); border:1px solid var(--line); border-radius:18px;
+  padding:14px 16px 16px; margin:12px 0 14px;
+  box-shadow:0 1px 0 rgba(36,48,47,.04);
+}
+.dash-head { display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:8px; }
+.dash-title { font-size:13px; color:var(--muted); font-weight:900; letter-spacing:.02em; }
+.timeframe { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:900; }
+.tab { padding:4px 9px; border-radius:9px; border:1px solid transparent; }
+.tab.active { color:var(--ink); border-color:var(--accent3); box-shadow:0 0 0 2px rgba(91,124,132,.18); background:#f1eadf; }
+.dash-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; align-items:start; }
+.mini-chart-wrap { min-width:0; }
+.svg-mini { width:100%; height:auto; display:block; }
+.chart-interpretation {
+  margin:10px 0 4px; padding:12px 14px; border-radius:14px; background:#fff8ef;
+  border:1px solid #ebdac6; color:#4a4640; font-size:12.5px;
+}
+.chart-interpretation b { color:var(--accent); }
+.data-note { margin-top:6px; font-size:11.5px; color:var(--muted); }
+.table-panel { overflow-x:auto; border:1px solid var(--line); border-radius:16px; background:var(--card); margin-top:12px; }
+.table-panel table { border:0; border-radius:0; margin:0; }
+.table-panel th { background:#efe7db; color:#4e4b43; border-bottom:1px solid var(--line); white-space:nowrap; }
+.table-panel td { border-bottom:1px solid #e9e1d6; }
+.table-panel tr:nth-child(even) td { background:#fffaf1; }
+.table-panel tr:last-child td { border-bottom:none; }
+@media (max-width:980px) { .dash-grid { grid-template-columns:1fr; gap:8px; } .dash-head { align-items:flex-start; flex-direction:column; } }
+
+@media (max-width:880px) {
+  .hero,.grid.cols-2,.grid.cols-3,.grid.cols-4 { grid-template-columns:1fr; }
+  h1 { font-size:28px; }
+  table { font-size:12px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">Forensic Equity Memo · JBL · 기준일 2026-06-18</div>
+    <h1>Jabil: 더 이상 단순 EMS가 아니라<br/>AI 데이터센터 “랙·전력·냉각·제조 OS”로 재평가 중</h1>
+    <p class="lead"><b>결론:</b> 현재 주가 $374.98는 이미 “레거시 EMS”가 아니라 <b>AI 인프라 전환 base~초기 bull case</b>를 일부 사고 있다. 보유 50주는 유지하되, 실적 직후 추격매수는 금지. 추가 매수는 $330 이하 또는 FY27 가시성 확인 후가 낫다.</p>
+    <span class="badge hold">투자 등급: Hold</span>
+    <span class="badge risk">포트폴리오 행동: 보유 / 신규 추격매수 금지</span>
+    <span class="badge buy">목표 비중: 3.5%, 최대 5%</span>
+    <p class="small">주의: 본 메모는 투자 판단 보조용이며, 확정 사실과 추론을 구분했습니다. 익명 고객은 단정하지 않았습니다.</p>
+  </div>
+  <div>
+    <svg viewBox="0 0 420 300" class="svg-chart" aria-label="flat vector AI rack illustration">
+      <rect width="420" height="300" rx="26" fill="#f0e7d8"/>
+      <rect x="42" y="54" width="108" height="192" rx="16" fill="#2d3a3a"/>
+      <rect x="60" y="78" width="72" height="20" rx="6" fill="#fbfaf6"/>
+      <rect x="60" y="116" width="72" height="20" rx="6" fill="#fbfaf6"/>
+      <rect x="60" y="154" width="72" height="20" rx="6" fill="#fbfaf6"/>
+      <rect x="60" y="192" width="72" height="20" rx="6" fill="#fbfaf6"/>
+      <circle cx="79" cy="88" r="5" fill="#c46c42"/>
+      <circle cx="79" cy="126" r="5" fill="#c46c42"/>
+      <circle cx="79" cy="164" r="5" fill="#c46c42"/>
+      <circle cx="79" cy="202" r="5" fill="#c46c42"/>
+      <path d="M160 92 C214 58 244 70 288 105 S355 143 374 104" fill="none" stroke="#5b7c84" stroke-width="8" stroke-linecap="round"/>
+      <path d="M160 184 C222 235 281 218 368 185" fill="none" stroke="#c46c42" stroke-width="8" stroke-linecap="round"/>
+      <rect x="260" y="94" width="92" height="118" rx="18" fill="#fbfaf6" stroke="#2d3a3a" stroke-width="5"/>
+      <path d="M282 156 h48 M306 132 v48" stroke="#2d3a3a" stroke-width="8" stroke-linecap="round"/>
+      <text x="210" y="268" text-anchor="middle" font-size="18" font-weight="800" fill="#2d3a3a">Rack · Power · Cooling · Supply Chain</text>
+    </svg>
+  </div>
+</header>
+
+<section class="section">
+  <h2>1) Executive Summary — 투자 전 60초 판단</h2>
+  <div class="grid cols-4">
+    <div class="card"><div class="k">현재 주가</div><div class="v">$374.98</div><div class="sub">장중/실시간 확인 기준. 시총 약 $40.1B.</div></div>
+    <div class="card"><div class="k">50주 평가액</div><div class="v">$18,749</div><div class="sub">환율 미반영. 1달러당 1,380원 가정 시 약 2,587만원.</div></div>
+    <div class="card"><div class="k">FY26 Core EPS Guide</div><div class="v">$12.70</div><div class="sub">현재 주가는 약 29.5x FY26 core EPS.</div></div>
+    <div class="card"><div class="k">FCF Yield</div><div class="v">3.5%</div><div class="sub">FY26 조정 FCF $1.4B+ 기준 P/FCF 약 28.6x.</div></div>
+  </div>
+  <div class="callout">
+    <b>한 문장 투자 thesis:</b> Jabil은 기존 EMS 외주제조 업체에서 AI 데이터센터용 랙 제조, 전력관리, 액체냉각, 공급망 실행까지 묶는 <b>AI infrastructure manufacturing layer</b>로 이동 중이며, 이 변화가 매출 성장·마진·multiple을 동시에 올릴 수 있다.<br/>
+    <b>한 문장 anti-thesis:</b> 다만 현재 주가는 이미 AI 인프라 재평가를 상당 부분 반영했고, 고객 집중·working capital·고가 M&A·multiple compression이 동시에 오면 $300 초반까지 빠질 수 있다.
+  </div>
+</section>
+
+<section class="section">
+  <h2>2) 숨은 투자 thesis 9개와 기업 정체성 재정의</h2>
+  <table>
+    <thead><tr><th>#</th><th>놓치기 쉬운 신호</th><th>구분</th><th>투자 해석</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>FY25 Intelligent Infrastructure 매출 비중이 32%→41%로 상승. Cloud/Data Center와 Capital Equipment가 성장축.</td><td><span class="tag A">확정</span></td><td>시장은 아직 “레거시 EMS”로 볼 수 있으나, 실제 mix는 AI 인프라 쪽으로 빠르게 이동.</td></tr>
+      <tr><td>2</td><td>FY26 가이던스가 Q1→Q2→Q3 동안 $32.4B→$34B→$35B, core EPS $11.55→$12.25→$12.70으로 연속 상향.</td><td><span class="tag A">확정</span></td><td>단기 beat보다 중요한 것은 AI 인프라 수요가 분기별로 숫자에 반영되고 있다는 점.</td></tr>
+      <tr><td>3</td><td>Hanley Energy 인수: 전력망부터 데이터센터 랙까지 mission-critical power/energy management를 제공.</td><td><span class="tag A">확정</span></td><td>Jabil이 단순 조립에서 랙 레벨 전력·서비스 영역까지 올라가려는 신호.</td></tr>
+      <tr><td>4</td><td>Mikros 인수: 액체냉각/thermal management. Hanley와 결합하면 전력+냉각+랙 제조 조합.</td><td><span class="tag A">확정</span></td><td>AI rack 밀도 상승의 병목인 전력·냉각을 내부 역량으로 흡수.</td></tr>
+      <tr><td>5</td><td>Adani와 인도 GW-scale AI rack/advanced infrastructure manufacturing platform 제휴 “의도” 발표.</td><td><span class="tag A">확정</span>/<span class="tag B">추론</span></td><td>확정 주문은 아니지만, 글로벌 AI 하드웨어 수출 허브를 만들려는 reference platform 가능성.</td></tr>
+      <tr><td>6</td><td>Amazon warrant: 최대 1,158,539주, 행사가 $137.7671, 7년간 구매대금 기반 vesting.</td><td><span class="tag A">확정</span></td><td>단순 고객관계보다 깊은 경제적 alignment 가능성. 희석은 약 1.1% 수준이라 buyback으로 흡수 가능.</td></tr>
+      <tr><td>7</td><td>희석이 아니라 역희석: diluted shares FY23 135.9M → FY25 110.9M → Q3 FY26 106.5M.</td><td><span class="tag A">확정</span></td><td>EPS 성장의 상당 부분이 buyback에 의해 증폭. 단, 고가 buyback은 앞으로 효율이 낮아질 수 있음.</td></tr>
+      <tr><td>8</td><td>FY25에 매출채권 매각 프로그램과 ABS를 대규모 사용.</td><td><span class="tag A">확정</span></td><td>FCF가 좋은 것은 사실이나, AI ramp에서 AR/재고 증가가 현금전환을 압박하는지 확인 필요.</td></tr>
+      <tr><td>9</td><td>short interest는 float의 약 2.4~2.9%로 크지 않음.</td><td><span class="tag A">확정</span></td><td>최근 상승은 short squeeze보다는 AI 인프라 가이던스 상향 + multiple expansion 성격이 더 큼.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid cols-2">
+    <div class="card">
+      <div class="k">시장이 보는 회사</div>
+      <div class="v">저마진 EMS / 외주 제조 / 경기민감</div>
+      <p>Apple·소비가전·산업 수요 사이클에 묶이는 낮은 multiple 업체로 보는 시각.</p>
+    </div>
+    <div class="card">
+      <div class="k">내가 새롭게 보는 회사</div>
+      <div class="v">AI rack turnkey infrastructure layer</div>
+      <p>랙 제조 + 전력 + 냉각 + 공급망 + 지역 생산능력을 묶어 hyperscaler와 AI 인프라 고객의 병목을 줄이는 실행 플랫폼.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>3) 최근 24개월 사건 체인 — 구조 변화가 숫자로 이어지는가?</h2>
+  <table class="timeline">
+    <thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>Thesis 영향</th><th>신뢰도</th><th>다음 확인 증거</th></tr></thead>
+    <tbody>
+      <tr><td>2024-12-27</td><td>Amazon warrant</td><td>Amazon 계열에 최대 1.16M주 warrant 발행, 구매대금 기반 vesting.</td><td>고객 lock-in 또는 전략적 공급관계 가능성.</td><td>긍정, 단 고객명 확대 추정 금지.</td><td><span class="tag A">A</span></td><td>vested shares 증가, Amazon 관련 매출 공개 여부.</td></tr>
+      <tr><td>2025-01-23</td><td>ABS 프로그램 연장</td><td>매출채권 기반 financing 프로그램을 2028년까지 연장.</td><td>대형 ramp에서 working capital을 유연하게 관리.</td><td>중립~긍정, 현금전환 질은 확인 필요.</td><td><span class="tag A">A</span></td><td>DSO, AR 매각 손실, CFO/FCF 괴리.</td></tr>
+      <tr><td>2025-02-03</td><td>Pii 인수</td><td>CDMO 역량 강화, Regulated Industries에 배정.</td><td>AI 외 포트폴리오 안정화.</td><td>중립~긍정.</td><td><span class="tag A">A</span></td><td>헬스케어 margin 개선.</td></tr>
+      <tr><td>2025-06-17</td><td>미국 $500M AI/Cloud 제조 투자</td><td>동남부 미국 생산능력 확대, 2026년 중반 가동 목표.</td><td>AI 하드웨어 국산화/지역화 수요 대응.</td><td>긍정, capex/수율 리스크 동반.</td><td><span class="tag A">A</span></td><td>공장 가동률, 초기 고객 ramp.</td></tr>
+      <tr><td>2025-09-01</td><td>Rebound 인수</td><td>약 $134M 현금 인수.</td><td>공급망 서비스/부품 sourcing 역량 강화.</td><td>AI ramp execution에 보조적 긍정.</td><td><span class="tag A">A</span></td><td>조달 마진, 고객 확대.</td></tr>
+      <tr><td>2025-09-25</td><td>FY25 실적 / FY26 초기 가이드</td><td>FY25 매출 $29.8B, GAAP EPS $5.92, core EPS $9.75. FY26 매출 $31.3B, core EPS $11.00 제시.</td><td>Mobility 매각 후 AI/Infrastructure가 빈 매출을 메우기 시작.</td><td>긍정.</td><td><span class="tag A">A</span></td><td>FY26 가이드 상향 지속 여부.</td></tr>
+      <tr><td>2026-01-02</td><td>Hanley Energy 인수 완료</td><td>약 $725M 현금 + 최대 $58M earn-out.</td><td>전력망→랙 레벨까지 data center power management 확장.</td><td>강한 긍정, 인수가격/통합 리스크.</td><td><span class="tag A">A</span></td><td>Hanley 매출 기여, margin, 고객 중복.</td></tr>
+      <tr><td>2026-03-18</td><td>Q2 FY26 beat & raise</td><td>매출 $8.3B, GAAP EPS $2.08, core EPS $2.69. FY26 매출 $34B, core EPS $12.25로 상향.</td><td>AI infrastructure 수요가 일회성이 아닐 가능성.</td><td>강한 긍정.</td><td><span class="tag A">A</span></td><td>Q3에서 동일 방향 확인.</td></tr>
+      <tr><td>2026-04~05</td><td>Insider selling / short interest</td><td>CEO·임원 매도 공시, short float 약 2.4%대.</td><td>가격 급등 후 임원 유동화. short squeeze 주도 아님.</td><td>단기 수급 경계.</td><td><span class="tag B">B</span></td><td>추가 Form 4, 10b5-1 여부.</td></tr>
+      <tr><td>2026-06-15</td><td>Adani strategic alliance intent</td><td>인도 AI rack 및 데이터센터 인프라 제조 platform 구축 의도 발표.</td><td>인도/수출 거점 + turnkey 플랫폼화 가능성.</td><td>긍정, 아직 매출 확정 아님.</td><td><span class="tag B">B</span></td><td>구속력 있는 JV/계약, capex, 고객명.</td></tr>
+      <tr><td>2026-06-17</td><td>Q3 FY26 beat & raise</td><td>매출 $8.8B, GAAP EPS $2.59, core EPS $3.16. FY26 매출 $35B, core EPS $12.70, FCF $1.4B+로 상향.</td><td>AI 수요가 FY27 setup으로 이어질 수 있다는 시장 재평가.</td><td>강한 긍정이나 주가에 상당 반영.</td><td><span class="tag A">A</span></td><td>FY27 매출/마진 bridge, Q4 beat+raise.</td></tr>
+      <tr><td>2026-06</td><td>금리·고용·경기</td><td>미 Fed funds 3.50~3.75%, 미국 실업률 4.3%.</td><td>AI capex는 강하나, 금융조건이 다시 타이트해지면 multiple 압박.</td><td>중립~부정 리스크.</td><td><span class="tag A">A</span></td><td>hyperscaler capex cut, credit spread, PMI.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+
+<section class="section">
+  <h2>4) 숫자 forensic — 첨부 이미지형 미니 바차트 스타일로 재구성</h2>
+  <div class="dash-card">
+    <div class="dash-head">
+      <div class="dash-title">Annual financial dashboard · 인라인 SVG / 이미지 삽입 없음</div>
+      <div class="timeframe"><span>Timeframe</span><span class="tab active">Annual</span><span class="tab">Quarterly</span></div>
+    </div>
+    <div class="dash-grid">
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="GAAP EPS"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">GAAP EPS</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">-2.0</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">1.7</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">5.5</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">9.3</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">13.0</text><line x1="16" y1="158.5" x2="368" y2="158.5" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="152.7" width="33.8" height="5.8" rx="3" fill="#5b7c84"/><text x="32.9" y="147.7" text-anchor="middle" font-size="10" font-weight="900" fill="#5b7c84">0.61</text><text x="32.9" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2018</text><rect x="55.8" y="142.0" width="33.8" height="16.5" rx="3" fill="#5b7c84"/><text x="72.7" y="137.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.73</text><text x="72.7" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2019</text><rect x="95.6" y="155.1" width="33.8" height="3.4" rx="3" fill="#5b7c84"/><text x="112.4" y="150.1" text-anchor="middle" font-size="10" font-weight="900" fill="#5b7c84">0.36</text><text x="112.4" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2020</text><rect x="135.3" y="114.3" width="33.8" height="44.2" rx="3" fill="#5b7c84"/><text x="152.2" y="128.3" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">4.63</text><text x="152.2" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2021</text><rect x="175.1" y="92.6" width="33.8" height="65.9" rx="3" fill="#5b7c84"/><text x="192.0" y="106.6" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">6.90</text><text x="192.0" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2022</text><rect x="214.9" y="101.8" width="33.8" height="56.7" rx="3" fill="#5b7c84"/><text x="231.8" y="115.8" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">5.94</text><text x="231.8" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2023</text><rect x="254.7" y="51.9" width="33.8" height="106.7" rx="3" fill="#5b7c84"/><text x="271.6" y="65.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">11.17</text><text x="271.6" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2024</text><rect x="294.4" y="102.0" width="33.8" height="56.5" rx="3" fill="#5b7c84"/><text x="311.3" y="116.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">5.92</text><text x="311.3" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2025</text><rect x="334.2" y="68.3" width="33.8" height="90.2" rx="3" fill="none" stroke="#5b7c84" stroke-width="2"/><text x="351.1" y="63.3" text-anchor="middle" font-size="10" font-weight="900" fill="#24302f">9.45</text><text x="351.1" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">FY26E</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">FY26E</text></svg></div>
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="Sales ($bln)"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">Sales ($bln)</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">0</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">10</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">20</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">29</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">39</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="96.8" width="33.8" height="81.2" rx="3" fill="#c46c42"/><text x="32.9" y="110.8" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">22.1</text><text x="32.9" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2018</text><rect x="55.8" y="85.1" width="33.8" height="92.9" rx="3" fill="#c46c42"/><text x="72.7" y="99.1" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">25.3</text><text x="72.7" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2019</text><rect x="95.6" y="77.7" width="33.8" height="100.3" rx="3" fill="#c46c42"/><text x="112.4" y="91.7" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">27.3</text><text x="112.4" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2020</text><rect x="135.3" y="70.4" width="33.8" height="107.6" rx="3" fill="#c46c42"/><text x="152.2" y="84.4" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">29.3</text><text x="152.2" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2021</text><rect x="175.1" y="54.9" width="33.8" height="123.1" rx="3" fill="#c46c42"/><text x="192.0" y="68.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">33.5</text><text x="192.0" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2022</text><rect x="214.9" y="50.5" width="33.8" height="127.5" rx="3" fill="#c46c42"/><text x="231.8" y="64.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">34.7</text><text x="231.8" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2023</text><rect x="254.7" y="71.8" width="33.8" height="106.2" rx="3" fill="#c46c42"/><text x="271.6" y="85.8" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">28.9</text><text x="271.6" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2024</text><rect x="294.4" y="68.5" width="33.8" height="109.5" rx="3" fill="#c46c42"/><text x="311.3" y="82.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">29.8</text><text x="311.3" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2025</text><rect x="334.2" y="49.4" width="33.8" height="128.6" rx="3" fill="none" stroke="#c46c42" stroke-width="2"/><text x="351.1" y="44.4" text-anchor="middle" font-size="10" font-weight="900" fill="#24302f">35.0</text><text x="351.1" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">FY26E</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">Guide</text></svg></div>
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="Shares Outstanding (mln)"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">Shares Outstanding (mln)</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">0</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">46</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">92</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">139</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">185</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="51.0" width="33.8" height="127.0" rx="3" fill="#2e675f"/><text x="32.9" y="65.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">163.0</text><text x="32.9" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2018</text><rect x="55.8" y="58.0" width="33.8" height="120.0" rx="3" fill="#2e675f"/><text x="72.7" y="72.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">154.0</text><text x="72.7" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2019</text><rect x="95.6" y="61.9" width="33.8" height="116.1" rx="3" fill="#2e675f"/><text x="112.4" y="75.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">149.0</text><text x="112.4" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2020</text><rect x="135.3" y="62.7" width="33.8" height="115.3" rx="3" fill="#2e675f"/><text x="152.2" y="76.7" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">148.0</text><text x="152.2" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2021</text><rect x="175.1" y="65.5" width="33.8" height="112.5" rx="3" fill="#2e675f"/><text x="192.0" y="79.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">144.4</text><text x="192.0" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2022</text><rect x="214.9" y="72.1" width="33.8" height="105.9" rx="3" fill="#2e675f"/><text x="231.8" y="86.1" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">135.9</text><text x="231.8" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2023</text><rect x="254.7" y="81.1" width="33.8" height="96.9" rx="3" fill="#2e675f"/><text x="271.6" y="95.1" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">124.3</text><text x="271.6" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2024</text><rect x="294.4" y="91.6" width="33.8" height="86.4" rx="3" fill="#2e675f"/><text x="311.3" y="105.6" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">110.9</text><text x="311.3" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">2025</text><rect x="334.2" y="95.0" width="33.8" height="83.0" rx="3" fill="none" stroke="#2e675f" stroke-width="2"/><text x="351.1" y="90.0" text-anchor="middle" font-size="10" font-weight="900" fill="#24302f">106.5</text><text x="351.1" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">FY26E</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">Est.</text></svg></div>
+    </div>
+    <div class="chart-interpretation"><b>연도별 해석:</b> FY24 GAAP EPS $11.17은 Mobility 매각 이익으로 비정상적으로 높았고, FY25 EPS $5.92 감소는 본업 훼손보다 일회성 이익 제거 효과가 컸습니다. 매출은 FY25 $29.8B에서 FY26 가이드 $35B로 재가속 중이며, diluted shares는 FY18 약 163M → FY25 110.9M → FY26E 약 106.5M으로 줄어 EPS 레버리지를 만들고 있습니다. 핵심은 매출 증가가 core OPM·FCF로 전환되는지입니다.</div>
+    <div class="data-note">기준: 매출은 총매출, EPS는 diluted GAAP EPS, 주식 수는 diluted weighted-average shares 중심. FY26E는 9M actual + 회사 가이던스/추정치로 실제 확정 연간 실적과 구분하기 위해 outline 처리.</div>
+  </div>
+
+  <div class="dash-card">
+    <div class="dash-head">
+      <div class="dash-title">Quarterly financial dashboard · 최근 8개 분기</div>
+      <div class="timeframe"><span>Timeframe</span><span class="tab">Annual</span><span class="tab active">Quarterly</span></div>
+    </div>
+    <div class="dash-grid">
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="GAAP EPS"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">GAAP EPS</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">-0.2</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">0.6</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">1.4</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">2.2</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">3.0</text><line x1="16" y1="168.1" x2="368" y2="168.1" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="117.1" width="37.0" height="51.0" rx="3" fill="#5b7c84"/><text x="34.5" y="131.1" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.15</text><text x="34.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-24</text><rect x="61.0" y="129.9" width="37.0" height="38.1" rx="3" fill="#5b7c84"/><text x="79.5" y="143.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">0.86</text><text x="79.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-25</text><rect x="106.0" y="122.4" width="37.0" height="45.7" rx="3" fill="#5b7c84"/><text x="124.5" y="136.4" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.03</text><text x="124.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-25</text><rect x="151.0" y="80.3" width="37.0" height="87.8" rx="3" fill="#5b7c84"/><text x="169.5" y="94.3" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.98</text><text x="169.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-25</text><rect x="196.0" y="82.1" width="37.0" height="86.0" rx="3" fill="#5b7c84"/><text x="214.5" y="96.1" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.94</text><text x="214.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-25</text><rect x="241.0" y="108.2" width="37.0" height="59.9" rx="3" fill="#5b7c84"/><text x="259.5" y="122.2" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">1.35</text><text x="259.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-26</text><rect x="286.0" y="75.9" width="37.0" height="92.2" rx="3" fill="#5b7c84"/><text x="304.5" y="89.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">2.08</text><text x="304.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-26</text><rect x="331.0" y="53.2" width="37.0" height="114.8" rx="3" fill="#5b7c84"/><text x="349.5" y="67.2" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">2.59</text><text x="349.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-26</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">MRQ</text></svg></div>
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="Sales ($bln)"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">Sales ($bln)</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">0</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">2</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">5</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">7</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">10</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="76.3" width="37.0" height="101.7" rx="3" fill="#c46c42"/><text x="34.5" y="90.3" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">7.0</text><text x="34.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-24</text><rect x="61.0" y="75.9" width="37.0" height="102.1" rx="3" fill="#c46c42"/><text x="79.5" y="89.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">7.0</text><text x="79.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-25</text><rect x="106.0" y="79.7" width="37.0" height="98.3" rx="3" fill="#c46c42"/><text x="124.5" y="93.7" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">6.7</text><text x="124.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-25</text><rect x="151.0" y="63.6" width="37.0" height="114.4" rx="3" fill="#c46c42"/><text x="169.5" y="77.6" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">7.8</text><text x="169.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-25</text><rect x="196.0" y="57.5" width="37.0" height="120.5" rx="3" fill="#c46c42"/><text x="214.5" y="71.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">8.2</text><text x="214.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-25</text><rect x="241.0" y="56.7" width="37.0" height="121.3" rx="3" fill="#c46c42"/><text x="259.5" y="70.7" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">8.3</text><text x="259.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-26</text><rect x="286.0" y="56.7" width="37.0" height="121.3" rx="3" fill="#c46c42"/><text x="304.5" y="70.7" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">8.3</text><text x="304.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-26</text><rect x="331.0" y="50.2" width="37.0" height="127.8" rx="3" fill="none" stroke="#c46c42" stroke-width="2"/><text x="349.5" y="45.2" text-anchor="middle" font-size="10" font-weight="900" fill="#24302f">8.8</text><text x="349.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-26</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">MRQ</text></svg></div>
+      <div class="mini-chart-wrap"><svg viewBox="0 0 410 210" class="svg-mini" role="img" aria-label="Shares Outstanding (mln)"><rect x="0" y="0" width="410" height="210" rx="14" fill="#fffdf8"/><text x="6" y="18" font-size="13" font-weight="900" fill="#6f6a60">Shares Outstanding (mln)</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="182.0" text-anchor="end" font-size="10" fill="#6f6a60">0</text><line x1="16" y1="142.0" x2="368" y2="142.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="146.0" text-anchor="end" font-size="10" fill="#6f6a60">33</text><line x1="16" y1="106.0" x2="368" y2="106.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="110.0" text-anchor="end" font-size="10" fill="#6f6a60">66</text><line x1="16" y1="70.0" x2="368" y2="70.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="74.0" text-anchor="end" font-size="10" fill="#6f6a60">99</text><line x1="16" y1="34.0" x2="368" y2="34.0" stroke="#e9e1d6" stroke-width="1" stroke-dasharray="1 3"/><text x="402" y="38.0" text-anchor="end" font-size="10" fill="#6f6a60">132</text><line x1="16" y1="178.0" x2="368" y2="178.0" stroke="#cfc7b8" stroke-width="1.2"/><rect x="16.0" y="50.8" width="37.0" height="127.2" rx="3" fill="#2e675f"/><text x="34.5" y="64.8" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">116.7</text><text x="34.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-24</text><rect x="61.0" y="53.8" width="37.0" height="124.2" rx="3" fill="#2e675f"/><text x="79.5" y="67.8" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">114.0</text><text x="79.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-25</text><rect x="106.0" y="56.9" width="37.0" height="121.1" rx="3" fill="#2e675f"/><text x="124.5" y="70.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">111.1</text><text x="124.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-25</text><rect x="151.0" y="58.9" width="37.0" height="119.1" rx="3" fill="#2e675f"/><text x="169.5" y="72.9" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">109.3</text><text x="169.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-25</text><rect x="196.0" y="59.0" width="37.0" height="119.0" rx="3" fill="#2e675f"/><text x="214.5" y="73.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">109.2</text><text x="214.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q4-25</text><rect x="241.0" y="60.0" width="37.0" height="118.0" rx="3" fill="#2e675f"/><text x="259.5" y="74.0" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">108.3</text><text x="259.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q1-26</text><rect x="286.0" y="61.5" width="37.0" height="116.5" rx="3" fill="#2e675f"/><text x="304.5" y="75.5" text-anchor="middle" font-size="10" font-weight="900" fill="#fffdf8">106.9</text><text x="304.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q2-26</text><rect x="331.0" y="62.0" width="37.0" height="116.0" rx="3" fill="none" stroke="#2e675f" stroke-width="2"/><text x="349.5" y="57.0" text-anchor="middle" font-size="10" font-weight="900" fill="#24302f">106.5</text><text x="349.5" y="200" text-anchor="middle" font-size="10" font-weight="700" fill="#6f6a60">Q3-26</text><line x1="368" y1="34" x2="368" y2="178" stroke="#ded6c9" stroke-width="1"/><text x="365" y="25" text-anchor="end" font-size="9" font-weight="800" fill="#6f6a60">MRQ</text></svg></div>
+    </div>
+    <div class="chart-interpretation"><b>분기별 해석:</b> 최근 8개 분기에서 매출은 Q4 FY24 $6.96B → Q3 FY26 $8.75B로 회복했고, GAAP EPS도 Q1 FY26 비용 영향 이후 Q2/Q3에 정상화됐습니다. 주식 수는 116.7M → 106.5M으로 감소해 현재까지는 희석보다 buyback 효과가 우세합니다. 다음 실적에서는 <b>beat만</b>이 아니라 <b>beat + raise + AI infra 매출 지속성 + FCF 전환</b>이 필요합니다.</div>
+  </div>
+
+  <div class="table-panel">
+  <table>
+    <thead><tr><th>핵심 숫자</th><th>FY25</th><th>Q3 FY26</th><th>FY26 가이드 / 현재</th><th>투자 해석</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="num">$29.802B</td><td class="num">$8.751B</td><td class="num">$35B</td><td>Mobility 매각 후에도 AI infrastructure로 성장 재가속.</td></tr>
+      <tr><td>GAAP EPS</td><td class="num">$5.92</td><td class="num">$2.59</td><td class="num">FY26E 약 $9.45*</td><td>FY24 일회성 이익 제거 후 정상화. *9M actual + Q4 guide midpoint 추정.</td></tr>
+      <tr><td>Core / adjusted EPS</td><td class="num">$9.75</td><td class="num">$3.16</td><td class="num">$12.70</td><td>주가가 실제로 보고 있는 EPS는 GAAP보다 core EPS.</td></tr>
+      <tr><td>Gross margin</td><td class="num">8.9%</td><td class="num">9.5%</td><td class="num">검증 필요</td><td>AI rack이 매출만 키우고 마진을 희석하지 않는지 확인.</td></tr>
+      <tr><td>Operating margin</td><td class="num">4.0% GAAP</td><td class="num">5.1% GAAP</td><td class="num">Core OPM 5.8%</td><td>Jabil 재평가의 핵심은 core OPM 5.5%+ 유지 여부.</td></tr>
+      <tr><td>Net income</td><td class="num">$657M</td><td class="num">$275M</td><td class="num">9M $644M</td><td>GAAP 이익 품질은 구조조정/인수비용 조정 필요.</td></tr>
+      <tr><td>Adjusted FCF</td><td class="num">$1.318B</td><td class="num">9M $991M</td><td class="num">$1.4B+</td><td>현재 시총 대비 FCF yield 약 3.5%. cheap하지 않음.</td></tr>
+      <tr><td>Cash</td><td class="num">$1.9B</td><td class="num">$1.36B</td><td class="num">감소</td><td>Hanley 인수·buyback·working capital 영향. 현금 소진 아님이나 감시 필요.</td></tr>
+      <tr><td>Debt</td><td class="num">$2.885B</td><td class="num">$3.378B</td><td class="num">Net debt 약 $2.0B</td><td>전환사채는 확인되지 않음. 일반 선순위채와 revolver 중심.</td></tr>
+      <tr><td>Diluted shares</td><td class="num">110.9M</td><td class="num">106.5M</td><td class="num">약 105~107M</td><td>희석보다 buyback이 강함. 단 고가 buyback 효율 저하 가능.</td></tr>
+      <tr><td>Short interest</td><td class="num">—</td><td class="num">~2.5M shares</td><td class="num">float 약 2.4~2.9%</td><td>short squeeze보다 fundamentals/multiple expansion 주도.</td></tr>
+      <tr><td>Valuation multiple</td><td class="num">—</td><td class="num">—</td><td class="num">29.5x FY26 core EPS</td><td>현재는 base case 이상을 지불. 안전마진 낮음.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+<section class="section">
+  <h2>5) 고객·파트너·생태계 + 자본구조 forensic</h2>
+  <div class="grid cols-2">
+    <div class="card">
+      <h3>고객·생태계 관계도</h3>
+      <svg viewBox="0 0 680 310" class="svg-chart" aria-label="ecosystem map">
+        <rect x="0" y="0" width="680" height="310" rx="20" fill="#fbfaf6"/>
+        <rect x="256" y="118" width="170" height="74" rx="16" fill="#2d3a3a"/>
+        <text x="341" y="148" text-anchor="middle" font-size="17" font-weight="800" fill="#fbfaf6">Jabil</text>
+        <text x="341" y="171" text-anchor="middle" font-size="12" fill="#fbfaf6">AI infra manufacturing layer</text>
+        <rect x="30" y="30" width="180" height="64" rx="14" fill="#e4eee9" stroke="#2d3a3a"/>
+        <text x="120" y="57" text-anchor="middle" font-size="13" font-weight="800">확정 고객/관계</text>
+        <text x="120" y="77" text-anchor="middle" font-size="11">Amazon warrant · Adani intent</text>
+        <rect x="30" y="216" width="190" height="64" rx="14" fill="#f1e7d6" stroke="#8f7a42"/>
+        <text x="125" y="243" text-anchor="middle" font-size="13" font-weight="800">익명 AI 고객</text>
+        <text x="125" y="263" text-anchor="middle" font-size="11">Hyperscaler/OEM 추정 금지</text>
+        <rect x="470" y="30" width="180" height="64" rx="14" fill="#e6edf0" stroke="#5b7c84"/>
+        <text x="560" y="57" text-anchor="middle" font-size="13" font-weight="800">역량 인수</text>
+        <text x="560" y="77" text-anchor="middle" font-size="11">Hanley · Mikros · Rebound</text>
+        <rect x="470" y="216" width="180" height="64" rx="14" fill="#f5dfd8" stroke="#c46c42"/>
+        <text x="560" y="243" text-anchor="middle" font-size="13" font-weight="800">간접 수혜 고객</text>
+        <text x="560" y="263" text-anchor="middle" font-size="11">GPU/ASIC/네트워킹 생태계</text>
+        <path d="M210 62 C248 72 260 104 286 120" fill="none" stroke="#2d3a3a" stroke-width="3"/>
+        <path d="M220 248 C248 224 258 202 286 186" fill="none" stroke="#8f7a42" stroke-width="3"/>
+        <path d="M470 62 C438 82 424 106 397 120" fill="none" stroke="#5b7c84" stroke-width="3"/>
+        <path d="M470 248 C438 224 424 204 397 186" fill="none" stroke="#c46c42" stroke-width="3"/>
+      </svg>
+      <p class="note">확정 고객명은 제한적입니다. Nvidia/Meta/Microsoft/Google 등은 AI 인프라 생태계상 관련성은 있으나, Jabil의 직접 계약 근거가 약하면 <b>검증 필요</b>로 분류해야 합니다.</p>
+    </div>
+    <div class="card">
+      <h3>자본구조 핵심</h3>
+      <ul class="checklist">
+        <li><b>현금:</b> Q3 FY26 $1.36B. FY25 말 $1.9B 대비 감소.</li>
+        <li><b>부채:</b> Q3 FY26 약 $3.38B. 순부채 약 $2.0B. 2025 10-K 기준 선순위채 중심, 전환사채는 확인되지 않음.</li>
+        <li><b>Shelf/자본조달:</b> 10-K에 debt/equity shelf 가능성 언급. ATM은 확인되지 않음.</li>
+        <li><b>Warrant:</b> Amazon warrant 최대 1.16M주, 행사가 $137.7671. 완전희석 영향은 작지만 전략적 신호.</li>
+        <li><b>RSU/SBC:</b> core EPS는 SBC 제외. 실제 주주가치는 buyback이 dilution을 계속 흡수해야 함.</li>
+        <li><b>기관 보유:</b> 매우 높음. 13F 타이밍 때문에 수치 해석 주의.</li>
+        <li><b>Short float:</b> 약 2.4~2.9%. squeeze보다는 AI infra 재평가 + guidance 상향 + multiple expansion.</li>
+      </ul>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>상승 원인 분해</th><th>비중 추정</th><th>근거</th><th>리스크</th></tr></thead>
+    <tbody>
+      <tr><td>펀더멘털 개선</td><td class="num">45%</td><td>FY26 revenue/core EPS/FCF 연속 상향.</td><td>FY27 성장률 둔화 시 약화.</td></tr>
+      <tr><td>Multiple expansion</td><td class="num">35%</td><td>EMS multiple에서 AI infra manufacturing multiple로 이동.</td><td>금리 상승·AI capex 둔화 시 가장 먼저 축소.</td></tr>
+      <tr><td>Financing/M&A overhang 해소</td><td class="num">10%</td><td>Hanley 인수 후 전략적 의미가 명확해짐.</td><td>통합비용·earn-out·마진 하락.</td></tr>
+      <tr><td>Short covering / momentum</td><td class="num">10%</td><td>short float 낮아 주된 원인은 아님.</td><td>post-earnings overshoot 후 급락 가능.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <h2>6) 밸류에이션 브리지와 50주 실행안</h2>
+  <div class="dash-card">
+    <div class="dash-head">
+      <div class="dash-title">Valuation bridge · 현재 주가는 이미 base~초기 bull 일부를 반영</div>
+      <div class="timeframe"><span>Bridge</span><span class="tab active">Price Targets</span></div>
+    </div>
+    <svg viewBox="0 0 880 240" class="svg-chart" role="img" aria-label="valuation bridge"><rect width="880" height="240" rx="16" fill="#fffdf8"/><line x1="38" y1="188.0" x2="858" y2="188.0" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="192.0" text-anchor="end" font-size="10" fill="#6f6a60">$250</text><line x1="38" y1="160.1" x2="858" y2="160.1" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="164.1" text-anchor="end" font-size="10" fill="#6f6a60">$300</text><line x1="38" y1="132.1" x2="858" y2="132.1" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="136.1" text-anchor="end" font-size="10" fill="#6f6a60">$350</text><line x1="38" y1="104.2" x2="858" y2="104.2" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="108.2" text-anchor="end" font-size="10" fill="#6f6a60">$400</text><line x1="38" y1="76.3" x2="858" y2="76.3" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="80.3" text-anchor="end" font-size="10" fill="#6f6a60">$450</text><line x1="38" y1="48.3" x2="858" y2="48.3" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="52.3" text-anchor="end" font-size="10" fill="#6f6a60">$500</text><line x1="38" y1="20.4" x2="858" y2="20.4" stroke="#e9e1d6" stroke-dasharray="1 3"/><text x="30" y="24.4" text-anchor="end" font-size="10" fill="#6f6a60">$550</text><line x1="38.0" y1="188.0" x2="38.0" y2="174.0" stroke="#b54a35" stroke-width="7" stroke-linecap="round"/><circle cx="38.0" cy="174.0" r="6" fill="#fffdf8" stroke="#b54a35" stroke-width="3"/><text x="38.0" y="164.0" text-anchor="middle" font-size="11" font-weight="900" fill="#b54a35">$275</text><text x="38.0" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">하방</text><line x1="155.1" y1="188.0" x2="155.1" y2="151.7" stroke="#2d3a3a" stroke-width="7" stroke-linecap="round"/><circle cx="155.1" cy="151.7" r="6" fill="#fffdf8" stroke="#2d3a3a" stroke-width="3"/><text x="155.1" y="141.7" text-anchor="middle" font-size="11" font-weight="900" fill="#2d3a3a">$315</text><text x="155.1" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">보수적</text><line x1="272.3" y1="188.0" x2="272.3" y2="118.2" stroke="#9b6d25" stroke-width="7" stroke-linecap="round"/><circle cx="272.3" cy="118.2" r="6" fill="#fffdf8" stroke="#9b6d25" stroke-width="3"/><text x="272.3" y="108.2" text-anchor="middle" font-size="11" font-weight="900" fill="#9b6d25">$375</text><text x="272.3" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">현재</text><line x1="389.4" y1="188.0" x2="389.4" y2="104.2" stroke="#5b7c84" stroke-width="7" stroke-linecap="round"/><circle cx="389.4" cy="104.2" r="6" fill="#fffdf8" stroke="#5b7c84" stroke-width="3"/><text x="389.4" y="94.2" text-anchor="middle" font-size="11" font-weight="900" fill="#5b7c84">$400</text><text x="389.4" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">실적전</text><line x1="506.6" y1="188.0" x2="506.6" y2="98.6" stroke="#2d3a3a" stroke-width="7" stroke-linecap="round"/><circle cx="506.6" cy="98.6" r="6" fill="#fffdf8" stroke="#2d3a3a" stroke-width="3"/><text x="506.6" y="88.6" text-anchor="middle" font-size="11" font-weight="900" fill="#2d3a3a">$410</text><text x="506.6" y="211" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">12M</text><text x="506.6" y="224" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">base</text><line x1="623.7" y1="188.0" x2="623.7" y2="87.4" stroke="#5b7c84" stroke-width="7" stroke-linecap="round"/><circle cx="623.7" cy="87.4" r="6" fill="#fffdf8" stroke="#5b7c84" stroke-width="3"/><text x="623.7" y="77.4" text-anchor="middle" font-size="11" font-weight="900" fill="#5b7c84">$430</text><text x="623.7" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">실적후</text><line x1="740.9" y1="188.0" x2="740.9" y2="70.7" stroke="#2e675f" stroke-width="7" stroke-linecap="round"/><circle cx="740.9" cy="70.7" r="6" fill="#fffdf8" stroke="#2e675f" stroke-width="3"/><text x="740.9" y="60.7" text-anchor="middle" font-size="11" font-weight="900" fill="#2e675f">$460</text><text x="740.9" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">bull</text><line x1="858.0" y1="188.0" x2="858.0" y2="37.2" stroke="#c46c42" stroke-width="7" stroke-linecap="round"/><circle cx="858.0" cy="37.2" r="6" fill="#fffdf8" stroke="#c46c42" stroke-width="3"/><text x="858.0" y="27.2" text-anchor="middle" font-size="11" font-weight="900" fill="#c46c42">$520</text><text x="858.0" y="220" text-anchor="middle" font-size="10" font-weight="800" fill="#6f6a60">overshoot</text></svg>
+    <div class="chart-interpretation"><b>해석:</b> 현재가 $375 부근은 보수적 내재가치 $315보다 높고 12개월 base $410에는 아직 일부 upside가 남아 있습니다. 그러나 하방 $275 대비 손실폭이 더 크기 때문에 신규 매수는 $330 이하 조정 또는 FY27 가시성 확인 후가 유리합니다.</div>
+  </div>
+<table>
+    <thead><tr><th>목표가</th><th>가격</th><th>적용 숫자 / Multiple</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead>
+    <tbody>
+      <tr><td>하방 리스크</td><td class="num">$275</td><td>FY26 core EPS $12.70에 21~22x 또는 FCF yield 5% 근접</td><td class="num">20%</td><td>AI capex 둔화, guide miss</td><td>FY27 성장 지속·margin 유지</td></tr>
+      <tr><td>보수적 내재가치</td><td class="num">$315</td><td>FY26 core EPS 24~25x</td><td class="num">25%</td><td>multiple 정상화</td><td>Q4 beat + FY27 상향</td></tr>
+      <tr><td>현재 주가</td><td class="num">$374.98</td><td>FY26 core EPS 약 29.5x</td><td class="num">—</td><td>Q3 beat & raise 반영</td><td>안전마진 낮음</td></tr>
+      <tr><td>실적 발표 전 trading target</td><td class="num">$390~405</td><td>다음 Q4 전 AI momentum 구간</td><td class="num">35%</td><td>애널리스트 상향, AI infra 뉴스</td><td>거래량 동반 실패</td></tr>
+      <tr><td>12개월 base target</td><td class="num">$410</td><td>FY27E core EPS ~$14.2 × 29x</td><td class="num">45%</td><td>Q4 beat + FY27 setup</td><td>core OPM 5.5% 하회</td></tr>
+      <tr><td>실적 후 재평가 target</td><td class="num">$410~455</td><td>FY27 가이던스 확인 시</td><td class="num">35%</td><td>beat + raise + AI revenue visibility</td><td>beat만 있고 raise 없음</td></tr>
+      <tr><td>Bull target</td><td class="num">$460</td><td>FY27E core EPS ~$14.8 × 31x</td><td class="num">25%</td><td>AI rack/전력/냉각 통합 platform 증명</td><td>working capital cash drain</td></tr>
+      <tr><td>Overshoot target</td><td class="num">$520</td><td>FY27E core EPS ~$14.8 × 35x</td><td class="num">10%</td><td>AI infrastructure momentum + analyst 재상향</td><td>multiple compression 시작</td></tr>
+    </tbody>
+  </table>
+
+  <h3>보유 50주 기준 실행안</h3>
+  <table>
+    <thead><tr><th>상황</th><th>행동</th><th>수량</th><th>가격 조건</th><th>이유</th></tr></thead>
+    <tbody>
+      <tr><td>현재</td><td><b>보유</b>, 신규 추격매수 금지</td><td class="num">50주 유지</td><td class="num">$350 이상</td><td>주가는 이미 base+초기 bull을 반영.</td></tr>
+      <tr><td>실적 전 과열</td><td>부분 차익실현</td><td class="num">10주 매도</td><td class="num">$430 이상</td><td>새 근거 없이 analyst target 상단에 근접하면 risk/reward 악화.</td></tr>
+      <tr><td>정상 조정</td><td>1차 추가매수</td><td class="num">10주</td><td class="num">$330</td><td>보수적 내재가치 근처. thesis 훼손 없을 때만.</td></tr>
+      <tr><td>급락</td><td>2차 추가 또는 대기</td><td class="num">10주</td><td class="num">$300~310</td><td>시장성 하락이면 기회, 회사성 하락이면 금지.</td></tr>
+      <tr><td>Bull target 도달</td><td>리스크 회수</td><td class="num">10주 매도</td><td class="num">$455~460</td><td>수익 일부 확정, core holding 유지.</td></tr>
+      <tr><td>Overshoot</td><td>강한 차익실현</td><td class="num">15~25주 매도</td><td class="num">$500 이상</td><td>EMS 기업이 35x core EPS에 가까워지는 구간은 지속성 검증 전 과열 가능.</td></tr>
+      <tr><td>Thesis 훼손</td><td>축소/손절</td><td class="num">20주 이상 축소</td><td class="num">$315 하회 + 지표 악화</td><td>단순 가격보다 guide/margin/FCF 훼손이 더 중요.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid cols-4">
+    <div class="card"><div class="k">Base P/L</div><div class="v">+$1,751</div><div class="sub">50주 기준, +9.3%</div></div>
+    <div class="card"><div class="k">Bull P/L</div><div class="v">+$4,251</div><div class="sub">50주 기준, +22.7%</div></div>
+    <div class="card"><div class="k">Overshoot P/L</div><div class="v">+$7,251</div><div class="sub">50주 기준, +38.7%</div></div>
+    <div class="card"><div class="k">Downside P/L</div><div class="v">-$4,999</div><div class="sub">50주 기준, -26.7%</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>7) 반대 thesis와 리스크 관리 — 내가 틀렸다고 인정해야 하는 조건</h2>
+  <table>
+    <thead><tr><th>리스크</th><th>Thesis break trigger</th><th>시장이 반영하기 시작할 가격</th><th>확인 시점</th><th>대응</th></tr></thead>
+    <tbody>
+      <tr><td>매출 성장 둔화</td><td>Q4/FY27에서 AI infra 성장률 둔화 또는 guide 상향 중단</td><td class="num">$350 하회</td><td>다음 Q4/FY26 실적</td><td>추가매수 금지, 10주 축소</td></tr>
+      <tr><td>EPS 정체</td><td>매출 증가에도 core EPS가 $12.70→FY27 $14+로 이어지지 않음</td><td class="num">$330~350</td><td>FY27 guide</td><td>20주 축소</td></tr>
+      <tr><td>희석/고가 buyback</td><td>SBC와 warrant 희석을 buyback이 흡수하지 못하거나 고가 매입 지속</td><td class="num">$330</td><td>10-Q/10-K</td><td>목표비중 3% 이하</td></tr>
+      <tr><td>현금 소진</td><td>FCF $1.1B 미만 또는 AR/재고 증가로 CFO 악화</td><td class="num">$315</td><td>분기 현금흐름</td><td>20주 이상 축소</td></tr>
+      <tr><td>고객 집중</td><td>익명 AI 고객 ramp 취소/연기, Amazon/Adani 관련 기대 불발</td><td class="num">$300~315</td><td>컨콜 Q&A</td><td>신규매수 금지, 보유 축소</td></tr>
+      <tr><td>경쟁사 대체</td><td>Flex, Celestica, Foxconn 등과 가격 경쟁 심화로 margin 하락</td><td class="num">$315</td><td>gross/core op margin</td><td>비중 2~3%로 축소</td></tr>
+      <tr><td>금리/실업률/신용 사이클</td><td>Fed가 hawkish해지고 credit spread 확대, capex financing 부담 증가</td><td class="num">$330</td><td>월별 macro + hyperscaler capex</td><td>추가매수 연기</td></tr>
+      <tr><td>Short squeeze 이후 급락</td><td>거래량 급증 후 종가가 고점 대비 크게 밀림</td><td class="num">$390 실패</td><td>일간 거래량/가격</td><td>추격매수 금지</td></tr>
+      <tr><td>M&A 기대 과열</td><td>Hanley/Adani가 매출·마진 숫자로 확인되지 않는데 multiple만 상승</td><td class="num">$430 이상</td><td>FY27 outlook</td><td>10~25주 차익실현</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <b>반대 thesis:</b> 이 모든 연결이 “AI 인프라 구조 변화”가 아니라, 단기 고객 ramp와 buyback이 만든 EPS 착시일 수 있다. 특히 매출 증가가 AR·재고 증가로 현금화되지 않거나, core EPS가 SBC/구조조정 비용을 계속 제외해야 유지된다면 현재 multiple은 과하다. 또한 익명 고객을 Nvidia/Meta/Google 등으로 단정하는 순간 분석이 위험해진다.
+  </div>
+</section>
+
+<section class="section source-list">
+  <h2>참조 자료 / 확인 원칙</h2>
+  <p class="note">SEC 10-K/8-K, Jabil IR 보도자료, 실적 발표, Google Finance/MarketBeat/Fintel/IBD/Barron's/Reuters/BLS/Fed 등 복수 출처를 교차확인했습니다. 확인 불가능한 고객명·옵션/borrow 세부 데이터는 “검증 필요”로 표시했습니다.</p>
+  <ul>
+    <li><a href="https://www.sec.gov/Archives/edgar/data/898293/000162828025045293/jbl-20250831.htm">SEC Form 10-K FY2025 — Jabil Inc.</a></li>
+    <li><a href="https://investors.jabil.com/news/news-details/2026/Jabil-Acquires-Hanley-Energy-Group-to-Support-AI-Data-Center-Power-Management/default.aspx">Jabil IR — Hanley Energy acquisition, Jan. 5 2026</a></li>
+    <li><a href="https://investors.jabil.com/news/news-details/2026/Adani-Enterprises-and-Jabil-Target-a-Strategic-Alliance-to-Build-AI-Data-Center-Infrastructure-Platform-in-India/default.aspx">Jabil IR — Adani/Jabil strategic alliance intent, Jun. 15 2026</a></li>
+    <li><a href="https://investors.jabil.com/news/news-details/2025/Jabil-Announces-Planned-Multi-Year-500-Million-Investment-in-U-S--Manufacturing-for-Cloud-and-AI-Data-Center-Infrastructure/default.aspx">Jabil IR — $500M U.S. AI/cloud manufacturing investment, Jun. 17 2025</a></li>
+    <li><a href="https://investors.jabil.com/news/news-details/2025/Jabil-Posts-Fourth-Quarter-and-Fiscal-Year-2025-Results/">Jabil IR — FY2025 results and FY2026 outlook</a></li>
+    <li><a href="https://www.stocktitan.net/sec-filings/JBL/8-k-jabil-inc-reports-material-event-e72ad2541804.html">Jabil 8-K / Q3 FY2026 results summary</a></li>
+    <li><a href="https://www.google.com/finance/quote/JBL:NYSE">Google Finance — JBL quote, market cap, analyst range</a></li>
+    <li><a href="https://www.bls.gov/">U.S. Bureau of Labor Statistics — May 2026 employment data</a></li>
+    <li><a href="https://fred.stlouisfed.org/series/DFEDTARU">FRED / Federal Reserve — Fed funds target range</a></li>
+  </ul>
+</section>
+
+<section class="footer-summary">
+  <h2 style="margin-top:0;color:#fbfaf6;">최종 투자 행동 요약</h2>
+  <table>
+    <tbody>
+      <tr><th>현재 주가</th><td>$374.98</td></tr>
+      <tr><th>보수적 내재가치</th><td>$315</td></tr>
+      <tr><th>12개월 base target</th><td>$410</td></tr>
+      <tr><th>bull target</th><td>$460</td></tr>
+      <tr><th>overshoot target</th><td>$520</td></tr>
+      <tr><th>실적 발표 전 trading target</th><td>$390~405</td></tr>
+      <tr><th>실적 발표 후 재평가 target</th><td>좋은 경우 $410~455, 실망 시 $315~335</td></tr>
+      <tr><th>하방 리스크</th><td>$275</td></tr>
+      <tr><th>12개월 기대수익률</th><td>Base +9.3%, Bull +22.7%, Overshoot +38.7%, Downside -26.7%</td></tr>
+      <tr><th>보유 수량 기준 기대손익</th><td>Base +$1,751, Bull +$4,251, Overshoot +$7,251, Downside -$4,999</td></tr>
+      <tr><th>추천 행동</th><td><b>Hold.</b> $350 이상 신규 추격매수 금지. $330 이하 또는 FY27 확인 후만 추가.</td></tr>
+      <tr><th>목표 비중</th><td>3.5%, 최대 5%</td></tr>
+      <tr><th>실적 발표 전 행동</th><td>50주 보유. $430 이상 새 근거 없이 상승 시 10주 차익실현.</td></tr>
+      <tr><th>실적 발표 후 행동</th><td>beat만으로는 부족. beat + raise + FY27 AI revenue/margin 가시성이 필요.</td></tr>
+      <tr><th>목표가 도달 시 행동</th><td>$410에서는 유지/소폭 trim, $460에서 10주 trim, $500+에서 15~25주 trim.</td></tr>
+      <tr><th>thesis 훼손 시 행동</th><td>$315 하회 + weak guide/margin/FCF 동반 시 20주 이상 축소. $275와 thesis break 동시 발생 시 전량 매도 검토.</td></tr>
+      <tr><th>가장 중요한 체크포인트</th><td>FY27 AI infrastructure 매출 지속성, core OPM 5.5%+, FCF $1.4B 이상 유지, AR/재고 현금전환.</td></tr>
+      <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>AI infra 수요 둔화, FY27 core EPS $14 미달, core OPM 5.5% 하회, FCF $1.1B 미만, 고객 ramp 지연/취소, 익명 고객 기대 과대평가가 확인될 때.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AAOI 투자 핵심 요약 — 꼭 알아야 할 것만</title>
+<style>
+:root{
+  --paper:#FBF8F1; --cream:#F3EEE5; --ink:#20232A; --muted:#6C7268; --line:#D8D0C3;
+  --teal:#2E7D73; --rust:#C66B4E; --mustard:#D9A441; --blue:#5C789A; --sage:#9EAD94; --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.62}
+a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal)}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 54px}
+.hero{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:24px;padding:34px 34px 28px;overflow:hidden}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800}
+h1{font-size:34px;line-height:1.18;margin:8px 0 10px;max-width:720px}
+.sub{font-size:16px;color:var(--muted);max-width:720px;margin:0 0 22px}.stamp{display:inline-flex;gap:10px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:var(--white);padding:7px 11px;border-radius:999px;font-weight:700;font-size:13px}.poster{position:absolute;right:26px;top:26px;width:190px;height:150px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;margin-top:18px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.metric{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:16px}.metric b{display:block;font-size:22px}.metric span{display:block;color:var(--muted);font-size:13px;margin-top:4px}h2{font-size:22px;margin:0 0 12px}h3{font-size:17px;margin:18px 0 8px}.decision{border-left:8px solid var(--rust);padding-left:16px}.ok{color:var(--teal);font-weight:800}.warn{color:var(--rust);font-weight:800}.muted{color:var(--muted)}
+ul{margin:8px 0 0 21px;padding:0}li{margin:7px 0}table{width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{font-size:13px;color:var(--muted);background:#F7F3EA}.right{text-align:right}.tag{display:inline-block;padding:3px 8px;border-radius:999px;background:#EFE8DC;font-size:12px;font-weight:800}.red{background:#F5DDD4;color:#8C3B2A}.green{background:#DDEAE5;color:#255F58}.yellow{background:#F4E8C8;color:#715212}.blue{background:#E0E7EF;color:#365675}.bar{height:16px;background:#E9E1D5;border-radius:20px;overflow:hidden}.bar span{display:block;height:100%;background:var(--teal)}.bar.rust span{background:var(--rust)}.bar.mustard span{background:var(--mustard)}.small{font-size:13px;color:var(--muted)}.quote{font-size:20px;font-weight:800;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px}.footer{font-size:12px;color:var(--muted);margin-top:20px}.nowrap{white-space:nowrap}
+.fin-card{background:#202631;color:#DDE3EE;border-color:#3A4353;box-shadow:0 18px 50px rgba(20,24,30,.18)}
+.fin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:12px}.fin-card h2{color:#E7EBF3;margin-bottom:4px}.fin-sub{color:#A7AFBF;margin:0;max-width:720px}.tabs{display:flex;align-items:center;gap:10px;color:#8E96A8;font-weight:800;white-space:nowrap}.tabs b{color:#E7EBF3;border:2px solid #5C789A;border-radius:10px;padding:4px 9px;box-shadow:0 0 0 2px rgba(92,120,154,.25) inset}.fin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.fin-panel{background:#202631;border:1px solid #3A4353;border-radius:12px;padding:6px 8px 2px;min-width:0}.mini-svg{width:100%;height:auto;display:block}.chart-title{fill:#9EA7B8;font-size:15px;font-weight:800}.grid-line{stroke:#333B4B;stroke-width:1;stroke-dasharray:1 3}.zero-line{stroke:#697386;stroke-width:1.2}.bar-label{fill:#F1F4F8;font-size:12px;font-weight:800}.x-label{fill:#8E96A8;font-size:11px;font-weight:700}.fin-read{margin-top:14px;background:#252C38;color:#DDE3EE;border:1px solid #3A4353}.fin-read th{background:#2B3341;color:#AEB6C6;border-bottom:1px solid #3A4353}.fin-read td{border-bottom:1px solid #3A4353}.fin-note{color:#9EA7B8;margin-top:10px}@media(max-width:980px){.fin-grid{grid-template-columns:1fr}.fin-head{display:block}.tabs{margin-top:10px}.fin-panel{padding:8px}}
+@media(max-width:760px){.grid,.grid3{grid-template-columns:1fr}.poster{display:none}h1{font-size:28px}.hero{padding:26px 22px}.card{padding:18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <svg class="poster" viewBox="0 0 220 170" aria-hidden="true">
+      <rect x="10" y="18" width="200" height="128" rx="18" fill="#F6F1E8" stroke="#D8D0C3"/>
+      <circle cx="62" cy="78" r="32" fill="#D9A441"/>
+      <rect x="100" y="48" width="72" height="12" rx="6" fill="#2E7D73"/>
+      <rect x="82" y="78" width="96" height="12" rx="6" fill="#5C789A"/>
+      <rect x="112" y="108" width="58" height="12" rx="6" fill="#C66B4E"/>
+      <path d="M25 138h170" stroke="#20232A" stroke-width="3"/>
+    </svg>
+    <div class="kicker">AAOI essential investment memo</div>
+    <h1>AAOI 투자 전 꼭 알아야 할 내용만 압축</h1>
+    <p class="sub">긴 보고서의 결론만 남겼습니다. 지금 중요한 것은 “좋은 회사인가?”보다 “현재 가격에서 아직 비대칭 upside가 남아 있는가?”입니다.</p>
+    <div class="stamp">
+      <span class="pill">기준 주가: $170.54</span>
+      <span class="pill">시총: 약 $12.95B</span>
+      <span class="pill">판단: 신규 추격매수 금지</span>
+      <span class="pill">관심 매수가: $130~145</span>
+    </div>
+  </section>
+
+  <section class="card decision">
+    <h2>1. 결론 먼저</h2>
+    <div class="quote">AAOI는 “AI 데이터센터 광트랜시버 변곡점”은 맞지만, 현재 주가는 이미 상당한 기대를 반영했습니다. <span class="warn">지금은 좋은 회사보다 좋은 가격이 더 중요합니다.</span></div>
+    <div class="grid3" style="margin-top:14px">
+      <div class="metric"><b>Hold / Watch</b><span>보유자는 일부 보유 가능, 신규자는 조정 대기</span></div>
+      <div class="metric"><b>$180</b><span>12개월 base target. 현재가 대비 upside 작음</span></div>
+      <div class="metric"><b>$260+</b><span>bull case는 Q2/Q3 실적 확인 필요</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. 이 회사의 핵심 thesis</h2>
+    <table>
+      <tr><th>시장이 보던 AAOI</th><td>CATV/HFC, 통신 부품, 고객 집중이 심한 변동성 높은 소형주</td></tr>
+      <tr><th>지금 봐야 할 AAOI</th><td><b>AI 데이터센터용 800G/1.6T optical transceiver 공급사</b>. GPU 클러스터가 커질수록 서버 간 광연결 수요가 증가하는 구조</td></tr>
+      <tr><th>핵심 변화</th><td>단순 반등이 아니라 <b>고객 검증 → 대형 주문 → 생산능력 확대 → 자본조달</b>이 같은 방향으로 연결됨</td></tr>
+      <tr><th>투자 포인트</th><td>2026~2027년에 매출 구조가 CATV 중심에서 hyperscaler optical 중심으로 바뀌면 멀티플 재평가 가능</td></tr>
+      <tr><th>주의점</th><td>이미 주가가 크게 올라 base case의 상당 부분을 반영. 실적이 “좋다” 정도로는 부족하고 <b>beat + raise + 마진 개선</b>이 필요</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>3. 투자자가 반드시 기억해야 할 7가지</h2>
+    <ol>
+      <li><b>Amazon warrant는 단순 뉴스가 아닙니다.</b> Amazon 계열사가 10년 warrant를 받았고, 잔여 vesting은 Amazon 관련 구매액 $4B 달성에 연동됩니다. 이는 “장기 고객 lock-in 가능성”의 강한 신호입니다.</li>
+      <li><b>1.6T 주문은 AAOI의 정체성을 바꿀 수 있는 사건입니다.</b> 회사는 2026년 3월 장기 고객으로부터 $200M+ 규모의 1.6T 첫 volume order를 받았다고 발표했습니다.</li>
+      <li><b>800G 주문은 단기 실적 확인 포인트입니다.</b> $53M 주문 이후 $71M upsized order가 이어졌고, 출하 일정이 Q2~Q4 실적으로 연결되는지가 핵심입니다.</li>
+      <li><b>Texas 증설은 bull case의 병목 해소 카드입니다.</b> $20.85M TSIF 보조금과 210,000 sqft 증설은 AI transceiver 생산능력 확대를 위한 투자입니다.</li>
+      <li><b>$600M ATM은 양날의 검입니다.</b> 증설 자금이면 긍정적이지만, 주가가 높을 때 발행하면 기존 주주 희석 압력이 됩니다.</li>
+      <li><b>고객 집중은 여전히 가장 큰 리스크입니다.</b> 2025년에도 상위 10개 고객 비중이 매우 높고, 고객 하나의 주문 변동이 실적과 주가를 흔들 수 있습니다.</li>
+      <li><b>현재 가격은 “발견 전 가격”이 아닙니다.</b> 시총 $12.95B에서 $70B가 되려면 약 5.4배가 필요합니다. 가능성을 완전히 배제할 수는 없지만, 지금 사는 것은 이미 높은 기대를 사는 것입니다.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>4. 가격별 행동 기준</h2>
+    <table>
+      <tr><th>가격 구간</th><th>판단</th><th>행동</th></tr>
+      <tr><td class="nowrap"><b>$110 이하</b></td><td><span class="tag green">매력적</span> 보수적 내재가치 아래</td><td>실적 훼손이 없다면 적극 검토</td></tr>
+      <tr><td class="nowrap"><b>$130~145</b></td><td><span class="tag yellow">관심 매수</span> risk/reward 개선</td><td>1차 0.5% 비중, Q2/Q3 확인 후 추가</td></tr>
+      <tr><td class="nowrap"><b>$150~180</b></td><td><span class="tag blue">관찰</span> base case 가격대</td><td>추격매수보다 실적 확인 우선</td></tr>
+      <tr><td class="nowrap"><b>$220 이상</b></td><td><span class="tag red">과열 주의</span> bull 일부 반영</td><td>보유자는 일부 차익실현 검토</td></tr>
+      <tr><td class="nowrap"><b>$300 이상</b></td><td><span class="tag red">overshoot</span> squeeze/스토리 과열 가능</td><td>신규 금지, 보유자는 비중 축소</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>5. 밸류에이션 요약</h2>
+    <table>
+      <tr><th>구분</th><th class="right">목표가</th><th>의미</th><th>필요 조건</th></tr>
+      <tr><td>보수적 내재가치</td><td class="right"><b>$110</b></td><td>실행 리스크와 희석을 반영한 방어 가치</td><td>AI optical 성장성은 인정하되 과열 멀티플 제외</td></tr>
+      <tr><td>12개월 base</td><td class="right"><b>$180</b></td><td>현재 주가와 큰 차이 없음</td><td>2026 가이던스 달성, GM 30%+ 유지</td></tr>
+      <tr><td>bull case</td><td class="right"><b>$260</b></td><td>고객 확대와 1.6T ramp 성공</td><td>Q2/Q3 beat + raise + 신규 고객 증거</td></tr>
+      <tr><td>overshoot</td><td class="right"><b>$330</b></td><td>short squeeze/M&A 기대/AI optical 과열</td><td>수급 과열, 고객사 추가 공개, 대형 전략 옵션</td></tr>
+    </table>
+    <h3>Valuation bridge</h3>
+    <div class="small">현재가 $170.54 기준. 막대 길이는 overshoot $330 대비 상대 위치입니다.</div>
+    <div style="display:grid;grid-template-columns:140px 1fr 70px;gap:10px;align-items:center;margin-top:12px">
+      <div>보수적 $110</div><div class="bar rust"><span style="width:33%"></span></div><div class="right">-35%</div>
+      <div>Base $180</div><div class="bar"><span style="width:55%"></span></div><div class="right">+6%</div>
+      <div>Bull $260</div><div class="bar mustard"><span style="width:79%"></span></div><div class="right">+52%</div>
+      <div>Overshoot $330</div><div class="bar"><span style="width:100%"></span></div><div class="right">+94%</div>
+    </div>
+  </section>
+
+
+  <section class="card fin-card" id="financial-dashboard">
+    <div class="fin-head">
+      <div>
+        <h2>6. 핵심 재무 그래프 — EPS · 매출 · 주식 수</h2>
+        <p class="fin-sub">이미지로 붙인 것이 아니라, HTML/SVG 코드로 그린 그래프입니다. 투자 판단상 중요한 포인트는 <b>매출은 변곡점</b>이지만 <b>EPS는 아직 적자</b>이고 <b>주식 수 희석이 빠르게 진행</b>됐다는 점입니다.</p>
+      </div>
+      <div class="tabs"><span>Timeframe</span><b>Annual</b><span>Quarterly</span></div>
+    </div>
+    <div class="fin-grid">
+      <div class="fin-panel">
+        <svg class="mini-svg" viewBox="0 0 620 210" role="img" aria-label="GAAP EPS"><text x="32" y="21" class="chart-title">GAAP EPS</text><line x1="32" y1="38.0" x2="602" y2="38.0" class="grid-line"/><line x1="32" y1="72.5" x2="602" y2="72.5" class="grid-line"/><line x1="32" y1="107.0" x2="602" y2="107.0" class="grid-line"/><line x1="32" y1="141.5" x2="602" y2="141.5" class="grid-line"/><line x1="32" y1="176.0" x2="602" y2="176.0" class="grid-line"/><line x1="32" y1="38.0" x2="602" y2="38.0" class="zero-line"/><rect x="32.0" y="38.0" width="54.4" height="2.7" rx="4" fill="#FF4D5E"/><text x="59.2" y="56.7" class="bar-label" text-anchor="middle">-0.10</text><text x="59.2" y="198" class="x-label" text-anchor="middle">2018</text><rect x="96.4" y="38.0" width="54.4" height="90.1" rx="4" fill="#FF4D5E"/><text x="123.7" y="144.1" class="bar-label" text-anchor="middle">-3.29</text><text x="123.7" y="198" class="x-label" text-anchor="middle">2019</text><rect x="160.9" y="38.0" width="54.4" height="69.8" rx="4" fill="#FF4D5E"/><text x="188.1" y="123.8" class="bar-label" text-anchor="middle">-2.55</text><text x="188.1" y="198" class="x-label" text-anchor="middle">2020</text><rect x="225.3" y="38.0" width="54.4" height="55.0" rx="4" fill="#FF4D5E"/><text x="252.6" y="109.0" class="bar-label" text-anchor="middle">-2.01</text><text x="252.6" y="198" class="x-label" text-anchor="middle">2021</text><rect x="289.8" y="38.0" width="54.4" height="65.2" rx="4" fill="#FF4D5E"/><text x="317.0" y="119.2" class="bar-label" text-anchor="middle">-2.38</text><text x="317.0" y="198" class="x-label" text-anchor="middle">2022</text><rect x="354.2" y="38.0" width="54.4" height="47.9" rx="4" fill="#FF4D5E"/><text x="381.4" y="101.9" class="bar-label" text-anchor="middle">-1.75</text><text x="381.4" y="198" class="x-label" text-anchor="middle">2023</text><rect x="418.7" y="38.0" width="54.4" height="123.2" rx="4" fill="#FF4D5E"/><text x="445.9" y="153.2" class="bar-label" text-anchor="middle">-4.50</text><text x="445.9" y="198" class="x-label" text-anchor="middle">2024</text><rect x="483.1" y="38.0" width="54.4" height="17.5" rx="4" fill="#FF4D5E"/><text x="510.3" y="71.5" class="bar-label" text-anchor="middle">-0.64</text><text x="510.3" y="198" class="x-label" text-anchor="middle">2025</text><rect x="547.6" y="38.0" width="54.4" height="18.1" rx="4" fill="#FF4D5E"/><text x="574.8" y="72.1" class="bar-label" text-anchor="middle">-0.66</text><text x="574.8" y="198" class="x-label" text-anchor="middle">TTM</text></svg>
+      </div>
+      <div class="fin-panel">
+        <svg class="mini-svg" viewBox="0 0 620 210" role="img" aria-label="Sales ($bln)"><text x="32" y="21" class="chart-title">Sales ($bln)</text><line x1="32" y1="38.0" x2="602" y2="38.0" class="grid-line"/><line x1="32" y1="72.5" x2="602" y2="72.5" class="grid-line"/><line x1="32" y1="107.0" x2="602" y2="107.0" class="grid-line"/><line x1="32" y1="141.5" x2="602" y2="141.5" class="grid-line"/><line x1="32" y1="176.0" x2="602" y2="176.0" class="grid-line"/><line x1="32" y1="176.0" x2="602" y2="176.0" class="zero-line"/><rect x="32.0" y="111.1" width="54.4" height="64.9" rx="4" fill="#8D6CF6"/><text x="59.2" y="103.1" class="bar-label" text-anchor="middle">0.27</text><text x="59.2" y="198" class="x-label" text-anchor="middle">2018</text><rect x="96.4" y="129.6" width="54.4" height="46.4" rx="4" fill="#8D6CF6"/><text x="123.7" y="121.6" class="bar-label" text-anchor="middle">0.19</text><text x="123.7" y="198" class="x-label" text-anchor="middle">2019</text><rect x="160.9" y="118.9" width="54.4" height="57.1" rx="4" fill="#8D6CF6"/><text x="188.1" y="110.9" class="bar-label" text-anchor="middle">0.23</text><text x="188.1" y="198" class="x-label" text-anchor="middle">2020</text><rect x="225.3" y="124.5" width="54.4" height="51.5" rx="4" fill="#8D6CF6"/><text x="252.6" y="116.5" class="bar-label" text-anchor="middle">0.21</text><text x="252.6" y="198" class="x-label" text-anchor="middle">2021</text><rect x="289.8" y="121.8" width="54.4" height="54.2" rx="4" fill="#8D6CF6"/><text x="317.0" y="113.8" class="bar-label" text-anchor="middle">0.22</text><text x="317.0" y="198" class="x-label" text-anchor="middle">2022</text><rect x="354.2" y="123.0" width="54.4" height="53.0" rx="4" fill="#8D6CF6"/><text x="381.4" y="115.0" class="bar-label" text-anchor="middle">0.22</text><text x="381.4" y="198" class="x-label" text-anchor="middle">2023</text><rect x="418.7" y="115.5" width="54.4" height="60.5" rx="4" fill="#8D6CF6"/><text x="445.9" y="107.5" class="bar-label" text-anchor="middle">0.25</text><text x="445.9" y="198" class="x-label" text-anchor="middle">2024</text><rect x="483.1" y="65.2" width="54.4" height="110.8" rx="4" fill="#8D6CF6"/><text x="510.3" y="57.2" class="bar-label" text-anchor="middle">0.46</text><text x="510.3" y="198" class="x-label" text-anchor="middle">2025</text><rect x="547.6" y="52.8" width="54.4" height="123.2" rx="4" fill="#8D6CF6"/><text x="574.8" y="68.8" class="bar-label" text-anchor="middle">0.51</text><text x="574.8" y="198" class="x-label" text-anchor="middle">TTM</text></svg>
+      </div>
+      <div class="fin-panel">
+        <svg class="mini-svg" viewBox="0 0 620 210" role="img" aria-label="Shares Outstanding (mln)"><text x="32" y="21" class="chart-title">Shares Outstanding (mln)</text><line x1="32" y1="38.0" x2="602" y2="38.0" class="grid-line"/><line x1="32" y1="72.5" x2="602" y2="72.5" class="grid-line"/><line x1="32" y1="107.0" x2="602" y2="107.0" class="grid-line"/><line x1="32" y1="141.5" x2="602" y2="141.5" class="grid-line"/><line x1="32" y1="176.0" x2="602" y2="176.0" class="grid-line"/><line x1="32" y1="176.0" x2="602" y2="176.0" class="zero-line"/><rect x="32.0" y="145.6" width="54.4" height="30.4" rx="4" fill="#2FB8C4"/><text x="59.2" y="137.6" class="bar-label" text-anchor="middle">19.8</text><text x="59.2" y="198" class="x-label" text-anchor="middle">2018</text><rect x="96.4" y="145.1" width="54.4" height="30.9" rx="4" fill="#2FB8C4"/><text x="123.7" y="137.1" class="bar-label" text-anchor="middle">20.1</text><text x="123.7" y="198" class="x-label" text-anchor="middle">2019</text><rect x="160.9" y="141.1" width="54.4" height="34.9" rx="4" fill="#2FB8C4"/><text x="188.1" y="133.1" class="bar-label" text-anchor="middle">22.7</text><text x="188.1" y="198" class="x-label" text-anchor="middle">2020</text><rect x="225.3" y="134.2" width="54.4" height="41.8" rx="4" fill="#2FB8C4"/><text x="252.6" y="126.2" class="bar-label" text-anchor="middle">27.2</text><text x="252.6" y="198" class="x-label" text-anchor="middle">2021</text><rect x="289.8" y="132.2" width="54.4" height="43.8" rx="4" fill="#2FB8C4"/><text x="317.0" y="124.2" class="bar-label" text-anchor="middle">28.5</text><text x="317.0" y="198" class="x-label" text-anchor="middle">2022</text><rect x="354.2" y="119.9" width="54.4" height="56.1" rx="4" fill="#2FB8C4"/><text x="381.4" y="111.9" class="bar-label" text-anchor="middle">36.5</text><text x="381.4" y="198" class="x-label" text-anchor="middle">2023</text><rect x="418.7" y="105.2" width="54.4" height="70.8" rx="4" fill="#2FB8C4"/><text x="445.9" y="97.2" class="bar-label" text-anchor="middle">46.1</text><text x="445.9" y="198" class="x-label" text-anchor="middle">2024</text><rect x="483.1" y="68.0" width="54.4" height="108.0" rx="4" fill="#2FB8C4"/><text x="510.3" y="60.0" class="bar-label" text-anchor="middle">70.3</text><text x="510.3" y="198" class="x-label" text-anchor="middle">2025</text><rect x="547.6" y="52.8" width="54.4" height="123.2" rx="4" fill="#2FB8C4"/><text x="574.8" y="68.8" class="bar-label" text-anchor="middle">80.2</text><text x="574.8" y="198" class="x-label" text-anchor="middle">MRQ</text></svg>
+      </div>
+    </div>
+    <table class="fin-read">
+      <tr><th>읽는 법</th><th>투자 판단</th></tr>
+      <tr><td>EPS</td><td>2025~TTM 손실폭은 축소됐지만 아직 GAAP 기준 흑자 전환이 확인되지 않았습니다. 그래서 현재 주가는 EPS가 아니라 <b>미래 매출 ramp와 멀티플</b>을 사는 구간입니다.</td></tr>
+      <tr><td>Sales</td><td>2025 매출이 $456M, TTM $507M까지 올라왔습니다. 핵심은 2026~2027년에 800G/1.6T 주문이 실제 매출로 연결되어 $1B+ 매출 가이던스를 증명하는지입니다.</td></tr>
+      <tr><td>Shares</td><td>2018년 약 19.8M주에서 최근 약 80.2M주로 증가했습니다. upside가 커도 <b>ATM·워런트·전환사채 희석</b>이 주당가치를 갉아먹을 수 있습니다.</td></tr>
+    </table>
+    <p class="small fin-note">데이터: 2021~TTM 매출/EPS는 StockAnalysis/Fiscal.ai 집계, 2025 회사 실적 발표, 2018~2020은 회사 연차보고서·Macrotrends 방향성 데이터, 주식 수는 CompaniesMarketCap 및 최근 공시 기준으로 정리. 세부 값은 소스별 집계 기준에 따라 소폭 차이 날 수 있습니다.</p>
+  </section>
+
+  <section class="card">
+    <h2>7. 다음 실적에서 반드시 볼 것</h2>
+    <table>
+      <tr><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th></tr>
+      <tr><td>매출 가이던스</td><td>Q3/Q4 출하 가속, 2026 가이던스 상향</td><td>주문은 있지만 출하 지연, 가이던스 보수화</td></tr>
+      <tr><td>Gross margin</td><td>30% 이상 유지 또는 개선</td><td>증설·수율·가격 압박으로 29% 아래</td></tr>
+      <tr><td>고객 다변화</td><td>hyperscaler 2~3곳에서 의미 있는 매출 기여</td><td>특정 고객 하나에 의존</td></tr>
+      <tr><td>ATM 사용</td><td>CAPA 확장용 제한적 사용</td><td>주가 상승 구간에서 과도한 발행</td></tr>
+      <tr><td>재고</td><td>출하 전 선제적 재고 증가로 설명 가능</td><td>수요 둔화/고객 지연에 따른 재고 누적</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>8. Macro: 금리와 고용지표가 왜 중요하나</h2>
+    <p>AAOI는 아직 순이익 안정성이 낮고 멀티플이 높은 성장주라 금리에 민감합니다. 미국 고용이 너무 강하면 금리 인하 기대가 낮아져 고멀티플 주식에 불리할 수 있습니다. 반대로 고용이 약해져 금리 인하 확률이 커지면 멀티플에는 유리하지만, 경기 둔화가 클라우드 capex 심리를 약화시킬 수 있습니다.</p>
+    <table>
+      <tr><th>매크로 환경</th><th>AAOI 영향</th><th>판단</th></tr>
+      <tr><td>강한 고용 + 금리 고착</td><td>멀티플 압박</td><td>추격매수 불리</td></tr>
+      <tr><td>완만한 고용 둔화 + 금리 인하 기대</td><td>성장주 멀티플에 우호적</td><td>가장 좋은 조합</td></tr>
+      <tr><td>급격한 고용 악화</td><td>수요/Capex 우려</td><td>단기 주가 불안</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>9. 포트폴리오 실행안</h2>
+    <table>
+      <tr><th>현재 AAOI 보유</th><td><b>0주</b></td></tr>
+      <tr><th>추천 행동</th><td><b>신규 추격매수 금지</b>. $130~145 조정 또는 실적 확인 후 진입</td></tr>
+      <tr><th>목표 비중</th><td>현재 0%. 실적 확인 전 최대 0.5~1.0%, 확인 후에도 1.5% 이내</td></tr>
+      <tr><th>1차 매수</th><td>$130~145에서 0.5% 비중</td></tr>
+      <tr><th>2차 매수</th><td>Q2/Q3에서 beat + raise + GM 30%+ 확인 시 추가 0.5%</td></tr>
+      <tr><th>손절/축소</th><td>출하 지연, GM 29% 이하, ATM 대량 발행, 고객 집중 악화 시 매수 중단 또는 축소</td></tr>
+      <tr><th>TSLA 관련</th><td>AAOI를 사기 위해 TSLA를 추가로 줄이는 것은 비추천. TSLA 100주는 FSD/Robotaxi optionality 보유용으로 유지하는 편이 낫습니다.</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>10. 마지막 요약</h2>
+    <table>
+      <tr><th>현재 주가</th><td>$170.54</td></tr>
+      <tr><th>보수적 내재가치</th><td>$110</td></tr>
+      <tr><th>12개월 base target</th><td>$180</td></tr>
+      <tr><th>bull target</th><td>$260</td></tr>
+      <tr><th>overshoot target</th><td>$330</td></tr>
+      <tr><th>하방 리스크</th><td>$110~130</td></tr>
+      <tr><th>12개월 기대수익률</th><td>Base 기준 약 +6%, bull 기준 +52%</td></tr>
+      <tr><th>추천 행동</th><td><b>신규 매수 금지 / 조정 대기</b></td></tr>
+      <tr><th>가장 중요한 체크포인트</th><td>800G/1.6T 주문이 실제 매출·마진·현금흐름으로 전환되는지</td></tr>
+      <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>Q2/Q3에서 출하 지연 없이 가이던스 상향, GM 32%+, 고객 다변화, 제한적 희석이 동시에 확인되는 경우</td></tr>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>참고 자료</h2>
+    <ul class="small">
+      <li><a href="https://investors.ao-inc.com/news-releases/news-release-details/aoi-receives-first-volume-order-16t-data-center-transceivers">AOI 1.6T volume order press release</a></li>
+      <li><a href="https://investors.ao-inc.com/news-releases/news-release-details/aoi-receives-new-order-800g-data-center-transceivers-major">AOI $53M 800G order press release</a></li>
+      <li><a href="https://investors.ao-inc.com/news-releases/news-release-details/aoi-receives-new-upsized-order-800g-data-center-transceivers">AOI $71M 800G upsized order press release</a></li>
+      <li><a href="https://investors.ao-inc.com/news-releases/news-release-details/aoi-awarded-209m-texas-semiconductor-innovation-fund-grant">AOI Texas Semiconductor Innovation Fund grant</a></li>
+      <li><a href="https://investors.ao-inc.com/static-files/80b82041-5bab-406d-8991-c4f31de63104">AOI 2025 Q2 Form 10-Q — Amazon warrant details</a></li>
+      <li><a href="https://investors.ao-inc.com/static-files/332685e3-be19-4c07-92d5-f47dcb5fe8e2">AOI 2026 Form 8-K — $600M ATM offering</a></li>
+      <li><a href="https://investors.ao-inc.com/static-files/6e93dd0b-5f30-4019-9855-643c1458d94f">AOI 2025 Form 10-K</a></li>
+      <li><a href="https://stockanalysis.com/stocks/aaoi/financials/">StockAnalysis AAOI financials — revenue, EPS, weighted shares</a></li>
+      <li><a href="https://stockanalysis.com/stocks/aaoi/financials/metrics/">StockAnalysis AAOI metrics — segment revenue and TTM revenue</a></li>
+      <li><a href="https://companiesmarketcap.com/applied-optoelectronics/shares-outstanding/">CompaniesMarketCap AAOI shares outstanding history</a></li>
+    </ul>
+    <div class="footer">주의: 이 문서는 투자 판단 보조 자료이며 매수·매도 권유가 아닙니다. 실제 매매 전 최신 주가, 공시, 환율, 포트폴리오 비중을 다시 확인해야 합니다.</div>
+  </section>
+</div>
+</body>
+</html>
