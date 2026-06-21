@@ -111,7 +111,7 @@
   name: Qualcomm
   portfolio_rank: 14
   portfolio_weight: 2.1
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "스마트폰 모뎀/IP 기업에서 자동차, IoT, AI PC, 산업용 Edge AI를 묶는 connected edge 플랫폼으로 전환 중입니다."
   observation: "시장은 Apple 모뎀 손실과 핸드셋 사이클에 집중하지만, 자동차와 IoT가 실적으로 확인되면 리레이팅 여지가 있습니다."
   metrics:
@@ -183,7 +183,7 @@
   name: AMD
   portfolio_rank: 11
   portfolio_weight: 2.6
-  portfolio_role: defender
+  portfolio_role: other
   thesis: "데이터센터 CPU와 GPU(MI300/MI350 시리즈)를 함께 보유한 AI 인프라 공급 기업으로, NVIDIA 독점을 견제하는 대안 플랫폼입니다."
   observation: "MI300X 수요가 빠르게 확대되며 데이터센터 GPU 점유율을 끌어올리고 있습니다. EPYC CPU의 서버 시장 점유율 확대와 GPU 매출 성장이 동시에 확인되어야 리레이팅이 완성됩니다."
   metrics:
@@ -201,7 +201,7 @@
   name: Dell Technologies
   portfolio_rank: 17
   portfolio_weight: 1.9
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "PC 제조사를 넘어 NVIDIA 기반 AI Factory, 서버, 스토리지, 서비스까지 묶는 턴키 AI 인프라 기업으로 재평가되는 구간입니다."
   observation: "AI 서버 주문, 출하, 백로그가 구조적 성장을 증명하고 있으나 총마진과 FCF 전환은 매 분기 확인해야 할 핵심 변수입니다."
   metrics:
@@ -219,7 +219,7 @@
   name: Palantir
   portfolio_rank: 18
   portfolio_weight: 1.8
-  portfolio_role: striker
+  portfolio_role: other
   thesis: "정부와 기업 데이터를 운영 의사결정에 연결하는 AI 소프트웨어 플랫폼으로 추적합니다."
   observation: "높은 고객 락인과 전략적 데이터 플랫폼이라는 강점이 있지만, 밸류에이션을 정당화하려면 상업 고객 증가와 사용량 기반 확장이 꾸준히 확인되어야 합니다."
   metrics:
@@ -237,7 +237,7 @@
   name: 현대제철
   portfolio_rank: 13
   portfolio_weight: 2.2
-  portfolio_role: defender
+  portfolio_role: other
   thesis: "국내 철강 기업으로 현대차그룹 내 수직 계열화 수혜와 저밸류에이션(PBR 0.3x 수준)을 결합한 가치 포지션입니다."
   observation: "철강 업황 사이클 저점 구간에서 가격 메리트로 편입했습니다. 현대차그룹 전기차·수소차 소재 공급 수혜와 수익성 개선이 thesis 핵심이나, 글로벌 철강 공급 과잉이 업사이드를 제한합니다."
   metrics:
@@ -273,7 +273,7 @@
   name: SKHynix
   portfolio_rank: 15
   portfolio_weight: 2.0
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "HBM(고대역폭메모리) 세계 1위 공급자로 AI 메모리 슈퍼사이클의 최대 수혜 기업입니다."
   observation: "NVIDIA H/B/GB 시리즈에 HBM을 독점에 가깝게 공급하며 프리미엄 마진을 구가하고 있습니다. HBM4 전환이 성공적으로 이뤄지면 2026~2027년 리레이팅이 추가로 가능합니다."
   metrics:
@@ -291,7 +291,7 @@
   name: SoFi Technologies
   portfolio_rank: 19
   portfolio_weight: 1.7
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "소비자 금융 앱, 은행, Galileo/Technisys 인프라를 동시에 가진 핀테크 플랫폼으로 봅니다."
   observation: "회원 증가와 매출 성장, 신규 상품 교차판매는 강하지만 Tech Platform 회복과 신용 품질이 리레이팅의 관건입니다."
   metrics:
@@ -327,7 +327,7 @@
   name: Analog Devices
   portfolio_rank: 21
   portfolio_weight: 1.6
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "산업·자동차·통신 전 분야에 걸친 아날로그 IC 강자로, 사이클 저점 이후 회복과 AI 엣지 센서 수혜를 동시에 기대합니다."
   observation: "산업 재고 조정이 마무리되며 매출 회복세가 시작됐습니다. AI 데이터센터 전력 관리, 자동차 ADAS, 통신 인프라에서 동시 성장이 나타나는 구간입니다."
   metrics:
@@ -345,7 +345,7 @@
   name: Cadence Design Systems
   portfolio_rank: 12
   portfolio_weight: 2.3
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "반도체 설계 자동화(EDA) 툴과 IP 라이선스를 통해 모든 반도체 설계 흐름의 필수 인프라를 제공하는 소프트웨어 기업입니다."
   observation: "AI 칩 설계 폭증이 EDA 수요를 구조적으로 끌어올리고 있으며, Synopsys와 함께 과점 구조를 유지합니다. 매출의 90% 이상이 반복 라이선스로 수익 가시성이 높습니다."
   metrics:
@@ -363,7 +363,7 @@
   name: 삼성전자
   portfolio_rank: 23
   portfolio_weight: 1.5
-  portfolio_role: defender
+  portfolio_role: other
   thesis: "HBM·DRAM·NAND·파운드리·세트(스마트폰·TV·가전)를 모두 보유한 글로벌 종합 반도체·전자 기업으로 저PBR 구간에서 편입했습니다."
   observation: "HBM 후발 주자로 NVIDIA 공급 납기에 어려움을 겪고 있지만, HBM3E 양산 재개와 4nm 파운드리 수율 개선이 이뤄지면 재평가 여지가 있습니다. 현재는 저밸류에이션 헷지 포지션에 가깝습니다."
   metrics:
@@ -381,7 +381,7 @@
   name: 삼성전기
   portfolio_rank: 16
   portfolio_weight: 2.0
-  portfolio_role: defender
+  portfolio_role: other
   thesis: "MLCC, 카메라모듈, 반도체 패키지기판(FC-BGA)을 주력으로 하는 전장·AI·IT 부품 공급 기업입니다."
   observation: "AI 서버용 FC-BGA와 전기차 전장 MLCC 수요 확대가 중장기 성장을 이끕니다. 스마트폰 MLCC 수요 회복과 맞물리면 멀티 세그먼트 동시 성장 구간이 가능합니다."
   metrics:
@@ -399,7 +399,7 @@
   name: onsemi
   portfolio_rank: 26
   portfolio_weight: 1.1
-  portfolio_role: midfielder
+  portfolio_role: other
   thesis: "전력 반도체와 이미지 센서를 통해 자동차 전동화, 산업 자동화, AI 데이터센터 전력 효율 수요를 함께 받는 아날로그·파워 반도체 기업입니다."
   observation: "자동차 사이클 둔화는 부담이지만, SiC와 AI 데이터센터 전력 트리 수요가 회복 구간의 핵심 옵션입니다. Q1 2026에서 수요 저점 통과 신호가 확인되는지 봅니다."
   metrics:
