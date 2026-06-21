@@ -6,6 +6,7 @@
   var tracks = [];
   var activeIndex = -1;
   var continuous = true;
+  var autoplayOnOpen = true;
 
   function cleanText(value) {
     return String(value || "").replace(/\s+/g, " ").trim();
@@ -33,6 +34,13 @@
 
   function isDirectAudio(url) {
     return /\.(mp3|m4a|wav|ogg|aac)(\?|#|$)/i.test(String(url || ""));
+  }
+
+  function withAutoplayParam(url) {
+    if (!url) {
+      return url;
+    }
+    return url + (url.indexOf("?") === -1 ? "?" : "&") + "autoplay=1";
   }
 
   function trackFromElement(element) {
@@ -100,6 +108,9 @@
       ".company-audio-kicker{color:#36526b;font-size:12px;font-weight:900;margin:0 0 4px;text-transform:uppercase}",
       ".company-audio-title{font-size:22px;font-weight:900;line-height:1.1;margin:0 0 8px}",
       ".company-audio-open{color:#16324a;display:inline-flex;font-size:13px;font-weight:900;text-decoration:underline;text-underline-offset:3px}",
+      ".company-audio-status{background:rgba(244,201,111,.35);border:2px solid rgba(23,50,77,.22);border-radius:7px;color:#36526b;font-size:13px;font-weight:900;line-height:1.35;margin:8px 14px 0;padding:8px 10px}",
+      ".company-audio-status[hidden]{display:none!important}",
+      ".company-audio-status.is-warning{background:rgba(216,91,69,.12);color:#8f2f23}",
       ".company-audio-controls{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 12px}",
       ".company-audio-control{appearance:none;background:#fff;border:3px solid #17324d;border-radius:7px;color:#16324a;cursor:pointer;font-size:13px;font-weight:900;min-height:34px;padding:5px 10px}",
       ".company-audio-control.is-on{background:#f4c96f}",
@@ -142,6 +153,7 @@
       '  <p class="company-audio-title">재생할 음성을 선택하세요</p>',
       '  <a class="company-audio-open" href="#" target="_blank" rel="noopener noreferrer" hidden>원본 열기</a>',
       "</div>",
+      '<p class="company-audio-status" role="status" hidden></p>',
       '<div class="company-audio-controls">',
       '  <button class="company-audio-control company-audio-prev" type="button">이전</button>',
       '  <button class="company-audio-control company-audio-next" type="button">다음</button>',
@@ -168,6 +180,17 @@
 
     document.body.appendChild(panel);
     return panel;
+  }
+
+  function setStatus(panel, message, isWarning) {
+    var status = panel.querySelector(".company-audio-status");
+    status.textContent = message || "";
+    status.hidden = !message;
+    status.classList.toggle("is-warning", !!isWarning);
+  }
+
+  function clearStatus(panel) {
+    setStatus(panel, "", false);
   }
 
   function updateContinuousButton(panel) {
@@ -200,22 +223,25 @@
     panel.querySelector(".company-audio-frame").innerHTML = '<div class="company-audio-empty">Playlist</div>';
     panel.querySelector(".company-audio-title").textContent = "재생할 음성을 선택하세요";
     panel.querySelector(".company-audio-open").hidden = true;
+    clearStatus(panel);
   }
 
-  function renderPreviewFrame(panel, track) {
+  function renderPreviewFrame(panel, track, message) {
     var frameWrap = panel.querySelector(".company-audio-frame");
     frameWrap.innerHTML = "";
 
     var iframe = document.createElement("iframe");
-    iframe.src = track.previewUrl;
-    iframe.allow = "autoplay";
+    iframe.src = withAutoplayParam(track.previewUrl);
+    iframe.allow = "autoplay; encrypted-media";
     iframe.setAttribute("title", track.title);
     frameWrap.appendChild(iframe);
+    setStatus(panel, message || "Google Drive 미리보기로 열었습니다. 브라우저가 자동재생을 막으면 미리보기 안의 재생 버튼을 눌러주세요.", true);
   }
 
   function renderPlayer(panel, track) {
     var frameWrap = panel.querySelector(".company-audio-frame");
     frameWrap.innerHTML = "";
+    clearStatus(panel);
 
     if (!track.canUseAudioTag) {
       renderPreviewFrame(panel, track);
@@ -225,17 +251,24 @@
     var audio = document.createElement("audio");
     audio.controls = true;
     audio.autoplay = true;
+    audio.preload = "auto";
+    audio.playsInline = true;
     audio.src = track.streamUrl;
     audio.addEventListener("ended", function () {
       if (continuous) {
         playNext();
       }
     });
+    audio.addEventListener("play", function () {
+      clearStatus(panel);
+    });
     audio.addEventListener("error", function () {
-      renderPreviewFrame(panel, track);
+      renderPreviewFrame(panel, track, "Google Drive 직접 재생이 막혀 미리보기로 열었습니다. 이 경우 브라우저 정책상 연속재생은 제한될 수 있습니다.");
     }, { once: true });
     frameWrap.appendChild(audio);
-    audio.play().catch(function () {});
+    audio.play().catch(function () {
+      setStatus(panel, "브라우저가 자동재생을 막았습니다. 플레이어의 재생 버튼을 한 번 눌러주세요.", true);
+    });
   }
 
   function setCurrentTrack(panel, track) {
@@ -292,6 +325,9 @@
     renderEmptyPlayer(panel);
     renderList(panel);
     updateContinuousButton(panel);
+    if (autoplayOnOpen && tracks.length) {
+      playTrack(0);
+    }
   }
 
   function handlePlaylistTrigger(event) {
