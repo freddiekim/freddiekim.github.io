@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SOFI 투자 핵심 요약 — 2026-06-22</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">YOUNG FINANCE · 城主 · SOFI 투자 핵심 요약 · 2026-06-22 기준</div>
+  <h1>SoFi: 매출 성장보다 중요한 것은<br/>EPS가 희석률을 이기는가</h1>
+  <p class="sub">SOFI는 단순 개인대출 핀테크가 아니라 <b>은행 예금 기반 + LPB 대출 플랫폼 + 금융 OS</b>로 리레이팅을 시도 중입니다. 다만 현재 구간은 “싸다”보다 <b>증명 전 starter position</b>이 맞습니다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $17.49</span>
+    <span class="badge buy">투자의견 Buy</span>
+    <span class="badge watch">초기 1.0% / 확인 후 1.5~2.0%</span>
+    <span class="badge risk">$14.20 하회 시 thesis 재점검</span>
+    <span class="badge watch">EPS &gt; 희석률 확인 필요</span>
+  </div>
+</div></header>
+<div class="wrap">
+
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">핵심 thesis</div><div class="big">대출주 → 금융 OS</div><p>Bank charter, 예금 조달, Loan Platform Business, Galileo/Technisys/Peach가 연결되면 단순 lender보다 높은 multiple이 가능합니다.</p></div>
+  <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">Base 전 단계</div><p>$17.48는 보수 가치보다 높지만 base target 대비 여력은 남아 있습니다. 단, 실적 전 추격 구간은 아닙니다.</p></div>
+  <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">Q2 Raise</div><p>Q2에서 beat만이 아니라 guide raise, LPB volume, Tech Platform 저점 확인이 같이 필요합니다.</p></div>
+  <div class="card red"><div class="label">가장 큰 위험</div><div class="big">신용 사이클</div><p>실업률·연체율·NCO가 올라가면 SOFI는 플랫폼주가 아니라 고위험 대출주 multiple로 회귀합니다.</p></div>
+</div>
+
+<h3>내가 보는 SOFI의 진짜 변곡점</h3>
+<table>
+<tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+<tr><td>정체성</td><td>개인대출 중심 디지털 은행</td><td>예금 조달 + 대출 플랫폼 + 금융 소프트웨어 + 결제 레일</td><td>fee mix와 자본 회전율이 올라가면 P/E·P/S multiple 재평가 가능</td></tr>
+<tr><td>LPB</td><td>대출 판매 보조 수단</td><td>대차대조표 부담을 줄이는 제3자 대출 공급망</td><td>반복성 있는 fee revenue가 확인되면 리스크 프리미엄 하락</td></tr>
+<tr><td>Tech Platform</td><td>성장 둔화 사업</td><td>Galileo/Technisys에 Peach를 붙여 lending OS로 확장</td><td>accounts/revenue 하락이 멈추는지가 리레이팅 조건</td></tr>
+<tr><td>Macro</td><td>금리 인하 수혜주</td><td>이제는 금리 인상 가능성도 반영해야 하는 lender/fintech</td><td>고용이 너무 강하면 할인율·대손비용 모두 부담</td></tr>
+</table>
+<div class="callout" style="margin-top:16px"><b>한 문장 결론:</b> 신규 0주라면 전액 매수가 아니라 1.0% starter position이 적절합니다. 핵심은 SOFI가 2026년에 매출 성장보다 <b>EPS 성장률이 희석률을 이기는 회사</b>임을 증명하는 것입니다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> SOFI는 매출만 보면 강한 성장주처럼 보이지만, 투자자는 반드시 <b>GAAP EPS와 Shares Outstanding</b>를 함께 봐야 합니다. 그래프는 PNG 이미지가 아니라 HTML 인라인 SVG로 직접 그렸습니다.</div>
+<h3>연도별 그래프</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">장기 추세에서 봐야 할 것은 흑자 전환, 매출 성장, 그리고 누적 희석입니다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">2</text><line x1="24" y1="43.1" x2="304" y2="43.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="46.1" fill="#8190A7" font-size="9">1</text><line x1="24" y1="62.3" x2="304" y2="62.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="65.3" fill="#8190A7" font-size="9">0</text><line x1="24" y1="100.6" x2="304" y2="100.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="103.6" fill="#8190A7" font-size="9">-2</text><line x1="24" y1="138.9" x2="304" y2="138.9" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="141.9" fill="#8190A7" font-size="9">-4</text><rect x="24.0" y="62.3" width="25.8" height="48.0" rx="2" fill="#FF6B6B" /><text x="36.9" y="122.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-2.51</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="62.3" width="25.8" height="50.2" rx="2" fill="#FF6B6B" /><text x="68.7" y="124.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-2.62</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.6" y="62.3" width="25.8" height="82.3" rx="2" fill="#FF6B6B" /><text x="100.4" y="156.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-4.30</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="62.3" width="25.8" height="19.1" rx="2" fill="#FF6B6B" /><text x="132.2" y="93.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-1.00</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="62.3" width="25.8" height="7.7" rx="2" fill="#FF6B6B" /><text x="164.0" y="81.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.40</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="62.3" width="25.8" height="6.9" rx="2" fill="#FF6B6B" /><text x="195.8" y="81.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.36</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.7" y="54.6" width="25.8" height="7.7" rx="2" fill="#4BA3FF" /><text x="227.6" y="50.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.40</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="54.8" width="25.8" height="7.5" rx="2" fill="#4BA3FF" /><text x="259.3" y="50.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.39</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="53.7" width="25.8" height="8.6" rx="2" fill="#4BA3FF" /><text x="291.1" y="49.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.45</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM/MRQ</text><line x1="24" y1="62.3" x2="304" y2="62.3" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="31.4" x2="304" y2="31.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="34.4" fill="#8190A7" font-size="9">5</text><line x1="24" y1="56.8" x2="304" y2="56.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="59.8" fill="#8190A7" font-size="9">4</text><line x1="24" y1="82.1" x2="304" y2="82.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="85.1" fill="#8190A7" font-size="9">3</text><line x1="24" y1="107.4" x2="304" y2="107.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="110.4" fill="#8190A7" font-size="9">2</text><line x1="24" y1="132.7" x2="304" y2="132.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="135.7" fill="#8190A7" font-size="9">1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="142.8" width="25.8" height="15.2" rx="2" fill="#9A7CF3" /><text x="36.9" y="138.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.60</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="139.8" width="25.8" height="18.2" rx="2" fill="#9A7CF3" /><text x="68.7" y="153.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.72</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.6" y="139.0" width="25.8" height="19.0" rx="2" fill="#9A7CF3" /><text x="100.4" y="153.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.75</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="130.4" width="25.8" height="27.6" rx="2" fill="#9A7CF3" /><text x="132.2" y="144.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.09</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="113.5" width="25.8" height="44.5" rx="2" fill="#9A7CF3" /><text x="164.0" y="127.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.76</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="84.3" width="25.8" height="73.7" rx="2" fill="#9A7CF3" /><text x="195.8" y="98.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.91</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.7" y="62.6" width="25.8" height="95.4" rx="2" fill="#9A7CF3" /><text x="227.6" y="76.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.77</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="37.3" width="25.8" height="120.7" rx="2" fill="#9A7CF3" /><text x="259.3" y="51.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.77</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="27.9" width="25.8" height="130.1" rx="2" fill="#9A7CF3" /><text x="291.1" y="41.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">5.14</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM/MRQ</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="36.0" x2="304" y2="36.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="39.0" fill="#8190A7" font-size="9">1.2</text><line x1="24" y1="76.7" x2="304" y2="76.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="79.7" fill="#8190A7" font-size="9">0.8</text><line x1="24" y1="117.3" x2="304" y2="117.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="120.3" fill="#8190A7" font-size="9">0.4</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="147.8" width="25.8" height="10.2" rx="2" fill="#37B9C5" /><text x="36.9" y="143.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.10</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="147.8" width="25.8" height="10.2" rx="2" fill="#37B9C5" /><text x="68.7" y="143.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.10</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.6" y="145.8" width="25.8" height="12.2" rx="2" fill="#37B9C5" /><text x="100.4" y="141.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.12</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="73.6" width="25.8" height="84.4" rx="2" fill="#37B9C5" /><text x="132.2" y="87.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.83</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="63.5" width="25.8" height="94.5" rx="2" fill="#37B9C5" /><text x="164.0" y="77.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.93</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="58.4" width="25.8" height="99.6" rx="2" fill="#37B9C5" /><text x="195.8" y="72.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.98</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.7" y="46.2" width="25.8" height="111.8" rx="2" fill="#37B9C5" /><text x="227.6" y="60.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.10</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="28.9" width="25.8" height="129.1" rx="2" fill="#37B9C5" /><text x="259.3" y="42.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.27</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="27.9" width="25.8" height="130.1" rx="2" fill="#37B9C5" /><text x="291.1" y="41.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.28</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM/MRQ</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">2024→2025 매출 +26.5%</span><span class="chart-pill">GAAP EPS 0.40 → 0.39</span><span class="chart-pill">Shares 1.10B → 1.27B</span></div>
+  <div class="chart-note">핵심 해석: 2025년은 매출은 강했지만 EPS는 희석과 세금 정상화 때문에 정체된 해였습니다. SOFI는 이제 매출 성장주가 아니라 주당 이익 성장주로 증명해야 합니다.</div>
+</div>
+<h3>분기별 그래프</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 분기에서는 매출 증가보다 EPS 민감도와 주식 수 증가 속도가 더 중요합니다.</div></div><span class="chart-tag">Quarterly</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="43.1" x2="304" y2="43.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="46.1" fill="#8190A7" font-size="9">0.3</text><line x1="24" y1="81.4" x2="304" y2="81.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="84.4" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="119.7" x2="304" y2="119.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="122.7" fill="#8190A7" font-size="9">0.1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="150.3" width="25.8" height="7.7" rx="2" fill="#4BA3FF" /><text x="36.9" y="146.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.02</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="154.2" width="25.8" height="3.8" rx="2" fill="#4BA3FF" /><text x="68.7" y="150.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.01</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.6" y="138.9" width="25.8" height="19.1" rx="2" fill="#4BA3FF" /><text x="100.4" y="152.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.05</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="43.1" width="25.8" height="114.9" rx="2" fill="#4BA3FF" /><text x="132.2" y="57.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.30</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="135.0" width="25.8" height="23.0" rx="2" fill="#4BA3FF" /><text x="164.0" y="149.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.06</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="127.4" width="25.8" height="30.6" rx="2" fill="#4BA3FF" /><text x="195.8" y="141.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.08</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.7" y="115.9" width="25.8" height="42.1" rx="2" fill="#4BA3FF" /><text x="227.6" y="129.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.11</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="108.2" width="25.8" height="49.8" rx="2" fill="#4BA3FF" /><text x="259.3" y="122.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.13</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="112.1" width="25.8" height="45.9" rx="2" fill="#4BA3FF" /><text x="291.1" y="126.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.12</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="27.9" x2="304" y2="27.9" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="30.9" fill="#8190A7" font-size="9">1.5</text><line x1="24" y1="71.3" x2="304" y2="71.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="74.3" fill="#8190A7" font-size="9">1</text><line x1="24" y1="114.6" x2="304" y2="114.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="117.6" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="79.1" width="25.8" height="78.9" rx="2" fill="#9A7CF3" /><text x="36.9" y="93.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.91</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="83.4" width="25.8" height="74.6" rx="2" fill="#9A7CF3" /><text x="68.7" y="97.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.86</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.6" y="72.1" width="25.8" height="85.9" rx="2" fill="#9A7CF3" /><text x="100.4" y="86.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.99</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="70.4" width="25.8" height="87.6" rx="2" fill="#9A7CF3" /><text x="132.2" y="84.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.01</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="67.8" width="25.8" height="90.2" rx="2" fill="#9A7CF3" /><text x="164.0" y="81.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.04</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="60.0" width="25.8" height="98.0" rx="2" fill="#9A7CF3" /><text x="195.8" y="74.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.13</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.7" y="47.9" width="25.8" height="110.1" rx="2" fill="#9A7CF3" /><text x="227.6" y="61.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.27</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="41.8" width="25.8" height="116.2" rx="2" fill="#9A7CF3" /><text x="259.3" y="55.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.34</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="35.7" width="25.8" height="122.3" rx="2" fill="#9A7CF3" /><text x="291.1" y="49.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.41</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="36.0" x2="304" y2="36.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="39.0" fill="#8190A7" font-size="9">1.2</text><line x1="24" y1="76.7" x2="304" y2="76.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="79.7" fill="#8190A7" font-size="9">0.8</text><line x1="24" y1="117.3" x2="304" y2="117.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="120.3" fill="#8190A7" font-size="9">0.4</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="50.3" width="25.8" height="107.7" rx="2" fill="#37B9C5" /><text x="36.9" y="64.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.06</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="49.2" width="25.8" height="108.8" rx="2" fill="#37B9C5" /><text x="68.7" y="63.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.07</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.6" y="48.2" width="25.8" height="109.8" rx="2" fill="#37B9C5" /><text x="100.4" y="62.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.08</text><text x="100.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="46.2" width="25.8" height="111.8" rx="2" fill="#37B9C5" /><text x="132.2" y="60.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.10</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="46.2" width="25.8" height="111.8" rx="2" fill="#37B9C5" /><text x="164.0" y="60.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.10</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="45.2" width="25.8" height="112.8" rx="2" fill="#37B9C5" /><text x="195.8" y="59.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.11</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.7" y="36.0" width="25.8" height="122.0" rx="2" fill="#37B9C5" /><text x="227.6" y="50.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.20</text><text x="227.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="28.9" width="25.8" height="129.1" rx="2" fill="#37B9C5" /><text x="259.3" y="42.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.27</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="27.9" width="25.8" height="130.1" rx="2" fill="#37B9C5" /><text x="291.1" y="41.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.28</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">Q4&#x27;25→Q1&#x27;26 Sales +5.2%</span><span class="chart-pill">Q4&#x27;25→Q1&#x27;26 EPS 0.13 → 0.12</span><span class="chart-pill">Q4&#x27;25→Q1&#x27;26 Shares 1.27B → 1.28B</span></div>
+  <div class="chart-note">핵심 해석: Q1 2026은 매출은 늘었지만 EPS는 감소한 구간입니다. 다음 실적에서는 단순 beat보다 EPS 재가속과 가이던스 상향이 필요합니다.</div>
+</div>
+
+<h3>연간 그래프 속성 — 2024 → 2025에서 보이는 핵심</h3>
+<div class="grid g3">
+  <div class="card green"><div class="label">Sales</div><div class="big">$3.77B → $4.77B</div><p>2024년 대비 2025년 매출은 약 <b>+26.5%</b> 증가했습니다. TTM 기준은 약 <b>$5.14B</b>입니다.</p></div>
+  <div class="card orange"><div class="label">GAAP EPS</div><div class="big">$0.40 → $0.39</div><p>매출은 크게 늘었지만 EPS는 정체했습니다. 2024년 일회성 세금효과와 2025년 희석 영향이 섞인 구간입니다.</p></div>
+  <div class="card red"><div class="label">Shares Outstanding</div><div class="big">1.10B → 1.27B</div><p>주식 수가 약 <b>+15.5%</b> 늘었습니다. 앞으로 EPS 성장률이 희석률을 이기지 못하면 주가는 눌립니다.</p></div>
+</div>
+<table style="margin-top:16px"><tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th><th>투자 해석</th></tr>
+<tr><td>2018</td><td class="right">0.60</td><td class="right">-2.51</td><td class="right">0.10</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2019</td><td class="right">0.72</td><td class="right">-2.62</td><td class="right">0.10</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2020</td><td class="right">0.75</td><td class="right">-4.30</td><td class="right">0.12</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2021</td><td class="right">1.09</td><td class="right">-1.00</td><td class="right">0.83</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2022</td><td class="right">1.76</td><td class="right">-0.40</td><td class="right">0.93</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2023</td><td class="right">2.91</td><td class="right">-0.36</td><td class="right">0.98</td><td>적자 구간. 매출 성장보다 흑자 전환 여부가 핵심.</td></tr>
+<tr><td>2024</td><td class="right">3.77</td><td class="right">0.40</td><td class="right">1.10</td><td>흑자 전환 구간. 단, EPS에는 일회성 세금효과가 섞여 있어 과대평가 주의.</td></tr>
+<tr><td>2025</td><td class="right">4.77</td><td class="right">0.39</td><td class="right">1.27</td><td>매출은 강했지만 EPS는 희석과 세금 정상화 때문에 정체.</td></tr>
+<tr><td>TTM/MRQ</td><td class="right">5.14</td><td class="right">0.45</td><td class="right">1.28</td><td>EPS는 다시 올라왔지만 주식 수는 높은 수준. 이제 주당 이익 성장 증명이 필요.</td></tr>
+</table>
+
+<h3>분기 그래프 속성 — Q1 2026에서 봐야 할 점</h3>
+<div class="grid g3">
+  <div class="card blue"><div class="label">Q4 25 → Q1 26 Sales</div><div class="big">$1.34B → $1.41B</div><p>스크리너 기준 Sales는 증가했습니다. 수요 자체가 꺾인 그림은 아닙니다.</p></div>
+  <div class="card orange"><div class="label">Q4 25 → Q1 26 EPS</div><div class="big">$0.13 → $0.12</div><p>매출 증가에도 EPS는 감소했습니다. 세금·비용·사업부 믹스·희석이 EPS를 눌렀습니다.</p></div>
+  <div class="card lav"><div class="label">Q4 25 → Q1 26 Shares</div><div class="big">1.27B → 1.28B</div><p>분기 증가는 작지만, 2024년 이후 누적 희석은 이미 EPS 체감도를 낮췄습니다.</p></div>
+</div>
+<table style="margin-top:16px"><tr><th>분기</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th><th>투자 해석</th></tr>
+<tr><td>Q1 &#x27;24</td><td class="right">0.91</td><td class="right">0.02</td><td class="right">1.06</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q2 &#x27;24</td><td class="right">0.86</td><td class="right">0.01</td><td class="right">1.07</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q3 &#x27;24</td><td class="right">0.99</td><td class="right">0.05</td><td class="right">1.08</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q4 &#x27;24</td><td class="right">1.01</td><td class="right">0.30</td><td class="right">1.10</td><td>일회성 세금효과로 EPS가 튄 구간. 비교 기준 왜곡 주의.</td></tr>
+<tr><td>Q1 &#x27;25</td><td class="right">1.04</td><td class="right">0.06</td><td class="right">1.10</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q2 &#x27;25</td><td class="right">1.13</td><td class="right">0.08</td><td class="right">1.11</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q3 &#x27;25</td><td class="right">1.27</td><td class="right">0.11</td><td class="right">1.20</td><td>주식 수가 크게 증가했지만 EPS도 개선.</td></tr>
+<tr><td>Q4 &#x27;25</td><td class="right">1.34</td><td class="right">0.13</td><td class="right">1.27</td><td>매출과 EPS 흐름 동시 확인 구간.</td></tr>
+<tr><td>Q1 &#x27;26</td><td class="right">1.41</td><td class="right">0.12</td><td class="right">1.28</td><td>매출 증가에도 EPS가 내려간 구간. 다음 분기 EPS 재가속 필요.</td></tr>
+</table>
+
+<h3>투자자가 가져야 할 결론</h3>
+<table>
+<tr><th>질문</th><th>답</th><th>투자 판단</th></tr>
+<tr><td>매출 성장만 보고 사도 되는가?</td><td>아니오. SOFI의 매출은 강하지만 EPS·대손·희석이 같이 확인돼야 합니다.</td><td>매출 beat만으로 추격 금지</td></tr>
+<tr><td>희석은 이미 끝났는가?</td><td>완전히 끝났다고 보기 어렵습니다. 전환사채와 RSU/주식보상은 계속 확인해야 합니다.</td><td>Shares 증가율 연 5% 이하로 내려가는지 체크</td></tr>
+<tr><td>다음 실적에서 가장 중요한 숫자는?</td><td>EPS 재가속, 가이던스 상향, LPB fee 전환, Tech Platform 저점입니다.</td><td>넷 중 3개 이상 확인 시 추가 매수</td></tr>
+</table>
+<div class="callout" style="margin-top:16px"><b>그래프 결론:</b> SOFI는 이제 “매출 성장주”가 아니라 <b>주당 이익 성장주로 증명해야 하는 단계</b>입니다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 6가지 체크포인트</h2>
+<table>
+<tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+<tr><td>1</td><td><b>LPB 계약의 실적 전환</b></td><td>originations 증가, fee/servicing revenue 증가</td><td>계약 발표만 있고 매출 반영 약함</td><td>좋으면 3차 매수, 나쁘면 target 하향</td></tr>
+<tr><td>2</td><td><b>Tech Platform 바닥 확인</b></td><td>Galileo/Technisys accounts 감소 둔화, Peach 시너지</td><td>revenue/accounts 추가 두 자릿수 하락</td><td>나쁘면 플랫폼 thesis 축소</td></tr>
+<tr><td>3</td><td><b>신용 지표</b></td><td>연체율·NCO 안정, 실업률 4.3~4.5% 범위 유지</td><td>실업률 4.8% 이상 + NCO 상승</td><td>동시 악화 시 신규 매수 금지</td></tr>
+<tr><td>4</td><td><b>가이던스 상향</b></td><td>매출/EPS/EBITDA raise</td><td>beat만 있고 가이던스 유지</td><td>raise 없으면 추격 금지</td></tr>
+<tr><td>5</td><td><b>금리 인상 확률</b></td><td>연말 hike 확률 완화</td><td>FedWatch상 추가 인상 확률 확대</td><td>할인율 상향, multiple 낮춤</td></tr>
+<tr><td>6</td><td><b>희석·전환사채</b></td><td>주식 수 증가율 둔화</td><td>$22 이상에서 convert overhang 재부각</td><td>$23 부근 일부 회수 검토</td></tr>
+</table>
+<h3>사건 체인</h3>
+<table>
+<tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+<tr><td>2025</td><td>대형 Tech Platform 고객 이탈</td><td>Galileo/Technisys 성장 둔화의 원인. 구조적 붕괴인지 일회성인지 확인 필요</td><td>A</td></tr>
+<tr><td>2025 Q4</td><td>첫 $1B+ 분기 revenue, 강한 member/product growth</td><td>소비자 금융 수요와 cross-sell은 여전히 강함</td><td>A</td></tr>
+<tr><td>2026 Q1</td><td>record net revenue $1.1B, GAAP net income $167M, EPS $0.12</td><td>이익 체력은 개선. 하지만 guide 유지로 시장은 실망</td><td>A</td></tr>
+<tr><td>2026 3월</td><td>LPB 신규 계약 36억 달러 이상</td><td>대출을 자기 장부에 쌓지 않고 제3자 funding으로 회전시키려는 구조</td><td>A</td></tr>
+<tr><td>2026 5월</td><td>Peach Finance 인수 발표</td><td>대출 servicing OS를 붙여 금융 인프라 플랫폼 thesis 보강</td><td>B</td></tr>
+<tr><td>2026 6월</td><td>미국 실업률 4.3%, Fed는 연내 인상 가능성 재부각</td><td>SOFI는 금리·고용·신용 사이클 영향을 동시에 받음</td><td>A</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+<div class="bridge avoid-break">
+  <div class="col"><div class="box" style="height:58px;background:#f2dfdc">$14.20</div><div class="name">하방</div></div>
+  <div class="col"><div class="box" style="height:65px;background:#f7eadf">$16.00</div><div class="name">보수</div></div>
+  <div class="col"><div class="box" style="height:72px;background:#e8edf1">$17.48</div><div class="name">현재</div></div>
+  <div class="col"><div class="box" style="height:94px;background:#e8f0e5">$23.00</div><div class="name">Base</div></div>
+  <div class="col"><div class="box" style="height:127px;background:#eee8f3">$31.00</div><div class="name">Bull</div></div>
+  <div class="col"><div class="box" style="height:156px;background:#efe7d5">$38.00</div><div class="name">Overshoot</div></div>
+</div>
+<table style="margin-top:16px">
+<tr><th>목표가</th><th>가격</th><th>핵심 가정</th><th>확률</th><th>실패 조건</th></tr>
+<tr><td>하방 리스크</td><td class="right"><b>$14.20</b></td><td>신용 지표 악화, 가이던스 유지, short-covering 종료</td><td>25%</td><td>Q2에서 raise와 credit 안정 확인</td></tr>
+<tr><td>보수적 내재가치</td><td class="right"><b>$16.00</b></td><td>SOFI를 플랫폼이 아닌 대출주로 할인</td><td>30%</td><td>LPB/Tech 반등 확인</td></tr>
+<tr><td>12개월 Base</td><td class="right"><b>$23.00</b></td><td>EPS $0.60 이상 경로, credit 안정, LPB 일부 매출화</td><td>40%</td><td>raise 부재 또는 NCO 상승</td></tr>
+<tr><td>Bull</td><td class="right"><b>$31.00</b></td><td>LPB 반복 fee revenue, Tech Platform 저점 통과, 주식 수 증가율 둔화</td><td>20%</td><td>계약이 매출로 전환되지 않음</td></tr>
+<tr><td>Overshoot</td><td class="right"><b>$38.00</b></td><td>short squeeze + stablecoin/Peach/M&A 기대 과열</td><td>5%</td><td>거래량 둔화, 기대 선반영</td></tr>
+</table>
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card"><div class="label">보수 가치 대비</div><div class="big">약 +9%</div><p>현재가는 보수 가치 $16보다 위입니다. 순수 안전마진만 보고 사는 구간은 아닙니다.</p></div>
+  <div class="card"><div class="label">Base 대비</div><div class="big">+31.5%</div><p>$23 base target 기준 기대수익률은 약 +31.5%입니다.</p></div>
+  <div class="card"><div class="label">Bull 대비</div><div class="big">+77.3%</div><p>$31 bull target은 LPB와 Tech Platform 증명이 필요합니다.</p></div>
+</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> 현재 보유 0주 기준, 전액 매수보다 <b>1.0% starter position</b>으로 접근. <b>$19.50 이상에서는 실적 전 추격 금지</b>입니다.</div>
+<table style="margin-top:16px">
+<tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+<tr><td>1차</td><td><b>$17.00~17.70 매수</b></td><td>목표비중의 35%</td><td>현재 가격 근처 starter position</td></tr>
+<tr><td>2차</td><td><b>$15.80~16.30 추가</b></td><td>목표비중의 35%</td><td>신용 지표 악화 없이 주가 조정 시</td></tr>
+<tr><td>3차</td><td><b>실적 후 추가</b></td><td>목표비중의 30%</td><td>beat + raise + LPB/Tech 확인 시</td></tr>
+<tr><td>추격 금지</td><td><b>$19.50 이상 신규 매수 금지</b></td><td>0%</td><td>실적 전 기대 선반영·squeeze 가능성</td></tr>
+<tr><td>일부 회수</td><td><b>$23 도달 시 원금 일부 회수</b></td><td>상황별</td><td>base target 도달</td></tr>
+<tr><td>차익실현</td><td><b>$31 이상 30~50% 매도</b></td><td>30~50%</td><td>bull target 도달 또는 과열</td></tr>
+<tr><td>축소/손절</td><td><b>$14.20 하회 또는 thesis 훼손</b></td><td>축소/관망</td><td>guide raise 부재 + credit 악화 동시 발생</td></tr>
+</table>
+<h3>실적 발표 전후 판단표</h3>
+<table>
+<tr><th>실적 결과</th><th>주가 반응 예상</th><th>행동</th></tr>
+<tr><td>Beat + Raise + LPB volume 증가 + Tech Platform 저점</td><td>$23~24 재평가 가능</td><td>3차 매수 가능</td></tr>
+<tr><td>Beat만 있고 guide 유지</td><td>실망 매물 가능</td><td>추격 금지, $16대 대기</td></tr>
+<tr><td>Credit 지표 악화</td><td>$14~16 회귀 가능</td><td>신규 매수 중단</td></tr>
+<tr><td>Tech Platform 추가 급락</td><td>플랫폼 multiple 제거</td><td>목표가 $20 이하로 하향</td></tr>
+<tr><td>$19.50 돌파 후 거래량 둔화</td><td>short-covering 종료 위험</td><td>매수 금지, 보유자는 일부 방어</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+<tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+<tr><td>신용 사이클</td><td>실업률 4.8% 이상 또는 연체/NCO 급등</td><td>SOFI를 플랫폼주가 아니라 lender로 재평가. 목표가 $14~16</td></tr>
+<tr><td>LPB 과대해석</td><td>계약 발표가 실제 originations/fee revenue로 전환되지 않음</td><td>base target $23 → $20 이하로 하향</td></tr>
+<tr><td>Tech Platform 구조적 부진</td><td>Peach 인수 후에도 accounts/revenue 하락 지속</td><td>financial OS thesis 축소, 신규 매수 금지</td></tr>
+<tr><td>희석/전환사채</td><td>$22 이상에서 전환사채 overhang 및 희석 논란 확대</td><td>$23 부근 일부 회수로 리스크 관리</td></tr>
+<tr><td>금리 인상</td><td>연내 rate hike 확률이 확대되고 credit spread가 벌어짐</td><td>discount rate 상향, multiple 낮춤</td></tr>
+<tr><td>과열</td><td>근거 없는 M&A/stablecoin 기대만으로 $30 이상 급등</td><td>30~50% 차익실현</td></tr>
+</table>
+<div class="svgbox" style="margin-top:16px">
+<svg viewBox="0 0 980 260" width="100%" height="260" role="img" aria-label="SOFI ecosystem map">
+  <rect x="20" y="20" width="940" height="220" rx="22" fill="#fbfaf6" stroke="#d9d1c2"/>
+  <rect x="380" y="92" width="220" height="76" rx="18" fill="#e8edf1" stroke="#17212b"/>
+  <text x="490" y="123" text-anchor="middle" font-size="20" font-weight="800" fill="#17212b">SOFI</text>
+  <text x="490" y="148" text-anchor="middle" font-size="13" fill="#6b7480">Bank + LPB + Tech OS</text>
+  <rect x="70" y="42" width="190" height="54" rx="16" fill="#e8f0e5" stroke="#587a5a"/>
+  <text x="165" y="74" text-anchor="middle" font-size="14" font-weight="800">예금·Bank Charter</text>
+  <rect x="70" y="164" width="190" height="54" rx="16" fill="#f7eadf" stroke="#d07a3f"/>
+  <text x="165" y="196" text-anchor="middle" font-size="14" font-weight="800">LPB 제3자 자금</text>
+  <rect x="720" y="42" width="190" height="54" rx="16" fill="#eee8f3" stroke="#8d7aa8"/>
+  <text x="815" y="74" text-anchor="middle" font-size="14" font-weight="800">Galileo·Technisys·Peach</text>
+  <rect x="720" y="164" width="190" height="54" rx="16" fill="#efe7d5" stroke="#315b7d"/>
+  <text x="815" y="196" text-anchor="middle" font-size="14" font-weight="800">SoFiUSD·Business Banking</text>
+  <line x1="260" y1="69" x2="380" y2="112" stroke="#17212b" stroke-width="2"/>
+  <line x1="260" y1="191" x2="380" y2="148" stroke="#17212b" stroke-width="2"/>
+  <line x1="600" y1="112" x2="720" y2="69" stroke="#17212b" stroke-width="2"/>
+  <line x1="600" y1="148" x2="720" y2="191" stroke="#17212b" stroke-width="2"/>
+  <text x="490" y="225" text-anchor="middle" font-size="13" fill="#6b7480">리레이팅 조건: 대출 리스크를 줄이고 반복 fee/플랫폼 매출 비중을 높이는 것</text>
+</svg>
+</div>
+
+<h2>마지막 요약</h2>
+<table>
+<tr><th>항목</th><th>요약</th></tr>
+<tr><td>현재가</td><td><b>$17.49</b> — 2026-06-22 장중 확인 기준</td></tr>
+<tr><td>보수가</td><td><b>$16.00</b></td></tr>
+<tr><td>Base</td><td><b>$23.00</b></td></tr>
+<tr><td>Bull</td><td><b>$31.00</b></td></tr>
+<tr><td>Overshoot</td><td><b>$38.00</b></td></tr>
+<tr><td>실적 전 trading target</td><td><b>$18.80~19.50</b></td></tr>
+<tr><td>실적 후 재평가 target</td><td><b>$24.00</b> — beat + raise + LPB/Tech 확인 필요</td></tr>
+<tr><td>하방</td><td><b>$14.20</b></td></tr>
+<tr><td>12M 기대수익률</td><td>Base <b>+31.5%</b>, Bull <b>+77.3%</b>, Downside <b>-18.8%</b></td></tr>
+<tr><td>보유수량 기준 기대손익</td><td>현재 0주 → <b>$0</b>. 1,000주 가정 시 Base <b>$5,515</b> / Bull <b>$13,515</b> / Downside <b>$-3,285</b></td></tr>
+<tr><td>추천 행동</td><td><b>Buy / starter position</b> — 전액 매수 아님</td></tr>
+<tr><td>목표 비중</td><td>초기 <b>1.0%</b>, Q2 확인 후 최대 <b>1.5~2.0%</b></td></tr>
+<tr><td>가장 중요한 체크포인트</td><td><b>EPS 성장률이 주식 수 증가율을 이기는가</b></td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td>Tech Platform 하락이 Peach로도 멈추지 않고, LPB가 반복 수수료 매출로 전환되지 않으며, 실업률/연체율 상승으로 SOFI가 단순 고위험 lender multiple로 회귀할 때</td></tr>
+</table>
+<div class="foot">
+<b>참고 출처:</b> <a href="https://investors.sofi.com/financials/quarterly-results/default.aspx">SoFi Quarterly Results</a> · <a href="https://www.sec.gov/Archives/edgar/data/1818874/000181887426000037/sofi-20260331.htm">SEC 10-Q 2026 Q1</a> · <a href="https://investors.sofi.com/news/news-details/2026/SoFi-Expands-Loan-Platform-Business-with-Multiple-New-Agreements-Totaling-Over-3-6-Billion/default.aspx">LPB $3.6B agreements</a> · <a href="https://www.bls.gov/news.release/empsit.nr0.htm">BLS Employment Situation</a> · <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch</a> · <a href="https://www.marketbeat.com/stocks/NASDAQ/SOFI/short-interest/">MarketBeat Short Interest</a><br/>
+본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다. 한국 투자자는 해외주식 양도세 22%와 환율·환전 수수료를 별도 고려해야 합니다.
+</div>
+</section>
+</div>
+</body>
+</html>

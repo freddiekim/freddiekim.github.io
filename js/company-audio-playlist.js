@@ -7,6 +7,7 @@
   var activeIndex = -1;
   var continuous = true;
   var autoplayOnOpen = true;
+  var currentAudio = null;
 
   function cleanText(value) {
     return String(value || "").replace(/\s+/g, " ").trim();
@@ -166,6 +167,8 @@
     panel.querySelector(".company-audio-close").addEventListener("click", function () {
       panel.hidden = true;
       panel.querySelector(".company-audio-frame").innerHTML = '<div class="company-audio-empty">Playlist</div>';
+      currentAudio = null;
+      setMediaSessionState("none");
     });
     panel.querySelector(".company-audio-prev").addEventListener("click", function () {
       playPrevious();
@@ -191,6 +194,57 @@
 
   function clearStatus(panel) {
     setStatus(panel, "", false);
+  }
+
+  function setMediaSessionState(state) {
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.playbackState = state;
+    }
+  }
+
+  function updateMediaSession(track, audio) {
+    if (!("mediaSession" in navigator)) {
+      return;
+    }
+
+    if ("MediaMetadata" in window) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title,
+        artist: track.ticker || "Young Finance",
+        album: "Young Finance Audio"
+      });
+    }
+
+    var actions = {
+      play: function () {
+        if (audio) {
+          audio.play().catch(function () {});
+        }
+      },
+      pause: function () {
+        if (audio) {
+          audio.pause();
+        }
+      },
+      previoustrack: playPrevious,
+      nexttrack: playNext,
+      seekbackward: function () {
+        if (audio) {
+          audio.currentTime = Math.max(0, audio.currentTime - 15);
+        }
+      },
+      seekforward: function () {
+        if (audio) {
+          audio.currentTime = Math.min(audio.duration || audio.currentTime + 15, audio.currentTime + 15);
+        }
+      }
+    };
+
+    Object.keys(actions).forEach(function (action) {
+      try {
+        navigator.mediaSession.setActionHandler(action, actions[action]);
+      } catch (error) {}
+    });
   }
 
   function updateContinuousButton(panel) {
@@ -229,6 +283,8 @@
   function renderPreviewFrame(panel, track, message) {
     var frameWrap = panel.querySelector(".company-audio-frame");
     frameWrap.innerHTML = "";
+    currentAudio = null;
+    setMediaSessionState("none");
 
     var iframe = document.createElement("iframe");
     iframe.src = withAutoplayParam(track.previewUrl);
@@ -249,6 +305,7 @@
     }
 
     var audio = document.createElement("audio");
+    currentAudio = audio;
     audio.controls = true;
     audio.autoplay = true;
     audio.preload = "auto";
@@ -257,17 +314,25 @@
     audio.addEventListener("ended", function () {
       if (continuous) {
         playNext();
+      } else {
+        setMediaSessionState("none");
       }
     });
     audio.addEventListener("play", function () {
       clearStatus(panel);
+      setMediaSessionState("playing");
+    });
+    audio.addEventListener("pause", function () {
+      setMediaSessionState("paused");
     });
     audio.addEventListener("error", function () {
       renderPreviewFrame(panel, track, "Google Drive 직접 재생이 막혀 미리보기로 열었습니다. 이 경우 브라우저 정책상 연속재생은 제한될 수 있습니다.");
     }, { once: true });
     frameWrap.appendChild(audio);
+    updateMediaSession(track, audio);
     audio.play().catch(function () {
       setStatus(panel, "브라우저가 자동재생을 막았습니다. 플레이어의 재생 버튼을 한 번 눌러주세요.", true);
+      setMediaSessionState("paused");
     });
   }
 

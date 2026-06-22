@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>INTC 투자 핵심 요약 · 2026-06-22</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">INTC 투자 핵심 요약 · 2026-06-22 기준</div>
+  <h1>인텔은 회생주가 아니라<br/>가격이 먼저 달린 턴어라운드 검증주</h1>
+  <p class="sub">현재 주가 <b>$133.99</b>는 AI CPU·미국 내 제조·Foundry 재평가를 상당 부분 반영했다. 지금은 공격 매수보다 <b>실적 확인 후 분할 진입</b>이 더 합리적이다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $133.99</span>
+    <span class="badge buy">투자의견 Hold / Watch</span>
+    <span class="badge watch">초기 목표비중 0~1.5%</span>
+    <span class="badge risk">$100 하회 시 thesis 재점검</span>
+    <span class="badge watch">추가 체크: Foundry 손실 축소</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">핵심 thesis</div><div class="big">AI 시대의 CPU 콜옵션</div><p>GPU 중심 투자 사이클에서 서버 CPU·x86 생태계·미국 내 첨단 제조가 다시 전략 자산으로 재평가되는 구간이다.</p></div>
+  <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">$134</div><p>회복 기대는 이미 주가에 상당히 반영됐다. 안전마진은 넓지 않으며, 추격 매수보다 조정 시 분할 진입이 유리하다.</p></div>
+  <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">18A/14A 검증</div><p>제품 매출 회복보다 외부 고객이 Foundry에 실제 물량과 선금을 맡기는지가 더 큰 리레이팅 조건이다.</p></div>
+  <div class="card red"><div class="label">가장 큰 위험</div><div class="big">희석 + 수율</div><p>주식수 증가, 구조조정 비용, Foundry 적자가 동시에 이어지면 EPS 회복이 주주에게 희석될 수 있다.</p></div>
+</div>
+
+<h3>시장이 보는 인텔 vs 이 보고서의 핵심 해석</h3>
+<table>
+<tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+<tr><td>제품 사업</td><td>AI 시대에 GPU 대비 뒤처진 레거시 CPU 회사</td><td>AI 인프라가 확산될수록 CPU·메모리·네트워크 병목도 커져 DCAI 회복의 여지가 있다.</td><td>AI GPU 직접 수혜주는 아니지만, AI 서버 확산의 2차 수혜주로 볼 수 있다.</td></tr>
+<tr><td>Foundry</td><td>막대한 적자를 내는 장기 프로젝트</td><td>18A/14A가 외부 고객 검증을 받으면 미국 전략 제조 프리미엄이 붙을 수 있다.</td><td>성공 시 밸류에이션 재평가, 실패 시 멀티플 압축이 모두 큰 구조다.</td></tr>
+<tr><td>재무</td><td>2024년 대규모 손실 이후 턴어라운드</td><td>2025년 손실 축소는 사실이지만, EPS 품질은 일회성 항목과 희석의 영향을 크게 받는다.</td><td>GAAP EPS보다 현금흐름·Capex·주식수 변화를 같이 추적해야 한다.</td></tr>
+<tr><td>주가</td><td>턴어라운드가 시작됐으니 계속 상승 가능</td><td>현재가 $133.99는 Base 목표가 $150 대비 +11.9%로, 기대수익률보다 검증 리스크가 더 커 보인다.</td><td>신규 매수는 $120 이하 1차, $108 이하 2차가 더 합리적이다.</td></tr>
+</table>
+<div class="callout"><b>한 문장 결론:</b> INTC는 “망가진 회사가 살아나는 구간”은 맞지만, 현재 가격에서는 회복의 상당 부분을 이미 지불하고 사는 구조이므로 <b>추격보다 분할·검증</b>이 맞다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> 숫자 자체보다 <b>① 매출 저점 통과 ② GAAP EPS 정상화 ③ 주식수 희석</b>의 세 축을 한 화면에서 보기 위한 섹션이다.</div>
+
+<h3>연도별</h3>
+
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">장기 추세에서 봐야 할 것은 매출 저점 통과, GAAP 손익의 회복, 그리고 주식수 희석입니다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="36.9" x2="304" y2="36.9" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="39.9" fill="#8190A7" font-size="9">4</text><line x1="24" y1="64.5" x2="304" y2="64.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="67.5" fill="#8190A7" font-size="9">2</text><line x1="24" y1="92.0" x2="304" y2="92.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="95.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="119.5" x2="304" y2="119.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="122.5" fill="#8190A7" font-size="9">-2</text><line x1="24" y1="147.1" x2="304" y2="147.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="150.1" fill="#8190A7" font-size="9">-4</text><rect x="24.0" y="30.3" width="25.8" height="61.7" rx="2" fill="#4BA3FF" /><text x="36.9" y="26.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.48</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="27.2" width="25.8" height="64.8" rx="2" fill="#4BA3FF" /><text x="68.7" y="23.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.71</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="24.0" width="25.8" height="68.0" rx="2" fill="#4BA3FF" /><text x="100.5" y="20.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.94</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="25.1" width="25.8" height="66.9" rx="2" fill="#4BA3FF" /><text x="132.2" y="21.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.86</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="65.3" width="25.8" height="26.7" rx="2" fill="#4BA3FF" /><text x="164.0" y="61.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.94</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="86.5" width="25.8" height="5.5" rx="2" fill="#4BA3FF" /><text x="195.8" y="82.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.40</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="92.0" width="25.8" height="60.3" rx="2" fill="#FF6B6B" /><text x="227.5" y="165.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-4.38</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="92.0" width="25.8" height="1.0" rx="2" fill="#FF6B6B" /><text x="259.3" y="106.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.06</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="92.0" width="25.8" height="8.3" rx="2" fill="#FF6B6B" /><text x="291.1" y="113.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.60</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="92.0" x2="304" y2="92.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="43.0" x2="304" y2="43.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="46.0" fill="#8190A7" font-size="9">80</text><line x1="24" y1="71.7" x2="304" y2="71.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="74.7" fill="#8190A7" font-size="9">60</text><line x1="24" y1="100.5" x2="304" y2="100.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="103.5" fill="#8190A7" font-size="9">40</text><line x1="24" y1="129.2" x2="304" y2="129.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.2" fill="#8190A7" font-size="9">20</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="56.1" width="25.8" height="101.9" rx="2" fill="#9A7CF3" /><text x="36.9" y="52.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">70.8</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="54.5" width="25.8" height="103.5" rx="2" fill="#9A7CF3" /><text x="68.7" y="50.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">72.0</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="46.1" width="25.8" height="111.9" rx="2" fill="#9A7CF3" /><text x="100.5" y="42.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">77.9</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="44.4" width="25.8" height="113.6" rx="2" fill="#9A7CF3" /><text x="132.2" y="40.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">79.0</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="67.4" width="25.8" height="90.6" rx="2" fill="#9A7CF3" /><text x="164.0" y="63.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">63.0</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="80.0" width="25.8" height="78.0" rx="2" fill="#9A7CF3" /><text x="195.8" y="76.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">54.2</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="81.7" width="25.8" height="76.3" rx="2" fill="#9A7CF3" /><text x="227.5" y="77.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">53.1</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="82.0" width="25.8" height="76.0" rx="2" fill="#9A7CF3" /><text x="259.3" y="78.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">52.9</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="80.7" width="25.8" height="77.3" rx="2" fill="#9A7CF3" /><text x="291.1" y="76.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">53.8</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="46.3" x2="304" y2="46.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="49.3" fill="#8190A7" font-size="9">5</text><line x1="24" y1="68.6" x2="304" y2="68.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="71.6" fill="#8190A7" font-size="9">4</text><line x1="24" y1="91.0" x2="304" y2="91.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="94.0" fill="#8190A7" font-size="9">3</text><line x1="24" y1="113.3" x2="304" y2="113.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="116.3" fill="#8190A7" font-size="9">2</text><line x1="24" y1="135.7" x2="304" y2="135.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.7" fill="#8190A7" font-size="9">1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="52.9" width="25.8" height="105.1" rx="2" fill="#37B9C5" /><text x="36.9" y="48.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.70</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="58.0" width="25.8" height="100.0" rx="2" fill="#37B9C5" /><text x="68.7" y="54.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.47</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="63.4" width="25.8" height="94.6" rx="2" fill="#37B9C5" /><text x="100.5" y="59.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.23</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="66.6" width="25.8" height="91.4" rx="2" fill="#37B9C5" /><text x="132.2" y="62.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.09</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="65.9" width="25.8" height="92.1" rx="2" fill="#37B9C5" /><text x="164.0" y="61.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.12</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="63.9" width="25.8" height="94.1" rx="2" fill="#37B9C5" /><text x="195.8" y="59.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.21</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="62.3" width="25.8" height="95.7" rx="2" fill="#37B9C5" /><text x="227.5" y="58.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.28</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="56.8" width="25.8" height="101.2" rx="2" fill="#37B9C5" /><text x="259.3" y="52.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.53</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="44.4" width="25.8" height="113.6" rx="2" fill="#37B9C5" /><text x="291.1" y="40.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">5.08</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">2024→2025 매출 -0.5%</span><span class="chart-pill">GAAP EPS -4.38 → -0.06</span><span class="chart-pill">Shares 4.28B → 4.53B</span></div>
+  <div class="chart-note">핵심 해석: 2024년 대규모 손실 이후 2025년 손실 폭은 축소됐지만, 주가가 이미 회복을 크게 반영하면서 내재가치 대비 안전마진은 줄어든 상태입니다.</div>
+</div>
+
+<h3>분기별</h3>
+
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 9분기에서 봐야 할 것은 Q3 2024의 일회성 충격, Q3 2025의 회복, Q1 2026의 구조조정 비용입니다.</div></div><span class="chart-tag">Quarterly</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="24.7" x2="304" y2="24.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.7" fill="#8190A7" font-size="9">1</text><line x1="24" y1="52.0" x2="304" y2="52.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="55.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="79.3" x2="304" y2="79.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="82.3" fill="#8190A7" font-size="9">-1</text><line x1="24" y1="106.6" x2="304" y2="106.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="109.6" fill="#8190A7" font-size="9">-2</text><line x1="24" y1="134.0" x2="304" y2="134.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="137.0" fill="#8190A7" font-size="9">-3</text><rect x="24.0" y="52.0" width="25.8" height="2.5" rx="2" fill="#FF6B6B" /><text x="36.9" y="67.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.09</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="52.0" width="25.8" height="10.4" rx="2" fill="#FF6B6B" /><text x="68.7" y="75.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.38</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.5" y="52.0" width="25.8" height="106.0" rx="2" fill="#FF6B6B" /><text x="100.5" y="171.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-3.88</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="52.0" width="25.8" height="1.0" rx="2" fill="#FF6B6B" /><text x="132.2" y="66.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.03</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="52.0" width="25.8" height="5.2" rx="2" fill="#FF6B6B" /><text x="164.0" y="70.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.19</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="52.0" width="25.8" height="18.3" rx="2" fill="#FF6B6B" /><text x="195.8" y="83.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.67</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.6" y="27.4" width="25.8" height="24.6" rx="2" fill="#4BA3FF" /><text x="227.5" y="23.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.90</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="52.0" width="25.8" height="3.3" rx="2" fill="#FF6B6B" /><text x="259.3" y="68.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.12</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="52.0" width="25.8" height="19.9" rx="2" fill="#FF6B6B" /><text x="291.1" y="84.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.73</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;26</text><line x1="24" y1="52.0" x2="304" y2="52.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="38.5" x2="304" y2="38.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="41.5" fill="#8190A7" font-size="9">15</text><line x1="24" y1="78.3" x2="304" y2="78.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="81.3" fill="#8190A7" font-size="9">10</text><line x1="24" y1="118.2" x2="304" y2="118.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="121.2" fill="#8190A7" font-size="9">5</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="56.7" width="25.8" height="101.3" rx="2" fill="#9A7CF3" /><text x="36.9" y="52.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.7</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="55.8" width="25.8" height="102.2" rx="2" fill="#9A7CF3" /><text x="68.7" y="51.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.8</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.5" y="52.2" width="25.8" height="105.8" rx="2" fill="#9A7CF3" /><text x="100.5" y="48.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.3</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="44.4" width="25.8" height="113.6" rx="2" fill="#9A7CF3" /><text x="132.2" y="40.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">14.3</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="57.1" width="25.8" height="100.9" rx="2" fill="#9A7CF3" /><text x="164.0" y="53.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.7</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="55.2" width="25.8" height="102.8" rx="2" fill="#9A7CF3" /><text x="195.8" y="51.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.9</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.6" y="48.9" width="25.8" height="109.1" rx="2" fill="#9A7CF3" /><text x="227.5" y="44.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.7</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="49.1" width="25.8" height="108.9" rx="2" fill="#9A7CF3" /><text x="259.3" y="45.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.7</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="49.8" width="25.8" height="108.2" rx="2" fill="#9A7CF3" /><text x="291.1" y="45.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.6</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="46.3" x2="304" y2="46.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="49.3" fill="#8190A7" font-size="9">5</text><line x1="24" y1="68.6" x2="304" y2="68.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="71.6" fill="#8190A7" font-size="9">4</text><line x1="24" y1="91.0" x2="304" y2="91.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="94.0" fill="#8190A7" font-size="9">3</text><line x1="24" y1="113.3" x2="304" y2="113.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="116.3" fill="#8190A7" font-size="9">2</text><line x1="24" y1="135.7" x2="304" y2="135.7" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.7" fill="#8190A7" font-size="9">1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="63.2" width="25.8" height="94.8" rx="2" fill="#37B9C5" /><text x="36.9" y="59.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.24</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;24</text><rect x="55.8" y="62.6" width="25.8" height="95.4" rx="2" fill="#37B9C5" /><text x="68.7" y="58.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.27</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;24</text><rect x="87.5" y="62.1" width="25.8" height="95.9" rx="2" fill="#37B9C5" /><text x="100.5" y="58.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.29</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;24</text><rect x="119.3" y="61.5" width="25.8" height="96.5" rx="2" fill="#37B9C5" /><text x="132.2" y="57.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.32</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;24</text><rect x="151.1" y="60.9" width="25.8" height="97.1" rx="2" fill="#37B9C5" /><text x="164.0" y="56.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.34</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 &#x27;25</text><rect x="182.9" y="60.4" width="25.8" height="97.6" rx="2" fill="#37B9C5" /><text x="195.8" y="56.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.37</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 &#x27;25</text><rect x="214.6" y="56.7" width="25.8" height="101.3" rx="2" fill="#37B9C5" /><text x="227.5" y="52.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.53</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 &#x27;25</text><rect x="246.4" y="49.5" width="25.8" height="108.5" rx="2" fill="#37B9C5" /><text x="259.3" y="45.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.86</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 &#x27;25</text><rect x="278.2" y="44.4" width="25.8" height="113.6" rx="2" fill="#37B9C5" /><text x="291.1" y="40.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">5.08</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">MRQ</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">Q1&#x27;25→Q1&#x27;26 매출 +7.2%</span><span class="chart-pill">Q3&#x27;25 EPS +0.90은 일회성 성격</span><span class="chart-pill">MRQ Shares 5.08B</span></div>
+  <div class="chart-note">핵심 해석: 분기 매출은 12.7~14.3B 박스권이지만, EPS는 구조조정·손상차손·지분/자산 거래에 크게 흔들립니다. 따라서 단순 EPS보다 Foundry 손실 축소와 DCAI 성장 지속 여부가 더 중요합니다.</div>
+</div>
+
+<div class="grid g3">
+  <div class="card soft"><div class="label">연간 매출</div><div class="big">$52.9B</div><p>2025년 매출은 2024년과 거의 동일했다. 성장은 아직 폭발적이라기보다 저점 확인 단계다.</p></div>
+  <div class="card soft"><div class="label">연간 GAAP EPS</div><div class="big">-$0.06</div><p>2024년 -$4.38에서 크게 개선됐지만, 완전한 정상 이익 구조라고 보기는 이르다.</p></div>
+  <div class="card soft"><div class="label">연간 Shares</div><div class="big">4.53B</div><p>2025년 평균 희석주식수는 4.53B로 증가했다. 주주가치 관점에서는 회복 이익의 분모가 커졌다.</p></div>
+</div>
+<table>
+<tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>2018</td><td class='right'>70.85</td><td class='right'>4.48</td><td class='right'>4.701</td></tr><tr><td>2019</td><td class='right'>71.97</td><td class='right'>4.71</td><td class='right'>4.473</td></tr><tr><td>2020</td><td class='right'>77.87</td><td class='right'>4.94</td><td class='right'>4.232</td></tr><tr><td>2021</td><td class='right'>79.02</td><td class='right'>4.86</td><td class='right'>4.090</td></tr><tr><td>2022</td><td class='right'>63.05</td><td class='right'>1.94</td><td class='right'>4.123</td></tr><tr><td>2023</td><td class='right'>54.23</td><td class='right'>0.40</td><td class='right'>4.212</td></tr><tr><td>2024</td><td class='right'>53.10</td><td class='right'>-4.38</td><td class='right'>4.280</td></tr><tr><td>2025</td><td class='right'>52.85</td><td class='right'>-0.06</td><td class='right'>4.530</td></tr><tr><td>TTM</td><td class='right'>53.76</td><td class='right'>-0.60</td><td class='right'>5.083</td></tr>
+</table>
+
+<div class="grid g3" style="margin-top:14px">
+  <div class="card blue"><div class="label">최근 분기 매출</div><div class="big">$13.58B</div><p>Q1 2026 매출은 전년 대비 개선됐고, Q2 가이던스도 $13.8~14.8B로 상향 기대를 만들었다.</p></div>
+  <div class="card red"><div class="label">최근 분기 GAAP EPS</div><div class="big">-$0.73</div><p>Mobileye 관련 손상과 구조조정 비용으로 GAAP 손실이 확대됐다. 비현금성 항목을 구분해야 한다.</p></div>
+  <div class="card orange"><div class="label">최근 분기 Shares</div><div class="big">5.08B</div><p>MRQ 기준 희석주식수는 5B를 넘었다. 향후 주가 상승에는 EPS 회복 속도가 희석을 이겨야 한다.</p></div>
+</div>
+<table>
+<tr><th>분기</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>Q1 '24</td><td class='right'>12.72</td><td class='right'>-0.09</td><td class='right'>4.242</td></tr><tr><td>Q2 '24</td><td class='right'>12.83</td><td class='right'>-0.38</td><td class='right'>4.267</td></tr><tr><td>Q3 '24</td><td class='right'>13.28</td><td class='right'>-3.88</td><td class='right'>4.292</td></tr><tr><td>Q4 '24</td><td class='right'>14.26</td><td class='right'>-0.03</td><td class='right'>4.319</td></tr><tr><td>Q1 '25</td><td class='right'>12.67</td><td class='right'>-0.19</td><td class='right'>4.343</td></tr><tr><td>Q2 '25</td><td class='right'>12.90</td><td class='right'>-0.67</td><td class='right'>4.369</td></tr><tr><td>Q3 '25</td><td class='right'>13.70</td><td class='right'>0.90</td><td class='right'>4.531</td></tr><tr><td>Q4 '25</td><td class='right'>13.67</td><td class='right'>-0.12</td><td class='right'>4.856</td></tr><tr><td>Q1 '26</td><td class='right'>13.58</td><td class='right'>-0.73</td><td class='right'>5.083</td></tr>
+</table>
+
+<h3>투자자가 가져야 할 결론</h3>
+<table>
+<tr><th>관찰 항목</th><th>좋은 해석</th><th>나쁜 해석</th><th>투자 행동</th></tr>
+<tr><td>매출</td><td>Q1 2026 반등과 Q2 가이던스는 수요 회복 신호</td><td>아직 2020~2021년 고점과는 큰 차이</td><td>매출 성장보다 마진 회복까지 확인</td></tr>
+<tr><td>EPS</td><td>2024년 최악의 손실에서 벗어나는 중</td><td>분기 EPS는 일회성 비용과 거래이익에 흔들림</td><td>GAAP·Non-GAAP·FCF를 동시에 확인</td></tr>
+<tr><td>Shares</td><td>전략 자본 유입으로 생존 리스크 감소</td><td>주식수 증가가 주주 수익률을 희석</td><td>주가보다 주당 가치 증가 여부를 추적</td></tr>
+</table>
+<div class="callout"><b>해석:</b> 현재 INTC의 핵심은 “매출이 좋아졌는가”보다 <b>매출 회복이 희석 후 EPS와 FCF로 연결되는가</b>다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 6가지 체크포인트</h2>
+<table>
+<tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+<tr><td>1</td><td>Foundry 영업손실</td><td>분기 손실이 단계적으로 축소</td><td>매출 증가에도 손실률 유지·확대</td><td>손실 축소 확인 전 비중 1.5% 이하</td></tr>
+<tr><td>2</td><td>18A/14A 고객 검증</td><td>외부 고객명·물량·선급금이 구체화</td><td>로드맵 발언만 반복되고 매출 전환 지연</td><td>고객 확정 전 Overshoot 가정 배제</td></tr>
+<tr><td>3</td><td>DCAI 성장</td><td>AI 서버 CPU 수요로 YoY 두 자릿수 성장 지속</td><td>가격 인상 효과만 있고 물량 회복 부진</td><td>DCAI 성장률이 둔화되면 Base 낮춤</td></tr>
+<tr><td>4</td><td>주식수 희석</td><td>5.1B 부근에서 안정화</td><td>추가 전략 자본·보상주식으로 계속 증가</td><td>목표가에 희석 할인 적용</td></tr>
+<tr><td>5</td><td>현금흐름</td><td>Capex 부담 완화와 정부/파트너 기여 확대</td><td>Adjusted FCF 적자가 장기화</td><td>FCF 전환 전 공격 매수 금지</td></tr>
+<tr><td>6</td><td>경영진 실행력</td><td>비핵심 자산 정리와 비용 절감이 수치로 확인</td><td>구조조정이 계속되어 정상 이익이 보이지 않음</td><td>실행력 확인 전 Hold 유지</td></tr>
+</table>
+
+<h3>사건 체인</h3>
+<table>
+<tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+<tr><td>2024 Q2</td><td>$10B 비용 절감 계획, 15% 이상 인력 감축, 배당 중단 발표</td><td>생존·효율성 중심으로 회사 운영 모드가 바뀐 첫 신호</td><td>A</td></tr>
+<tr><td>2024 Q3</td><td>대규모 구조조정·제조자산 손상으로 GAAP EPS -$3.88</td><td>과거 투자 실패와 과잉 제조비용을 한 번에 털어낸 분기</td><td>A</td></tr>
+<tr><td>2025 Q3</td><td>Q3 매출 $13.7B, GAAP EPS $0.90, 전략 자본 유입 언급</td><td>회복 신호지만 일부 이익은 자산·지분 거래 성격이 강함</td><td>A</td></tr>
+<tr><td>2025 Q4</td><td>연간 매출 $52.9B, EPS -$0.06, NVIDIA 보통주 매입 완료</td><td>턴어라운드 서사는 강화됐지만 주식수 증가도 동반</td><td>A</td></tr>
+<tr><td>2026 Q1</td><td>매출 $13.6B, GAAP EPS -$0.73, Q2 매출 $13.8~14.8B 가이던스</td><td>수요 회복과 구조조정 비용이 동시에 존재하는 혼합 신호</td><td>A</td></tr>
+<tr><td>2026 이후</td><td>18A/14A 외부 고객·Foundry 손실 축소 검증</td><td>주가가 $150 이상을 정당화하려면 필수 조건</td><td>B</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+
+<div class="bridge avoid-break">
+  <div class="col"><div class="box" style="height:53px;background:#f2dfdc">$90</div><div class="name">하방</div></div>
+  <div class="col"><div class="box" style="height:68px;background:#f7eadf">$115</div><div class="name">보수</div></div>
+  <div class="col"><div class="box" style="height:79px;background:#e8edf1">$133.99</div><div class="name">현재</div></div>
+  <div class="col"><div class="box" style="height:89px;background:#e8f0e5">$150</div><div class="name">Base</div></div>
+  <div class="col"><div class="box" style="height:109px;background:#eee8f3">$185</div><div class="name">Bull</div></div>
+  <div class="col"><div class="box" style="height:130px;background:#efe7d5">$220</div><div class="name">Overshoot</div></div>
+</div>
+<table>
+<tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th class="center">확률</th><th>실패 조건</th></tr>
+<tr><td>하방</td><td class="right"><b>$90</b></td><td>수요 회복 둔화, Foundry 손실 지속, 희석 확대, 멀티플 압축</td><td class="center">20%</td><td>Q2~Q3 매출과 마진이 가이던스 이상 유지되면 하방 확률 축소</td></tr>
+<tr><td>보수 내재가치</td><td class="right"><b>$115</b></td><td>제품 사업 안정, Foundry는 옵션 가치만 인정, 정상 EPS 회복은 지연</td><td class="center">30%</td><td>DCAI 성장과 외부 Foundry 계약이 동시에 확인되면 상향</td></tr>
+<tr><td>Base 12M</td><td class="right"><b>$150</b></td><td>DCAI 성장 지속, 비용 절감 반영, Q2~Q4에 GAAP 손익 정상화 방향 확인</td><td class="center">35%</td><td>$100 하회 또는 Foundry 손실이 다시 확대되면 폐기</td></tr>
+<tr><td>Bull</td><td class="right"><b>$185</b></td><td>AI 서버 CPU 수요와 18A/14A 고객 검증이 동시에 진행</td><td class="center">12%</td><td>외부 고객 매출 전환이 지연되면 Bull 제외</td></tr>
+<tr><td>Overshoot</td><td class="right"><b>$220</b></td><td>미국 전략 Foundry 플랫폼으로 리레이팅, 공급 부족과 고객 계약이 주가를 밀어올림</td><td class="center">3%</td><td>실제 수율·물량·현금흐름 검증 없이는 단기 과열로 간주</td></tr>
+</table>
+
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card red"><div class="label">보수 가치 대비</div><div class="big">비싸다</div><p>보수 내재가치 $115 대비 현재가는 약 16.5% 높다. 안전마진은 부족하다.</p></div>
+  <div class="card orange"><div class="label">Base 대비</div><div class="big">+11.9%</div><p>12개월 Base 목표가 $150 기준 기대수익률은 높지 않다. 실적 검증 리스크를 감안하면 중립이다.</p></div>
+  <div class="card green"><div class="label">Bull 대비</div><div class="big">+38.1%</div><p>Bull은 가능하지만 외부 Foundry 고객 검증이 필요하다. 아직 기본 가정으로 두기는 이르다.</p></div>
+</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> 현재가에서는 신규 대량 매수 금지. 보유자가 아니라면 <b>$120 이하 1차, $108 이하 2차, $95 전후 3차</b>의 DCA가 합리적이다.</div>
+<table>
+<tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+<tr><td>현재가 $133.99</td><td>관망 또는 아주 소량 탐색</td><td>0~0.5%</td><td>실적 전 추격 매수는 피한다.</td></tr>
+<tr><td>1차 $120</td><td>분할 매수</td><td>35%</td><td>Q2 가이던스 훼손이 없고 DCAI 성장 지속 시</td></tr>
+<tr><td>2차 $108</td><td>추가 매수</td><td>35%</td><td>주가 조정이 실적 훼손이 아닌 시장 변동성일 때</td></tr>
+<tr><td>3차 $95</td><td>조건부 매수 또는 thesis 재검토</td><td>30%</td><td>Foundry 손실 축소·현금흐름 개선 신호가 유지될 때만</td></tr>
+<tr><td>추격금지선 $145</td><td>신규 매수 금지</td><td>—</td><td>Base 기대수익률이 한 자릿수로 내려가는 구간</td></tr>
+<tr><td>일부회수 $165</td><td>일부 차익실현</td><td>20~30%</td><td>실적 확인 없이 주가만 먼저 오르면 리스크 축소</td></tr>
+<tr><td>차익실현 $185</td><td>강한 일부 매도</td><td>30~50%</td><td>외부 Foundry 고객 검증 전 $185 도달 시 과열 가능성</td></tr>
+</table>
+
+<h3>실적 발표 전후 판단표</h3>
+<table>
+<tr><th>상황</th><th>판단</th><th>행동</th></tr>
+<tr><td>Q2 매출 $14.8B 상단 초과 + 마진 개선</td><td>Base $150 유지, Bull $185 일부 반영</td><td>$145 이하 눌림 매수 가능</td></tr>
+<tr><td>매출은 좋지만 GAAP 손실·FCF 적자 지속</td><td>회복은 맞지만 주주가치 전환은 미완성</td><td>비중 확대 보류</td></tr>
+<tr><td>Foundry 손실이 다시 확대</td><td>핵심 thesis 훼손</td><td>$100 하회 시 재점검, $95 아래는 신규 매수 금지</td></tr>
+<tr><td>외부 고객 계약·선급금·물량이 명확히 공시</td><td>리레이팅 트리거</td><td>보수 목표가를 $130 이상으로 재산정</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+<tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+<tr><td>Foundry 수율·고객 리스크</td><td>18A/14A 외부 고객 일정 지연, Foundry 영업손실 재확대</td><td>Base 목표가 $150 → $115로 낮추고 신규 매수 중단</td></tr>
+<tr><td>주식수 희석</td><td>희석주식수 5.2B 이상으로 계속 증가</td><td>목표가 10~15% 할인, 1,000주 가정 손익 재계산</td></tr>
+<tr><td>현금흐름 악화</td><td>Adjusted FCF 적자가 2026년 하반기까지 개선되지 않음</td><td>비중 0.5% 이하로 제한</td></tr>
+<tr><td>DCAI 성장 둔화</td><td>AI 서버 CPU 수요 둔화 또는 ASP 압박</td><td>Base 확률을 낮추고 하방 $90 확률 상향</td></tr>
+<tr><td>경쟁 심화</td><td>AMD·Arm·TSMC 대비 제품/공정 경쟁력 지표 악화</td><td>추격 매수 금지, 보수 가치 이하에서만 접근</td></tr>
+<tr><td>세금·환율</td><td>미국 주식 차익 발생 후 한국 투자자 양도세·환율 변동</td><td>해외주식 양도세 22%와 원화 환산 수익률을 매매 전 반영</td></tr>
+</table>
+
+<h3>생태계 맵</h3>
+
+<div class="svgbox avoid-break">
+<svg viewBox="0 0 920 320" role="img" aria-label="Intel ecosystem map">
+  <rect x="20" y="30" width="210" height="84" rx="18" fill="#e8edf1" stroke="#17212b"/>
+  <text x="125" y="66" text-anchor="middle" font-size="18" font-weight="900" fill="#17212b">CCG</text>
+  <text x="125" y="90" text-anchor="middle" font-size="13" fill="#6b7480">AI PC · x86 생태계</text>
+  <rect x="355" y="30" width="210" height="84" rx="18" fill="#e8f0e5" stroke="#17212b"/>
+  <text x="460" y="66" text-anchor="middle" font-size="18" font-weight="900" fill="#17212b">DCAI</text>
+  <text x="460" y="90" text-anchor="middle" font-size="13" fill="#6b7480">AI 서버 CPU · IPU · ASIC</text>
+  <rect x="690" y="30" width="210" height="84" rx="18" fill="#f7eadf" stroke="#17212b"/>
+  <text x="795" y="66" text-anchor="middle" font-size="18" font-weight="900" fill="#17212b">Foundry</text>
+  <text x="795" y="90" text-anchor="middle" font-size="13" fill="#6b7480">18A/14A · 패키징</text>
+  <rect x="185" y="190" width="230" height="84" rx="18" fill="#eee8f3" stroke="#17212b"/>
+  <text x="300" y="226" text-anchor="middle" font-size="18" font-weight="900" fill="#17212b">전략 자본</text>
+  <text x="300" y="250" text-anchor="middle" font-size="13" fill="#6b7480">정부·NVIDIA·SoftBank</text>
+  <rect x="505" y="190" width="230" height="84" rx="18" fill="#f2dfdc" stroke="#17212b"/>
+  <text x="620" y="226" text-anchor="middle" font-size="18" font-weight="900" fill="#17212b">핵심 리스크</text>
+  <text x="620" y="250" text-anchor="middle" font-size="13" fill="#6b7480">수율·희석·현금흐름</text>
+  <line x1="230" y1="72" x2="355" y2="72" stroke="#315b7d" stroke-width="3"/>
+  <line x1="565" y1="72" x2="690" y2="72" stroke="#315b7d" stroke-width="3"/>
+  <line x1="460" y1="114" x2="360" y2="190" stroke="#8d7aa8" stroke-width="3"/>
+  <line x1="795" y1="114" x2="660" y2="190" stroke="#a5534e" stroke-width="3"/>
+  <text x="460" y="300" text-anchor="middle" font-size="13" fill="#6b7480">투자 판단: 제품 수요 회복보다 “외부 고객이 돈을 맡기는 Foundry”로 전환되는지가 핵심</text>
+</svg>
+</div>
+
+
+<h2>마지막 요약</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>현재가</td><td><b>$133.99</b></td></tr>
+<tr><td>보수가</td><td>$115</td></tr>
+<tr><td>Base</td><td>$150 · 12M 기대수익률 <b>+11.9%</b></td></tr>
+<tr><td>Bull</td><td>$185 · 기대수익률 <b>+38.1%</b></td></tr>
+<tr><td>Overshoot</td><td>$220 · 기대수익률 <b>+64.2%</b></td></tr>
+<tr><td>실적 전·후 trading target</td><td>실적 전 $120 이하만 1차, 실적 후 Foundry 손실 축소 확인 시 $145 이하 눌림 매수</td></tr>
+<tr><td>하방</td><td>$90 · 기대수익률 <b>-32.8%</b></td></tr>
+<tr><td>보유수량 기준 기대손익</td><td>현재 보유 0주: Base/Bull/Downside 손익 모두 $0</td></tr>
+<tr><td>1,000주 가정 기대손익</td><td>Base <b>$16,010</b> / Bull <b>$51,010</b> / Downside <b>$-43,990</b> / Overshoot <b>$86,010</b></td></tr>
+<tr><td>추천 행동</td><td><b>Hold / Watch</b>. 신규 대량 매수 금지, $120·$108·$95 분할 접근.</td></tr>
+<tr><td>목표 비중</td><td>초기 0~1.5%, Foundry 고객 검증 후 2~3% 검토</td></tr>
+<tr><td>가장 중요한 체크포인트</td><td>Foundry 손실 축소와 18A/14A 외부 고객의 실제 물량 전환</td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td><b>$100 하회 + Q2/Q3 가이던스 하향 + Foundry 손실 재확대</b>가 동시에 나오면 턴어라운드 thesis를 폐기한다.</td></tr>
+</table>
+
+<div class="foot">
+  <p><b>참고 출처:</b> Intel 2025 Form 10-K, Intel Q1 2026 Earnings Release, Intel Q4/FY 2025 Earnings Release, Intel Q3 2025 Earnings Release, Intel Q2 2025 Earnings Release, Intel 2024 quarterly earnings releases, SEC filings, 실시간 주가 피드(2026-06-22 12:05 UTC 기준).</p>
+  <p>본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.</p>
+</div>
+</section>
+</div>
+</body>
+</html>

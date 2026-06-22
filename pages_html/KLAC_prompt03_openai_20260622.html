@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>KLAC 투자 핵심 요약 · 2026-06-22</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">KLAC 투자 핵심 요약 · 2026-06-22 기준</div>
+  <h1>KLA는 AI 반도체의 수율 관문이다<br/>다만 지금 가격은 “좋은 회사”보다 “완벽한 실행”을 산다</h1>
+  <p class="sub">KLA(KLAC)는 웨이퍼 검사·계측·공정제어에서 가장 질 좋은 반도체 장비 자산 중 하나다. <b>신규 매수는 추격보다 3분할 대기</b>가 맞고, 실적이 계속 상단을 깨면 비중을 천천히 올리는 전략이 유리하다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $259.56</span>
+    <span class="badge buy">투자의견 Hold / Pullback Buy</span>
+    <span class="badge watch">초기 목표비중 2.0%</span>
+    <span class="badge risk">$205 하회 시 thesis 재점검</span>
+    <span class="badge watch">FQ4 가이던스·중국 비중 확인</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">핵심 thesis</div><div class="big">Yield Tollbooth</div><p>AI/HBM/선단 로직은 공정 난도가 높아질수록 검사·계측·수율관리 지출이 늘어난다. KLAC는 이 병목의 핵심 공급자다.</p></div>
+  <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">싼 주식 아님</div><p>분할 후 $259대는 이미 2026년 AI 장비 업사이클 상당 부분을 반영한다. “좋은 회사”와 “좋은 진입가”를 분리해야 한다.</p></div>
+  <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">FQ4 / CY26</div><p>FQ4 매출 가이던스 $3.575B ± $200M의 상단 확인, 2026년 선단 로직·메모리·첨단패키징 주문 지속성이 핵심이다.</p></div>
+  <div class="card red"><div class="label">가장 큰 위험</div><div class="big">China + Valuation</div><p>중국 매출 정상화와 수출규제 리스크가 동시에 오면 멀티플 방어가 어렵다. 고평가 구간에서는 실적 실망의 하락 폭이 커진다.</p></div>
+</div>
+
+<h3>시장 인식 vs 보고서 핵심 해석</h3>
+<table>
+<tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+<tr><td>회사 정체성</td><td>반도체 장비 대형주</td><td>선단 공정의 결함 탐지·계측·데이터 분석을 장악한 수율 인프라 회사</td><td>단순 WFE 사이클보다 프리미엄을 받을 수 있음</td></tr>
+<tr><td>AI 노출도</td><td>AI 수혜 장비주</td><td>AI 칩은 공정 복잡도와 첨단 패키징 난도를 키워 검사 강도를 높인다</td><td>AI 서버 수요가 식어도 선단 공정 난도는 구조적으로 남음</td></tr>
+<tr><td>주가</td><td>분할 후 접근성이 좋아짐</td><td>10:1 분할은 유동성 이벤트이지 내재가치 변화가 아니다</td><td>분할 이후 추격 매수보다 가격 규율 필요</td></tr>
+<tr><td>리스크</td><td>중국 매출 둔화 정도</td><td>중국 비중 하락, 수출규제, 고평가가 동시에 작동할 때 위험</td><td>$205 아래에서는 thesis 자체를 재점검</td></tr>
+</table>
+<div class="callout"><b>한 문장 결론:</b> KLAC는 장기 보유할 만한 장비주지만, 신규 진입은 $240 이하 1차·$220 이하 2차·실적 확인 후 3차로 나눠야 한다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> KLAC를 숫자로 볼 때 핵심은 매출 성장보다 <b>EPS 레버리지와 주식수 감소</b>다. 아래 EPS와 주식수는 2026년 10:1 주식분할 이후 현재가와 비교 가능하도록 재산정한 비교용 수치다.</div>
+
+<h3>연도별 데이터 — 매출·GAAP EPS·주식수</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">장기 추세에서 봐야 할 것은 매출 레벨업, EPS 레버리지, 그리고 자사주 매입에 따른 주식수 감소입니다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9"></text><line x1="24" y1="128.1" x2="304" y2="128.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="131.1" fill="#8190A7" font-size="9">1</text><line x1="24" y1="98.2" x2="304" y2="98.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="101.2" fill="#8190A7" font-size="9">2</text><line x1="24" y1="68.3" x2="304" y2="68.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="71.3" fill="#8190A7" font-size="9">3</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">3.8</text><rect x="24.0" y="142.8" width="25.8" height="15.2" rx="2" fill="#4BA3FF" /><text x="36.9" y="138.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.51</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="135.6" width="25.8" height="22.4" rx="2" fill="#4BA3FF" /><text x="68.7" y="131.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.75</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="135.0" width="25.8" height="23.0" rx="2" fill="#4BA3FF" /><text x="100.5" y="131.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.77</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="118.0" width="25.8" height="40.0" rx="2" fill="#4BA3FF" /><text x="132.2" y="114.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.34</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="92.5" width="25.8" height="65.5" rx="2" fill="#4BA3FF" /><text x="164.0" y="88.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.19</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="85.8" width="25.8" height="72.2" rx="2" fill="#4BA3FF" /><text x="195.8" y="81.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.42</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="97.4" width="25.8" height="60.6" rx="2" fill="#4BA3FF" /><text x="227.5" y="93.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.03</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="67.2" width="25.8" height="90.8" rx="2" fill="#4BA3FF" /><text x="259.3" y="63.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.04</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="52.4" width="25.8" height="105.6" rx="2" fill="#4BA3FF" /><text x="291.1" y="66.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.53</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">3.3</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">6.5</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">9.8</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">13.1</text><rect x="24.0" y="123.0" width="25.8" height="35.0" rx="2" fill="#9A7CF3" /><text x="36.9" y="119.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.04</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="118.4" width="25.8" height="39.6" rx="2" fill="#9A7CF3" /><text x="68.7" y="114.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.57</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="107.6" width="25.8" height="50.4" rx="2" fill="#9A7CF3" /><text x="100.5" y="103.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">5.81</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="98.0" width="25.8" height="60.0" rx="2" fill="#9A7CF3" /><text x="132.2" y="94.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">6.92</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="78.1" width="25.8" height="79.9" rx="2" fill="#9A7CF3" /><text x="164.0" y="74.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">9.21</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="67.0" width="25.8" height="91.0" rx="2" fill="#9A7CF3" /><text x="195.8" y="63.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">10.50</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="72.9" width="25.8" height="85.1" rx="2" fill="#9A7CF3" /><text x="227.5" y="68.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">9.81</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="52.6" width="25.8" height="105.4" rx="2" fill="#9A7CF3" /><text x="259.3" y="66.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.16</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="44.4" width="25.8" height="113.6" rx="2" fill="#9A7CF3" /><text x="291.1" y="58.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.10</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="120.1" x2="304" y2="120.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="123.1" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="82.3" x2="304" y2="82.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="85.3" fill="#8190A7" font-size="9">1.0</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">1.5</text><rect x="24.0" y="38.8" width="25.8" height="119.2" rx="2" fill="#37B9C5" /><text x="36.9" y="52.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.57</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="39.2" width="25.8" height="118.8" rx="2" fill="#37B9C5" /><text x="68.7" y="53.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.57</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="38.3" width="25.8" height="119.7" rx="2" fill="#37B9C5" /><text x="100.5" y="52.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.58</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="40.3" width="25.8" height="117.7" rx="2" fill="#37B9C5" /><text x="132.2" y="54.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.55</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="43.2" width="25.8" height="114.8" rx="2" fill="#37B9C5" /><text x="164.0" y="57.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.52</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="51.8" width="25.8" height="106.2" rx="2" fill="#37B9C5" /><text x="195.8" y="65.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.40</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="54.9" width="25.8" height="103.1" rx="2" fill="#37B9C5" /><text x="227.5" y="68.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.36</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="56.7" width="25.8" height="101.3" rx="2" fill="#37B9C5" /><text x="259.3" y="70.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.34</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="58.2" width="25.8" height="99.8" rx="2" fill="#37B9C5" /><text x="291.1" y="72.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.32</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">2018→TTM 매출 약 3.2배</span><span class="chart-pill">EPS 0.51 → 3.53</span><span class="chart-pill">Shares 약 -16%</span></div>
+  <div class="chart-note">핵심 해석: KLAC는 단순 매출 성장주가 아니라 공정 복잡도 상승에서 매출총이익률과 EPS가 같이 올라가는 장비 퀄리티 주식이다. 다만 EPS의 일부는 자사주 매입 효과도 포함한다.</div>
+</div>
+
+<h3>분기별 데이터 — 최근 9분기</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 9분기에서는 2025년 하반기 이후 AI·선단 공정 수요가 다시 실적을 밀어 올리는 모습이 보입니다.</div></div><span class="chart-tag">Quarterly</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9"></text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">0.25</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">0.75</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">1</text><rect x="24.0" y="107.7" width="25.8" height="50.3" rx="2" fill="#4BA3FF" /><text x="36.9" y="103.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.44</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="55.8" y="87.8" width="25.8" height="70.2" rx="2" fill="#4BA3FF" /><text x="68.7" y="83.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.62</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="87.5" y="78.4" width="25.8" height="79.6" rx="2" fill="#4BA3FF" /><text x="100.5" y="74.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.70</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="119.3" y="88.0" width="25.8" height="70.0" rx="2" fill="#4BA3FF" /><text x="132.2" y="84.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.62</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="151.1" y="65.3" width="25.8" height="92.7" rx="2" fill="#4BA3FF" /><text x="164.0" y="61.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.82</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="182.9" y="55.1" width="25.8" height="102.9" rx="2" fill="#4BA3FF" /><text x="195.8" y="69.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.91</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="214.6" y="61.8" width="25.8" height="96.2" rx="2" fill="#4BA3FF" /><text x="227.5" y="75.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.85</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><rect x="246.4" y="59.4" width="25.8" height="98.6" rx="2" fill="#4BA3FF" /><text x="259.3" y="73.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.87</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '26</text><rect x="278.2" y="54.4" width="25.8" height="103.6" rx="2" fill="#4BA3FF" /><text x="291.1" y="68.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.91</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">0.9</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">1.7</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">2.6</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">3.4</text><rect x="24.0" y="79.5" width="25.8" height="78.5" rx="2" fill="#9A7CF3" /><text x="36.9" y="75.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.36</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="55.8" y="72.5" width="25.8" height="85.5" rx="2" fill="#9A7CF3" /><text x="68.7" y="68.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.57</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="87.5" y="63.5" width="25.8" height="94.5" rx="2" fill="#9A7CF3" /><text x="100.5" y="59.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.84</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="119.3" y="55.6" width="25.8" height="102.4" rx="2" fill="#9A7CF3" /><text x="132.2" y="69.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.08</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="151.1" y="56.1" width="25.8" height="101.9" rx="2" fill="#9A7CF3" /><text x="164.0" y="70.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.06</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="182.9" y="52.4" width="25.8" height="105.6" rx="2" fill="#9A7CF3" /><text x="195.8" y="66.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.17</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="214.6" y="51.2" width="25.8" height="106.8" rx="2" fill="#9A7CF3" /><text x="227.5" y="65.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.21</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><rect x="246.4" y="48.3" width="25.8" height="109.7" rx="2" fill="#9A7CF3" /><text x="259.3" y="62.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.30</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '26</text><rect x="278.2" y="44.4" width="25.8" height="113.6" rx="2" fill="#9A7CF3" /><text x="291.1" y="58.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.42</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="120.1" x2="304" y2="120.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="123.1" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="82.3" x2="304" y2="82.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="85.3" fill="#8190A7" font-size="9">1.0</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">1.5</text><rect x="24.0" y="55.1" width="25.8" height="102.9" rx="2" fill="#37B9C5" /><text x="36.9" y="69.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.36</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="55.8" y="55.5" width="25.8" height="102.5" rx="2" fill="#37B9C5" /><text x="68.7" y="69.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.35</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="87.5" y="55.8" width="25.8" height="102.2" rx="2" fill="#37B9C5" /><text x="100.5" y="69.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.35</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="119.3" y="56.7" width="25.8" height="101.3" rx="2" fill="#37B9C5" /><text x="132.2" y="70.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.34</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="151.1" y="57.0" width="25.8" height="101.0" rx="2" fill="#37B9C5" /><text x="164.0" y="71.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.33</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="182.9" y="57.4" width="25.8" height="100.6" rx="2" fill="#37B9C5" /><text x="195.8" y="71.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.33</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="214.6" y="57.8" width="25.8" height="100.2" rx="2" fill="#37B9C5" /><text x="227.5" y="71.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.32</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><rect x="246.4" y="58.0" width="25.8" height="100.0" rx="2" fill="#37B9C5" /><text x="259.3" y="72.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.32</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '26</text><rect x="278.2" y="58.2" width="25.8" height="99.8" rx="2" fill="#37B9C5" /><text x="291.1" y="72.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.32</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">Q3'25→Q3'26 매출 +11.5%</span><span class="chart-pill">Q3'25→Q3'26 EPS +11.8%</span><span class="chart-pill">Shares 계속 감소</span></div>
+  <div class="chart-note">핵심 해석: 분기 매출은 완만한 우상향이지만 EPS는 고정비 레버리지와 자사주 매입 덕분에 더 민감하게 반응한다. 그래서 실적 미스가 나올 때 밸류에이션 압축도 빠를 수 있다.</div>
+</div>
+
+<div class="grid g3">
+  <div class="card soft"><div class="label">Annual Sales CAGR</div><div class="big">약 18%</div><p>2018년 $4.04B에서 TTM $13.10B로 구조적 레벨업.</p></div>
+  <div class="card soft"><div class="label">Annual EPS CAGR</div><div class="big">약 32%</div><p>매출보다 EPS가 더 빠르게 증가. 고마진 장비·서비스 믹스가 중요.</p></div>
+  <div class="card soft"><div class="label">Share Count</div><div class="big">-16%</div><p>2018년 1.57B에서 MRQ 1.32B 수준으로 축소.</p></div>
+</div>
+
+<table>
+<tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>2018</td><td class="right">4.037</td><td class="right">0.510</td><td class="right">1.574</td></tr>
+<tr><td>2019</td><td class="right">4.569</td><td class="right">0.749</td><td class="right">1.569</td></tr>
+<tr><td>2020</td><td class="right">5.806</td><td class="right">0.770</td><td class="right">1.580</td></tr>
+<tr><td>2021</td><td class="right">6.919</td><td class="right">1.337</td><td class="right">1.554</td></tr>
+<tr><td>2022</td><td class="right">9.212</td><td class="right">2.192</td><td class="right">1.516</td></tr>
+<tr><td>2023</td><td class="right">10.496</td><td class="right">2.415</td><td class="right">1.402</td></tr>
+<tr><td>2024</td><td class="right">9.812</td><td class="right">2.028</td><td class="right">1.362</td></tr>
+<tr><td>2025</td><td class="right">12.156</td><td class="right">3.037</td><td class="right">1.338</td></tr>
+<tr><td>TTM</td><td class="right">13.097</td><td class="right">3.533</td><td class="right">1.318</td></tr>
+</table>
+
+<div class="grid g3" style="margin-top:14px">
+  <div class="card blue"><div class="label">MRQ Sales</div><div class="big">$3.415B</div><p>Q3 FY26 매출은 전년동기 대비 두 자릿수 성장.</p></div>
+  <div class="card green"><div class="label">MRQ EPS</div><div class="big">$0.912</div><p>분할 반영 후 GAAP EPS. 분할 전 공식 EPS는 $9.12.</p></div>
+  <div class="card orange"><div class="label">MRQ Shares</div><div class="big">1.318B</div><p>자사주 매입이 EPS 하방을 일부 방어.</p></div>
+</div>
+
+<table>
+<tr><th>분기</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>Q3 '24</td><td class="right">2.360</td><td class="right">0.443</td><td class="right">1.359</td></tr>
+<tr><td>Q4 '24</td><td class="right">2.569</td><td class="right">0.618</td><td class="right">1.353</td></tr>
+<tr><td>Q1 '25</td><td class="right">2.842</td><td class="right">0.701</td><td class="right">1.350</td></tr>
+<tr><td>Q2 '25</td><td class="right">3.077</td><td class="right">0.616</td><td class="right">1.338</td></tr>
+<tr><td>Q3 '25</td><td class="right">3.063</td><td class="right">0.816</td><td class="right">1.334</td></tr>
+<tr><td>Q4 '25</td><td class="right">3.175</td><td class="right">0.906</td><td class="right">1.328</td></tr>
+<tr><td>Q1 '26</td><td class="right">3.210</td><td class="right">0.847</td><td class="right">1.323</td></tr>
+<tr><td>Q2 '26</td><td class="right">3.297</td><td class="right">0.868</td><td class="right">1.320</td></tr>
+<tr><td>Q3 '26</td><td class="right">3.415</td><td class="right">0.912</td><td class="right">1.318</td></tr>
+</table>
+
+<h3>투자자가 가져야 할 결론</h3>
+<table>
+<tr><th>관찰 포인트</th><th>좋은 해석</th><th>나쁜 해석</th><th>투자 판단</th></tr>
+<tr><td>매출</td><td>TTM $13B대 진입으로 FY25 대비 추가 성장</td><td>FQ4 이후 성장률 둔화 시 고평가 부담 확대</td><td>매수는 실적 상단 지속 확인 후</td></tr>
+<tr><td>EPS</td><td>EPS 레버리지가 장기 주가의 핵심 동력</td><td>고마진 장비 믹스 약화 시 EPS가 먼저 흔들림</td><td>EPS보다 매출총이익률과 수주/가이던스 확인</td></tr>
+<tr><td>주식수</td><td>자사주 매입으로 주주환원 강함</td><td>고점 자사주 매입은 내재가치 창출 효과 제한</td><td>장기 보유자는 우호적, 신규 매수자는 가격 중요</td></tr>
+</table>
+<div class="callout"><b>핵심:</b> KLAC의 숫자는 훌륭하지만 현재 가격은 이미 훌륭함을 상당히 반영한다. 따라서 “보유는 가능, 신규는 가격 규율”이 기본 전략이다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 6가지 체크포인트</h2>
+<table>
+<tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+<tr><td>1</td><td>Process Control 점유율</td><td>웨이퍼 검사·패터닝·계측에서 점유율 유지/확대</td><td>ASML·AMAT·Onto 등 경쟁 심화로 가격 압박</td><td>점유율 유지 시 core holding 가능</td></tr>
+<tr><td>2</td><td>선단 로직·AI 수요</td><td>TSMC/삼성/인텔 선단 투자와 첨단 패키징 확대</td><td>AI CapEx 둔화와 고객 투자 지연</td><td>FQ4 가이던스 상단이면 3차 매수 검토</td></tr>
+<tr><td>3</td><td>중국 매출 비중</td><td>중국 둔화를 Taiwan/Korea/US가 흡수</td><td>수출규제 강화와 중국 주문 급감</td><td>중국 비중 급락+가이던스 하향이면 축소</td></tr>
+<tr><td>4</td><td>서비스 매출</td><td>설치 기반 증가로 서비스가 20%대 안정적 비중 유지</td><td>서비스 성장 둔화는 장비 설치 기반 둔화 신호</td><td>서비스 비중 유지 시 하락장 방어력 인정</td></tr>
+<tr><td>5</td><td>매출총이익률</td><td>GAAP gross margin 60% 이상 유지</td><td>59% 아래로 하락하며 제품 믹스 악화</td><td>마진 하락 2분기 연속이면 목표가 하향</td></tr>
+<tr><td>6</td><td>자사주·배당</td><td>FCF로 자사주+배당 지속, 2026년 추가 $7B 승인</td><td>고점 매입 후 경기 둔화로 현금흐름 약화</td><td>주주환원은 보유 근거, 매수 근거는 아님</td></tr>
+</table>
+
+<h3>사건 체인</h3>
+<table>
+<tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+<tr><td>2019</td><td>Orbotech 인수 완료</td><td>PCB·디스플레이·패키징 검사 영역으로 포트폴리오 확장</td><td>A</td></tr>
+<tr><td>2022</td><td>대규모 ASR·자사주 매입</td><td>주식수 감소가 EPS 레버리지에 기여하기 시작</td><td>A</td></tr>
+<tr><td>FY2024</td><td>중국 매출 비중 43%</td><td>호실적의 일부가 중국 장비투자 집중에 의존했음을 보여줌</td><td>A</td></tr>
+<tr><td>FY2025</td><td>중국 33%, Taiwan 27%로 믹스 변화</td><td>중국 정상화에도 AI·선단 수요가 일부 공백을 메움</td><td>A</td></tr>
+<tr><td>2026-04-29</td><td>FQ3 매출 $3.415B, GAAP EPS $9.12 발표</td><td>AI 인프라 수요가 공정제어 실적으로 연결되고 있음을 확인</td><td>A</td></tr>
+<tr><td>2026-05-07</td><td>10:1 주식분할 및 배당/자사주 확대</td><td>접근성·유동성은 좋아졌지만 내재가치 변화는 없음</td><td>A</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+<div class="bridge avoid-break">
+  <div class="col"><div class="box" style="height:74px;background:#f2dfdc">$205</div><div class="name">하방</div></div>
+  <div class="col"><div class="box" style="height:85px;background:#f7eadf">$235</div><div class="name">보수</div></div>
+  <div class="col"><div class="box" style="height:94px;background:#e8edf1">$259.56</div><div class="name">현재</div></div>
+  <div class="col"><div class="box" style="height:103px;background:#e8f0e5">$285</div><div class="name">Base</div></div>
+  <div class="col"><div class="box" style="height:116px;background:#eee8f3">$320</div><div class="name">Bull</div></div>
+  <div class="col"><div class="box" style="height:130px;background:#efe7d5">$360</div><div class="name">Overshoot</div></div>
+</div>
+
+<table>
+<tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th>확률</th><th>실패 조건</th></tr>
+<tr><td>하방</td><td class="right"><b>$205</b></td><td>FQ4 이후 가이던스 둔화, 중국/선단 투자 동시 약화, 멀티플 55~60x 수준으로 압축</td><td>20%</td><td>FQ4 상단 돌파와 FY27 성장 가시성 회복</td></tr>
+<tr><td>보수(내재가치)</td><td class="right"><b>$235</b></td><td>분할 반영 EPS $3.6~3.8, 품질 프리미엄은 유지하되 고평가 일부 정상화</td><td>30%</td><td>AI/첨단패키징 주문이 예상보다 강함</td></tr>
+<tr><td>Base 12M</td><td class="right"><b>$285</b></td><td>FY26~FY27 매출 성장 지속, GM 60%+, EPS $3.9~4.1에 프리미엄 멀티플 유지</td><td>35%</td><td>성장률이 한 자릿수 초반으로 하락</td></tr>
+<tr><td>Bull</td><td class="right"><b>$320</b></td><td>선단 로직·HBM·첨단패키징 투자가 동시 확장, 서비스 성장도 유지</td><td>12%</td><td>가이던스가 기대치만 충족하고 추가 상향이 없음</td></tr>
+<tr><td>Overshoot</td><td class="right"><b>$360</b></td><td>AI 장비주 리레이팅과 주식분할 후 수급 모멘텀이 겹치는 과열 구간</td><td>3%</td><td>금리 상승·장비주 차익실현·실적 기대치 부담</td></tr>
+</table>
+
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card red"><div class="label">절대 밸류</div><div class="big">비싸다</div><p>분할 반영 TTM EPS 약 $3.53 기준 현재 주가는 높은 멀티플을 요구한다.</p></div>
+  <div class="card green"><div class="label">사업 퀄리티</div><div class="big">매우 높다</div><p>공정제어는 선단 반도체 난도 상승의 직접 수혜 영역이다.</p></div>
+  <div class="card orange"><div class="label">결론</div><div class="big">가격 대기</div><p>장기 보유 후보지만 신규 진입은 $240 이하부터 분할이 합리적이다.</p></div>
+</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> 보유자는 유지, 신규 매수자는 추격 금지. $240 이하에서 1차, $220 이하에서 2차, 실적 상단 확인 또는 $205~210 지지 확인 시 3차로 접근한다.</div>
+
+<table>
+<tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+<tr><td>현재 $259.56</td><td>관망 / 소량만</td><td>0~10%</td><td>이미 Base 기대수익률이 약 9.8%로 크지 않음</td></tr>
+<tr><td>1차 $240 이하</td><td>분할 매수</td><td>35%</td><td>실적 thesis 유지, 장비주 급락성 조정</td></tr>
+<tr><td>2차 $220 이하</td><td>비중 확대</td><td>35%</td><td>중국 리스크가 가격에 반영됐으나 선단 수요 유지</td></tr>
+<tr><td>3차 $205~210 또는 실적 상단</td><td>조건부 매수</td><td>30%</td><td>가격 지지 확인 또는 FQ4 매출/마진이 가이던스 상단</td></tr>
+<tr><td>추격금지선 $270 이상</td><td>신규 매수 금지</td><td>0%</td><td>Overshoot 리스크가 커지는 구간</td></tr>
+<tr><td>일부회수 $300</td><td>20~30% 회수</td><td>-</td><td>단기 수급 과열 또는 실적 전 기대감 급등</td></tr>
+<tr><td>차익실현 $330+</td><td>단계적 차익실현</td><td>-</td><td>실적 상향 없이 멀티플만 확장된 경우</td></tr>
+</table>
+
+<h3>실적 발표 전후 판단표</h3>
+<table>
+<tr><th>상황</th><th>판단</th><th>행동</th></tr>
+<tr><td>FQ4 매출 $3.75B 이상 + GM 61%+</td><td>수요·마진 모두 강함</td><td>$285까지 일부 추격 허용</td></tr>
+<tr><td>FQ4는 좋지만 다음 분기 가이던스 보수적</td><td>기대 선반영 가능성</td><td>$240 이하까지 대기</td></tr>
+<tr><td>중국 비중 급락 + Taiwan/Korea 보완 실패</td><td>지역 믹스 리스크 현실화</td><td>목표비중 축소, $205 재점검</td></tr>
+<tr><td>주가 $300 이상, 실적 상향 없음</td><td>수급/분할 이벤트 과열</td><td>일부 회수</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+<tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+<tr><td>중국 수출규제</td><td>중국 매출 급감이 전체 매출 둔화로 전이</td><td>신규 매수 중단, 목표가 Base $250 이하로 하향</td></tr>
+<tr><td>AI CapEx 둔화</td><td>선단 로직·메모리·첨단패키징 주문 동시 둔화</td><td>장비주 전체 베타 축소, KLAC 비중 1% 이하</td></tr>
+<tr><td>마진 훼손</td><td>GAAP GM 59% 이하가 2분기 지속</td><td>품질 프리미엄 축소, 보수가 $220 재산정</td></tr>
+<tr><td>고평가</td><td>EPS 상향 없이 주가 $330 이상</td><td>분할 이후 과열로 보고 일부 차익실현</td></tr>
+<tr><td>고객 집중</td><td>상위 고객 투자 지연 또는 주문 취소</td><td>다음 실적까지 관망, 신규 매수 금지</td></tr>
+</table>
+
+<div class="svgbox">
+<svg viewBox="0 0 900 280" role="img" aria-label="KLA ecosystem map">
+  <rect x="20" y="30" width="190" height="70" rx="16" fill="#e8edf1" stroke="#17212b"/>
+  <text x="115" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Foundry / Logic</text>
+  <text x="115" y="84" text-anchor="middle" font-size="12" fill="#6b7480">선단 공정·EUV·AI ASIC</text>
+  <rect x="20" y="150" width="190" height="70" rx="16" fill="#eee8f3" stroke="#17212b"/>
+  <text x="115" y="182" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Memory / HBM</text>
+  <text x="115" y="204" text-anchor="middle" font-size="12" fill="#6b7480">DRAM·HBM·NAND</text>
+  <rect x="355" y="82" width="190" height="110" rx="20" fill="#e8f0e5" stroke="#17212b"/>
+  <text x="450" y="125" text-anchor="middle" font-size="22" font-weight="900" fill="#17212b">KLA</text>
+  <text x="450" y="150" text-anchor="middle" font-size="13" fill="#6b7480">Inspection · Metrology</text>
+  <text x="450" y="170" text-anchor="middle" font-size="13" fill="#6b7480">Process Control · Services</text>
+  <rect x="690" y="30" width="190" height="70" rx="16" fill="#f7eadf" stroke="#17212b"/>
+  <text x="785" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Advanced Packaging</text>
+  <text x="785" y="84" text-anchor="middle" font-size="12" fill="#6b7480">CoWoS·Chiplet·Substrate</text>
+  <rect x="690" y="150" width="190" height="70" rx="16" fill="#f2dfdc" stroke="#17212b"/>
+  <text x="785" y="182" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Export / China Risk</text>
+  <text x="785" y="204" text-anchor="middle" font-size="12" fill="#6b7480">규제·고객 집중·주문 변동</text>
+  <line x1="210" y1="65" x2="355" y2="120" stroke="#315b7d" stroke-width="3"/>
+  <line x1="210" y1="185" x2="355" y2="155" stroke="#315b7d" stroke-width="3"/>
+  <line x1="545" y1="120" x2="690" y2="65" stroke="#315b7d" stroke-width="3"/>
+  <line x1="545" y1="155" x2="690" y2="185" stroke="#a5534e" stroke-width="3" stroke-dasharray="6 6"/>
+</svg>
+</div>
+
+<h2>마지막 요약</h2>
+<table>
+<tr><th>항목</th><th>값 / 판단</th></tr>
+<tr><td>현재가</td><td><b>$259.56</b></td></tr>
+<tr><td>보수가</td><td>$235</td></tr>
+<tr><td>Base</td><td>$285 · 12M 기대수익률 <b>+9.8%</b></td></tr>
+<tr><td>Bull</td><td>$320 · 기대수익률 <b>+23.3%</b></td></tr>
+<tr><td>Overshoot</td><td>$360 · 기대수익률 <b>+38.7%</b></td></tr>
+<tr><td>실적 전·후 trading target</td><td>실적 전 $270 이상 추격 금지 / 실적 상단 확인 시 $285까지 허용 / 실망 시 $220~240 대기</td></tr>
+<tr><td>하방</td><td>$205 · 기대수익률 <b>-21.0%</b></td></tr>
+<tr><td>보유수량 기준 기대손익</td><td>현재 보유 0주: $0 / 1,000주 가정 Base +$25,440, Bull +$60,440, Downside -$54,560</td></tr>
+<tr><td>추천 행동</td><td><b>Hold / Pullback Buy</b>. 신규 매수자는 3분할, 기존 보유자는 실적 전 과열 시 일부 회수.</td></tr>
+<tr><td>목표 비중</td><td>초기 2.0%, 실적 상단 지속 시 3.0%까지</td></tr>
+<tr><td>가장 중요한 체크포인트</td><td>FQ4 매출 가이던스 상단 돌파 여부, GM 60%+ 유지, 중국 비중 하락의 흡수 여부</td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td><b>$205 하회</b> 또는 GM 59% 이하 2분기 지속 + FY27 성장 가이던스 하향. 이 경우 KLAC의 프리미엄 thesis를 재검토한다.</td></tr>
+</table>
+
+<div class="foot">
+  참고 출처: KLA IR FQ3 FY2026 결과, KLA IR FQ2/FQ1 FY2026 결과, KLA IR FY2025/FY2024 결과, KLA FY2025 Form 10-K, KLA 10:1 stock split 공시, SEC FY2022/FY2019 10-K, 시장 가격 데이터.<br/>
+  주요 링크: 
+  <a href="https://ir.kla.com/news-events/press-releases/detail/514/kla-corporation-reports-fiscal-2026-third-quarter-results">FQ3 FY2026</a> ·
+  <a href="https://ir.kla.com/news-events/press-releases/detail/509/kla-corporation-reports-fiscal-2026-second-quarter-results">FQ2 FY2026</a> ·
+  <a href="https://ir.kla.com/news-events/press-releases/detail/505/kla-corporation-reports-fiscal-2026-first-quarter-results">FQ1 FY2026</a> ·
+  <a href="https://ir.kla.com/news-events/press-releases/detail/500/kla-corporation-reports-fiscal-2025-fourth-quarter-and-full">FY2025</a> ·
+  <a href="https://www.sec.gov/Archives/edgar/data/319201/000031920125000024/klac-20250630.htm">FY2025 10-K</a> ·
+  <a href="https://ir.kla.com/news-events/press-releases/detail/515/kla-corporation-announces-ten-to-one-stock-split-and">10:1 Stock Split</a>.<br/>
+  EPS와 주식수는 2026년 10:1 주식분할 이후 현재가와 비교 가능하도록 분할 조정한 비교용 수치입니다. 본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.
+</div>
+</section>
+
+</div>
+</body>
+</html>
