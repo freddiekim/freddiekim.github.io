@@ -255,14 +255,16 @@ title: My Portfolio
 
     .preview-frame-wrap {
       background: #ffffff;
-      height: 860px;
-      overflow: hidden;
+      min-height: 860px;
+      overflow: visible;
     }
 
     .preview-frame {
       border: 0;
       display: block;
-      height: 100%;
+      height: 860px;
+      min-height: 860px;
+      overflow: hidden;
       width: 100%;
     }
 
@@ -490,7 +492,12 @@ title: My Portfolio
       }
 
       .preview-frame-wrap {
+        min-height: 700px;
+      }
+
+      .preview-frame {
         height: 700px;
+        min-height: 700px;
       }
 
       .section-heading h2 {
@@ -519,7 +526,12 @@ title: My Portfolio
       }
 
       .preview-frame-wrap {
+        min-height: 640px;
+      }
+
+      .preview-frame {
         height: 640px;
+        min-height: 640px;
       }
     }
   </style>
@@ -571,7 +583,7 @@ title: My Portfolio
             </span>
           </div>
           <div class="preview-frame-wrap">
-            <iframe class="preview-frame" src="{{ latest_report.path | relative_url }}" title="Latest portfolio snapshot"></iframe>
+            <iframe class="preview-frame" src="{{ latest_report.path | relative_url }}" title="Latest portfolio snapshot" scrolling="no"></iframe>
           </div>
         </article>
       {% else %}
@@ -658,6 +670,57 @@ title: My Portfolio
     </section>
   </main>
 
+<script>
+  (function () {
+    function resizePortfolioFrames() {
+      document.querySelectorAll(".preview-frame").forEach(function (frame) {
+        try {
+          var doc = frame.contentDocument || frame.contentWindow.document;
+          if (!doc) return;
+
+          var body = doc.body;
+          var html = doc.documentElement;
+          var height = Math.max(
+            body ? body.scrollHeight : 0,
+            body ? body.offsetHeight : 0,
+            html ? html.clientHeight : 0,
+            html ? html.scrollHeight : 0,
+            html ? html.offsetHeight : 0
+          );
+
+          if (height > 0) {
+            var expandedHeight = height + 8;
+            frame.style.height = expandedHeight + "px";
+
+            var wrap = frame.closest(".preview-frame-wrap");
+            if (wrap) {
+              wrap.style.minHeight = expandedHeight + "px";
+            }
+          }
+        } catch (error) {
+          frame.style.overflow = "auto";
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll(".preview-frame").forEach(function (frame) {
+        frame.addEventListener("load", function () {
+          resizePortfolioFrames();
+          window.setTimeout(resizePortfolioFrames, 150);
+          window.setTimeout(resizePortfolioFrames, 600);
+        });
+      });
+
+      resizePortfolioFrames();
+    });
+
+    window.addEventListener("resize", function () {
+      window.clearTimeout(window.__portfolioResizeTimer);
+      window.__portfolioResizeTimer = window.setTimeout(resizePortfolioFrames, 120);
+    });
+  }());
+</script>
 <script src="/js/page-comments.js" data-disqus-shortname="freddiekim" data-site-url="https://freddiekim.github.io"></script>
 </body>
 </html>
