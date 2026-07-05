@@ -271,11 +271,22 @@ a:focus {
     color: var(--poster-ink) !important;
 }
 
-#theme-toggle {
+#theme-toggle,
+#bgm-toggle {
+    align-items: center;
     background: var(--poster-cream) !important;
     border: 4px solid var(--poster-line) !important;
     border-radius: 50% !important;
     color: var(--poster-ink) !important;
+    display: inline-flex;
+    height: 52px;
+    justify-content: center;
+    padding: 0;
+    width: 52px;
+}
+
+#bgm-toggle.is-off {
+    background: var(--poster-sun) !important;
 }
 
 #youtube-video {
@@ -336,7 +347,7 @@ body.home-page .home-company-board .company-analysis-container {
 }
 
 body.sidebar-open #menu-toggle,
-body.sidebar-open .tooltip-container {
+body.sidebar-open .header-control-group {
     opacity: 0;
     pointer-events: none;
 }
@@ -356,11 +367,42 @@ body.sidebar-open .tooltip-container {
     z-index: 2;
 }
 
-.tooltip-container {
+.header-control-group {
+    display: flex;
+    gap: 10px;
     position: fixed;
     right: 74px;
     top: 12px;
     z-index: 1200;
+}
+
+.tooltip-container {
+    position: relative;
+}
+
+.tooltip-text {
+    background: var(--poster-ink);
+    border: 2px solid var(--poster-cream);
+    border-radius: 6px;
+    color: var(--poster-cream);
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.1;
+    opacity: 0;
+    padding: 7px 9px;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    transition: opacity .16s ease;
+    visibility: hidden;
+    white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip-text,
+.tooltip-container:focus-within .tooltip-text {
+    opacity: 1;
+    visibility: visible;
 }
 
 #sidebar-wrapper {

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SNDK 투자 브리프 업데이트 · OpenAI 추론비용 최적화 반영</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">SNDK 투자 핵심 업데이트 · 2026-07-02 기준</div>
+  <h1>OpenAI 비용 절감은 즉시 악재가 아니다<br/>하지만 SNDK의 Bull 조건은 더 까다로워졌다</h1>
+  <p class="sub">추론 비용 하락은 AI 사용량을 늘리는 수요 탄력 효과가 있지만, 소형 모델·캐싱·Batch/Flex·토큰 최적화는 단위 요청당 메모리와 스토리지 사용량을 낮출 수 있다. 따라서 SNDK는 <b>“AI 사용량 증가가 실제 저장 데이터 증가로 이어지는지”</b>를 확인해야 한다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $2,032.22</span>
+    <span class="badge buy">투자의견 HOLD / 눌림 분할</span>
+    <span class="badge watch">초기 목표비중 0~1.5%</span>
+    <span class="badge risk">$1,450 하회 시 thesis 재점검</span>
+    <span class="badge watch">추가 체크: OpenAI 비용 최적화와 NAND bit demand</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">UPDATED THESIS</div><div class="big">수요 탄력</div><p>OpenAI가 추론 비용을 낮추면 기업·개발자의 AI 사용량은 늘어날 가능성이 높다. SNDK에는 “AI 요청 수 증가 → 문서·로그·벡터DB·캐시·데이터셋 증가”로 연결될 때 긍정적이다.</p></div>
+  <div class="card orange"><div class="label">PRICE VIEW</div><div class="big">저점 아님</div><p>주가가 $2,273에서 $2,032로 내려오며 Base 기대수익률은 개선됐지만, 아직 “싸다”보다 “검증 구간”에 가깝다.</p></div>
+  <div class="card blue"><div class="label">KEY CATALYST</div><div class="big">FY27 계약</div><p>Q4 FY26 실적보다 더 중요한 것은 FY27에 장기공급계약이 실제 bit demand와 가격 방어력으로 이어지는지다.</p></div>
+  <div class="card red"><div class="label">NEW RISK</div><div class="big">효율화 압축</div><p>소형 모델, prompt caching, reasoning token 제한, Batch/Flex 최적화가 단위 AI 작업당 스토리지·메모리 강도를 낮추면 Bull 멀티플은 줄어든다.</p></div>
+</div>
+
+<h3>OpenAI 추론비용 절감 이슈를 반영한 핵심 해석</h3>
+<table>
+  <tr><th>구분</th><th>시장 인식</th><th>업데이트된 보고서 해석</th><th>투자 의미</th></tr>
+  <tr><td><b>단순 해석</b></td><td>추론 비용 하락 → AI 인프라 수요 감소 → 메모리 악재</td><td>HBM·GPU에는 단위 수요 압축 위험이 더 직접적이다. SNDK는 저장·캐시·로그·문서 데이터 증가 여부가 핵심이다.</td><td>SNDK를 HBM주처럼 바로 매도할 필요는 없지만, Bull 확률은 낮춰야 한다.</td></tr>
+  <tr><td><b>수요 탄력</b></td><td>비용이 내려가면 기업 사용량이 늘어난다</td><td>AI 사용량이 폭증하면 결과물, 코드, 법률문서, 검색 인덱스, 벡터DB, 장기 저장 데이터가 늘어난다.</td><td>OpenAI 비용 절감은 SNDK에 중립~긍정일 수 있다.</td></tr>
+  <tr><td><b>효율화 위험</b></td><td>캐싱·소형모델은 비용만 줄인다</td><td>캐싱과 모델 최적화는 동일 작업을 더 적은 토큰과 더 적은 compute로 처리하게 만든다. 장기적으로 per-query 인프라 강도는 낮아질 수 있다.</td><td>Overshoot 목표가는 낮추고, 확인 전 추격 매수 금지.</td></tr>
+  <tr><td><b>핵심 질문</b></td><td>OpenAI 비용 절감이 메모리에 좋은가 나쁜가?</td><td>정답은 “AI 사용량 증가율이 단위 인프라 절감률보다 큰가”다.</td><td>SNDK 투자자는 가격보다 FY27 bit commitment와 datacenter 매출 지속성을 봐야 한다.</td></tr>
+</table>
+<div class="callout"><b>한 문장 결론:</b> OpenAI 추론비용 절감은 SNDK thesis를 깨는 악재가 아니라, “AI 사용량 증가가 실제 NAND 저장수요로 전환되는지”를 더 엄격하게 확인하게 만드는 변수다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> 기존 매출·EPS 급증 그래프에 OpenAI 최적화 변수를 덧씌워 본다. 핵심은 “비용 하락 → 사용량 증가”와 “효율화 → 단위 수요 감소”의 힘겨루기다.</div>
+
+<h3>연도별</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends · SNDK 재평가의 근거</div><div class="chartboard-sub">2025년까지는 손실 기업처럼 보였지만, FY26 들어 AI 데이터센터 NAND 수요가 EPS를 단절적으로 끌어올렸다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="36" x2="304" y2="36" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="39" fill="#8190A7" font-size="9">30</text><line x1="24" y1="76" x2="304" y2="76" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="79" fill="#8190A7" font-size="9">15</text><line x1="24" y1="116" x2="304" y2="116" stroke="#56647C"/><text x="308" y="119" fill="#8190A7" font-size="9">0</text><line x1="24" y1="156" x2="304" y2="156" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="159" fill="#8190A7" font-size="9">-15</text><rect x="46" y="116" width="34" height="39" rx="2" fill="#FF6B6B"/><text x="63" y="170" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-14.78</text><text x="63" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="112" y="116" width="34" height="12" rx="2" fill="#FF6B6B"/><text x="129" y="140" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-4.63</text><text x="129" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="178" y="116" width="34" height="30" rx="2" fill="#FF6B6B"/><text x="195" y="158" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-11.32</text><text x="195" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="244" y="40" width="34" height="76" rx="2" fill="#4BA3FF"/><text x="261" y="34" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">28.77</text><text x="261" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="44" x2="304" y2="44" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="47" fill="#8190A7" font-size="9">15</text><line x1="24" y1="82" x2="304" y2="82" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="85" fill="#8190A7" font-size="9">10</text><line x1="24" y1="120" x2="304" y2="120" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="123" fill="#8190A7" font-size="9">5</text><line x1="24" y1="158" x2="304" y2="158" stroke="#56647C"/><text x="308" y="161" fill="#8190A7" font-size="9">0</text><rect x="46" y="112" width="34" height="46" rx="2" fill="#9A7CF3"/><text x="63" y="106" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">6.09</text><text x="63" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="112" y="108" width="34" height="50" rx="2" fill="#9A7CF3"/><text x="129" y="102" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">6.66</text><text x="129" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="178" y="102" width="34" height="56" rx="2" fill="#9A7CF3"/><text x="195" y="96" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">7.36</text><text x="195" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="244" y="58" width="34" height="100" rx="2" fill="#9A7CF3"/><text x="261" y="52" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.18</text><text x="261" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="44" x2="304" y2="44" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="47" fill="#8190A7" font-size="9">0.20</text><line x1="24" y1="82" x2="304" y2="82" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="85" fill="#8190A7" font-size="9">0.15</text><line x1="24" y1="120" x2="304" y2="120" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="123" fill="#8190A7" font-size="9">0.10</text><line x1="24" y1="158" x2="304" y2="158" stroke="#56647C"/><text x="308" y="161" fill="#8190A7" font-size="9">0</text><rect x="46" y="82" width="34" height="76" rx="2" fill="#37B9C5"/><text x="63" y="76" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.145</text><text x="63" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="112" y="82" width="34" height="76" rx="2" fill="#37B9C5"/><text x="129" y="76" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.145</text><text x="129" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="178" y="82" width="34" height="76" rx="2" fill="#37B9C5"/><text x="195" y="76" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.145</text><text x="195" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="244" y="69" width="34" height="89" rx="2" fill="#37B9C5"/><text x="261" y="63" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.157</text><text x="261" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">MRQ</text></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">TTM Sales $13.18B</span><span class="chart-pill">TTM EPS $28.77</span><span class="chart-pill">P/E 약 70.7배</span></div>
+  <div class="chart-note">핵심 해석: 현재 주가는 trailing EPS로는 여전히 높다. Q4 FY26 가이던스가 달성되면 선행 EPS 체력은 올라가지만, OpenAI 최적화 변수는 멀티플 상단을 제한한다.</div>
+</div>
+
+<h3>OpenAI 비용 최적화 민감도</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">OpenAI Optimization Sensitivity</div><div class="chartboard-sub">추론 단가 하락은 AI 사용량을 늘리지만, prompt caching·소형모델·token cap은 단위 인프라 수요를 낮춘다.</div></div><span class="chart-tag">Sensitivity</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="AI Usage Elasticity"><text x="12" y="14" fill="#AAB5C8" font-size="10">AI Usage Elasticity</text><line x1="24" y1="44" x2="304" y2="44" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="47" fill="#8190A7" font-size="9">High</text><line x1="24" y1="101" x2="304" y2="101" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="104" fill="#8190A7" font-size="9">Mid</text><line x1="24" y1="158" x2="304" y2="158" stroke="#56647C"/><text x="308" y="161" fill="#8190A7" font-size="9">Low</text><rect x="52" y="62" width="44" height="96" rx="2" fill="#9A7CF3"/><text x="74" y="56" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">강함</text><text x="74" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">비용↓</text><rect x="138" y="48" width="44" height="110" rx="2" fill="#9A7CF3"/><text x="160" y="42" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">강함</text><text x="160" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">사용량↑</text><rect x="224" y="92" width="44" height="66" rx="2" fill="#9A7CF3"/><text x="246" y="86" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">중간</text><text x="246" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">저장전환</text></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Optimization Drag"><text x="12" y="14" fill="#AAB5C8" font-size="10">Optimization Drag</text><line x1="24" y1="44" x2="304" y2="44" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="47" fill="#8190A7" font-size="9">High</text><line x1="24" y1="101" x2="304" y2="101" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="104" fill="#8190A7" font-size="9">Mid</text><line x1="24" y1="158" x2="304" y2="158" stroke="#56647C"/><text x="308" y="161" fill="#8190A7" font-size="9">Low</text><rect x="42" y="50" width="38" height="108" rx="2" fill="#FF6B6B"/><text x="61" y="44" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">높음</text><text x="61" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">캐싱</text><rect x="112" y="66" width="38" height="92" rx="2" fill="#FF6B6B"/><text x="131" y="60" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">중상</text><text x="131" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">소형모델</text><rect x="182" y="82" width="38" height="76" rx="2" fill="#FF6B6B"/><text x="201" y="76" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">중간</text><text x="201" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">토큰제어</text><rect x="252" y="96" width="38" height="62" rx="2" fill="#FF6B6B"/><text x="271" y="90" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">중간</text><text x="271" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Batch</text></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Net NAND Impact"><text x="12" y="14" fill="#AAB5C8" font-size="10">Net NAND Impact</text><line x1="24" y1="44" x2="304" y2="44" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="47" fill="#8190A7" font-size="9">Bull</text><line x1="24" y1="101" x2="304" y2="101" stroke="#3A4457" stroke-dasharray="2 3"/><text x="308" y="104" fill="#8190A7" font-size="9">Base</text><line x1="24" y1="158" x2="304" y2="158" stroke="#56647C"/><text x="308" y="161" fill="#8190A7" font-size="9">Bear</text><rect x="52" y="72" width="44" height="86" rx="2" fill="#37B9C5"/><text x="74" y="66" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">+</text><text x="74" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">문서</text><rect x="138" y="82" width="44" height="76" rx="2" fill="#37B9C5"/><text x="160" y="76" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">+</text><text x="160" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">벡터DB</text><rect x="224" y="105" width="44" height="53" rx="2" fill="#37B9C5"/><text x="246" y="99" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">중립</text><text x="246" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">로그/캐시</text></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">비용절감 = 수요 탄력</span><span class="chart-pill">효율화 = 단위수요 압축</span><span class="chart-pill">SNDK 핵심 = 저장 전환율</span></div>
+  <div class="chart-note">핵심 해석: SNDK에는 “모델을 돌리는 순간의 메모리”보다 “AI가 만든 데이터와 검색 가능한 기업 지식 저장”이 중요하다. 따라서 OpenAI 최적화는 악재와 호재가 동시에 존재한다.</div>
+</div>
+
+<table>
+  <tr><th>투자자가 가져야 할 결론</th><th>OpenAI 최적화 반영 후 해석</th><th>행동</th></tr>
+  <tr><td>매출</td><td>AI 사용량 증가가 저장·캐시·벡터DB 수요로 전환되면 SNDK 매출은 유지 가능하다.</td><td>Q4 매출 $7.75B 하단 방어 확인</td></tr>
+  <tr><td>EPS</td><td>FY26 EPS 급증은 강하지만, 효율화가 FY27 멀티플을 낮출 수 있다.</td><td>EPS보다 FY27 계약 가시성 확인</td></tr>
+  <tr><td>멀티플</td><td>OpenAI 비용 절감은 “무한 AI 인프라 수요” narrative를 약화시킨다.</td><td>Overshoot 확률 축소, 분할매수 우선</td></tr>
+</table>
+<div class="callout"><b>그래프 결론:</b> OpenAI 최적화는 SNDK 실적을 당장 꺾는 변수라기보다, 고평가 구간에서 멀티플 상단을 낮추는 변수다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 7가지 체크포인트</h2>
+<table>
+  <tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+  <tr><td>1</td><td>Q4 FY26 가이던스 달성</td><td>매출 $8B 이상, Non-GAAP EPS $31 이상</td><td>매출 $7.75B 하회 또는 EPS $30 하회</td><td>달성 시 홀드, 미달 시 비중 축소</td></tr>
+  <tr><td>2</td><td>AI 비용 하락 후 사용량 증가</td><td>기업 AI 사용량·API 호출량·검색/문서 처리량 증가</td><td>비용 하락에도 기업 채택 둔화</td><td>사용량 증가 확인 전 추격 금지</td></tr>
+  <tr><td>3</td><td>저장 전환율</td><td>AI 사용량 증가가 SSD·NAND bit demand 증가로 전환</td><td>캐싱·모델 최적화로 저장 수요 증가율 둔화</td><td>Datacenter 매출 QoQ 추적</td></tr>
+  <tr><td>4</td><td>NBM 장기계약 품질</td><td>계약 규모·기간·가격 floor가 추가 공개</td><td>계약은 많지만 가격 보호력이 약함</td><td>계약 품질 확인 전 대규모 매수 금지</td></tr>
+  <tr><td>5</td><td>NAND ASP와 공급 규율</td><td>가격 강세와 공급 제약 지속</td><td>경쟁사 증산·가격 하락 시작</td><td>ASP 하락 시 멀티플 축소</td></tr>
+  <tr><td>6</td><td>자사주 매입과 희석</td><td>FCF로 주식수 증가 억제</td><td>SBC 희석 확대 또는 고점 환매</td><td>FCF·shares out 동시 추적</td></tr>
+  <tr><td>7</td><td>고객 집중 리스크</td><td>대형 고객 수요가 장기계약으로 분산</td><td>일부 hyperscaler 재고 조정</td><td>고객 concentration 언급 시 일부 회수</td></tr>
+</table>
+
+<h3>사건 체인</h3>
+<table>
+  <tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+  <tr><td>2025-02</td><td>Western Digital에서 Sandisk 분사</td><td>독립 NAND pure-play로 재평가 시작</td><td>A</td></tr>
+  <tr><td>2026-04</td><td>OpenAI GPT-4.1 계열 비용 효율 개선</td><td>추론비용 하락과 AI 사용량 증가 가능성을 동시에 보여줌</td><td>A</td></tr>
+  <tr><td>2026-04</td><td>SNDK Q3 FY26 매출 $5.95B, EPS $23.03</td><td>AI 데이터센터 NAND 수요가 실적에 본격 반영</td><td>A</td></tr>
+  <tr><td>2026-05</td><td>SNDK 장기공급계약·자사주 매입 발표</td><td>boom-bust 완화 thesis의 근거</td><td>B</td></tr>
+  <tr><td>2026-07</td><td>OpenAI 최적화 우려 반영</td><td>AI 사용량 증가와 단위 인프라 수요 압축의 힘겨루기</td><td>B</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+<div class="bridge avoid-break">
+  <div class="col"><div class="box" style="height:58px;background:#f2dfdc">$1,450</div><div class="name">하방</div></div>
+  <div class="col"><div class="box" style="height:75px;background:#f7eadf">$1,750</div><div class="name">보수</div></div>
+  <div class="col"><div class="box" style="height:95px;background:#e8edf1">$2,032</div><div class="name">현재</div></div>
+  <div class="col"><div class="box" style="height:115px;background:#e8f0e5">$2,350</div><div class="name">Base</div></div>
+  <div class="col"><div class="box" style="height:137px;background:#eee8f3">$2,700</div><div class="name">Bull</div></div>
+  <div class="col"><div class="box" style="height:150px;background:#efe7d5">$2,950</div><div class="name">Overshoot</div></div>
+</div>
+
+<table>
+  <tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th class="center">확률</th><th>실패 조건</th></tr>
+  <tr><td>하방</td><td class="right"><b>$1,450</b></td><td>Q4 가이던스 미달, AI 사용량 증가가 저장 수요로 전환되지 않음, NAND ASP 하락</td><td class="center">25%</td><td>Q4 $8B 이상과 FY27 강한 가이던스</td></tr>
+  <tr><td>보수 내재가치</td><td class="right"><b>$1,750</b></td><td>FY26 EPS는 강하지만 FY27 정상화 EPS를 보수적으로 할인</td><td class="center">30%</td><td>장기계약이 가격 방어력을 명확히 증명</td></tr>
+  <tr><td>Base 12M</td><td class="right"><b>$2,350</b></td><td>Q4 가이던스 달성, FY27 EPS 55~60달러대, 선행 P/E 38~40배</td><td class="center">30%</td><td>데이터센터 성장 둔화 또는 GM 급락</td></tr>
+  <tr><td>Bull</td><td class="right"><b>$2,700</b></td><td>AI 사용량 증가가 NAND 저장수요로 연결, NBM 계약 품질 확인</td><td class="center">12%</td><td>계약 조건이 기대보다 약함</td></tr>
+  <tr><td>Overshoot</td><td class="right"><b>$2,950</b></td><td>AI NAND 공급부족 장기화, 숏커버·목표가 상향·지수 수급 동시 작동</td><td class="center">3%</td><td>OpenAI 최적화 우려가 멀티플 상단 제한</td></tr>
+</table>
+
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card orange"><div class="label">Base Upside</div><div class="big">+15.6%</div><p>현재가 하락으로 Base 기대수익률은 개선됐다. 다만 아직 압도적 안전마진은 아니다.</p></div>
+  <div class="card green"><div class="label">Bull Upside</div><div class="big">+32.9%</div><p>AI 사용량 증가가 실제 저장 수요로 전환되면 Bull $2,700은 가능하다.</p></div>
+  <div class="card red"><div class="label">Downside</div><div class="big">-28.7%</div><p>Q4 실적이 깨지면 현재 멀티플은 빠르게 낮아질 수 있다.</p></div>
+</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> 보유자는 HOLD, 신규자는 $2,000 이상 추격 금지. $1,900 / $1,700 / $1,500 부근에서만 35/35/30 분할을 고려한다.</div>
+<table>
+  <tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+  <tr><td>1차 진입</td><td>$1,900 부근 분할 매수</td><td>35%</td><td>Q4 가이던스 유지, 데이터센터 매출 강세 지속</td></tr>
+  <tr><td>2차 진입</td><td>$1,700 부근 추가</td><td>35%</td><td>실적 훼손이 아닌 멀티플 조정일 때</td></tr>
+  <tr><td>3차 진입</td><td>$1,500 부근 조건부 매수</td><td>30%</td><td>Q4 실적은 유지되지만 시장 리스크오프로 동반 하락할 때</td></tr>
+  <tr><td>추격금지선</td><td>$2,100 이상 신규 매수 금지</td><td>0%</td><td>Base upside가 줄어 위험보상 악화</td></tr>
+  <tr><td>일부 회수</td><td>$2,500 부근 20~30% 회수</td><td>선택</td><td>실적 확인 전 기대감만으로 급등할 경우</td></tr>
+  <tr><td>차익실현</td><td>$2,700 이상 단계적 실현</td><td>30~50%</td><td>Bull 구간 진입, 기대수익보다 하방 리스크 확대</td></tr>
+  <tr><td>Thesis 재점검</td><td>$1,450 하회 또는 Q4 미달</td><td>축소</td><td>가격과 실적이 동시에 깨지면 내가 틀렸다고 인정</td></tr>
+</table>
+
+<h3>실적 발표 전후 판단표</h3>
+<table>
+  <tr><th>상황</th><th>가격 반응</th><th>해석</th><th>행동</th></tr>
+  <tr><td>Q4 매출 $8.25B 이상, EPS $33 이상</td><td>급등</td><td>Base→Bull 상향 가능</td><td>보유 지속, 신규는 눌림 대기</td></tr>
+  <tr><td>Q4 매출 $7.75~8.25B, EPS $30~33</td><td>중립</td><td>가이던스 부합, 현재 가격 정당화</td><td>HOLD, $1,900 이하만 추가</td></tr>
+  <tr><td>Q4 매출 $7.75B 미만</td><td>급락 가능</td><td>현재 멀티플 방어 실패</td><td>비중 축소, $1,450 재점검</td></tr>
+  <tr><td>실적은 좋지만 FY27 저장 수요 둔화 언급</td><td>변동성 확대</td><td>OpenAI 최적화 우려 현실화</td><td>일부 회수 우선</td></tr>
+  <tr><td>NBM 계약 세부조건 공개</td><td>긍정</td><td>수익 안정성 thesis 강화</td><td>목표가 $2,700 검토</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+  <tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+  <tr><td>OpenAI 비용 최적화로 단위 수요 감소</td><td>AI 사용량은 늘지만 NAND bit demand·datacenter 매출 성장 둔화</td><td>Bull/Overshoot 목표가 제거, Base를 보수로 낮춤</td></tr>
+  <tr><td>NAND 가격 사이클 급반전</td><td>ASP 하락, 고객 재고 조정, GM 급락</td><td>신규 매수 중단, $1,750 이하에서도 실적 확인 전 대기</td></tr>
+  <tr><td>NBM 장기계약의 실질 방어력 부족</td><td>계약 규모는 크지만 가격 floor·물량 commitment 불명확</td><td>메모리 사이클 기업 수준으로 멀티플 재평가</td></tr>
+  <tr><td>데이터센터 매출 일회성</td><td>Q4 이후 Datacenter 성장률 둔화, 고객 재고 축적 신호</td><td>Base $2,350 → 보수 $1,750으로 낮춤</td></tr>
+  <tr><td>고밸류에이션</td><td>주가 $2,100 이상에서 실적 모멘텀 둔화</td><td>추격 금지, 일부 회수 우선</td></tr>
+  <tr><td>한국 투자자 세금·자금 회전 제약</td><td>해외주식 양도세 22%, 환율 변동, 매도 후 재배치 제한</td><td>단기 매매보다 트랜치·목표가 기반 실행</td></tr>
+</table>
+
+<div class="svgbox avoid-break">
+<svg viewBox="0 0 900 285" role="img" aria-label="SNDK OpenAI optimization ecosystem map">
+  <rect x="20" y="30" width="170" height="72" rx="18" fill="#e8edf1" stroke="#17212b"/>
+  <text x="105" y="61" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">OpenAI 최적화</text>
+  <text x="105" y="84" text-anchor="middle" font-size="12" fill="#6b7480">비용↓ · 캐싱 · 소형모델</text>
+  <rect x="250" y="30" width="170" height="72" rx="18" fill="#e8f0e5" stroke="#17212b"/>
+  <text x="335" y="61" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">AI 사용량</text>
+  <text x="335" y="84" text-anchor="middle" font-size="12" fill="#6b7480">기업 채택 · API 호출</text>
+  <rect x="480" y="30" width="170" height="72" rx="18" fill="#f7eadf" stroke="#17212b"/>
+  <text x="565" y="61" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">저장 전환</text>
+  <text x="565" y="84" text-anchor="middle" font-size="12" fill="#6b7480">문서 · 벡터DB · 로그</text>
+  <rect x="710" y="30" width="160" height="72" rx="18" fill="#eee8f3" stroke="#17212b"/>
+  <text x="790" y="61" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">SNDK 실적</text>
+  <text x="790" y="84" text-anchor="middle" font-size="12" fill="#6b7480">Datacenter NAND</text>
+  <line x1="190" y1="66" x2="250" y2="66" stroke="#315b7d" stroke-width="3"/><polygon points="250,66 238,60 238,72" fill="#315b7d"/>
+  <line x1="420" y1="66" x2="480" y2="66" stroke="#315b7d" stroke-width="3"/><polygon points="480,66 468,60 468,72" fill="#315b7d"/>
+  <line x1="650" y1="66" x2="710" y2="66" stroke="#315b7d" stroke-width="3"/><polygon points="710,66 698,60 698,72" fill="#315b7d"/>
+  <rect x="80" y="160" width="220" height="72" rx="16" fill="#f2dfdc" stroke="#a5534e"/>
+  <text x="190" y="188" text-anchor="middle" font-size="14" font-weight="800" fill="#17212b">리스크 1</text>
+  <text x="190" y="210" text-anchor="middle" font-size="12" fill="#6b7480">AI 사용량이 저장 수요로 전환되지 않음</text>
+  <rect x="340" y="160" width="220" height="72" rx="16" fill="#f2dfdc" stroke="#a5534e"/>
+  <text x="450" y="188" text-anchor="middle" font-size="14" font-weight="800" fill="#17212b">리스크 2</text>
+  <text x="450" y="210" text-anchor="middle" font-size="12" fill="#6b7480">캐싱·소형모델이 단위 수요 압축</text>
+  <rect x="600" y="160" width="220" height="72" rx="16" fill="#f2dfdc" stroke="#a5534e"/>
+  <text x="710" y="188" text-anchor="middle" font-size="14" font-weight="800" fill="#17212b">리스크 3</text>
+  <text x="710" y="210" text-anchor="middle" font-size="12" fill="#6b7480">NAND ASP 하락과 멀티플 축소</text>
+</svg>
+</div>
+
+<h2>마지막 요약</h2>
+<table>
+  <tr><th>항목</th><th>값</th><th>해석</th></tr>
+  <tr><td>현재가</td><td><b>$2,032.22</b></td><td>2026-07-02 기준 문서 입력값</td></tr>
+  <tr><td>보수가</td><td><b>$1,750</b></td><td>OpenAI 최적화로 단위 수요 압축 가능성 반영</td></tr>
+  <tr><td>Base</td><td><b>$2,350</b></td><td>12개월 기대수익률 +15.6%</td></tr>
+  <tr><td>Bull</td><td><b>$2,700</b></td><td>12개월 기대수익률 +32.9%</td></tr>
+  <tr><td>Overshoot</td><td><b>$2,950</b></td><td>확률 3%로 축소</td></tr>
+  <tr><td>실적 전·후 trading target</td><td>$1,900 매수 대기 / $2,500 일부회수</td><td>실적 전 기대감 급등은 일부 회수 우선</td></tr>
+  <tr><td>하방</td><td><b>$1,450</b></td><td>12개월 하방수익률 -28.7%</td></tr>
+  <tr><td>12M 기대수익률</td><td>Base +15.6% / Bull +32.9% / Downside -28.7%</td><td>현재가 하락으로 위험보상은 개선됐지만 추격매수 구간은 아님</td></tr>
+  <tr><td>보유수량 기준 기대손익</td><td>0주: $0</td><td>입력 보유수량 없음 → 0주 처리</td></tr>
+  <tr><td>1,000주 가정 기대손익</td><td>Base +$317,780 / Bull +$667,780 / Downside -$582,220</td><td>세전 기준, 환율·세금 미반영</td></tr>
+  <tr><td>추천 행동</td><td><b>HOLD / $1,900 이하 분할 대기</b></td><td>$2,100 이상 신규 추격 금지</td></tr>
+  <tr><td>목표 비중</td><td>0~1.5%</td><td>Q4 실적 확인 후 2~3% 상향 가능</td></tr>
+  <tr><td>가장 중요한 체크포인트</td><td>AI 사용량 증가가 SNDK datacenter 매출로 전환되는지</td><td>OpenAI 최적화 이후 핵심 검증 지표</td></tr>
+  <tr><td><b>내가 틀렸다고 인정해야 하는 조건</b></td><td><b>$1,450 하회 + Q4 가이던스 미달 또는 FY27 datacenter 수요 둔화</b></td><td>이 경우 “구조적 재평가”가 아니라 “사이클 고점 착시”로 재분류</td></tr>
+</table>
+</section>
+
+<div class="foot">
+  참고 출처: Sandisk Investor Relations Q1/Q2/Q3 FY2026 Results, Sandisk FY2025 Form 10-K, Sandisk FY2026 Form 10-Q, Sandisk Q3 FY2026 Press Release, OpenAI GPT-4.1 및 API pricing/caching 관련 공식 자료, Reuters Sandisk 장기계약·자사주 매입 보도. 
+  <br/>본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.
+</div>
+
+</div>
+</body>
+</html>

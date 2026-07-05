@@ -13,13 +13,21 @@
     <div class="poster-water"></div>
     <div class="poster-road"></div>
   </div>
-  <div class="tooltip-container">
+  <div class="header-control-group">
+    <div class="tooltip-container">
       <!-- 토글 버튼: 클릭 시 toggleTheme() 함수 실행 -->
       <button id="theme-toggle" onclick="toggleTheme()">
           <span id="theme-icon">&#9788;</span> 
       </button>
       <span class="tooltip-text" id="tooltip-text">야간 모드로 전환</span>
-  </div>  
+    </div>
+    <div class="tooltip-container">
+      <button id="bgm-toggle" onclick="toggleBgm()" aria-pressed="true" aria-label="배경음악 끄기">
+        <i id="bgm-icon" class="fa fa-volume-up" aria-hidden="true"></i>
+      </button>
+      <span class="tooltip-text" id="bgm-tooltip-text">배경음악 끄기</span>
+    </div>
+  </div>
 
    <div class="text-vertical-center">
     <h1>YOUNG FINANCE</h1>
@@ -40,7 +48,9 @@
         <iframe 
             width="100%" 
             height="500" 
-            src="https://www.youtube.com/embed/xiGa6SH5yxg?autoplay=1&controls=0&playlist=xiGa6SH5yxg&loop=1" 
+            id="background-music-frame"
+            title="Background music"
+            src="https://www.youtube.com/embed/xiGa6SH5yxg?autoplay=1&controls=0&playlist=xiGa6SH5yxg&loop=1&enablejsapi=1"
             frameborder="0" 
             allow="autoplay; encrypted-media; loop" 
             allowfullscreen>

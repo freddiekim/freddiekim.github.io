@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BE Bloom Energy 투자 브리프 · 2026-06-30</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">BE 투자 핵심 요약 · 2026-06-30 기준</div>
+  <h1>블룸은 AI 전력 수혜주가 맞다<br/>다만 독점 프리미엄은 이미 한번 깨졌다</h1>
+  <p class="sub">Bloom Energy는 수소주라기보다 <b>천연가스 기반 AI 데이터센터 온사이트 전력 인프라주</b>로 보는 것이 정확하다. $350 고점권에서는 과열이었고, $292.50 부근은 재평가 이후의 관심 구간이지만 아직 몰빵 구간은 아니다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $292.50</span>
+    <span class="badge buy">투자의견 Buy on Pullback</span>
+    <span class="badge watch">초기 목표비중 2.5%</span>
+    <span class="badge risk">$210 하회 시 thesis 재점검</span>
+    <span class="badge watch">추가 체크: 2026 가이던스·AI 고객 다변화</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">핵심 thesis</div><div class="big">AI 전력 병목</div><p>전력망 연결이 늦어지는 AI 데이터센터에 천연가스 기반 온사이트 전원을 빠르게 제공할 수 있다는 점이 BE 재평가의 핵심이다.</p></div>
+  <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">재평가 후 관심</div><p>$350대 과열은 꺾였고 $250~300 박스에서 다시 판단해야 한다. 가격은 매력권에 들어왔지만 아직 안전마진은 크지 않다.</p></div>
+  <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">대형 AI 고객</div><p>Oracle, Brookfield, 데이터센터 전력 파트너십이 실제 출하·매출·현금흐름으로 이어지는지가 핵심 촉매다.</p></div>
+  <div class="card red"><div class="label">가장 큰 위험</div><div class="big">경쟁·밸류</div><p>GE Vernova, Caterpillar, Cummins, Wärtsilä식 가스터빈·가스엔진이 초대형 프로젝트를 가져가면 BE 프리미엄은 압축될 수 있다.</p></div>
+</div>
+
+<h3>시장이 보는 BE vs 이 보고서의 해석</h3>
+<table>
+<tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+<tr><td>사업 정체성</td><td>수소·연료전지 테마주</td><td>현재 실적 thesis는 수소보다 천연가스 기반 데이터센터 전력 인프라에 가깝다</td><td>수소 가격보다 AI 전력 수요, 가스 공급, 허가 경쟁력을 봐야 함</td></tr>
+<tr><td>경쟁 구도</td><td>AI 전력 수요가 크면 BE가 모두 수혜</td><td>BE는 좋은 대안이지만 터빈·가스엔진·전력회사와 경쟁한다</td><td>독점 프리미엄보다 선택적 프리미엄을 적용해야 함</td></tr>
+<tr><td>현재 주가</td><td>급락 후 다시 싸졌다</td><td>$350 과열은 해소됐지만 $292.50도 2026 성공을 상당 부분 반영</td><td>한 번에 매수보다 3-트랜치 분할이 맞음</td></tr>
+<tr><td>thesis break</td><td>주가 하락 자체가 악재</td><td>주가보다 2026 가이던스, 고객 지연, 마진 악화가 진짜 break 조건</td><td>$210 하회와 실적 훼손이 동시에 나오면 인정하고 축소</td></tr>
+</table>
+<div class="callout"><b>한 문장 결론:</b> BE는 AI 전력 부족의 진짜 수혜주지만, <b>“AI 전력 독점주”가 아니라 “고급형 온사이트 전력 옵션”</b>으로 밸류에이션을 낮춰 보는 것이 안전하다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> BE는 매출 성장만 보면 강하지만, 투자자는 반드시 GAAP EPS 지속성, 주식수 희석, 분기별 매출 레벨업이 반복 가능한지를 함께 봐야 한다.</div>
+
+<h3>연도별</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">장기 추세에서 봐야 할 것은 적자 축소, 2025년 매출 레벨업, 그리고 누적 희석입니다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="56.0" x2="304" y2="56.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="59.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="88.8" x2="304" y2="88.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="91.8" fill="#8190A7" font-size="9">-1</text><line x1="24" y1="121.6" x2="304" y2="121.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="124.6" fill="#8190A7" font-size="9">-2</text><line x1="24" y1="154.4" x2="304" y2="154.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="157.4" fill="#8190A7" font-size="9">-3</text><rect x="24.0" y="56.0" width="25.8" height="100.0" rx="2" fill="#FF6B6B" /><text x="36.9" y="168.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-3.05</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.1" y="56.0" width="25.8" height="96.1" rx="2" fill="#FF6B6B" /><text x="68.0" y="164.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-2.93</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="86.2" y="56.0" width="25.8" height="37.4" rx="2" fill="#FF6B6B" /><text x="99.1" y="105.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-1.14</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="117.3" y="56.0" width="25.8" height="31.1" rx="2" fill="#FF6B6B" /><text x="130.2" y="99.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.95</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="148.4" y="56.0" width="25.8" height="53.1" rx="2" fill="#FF6B6B" /><text x="161.3" y="121.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-1.62</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="179.6" y="56.0" width="25.8" height="46.6" rx="2" fill="#FF6B6B" /><text x="192.5" y="114.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-1.42</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="210.7" y="56.0" width="25.8" height="4.3" rx="2" fill="#FF6B6B" /><text x="223.6" y="72.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.13</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="241.8" y="56.0" width="25.8" height="12.1" rx="2" fill="#FF6B6B" /><text x="254.7" y="80.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.37</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="272.9" y="56.0" width="25.8" height="1.6" rx="2" fill="#FF6B6B" /><text x="285.8" y="69.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.02</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="56.0" x2="304" y2="56.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="67.1" x2="304" y2="67.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="70.1" fill="#8190A7" font-size="9">2.1</text><line x1="24" y1="89.8" x2="304" y2="89.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="92.8" fill="#8190A7" font-size="9">1.5</text><line x1="24" y1="112.6" x2="304" y2="112.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="115.6" fill="#8190A7" font-size="9">1.0</text><line x1="24" y1="135.3" x2="304" y2="135.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.3" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0.0</text><rect x="24.0" y="125.2" width="25.8" height="32.8" rx="2" fill="#9A7CF3" /><text x="36.9" y="121.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.74</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.1" y="123.3" width="25.8" height="34.7" rx="2" fill="#9A7CF3" /><text x="68.0" y="119.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.79</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="86.2" y="122.9" width="25.8" height="35.1" rx="2" fill="#9A7CF3" /><text x="99.1" y="118.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.79</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="117.3" y="115.1" width="25.8" height="42.9" rx="2" fill="#9A7CF3" /><text x="130.2" y="111.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.97</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="148.4" y="105.0" width="25.8" height="53.0" rx="2" fill="#9A7CF3" /><text x="161.3" y="101.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.20</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="179.6" y="99.1" width="25.8" height="58.9" rx="2" fill="#9A7CF3" /><text x="192.5" y="95.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.33</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="210.7" y="92.9" width="25.8" height="65.1" rx="2" fill="#9A7CF3" /><text x="223.6" y="88.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.47</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="241.8" y="68.6" width="25.8" height="89.4" rx="2" fill="#9A7CF3" /><text x="254.7" y="64.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.02</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="272.9" y="49.8" width="25.8" height="108.2" rx="2" fill="#9A7CF3" /><text x="285.8" y="45.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.45</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="67.1" x2="304" y2="67.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="70.1" fill="#8190A7" font-size="9">0.3</text><line x1="24" y1="89.8" x2="304" y2="89.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="92.8" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="112.6" x2="304" y2="112.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="115.6" fill="#8190A7" font-size="9">0.1</text><line x1="24" y1="135.3" x2="304" y2="135.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.3" fill="#8190A7" font-size="9">0.1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0.0</text><rect x="24.0" y="127.9" width="25.8" height="30.1" rx="2" fill="#37B9C5" /><text x="36.9" y="123.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.089</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.1" y="122.5" width="25.8" height="35.5" rx="2" fill="#37B9C5" /><text x="68.0" y="118.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.105</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="86.2" y="111.0" width="25.8" height="47.0" rx="2" fill="#37B9C5" /><text x="99.1" y="107.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.139</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="117.3" y="99.5" width="25.8" height="58.5" rx="2" fill="#37B9C5" /><text x="130.2" y="95.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.173</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="148.4" y="95.1" width="25.8" height="62.9" rx="2" fill="#37B9C5" /><text x="161.3" y="91.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.186</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="179.6" y="86.0" width="25.8" height="72.0" rx="2" fill="#37B9C5" /><text x="192.5" y="82.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.213</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="210.7" y="81.3" width="25.8" height="76.7" rx="2" fill="#37B9C5" /><text x="223.6" y="77.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.227</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="241.8" y="76.9" width="25.8" height="81.1" rx="2" fill="#37B9C5" /><text x="254.7" y="72.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.240</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="272.9" y="49.8" width="25.8" height="108.2" rx="2" fill="#37B9C5" /><text x="285.8" y="45.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.320</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">MRQ</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">2025 매출 $2.02B</span><span class="chart-pill">TTM 매출 $2.45B</span><span class="chart-pill">MRQ Shares 약 0.32B</span></div>
+  <div class="chart-note">핵심 해석: BE는 2025년부터 매출 레벨이 바뀌었고 Q1 2026에서 성장 thesis가 숫자로 확인됐다. 다만 주가가 높은 멀티플을 정당화하려면 GAAP 흑자와 희석 통제가 동시에 필요하다.</div>
+</div>
+
+<h3>분기별</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 9분기에서 핵심은 Q1 2026 매출 점프와 GAAP 흑자 전환입니다.</div></div><span class="chart-tag">Quarterly</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="49.0" x2="304" y2="49.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="52.0" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="74.0" x2="304" y2="74.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="77.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="103.3" x2="304" y2="103.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="106.3" fill="#8190A7" font-size="9">-0.3</text><rect x="24.0" y="74.0" width="25.8" height="27.2" rx="2" fill="#FF6B6B" /><text x="36.9" y="113.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.25</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '24</text><rect x="55.1" y="74.0" width="25.8" height="29.3" rx="2" fill="#FF6B6B" /><text x="68.0" y="115.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.27</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '24</text><rect x="86.2" y="74.0" width="25.8" height="7.6" rx="2" fill="#FF6B6B" /><text x="99.1" y="93.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.07</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="117.3" y="24.0" width="25.8" height="50.0" rx="2" fill="#4BA3FF" /><text x="130.2" y="20.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.46</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="148.4" y="74.0" width="25.8" height="10.9" rx="2" fill="#FF6B6B" /><text x="161.3" y="96.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.10</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="179.6" y="74.0" width="25.8" height="19.6" rx="2" fill="#FF6B6B" /><text x="192.5" y="105.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.18</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="210.7" y="74.0" width="25.8" height="10.9" rx="2" fill="#FF6B6B" /><text x="223.6" y="96.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.10</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="241.8" y="74.0" width="25.8" height="2.0" rx="2" fill="#4BA3FF" /><text x="254.7" y="70.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.00</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="272.9" y="46.8" width="25.8" height="27.2" rx="2" fill="#4BA3FF" /><text x="285.8" y="42.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.25</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><line x1="24" y1="74.0" x2="304" y2="74.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="67.1" x2="304" y2="67.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="70.1" fill="#8190A7" font-size="9">0.7</text><line x1="24" y1="89.8" x2="304" y2="89.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="92.8" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="112.6" x2="304" y2="112.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="115.6" fill="#8190A7" font-size="9">0.3</text><line x1="24" y1="135.3" x2="304" y2="135.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.3" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0.0</text><rect x="24.0" y="125.3" width="25.8" height="32.7" rx="2" fill="#9A7CF3" /><text x="36.9" y="121.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.23</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '24</text><rect x="55.1" y="111.4" width="25.8" height="46.6" rx="2" fill="#9A7CF3" /><text x="68.0" y="107.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.34</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '24</text><rect x="86.2" y="112.1" width="25.8" height="45.9" rx="2" fill="#9A7CF3" /><text x="99.1" y="108.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.33</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="117.3" y="78.5" width="25.8" height="79.5" rx="2" fill="#9A7CF3" /><text x="130.2" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.57</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="148.4" y="112.7" width="25.8" height="45.3" rx="2" fill="#9A7CF3" /><text x="161.3" y="108.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.33</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="179.6" y="102.2" width="25.8" height="55.8" rx="2" fill="#9A7CF3" /><text x="192.5" y="98.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.40</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="210.7" y="85.8" width="25.8" height="72.2" rx="2" fill="#9A7CF3" /><text x="223.6" y="81.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.52</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="241.8" y="49.8" width="25.8" height="108.2" rx="2" fill="#9A7CF3" /><text x="254.7" y="45.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.78</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="272.9" y="53.6" width="25.8" height="104.4" rx="2" fill="#9A7CF3" /><text x="285.8" y="49.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.75</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="67.1" x2="304" y2="67.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="70.1" fill="#8190A7" font-size="9">0.3</text><line x1="24" y1="89.8" x2="304" y2="89.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="92.8" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="112.6" x2="304" y2="112.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="115.6" fill="#8190A7" font-size="9">0.1</text><line x1="24" y1="135.3" x2="304" y2="135.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="138.3" fill="#8190A7" font-size="9">0.1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0.0</text><rect x="24.0" y="85.0" width="25.8" height="73.0" rx="2" fill="#37B9C5" /><text x="36.9" y="81.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.216</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '24</text><rect x="55.1" y="82.9" width="25.8" height="75.1" rx="2" fill="#37B9C5" /><text x="68.0" y="78.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.222</text><text x="68.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '24</text><rect x="86.2" y="82.3" width="25.8" height="75.7" rx="2" fill="#37B9C5" /><text x="99.1" y="78.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.224</text><text x="99.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '24</text><rect x="117.3" y="80.6" width="25.8" height="77.4" rx="2" fill="#37B9C5" /><text x="130.2" y="76.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.229</text><text x="130.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '24</text><rect x="148.4" y="77.5" width="25.8" height="80.5" rx="2" fill="#37B9C5" /><text x="161.3" y="73.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.238</text><text x="161.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '25</text><rect x="179.6" y="79.2" width="25.8" height="78.8" rx="2" fill="#37B9C5" /><text x="192.5" y="75.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.233</text><text x="192.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2 '25</text><rect x="210.7" y="78.5" width="25.8" height="79.5" rx="2" fill="#37B9C5" /><text x="223.6" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.235</text><text x="223.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3 '25</text><rect x="241.8" y="68.7" width="25.8" height="89.3" rx="2" fill="#37B9C5" /><text x="254.7" y="64.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.264</text><text x="254.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4 '25</text><rect x="272.9" y="49.8" width="25.8" height="108.2" rx="2" fill="#37B9C5" /><text x="285.8" y="45.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.320</text><text x="285.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1 '26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">Q1'26 매출 $751.1M</span><span class="chart-pill">GAAP EPS $0.25</span><span class="chart-pill">2026 가이던스 $3.4B~$3.8B</span></div>
+  <div class="chart-note">핵심 해석: Q1 2026은 BE의 투자 thesis가 숫자로 확인된 분기다. 그러나 Q4 2025와 Q1 2026의 높은 매출 레벨이 일회성이 아니라 반복 가능한 수주·출하 사이클인지 확인해야 한다.</div>
+</div>
+
+<div class="grid g3">
+  <div class="card"><div class="label">연간 매출</div><div class="big">$2.45B TTM</div><p>2026년 중간 가이던스 $3.6B 달성 시 매출 스케일이 다시 한 단계 상승한다.</p></div>
+  <div class="card"><div class="label">수익성</div><div class="big">흑자 검증 중</div><p>Q1 2026 GAAP 흑자는 긍정적이나 연간 안정 흑자 기업으로 인정받으려면 추가 분기 확인이 필요하다.</p></div>
+  <div class="card"><div class="label">희석</div><div class="big">주당가치 변수</div><p>성장 재원·전환사채·주식보상은 GAAP EPS와 주당가치에 부담을 줄 수 있다.</p></div>
+</div>
+
+<h3>연간 데이터</h3>
+<table>
+<tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>2018</td><td class="right">0.742</td><td class="right">-3.05</td><td class="right">0.089</td></tr>
+<tr><td>2019</td><td class="right">0.785</td><td class="right">-2.93</td><td class="right">0.105</td></tr>
+<tr><td>2020</td><td class="right">0.794</td><td class="right">-1.14</td><td class="right">0.139</td></tr>
+<tr><td>2021</td><td class="right">0.972</td><td class="right">-0.95</td><td class="right">0.173</td></tr>
+<tr><td>2022</td><td class="right">1.199</td><td class="right">-1.62</td><td class="right">0.186</td></tr>
+<tr><td>2023</td><td class="right">1.333</td><td class="right">-1.42</td><td class="right">0.213</td></tr>
+<tr><td>2024</td><td class="right">1.474</td><td class="right">-0.13</td><td class="right">0.227</td></tr>
+<tr><td>2025</td><td class="right">2.024</td><td class="right">-0.37</td><td class="right">0.240</td></tr>
+<tr><td><b>TTM</b></td><td class="right"><b>2.449</b></td><td class="right"><b>-0.02</b></td><td class="right"><b>0.320</b></td></tr>
+</table>
+
+<h3>분기 데이터</h3>
+<table>
+<tr><th>분기</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>Q1 '24</td><td class="right">0.235</td><td class="right">-0.25</td><td class="right">0.216</td></tr>
+<tr><td>Q2 '24</td><td class="right">0.335</td><td class="right">-0.27</td><td class="right">0.222</td></tr>
+<tr><td>Q3 '24</td><td class="right">0.330</td><td class="right">-0.07</td><td class="right">0.224</td></tr>
+<tr><td>Q4 '24</td><td class="right">0.572</td><td class="right">0.46</td><td class="right">0.229</td></tr>
+<tr><td>Q1 '25</td><td class="right">0.326</td><td class="right">-0.10</td><td class="right">0.238</td></tr>
+<tr><td>Q2 '25</td><td class="right">0.401</td><td class="right">-0.18</td><td class="right">0.233</td></tr>
+<tr><td>Q3 '25</td><td class="right">0.519</td><td class="right">-0.10</td><td class="right">0.235</td></tr>
+<tr><td>Q4 '25</td><td class="right">0.778</td><td class="right">0.00</td><td class="right">0.264</td></tr>
+<tr><td><b>Q1 '26 / MRQ</b></td><td class="right"><b>0.751</b></td><td class="right"><b>0.25</b></td><td class="right"><b>0.320</b></td></tr>
+</table>
+
+<h3>투자자가 가져야 할 결론</h3>
+<table>
+<tr><th>관찰 지표</th><th>좋은 해석</th><th>주의할 해석</th><th>투자 판단</th></tr>
+<tr><td>매출</td><td>AI 전력 수요가 실제 매출로 연결</td><td>프로젝트형 매출이라 분기 변동성 큼</td><td>Q2~Q4 2026 매출 지속성 확인</td></tr>
+<tr><td>EPS</td><td>Q1 2026 GAAP 흑자 전환</td><td>아직 연간 안정 흑자 기업으로 보기에는 이르다</td><td>GAAP 마진과 non-GAAP EPS 가이던스 유지가 중요</td></tr>
+<tr><td>Shares</td><td>대형 성장 재원 확보의 부산물</td><td>주식수 증가가 주당가치를 잠식 가능</td><td>희석률이 매출 성장률보다 낮아야 함</td></tr>
+</table>
+<div class="callout"><b>핵심:</b> BE는 매출 성장주에서 전력 인프라 플랫폼주로 바뀌는 중이다. 하지만 주가는 이미 이를 크게 반영했기 때문에, 실적 확인 전 추격보다 가격 규율이 우선이다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 7가지 체크포인트</h2>
+<table>
+<tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+<tr><td>1</td><td>2026 매출 가이던스</td><td>$3.4B~$3.8B 유지 또는 상향</td><td>$3.2B 이하로 하향</td><td>유지/추가매수 vs 비중 축소</td></tr>
+<tr><td>2</td><td>AI 고객 다변화</td><td>Oracle 외 Brookfield·hyperscaler 고객 확대</td><td>특정 고객 의존 심화</td><td>고객 다변화 확인 시 목표비중 상향</td></tr>
+<tr><td>3</td><td>경쟁 솔루션</td><td>터빈·가스엔진 대비 허가·소음·배출 장점 부각</td><td>초대형 프로젝트가 GE/CAT/Cummins로 쏠림</td><td>경쟁 수주 흐름 악화 시 멀티플 하향</td></tr>
+<tr><td>4</td><td>서비스 마진</td><td>서비스 gross margin 개선 지속</td><td>유지보수·보증 비용 재상승</td><td>서비스 마진 악화 시 신규매수 중단</td></tr>
+<tr><td>5</td><td>공장·공급망</td><td>증설 일정과 생산 수율 안정</td><td>품질 비용·출하 지연</td><td>생산 차질 시 Base 목표가 하향</td></tr>
+<tr><td>6</td><td>현금흐름</td><td>영업현금흐름 흑자 지속</td><td>매출 증가에도 FCF 악화</td><td>현금흐름 악화 시 비중 축소</td></tr>
+<tr><td>7</td><td>밸류에이션</td><td>EPS 상향이 주가 상승을 따라잡음</td><td>주가만 오르고 EPS 상향 부진</td><td>$310 이상 신규 추격 금지</td></tr>
+</table>
+
+<h3>사건 체인</h3>
+<table>
+<tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+<tr><td>2025</td><td>연간 매출 $2.02B 기록</td><td>과거 $1B대 기업에서 $2B대 전력 플랫폼 기업으로 스케일 이동</td><td>A</td></tr>
+<tr><td>2026-04</td><td>Q1 2026 매출 $751.1M, GAAP EPS $0.25</td><td>AI 전력 수요가 실제 숫자로 확인된 분기</td><td>A</td></tr>
+<tr><td>2026-04</td><td>2026 매출 가이던스 $3.4B~$3.8B 제시</td><td>시장 기대치가 한 단계 재설정됨</td><td>A</td></tr>
+<tr><td>2026-06</td><td>$350 부근 급등 후 $250대 급락</td><td>AI 전력 독점 프리미엄이 과도했다는 시장 재평가</td><td>A</td></tr>
+<tr><td>2026-06</td><td>FCEL·터빈·가스엔진 경쟁 프레임 부각</td><td>AI 데이터센터 전력 시장은 커지지만 BE 독점은 아님</td><td>B</td></tr>
+<tr><td>2026-06-30</td><td>$292.50 부근 반등/재정렬</td><td>펀더멘털 훼손보다 밸류에이션 조정 후 재평가 구간</td><td>B</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+<div class="bridge avoid-break">
+  <div class="col"><div class="box" style="height:53px;background:#f2dfdc">$210</div><div class="name">하방</div></div>
+  <div class="col"><div class="box" style="height:63px;background:#f7eadf">$250</div><div class="name">보수</div></div>
+  <div class="col"><div class="box" style="height:74px;background:#e8edf1">$292.5</div><div class="name">현재</div></div>
+  <div class="col"><div class="box" style="height:91px;background:#e8f0e5">$360</div><div class="name">Base</div></div>
+  <div class="col"><div class="box" style="height:109px;background:#eee8f3">$430</div><div class="name">Bull</div></div>
+  <div class="col"><div class="box" style="height:130px;background:#efe7d5">$520</div><div class="name">Overshoot</div></div>
+</div>
+
+<table>
+<tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th class="center">확률</th><th>실패 조건</th></tr>
+<tr><td>하방</td><td class="right"><b>$210</b></td><td>AI 고객 지연, 2026 가이던스 하향, 고멀티플 압축</td><td class="center">20%</td><td>가이던스 유지와 Q2/Q3 매출 지속 시 하방 제한</td></tr>
+<tr><td>보수</td><td class="right"><b>$250</b></td><td>성장은 인정하지만 경쟁 프레임으로 멀티플 정상화</td><td class="center">25%</td><td>대형 고객 추가와 EPS 상향 지속</td></tr>
+<tr><td>Base 12M</td><td class="right"><b>$360</b></td><td>2026 매출 $3.6B 근접, non-GAAP EPS $2 내외, AI 전력 프리미엄 일부 유지</td><td class="center">35%</td><td>Q2~Q3 매출 둔화 또는 서비스 마진 악화</td></tr>
+<tr><td>Bull</td><td class="right"><b>$430</b></td><td>대형 AI 고객 다변화, 가이던스 추가 상향, GAAP 흑자 지속</td><td class="center">15%</td><td>Oracle 의존도 우려·희석 확대</td></tr>
+<tr><td>Overshoot</td><td class="right"><b>$520</b></td><td>AI 전력 부족 테마 재과열과 대형 계약 연속 발표</td><td class="center">5%</td><td>금리 상승·테마주 리스크오프·경쟁 수주 부각</td></tr>
+</table>
+
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card green"><div class="label">Base 기대수익률</div><div class="big">+23.1%</div><p>Base $360 기준. 6/26 급락 후 기대수익률은 다시 생겼지만, 아직 고성장 프리미엄은 남아 있다.</p></div>
+  <div class="card orange"><div class="label">Bull 기대수익률</div><div class="big">+47.0%</div><p>AI 고객 다변화와 가이던스 상향이 이어지면 가능하다. 단기 반등만으로 추격할 구간은 아니다.</p></div>
+  <div class="card red"><div class="label">Downside 위험</div><div class="big">-28.2%</div><p>하방 $210 기준. 실적 훼손이 확인되면 멀티플 압축이 다시 크게 나올 수 있다.</p></div>
+</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> $292.50은 관심 구간이지만 몰빵 구간은 아니다. $280 이하 1차, $245 이하 2차, $215 부근 3차로 나누고, $310 이상에서는 신규 추격을 금지한다.</div>
+
+<table>
+<tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+<tr><td>$280 이하</td><td>1차 매수</td><td>30%</td><td>2026 가이던스 유지, AI 고객 지연 뉴스 없음</td></tr>
+<tr><td>$245 이하</td><td>2차 매수</td><td>35%</td><td>시장 조정성 하락이며 회사 thesis 유지</td></tr>
+<tr><td>$215 이하</td><td>3차 매수</td><td>35%</td><td>가이던스 유지·수주 취소 없음·마진 훼손 제한</td></tr>
+<tr><td>$310 이상</td><td>신규 추격 금지</td><td>0%</td><td>반등 추격보다 다음 실적 확인 우선</td></tr>
+<tr><td>$390 이상</td><td>일부 회수</td><td>20~30%</td><td>단기 급등 후 거래량 과열</td></tr>
+<tr><td>$450 이상</td><td>차익 실현</td><td>30~50%</td><td>Bull 시나리오 상당 부분 선반영</td></tr>
+<tr><td>$210 하회</td><td>thesis 재점검</td><td>축소/관망</td><td>가격 하락과 동시에 가이던스·고객·마진 훼손 확인 시</td></tr>
+</table>
+
+<h3>실적 발표 전후 판단표</h3>
+<table>
+<tr><th>상황</th><th>확인할 숫자</th><th>판단</th><th>행동</th></tr>
+<tr><td>실적 전 반등 과열</td><td>주가 $310 이상, 거래량 급증</td><td>단기 수급 반등 가능성</td><td>신규매수 금지</td></tr>
+<tr><td>실적 발표 후 매출 서프라이즈</td><td>분기 매출 $850M 이상</td><td>Base→Bull 가능성</td><td>보유 유지, 눌림만 추가</td></tr>
+<tr><td>실적 발표 후 마진 악화</td><td>non-GAAP gross margin 30% 하회</td><td>수익성 의심</td><td>비중 축소</td></tr>
+<tr><td>가이던스 하향</td><td>2026 매출 $3.2B 이하</td><td>thesis break 후보</td><td>방어 우선</td></tr>
+<tr><td>경쟁 수주 부각</td><td>GW급 데이터센터 전력이 터빈/엔진으로 집중</td><td>BE 독점 프리미엄 약화</td><td>목표 멀티플 하향</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+<tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+<tr><td>고객 집중</td><td>Oracle·Brookfield 등 핵심 고객 프로젝트 지연 또는 취소</td><td>목표가를 보수 $250 이하로 하향, 비중 축소</td></tr>
+<tr><td>가이던스 하향</td><td>2026 매출 전망 $3.2B 이하</td><td>신규 매수 중단, 기존 보유 절반 축소 검토</td></tr>
+<tr><td>마진 훼손</td><td>non-GAAP gross margin 30% 하회 또는 서비스 마진 재악화</td><td>성장보다 수익성 검증 우선으로 전환</td></tr>
+<tr><td>경쟁 심화</td><td>GE Vernova, Caterpillar, Cummins, Wärtsilä 등 가스터빈·가스엔진이 AI 데이터센터 전력 수주를 대거 확보</td><td>BE 프리미엄 멀티플 하향</td></tr>
+<tr><td>희석</td><td>주식수 증가율이 매출 성장률을 지속적으로 잠식</td><td>주당가치 기준 밸류에이션 재산정</td></tr>
+<tr><td>정책·연료비</td><td>천연가스 가격 상승, 전력가격 하락, 보조금 변화로 고객 경제성 악화</td><td>계약 경제성 및 고객 ROI 재검토</td></tr>
+<tr><td>밸류에이션 압축</td><td>AI 전력 테마 리스크오프, 금리 상승, 고성장주 멀티플 하락</td><td>트랜치 가격을 낮추고 현금 비중 유지</td></tr>
+</table>
+
+<div class="svgbox">
+<svg viewBox="0 0 920 260" role="img" aria-label="Bloom Energy ecosystem map">
+  <rect x="20" y="30" width="170" height="70" rx="18" fill="#e8edf1" stroke="#17212b"/>
+  <text x="105" y="62" text-anchor="middle" font-weight="900" fill="#17212b">AI 데이터센터</text>
+  <text x="105" y="84" text-anchor="middle" font-size="12" fill="#6b7480">전력 인입 병목</text>
+  <rect x="260" y="30" width="170" height="70" rx="18" fill="#e8f0e5" stroke="#17212b"/>
+  <text x="345" y="62" text-anchor="middle" font-weight="900" fill="#17212b">Bloom SOFC</text>
+  <text x="345" y="84" text-anchor="middle" font-size="12" fill="#6b7480">천연가스·바이오가스·수소</text>
+  <rect x="500" y="30" width="170" height="70" rx="18" fill="#f7eadf" stroke="#17212b"/>
+  <text x="585" y="62" text-anchor="middle" font-weight="900" fill="#17212b">고객 가치</text>
+  <text x="585" y="84" text-anchor="middle" font-size="12" fill="#6b7480">빠른 설치·낮은 배출</text>
+  <rect x="740" y="30" width="160" height="70" rx="18" fill="#eee8f3" stroke="#17212b"/>
+  <text x="820" y="62" text-anchor="middle" font-weight="900" fill="#17212b">투자 가치</text>
+  <text x="820" y="84" text-anchor="middle" font-size="12" fill="#6b7480">AI 전력 인프라 옵션</text>
+  <line x1="190" y1="65" x2="260" y2="65" stroke="#315b7d" stroke-width="3"/>
+  <line x1="430" y1="65" x2="500" y2="65" stroke="#315b7d" stroke-width="3"/>
+  <line x1="670" y1="65" x2="740" y2="65" stroke="#315b7d" stroke-width="3"/>
+  <rect x="120" y="150" width="680" height="74" rx="18" fill="#f2dfdc" stroke="#a5534e"/>
+  <text x="460" y="178" text-anchor="middle" font-weight="900" fill="#17212b">반드시 확인할 반대 조건</text>
+  <text x="460" y="199" text-anchor="middle" font-size="13" fill="#6b7480">가이던스 하향 · AI 고객 지연 · 마진 악화 · 희석 확대 · 터빈/엔진 경쟁 수주 확대</text>
+</svg>
+</div>
+
+<h2>마지막 요약</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>현재가</td><td><b>$292.50</b></td></tr>
+<tr><td>보수가</td><td>$250</td></tr>
+<tr><td>Base</td><td>$360 · 12M 기대수익률 <b>+23.1%</b></td></tr>
+<tr><td>Bull</td><td>$430 · 기대수익률 <b>+47.0%</b></td></tr>
+<tr><td>Overshoot</td><td>$520 · 기대수익률 <b>+77.8%</b></td></tr>
+<tr><td>실적 전·후 trading target</td><td>실적 전 $310 이상 추격 금지 / 실적 후 $390 이상 일부 회수 / $450 이상 차익실현</td></tr>
+<tr><td>하방</td><td>$210 · 기대수익률 <b>-28.2%</b></td></tr>
+<tr><td>보유수량 기준 기대손익</td><td>현재 보유 0주: $0 / 1,000주 가정: Base +$67,500, Bull +$137,500, Downside -$82,500</td></tr>
+<tr><td>추천 행동</td><td><b>Buy on Pullback</b>. 현재가 추격보다 $280/$245/$215 3-트랜치 분할</td></tr>
+<tr><td>목표 비중</td><td>초기 2.5%, 실적 확인 후 최대 4.0% 이내</td></tr>
+<tr><td>가장 중요한 체크포인트</td><td>2026 매출 $3.4B~$3.8B 가이던스 유지, AI 고객 다변화, gross margin 30% 이상 유지</td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td><b>2026 매출 가이던스가 $3.2B 이하로 내려가거나, 핵심 AI 고객 프로젝트 지연·취소와 마진 악화가 동시에 나오고 주가가 $210을 하회하는 경우</b></td></tr>
+<tr><td>한국 투자자 제약</td><td>해외주식 양도세 22%와 환율 변동을 감안해 전량 매수보다 분할·일부회수 전략 우선</td></tr>
+</table>
+</section>
+
+<div class="foot">
+  참고 출처: Bloom Energy Investor Relations, SEC Form 10-K 2025, SEC Q1 2026 Earnings Release, NYSE/시장 가격 데이터. 본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.
+</div>
+
+</div>
+</body>
+</html>

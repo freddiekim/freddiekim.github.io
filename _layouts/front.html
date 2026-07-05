@@ -29,6 +29,76 @@
           }
       }
 
+      function getSavedBgmState() {
+          try {
+              return window.localStorage ? window.localStorage.getItem('bgm') : null;
+          } catch (error) {
+              return null;
+          }
+      }
+
+      function saveBgmState(state) {
+          try {
+              if (window.localStorage) {
+                  window.localStorage.setItem('bgm', state);
+              }
+          } catch (error) {
+              // 배경음악 토글은 저장소 접근 가능 여부와 무관하게 동작해야 합니다.
+          }
+      }
+
+      function sendBgmCommand(command) {
+          const frame = document.getElementById('background-music-frame');
+          if (!frame || !frame.contentWindow) {
+              return;
+          }
+
+          frame.contentWindow.postMessage(JSON.stringify({
+              event: 'command',
+              func: command,
+              args: []
+          }), '*');
+      }
+
+      function updateBgmButton(isOn) {
+          const toggle = document.getElementById('bgm-toggle');
+          const icon = document.getElementById('bgm-icon');
+          const tooltipText = document.getElementById('bgm-tooltip-text');
+          if (!toggle || !icon || !tooltipText) {
+              return;
+          }
+
+          toggle.classList.toggle('is-off', !isOn);
+          toggle.setAttribute('aria-pressed', isOn ? 'true' : 'false');
+          toggle.setAttribute('aria-label', isOn ? '배경음악 끄기' : '배경음악 켜기');
+          icon.className = isOn ? 'fa fa-volume-up' : 'fa fa-volume-off';
+          tooltipText.textContent = isOn ? '배경음악 끄기' : '배경음악 켜기';
+      }
+
+      function setBgmState(state) {
+          const isOn = state === 'on';
+          updateBgmButton(isOn);
+          saveBgmState(isOn ? 'on' : 'off');
+
+          if (isOn) {
+              sendBgmCommand('unMute');
+              sendBgmCommand('playVideo');
+          } else {
+              sendBgmCommand('pauseVideo');
+              sendBgmCommand('mute');
+          }
+      }
+
+      function toggleBgm() {
+          const toggle = document.getElementById('bgm-toggle');
+          const isOn = !toggle || toggle.getAttribute('aria-pressed') !== 'false';
+          setBgmState(isOn ? 'off' : 'on');
+      }
+
+      function loadBgmState() {
+          setBgmState(getSavedBgmState() || 'on');
+      }
+
       /**
         * 주간/야간 모드를 전환하는 함수
       */
@@ -108,8 +178,11 @@
           }
       }
 
-      // 페이지 로드 시 테마를 불러와 적용
-      window.addEventListener('load', loadTheme);
+      // 페이지 로드 시 테마와 배경음악 상태를 불러와 적용
+      window.addEventListener('load', function () {
+          loadTheme();
+          loadBgmState();
+      });
   </script>  
 </body>
 
