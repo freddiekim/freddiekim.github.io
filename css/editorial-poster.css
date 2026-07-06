@@ -873,7 +873,7 @@ body.sidebar-open .header-control-group {
     gap: 12px 14px;
 }
 
-.company-board-links a {
+.company-board-links .resource-chip {
     align-items: center;
     background: #fff;
     border: 5px solid var(--poster-line);
@@ -890,38 +890,52 @@ body.sidebar-open .header-control-group {
     text-decoration: none;
 }
 
-.company-board-links a.report-chip {
+.company-board-links .resource-report {
     background: var(--poster-sun);
 }
 
-.company-board-links a.call-chip {
+.company-board-links .resource-quarter {
     background: var(--poster-green);
     color: var(--poster-cream) !important;
 }
 
-.company-board-links a.earnings-summary-chip {
+.company-board-links .resource-summary {
     background: #f4a083;
 }
 
-.company-board-links a.annual-chip {
-    background: var(--poster-blue);
-    color: var(--poster-cream);
-}
-
-.company-board-links a.qa-chip {
+.company-board-links .resource-qa {
     background: var(--poster-sky);
 }
 
-.company-board-links a.audio-chip {
+.company-board-links .resource-audio {
     background: #8f63d8;
     color: var(--poster-cream) !important;
 }
 
-.company-board-links a:hover,
-.company-board-links a:focus {
+.company-board-links a.resource-chip:hover,
+.company-board-links a.resource-chip:focus {
     background: var(--poster-coral);
     color: var(--poster-cream) !important;
     text-decoration: none;
+}
+
+.company-board-links .resource-chip > span {
+    align-items: center;
+    background: var(--poster-line);
+    border-radius: 999px;
+    color: var(--poster-cream);
+    display: inline-flex;
+    font-size: 12px;
+    justify-content: center;
+    margin-left: 8px;
+    min-height: 23px;
+    min-width: 23px;
+    padding: 2px 7px;
+}
+
+.company-board-links .resource-chip.is-disabled {
+    cursor: default;
+    opacity: .38;
 }
 
 .other-reports {
@@ -1537,7 +1551,7 @@ img {
         gap: 10px;
     }
 
-    .company-board-links a {
+    .company-board-links .resource-chip {
         border-width: 4px;
         font-size: 18px;
         min-height: 50px;
@@ -1607,7 +1621,7 @@ img {
         font-size: 17px;
     }
 
-    .company-board-links a {
+    .company-board-links .resource-chip {
         font-size: 16px;
         min-height: 46px;
     }

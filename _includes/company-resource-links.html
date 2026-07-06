@@ -1,0 +1,180 @@
+{% assign resource_company = include.company %}
+{% assign resource_ticker = resource_company.ticker %}
+{% assign resource_ticker_key = resource_ticker | upcase %}
+{% capture resource_file_prefix %}{{ resource_ticker | downcase }}_{% endcapture %}
+{% assign resource_file_prefix_size = resource_file_prefix | size %}
+{% assign resource_earnings = site.data.earnings_presentations[resource_ticker_key] %}
+{% assign resource_calls = site.data.conference_calls[resource_ticker_key] %}
+{% assign resource_annuals = site.data.annual_reports[resource_ticker_key] %}
+
+{% assign report_count = 0 %}
+{% capture report_items %}
+  {% for report in report_files reversed %}
+    {% assign report_ticker = report.name | split: "_" | first | upcase %}
+    {% if report_ticker == resource_ticker_key %}
+      {% assign report_count = report_count | plus: 1 %}
+      {% assign report_parts = report.name | remove: ".html" | split: "_" %}
+      {% assign report_date_raw = report_parts | last %}
+      {% if report_date_raw.size == 8 %}
+        {% assign report_month = report_date_raw | slice: 4, 2 | plus: 0 %}
+        {% assign report_day = report_date_raw | slice: 6, 2 | plus: 0 %}
+        {% capture report_title %}기업분석 {{ report_month }}/{{ report_day }}{% endcapture %}
+      {% else %}
+        {% assign report_title = "기업분석" %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="report" data-resource-href="{{ report.path | relative_url | escape }}" data-resource-title="{{ report_title | strip | escape }}" data-resource-meta="기업분석" hidden></span>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign qa_count = 0 %}
+{% capture qa_items %}
+  {% for qa_file in qa_files reversed %}
+    {% assign qa_file_name_down = qa_file.name | downcase %}
+    {% assign qa_file_prefix = qa_file_name_down | slice: 0, resource_file_prefix_size %}
+    {% if qa_file_prefix == resource_file_prefix %}
+      {% assign qa_count = qa_count | plus: 1 %}
+      {% assign qa_parts = qa_file.name | remove: ".html" | split: "_" %}
+      {% assign qa_date_raw = qa_parts | last %}
+      {% if qa_date_raw.size == 8 %}
+        {% assign qa_month = qa_date_raw | slice: 4, 2 | plus: 0 %}
+        {% assign qa_day = qa_date_raw | slice: 6, 2 | plus: 0 %}
+        {% capture qa_title %}QnA {{ qa_month }}/{{ qa_day }}{% endcapture %}
+      {% else %}
+        {% assign qa_title = "QnA" %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="qa" data-resource-href="{{ qa_file.path | relative_url | escape }}" data-resource-title="{{ qa_title | strip | escape }}" data-resource-meta="질의응답" hidden></span>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign quarter_count = 0 %}
+{% capture quarter_items %}
+  {% for item in resource_earnings %}
+    {% assign quarter_count = quarter_count | plus: 1 %}
+    <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="quarter" data-resource-href="{{ item.url | escape }}" data-resource-title="{{ item.period | default: item.label | default: '분기자료' | escape }}" data-resource-meta="IR 분기자료" hidden></span>
+  {% endfor %}
+  {% for call in resource_calls %}
+    {% assign quarter_count = quarter_count | plus: 1 %}
+    <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="quarter" data-resource-href="{{ call.url | escape }}" data-resource-title="{{ call.period | default: call.label | default: '컨퍼런스콜 원문' | escape }}" data-resource-meta="컨퍼런스콜 원문" hidden></span>
+  {% endfor %}
+  {% for annual in resource_annuals %}
+    {% assign quarter_count = quarter_count | plus: 1 %}
+    <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="quarter" data-resource-href="{{ annual.url | escape }}" data-resource-title="{{ annual.chip | default: annual.period | default: '연간보고서' | escape }}" data-resource-meta="연간자료" hidden></span>
+  {% endfor %}
+{% endcapture %}
+
+{% assign summary_count = 0 %}
+{% capture summary_items %}
+  {% for summary in earnings_summary_files reversed %}
+    {% assign summary_name_down = summary.name | downcase %}
+    {% assign summary_prefix = summary_name_down | slice: 0, resource_file_prefix_size %}
+    {% if summary_prefix == resource_file_prefix %}
+      {% assign summary_count = summary_count | plus: 1 %}
+      {% assign summary_parts = summary.name | remove: ".html" | split: "_" %}
+      {% assign summary_quarter_raw = "" %}
+      {% assign summary_year = "" %}
+      {% for summary_part in summary_parts %}
+        {% assign summary_part_down = summary_part | downcase %}
+        {% assign summary_part_first = summary_part_down | slice: 0, 1 %}
+        {% assign summary_part_size = summary_part_down | size %}
+        {% if summary_part_first == "q" and summary_part_size <= 3 %}
+          {% assign summary_quarter_raw = summary_part %}
+        {% endif %}
+        {% if summary_part_size == 4 %}
+          {% assign summary_year_number = summary_part | plus: 0 %}
+          {% if summary_year_number >= 2000 and summary_year_number <= 2099 %}
+            {% assign summary_year = summary_part %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% assign summary_quarter = summary_quarter_raw | replace: "Q", "" | replace: "q", "" %}
+      {% if summary_year != "" and summary_quarter != "" %}
+        {% capture summary_title %}{{ summary_year }} {{ summary_quarter }}Q 요약{% endcapture %}
+      {% else %}
+        {% assign summary_title = "분기자료 요약" %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary" data-resource-href="{{ summary.path | relative_url | escape }}" data-resource-title="{{ summary_title | strip | escape }}" data-resource-meta="실적 요약" hidden></span>
+    {% endif %}
+  {% endfor %}
+  {% for call_file in conference_call_files reversed %}
+    {% assign call_file_name_down = call_file.name | downcase %}
+    {% assign call_file_prefix = call_file_name_down | slice: 0, resource_file_prefix_size %}
+    {% if call_file_prefix == resource_file_prefix %}
+      {% assign summary_count = summary_count | plus: 1 %}
+      {% assign call_parts = call_file.name | remove: ".html" | split: "_" %}
+      {% assign call_quarter_raw = "" %}
+      {% assign call_year = "" %}
+      {% for call_part in call_parts %}
+        {% assign call_part_down = call_part | downcase %}
+        {% assign call_part_first = call_part_down | slice: 0, 1 %}
+        {% assign call_part_size = call_part_down | size %}
+        {% if call_part_first == "q" and call_part_size <= 3 %}
+          {% assign call_quarter_raw = call_part %}
+        {% endif %}
+        {% if call_part_size == 4 %}
+          {% assign call_year_number = call_part | plus: 0 %}
+          {% if call_year_number >= 2000 and call_year_number <= 2099 %}
+            {% assign call_year = call_part %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% assign call_quarter = call_quarter_raw | replace: "Q", "" | replace: "q", "" %}
+      {% assign call_year_short = call_year | slice: 2, 2 %}
+      {% if call_year_short != "" and call_quarter != "" %}
+        {% capture call_title %}{{ call_year_short }} {{ call_quarter }}Q 어닝콜 요약{% endcapture %}
+      {% else %}
+        {% assign call_title = "어닝콜 요약" %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary" data-resource-href="{{ call_file.path | relative_url | escape }}" data-resource-title="{{ call_title | strip | escape }}" data-resource-meta="어닝콜 요약" hidden></span>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% assign audio_count = 0 %}
+{% capture audio_items %}
+  {% for audio in site.data.company_audio %}
+    {% assign audio_ticker = audio.ticker | strip | upcase %}
+    {% assign audio_title = audio.title | default: audio.tilte | strip %}
+    {% assign audio_href = audio.link_address | default: audio.link | default: audio.url | strip %}
+    {% if audio_ticker == resource_ticker_key and audio_href %}
+      {% assign audio_count = audio_count | plus: 1 %}
+      <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-title="{{ audio_title | default: '음성 파일' | escape }}" data-audio-ticker="{{ resource_ticker | escape }}" hidden></span>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% capture overview_href %}{{ '/pages_company/' | append: resource_ticker | append: '.html' | relative_url }}{% endcapture %}
+<a class="{{ include.chip_class }} resource-chip resource-overview js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="overview">개요 <span>1</span></a>
+{% if report_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-report js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="report">기업분석 <span>{{ report_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-report is-disabled" aria-disabled="true">기업분석 <span>0</span></span>
+{% endif %}
+{% if audio_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-audio js-audio-playlist-trigger" href="#" data-audio-ticker="{{ resource_ticker | escape }}" data-audio-count="{{ audio_count }}">음성 <span>{{ audio_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-audio is-disabled" aria-disabled="true">음성 <span>0</span></span>
+{% endif %}
+{% if qa_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-qa js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="qa">QnA <span>{{ qa_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-qa is-disabled" aria-disabled="true">QnA <span>0</span></span>
+{% endif %}
+{% if quarter_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-quarter js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="quarter">분기자료 <span>{{ quarter_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-quarter is-disabled" aria-disabled="true">분기자료 <span>0</span></span>
+{% endif %}
+{% if summary_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-summary js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary">분기자료 요약 <span>{{ summary_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-summary is-disabled" aria-disabled="true">분기자료 요약 <span>0</span></span>
+{% endif %}
+
+<span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="overview" data-resource-href="{{ overview_href | strip | escape }}" data-resource-title="{{ resource_company.name | escape }} 개요" data-resource-meta="{{ resource_ticker | escape }}" hidden></span>
+{{ report_items }}
+{{ qa_items }}
+{{ quarter_items }}
+{{ summary_items }}
+{{ audio_items }}

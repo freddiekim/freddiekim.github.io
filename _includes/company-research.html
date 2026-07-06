@@ -11,7 +11,7 @@
       <p class="analysis-kicker">Company Research</p>
       <h2>Company Research</h2>
       <p class="analysis-thesis">
-        역할별 기업 분석 허브입니다. 자세한 핵심 관찰, 추적 지표, 리스크, 다음 업데이트, 컨퍼런스콜 요약은 각 기업의 개요 페이지에 보관합니다.
+        역할별 기업 분석 허브입니다. 개요, 기업분석, 음성, QnA, 분기자료와 요약을 종목별로 선택해 볼 수 있습니다.
       </p>
     </div>
 
@@ -32,15 +32,12 @@
             {% assign role_desc = "현재 포트폴리오 파일에는 없지만 계속 추적하는 기업입니다." %}
           {% else %}
             {% assign role_label = "기타" %}
-            {% assign role_desc = "Top 20 밖의 소액 보유 종목과 신규 리포트입니다." %}
+            {% assign role_desc = "주요 포메이션 밖의 보유 종목입니다." %}
         {% endcase %}
         {% assign role_total = 0 %}
         {% assign role_count = 0 %}
         {% for company in companies %}
-          {% assign company_role = company.portfolio_role %}
-          {% if company_role == nil or company_role == "" %}
-            {% assign company_role = "other" %}
-          {% endif %}
+          {% assign company_role = company.portfolio_role | default: "other" %}
           {% if company_role == role %}
             {% if company.portfolio_weight %}
               {% assign role_total = role_total | plus: company.portfolio_weight %}
@@ -62,19 +59,9 @@
 
           <div class="company-board-list">
             {% for company in companies %}
-              {% assign company_role = company.portfolio_role %}
-              {% if company_role == nil or company_role == "" %}
-                {% assign company_role = "other" %}
-              {% endif %}
+              {% assign company_role = company.portfolio_role | default: "other" %}
               {% if company_role == role %}
                 {% assign ticker = company.ticker %}
-                {% assign ticker_key = ticker | upcase %}
-                {% assign earnings_links = site.data.earnings_presentations[ticker_key] %}
-                {% assign conference_links = site.data.conference_calls[ticker_key] %}
-                {% assign annual_links = site.data.annual_reports[ticker_key] %}
-                {% capture ticker_file_prefix %}{{ ticker | downcase }}_{% endcapture %}
-                {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
-
                 <div class="company-board-row" id="company-{{ ticker | downcase }}">
                   <div class="company-board-main">
                     <div>
@@ -86,157 +73,7 @@
                     {% endif %}
                   </div>
                   <div class="company-board-links">
-                    <a class="overview-chip" href="{{ '/pages_company/' | append: ticker | append: '.html' | relative_url }}" target="_self">개요</a>
-                    {% for report in report_files reversed %}
-                      {% assign report_ticker = report.name | split: "_" | first | upcase %}
-                      {% if report_ticker == ticker_key %}
-                        {% assign report_parts = report.name | remove: ".html" | split: "_" %}
-                        {% assign report_date_raw = report_parts | last %}
-                        {% if report_date_raw.size == 8 %}
-                          {% assign report_month = report_date_raw | slice: 4, 2 | plus: 0 %}
-                          {% assign report_day = report_date_raw | slice: 6, 2 | plus: 0 %}
-                          <a class="report-chip" href="{{ report.path | relative_url }}" target="_self">기업분석({{ report_month }}/{{ report_day }})</a>
-                        {% else %}
-                          <a class="report-chip" href="{{ report.path | relative_url }}" target="_self">기업분석</a>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                    {% for earnings_summary in earnings_summary_files reversed %}
-                      {% assign earnings_summary_name_down = earnings_summary.name | downcase %}
-                      {% assign earnings_summary_prefix = earnings_summary_name_down | slice: 0, ticker_file_prefix_size %}
-                      {% if earnings_summary_prefix == ticker_file_prefix %}
-                        {% assign earnings_summary_parts = earnings_summary.name | remove: ".html" | split: "_" %}
-                        {% assign earnings_summary_quarter_raw = "" %}
-                        {% assign earnings_summary_year = "" %}
-                        {% for earnings_summary_part in earnings_summary_parts %}
-                          {% assign earnings_summary_part_down = earnings_summary_part | downcase %}
-                          {% assign earnings_summary_part_first = earnings_summary_part_down | slice: 0, 1 %}
-                          {% assign earnings_summary_part_size = earnings_summary_part_down | size %}
-                          {% if earnings_summary_part_first == "q" and earnings_summary_part_size <= 3 %}
-                            {% assign earnings_summary_quarter_raw = earnings_summary_part %}
-                          {% endif %}
-                          {% if earnings_summary_part_size == 4 %}
-                            {% assign earnings_summary_year_number = earnings_summary_part | plus: 0 %}
-                            {% if earnings_summary_year_number >= 2000 and earnings_summary_year_number <= 2099 %}
-                              {% assign earnings_summary_year = earnings_summary_part %}
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                        {% assign earnings_summary_quarter = earnings_summary_quarter_raw | replace: "Q", "" | replace: "q", "" %}
-                        {% if earnings_summary_year != "" and earnings_summary_quarter != "" %}
-                          <a class="earnings-summary-chip" href="{{ earnings_summary.path | relative_url }}" target="_self">{{ earnings_summary_year }} {{ earnings_summary_quarter }}Q 정리</a>
-                        {% else %}
-                          <a class="earnings-summary-chip" href="{{ earnings_summary.path | relative_url }}" target="_self">실적 정리</a>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                    {% for call_file in conference_call_files reversed %}
-                      {% assign call_file_name_down = call_file.name | downcase %}
-                      {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
-                      {% if call_file_prefix == ticker_file_prefix %}
-                        {% assign call_parts = call_file.name | remove: ".html" | split: "_" %}
-                        {% assign call_quarter_raw = "" %}
-                        {% assign call_year = "" %}
-                        {% for call_part in call_parts %}
-                          {% assign call_part_down = call_part | downcase %}
-                          {% assign call_part_first = call_part_down | slice: 0, 1 %}
-                          {% assign call_part_size = call_part_down | size %}
-                          {% if call_part_first == "q" and call_part_size <= 3 %}
-                            {% assign call_quarter_raw = call_part %}
-                          {% endif %}
-                          {% if call_part_size == 4 %}
-                            {% assign call_year_number = call_part | plus: 0 %}
-                            {% if call_year_number >= 2000 and call_year_number <= 2099 %}
-                              {% assign call_year = call_part %}
-                            {% endif %}
-                          {% endif %}
-                        {% endfor %}
-                        {% assign call_quarter = call_quarter_raw | replace: "Q", "" | replace: "q", "" %}
-                        {% assign call_year_short = call_year | slice: 2, 2 %}
-                        {% if call_year_short != "" and call_quarter != "" %}
-                          <a class="call-chip" href="{{ call_file.path | relative_url }}" target="_self">{{ call_year_short }} {{ call_quarter }}Q 어닝콜</a>
-                        {% else %}
-                          <a class="call-chip" href="{{ call_file.path | relative_url }}" target="_self">어닝콜</a>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                    {% if company_role == "watchlist" and conference_links %}
-                      {% for call in conference_links limit: 2 %}
-                        {% assign call_chip_label = call.chip %}
-                        {% if call_chip_label == nil or call_chip_label == "" %}
-                          {% assign call_period_parts = call.period | split: " " %}
-                          {% assign call_year_from_period = "" %}
-                          {% assign call_quarter_from_period = "" %}
-                          {% for call_period_part in call_period_parts %}
-                            {% assign call_period_clean = call_period_part | remove: "FY" %}
-                            {% assign call_period_size = call_period_clean | size %}
-                            {% assign call_period_first = call_period_clean | slice: 0, 1 | downcase %}
-                            {% if call_period_size == 4 %}
-                              {% assign call_period_year_number = call_period_clean | plus: 0 %}
-                              {% if call_period_year_number >= 2000 and call_period_year_number <= 2099 %}
-                                {% assign call_year_from_period = call_period_clean %}
-                              {% endif %}
-                            {% endif %}
-                            {% if call_period_first == "q" %}
-                              {% assign call_quarter_from_period = call_period_clean | remove: "Q" | remove: "q" %}
-                            {% endif %}
-                          {% endfor %}
-                          {% assign call_year_short = call_year_from_period | slice: 2, 2 %}
-                          {% if call_year_short != "" and call_quarter_from_period != "" %}
-                            {% capture call_chip_label %}{{ call_year_short }} {{ call_quarter_from_period }}Q 어닝콜{% endcapture %}
-                          {% else %}
-                            {% assign call_chip_label = "어닝콜" %}
-                          {% endif %}
-                        {% endif %}
-                        <a class="call-chip" href="{{ call.url }}" target="_self">{{ call_chip_label }}</a>
-                      {% endfor %}
-                    {% endif %}
-                    {% for qa_file in qa_files reversed %}
-                      {% assign qa_file_name_down = qa_file.name | downcase %}
-                      {% assign qa_file_prefix = qa_file_name_down | slice: 0, ticker_file_prefix_size %}
-                      {% if qa_file_prefix == ticker_file_prefix %}
-                        {% assign qa_parts = qa_file.name | remove: ".html" | split: "_" %}
-                        {% assign qa_date_raw = qa_parts | last %}
-                        {% if qa_date_raw.size == 8 %}
-                          {% assign qa_month = qa_date_raw | slice: 4, 2 | plus: 0 %}
-                          {% assign qa_day = qa_date_raw | slice: 6, 2 | plus: 0 %}
-                          <a class="qa-chip" href="{{ qa_file.path | relative_url }}" target="_self">QnA({{ qa_month }}/{{ qa_day }})</a>
-                        {% else %}
-                          <a class="qa-chip" href="{{ qa_file.path | relative_url }}" target="_self">QnA</a>
-                        {% endif %}
-                      {% endif %}
-                    {% endfor %}
-                    {% assign audio_count = 0 %}
-                    {% capture audio_track_links %}
-                      {% for audio in site.data.company_audio %}
-                        {% assign audio_ticker = audio.ticker | strip | upcase %}
-                        {% assign audio_title = audio.title | default: audio.tilte | strip %}
-                        {% assign audio_href = audio.link_address | default: audio.link | default: audio.url | strip %}
-                        {% if audio_ticker == ticker_key and audio_href %}
-                          {% assign audio_count = audio_count | plus: 1 %}
-                          {% if audio_title %}
-                            <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-title="{{ audio_title | escape }}" data-audio-ticker="{{ ticker | escape }}" hidden></span>
-                          {% else %}
-                            <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-ticker="{{ ticker | escape }}" hidden></span>
-                          {% endif %}
-                        {% endif %}
-                      {% endfor %}
-                    {% endcapture %}
-                    {% if audio_count > 0 %}
-                      <a class="audio-chip js-audio-playlist-trigger" href="#" data-audio-ticker="{{ ticker | escape }}" data-audio-count="{{ audio_count }}">음성</a>
-                      {{ audio_track_links }}
-                    {% endif %}
-                    {% if earnings_links %}
-                      {% for item in earnings_links limit: 2 %}
-                        <a href="{{ item.url }}" target="_self">{{ item.period }}</a>
-                      {% endfor %}
-                    {% endif %}
-                    {% if annual_links %}
-                      {% for annual in annual_links limit: 1 %}
-                        {% assign annual_chip_label = annual.chip | default: "2025 연간보고서" %}
-                        <a class="annual-chip" href="{{ annual.url }}" target="_self">{{ annual_chip_label }}</a>
-                      {% endfor %}
-                    {% endif %}
+                    {% include company-resource-links.html company=company %}
                   </div>
                 </div>
               {% endif %}
