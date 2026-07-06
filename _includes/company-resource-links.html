@@ -136,10 +136,11 @@
   {% for audio in site.data.company_audio %}
     {% assign audio_ticker = audio.ticker | strip | upcase %}
     {% assign audio_title = audio.title | default: audio.tilte | strip %}
-    {% assign audio_href = audio.link_address | default: audio.link | default: audio.url | strip %}
+    {% assign audio_original_href = audio.link_address | default: audio.link | default: audio.url | strip %}
+    {% assign audio_href = audio.direct_url | default: audio_original_href | strip %}
     {% if audio_ticker == resource_ticker_key and audio_href %}
       {% assign audio_count = audio_count | plus: 1 %}
-      <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-title="{{ audio_title | default: '음성 파일' | escape }}" data-audio-ticker="{{ resource_ticker | escape }}" hidden></span>
+      <span class="js-audio-track company-audio-track-source" data-audio-href="{{ audio_href | escape }}" data-audio-original-href="{{ audio_original_href | default: audio_href | escape }}" data-audio-title="{{ audio_title | default: '음성 파일' | escape }}" data-audio-ticker="{{ resource_ticker | escape }}" hidden></span>
     {% endif %}
   {% endfor %}
 {% endcapture %}

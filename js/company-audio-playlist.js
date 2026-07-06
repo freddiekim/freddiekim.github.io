@@ -70,8 +70,9 @@
   function trackFromElement(element) {
     var title = cleanText(element.getAttribute("data-audio-title") || element.getAttribute("title"));
     var ticker = cleanText(element.getAttribute("data-audio-ticker"));
-    var href = cleanText(element.getAttribute("data-audio-href") || element.getAttribute("href"));
-    var driveId = getDriveFileId(href);
+    var sourceHref = cleanText(element.getAttribute("data-audio-href") || element.getAttribute("href"));
+    var originalHref = cleanText(element.getAttribute("data-audio-original-href")) || sourceHref;
+    var driveId = getDriveFileId(sourceHref);
 
     if (!title) {
       title = cleanText(element.textContent).replace(/^음성\s*:\s*/, "") || "음성 파일";
@@ -80,10 +81,10 @@
     return {
       title: title,
       ticker: ticker,
-      href: href,
-      previewUrl: getDrivePreviewUrl(href),
-      streamUrl: driveId ? getDriveStreamUrl(href) : href,
-      canUseAudioTag: !!driveId || isDirectAudio(href)
+      href: originalHref,
+      previewUrl: getDrivePreviewUrl(originalHref),
+      streamUrl: driveId ? getDriveStreamUrl(sourceHref) : sourceHref,
+      canUseAudioTag: !!driveId || isDirectAudio(sourceHref)
     };
   }
 
