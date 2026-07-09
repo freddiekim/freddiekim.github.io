@@ -11,6 +11,12 @@
     <li>
       <a href="#company-research">Company Research</a>
     </li>
+    <li>
+      <a href="{{ '/pages/portfolio.html' | relative_url }}">My Portfolio</a>
+    </li>
+    <li>
+      <a href="{{ '/pages/quarterly-report.html' | relative_url }}">Quarter &amp; Annual Reports</a>
+    </li>
     <li class="sidebar-section-label">Companies</li>
     {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
     {% assign report_tickers = "" %}

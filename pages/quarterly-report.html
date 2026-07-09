@@ -1,21 +1,31 @@
 ---
 layout: null
-title: My Portfolio
+title: "Quarter & Annual Reports"
 ---
-{% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/pages_portfolio/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
-{% assign latest_report = portfolio_reports | last %}
-{% assign archive_count = portfolio_reports.size | minus: 1 %}
+{% assign quarterly_reports = site.static_files | where_exp: "file", "file.path contains '/pages_Quarter&Annual/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign latest_report = quarterly_reports | last %}
+{% assign archive_count = quarterly_reports.size | minus: 1 %}
 {% if latest_report %}
   {% assign latest_parts = latest_report.name | remove: ".html" | split: "_" %}
   {% assign latest_date_raw = latest_parts | last %}
-  {% assign latest_label = latest_report.name | remove: ".html" | remove: latest_date_raw | replace: "_", " " | strip %}
+  {% assign latest_label = latest_report.name | remove: ".html" | replace: "_", " " | strip %}
+  {% assign report_period = "Latest 10-Q" %}
+  {% if latest_report.name contains "Q1_2026" %}
+    {% assign report_period = "2026 Q1" %}
+  {% elsif latest_report.name contains "Q2_2026" %}
+    {% assign report_period = "2026 Q2" %}
+  {% elsif latest_report.name contains "Q3_2026" %}
+    {% assign report_period = "2026 Q3" %}
+  {% elsif latest_report.name contains "Q4_2026" %}
+    {% assign report_period = "2026 Q4" %}
+  {% endif %}
 {% endif %}
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YOUNG FINANCE Portfolio</title>
+  <title>YOUNG FINANCE Quarter &amp; Annual Reports</title>
   <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900" rel="stylesheet" type="text/css">
   <style>
@@ -28,7 +38,6 @@ title: My Portfolio
       --sky: #9fd2d6;
       --gold: #f4c96f;
       --coral: #d85b45;
-      --red: #b93d34;
       --green: #2f7d62;
       --blue: #285f8f;
     }
@@ -55,27 +64,20 @@ title: My Portfolio
       color: inherit;
     }
 
-    .portfolio-shell {
+    .report-shell {
       margin: 0 auto;
       max-width: 1180px;
       padding: 28px 20px 76px;
       width: 100%;
     }
 
-    .portfolio-topbar {
+    .report-topbar {
       align-items: center;
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
       justify-content: space-between;
       margin-bottom: 28px;
-    }
-
-    .portfolio-topbar-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: flex-end;
     }
 
     .home-link,
@@ -103,11 +105,18 @@ title: My Portfolio
       color: var(--ink);
     }
 
+    .report-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
     .report-action-alt {
       background: var(--blue);
     }
 
-    .portfolio-hero {
+    .report-hero {
       background: var(--sky);
       border: 6px solid var(--line);
       border-radius: 8px;
@@ -121,7 +130,7 @@ title: My Portfolio
       position: relative;
     }
 
-    .portfolio-hero::after {
+    .report-hero::after {
       background: var(--gold);
       border: 5px solid var(--line);
       border-radius: 50%;
@@ -134,13 +143,13 @@ title: My Portfolio
       z-index: 0;
     }
 
-    .portfolio-hero > * {
+    .report-hero > * {
       position: relative;
       z-index: 1;
     }
 
-    .portfolio-kicker {
-      color: var(--red);
+    .report-kicker {
+      color: #b93d34;
       font-size: 14px;
       font-weight: 900;
       letter-spacing: 0;
@@ -166,7 +175,7 @@ title: My Portfolio
       text-transform: uppercase;
     }
 
-    .portfolio-lede {
+    .report-lede {
       color: var(--ink-soft);
       font-size: 20px;
       line-height: 1.55;
@@ -174,11 +183,19 @@ title: My Portfolio
       max-width: 760px;
     }
 
-    .hero-panel {
-      align-self: end;
+    .hero-panel,
+    .latest-card,
+    .summary-card,
+    .archive-card {
       background: var(--cream);
       border: 5px solid var(--line);
       border-radius: 8px;
+      color: var(--ink);
+      min-width: 0;
+    }
+
+    .hero-panel {
+      align-self: end;
       padding: 20px;
     }
 
@@ -206,32 +223,11 @@ title: My Portfolio
       margin: 0;
     }
 
-    .portfolio-grid {
+    .report-grid {
       display: grid;
       gap: 22px;
       grid-template-columns: minmax(0, 1fr);
       margin-bottom: 32px;
-    }
-
-    .portfolio-side-grid {
-      align-items: stretch;
-      display: grid;
-      gap: 22px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .latest-card,
-    .portfolio-card,
-    .archive-card {
-      background: var(--cream);
-      border: 5px solid var(--line);
-      border-radius: 8px;
-      color: var(--ink);
-      min-width: 0;
-    }
-
-    .latest-card {
-      overflow: hidden;
     }
 
     .card-head {
@@ -253,7 +249,7 @@ title: My Portfolio
       text-transform: uppercase;
     }
 
-    .portfolio-date {
+    .report-date {
       background: var(--ink);
       border-radius: 999px;
       color: var(--cream);
@@ -266,17 +262,55 @@ title: My Portfolio
 
     .preview-frame-wrap {
       background: #ffffff;
-      min-height: 860px;
+      min-height: 900px;
       overflow: visible;
     }
 
     .preview-frame {
       border: 0;
       display: block;
-      height: 860px;
-      min-height: 860px;
+      height: 900px;
+      min-height: 900px;
       overflow: hidden;
       width: 100%;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 34px;
+    }
+
+    .summary-card {
+      padding: 22px;
+    }
+
+    .summary-card h2 {
+      font-size: 24px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .summary-card p,
+    .summary-card li {
+      color: var(--ink-soft);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .summary-card ul {
+      display: grid;
+      gap: 10px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .summary-card li {
+      border-top: 4px solid var(--line);
+      padding-top: 10px;
     }
 
     .empty-state {
@@ -301,74 +335,6 @@ title: My Portfolio
       font-size: 18px;
       line-height: 1.6;
       margin: 0;
-    }
-
-    .portfolio-card {
-      padding: 22px;
-    }
-
-    .portfolio-card h2 {
-      font-size: 24px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-    }
-
-    .portfolio-card p,
-    .portfolio-card li {
-      color: var(--ink-soft);
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    .portfolio-card ul {
-      display: grid;
-      gap: 10px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .portfolio-card li {
-      border-top: 4px solid var(--line);
-      padding-top: 10px;
-    }
-
-    .role-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .role-chip {
-      border: 4px solid var(--line);
-      border-radius: 8px;
-      padding: 13px;
-    }
-
-    .role-chip:nth-child(1) {
-      background: #f4a083;
-    }
-
-    .role-chip:nth-child(2) {
-      background: var(--sky);
-    }
-
-    .role-chip:nth-child(3) {
-      background: var(--gold);
-    }
-
-    .role-chip strong {
-      display: block;
-      font-size: 18px;
-      font-weight: 900;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-    }
-
-    .role-chip span {
-      color: var(--ink-soft);
-      display: block;
-      line-height: 1.45;
     }
 
     .archive-section {
@@ -445,27 +411,25 @@ title: My Portfolio
     }
 
     @media (max-width: 940px) {
-      .portfolio-hero,
-      .portfolio-grid,
-
-      .portfolio-side-grid,
+      .report-hero,
+      .summary-grid,
       .archive-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .portfolio-hero::after {
+      .report-hero::after {
         height: 86px;
         width: 86px;
       }
     }
 
     @media (max-width: 680px) {
-      .portfolio-shell {
+      .report-shell {
         padding: 18px 14px 54px;
       }
 
-      .portfolio-topbar,
-      .portfolio-topbar-actions,
+      .report-topbar,
+      .report-actions,
       .card-head,
       .section-heading {
         align-items: stretch;
@@ -483,11 +447,11 @@ title: My Portfolio
         line-height: 0.98;
       }
 
-      .portfolio-lede {
+      .report-lede {
         font-size: 17px;
       }
 
-      .portfolio-hero {
+      .report-hero {
         gap: 20px;
         grid-template-columns: 1fr;
         padding: 22px;
@@ -497,8 +461,7 @@ title: My Portfolio
         font-size: 24px;
       }
 
-      .portfolio-grid,
-      .portfolio-side-grid,
+      .summary-grid,
       .archive-list {
         grid-template-columns: 1fr;
       }
@@ -520,16 +483,15 @@ title: My Portfolio
       .section-heading p {
         max-width: none;
       }
-
     }
 
     @media (max-width: 430px) {
-      .portfolio-shell {
+      .report-shell {
         padding-left: 12px;
         padding-right: 12px;
       }
 
-      .portfolio-hero {
+      .report-hero {
         padding: 18px;
       }
 
@@ -549,145 +511,112 @@ title: My Portfolio
   </style>
 </head>
 <body>
-  <main class="portfolio-shell">
-    <nav class="portfolio-topbar" aria-label="Portfolio navigation">
+  <main class="report-shell">
+    <nav class="report-topbar" aria-label="Quarter and annual reports navigation">
       <a class="home-link" href="{{ '/' | relative_url }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Home</a>
-      <div class="portfolio-topbar-actions">
-        <a class="report-action report-action-alt" href="{{ '/pages/quarterly-report.html' | relative_url }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Quarter &amp; Annual Reports</a>
+      <div class="report-actions">
+        <a class="report-action report-action-alt" href="{{ '/pages/portfolio.html' | relative_url }}"><i class="fa fa-pie-chart" aria-hidden="true"></i> Portfolio</a>
         {% if latest_report %}
-          <a class="report-action" href="{{ latest_report.path | relative_url }}" target="_self"><i class="fa fa-external-link" aria-hidden="true"></i> Latest Snapshot</a>
+          <a class="report-action" href="{{ latest_report.path | relative_url | escape }}" target="_self"><i class="fa fa-external-link" aria-hidden="true"></i> Open Filing</a>
         {% endif %}
       </div>
     </nav>
 
-    <header class="portfolio-hero">
+    <header class="report-hero">
       <div>
-        <p class="portfolio-kicker">About My Portfolio</p>
-        <h1>YOUNG FINANCE Portfolio</h1>
-        <p class="portfolio-lede">포트폴리오의 최신 상태, 역할 배분, 비중 변화를 한 화면에서 확인하는 투자 운영 페이지입니다.</p>
+        <p class="report-kicker">Quarter &amp; Annual Reports</p>
+        <h1>YOUNG FINANCE Reports</h1>
+        <p class="report-lede">포트폴리오를 하나의 투자회사처럼 보고, 분기별·연간 성과와 리스크 관리 내용을 보고서 형식으로 정리한 페이지입니다.</p>
       </div>
       <aside class="hero-panel">
-        <span>Latest Update</span>
+        <span>Latest Filing</span>
         {% if latest_report %}
-          <strong>
-            {% if latest_date_raw.size == 8 %}
-              {{ latest_date_raw | slice: 0, 4 }}.{{ latest_date_raw | slice: 4, 2 }}.{{ latest_date_raw | slice: 6, 2 }}
-            {% else %}
-              Portfolio Snapshot
-            {% endif %}
-          </strong>
-          <p>{{ latest_label | replace: "portfolio", "Portfolio" | replace: "blog", "Blog" | replace: "summary", "Summary" }}</p>
+          <strong>{{ report_period }}</strong>
+          <p>{{ latest_label }}</p>
         {% else %}
-          <strong>No Snapshot</strong>
-          <p>포트폴리오 요약 자료가 아직 없습니다.</p>
+          <strong>No Filing</strong>
+          <p>분기 또는 연간 보고서 HTML이 추가되면 이곳에 최신 자료로 표시됩니다.</p>
         {% endif %}
       </aside>
     </header>
 
-    <section class="portfolio-grid">
+    <section class="summary-grid" aria-label="Quarterly report summary">
+      <article class="summary-card">
+        <p class="report-kicker">Performance</p>
+        <h2>성과 지수</h2>
+        <p>공개용 보고서는 절대 금액 대신 성과 지수와 비중 중심으로 포트폴리오 변화를 보여줍니다.</p>
+      </article>
+
+      <article class="summary-card">
+        <p class="report-kicker">Portfolio Control</p>
+        <h2>집중도 관리</h2>
+        <ul>
+          <li>상위 종목 집중도와 테마 노출을 분기별로 비교합니다.</li>
+          <li>세금, 현금비중, 하반기 이벤트를 함께 점검합니다.</li>
+        </ul>
+      </article>
+
+      <article class="summary-card">
+        <p class="report-kicker">Public Version</p>
+        <h2>공개 통제</h2>
+        <p>금액, 보유수량, 부채, BTC 수량, 실현손익 및 예상세액은 공개용 HTML 소스에서 제거된 버전입니다.</p>
+      </article>
+    </section>
+
+    <section class="report-grid">
       {% if latest_report %}
-        <article class="latest-card" aria-labelledby="latest-portfolio-title">
+        <article class="latest-card" aria-labelledby="latest-quarterly-title">
           <div class="card-head">
-            <h2 id="latest-portfolio-title">Latest Portfolio Snapshot</h2>
-            <span class="portfolio-date">
-              {% if latest_date_raw.size == 8 %}
-                {{ latest_date_raw | slice: 0, 4 }}.{{ latest_date_raw | slice: 4, 2 }}.{{ latest_date_raw | slice: 6, 2 }}
-              {% else %}
-                Latest
-              {% endif %}
-            </span>
+            <h2 id="latest-quarterly-title">Latest Report</h2>
+            <span class="report-date">{{ report_period }}</span>
           </div>
           <div class="preview-frame-wrap">
-            <iframe class="preview-frame" src="{{ latest_report.path | relative_url }}" title="Latest portfolio snapshot" scrolling="no"></iframe>
+            <iframe class="preview-frame" src="{{ latest_report.path | relative_url | escape }}" title="Latest quarter and annual report" scrolling="no"></iframe>
           </div>
         </article>
       {% else %}
         <section class="empty-state">
           <div>
-            <p class="portfolio-kicker">Portfolio Snapshot</p>
+            <p class="report-kicker">Quarter &amp; Annual Reports</p>
             <h2>자료를 기다리는 중입니다</h2>
-            <p>포트폴리오 요약 HTML이 추가되면 이 페이지에서 최신 화면으로 표시됩니다.</p>
+            <p>분기 또는 연간 보고서 HTML이 추가되면 이 페이지에서 최신 화면으로 표시됩니다.</p>
           </div>
         </section>
       {% endif %}
-
-      <aside class="portfolio-side-grid">
-        <article class="portfolio-card">
-          <p class="portfolio-kicker">Portfolio Playbook</p>
-          <h2>운용 철학</h2>
-          <p>YOUNG FINANCE의 포트폴리오는 축구팀처럼 각 종목의 역할을 분명히 나누고, 공격과 수비의 균형으로 시장 변동성에 대응합니다.</p>
-        </article>
-
-        <article class="portfolio-card">
-          <h2>역할 정의</h2>
-          <div class="role-grid">
-            <div class="role-chip">
-              <strong>Striker</strong>
-              <span>성장 엔진. 시장을 주도하는 고확신 성장주가 수익의 전방 압박을 맡습니다.</span>
-            </div>
-            <div class="role-chip">
-              <strong>Midfielder</strong>
-              <span>기회 발굴. 변동성은 있지만 성장 옵션이 큰 종목이 공격과 수비를 연결합니다.</span>
-            </div>
-            <div class="role-chip">
-              <strong>Defender</strong>
-              <span>방어와 균형. 현금흐름, 저변동성, 현금성 자산으로 포트폴리오 체력을 유지합니다.</span>
-            </div>
-          </div>
-        </article>
-
-        <article class="portfolio-card">
-          <h2>점검 루틴</h2>
-          <ul>
-            <li>상위 비중 종목의 쏠림과 리스크 기여도를 먼저 봅니다.</li>
-            <li>공격수와 미드필더 비중이 시장 국면에 맞는지 조정합니다.</li>
-            <li>현금과 방어 자산이 다음 기회를 살 수 있을 만큼 남아 있는지 확인합니다.</li>
-          </ul>
-        </article>
-      </aside>
     </section>
-
 
     <section class="archive-section" aria-labelledby="archive-title">
       <div class="section-heading">
         <div>
-          <p class="portfolio-kicker">Portfolio Archive</p>
-          <h2 id="archive-title">Previous Snapshots</h2>
+          <p class="report-kicker">Filing Archive</p>
+          <h2 id="archive-title">Previous Reports</h2>
         </div>
-        <p>이전 포트폴리오 자료는 날짜별 카드로 정리됩니다. 최신 화면과 비교할 때 비중, 수익률, 역할 변화만 빠르게 확인하면 됩니다.</p>
+        <p>새 보고서가 추가되면 최신 보고서는 위로 올라오고, 이전 보고서는 이곳에 누적됩니다.</p>
       </div>
 
       {% if archive_count > 0 %}
         <div class="archive-list">
-          {% for report in portfolio_reports reversed %}
+          {% for report in quarterly_reports reversed %}
             {% unless report.path == latest_report.path %}
-              {% assign report_parts = report.name | remove: ".html" | split: "_" %}
-              {% assign report_date_raw = report_parts | last %}
-              {% assign report_label = report.name | remove: ".html" | remove: report_date_raw | replace: "_", " " | strip %}
+              {% assign report_label = report.name | remove: ".html" | replace: "_", " " | strip %}
               <article class="archive-card">
-                <span class="portfolio-date">
-                  {% if report_date_raw.size == 8 %}
-                    {{ report_date_raw | slice: 0, 4 }}.{{ report_date_raw | slice: 4, 2 }}.{{ report_date_raw | slice: 6, 2 }}
-                  {% else %}
-                    Portfolio
-                  {% endif %}
-                </span>
-                <h3>{{ report_label | replace: "portfolio", "Portfolio" | replace: "blog", "Blog" | replace: "summary", "Summary" }}</h3>
-                <p>비중, 포메이션, 성과 흐름을 보관한 포트폴리오 스냅샷입니다.</p>
-                <a class="archive-link" href="{{ report.path | relative_url }}" target="_self">View Snapshot</a>
+                <span class="report-date">10-Q</span>
+                <h3>{{ report_label }}</h3>
+                <p>이전 분기 포트폴리오 보고서입니다.</p>
+                <a class="archive-link" href="{{ report.path | relative_url | escape }}" target="_self">View Report</a>
               </article>
             {% endunless %}
           {% endfor %}
         </div>
       {% else %}
-        <div class="archive-empty">이전 포트폴리오 요약은 다음 업데이트부터 이곳에 누적됩니다.</div>
+        <div class="archive-empty">이전 보고서는 다음 업데이트부터 이곳에 누적됩니다.</div>
       {% endif %}
     </section>
   </main>
 
 <script>
   (function () {
-    function resizePortfolioFrames() {
+    function resizeReportFrames() {
       document.querySelectorAll(".preview-frame").forEach(function (frame) {
         try {
           var doc = frame.contentDocument || frame.contentWindow.document;
@@ -721,18 +650,18 @@ title: My Portfolio
     document.addEventListener("DOMContentLoaded", function () {
       document.querySelectorAll(".preview-frame").forEach(function (frame) {
         frame.addEventListener("load", function () {
-          resizePortfolioFrames();
-          window.setTimeout(resizePortfolioFrames, 150);
-          window.setTimeout(resizePortfolioFrames, 600);
+          resizeReportFrames();
+          window.setTimeout(resizeReportFrames, 150);
+          window.setTimeout(resizeReportFrames, 600);
         });
       });
 
-      resizePortfolioFrames();
+      resizeReportFrames();
     });
 
     window.addEventListener("resize", function () {
-      window.clearTimeout(window.__portfolioResizeTimer);
-      window.__portfolioResizeTimer = window.setTimeout(resizePortfolioFrames, 120);
+      window.clearTimeout(window.__quarterlyReportResizeTimer);
+      window.__quarterlyReportResizeTimer = window.setTimeout(resizeReportFrames, 120);
     });
   }());
 </script>
