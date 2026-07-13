@@ -1,0 +1,20 @@
+- title: "신해철 - 민물장어의 꿈"
+  youtube_id: "xiGa6SH5yxg"
+  note: "기존 배경음악"
+
+- title: "경상도 말투로 떠나는 여행"
+  youtube_id: "smOQyrtonjI"
+  note: "사용자 추천곡"
+
+- title: "랜덤 추천곡"
+  random_slot: true
+  note: "페이지를 열 때마다 후보 중 한 곡을 고릅니다."
+  random_pool:
+    - title: "Nujabes - Aruarian Dance"
+      youtube_id: "qYcoJpqCha4"
+    - title: "Nujabes - Spiritual State"
+      youtube_id: "Ozw-IpWalJs"
+    - title: "Smooth Funky City Pop Instrumental"
+      youtube_id: "KY-Woqy-uyE"
+    - title: "Sunroof - City Pop BGM"
+      youtube_id: "lHFGhMO5KBM"

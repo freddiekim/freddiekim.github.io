@@ -3,7 +3,7 @@
 {% assign earnings_summary_files = site.static_files | where_exp: "file", "file.path contains '/pages_Q_earnings/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign qa_files = site.static_files | where_exp: "file", "file.path contains '/pages_QnA/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
-{% assign role_order = "striker|midfielder|defender|other|watchlist" | split: "|" %}
+{% assign role_order = "starter|candidate|small|watchlist" | split: "|" %}
 
 <section class="company-analysis-section company-board-section" id="company-research">
   <div class="company-analysis-container">
@@ -18,15 +18,15 @@
     <div class="company-role-board">
       {% for role in role_order %}
         {% case role %}
-          {% when "striker" %}
-            {% assign role_label = "공격수" %}
-            {% assign role_desc = "수익률을 끌어올리는 성장 엔진입니다." %}
-          {% when "midfielder" %}
-            {% assign role_label = "미드필더" %}
-            {% assign role_desc = "공격과 수비를 연결하는 핵심 관찰 구간입니다." %}
-          {% when "defender" %}
-            {% assign role_label = "수비수" %}
-            {% assign role_desc = "포트폴리오 균형과 변동성 완충을 맡습니다." %}
+          {% when "starter" %}
+            {% assign role_label = "주전" %}
+            {% assign role_desc = "최신 포트폴리오의 핵심 선발 라인업입니다." %}
+          {% when "candidate" %}
+            {% assign role_label = "후보" %}
+            {% assign role_desc = "교체 카드처럼 관찰 강도와 비중 조절을 병행하는 보유 종목입니다." %}
+          {% when "small" %}
+            {% assign role_label = "소액 보유" %}
+            {% assign role_desc = "작은 비중으로 유지하며 기회와 리스크를 점검하는 포지션입니다." %}
           {% when "watchlist" %}
             {% assign role_label = "Watch List" %}
             {% assign role_desc = "현재 포트폴리오 파일에는 없지만 계속 추적하는 기업입니다." %}
@@ -62,14 +62,35 @@
               {% assign company_role = company.portfolio_role | default: "other" %}
               {% if company_role == role %}
                 {% assign ticker = company.ticker %}
+                {% assign ticker_key = ticker | upcase %}
+                {% assign position_key = "" %}
+                {% for position_item in site.data.company_positions %}
+                  {% assign position_ticker = position_item.ticker | upcase %}
+                  {% if position_ticker == ticker_key %}
+                    {% assign position_key = position_item.position %}
+                  {% endif %}
+                {% endfor %}
+                {% assign position_label = "" %}
+                {% case position_key %}
+                  {% when "striker" %}{% assign position_label = "공격수" %}
+                  {% when "midfielder" %}{% assign position_label = "미드필더" %}
+                  {% when "defender" %}{% assign position_label = "수비수" %}
+                  {% when "other" %}{% assign position_label = "기타" %}
+                {% endcase %}
                 <div class="company-board-row" id="company-{{ ticker | downcase }}">
                   <div class="company-board-main">
                     <div>
                       <strong>{{ ticker }}</strong>
                       <small>{{ company.name }}</small>
+                      <div class="company-board-meta">
+                        <span class="portfolio-role portfolio-role-{{ role }}">{{ role_label }}</span>
+                        {% if position_label != "" %}
+                          <span class="portfolio-role portfolio-position portfolio-role-{{ position_key }}">{{ position_label }}</span>
+                        {% endif %}
+                      </div>
                     </div>
                     {% if company.portfolio_weight %}
-                      <b>{{ company.portfolio_weight }}%</b>
+                      <b>{{ company.portfolio_weight | round: 1 }}%</b>
                     {% endif %}
                   </div>
                   <div class="company-board-links">

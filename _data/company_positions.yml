@@ -1,0 +1,88 @@
+# Latest portfolio formation positions from the 2026-07-12 snapshot.
+
+- ticker: TSLA
+  position: striker
+
+- ticker: SNDK
+  position: striker
+
+- ticker: AMD
+  position: striker
+
+- ticker: MRVL
+  position: striker
+
+- ticker: SVCO
+  position: midfielder
+
+- ticker: MU
+  position: midfielder
+
+- ticker: INTC
+  position: midfielder
+
+- ticker: GLW
+  position: midfielder
+
+- ticker: PLTR
+  position: midfielder
+
+- ticker: MPWR
+  position: midfielder
+
+- ticker: JBL
+  position: midfielder
+
+- ticker: AMAT
+  position: midfielder
+
+- ticker: QCOM
+  position: defender
+
+- ticker: AVGO
+  position: defender
+
+- ticker: SKHynix
+  position: defender
+
+- ticker: SKT
+  position: defender
+
+- ticker: CDNS
+  position: defender
+
+- ticker: "ON"
+  position: defender
+
+- ticker: DELL
+  position: defender
+
+- ticker: SAMSUNG_ELEC
+  position: defender
+
+- ticker: HYUNDAI_STEEL
+  position: other
+
+- ticker: SOFI
+  position: other
+
+- ticker: KLAC
+  position: other
+
+- ticker: LRCX
+  position: other
+
+- ticker: ADI
+  position: other
+
+- ticker: HANWHA_SOLUTIONS
+  position: other
+
+- ticker: SAMSUNG_EM
+  position: other
+
+- ticker: BE
+  position: other
+
+- ticker: HOOD
+  position: other

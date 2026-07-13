@@ -368,6 +368,7 @@ body.sidebar-open .header-control-group {
 }
 
 .header-control-group {
+    align-items: flex-start;
     display: flex;
     gap: 10px;
     position: fixed;
@@ -403,6 +404,83 @@ body.sidebar-open .header-control-group {
 .tooltip-container:focus-within .tooltip-text {
     opacity: 1;
     visibility: visible;
+}
+
+.bgm-track-list {
+    background: var(--poster-cream);
+    border: 4px solid var(--poster-line);
+    border-radius: 8px;
+    color: var(--poster-ink);
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1.2;
+    padding: 10px 12px;
+    position: absolute;
+    right: 0;
+    top: 62px;
+    width: min(280px, calc(100vw - 96px));
+}
+
+.bgm-track-list > span {
+    color: var(--poster-red);
+    display: block;
+    font-size: 11px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+}
+
+.bgm-track-list ol {
+    display: grid;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bgm-track-list li {
+    align-items: center;
+    display: grid;
+    gap: 7px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-width: 0;
+}
+
+.bgm-track-list b {
+    align-items: center;
+    background: var(--poster-ink);
+    border-radius: 50%;
+    color: var(--poster-cream);
+    display: inline-flex;
+    font-size: 10px;
+    height: 20px;
+    justify-content: center;
+    width: 20px;
+}
+
+.bgm-track-list em {
+    font-style: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.bgm-track-list small {
+    background: var(--poster-sun);
+    border: 2px solid var(--poster-line);
+    border-radius: 999px;
+    color: var(--poster-ink);
+    font-size: 10px;
+    padding: 3px 6px;
+    white-space: nowrap;
+}
+
+.bgm-track-list li.is-random small {
+    background: var(--poster-green);
+    color: var(--poster-cream);
+}
+
+.bgm-track-list li.is-pending {
+    opacity: .72;
 }
 
 #sidebar-wrapper {
@@ -480,10 +558,12 @@ body.sidebar-open .header-control-group {
     font-weight: 900;
 }
 
+.sidebar-nav .sidebar-role-label-starter,
 .sidebar-nav .sidebar-role-label-striker {
     color: #f4a083 !important;
 }
 
+.sidebar-nav .sidebar-role-label-candidate,
 .sidebar-nav .sidebar-role-label-midfielder {
     color: var(--poster-sky) !important;
 }
@@ -492,6 +572,7 @@ body.sidebar-open .header-control-group {
     color: var(--poster-sun) !important;
 }
 
+.sidebar-nav .sidebar-role-label-small,
 .sidebar-nav .sidebar-role-label-other {
     color: #7fd0a6 !important;
 }
@@ -510,10 +591,12 @@ body.sidebar-open .header-control-group {
     color: var(--poster-sun) !important;
 }
 
+.sidebar-nav .sidebar-company-item-starter a.sidebar-report-link,
 .sidebar-nav .sidebar-company-item-striker a.sidebar-report-link {
     border-left-color: var(--poster-red);
 }
 
+.sidebar-nav .sidebar-company-item-candidate a.sidebar-report-link,
 .sidebar-nav .sidebar-company-item-midfielder a.sidebar-report-link {
     border-left-color: var(--poster-blue);
 }
@@ -522,6 +605,7 @@ body.sidebar-open .header-control-group {
     border-left-color: var(--poster-sun);
 }
 
+.sidebar-nav .sidebar-company-item-small a.sidebar-report-link,
 .sidebar-nav .sidebar-company-item-other a.sidebar-report-link {
     border-left-color: var(--poster-green);
 }
@@ -625,10 +709,12 @@ body.sidebar-open .header-control-group {
     background: var(--poster-blue) !important;
 }
 
+.portfolio-role-starter,
 .portfolio-role-striker {
     background: var(--poster-red) !important;
 }
 
+.portfolio-role-candidate,
 .portfolio-role-midfielder {
     background: var(--poster-blue) !important;
 }
@@ -638,6 +724,7 @@ body.sidebar-open .header-control-group {
     color: var(--poster-ink) !important;
 }
 
+.portfolio-role-small,
 .portfolio-role-other {
     background: var(--poster-green) !important;
 }
@@ -778,6 +865,11 @@ body.sidebar-open .header-control-group {
     text-align: left;
 }
 
+.company-role-panel-starter .company-role-head {
+    background: #f4a083;
+}
+
+.company-role-panel-candidate .company-role-head,
 .company-role-panel-midfielder .company-role-head {
     background: var(--poster-sky);
 }
@@ -786,6 +878,7 @@ body.sidebar-open .header-control-group {
     background: var(--poster-sun);
 }
 
+.company-role-panel-small .company-role-head,
 .company-role-panel-other .company-role-head {
     background: #7fd0a6;
 }
@@ -860,6 +953,17 @@ body.sidebar-open .header-control-group {
     font-weight: 900;
     line-height: 1.1;
     text-transform: uppercase;
+}
+
+.company-board-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.portfolio-position {
+    border-style: dashed;
 }
 
 .company-board-main b {

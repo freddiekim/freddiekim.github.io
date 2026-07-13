@@ -30,15 +30,15 @@
     {% assign report_ticker_list = report_tickers | split: "|" %}
     {% assign covered_tickers = "" %}
     {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
-    {% assign role_order = "striker|midfielder|defender|other|watchlist" | split: "|" %}
+    {% assign role_order = "starter|candidate|small|watchlist" | split: "|" %}
     {% for role in role_order %}
       {% case role %}
-        {% when "striker" %}
-          {% assign role_label = "공격수" %}
-        {% when "midfielder" %}
-          {% assign role_label = "미드필더" %}
-        {% when "defender" %}
-          {% assign role_label = "수비수" %}
+        {% when "starter" %}
+          {% assign role_label = "주전" %}
+        {% when "candidate" %}
+          {% assign role_label = "후보" %}
+        {% when "small" %}
+          {% assign role_label = "소액 보유" %}
         {% when "watchlist" %}
           {% assign role_label = "Watch List" %}
         {% else %}
@@ -74,7 +74,7 @@
             <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">
               <span>{{ ticker }}</span>
               {% if company.portfolio_weight %}
-                <small>{{ company.portfolio_weight }}%</small>
+                <small>{{ company.portfolio_weight | round: 1 }}%</small>
               {% endif %}
             </a>
           </li>

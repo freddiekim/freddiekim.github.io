@@ -60,6 +60,69 @@
           }), '*');
       }
 
+      function shuffleBgmTracks(tracks) {
+          const shuffled = tracks.slice();
+
+          for (let index = shuffled.length - 1; index > 0; index -= 1) {
+              const randomIndex = Math.floor(Math.random() * (index + 1));
+              const currentTrack = shuffled[index];
+              shuffled[index] = shuffled[randomIndex];
+              shuffled[randomIndex] = currentTrack;
+          }
+
+          return shuffled;
+      }
+
+      function prepareBgmPlaylist() {
+          const frame = document.getElementById('background-music-frame');
+          const trackList = document.querySelector('.bgm-track-list ol');
+          const randomSlot = document.querySelector('.js-bgm-random-slot');
+          const randomCandidates = Array.from(document.querySelectorAll('.js-bgm-random-candidate'));
+
+          if (randomSlot && randomCandidates.length > 0) {
+              const selected = randomCandidates[Math.floor(Math.random() * randomCandidates.length)];
+              const selectedTitle = selected.getAttribute('data-title');
+              const selectedId = selected.getAttribute('data-youtube-id');
+              const titleNode = randomSlot.querySelector('em');
+
+              if (selectedId) {
+                  randomSlot.setAttribute('data-youtube-id', selectedId);
+              }
+              if (titleNode && selectedTitle) {
+                  titleNode.textContent = selectedTitle;
+              }
+          }
+
+          const tracks = Array.from(document.querySelectorAll('.js-bgm-track'));
+          const shuffledTracks = shuffleBgmTracks(tracks);
+
+          if (trackList) {
+              shuffledTracks.forEach(function (track, index) {
+                  const numberNode = track.querySelector('b');
+
+                  if (numberNode) {
+                      numberNode.textContent = String(index + 1);
+                  }
+
+                  trackList.appendChild(track);
+              });
+          }
+
+          const trackIds = shuffledTracks
+              .map(function (track) {
+                  return track.getAttribute('data-youtube-id');
+              })
+              .filter(Boolean);
+
+          if (!frame || trackIds.length === 0) {
+              return;
+          }
+
+          const firstTrack = trackIds[0];
+          const playlist = trackIds.join(',');
+          frame.src = 'https://www.youtube.com/embed/' + firstTrack + '?autoplay=1&controls=0&playlist=' + playlist + '&loop=1&enablejsapi=1';
+      }
+
       function updateBgmButton(isOn) {
           const toggle = document.getElementById('bgm-toggle');
           const icon = document.getElementById('bgm-icon');
@@ -179,6 +242,7 @@
       }
 
       // 페이지 로드 시 테마와 배경음악 상태를 불러와 적용
+      prepareBgmPlaylist();
       window.addEventListener('load', function () {
           loadTheme();
           loadBgmState();

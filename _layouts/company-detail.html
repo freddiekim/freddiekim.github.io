@@ -149,6 +149,14 @@
       padding: 9px 12px;
       text-transform: uppercase;
     }
+    .meta-pill-role-starter,
+    .meta-pill-position-striker { background: var(--red); }
+    .meta-pill-role-candidate,
+    .meta-pill-position-midfielder { background: #285f8f; }
+    .meta-pill-position-defender { background: var(--gold); color: var(--ink); }
+    .meta-pill-role-small,
+    .meta-pill-position-other { background: var(--green); }
+    .meta-pill-role-watchlist { background: #b9aad7; color: var(--ink); }
     .grid {
       display: grid;
       gap: 16px;
@@ -218,17 +226,37 @@
     {% if company %}
       {% assign role_label = "기타" %}
       {% case company.portfolio_role %}
+        {% when "starter" %}{% assign role_label = "주전" %}
+        {% when "candidate" %}{% assign role_label = "후보" %}
+        {% when "small" %}{% assign role_label = "소액 보유" %}
         {% when "striker" %}{% assign role_label = "공격수" %}
         {% when "midfielder" %}{% assign role_label = "미드필더" %}
         {% when "defender" %}{% assign role_label = "수비수" %}
         {% when "watchlist" %}{% assign role_label = "Watch List" %}
       {% endcase %}
+      {% assign position_key = "" %}
+      {% for position_item in site.data.company_positions %}
+        {% assign position_ticker = position_item.ticker | upcase %}
+        {% if position_ticker == ticker_key %}
+          {% assign position_key = position_item.position %}
+        {% endif %}
+      {% endfor %}
+      {% assign position_label = "" %}
+      {% case position_key %}
+        {% when "striker" %}{% assign position_label = "공격수" %}
+        {% when "midfielder" %}{% assign position_label = "미드필더" %}
+        {% when "defender" %}{% assign position_label = "수비수" %}
+        {% when "other" %}{% assign position_label = "기타" %}
+      {% endcase %}
 
       <header class="hero">
         <div class="meta-row">
-          <span class="meta-pill">{{ role_label }}</span>
+          <span class="meta-pill meta-pill-role-{{ company.portfolio_role }}">{{ role_label }}</span>
+          {% if position_label != "" %}
+            <span class="meta-pill meta-pill-position-{{ position_key }}">{{ position_label }}</span>
+          {% endif %}
           {% if company.portfolio_weight %}
-            <span class="meta-pill">{{ company.portfolio_weight }}%</span>
+            <span class="meta-pill">{{ company.portfolio_weight | round: 1 }}%</span>
           {% else %}
             <span class="meta-pill">Research List</span>
           {% endif %}

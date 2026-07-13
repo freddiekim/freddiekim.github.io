@@ -1,4 +1,13 @@
 <header id="top" class="header site-poster-header">
+  {% assign bgm_tracks = site.data.background_music %}
+  {% assign bgm_first_id = "" %}
+  {% capture bgm_playlist_ids %}{% for track in bgm_tracks %}{% assign bgm_track_id = track.youtube_id %}{% if track.random_slot and track.random_pool %}{% assign bgm_random_fallback = track.random_pool | first %}{% assign bgm_track_id = bgm_random_fallback.youtube_id %}{% endif %}{% if bgm_track_id %}{% if bgm_first_id == "" %}{% assign bgm_first_id = bgm_track_id %}{% endif %}{{ bgm_track_id }}{% unless forloop.last %},{% endunless %}{% endif %}{% endfor %}{% endcapture %}
+  {% assign bgm_playlist_ids = bgm_playlist_ids | replace: ",,", "," | replace: " ,", "," | replace: ", ", "," %}
+  {% assign bgm_playlist_last = bgm_playlist_ids | slice: -1, 1 %}
+  {% if bgm_playlist_last == "," %}
+    {% assign bgm_playlist_size = bgm_playlist_ids | size | minus: 1 %}
+    {% assign bgm_playlist_ids = bgm_playlist_ids | slice: 0, bgm_playlist_size %}
+  {% endif %}
   <div class="poster-scene" aria-hidden="true">
     <div class="poster-sun"></div>
     <div class="poster-mountain poster-mountain-left"></div>
@@ -27,6 +36,36 @@
       </button>
       <span class="tooltip-text" id="bgm-tooltip-text">배경음악 끄기</span>
     </div>
+    <div class="bgm-track-list" aria-label="배경음악 목록" hidden>
+      <span>Music</span>
+      <ol>
+        {% for track in bgm_tracks %}
+          {% assign bgm_display_title = track.title %}
+          {% assign bgm_display_id = track.youtube_id %}
+          {% if track.random_slot and track.random_pool %}
+            {% assign bgm_random_fallback = track.random_pool | first %}
+            {% assign bgm_display_title = bgm_random_fallback.title %}
+            {% assign bgm_display_id = bgm_random_fallback.youtube_id %}
+          {% endif %}
+          <li class="js-bgm-track {% if track.random_slot %}is-random js-bgm-random-slot{% endif %}{% unless bgm_display_id %} is-pending{% endunless %}" data-youtube-id="{{ bgm_display_id | escape }}">
+            <b>{{ forloop.index }}</b>
+            <em>{{ bgm_display_title }}</em>
+            {% if track.random_slot %}
+              <small>Random</small>
+            {% elsif bgm_display_id == nil or bgm_display_id == "" %}
+              <small>링크 필요</small>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+      {% for track in bgm_tracks %}
+        {% if track.random_slot and track.random_pool %}
+          {% for random_track in track.random_pool %}
+            <span class="js-bgm-random-candidate" data-title="{{ random_track.title | escape }}" data-youtube-id="{{ random_track.youtube_id | escape }}" hidden></span>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 
    <div class="text-vertical-center">
@@ -51,7 +90,7 @@
             height="500" 
             id="background-music-frame"
             title="Background music"
-            src="https://www.youtube.com/embed/xiGa6SH5yxg?autoplay=1&controls=0&playlist=xiGa6SH5yxg&loop=1&enablejsapi=1"
+            src="https://www.youtube.com/embed/{{ bgm_first_id }}?autoplay=1&controls=0&playlist={{ bgm_playlist_ids | strip }}&loop=1&enablejsapi=1"
             frameborder="0" 
             allow="autoplay; encrypted-media; loop" 
             allowfullscreen>
