@@ -1,0 +1,715 @@
+---
+layout: null
+title: Investment Diary
+---
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOUNG FINANCE Investment Diary</title>
+  <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900" rel="stylesheet" type="text/css">
+  <style>
+    :root {
+      --paper: #f6ecd8;
+      --cream: #fff7e8;
+      --ink: #16324a;
+      --ink-soft: #36526b;
+      --line: #17324d;
+      --sky: #9fd2d6;
+      --gold: #f4c96f;
+      --coral: #d85b45;
+      --red: #b93d34;
+      --green: #2f7d62;
+      --blue: #285f8f;
+    }
+
+    * {
+      box-sizing: border-box;
+      box-shadow: none;
+      text-shadow: none;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      min-width: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    .diary-shell {
+      margin: 0 auto;
+      max-width: 1180px;
+      padding: 28px 20px 76px;
+      width: 100%;
+    }
+
+    .diary-topbar {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .diary-topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    .diary-link,
+    .diary-button {
+      align-items: center;
+      appearance: none;
+      background: var(--coral);
+      border: 4px solid var(--line);
+      border-radius: 6px;
+      color: var(--cream);
+      cursor: pointer;
+      display: inline-flex;
+      font-weight: 900;
+      gap: 8px;
+      justify-content: center;
+      letter-spacing: 0;
+      min-height: 46px;
+      padding: 10px 16px;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .diary-link-home,
+    .diary-button-muted {
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    .diary-button-blue {
+      background: var(--blue);
+    }
+
+    .diary-button-green {
+      background: var(--green);
+    }
+
+    .diary-button-red {
+      background: var(--red);
+    }
+
+    .diary-hero {
+      align-items: end;
+      background: var(--sky);
+      border: 6px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: minmax(0, 1fr) minmax(250px, 340px);
+      margin-bottom: 28px;
+      overflow: hidden;
+      padding: 34px;
+      position: relative;
+    }
+
+    .diary-hero::after {
+      background: var(--gold);
+      border: 5px solid var(--line);
+      border-radius: 50%;
+      content: "";
+      height: 118px;
+      position: absolute;
+      right: 34px;
+      top: 30px;
+      width: 118px;
+      z-index: 0;
+    }
+
+    .diary-hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .diary-kicker {
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      color: var(--ink);
+      font-size: 64px;
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: .92;
+      margin-bottom: 16px;
+      max-width: 760px;
+      text-transform: uppercase;
+    }
+
+    .diary-lede {
+      color: var(--ink-soft);
+      font-size: 20px;
+      line-height: 1.55;
+      margin: 0;
+      max-width: 780px;
+    }
+
+    .diary-stats {
+      background: var(--cream);
+      border: 5px solid var(--line);
+      border-radius: 8px;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 18px;
+    }
+
+    .diary-stat {
+      border-top: 4px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .diary-stat:first-child,
+    .diary-stat:nth-child(2) {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .diary-stat strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .diary-stat span {
+      color: var(--ink-soft);
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    .diary-grid {
+      display: grid;
+      gap: 22px;
+      grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+    }
+
+    .diary-panel {
+      background: var(--cream);
+      border: 5px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      min-width: 0;
+    }
+
+    .diary-panel-head {
+      align-items: center;
+      background: var(--gold);
+      border-bottom: 5px solid var(--line);
+      display: flex;
+      gap: 14px;
+      justify-content: space-between;
+      padding: 16px 18px;
+    }
+
+    .diary-panel-head h2 {
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 1;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    .diary-form,
+    .diary-list-panel {
+      padding: 18px;
+    }
+
+    .diary-field-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .diary-field {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .diary-field-wide {
+      grid-column: 1 / -1;
+    }
+
+    .diary-field label,
+    .diary-filter label {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .diary-field input,
+    .diary-field select,
+    .diary-field textarea,
+    .diary-filter input,
+    .diary-filter select {
+      background: #fff;
+      border: 4px solid var(--line);
+      border-radius: 6px;
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 700;
+      min-height: 46px;
+      min-width: 0;
+      padding: 9px 10px;
+      width: 100%;
+    }
+
+    .diary-field textarea {
+      line-height: 1.48;
+      min-height: 136px;
+      resize: vertical;
+    }
+
+    .diary-form-actions,
+    .diary-entry-actions,
+    .diary-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .diary-filter-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: minmax(0, 1.3fr) repeat(2, minmax(130px, .6fr));
+      margin-bottom: 16px;
+    }
+
+    .diary-filter {
+      display: grid;
+      gap: 7px;
+      min-width: 0;
+    }
+
+    .diary-entries {
+      display: grid;
+      gap: 14px;
+      min-height: 170px;
+    }
+
+    .diary-entry {
+      border: 4px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    .diary-entry-top {
+      align-items: flex-start;
+      background: #f4d98d;
+      border-bottom: 4px solid var(--line);
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      padding: 14px;
+    }
+
+    .diary-entry-title {
+      min-width: 0;
+    }
+
+    .diary-entry-title h3 {
+      font-size: 23px;
+      font-weight: 900;
+      line-height: 1.05;
+      margin: 0 0 7px;
+      word-break: keep-all;
+    }
+
+    .diary-entry-date {
+      background: var(--ink);
+      border-radius: 999px;
+      color: var(--cream);
+      flex: 0 0 auto;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1;
+      padding: 8px 10px;
+      white-space: nowrap;
+    }
+
+    .diary-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .diary-tag {
+      align-items: center;
+      border: 3px solid var(--line);
+      border-radius: 999px;
+      color: var(--cream);
+      display: inline-flex;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1;
+      padding: 6px 8px;
+      text-transform: uppercase;
+    }
+
+    .diary-tag-ticker {
+      background: var(--red);
+    }
+
+    .diary-tag-action {
+      background: var(--blue);
+    }
+
+    .diary-tag-conviction {
+      background: var(--green);
+    }
+
+    .diary-tag-mood {
+      background: var(--coral);
+    }
+
+    .diary-entry-body {
+      color: var(--ink-soft);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.58;
+      padding: 14px;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+
+    .diary-entry-footer {
+      border-top: 4px solid var(--line);
+      padding: 0 14px 14px;
+    }
+
+    .diary-entry-actions {
+      margin-top: 14px;
+    }
+
+    .diary-entry-actions .diary-button {
+      min-height: 38px;
+      padding: 7px 10px;
+    }
+
+    .diary-empty {
+      align-items: center;
+      border: 5px dashed var(--line);
+      border-radius: 8px;
+      color: var(--ink-soft);
+      display: flex;
+      font-size: 18px;
+      font-weight: 800;
+      justify-content: center;
+      line-height: 1.5;
+      min-height: 170px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .diary-toast {
+      background: var(--ink);
+      border: 4px solid var(--line);
+      border-radius: 8px;
+      bottom: 18px;
+      color: var(--cream);
+      font-size: 15px;
+      font-weight: 900;
+      left: 50%;
+      max-width: min(520px, calc(100vw - 28px));
+      padding: 12px 16px;
+      position: fixed;
+      transform: translate(-50%, 120px);
+      transition: transform .22s ease;
+      z-index: 20;
+    }
+
+    .diary-toast.is-visible {
+      transform: translate(-50%, 0);
+    }
+
+    .diary-file-input {
+      display: none;
+    }
+
+    @media (max-width: 940px) {
+      .diary-hero,
+      .diary-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .diary-filter-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .diary-shell {
+        padding: 18px 14px 54px;
+      }
+
+      .diary-topbar,
+      .diary-topbar-actions,
+      .diary-panel-head,
+      .diary-entry-top {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .diary-link,
+      .diary-button {
+        width: 100%;
+      }
+
+      .diary-hero {
+        gap: 20px;
+        padding: 22px;
+      }
+
+      .diary-hero::after {
+        height: 86px;
+        width: 86px;
+      }
+
+      h1 {
+        font-size: 38px;
+        line-height: .98;
+      }
+
+      .diary-lede {
+        font-size: 17px;
+      }
+
+      .diary-field-grid,
+      .diary-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .diary-stat:nth-child(2) {
+        border-top: 4px solid var(--line);
+        padding-top: 12px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .diary-shell {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .diary-hero {
+        padding: 18px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .diary-panel-head h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="diary-shell">
+    <nav class="diary-topbar" aria-label="Investment diary navigation">
+      <a class="diary-link diary-link-home" href="{{ '/' | relative_url }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Home</a>
+      <div class="diary-topbar-actions">
+        <a class="diary-link diary-button-blue" href="{{ '/pages/portfolio.html' | relative_url }}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Portfolio</a>
+        <a class="diary-link" href="{{ '/pages/quarterly-report.html' | relative_url }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Reports</a>
+      </div>
+    </nav>
+
+    <header class="diary-hero">
+      <div>
+        <p class="diary-kicker">Investment Diary</p>
+        <h1>투자일기</h1>
+        <p class="diary-lede">판단, 감정, 실수, 다음 행동을 남기는 YOUNG FINANCE의 기록장입니다.</p>
+      </div>
+      <aside class="diary-stats" aria-label="Investment diary stats">
+        <div class="diary-stat">
+          <strong id="diary-total-count">0</strong>
+          <span>Entries</span>
+        </div>
+        <div class="diary-stat">
+          <strong id="diary-month-count">0</strong>
+          <span>This Month</span>
+        </div>
+        <div class="diary-stat">
+          <strong id="diary-last-date">-</strong>
+          <span>Last Entry</span>
+        </div>
+        <div class="diary-stat">
+          <strong id="diary-top-ticker">-</strong>
+          <span>Most Written</span>
+        </div>
+      </aside>
+    </header>
+
+    <section class="diary-grid">
+      <article class="diary-panel" aria-labelledby="diary-form-title">
+        <header class="diary-panel-head">
+          <h2 id="diary-form-title">Write</h2>
+          <button class="diary-button diary-button-muted" type="button" id="diary-new-button"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
+        </header>
+
+        <form class="diary-form" id="investment-diary-form">
+          <input type="hidden" id="diary-entry-id">
+          <div class="diary-field-grid">
+            <div class="diary-field">
+              <label for="diary-date">Date</label>
+              <input id="diary-date" name="date" type="date" required>
+            </div>
+            <div class="diary-field">
+              <label for="diary-ticker">Ticker</label>
+              <input id="diary-ticker" name="ticker" type="text" placeholder="TSLA, SVCO">
+            </div>
+            <div class="diary-field diary-field-wide">
+              <label for="diary-title">Title</label>
+              <input id="diary-title" name="title" type="text" placeholder="오늘의 투자 판단" required>
+            </div>
+            <div class="diary-field">
+              <label for="diary-action">Action</label>
+              <select id="diary-action" name="action">
+                <option value="관찰">관찰</option>
+                <option value="매수">매수</option>
+                <option value="매도">매도</option>
+                <option value="비중 조절">비중 조절</option>
+                <option value="실적 리뷰">실적 리뷰</option>
+                <option value="뉴스 점검">뉴스 점검</option>
+              </select>
+            </div>
+            <div class="diary-field">
+              <label for="diary-conviction">Conviction</label>
+              <select id="diary-conviction" name="conviction">
+                <option value="중립">중립</option>
+                <option value="높음">높음</option>
+                <option value="낮음">낮음</option>
+                <option value="보류">보류</option>
+              </select>
+            </div>
+            <div class="diary-field">
+              <label for="diary-mood">Mood</label>
+              <select id="diary-mood" name="mood">
+                <option value="침착">침착</option>
+                <option value="확신">확신</option>
+                <option value="의심">의심</option>
+                <option value="공포">공포</option>
+                <option value="탐욕">탐욕</option>
+                <option value="피곤">피곤</option>
+              </select>
+            </div>
+            <div class="diary-field">
+              <label for="diary-role">Role</label>
+              <select id="diary-role" name="role">
+                <option value="주전">주전</option>
+                <option value="후보">후보</option>
+                <option value="소액 보유">소액 보유</option>
+                <option value="Watch List">Watch List</option>
+                <option value="현금">현금</option>
+                <option value="전체">전체</option>
+              </select>
+            </div>
+            <div class="diary-field diary-field-wide">
+              <label for="diary-body">Diary</label>
+              <textarea id="diary-body" name="body" placeholder="무엇을 봤고, 어떻게 판단했고, 다음에는 무엇을 확인할지 적어두기" required></textarea>
+            </div>
+          </div>
+          <div class="diary-form-actions">
+            <button class="diary-button diary-button-green" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+            <button class="diary-button diary-button-muted" type="reset"><i class="fa fa-undo" aria-hidden="true"></i> Reset</button>
+          </div>
+        </form>
+      </article>
+
+      <section class="diary-panel" aria-labelledby="diary-list-title">
+        <header class="diary-panel-head">
+          <h2 id="diary-list-title">Entries</h2>
+          <div class="diary-tools">
+            <button class="diary-button diary-button-blue" type="button" id="diary-export-button"><i class="fa fa-download" aria-hidden="true"></i> Backup</button>
+            <button class="diary-button diary-button-muted" type="button" id="diary-import-button"><i class="fa fa-upload" aria-hidden="true"></i> Import</button>
+            <input class="diary-file-input" id="diary-import-file" type="file" accept="application/json,.json">
+          </div>
+        </header>
+
+        <div class="diary-list-panel">
+          <div class="diary-filter-row">
+            <div class="diary-filter">
+              <label for="diary-search">Search</label>
+              <input id="diary-search" type="search" placeholder="종목, 제목, 내용">
+            </div>
+            <div class="diary-filter">
+              <label for="diary-action-filter">Action</label>
+              <select id="diary-action-filter">
+                <option value="">All</option>
+                <option value="관찰">관찰</option>
+                <option value="매수">매수</option>
+                <option value="매도">매도</option>
+                <option value="비중 조절">비중 조절</option>
+                <option value="실적 리뷰">실적 리뷰</option>
+                <option value="뉴스 점검">뉴스 점검</option>
+              </select>
+            </div>
+            <div class="diary-filter">
+              <label for="diary-role-filter">Role</label>
+              <select id="diary-role-filter">
+                <option value="">All</option>
+                <option value="주전">주전</option>
+                <option value="후보">후보</option>
+                <option value="소액 보유">소액 보유</option>
+                <option value="Watch List">Watch List</option>
+                <option value="현금">현금</option>
+                <option value="전체">전체</option>
+              </select>
+            </div>
+          </div>
+          <div class="diary-entries" id="diary-entries" aria-live="polite"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <div class="diary-toast" id="diary-toast" role="status" aria-live="polite"></div>
+  <script src="../js/investment-diary.js?v={{ site.time | date: '%Y%m%d%H%M' }}"></script>
+</body>
+</html>

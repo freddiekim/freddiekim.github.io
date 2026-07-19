@@ -2,8 +2,8 @@
 
 - ticker: TSLA
   name: Tesla
-  portfolio_rank: 1
-  portfolio_weight: 11.541
+  portfolio_rank: 2
+  portfolio_weight: 12.405
   portfolio_role: starter
   thesis: "전기차 제조사를 넘어 에너지 저장장치, 충전 인프라, 자율주행 소프트웨어까지 확장하는 플랫폼 기업으로 추적합니다."
   observation: "투자 포인트는 차량 판매량만으로 보기보다 생산 효율, 가격 정책, FSD 채택률, 에너지 사업 성장성이 함께 움직이는지 확인하는 데 있습니다."
@@ -20,9 +20,9 @@
 
 - ticker: SVCO
   name: Silvaco Group
-  portfolio_rank: 7
-  portfolio_weight: 4.099
-  portfolio_role: starter
+  portfolio_rank: 13
+  portfolio_weight: 2.586
+  portfolio_role: candidate
   thesis: "TCAD, EDA, 반도체 IP를 묶어 AI 기반 반도체 설계·공정 최적화를 지원하는 소프트웨어 기업으로 추적합니다."
   observation: "AI FTCO와 TCAD 수요가 실적 회복을 이끌고 있으며, 소형 EDA 기업 특성상 수익성 전환과 현금흐름 안정화가 핵심 검증 포인트입니다."
   metrics:
@@ -39,7 +39,7 @@
 - ticker: GLW
   name: Corning
   portfolio_rank: 3
-  portfolio_weight: 9.005
+  portfolio_weight: 8.393
   portfolio_role: starter
   thesis: "광섬유, 특수 유리, AI 데이터센터 연결 수요를 함께 받는 AI 인프라 공급망 수혜주로 봅니다."
   observation: "Optical 성장과 NVIDIA 공급망 재평가가 주가를 끌어올렸지만, 이미 포트폴리오 비중이 높다면 Q2 실적 확인 전 추가 매수는 신중해야 합니다."
@@ -57,7 +57,7 @@
 - ticker: MU
   name: Micron Technology
   portfolio_rank: 5
-  portfolio_weight: 5.544
+  portfolio_weight: 5.530
   portfolio_role: starter
   thesis: "DRAM/NAND 사이클 기업을 넘어 HBM4, 데이터센터 SSD, 전략 고객 계약을 가진 AI 메모리 슈퍼사이클 수혜주로 추적합니다."
   observation: "HBM 공급 부족과 컨센서스 상향이 강한 리레이팅을 만들고 있지만, 단기 주가에는 이미 최상단 기대가 반영되기 시작했습니다."
@@ -75,7 +75,7 @@
 - ticker: INTC
   name: Intel
   portfolio_rank: 4
-  portfolio_weight: 7.378
+  portfolio_weight: 7.739
   portfolio_role: starter
   thesis: "레거시 CPU 독점 기업에서 파운드리(IFS), AI PC 클라이언트, 데이터센터 GPU 경쟁자로 구조 전환을 시도하는 대형 반도체 기업입니다."
   observation: "Panther Lake 출하, IFS 외부 고객 확보, 비용 구조 혁신이 2026~2027 thesis를 검증할 핵심 이벤트입니다. 주가 반등은 이미 일부 기대를 반영했으며, 전환 증거가 숫자로 확인되기 전까지 추가 비중 확대는 신중해야 합니다."
@@ -109,9 +109,9 @@
 
 - ticker: QCOM
   name: Qualcomm
-  portfolio_rank: 10
-  portfolio_weight: 3.569
-  portfolio_role: starter
+  portfolio_rank: 22
+  portfolio_weight: 1.865
+  portfolio_role: small
   thesis: "스마트폰 모뎀/IP 기업에서 자동차, IoT, AI PC, 산업용 Edge AI를 묶는 connected edge 플랫폼으로 전환 중입니다."
   observation: "시장은 Apple 모뎀 손실과 핸드셋 사이클에 집중하지만, 자동차와 IoT가 실적으로 확인되면 리레이팅 여지가 있습니다."
   metrics:
@@ -127,9 +127,8 @@
 
 - ticker: MPWR
   name: Monolithic Power Systems
-  portfolio_rank: 19
-  portfolio_weight: 2.042
-  portfolio_role: candidate
+  portfolio_rank: 934
+  portfolio_role: watchlist
   thesis: "고효율 전력관리 IC와 모듈을 통해 AI 데이터센터, 통신, 자동차 전력 효율 병목을 해결하는 전력 반도체 기업입니다."
   observation: "Enterprise Data와 통신 수요가 강하게 확대되며 AI 서버 전력 트리의 핵심 공급망으로 재평가될 수 있습니다. 다만 높은 프리미엄 밸류에이션은 실적 지속성을 요구합니다."
   metrics:
@@ -145,8 +144,8 @@
 
 - ticker: SKT
   name: SK텔레콤
-  portfolio_rank: 8
-  portfolio_weight: 3.933
+  portfolio_rank: 7
+  portfolio_weight: 4.630
   portfolio_role: starter
   thesis: "국내 1위 이동통신 사업자로 안정적 배당과 AI·데이터센터 신사업(AI DC, 글로벌 AI 파트너십)을 겸비한 가치·배당형 포지션입니다."
   observation: "통신 본업의 안정적 현금흐름이 포트폴리오 내 농부 역할을 합니다. Penguin Solutions 전략투자와 SKT AI 서비스 확장이 주가 리레이팅 옵션입니다."
@@ -163,9 +162,9 @@
 
 - ticker: JBL
   name: Jabil
-  portfolio_rank: 11
-  portfolio_weight: 2.805
-  portfolio_role: candidate
+  portfolio_rank: 9
+  portfolio_weight: 2.941
+  portfolio_role: starter
   thesis: "EMS(전자제조서비스) 기업을 넘어 AI 서버 하드웨어 조립, 데이터센터 인프라, 헬스케어·자동화 제조 솔루션으로 확장하는 AI 인프라 공급망 수혜주입니다."
   observation: "AI 서버와 클라우드 인프라 수요가 실적을 끌어올리고 있으며, 포트폴리오 다각화와 마진 개선이 동시에 진행 중입니다. 고마진 비즈니스로의 믹스 전환이 리레이팅 논리의 핵심입니다."
   metrics:
@@ -181,8 +180,8 @@
 
 - ticker: AMD
   name: AMD
-  portfolio_rank: 12
-  portfolio_weight: 2.737
+  portfolio_rank: 11
+  portfolio_weight: 2.798
   portfolio_role: candidate
   thesis: "데이터센터 CPU와 GPU(MI300/MI350 시리즈)를 함께 보유한 AI 인프라 공급 기업으로, NVIDIA 독점을 견제하는 대안 플랫폼입니다."
   observation: "MI300X 수요가 빠르게 확대되며 데이터센터 GPU 점유율을 끌어올리고 있습니다. EPYC CPU의 서버 시장 점유율 확대와 GPU 매출 성장이 동시에 확인되어야 리레이팅이 완성됩니다."
@@ -199,8 +198,8 @@
 
 - ticker: DELL
   name: Dell Technologies
-  portfolio_rank: 18
-  portfolio_weight: 2.052
+  portfolio_rank: 17
+  portfolio_weight: 2.152
   portfolio_role: candidate
   thesis: "PC 제조사를 넘어 NVIDIA 기반 AI Factory, 서버, 스토리지, 서비스까지 묶는 턴키 AI 인프라 기업으로 재평가되는 구간입니다."
   observation: "AI 서버 주문, 출하, 백로그가 구조적 성장을 증명하고 있으나 총마진과 FCF 전환은 매 분기 확인해야 할 핵심 변수입니다."
@@ -217,8 +216,8 @@
 
 - ticker: PLTR
   name: Palantir
-  portfolio_rank: 14
-  portfolio_weight: 2.393
+  portfolio_rank: 16
+  portfolio_weight: 2.156
   portfolio_role: candidate
   thesis: "정부와 기업 데이터를 운영 의사결정에 연결하는 AI 소프트웨어 플랫폼으로 추적합니다."
   observation: "높은 고객 락인과 전략적 데이터 플랫폼이라는 강점이 있지만, 밸류에이션을 정당화하려면 상업 고객 증가와 사용량 기반 확장이 꾸준히 확인되어야 합니다."
@@ -235,9 +234,9 @@
 
 - ticker: HYUNDAI_STEEL
   name: 현대제철
-  portfolio_rank: 21
-  portfolio_weight: 1.786
-  portfolio_role: small
+  portfolio_rank: 19
+  portfolio_weight: 2.052
+  portfolio_role: candidate
   thesis: "국내 철강 기업으로 현대차그룹 내 수직 계열화 수혜와 저밸류에이션(PBR 0.3x 수준)을 결합한 가치 포지션입니다."
   observation: "철강 업황 사이클 저점 구간에서 가격 메리트로 편입했습니다. 현대차그룹 전기차·수소차 소재 공급 수혜와 수익성 개선이 thesis 핵심이나, 글로벌 철강 공급 과잉이 업사이드를 제한합니다."
   metrics:
@@ -253,8 +252,8 @@
 
 - ticker: MRVL
   name: Marvell Technology
-  portfolio_rank: 16
-  portfolio_weight: 2.224
+  portfolio_rank: 20
+  portfolio_weight: 2.048
   portfolio_role: candidate
   thesis: "클라우드 AI 인프라용 custom silicon(ASIC), 데이터센터 네트워킹 IC, 5G 기지국 반도체를 묶는 AI 데이터센터 실리콘 기업입니다."
   observation: "Amazon, Google 등 하이퍼스케일러의 custom ASIC 설계를 주도하며 NVIDIA GPU 의존도를 낮추려는 고객 수요를 직접 흡수합니다. ASIC 매출 램프가 thesis의 핵심 변수입니다."
@@ -272,7 +271,7 @@
 - ticker: SKHynix
   name: SKHynix
   portfolio_rank: 6
-  portfolio_weight: 4.642
+  portfolio_weight: 5.103
   portfolio_role: starter
   thesis: "HBM(고대역폭메모리) 세계 1위 공급자로 AI 메모리 슈퍼사이클의 최대 수혜 기업입니다."
   observation: "NVIDIA H/B/GB 시리즈에 HBM을 독점에 가깝게 공급하며 프리미엄 마진을 구가하고 있습니다. HBM4 전환이 성공적으로 이뤄지면 2026~2027년 리레이팅이 추가로 가능합니다."
@@ -289,8 +288,8 @@
 
 - ticker: SOFI
   name: SoFi Technologies
-  portfolio_rank: 23
-  portfolio_weight: 1.594
+  portfolio_rank: 21
+  portfolio_weight: 1.876
   portfolio_role: small
   thesis: "소비자 금융 앱, 은행, Galileo/Technisys 인프라를 동시에 가진 핀테크 플랫폼으로 봅니다."
   observation: "회원 증가와 매출 성장, 신규 상품 교차판매는 강하지만 Tech Platform 회복과 신용 품질이 리레이팅의 관건입니다."
@@ -307,9 +306,9 @@
 
 - ticker: AVGO
   name: Broadcom
-  portfolio_rank: 9
-  portfolio_weight: 3.774
-  portfolio_role: starter
+  portfolio_rank: 14
+  portfolio_weight: 2.416
+  portfolio_role: candidate
   thesis: "네트워킹 반도체와 VMware 소프트웨어를 결합한 AI 인프라·엔터프라이즈 소프트웨어 복합 기업입니다."
   observation: "하이퍼스케일러 AI custom ASIC 2위 공급자로 Google TPU, Meta MTIA 등 대형 프로젝트를 수행하며, VMware 통합을 통한 소프트웨어 경상수익 증가가 밸류에이션 재평가를 뒷받침합니다."
   metrics:
@@ -325,8 +324,8 @@
 
 - ticker: ADI
   name: Analog Devices
-  portfolio_rank: 25
-  portfolio_weight: 1.493
+  portfolio_rank: 24
+  portfolio_weight: 1.630
   portfolio_role: small
   thesis: "산업·자동차·통신 전 분야에 걸친 아날로그 IC 강자로, 사이클 저점 이후 회복과 AI 엣지 센서 수혜를 동시에 기대합니다."
   observation: "산업 재고 조정이 마무리되며 매출 회복세가 시작됐습니다. AI 데이터센터 전력 관리, 자동차 ADAS, 통신 인프라에서 동시 성장이 나타나는 구간입니다."
@@ -343,8 +342,8 @@
 
 - ticker: CDNS
   name: Cadence Design Systems
-  portfolio_rank: 20
-  portfolio_weight: 1.957
+  portfolio_rank: 18
+  portfolio_weight: 2.150
   portfolio_role: candidate
   thesis: "반도체 설계 자동화(EDA) 툴과 IP 라이선스를 통해 모든 반도체 설계 흐름의 필수 인프라를 제공하는 소프트웨어 기업입니다."
   observation: "AI 칩 설계 폭증이 EDA 수요를 구조적으로 끌어올리고 있으며, Synopsys와 함께 과점 구조를 유지합니다. 매출의 90% 이상이 반복 라이선스로 수익 가시성이 높습니다."
@@ -361,9 +360,9 @@
 
 - ticker: SAMSUNG_ELEC
   name: 삼성전자
-  portfolio_rank: 13
-  portfolio_weight: 2.677
-  portfolio_role: candidate
+  portfolio_rank: 8
+  portfolio_weight: 3.383
+  portfolio_role: starter
   thesis: "HBM·DRAM·NAND·파운드리·세트(스마트폰·TV·가전)를 모두 보유한 글로벌 종합 반도체·전자 기업으로 저PBR 구간에서 편입했습니다."
   observation: "HBM 후발 주자로 NVIDIA 공급 납기에 어려움을 겪고 있지만, HBM3E 양산 재개와 4nm 파운드리 수율 개선이 이뤄지면 재평가 여지가 있습니다. 현재는 저밸류에이션 헷지 포지션에 가깝습니다."
   metrics:
@@ -379,8 +378,8 @@
 
 - ticker: SAMSUNG_EM
   name: 삼성전기
-  portfolio_rank: 27
-  portfolio_weight: 0.794
+  portfolio_rank: 26
+  portfolio_weight: 0.745
   portfolio_role: small
   thesis: "MLCC, 카메라모듈, 반도체 패키지기판(FC-BGA)을 주력으로 하는 전장·AI·IT 부품 공급 기업입니다."
   observation: "AI 서버용 FC-BGA와 전기차 전장 MLCC 수요 확대가 중장기 성장을 이끕니다. 스마트폰 MLCC 수요 회복과 맞물리면 멀티 세그먼트 동시 성장 구간이 가능합니다."
@@ -397,8 +396,8 @@
 
 - ticker: HANWHA_SOLUTIONS
   name: 한화솔루션
-  portfolio_rank: 26
-  portfolio_weight: 0.799
+  portfolio_rank: 25
+  portfolio_weight: 0.805
   portfolio_role: small
   thesis: "태양광, 케미칼, 첨단소재를 함께 보유한 에너지·소재 기업으로, 업황 회복과 미국 태양광 밸류체인 옵션을 소액으로 추적합니다."
   observation: "현재는 포트폴리오 내 작은 관찰 포지션입니다. 태양광 공급 과잉과 정책 변동이 부담이지만, 원가 개선과 미국 생산 인센티브가 실적 회복으로 이어지는지가 핵심입니다."
@@ -415,9 +414,8 @@
 
 - ticker: "ON"
   name: onsemi
-  portfolio_rank: 17
-  portfolio_weight: 2.173
-  portfolio_role: candidate
+  portfolio_rank: 935
+  portfolio_role: watchlist
   thesis: "전력 반도체와 이미지 센서를 통해 자동차 전동화, 산업 자동화, AI 데이터센터 전력 효율 수요를 함께 받는 아날로그·파워 반도체 기업입니다."
   observation: "자동차 사이클 둔화는 부담이지만, SiC와 AI 데이터센터 전력 트리 수요가 회복 구간의 핵심 옵션입니다. Q1 2026에서 수요 저점 통과 신호가 확인되는지 봅니다."
   metrics:
@@ -433,8 +431,9 @@
 
 - ticker: COHR
   name: Coherent
-  portfolio_rank: 928
-  portfolio_role: watchlist
+  portfolio_rank: 23
+  portfolio_weight: 1.809
+  portfolio_role: small
   thesis: "광통신 부품(트랜시버·레이저)과 반도체 레이저를 데이터센터 AI 인프라에 공급하는 광자(Photonics) 기업입니다."
   observation: "AI 데이터센터 내 광인터커넥트 수요 폭증을 정면으로 받고 있으며, 800G/1.6T 트랜시버로의 전환이 ASP와 마진을 끌어올리는 구간입니다. 소규모 포지션으로 광학 인프라 옵션을 확보했습니다."
   metrics:
@@ -467,9 +466,9 @@
 
 - ticker: KLAC
   name: KLA Corporation
-  portfolio_rank: 22
-  portfolio_weight: 1.748
-  portfolio_role: small
+  portfolio_rank: 15
+  portfolio_weight: 2.309
+  portfolio_role: candidate
   thesis: "반도체 공정 제어와 검사·계측 장비를 통해 선단 공정, HBM, 첨단 패키징의 수율 병목을 추적하는 장비 기업입니다."
   observation: "신규 리포트의 핵심은 AI 반도체 투자 확대가 검사·계측 장비 수요와 서비스 매출로 안정적으로 연결되는지입니다. 소규모 보유로 장비주 내 공정 제어 레이어를 보강합니다."
   metrics:
@@ -603,8 +602,8 @@
 
 - ticker: SNDK
   name: SanDisk
-  portfolio_rank: 2
-  portfolio_weight: 10.846
+  portfolio_rank: 1
+  portfolio_weight: 14.709
   portfolio_role: starter
   thesis: "소비자용 플래시 브랜드에서 AI 데이터센터 NAND와 장기 공급계약 기반의 스토리지 인프라 기업으로 전환 중입니다."
   observation: "AI 스토리지 슈퍼사이클 수혜는 분명하지만, 최근 리레이팅 이후에는 추격보다 Q4 실적과 FY2027 계약 매출 가시성을 확인해야 하는 검증 구간입니다."
@@ -686,9 +685,8 @@
 
 - ticker: BE
   name: Bloom Energy
-  portfolio_rank: 28
-  portfolio_weight: 0.461
-  portfolio_role: small
+  portfolio_rank: 936
+  portfolio_role: watchlist
   thesis: "수소 테마주가 아니라 AI 데이터센터 전력 병목을 줄이는 온사이트 전력 인프라 기업으로 추적합니다."
   observation: "Q1 2026 매출 급증과 대규모 backlog는 AI 전력 수요가 주문과 실적으로 전환되고 있음을 보여주지만, 주가는 이미 공격적 성공 시나리오를 많이 반영했습니다."
   metrics:
@@ -704,9 +702,8 @@
 
 - ticker: HOOD
   name: Robinhood Markets
-  portfolio_rank: 29
-  portfolio_weight: 0.444
-  portfolio_role: small
+  portfolio_rank: 937
+  portfolio_role: watchlist
   thesis: "브로커리지 앱에서 암호화폐, 신용카드, 예금, 예측시장까지 넓히는 소비자 금융 플랫폼으로 소액 추적합니다."
   observation: "포트폴리오 내 비중은 작지만, 거래 활성도와 암호화폐 사이클에 민감하게 반응하는 옵션 성격이 있습니다. 핵심은 고객 예탁자산 증가가 일회성 거래 수익을 넘어 반복 수익으로 이어지는지입니다."
   metrics:
@@ -892,9 +889,9 @@
 
 - ticker: AMAT
   name: Applied Materials
-  portfolio_rank: 15
-  portfolio_weight: 2.274
-  portfolio_role: candidate
+  portfolio_rank: 10
+  portfolio_weight: 2.876
+  portfolio_role: starter
   thesis: "반도체 장비주를 넘어 GAA, HBM, advanced packaging, 공정 제어와 서비스를 묶는 AI 반도체 공정 플랫폼 레이어로 추적합니다."
   observation: "신규 리포트의 핵심은 AMAT가 단순 WFE 사이클 장비주가 아니라 materials engineering과 고객 공동개발, AGS 반복 서비스로 리레이팅될 수 있는지입니다. 다만 현재 주가가 bull case 일부를 선반영했는지 확인해야 합니다."
   metrics:
@@ -962,9 +959,9 @@
 
 - ticker: LRCX
   name: Lam Research
-  portfolio_rank: 24
-  portfolio_weight: 1.521
-  portfolio_role: small
+  portfolio_rank: 12
+  portfolio_weight: 2.722
+  portfolio_role: candidate
   thesis: "식각·증착 장비를 통해 HBM, 3D NAND, GAA, advanced packaging 공정 병목을 지원하는 반도체 장비 기업입니다."
   observation: "신규 리포트는 LRCX가 메모리 capex 회복과 AI용 고대역폭 메모리 투자에서 얼마나 큰 수혜를 받을 수 있는지 점검하는 자료입니다."
   metrics:
