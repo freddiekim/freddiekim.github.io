@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>PLTR Forensic Deep Dive — 2026-05-30</title>
+<style>
+:root {
+  --bg:#F7F0E6; --paper:#FFF9F0; --ink:#1F2933; --muted:#667085;
+  --navy:#17324D; --terracotta:#B85C38; --sage:#5B7F67; --mustard:#D6A94B; --line:#D7CCBD;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family: Arial, "Noto Sans KR", sans-serif; line-height:1.55; }
+a { color:var(--navy); text-decoration:none; border-bottom:1px solid var(--line); }
+.report { max-width:1200px; margin:0 auto; padding:28px; }
+.hero {
+  position:relative; overflow:hidden; border:2px solid var(--ink); background:var(--paper);
+  padding:36px; min-height:360px; display:grid; grid-template-columns:1.15fr .85fr; gap:28px;
+}
+.kicker { color:var(--terracotta); font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-weight:700; }
+h1 { font-size:46px; line-height:1.05; margin:10px 0 14px; letter-spacing:-.035em; }
+h2 { font-size:28px; margin:46px 0 14px; border-top:2px solid var(--ink); padding-top:18px; letter-spacing:-.02em; }
+h3 { font-size:21px; margin:28px 0 10px; color:var(--navy); }
+h4 { margin:0 0 6px; font-size:16px; }
+p { margin:8px 0; }
+.subtitle { font-size:18px; color:var(--muted); max-width:760px; }
+.hero-art svg { width:100%; height:100%; min-height:290px; display:block; }
+.badges { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0; }
+.badge { border:1px solid var(--ink); padding:6px 10px; border-radius:999px; font-weight:700; background:#fff; font-size:13px; }
+.grid { display:grid; gap:16px; }
+.grid-4 { grid-template-columns:repeat(4,1fr); }
+.grid-3 { grid-template-columns:repeat(3,1fr); }
+.grid-2 { grid-template-columns:repeat(2,1fr); }
+.card { background:var(--paper); border:1.5px solid var(--ink); padding:18px; border-radius:16px; box-shadow:4px 4px 0 var(--ink); }
+.card .label { color:var(--muted); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+.card .metric { font-size:28px; font-weight:800; letter-spacing:-.02em; margin-top:4px; }
+.card .note { color:var(--muted); font-size:13px; }
+.callout { border-left:8px solid var(--terracotta); background:var(--paper); padding:16px 18px; margin:18px 0; }
+.signal { display:grid; grid-template-columns:56px 1fr; gap:14px; background:var(--paper); border:1px solid var(--line); padding:14px; border-radius:14px; }
+.signal-num { width:46px; height:46px; border-radius:50%; background:var(--navy); color:#fff; display:grid; place-items:center; font-weight:800; }
+.table-wrap { overflow-x:auto; margin:14px 0 22px; border:1px solid var(--ink); background:var(--paper); }
+table { border-collapse:collapse; width:100%; min-width:780px; }
+th { background:var(--navy); color:#fff; text-align:left; font-size:12px; letter-spacing:.04em; padding:10px; vertical-align:top; }
+td { border-top:1px solid var(--line); padding:10px; vertical-align:top; font-size:13px; }
+tr:nth-child(even) td { background:#FDF3E7; }
+.timeline-table td:nth-child(1) { white-space:nowrap; font-weight:700; }
+.timeline-table td:nth-child(6) { text-align:center; font-weight:800; }
+.section-note { color:var(--muted); font-size:13px; }
+.source-tag { color:var(--muted); font-size:12px; }
+.svgbox { background:var(--paper); border:1px solid var(--ink); padding:10px; border-radius:16px; margin:16px 0; }
+.relationship {
+  display:grid; grid-template-columns: 1fr 1fr 1fr; gap:16px; margin:16px 0;
+}
+.node { border:2px solid var(--ink); background:#fff; padding:14px; border-radius:18px; min-height:130px; }
+.node h4 { color:var(--terracotta); }
+.arrowrow { display:flex; justify-content:space-between; align-items:center; gap:8px; color:var(--muted); font-weight:700; margin:8px 0; }
+.pill { display:inline-block; background:#fff; border:1px solid var(--line); padding:3px 8px; border-radius:999px; font-size:12px; margin:3px; }
+.verdict { font-size:20px; font-weight:800; color:var(--terracotta); }
+.checklist li { margin:8px 0; }
+.final-summary { background:var(--ink); color:#fff; padding:24px; border-radius:18px; margin-top:36px; }
+.final-summary b { color:#F8DDA9; }
+.final-summary .row { display:grid; grid-template-columns:260px 1fr; border-top:1px solid rgba(255,255,255,.18); padding:9px 0; }
+.sources { columns:2; font-size:13px; }
+small { color:var(--muted); }
+@media (max-width:900px) {
+  .hero { grid-template-columns:1fr; }
+  .grid-4,.grid-3,.grid-2,.relationship { grid-template-columns:1fr; }
+  h1 { font-size:34px; }
+  .final-summary .row { grid-template-columns:1fr; }
+  .sources { columns:1; }
+}
+</style>
+</head>
+<body>
+<div class="report">
+  <section class="hero">
+    <div>
+      <div class="kicker">Forensic Equity Research · PLTR · 기준일 2026-05-30 KST</div>
+      <h1>Palantir: 데이터 분석 회사가 아니라, 규제 산업 AI 운영체계로 재정의되는가?</h1>
+      <p class="subtitle">핵심 결론: PLTR의 펀더멘털 변곡점은 실제다. 다만 현재 주가 <b>$156.54</b>는 단순 base case가 아니라 base와 bull case의 상당 부분을 이미 사고 있다.</p>
+      <div class="badges">
+        <span class="badge">Rating: HOLD</span>
+        <span class="badge">Action: 전량 보유 · 신규매수 금지</span>
+        <span class="badge">Base target: $172</span>
+        <span class="badge">Bull: $224</span>
+        <span class="badge">Overshoot: $255</span>
+      </div>
+      <p class="source-tag">자료: SEC filings, 회사 IR/제품문서, Reuters, U.S. Army, Dell, MarketScreener, FinanceCharts, Fintel. 모든 루머성/익명 고객 추정은 별도 표시.</p>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 520 360" aria-label="flat vector ecosystem illustration">
+        <rect width="520" height="360" fill="#FFF9F0"/>
+        <circle cx="260" cy="180" r="86" fill="#17324D"/>
+        <rect x="210" y="138" width="100" height="84" rx="14" fill="#FFF9F0"/>
+        <rect x="228" y="155" width="64" height="10" fill="#B85C38"/>
+        <rect x="228" y="176" width="64" height="10" fill="#5B7F67"/>
+        <rect x="228" y="197" width="64" height="10" fill="#D6A94B"/>
+        <circle cx="92" cy="80" r="40" fill="#B85C38"/>
+        <circle cx="420" cy="78" r="40" fill="#5B7F67"/>
+        <circle cx="90" cy="288" r="40" fill="#D6A94B"/>
+        <circle cx="424" cy="286" r="40" fill="#B85C38"/>
+        <line x1="132" y1="92" x2="198" y2="145" stroke="#1F2933" stroke-width="8" stroke-linecap="round"/>
+        <line x1="388" y1="92" x2="322" y2="145" stroke="#1F2933" stroke-width="8" stroke-linecap="round"/>
+        <line x1="130" y1="270" x2="198" y2="215" stroke="#1F2933" stroke-width="8" stroke-linecap="round"/>
+        <line x1="388" y1="270" x2="322" y2="215" stroke="#1F2933" stroke-width="8" stroke-linecap="round"/>
+        <text x="260" y="310" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#1F2933">Ontology · AIP · Apollo</text>
+        <text x="92" y="84" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#FFF9F0">DoD</text>
+        <text x="420" y="82" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#FFF9F0">Dell</text>
+        <text x="90" y="292" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#1F2933">Industry</text>
+        <text x="424" y="290" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#FFF9F0">AI Ops</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="grid grid-4" style="margin-top:24px;">
+    <div class="card"><div class="label">Current Price</div><div class="metric">$156.54</div><div class="note">May 29 close; May 30 KST 확인</div></div>
+    <div class="card"><div class="label">75 Shares Value</div><div class="metric">$11,740</div><div class="note">포트폴리오 2.1% → 총액 추정 $559,071</div></div>
+    <div class="card"><div class="label">Diluted Equity Value</div><div class="metric">$402.5B</div><div class="note">2.571B diluted shares 기준</div></div>
+    <div class="card"><div class="label">2026E P/Adj. FCF</div><div class="metric">93.6x</div><div class="note">회사 FY2026 adj. FCF guide midpoint 기준</div></div>
+  </section>
+
+  <div class="callout">
+    <p><b>한 문장 thesis:</b> PLTR은 ‘정부 데이터 분석/SI’에서 ‘규제 산업의 AI 운영체계 + semantic control-plane’으로 이동 중이며, Maven/Army/Dell/LG/industrial customer chain이 같은 방향을 가리킨다.</p>
+    <p><b>한 문장 anti-thesis:</b> 현재 주가는 이미 2026년 성장 가속과 장기 AI OS 지위를 상당 부분 할인하고 있어, beat만으로는 부족하고 beat + raise + RDV/TCV + Dell/DoD 전환 증거가 필요하다.</p>
+  </div>
+
+  <h2>먼저 발견한 10가지 숨은 신호</h2>
+  <div class="grid grid-2">
+<div class="signal">
+  <div class="signal-num">1</div>
+  <div><h4>AI 앱이 아니라 ‘운영체제’</h4><p><b>확정 사실:</b> 공시/문서상 Palantir의 공통 구조는 AIP·Foundry·Apollo이며, 회사와 Dell 모두 이를 enterprise/on-prem AI operating system으로 설명한다.</p><p><b>투자 해석:</b> 멀티플은 단순 데이터 분석 툴보다 높아질 수 있지만, 이미 높은 밸류에이션이 상당 부분 선반영했다.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">2</div>
+  <div><h4>미국 매출의 재가속</h4><p><b>확정 사실:</b> Q1 2026 미국 매출 +104% YoY, 미국 commercial +133%, 미국 government +84%.</p><p><b>투자 해석:</b> 국제 확장이 아니라 미국 내 AI 운영 전환이 핵심 성장 엔진이다.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">3</div>
+  <div><h4>Maven/Army가 프로젝트에서 조달 레일로 이동</h4><p><b>확정 사실:</b> Maven $480M, Army $10B cap EA, Program of Record 보도는 ‘계약 건수’보다 ‘예산·조달 경로’ 변화가 중요하다.</p><p><b>투자 해석:</b> $10B는 commitment가 아니지만, 장기 반복 사용의 확률을 높인다.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">4</div>
+  <div><h4>Dell reference architecture</h4><p><b>확정 사실:</b> Dell AI Factory with NVIDIA 위에 Foundry/Ontology를 올리는 on-prem reference architecture 발표.</p><p><b>투자 해석:</b> PLTR이 GPU 판매자가 아니라 규제 산업 AI의 semantic/control-plane이 되는 옵션.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">5</div>
+  <div><h4>Customer I receivable concentration</h4><p><b>확정 사실:</b> Q1 10-Q에서 Customer I가 A/R 31%; 단, 매출 10% 초과 고객은 없음.</p><p><b>투자 해석:</b> 매출 집중보다 청구·수금 타이밍 집중이 숨어 있다. 다음 분기 A/R 추적이 핵심.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">6</div>
+  <div><h4>현금흐름 구조가 소형 적자주와 반대</h4><p><b>확정 사실:</b> $8.0B 현금/단기국채, Q1 CFO $899M, adjusted FCF $925M; 검증된 ATM/전환사채 overhang 없음.</p><p><b>투자 해석:</b> 주가 리스크는 생존자금 조달이 아니라 valuation/SBC/기대치 과열.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">7</div>
+  <div><h4>상업·정부 contribution margin이 같은 방향</h4><p><b>확정 사실:</b> Q1 contribution margin은 government 73%, commercial 73%.</p><p><b>투자 해석:</b> AIP/Foundry/Ontology의 재사용성이 consulting-heavy 모델을 벗어나고 있음을 시사.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">8</div>
+  <div><h4>LG CNS·HD Hyundai·Airbus·GE·Lumen은 서로 다른 산업의 같은 패턴</h4><p><b>확정 사실:</b> 고객 발표는 모두 ‘데이터 통합→운영 의사결정→AI agent/workflow’로 수렴.</p><p><b>투자 해석:</b> 산업별 앱 회사가 아니라 cross-industry operating layer thesis가 강화된다.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">9</div>
+  <div><h4>M&amp;A optionality는 높아 보이지만 실제 확률 낮음</h4><p><b>확정 사실:</b> Class F 창업자 지배력, 방산/정보 민감성, $400B 희석가치 때문에 인수는 기술적으로/정치적으로 어렵다.</p><p><b>투자 해석:</b> 인수 프리미엄보다 partnership/reference architecture premium을 반영해야 한다.</p></div>
+</div>
+
+<div class="signal">
+  <div class="signal-num">10</div>
+  <div><h4>주가는 이미 base가 아니라 base+part of bull</h4><p><b>확정 사실:</b> 현재가 $156.54, 희석 equity value 약 $402.5B, 2026E adj. FCF 대비 약 93.6x.</p><p><b>투자 해석:</b> 좋은 회사와 좋은 매수가는 별개. 보유는 가능하지만 신규 매수 허들은 높다.</p></div>
+</div>
+</div>
+
+  <h2>[1단계] Thesis Discovery</h2>
+  <h3>A. 기업 정체성 재정의</h3>
+  <p>시장은 PLTR을 여전히 “정부 데이터 분석 회사”, “방산 AI 수혜주”, “밸류에이션이 비싼 AI 소프트웨어”로 본다. 그러나 2025 10-K와 제품 문서에서 확인되는 실제 축은 <b>AIP·Foundry·Apollo·Ontology</b>가 결합된 enterprise operating system이다. Palantir 문서는 Foundry를 Data Operations, AIP를 Generative AI, Apollo를 continuous delivery platform으로 설명하고, Ontology를 데이터·로직·행동·보안 정책의 핵심 표현으로 둔다.<sup><a href="#s11">S11</a></sup><sup><a href="#s12">S12</a></sup></p>
+  <p>이 회사는 반도체/RF/baseband 부품 공급자가 아니다. 새로운 value chain은 <b>LLM/GPU/클라우드 위의 semantic/action/control layer</b>다. Dell의 2026년 발표는 이 layer가 Dell AI Factory with NVIDIA 위 on-prem reference architecture로 포장될 수 있음을 보여준다.<sup><a href="#s10">S10</a></sup></p>
+
+  <h3>B. 고객·공급망·파트너 맵</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>회사/기관</th><th>역할</th><th>관련성</th><th>확정 근거</th><th>한계/다음 확인</th></tr></thead><tbody><tr><td>U.S. Army / DoD</td><td>직접 고객</td><td>매우 높음</td><td>Army EA, Maven, Vantage</td><td>cap은 commitment가 아니며 예산·task order 확인 필요</td></tr><tr><td>USDA</td><td>직접 고객</td><td>높음</td><td>$300M BPA, Landmark/One Farmer One File</td><td>BPA drawdown 속도</td></tr><tr><td>NATO / UK MoD</td><td>정부/동맹 고객</td><td>중간~높음</td><td>MSS NATO, UK defense contracts 보도</td><td>정치·윤리 리스크</td></tr><tr><td>Airbus</td><td>상업 직접 고객</td><td>높음</td><td>Skywise 장기 협업 연장</td><td>금액 비공개</td></tr><tr><td>HD Hyundai</td><td>상업 직접/생태계</td><td>높음</td><td>Foundry/AIP CoE, 그룹 차원 확대</td><td>계열사 외부 확장 필요</td></tr><tr><td>LG CNS</td><td>GTM/SI 파트너</td><td>높음</td><td>한국 기업에 Foundry/AIP 도입, FDE 조직</td><td>Palantir 직접 매출 인식 범위 확인 필요</td></tr><tr><td>Dell Technologies</td><td>인프라/reference architecture 파트너</td><td>매우 높음</td><td>on-prem AI OS, Dell AI Factory with NVIDIA</td><td>실제 pipeline/ACV 미공개</td></tr><tr><td>NVIDIA</td><td>간접 인프라 생태계</td><td>중간</td><td>Dell AI Factory with NVIDIA 위 Palantir stack</td><td>독점 공급망 아님</td></tr><tr><td>Boeing Defense & Space</td><td>상업/방산 고객</td><td>높음</td><td>생산라인/기밀 프로젝트에 AI 플랫폼</td><td>계약 규모 미공개</td></tr><tr><td>GE Aerospace</td><td>상업/방산 고객</td><td>중간~높음</td><td>AIP supply chain/MRO/fulfillment</td><td>확대 계약 규모 확인</td></tr><tr><td>Lumen</td><td>상업/통신 고객/파트너</td><td>중간~높음</td><td>Foundry/AIP+connectivity fabric; $200M+ 보도</td><td>공식 금액 비공개</td></tr><tr><td>Microsoft / AWS / Google / Oracle</td><td>모델·클라우드·엔터프라이즈 생태계</td><td>낮음~중간</td><td>AIP는 여러 LLM/클라우드/모델을 연결 가능</td><td>현재 핵심 고객 thesis로 확정 불가</td></tr><tr><td>AMD / Intel / Qualcomm / Samsung / TSMC</td><td>반도체 공급망</td><td>낮음</td><td>PLTR은 RF/SoC/baseband 업체가 아님</td><td>직접 투자 thesis 관련성 낮음</td></tr><tr><td>Apple / SpaceX / Globalstar / Gogo / Skylo / Verizon</td><td>사용자 요청 포함 후보군</td><td>낮음/검증 필요</td><td>현재 확인된 PLTR 핵심 공시·계약 연결 부족</td><td>루머 금지; 관련성 낮음으로 처리</td></tr></tbody></table></div>
+  <p class="section-note">익명 고객 추정 원칙: Q1 10-Q의 Customer I는 A/R 31%를 차지하지만 Q1 revenue 10% 초과 고객은 없었다. 따라서 “대형 매출 고객”이 아니라 “대형 청구/수금 타이밍 고객”일 가능성이 더 중요하다. 후보군은 Army/DoD umbrella 45%, 대형 U.S. commercial/telecom 20%, Airbus/industrial 15%, 기타 20%로 보되 확정하지 않는다.</p>
+
+  <div class="relationship">
+    <div class="node"><h4>직접 고객</h4><p>U.S. Army/DoD, USDA, Airbus, HD Hyundai, Boeing Defense, GE Aerospace, Lumen, Tampa General 등.</p><span class="pill">budget</span><span class="pill">operations</span><span class="pill">compliance</span></div>
+    <div class="node"><h4>간접 고객/채널</h4><p>Dell AI Factory, LG CNS, Rackspace, 산업별 SI/FDE channel. 하드웨어·클라우드 투자를 업무결과로 바꿔야 하는 고객에게 필요.</p><span class="pill">reference architecture</span><span class="pill">FDE</span></div>
+    <div class="node"><h4>최종 수혜 고객</h4><p>군 지휘관/분석관, 농업 현장 직원, 항공·조선·에너지 operations, 병원 care coordination, 통신망 운영자.</p><span class="pill">decision speed</span><span class="pill">auditability</span></div>
+  </div>
+
+  <h3>C. 사건 체인 분석: 최근 24개월</h3>
+  <div class="table-wrap"><table class="timeline-table"><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead><tbody><tr><td>2024-05-29</td><td>Maven Smart System $480M prototype</td><td>DoD가 Palantir에 Maven prototype 계약; 2029년 5월 완료 예상, sole-bid solicitation 보도.</td><td>프로젝트 Maven이 단발 PoC가 아니라 군 AI 운용체계의 핵심으로 이동.</td><td>정부 매출 가시성·lock-in 강화</td><td>A</td><td>추가 ceiling, Program of Record 예산, 사용자 수</td></tr><tr><td>2024-09-20</td><td>Maven 군 서비스 확장</td><td>Palantir IR: Maven AI/ML capabilities를 military services로 확장, up to $99.8M.</td><td>육군/군별 확산의 초기 단계.</td><td>Maven repeatability 확인</td><td>B</td><td>군별 ordering cadence</td></tr><tr><td>2024-12-18</td><td>Army Vantage $618.9M</td><td>Army Vantage partnership 확장 계약.</td><td>Army 데이터 운영 backbone의 지속성.</td><td>정부 base revenue 방어</td><td>A</td><td>Vantage와 EA 통합 속도</td></tr><tr><td>2025-07-31</td><td>U.S. Army Enterprise Agreement</td><td>10년, $10B cap, 75개 계약 통합; cap은 commitment가 아님.</td><td>계약이 제품별 구매에서 enterprise procurement rail로 전환.</td><td>정부 upside와 procurement friction 감소</td><td>A</td><td>연간 task order와 obligated funding</td></tr><tr><td>2025-09-23</td><td>Boeing Defense & Space</td><td>Boeing Defense Systems가 Palantir AI를 생산라인/기밀 프로젝트에 사용.</td><td>방산 prime 내부 운영층 침투.</td><td>defense ecosystem 확장</td><td>A</td><td>Boeing 내 배포 범위·금액</td></tr><tr><td>2025-10-23</td><td>Lumen multi-year partnership</td><td>Foundry/AIP와 Lumen connectivity fabric 통합; Bloomberg는 다년 $200M+ spend 보도.</td><td>통신 인프라와 AI 운영층의 결합.</td><td>commercial large-deal 가능성</td><td>B</td><td>공시상 TCV/RDV 반영 여부</td></tr><tr><td>2025-12-03</td><td>Tampa General AIP Care Coordination OS</td><td>병원 운영/케어 coordination 운영체계 발표.</td><td>헬스케어 운영 워크플로우로 확장.</td><td>regulated vertical wedge</td><td>B</td><td>ARR/병원 확장</td></tr><tr><td>2025-12</td><td>Navy Ship OS $448M 보도</td><td>조선/해군 supply chain AI 운영체계 관련 계약 보도.</td><td>AIP가 방산 생산성 병목 제거에 쓰임.</td><td>defense industrial base thesis</td><td>B</td><td>공식 DoD task order</td></tr><tr><td>2026-01-20</td><td>HD Hyundai group-wide expansion</td><td>Foundry/AIP Center of Excellence, 그룹 차원 확대 발표.</td><td>한국 제조·조선·정유 운영 layer 진입.</td><td>Asia industrial reference</td><td>B</td><td>그룹 계열사 계약 수</td></tr><tr><td>2026-02-10</td><td>Airbus Skywise renewal</td><td>Airbus가 Skywise 전략 협업을 연장.</td><td>장기 industrial data platform retention.</td><td>commercial lock-in</td><td>A</td><td>계약 기간/금액, airline participation</td></tr><tr><td>2026-02-17</td><td>FY2025 10-K</td><td>Revenue $4.5B +56%, RDV $11.2B +105%, IDIQ $12.3B는 제외.</td><td>backlog보다 더 큰 optional procurement pool 존재.</td><td>future revenue visibility</td><td>A</td><td>RDV 전환율</td></tr><tr><td>2026-03-12</td><td>LG CNS partnership</td><td>Foundry/AIP를 한국 기업 운영 환경에 적용; LG affiliate PoC 후 본계약.</td><td>SI/AX partner 채널화 가능성.</td><td>regional GTM leverage</td><td>A</td><td>LG그룹/외부고객 확장</td></tr><tr><td>2026-03-12</td><td>GE Aerospace expansion</td><td>AIP를 supply chain, sourcing, allocation, MRO 등에 사용.</td><td>산업 AI agent가 실제 제약조건 해결에 침투.</td><td>defense aerospace use-case scaling</td><td>B</td><td>MRO KPI와 계약 크기</td></tr><tr><td>2026-03-20</td><td>Maven Program of Record 보도</td><td>Reuters: Maven이 official Program of Record가 될 예정; 장기 funding 안정화 가능.</td><td>‘prototype→program’ 변곡점.</td><td>government rerating</td><td>B</td><td>공식 FY 예산/DoD 발표</td></tr><tr><td>2026-04-22</td><td>USDA $300M BPA</td><td>National Farm Security Action Plan/One Farmer One File 지원.</td><td>민간이 아닌 정부 field operations로 확장.</td><td>non-defense government wedge</td><td>A</td><td>BPA drawdown 속도</td></tr><tr><td>2026-05-04</td><td>Q1 2026 earnings</td><td>Revenue $1.633B +85%, U.S. revenue +104%, FY guide $7.650–$7.662B.</td><td>성장이 ‘AI narrative’가 아니라 numbers로 확인.</td><td>valuation support</td><td>A</td><td>Q2 beat/raise 지속</td></tr><tr><td>2026-05-05</td><td>Q1 10-Q</td><td>$8.0B cash/ST, no debt under revolver; Customer I A/R 31%; diluted shares 2.571B.</td><td>자본구조는 탄탄하나 고객 청구 집중과 dilution 추적 필요.</td><td>risk control</td><td>A</td><td>Customer I concentration change</td></tr><tr><td>2026-05-18</td><td>Dell on-prem AI OS</td><td>Dell AI Factory with NVIDIA 위에 Palantir Foundry/Ontology on-prem reference architecture.</td><td>PLTR의 semantic layer가 AI infrastructure channel로 진입.</td><td>rerating optionality</td><td>A</td><td>validated architecture pipeline</td></tr><tr><td>2026-05-29</td><td>주가 +9.2%, 거래량 92M</td><td>5/29 종가 $156.54, intraday volume 약 92.2M.</td><td>소프트웨어 반등+Dell narrative+기대치 재가격화.</td><td>near-term overshoot risk</td><td>A</td><td>Q2 전 옵션/short volume 추세</td></tr></tbody></table></div>
+
+  <h3>D. 자본구조 forensic 분석</h3>
+  <p>PLTR은 사용자 요청서에서 가정한 “소형 적자 성장주”와 다르다. Q1 2026 기준 cash/short-term U.S. treasuries는 약 $8.0B이고, Q1 operating cash flow는 $899M, adjusted FCF는 $925M이다. 회사는 $500M secured revolving credit facility에서 차입금이 없다고 공시했다.<sup><a href="#s1">S1</a></sup><sup><a href="#s2">S2</a></sup></p>
+  <p>검증 가능한 ATM, 전환사채, warrant overhang은 핵심 이슈가 아니다. 대신 <b>SBC·option/SAR dilution</b>과 <b>Class F founder control</b>이 자본구조의 핵심이다. Q1 10-Q 기준 diluted weighted average shares는 2.571B이고, options outstanding은 약 150.9M, SARs outstanding은 약 12.1M이다.<sup><a href="#s2">S2</a></sup> $156.54 기준 basic market cap은 약 $375.3B, diluted equity value는 약 $402.5B로 차이가 크다.</p>
+
+  <h3>E. 기술 장벽 분석</h3>
+  <p>핵심 제품/레이어는 <b>Gotham, Foundry, Apollo, AIP, Ontology, Rubix, AIP agents/workflows, BYOM/registered models</b>다. Palantir의 기술 장벽은 모델 자체보다 “데이터·업무규칙·권한·감사·행동”을 Ontology에 묶어 사람과 AI agent가 같은 operational substrate를 쓰게 만드는 데 있다.<sup><a href="#s11">S11</a></sup><sup><a href="#s12">S12</a></sup></p>
+  <p>소프트웨어만으로 해결 가능한 문제로 보이지만, 고객 환경에서는 classified network, zero-trust, air-gapped/on-prem, legacy ERP/EHR/sensor/logistics systems, 감사 가능한 의사결정이 결합된다. 그래서 전환비용은 단순 license switching이 아니라 <b>workflow 재설계·데이터 lineage·권한 모델·사용자 훈련·조달 승인</b>으로 발생한다.</p>
+
+  <h3>F. 생태계 game theory</h3>
+  <p>Dell/NVIDIA 입장에서는 GPU와 on-prem AI factory가 “파일럿”에 머물면 투자 회수가 어렵다. Palantir는 이를 operational workflow로 연결하는 layer가 될 수 있다. DoD/Army 입장에서는 custom AI tool보다 procurement rail과 security posture가 더 중요하다. 대형 SI/LG CNS/Rackspace는 Palantir를 통해 enterprise AI transformation을 상품화할 수 있다.</p>
+  <p>전략적 인수 후보로는 Microsoft, Oracle, Amazon, Google, Dell, NVIDIA, 방산 prime 등이 이론적으로 떠오르지만, 실제 확률은 낮다. 이유는 Class F founder control, 방산·정보 민감성, CFIUS/antitrust/DoD optics, 그리고 현재 희석 equity value 약 $402B 때문이다. Base case에서는 M&A 가치를 0으로 둔다. Bull case에서는 scarcity/strategic premium $5–10/sh, overshoot에서는 narrative premium $15–25/sh 정도만 인정한다.</p>
+
+  <h3>G. 반대 thesis</h3>
+  <div class="grid grid-3">
+    <div class="card"><b>연결이 우연일 가능성</b><p>고객 발표가 많아도 계약금액이 작거나 pilots에 머물 수 있다.</p></div>
+    <div class="card"><b>고객 오판</b><p>Customer I를 특정 정부기관/상업고객으로 단정하면 안 된다. A/R concentration은 매출 concentration과 다르다.</p></div>
+    <div class="card"><b>상업화 지연</b><p>Dell reference architecture가 pipeline으로 연결되지 않으면 re-rating thesis가 약해진다.</p></div>
+    <div class="card"><b>희석·SBC</b><p>현금흐름은 좋지만 per-share upside는 options/SARs/SBC로 희석될 수 있다.</p></div>
+    <div class="card"><b>대기업 대체</b><p>hyperscaler/SI가 자체 semantic layer와 agent platform을 제공할 수 있다.</p></div>
+    <div class="card"><b>밸류에이션</b><p>좋은 회사라도 2026E FCF 90x+는 작은 실망에 크게 반응한다.</p></div>
+  </div>
+
+  <h2>[2단계] 정식 보고서</h2>
+
+  <h3>0. Executive Summary</h3>
+  <p><span class="verdict">투자 등급: HOLD</span> · 포트폴리오 행동: <b>전량 보유, 신규매수 금지</b>. 2.1% 포지션은 과도하지 않으므로 급히 매도할 필요는 없지만, 현재가는 base case 진입점이 아니다.</p>
+  <p>현재 시장이 보는 회사는 “비싼 AI/방산 소프트웨어”다. 내가 새롭게 보는 회사는 “미국 정부와 규제 산업의 operational AI OS, 그리고 Dell/NVIDIA on-prem AI infrastructure의 semantic layer 후보”다. 리레이팅이 성공하려면 U.S. commercial growth, government Program-of-Record drawdown, Dell reference architecture pipeline, FCF margin이 동시에 확인되어야 한다.</p>
+
+  <h3>1. 시장이 놓친 핵심 변곡점</h3>
+  <div class="grid grid-2">
+    <div class="card"><h4>확정 사실</h4><p>Q1 revenue $1.633B +85%; U.S. revenue +104%; FY2026 revenue guide $7.650–$7.662B; adjusted FCF guide $4.2–$4.4B.<sup><a href="#s1">S1</a></sup></p></div>
+    <div class="card"><h4>합리적 추론</h4><p>U.S. government와 U.S. commercial이 동시에 가속하면서 Palantir의 Ontology/AIP가 반복 가능한 운영 layer로 확산되고 있다.</p></div>
+    <div class="card"><h4>검증되지 않은 가설</h4><p>Dell reference architecture가 대규모 pipeline과 reseller/channel 매출로 이어질지, Maven Program of Record가 실제 장기 task order로 전환될지 아직 확인 필요.</p></div>
+    <div class="card"><h4>왜 아직 완전 반영되지 않았나</h4><p>제품 범주가 기존 SaaS, SI, defense contractor 어느 하나로 분류되지 않고, 공시 계약의 cap/TCV/RDV/actual revenue가 혼재되어 있어 시장이 과대·과소평가를 반복한다.</p></div>
+  </div>
+
+  <h3>2. 전통적 비즈니스 모델의 진화</h3>
+  <p>레거시 사업은 Gotham 중심의 정부/정보기관 데이터 통합이었다. 현재 성장 축은 U.S. commercial AIP bootcamp→production conversion, government procurement rail, and regulated enterprise on-prem AI OS다. 2025 10-K는 commercial revenue 46%, government revenue 54%, U.S. revenue 74%의 mix를 제시했고, Q1 2026에는 U.S. revenue가 total의 79%까지 상승했다.<sup><a href="#s3">S3</a></sup><sup><a href="#s2">S2</a></sup></p>
+  <p>PLTR은 제품 판매 기업이라기보다 <b>platform + FDE + reference architecture</b> 기업으로 진화 중이다. 이 변화는 gross margin과 FCF margin을 높이지만, 동시에 “AI infrastructure multiple”을 요구한다. 현재 multiple은 이미 그 요구를 상당히 반영한다.</p>
+
+  <h3>3. 실적으로 증명되는 실체</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>지표</th><th>최근 값</th><th>해석</th></tr></thead><tbody><tr><td>Revenue</td><td>$1.633B, +85% YoY</td><td>성장률이 재가속. 2026 guide midpoint $7.656B.</td></tr><tr><td>U.S. revenue</td><td>$1.282B, +104% YoY</td><td>핵심 thesis는 미국 수요 폭발.</td></tr><tr><td>U.S. Commercial</td><td>$595M, +133% YoY</td><td>AIP commercial conversion이 숫자로 확인.</td></tr><tr><td>U.S. Government</td><td>$687M, +84% YoY</td><td>Maven/Army/USDA 등 government momentum.</td></tr><tr><td>GAAP operating income</td><td>$754M, 46% margin</td><td>소프트웨어 operating leverage 확인.</td></tr><tr><td>Adjusted operating income</td><td>$984M, 60% margin</td><td>Rule of 40 145%.</td></tr><tr><td>CFO / Adj. FCF</td><td>$899M / $925M</td><td>cash burn이 아니라 cash generation.</td></tr><tr><td>Cash/ST treasuries</td><td>$8.0B</td><td>생존자금 조달 리스크 낮음.</td></tr><tr><td>Deals</td><td>206 deals ≥$1M; 72 ≥$5M; 47 ≥$10M</td><td>deal velocity는 강함. ASP/단가 추정은 제한적.</td></tr><tr><td>TCV/RDV</td><td>Q1 TCV $2.41B; U.S. commercial RDV $4.92B</td><td>forward visibility 핵심 KPI.</td></tr></tbody></table></div>
+  <p>제품/서비스 구분은 일반 SaaS처럼 단순하지 않다. 공시는 Palantir Cloud, On-Premises Software, Professional Services 등을 계약 기간에 걸쳐 인식한다고 설명한다.<sup><a href="#s2">S2</a></sup> 다음 분기 반드시 볼 KPI는 U.S. commercial revenue, U.S. commercial TCV/RDV, contribution margin, adjusted FCF margin, Customer I A/R, diluted shares/SBC다.</p>
+
+  <div class="grid grid-2">
+    <div class="svgbox"><svg viewBox="0 0 760 280" role="img" aria-label="Revenue run-rate and guide">
+    <style>.axis{font:12px Arial;fill:#4A5568}.value{font:700 13px Arial;fill:#1F2933}.grid{stroke:#D7CCBD;stroke-width:1}</style>
+    <rect x="0" y="0" width="760" height="280" fill="#FFF9F0"/>
+    <text x="24" y="26" font-family="Arial" font-weight="700" font-size="15" fill="#1F2933">Revenue run-rate and guide</text>
+    <line x1="60" y1="220" x2="736" y2="220" class="grid"/>
+    <rect x="109.6" y="134.3" width="126.2" height="85.7" rx="4" fill="#5B7F67"/>
+<text x="172.7" y="126.3" text-anchor="middle" class="value">4.50B</text>
+<text x="172.7" y="250" text-anchor="middle" class="axis">FY2025 rev</text>
+<rect x="334.9" y="95.6" width="126.2" height="124.4" rx="4" fill="#5B7F67"/>
+<text x="398.0" y="87.6" text-anchor="middle" class="value">6.53B</text>
+<text x="398.0" y="250" text-anchor="middle" class="axis">Q1&#x27;26 annualized</text>
+<rect x="560.2" y="74.2" width="126.2" height="145.8" rx="4" fill="#5B7F67"/>
+<text x="623.3" y="66.2" text-anchor="middle" class="value">7.66B</text>
+<text x="623.3" y="250" text-anchor="middle" class="axis">FY2026 guide</text>
+
+    </svg></div>
+    <div class="svgbox"><svg viewBox="0 0 760 300" role="img" aria-label="valuation bridge">
+    <style>.title{font:700 15px Arial;fill:#1F2933}.small{font:12px Arial;fill:#4A5568}.big{font:700 18px Arial;fill:#1F2933}</style>
+    <rect width="760" height="300" fill="#FFF9F0"/>
+    <text x="24" y="28" class="title">Valuation bridge: current price already assumes rare quality</text><rect x="36" y="68" width="128" height="92" rx="10" fill="#17324D" opacity="0.92"/><text x="46" y="96" font-family="Arial" font-size="12" fill="#FFF9F0">희석 Equity Value</text><text x="46" y="128" font-family="Arial" font-weight="700" font-size="19" fill="#FFF9F0">$402.5B</text><rect x="182" y="68" width="128" height="92" rx="10" fill="#5B7F67" opacity="0.92"/><text x="192" y="96" font-family="Arial" font-size="12" fill="#FFF9F0">순현금 차감</text><text x="192" y="128" font-family="Arial" font-weight="700" font-size="19" fill="#FFF9F0">-$8.0B</text><rect x="328" y="68" width="128" height="92" rx="10" fill="#B85C38" opacity="0.92"/><text x="338" y="96" font-family="Arial" font-size="12" fill="#FFF9F0">Enterprise Value</text><text x="338" y="128" font-family="Arial" font-weight="700" font-size="19" fill="#FFF9F0">$394.5B</text><rect x="474" y="68" width="128" height="92" rx="10" fill="#D6A94B" opacity="0.92"/><text x="484" y="96" font-family="Arial" font-size="12" fill="#FFF9F0">2026E 매출</text><text x="484" y="128" font-family="Arial" font-weight="700" font-size="19" fill="#FFF9F0">$7.7B</text><rect x="620" y="68" width="128" height="92" rx="10" fill="#5B7F67" opacity="0.92"/><text x="630" y="96" font-family="Arial" font-size="12" fill="#FFF9F0">2026E Adj. FCF</text><text x="630" y="128" font-family="Arial" font-weight="700" font-size="19" fill="#FFF9F0">$4.3B</text><text x="36" y="205" class="big">EV/2026E Sales ≈ 51.5x · P/2026E Adj. FCF ≈ 93.6x</text><text x="36" y="234" class="small">희석 주식수 2.571B 기준. Basic market cap은 약 $375.3B, diluted-implied equity value는 약 $402.5B.</text></svg></div>
+  </div>
+
+  <h3>4. 고객·파트너·생태계 분석</h3>
+  <p>가장 강한 고객군은 U.S. government/defense, industrial regulated enterprise, healthcare/public-sector operations, and partner-led AI transformation이다. NVIDIA, Dell은 AI infrastructure 생태계에서 의미가 있지만 PLTR은 NVIDIA chip play가 아니다. AMD, Intel, Qualcomm, Samsung, TSMC 등 silicon 공급망과의 직접 thesis는 현재 확인되지 않는다.</p>
+  <div class="table-wrap"><table class=""><thead><tr><th>회사/기관</th><th>역할</th><th>관련성</th><th>확정 근거</th><th>한계/다음 확인</th></tr></thead><tbody><tr><td>U.S. Army / DoD</td><td>직접 고객</td><td>매우 높음</td><td>Army EA, Maven, Vantage</td><td>cap은 commitment가 아니며 예산·task order 확인 필요</td></tr><tr><td>USDA</td><td>직접 고객</td><td>높음</td><td>$300M BPA, Landmark/One Farmer One File</td><td>BPA drawdown 속도</td></tr><tr><td>NATO / UK MoD</td><td>정부/동맹 고객</td><td>중간~높음</td><td>MSS NATO, UK defense contracts 보도</td><td>정치·윤리 리스크</td></tr><tr><td>Airbus</td><td>상업 직접 고객</td><td>높음</td><td>Skywise 장기 협업 연장</td><td>금액 비공개</td></tr><tr><td>HD Hyundai</td><td>상업 직접/생태계</td><td>높음</td><td>Foundry/AIP CoE, 그룹 차원 확대</td><td>계열사 외부 확장 필요</td></tr><tr><td>LG CNS</td><td>GTM/SI 파트너</td><td>높음</td><td>한국 기업에 Foundry/AIP 도입, FDE 조직</td><td>Palantir 직접 매출 인식 범위 확인 필요</td></tr><tr><td>Dell Technologies</td><td>인프라/reference architecture 파트너</td><td>매우 높음</td><td>on-prem AI OS, Dell AI Factory with NVIDIA</td><td>실제 pipeline/ACV 미공개</td></tr><tr><td>NVIDIA</td><td>간접 인프라 생태계</td><td>중간</td><td>Dell AI Factory with NVIDIA 위 Palantir stack</td><td>독점 공급망 아님</td></tr><tr><td>Boeing Defense & Space</td><td>상업/방산 고객</td><td>높음</td><td>생산라인/기밀 프로젝트에 AI 플랫폼</td><td>계약 규모 미공개</td></tr><tr><td>GE Aerospace</td><td>상업/방산 고객</td><td>중간~높음</td><td>AIP supply chain/MRO/fulfillment</td><td>확대 계약 규모 확인</td></tr><tr><td>Lumen</td><td>상업/통신 고객/파트너</td><td>중간~높음</td><td>Foundry/AIP+connectivity fabric; $200M+ 보도</td><td>공식 금액 비공개</td></tr><tr><td>Microsoft / AWS / Google / Oracle</td><td>모델·클라우드·엔터프라이즈 생태계</td><td>낮음~중간</td><td>AIP는 여러 LLM/클라우드/모델을 연결 가능</td><td>현재 핵심 고객 thesis로 확정 불가</td></tr><tr><td>AMD / Intel / Qualcomm / Samsung / TSMC</td><td>반도체 공급망</td><td>낮음</td><td>PLTR은 RF/SoC/baseband 업체가 아님</td><td>직접 투자 thesis 관련성 낮음</td></tr><tr><td>Apple / SpaceX / Globalstar / Gogo / Skylo / Verizon</td><td>사용자 요청 포함 후보군</td><td>낮음/검증 필요</td><td>현재 확인된 PLTR 핵심 공시·계약 연결 부족</td><td>루머 금지; 관련성 낮음으로 처리</td></tr></tbody></table></div>
+
+  <h3>5. 숨은 고객 및 M&A optionality</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>후보</th><th>근거</th><th>반대 근거</th><th>확률</th></tr></thead><tbody><tr><td>Army/DoD umbrella</td><td>Army EA, Maven, Vantage, large public-sector billing timing</td><td>Q1 revenue 10% 초과 고객 없음; A/R만으로 단정 불가</td><td>45%</td></tr><tr><td>대형 U.S. commercial/telecom</td><td>Lumen multi-year, commercial TCV/RDV 가속</td><td>공식 금액 비공개, Customer I와 연결 증거 없음</td><td>20%</td></tr><tr><td>Airbus/industrial customer</td><td>Skywise 장기 platform, industrial workflows</td><td>A/R 31%를 설명하기엔 데이터 부족</td><td>15%</td></tr><tr><td>기타/복수 고객 timing</td><td>분기말 청구/수금 구조 가능</td><td>단일 Customer I 공시와 맞지 않을 수 있음</td><td>20%</td></tr></tbody></table></div>
+  <p>M&A는 base case 0%, bull case $5–10/sh, overshoot $15–25/sh 정도만 반영한다. PLTR은 인수 대상보다 <b>전략적 표준 설계/reference layer</b>로서의 가치가 더 현실적이다.</p>
+
+  <h3>6. 자본구조와 수급 분석</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>항목</th><th>분석</th></tr></thead><tbody><tr><td>주식 수</td><td>Class A/B/F outstanding 합계 약 2.397B, Q1 diluted weighted avg 2.571B.</td></tr><tr><td>Fully diluted value</td><td>$402.5B. per-share valuation은 diluted 기준 사용.</td></tr><tr><td>현금/부채</td><td>$8.0B cash/ST treasuries, revolver 차입 없음.</td></tr><tr><td>ATM/shelf/convertible/warrant</td><td>핵심 overhang으로 확인되지 않음. 소형 적자주식 financing 구조와 다름.</td></tr><tr><td>Options/SARs/RSU</td><td>Options 150.9M, SARs 12.1M; SBC와 희석이 핵심.</td></tr><tr><td>Lock-up/지배구조</td><td>Class F founder control로 M&A/거버넌스 optionality 제한.</td></tr><tr><td>Short/volume</td><td>5/29 거래량 약 92M. Fintel off-exchange short-sale volume ratio는 38.9%; 이는 short interest가 아니라 일중 short sale volume.</td></tr><tr><td>주가 상승 분해</td><td>Q1 beat/raise + Dell reference architecture + software risk-on + options/short-covering 가능성. financing overhang 해소가 아님.</td></tr></tbody></table></div>
+
+  <div class="svgbox"><svg viewBox="0 0 760 260" role="img" aria-label="PLTR 최근 주가 흐름">
+    <style>.axis{font:12px Arial;fill:#4A5568}.grid{stroke:#D7CCBD;stroke-width:1}</style>
+    <rect x="0" y="0" width="760" height="260" fill="#FFF9F0"/>
+    <line x1="55" y1="193.0" x2="736" y2="193.0" class="grid"/><text x="45" y="197.0" text-anchor="end" class="axis">$133</text>
+<line x1="55" y1="119.5" x2="736" y2="119.5" class="grid"/><text x="45" y="123.5" text-anchor="end" class="axis">$145</text>
+<line x1="55" y1="46.0" x2="736" y2="46.0" class="grid"/><text x="45" y="50.0" text-anchor="end" class="axis">$157</text>
+
+    <polyline points="55.0,176.9 140.1,176.1 225.2,164.6 310.4,163.0 395.5,166.2 480.6,168.0 565.8,193.0 650.9,126.7 736.0,46.0" fill="none" stroke="#17324D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="55.0" cy="176.9" r="4" fill="#17324D"/>
+<circle cx="140.1" cy="176.1" r="4" fill="#17324D"/>
+<circle cx="225.2" cy="164.6" r="4" fill="#17324D"/>
+<circle cx="310.4" cy="163.0" r="4" fill="#17324D"/>
+<circle cx="395.5" cy="166.2" r="4" fill="#17324D"/>
+<circle cx="480.6" cy="168.0" r="4" fill="#17324D"/>
+<circle cx="565.8" cy="193.0" r="4" fill="#17324D"/>
+<circle cx="650.9" cy="126.7" r="4" fill="#17324D"/>
+<circle cx="736.0" cy="46.0" r="4" fill="#B85C38"/>
+    <text x="55.0" y="242" text-anchor="middle" class="axis">5/18</text>
+<text x="140.1" y="242" text-anchor="middle" class="axis">5/19</text>
+<text x="225.2" y="242" text-anchor="middle" class="axis">5/20</text>
+<text x="310.4" y="242" text-anchor="middle" class="axis">5/21</text>
+<text x="395.5" y="242" text-anchor="middle" class="axis">5/22</text>
+<text x="480.6" y="242" text-anchor="middle" class="axis">5/26</text>
+<text x="565.8" y="242" text-anchor="middle" class="axis">5/27</text>
+<text x="650.9" y="242" text-anchor="middle" class="axis">5/28</text>
+<text x="736.0" y="242" text-anchor="middle" class="axis">5/29</text>
+    <text x="736" y="28" text-anchor="end" font-family="Arial" font-size="13" fill="#B85C38">5거래일 +14.4%, 2일 +18.1%</text>
+    </svg></div>
+
+  <h3>7. 기술 분석</h3>
+  <p>핵심 제품은 Gotham, Foundry, Apollo, AIP, Ontology다. 공정 노드/RF/baseband/SoC/주파수는 해당 없음. PLTR의 강점 layer는 <b>Ontology + secure AI orchestration + operational workflow + continuous deployment</b>다. AIP architecture는 LLM 연결, Ontology context, agent/automation, observability/evaluation, developer toolchain을 포함한다.<sup><a href="#s12">S12</a></sup></p>
+  <p>모방 난이도는 모델이 아니라 고객별 operational graph와 인증/보안/조달/사용자 프로세스에서 생긴다. 고객이 채택하면 data lineage, action type, functions, permissions, audit logging, FDE workflows가 누적되어 전환비용이 커진다.</p>
+
+  <h3>8. 컨센서스 리비전 분석</h3>
+  <p>MarketScreener 기준 31명 analyst consensus는 Outperform, 평균 목표가 $183.73, 최고 $255, 최저 $70으로 분산이 크다.<sup><a href="#s18">S18</a></sup> Seeking Alpha의 Q2 2026 일정/추정치는 2026년 8월 3일 post-market 발표, normalized EPS $0.34, revenue $1.81B이며 90일 EPS revision은 19 up / 0 down으로 표시되었다. 정확한 7일/30일 revision series는 접근 가능한 무료 출처에서 완전 검증하지 못했다.</p>
+  <p>현재 시장은 base case만 사는 것이 아니다. $156.54는 2026E sales 약 51.5x EV/Sales와 2026E adjusted FCF 약 93.6x P/FCF를 요구한다. 이는 “AI OS thesis가 맞다”뿐 아니라 “성장·마진·정부/상업 수주가 동시에 지속된다”는 가정이 들어간 가격이다.</p>
+
+  <h3>9. 이벤트 드리븐 분석</h3>
+  <p>다음 Q2 2026 실적 발표는 2026년 8월 3일 post-market로 집계된다. 실적 전 기대치가 이미 높기 때문에 <b>beat만으로는 부족</b>하다. 상승 조건은 revenue beat + FY raise + U.S. commercial/RDV acceleration + FCF margin 유지 + Dell/DoD pipeline comment다.</p>
+  <div class="table-wrap"><table class=""><thead><tr><th>컨콜 질문</th><th>왜 중요한가</th></tr></thead><tbody><tr><td>Dell AI Factory reference architecture에서 pipeline/ACV가 발생했는가?</td><td>reference platform thesis의 첫 검증.</td></tr><tr><td>Maven Program of Record 관련 FY budget/task order visibility는?</td><td>government optionality를 cap이 아니라 revenue로 바꾸는 증거.</td></tr><tr><td>Customer I A/R concentration 원인은 무엇인가?</td><td>청구 집중/수금 리스크 확인.</td></tr><tr><td>U.S. commercial net expansion과 bootcamp conversion은?</td><td>commercial re-rating의 핵심.</td></tr><tr><td>SBC와 diluted share count trajectory는?</td><td>per-share upside 방어.</td></tr></tbody></table></div>
+
+  <h3>10. 밸류에이션</h3>
+  <h4>A. DCF</h4>
+  <div class="table-wrap"><table class=""><thead><tr><th>Scenario</th><th>2026–2030 매출($B)</th><th>FCF margin</th><th>할인율</th><th>Terminal multiple</th><th>희석 후 주당가치</th></tr></thead><tbody><tr><td>BEAR</td><td>7.7 / 8.9 / 10.1 / 11.2 / 12.0</td><td>52% / 47% / 44% / 40% / 37%</td><td>10.5%</td><td>25x FCF</td><td>$36</td></tr><tr><td>BASE</td><td>7.7 / 10.4 / 13.4 / 16.5 / 19.6</td><td>56% / 53% / 51% / 49% / 47%</td><td>9.5%</td><td>45x FCF</td><td>$115</td></tr><tr><td>BULL</td><td>7.7 / 11.8 / 16.8 / 23.0 / 30.5</td><td>58% / 56% / 54% / 52% / 50%</td><td>9.0%</td><td>55x FCF</td><td>$229</td></tr></tbody></table></div>
+  <p>DCF만 보면 현재가 $156.54는 base DCF보다 높고 bull DCF보다 낮다. 즉 장기 intrinsic value보다 <b>12개월 re-rating/quality scarcity premium</b>이 현재 가격을 설명한다.</p>
+
+  <h4>B. FCF Yield / Owner Earnings</h4>
+  <div class="table-wrap"><table class=""><thead><tr><th>항목</th><th>값</th><th>해석</th></tr></thead><tbody><tr><td>2026E adjusted FCF</td><td>$4.3B midpoint</td><td>회사 guide.</td></tr><tr><td>현재 P/2026E adj. FCF</td><td>93.6x</td><td>FCF yield 약 1.1%.</td></tr><tr><td>Normalized 2027E FCF</td><td>$5.5–6.6B</td><td>base/bull conversion 필요.</td></tr><tr><td>적정 FCF yield</td><td>1.5–2.5%</td><td>AI OS scarcity를 인정해도 매우 낮은 yield 필요.</td></tr><tr><td>주당가치</td><td>$95–185</td><td>yield 가정에 매우 민감.</td></tr></tbody></table></div>
+
+  <h4>C. 상대가치</h4>
+  <p>FinanceCharts는 PLTR TTM P/S를 71.91x, EV/EBITDA를 182.17x로 표시한다. 같은 표에서 AppLovin P/S 34.10x, SAP 4.74x, Salesforce 3.66x로 나타나 PLTR의 premium이 매우 크다.<sup><a href="#s15">S15</a></sup><sup><a href="#s16">S16</a></sup> 이 premium은 성장률, FCF margin, government moat, AI OS identity로 일부 정당화되지만, margin of safety는 낮다.</p>
+
+  <h4>D. 리레이팅 가치</h4>
+  <div class="svgbox"><svg viewBox="0 0 760 300" role="img" aria-label="목표가 체계"><style>.lab{font:13px Arial;fill:#1F2933}.num{font:700 13px Arial;fill:#1F2933}.grid{stroke:#D7CCBD;stroke-width:1}</style><rect width="760" height="300" fill="#FFF9F0"/><text x="24" y="26" font-family="Arial" font-weight="700" font-size="15" fill="#1F2933">Target ladder</text><text x="24" y="63.0" class="lab">현재</text><rect x="100" y="48.0" width="358.1" height="24" rx="4" fill="#17324D"/><text x="466.1" y="65.0" class="num">$157</text><text x="24" y="105.0" class="lab">보수</text><rect x="100" y="90.0" width="263.1" height="24" rx="4" fill="#5B7F67"/><text x="371.1" y="107.0" class="num">$115</text><text x="24" y="147.0" class="lab">Base</text><rect x="100" y="132.0" width="393.5" height="24" rx="4" fill="#5B7F67"/><text x="501.5" y="149.0" class="num">$172</text><text x="24" y="189.0" class="lab">Bull</text><rect x="100" y="174.0" width="512.4" height="24" rx="4" fill="#B85C38"/><text x="620.4" y="191.0" class="num">$224</text><text x="24" y="231.0" class="lab">Overshoot</text><rect x="100" y="216.0" width="583.3" height="24" rx="4" fill="#B85C38"/><text x="691.3" y="233.0" class="num">$255</text></svg></div>
+  <p>리레이팅 가치는 “현재 정체성 기준 multiple” 25–35x sales에서 “AI operating system/control-plane” 40–55x sales로 이동하는 데서 나온다. 하지만 현재 2026E EV/Sales가 이미 50x를 넘기 때문에, upside는 multiple expansion보다 <b>2027/2028 revenue denominator가 빠르게 커지는지</b>에 달려 있다.</p>
+
+  <h3>11. 목표가 체계</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>적용 multiple</th><th>희석 주식수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody><tr><td>보수적 내재가치</td><td>$115</td><td>DCF base에 가까운 장기 FCF가치</td><td>2030E FCF $9.2B, terminal 45x, WACC 9.5%</td><td>2.571B</td><td>25%</td><td>valuation reset 후 지지</td><td>U.S. commercial decel, FCF margin 하락</td></tr><tr><td>12개월 base target</td><td>$172</td><td>2027E revenue 약 $10.4B</td><td>EV/Sales 약 42x</td><td>2.571B</td><td>45%</td><td>Q2 beat + FY raise 유지</td><td>FY guide만 유지·no raise</td></tr><tr><td>Bull case target</td><td>$224</td><td>2028E bull revenue 약 $16.8B</td><td>EV/Sales 약 33–34x</td><td>2.571B</td><td>25%</td><td>Dell/DoD/LG/industrial pipeline 동시 확인</td><td>government drawdown 지연</td></tr><tr><td>Overshoot target</td><td>$255</td><td>2028E bull revenue + scarcity premium</td><td>EV/Sales 약 38x 또는 street high target 근접</td><td>2.571B</td><td>5%</td><td>short/option squeeze + beat/raise</td><td>거래량 둔화, multiple compression</td></tr><tr><td>실적 발표 전 trading target</td><td>$175</td><td>Q2 기대치 선반영</td><td>2027E EV/Sales 42–43x</td><td>2.571B</td><td>—</td><td>소프트웨어 risk-on 지속</td><td>$140 이탈</td></tr><tr><td>실적 후 재평가 target</td><td>$190</td><td>2027/2028 bridge</td><td>2028E base EV/Sales 35–36x</td><td>2.571B</td><td>—</td><td>beat + raise + RDV/TCV acceleration</td><td>beat-only/no raise</td></tr></tbody></table></div>
+
+  <h3>12. 2020~2030 멀티플 밴드</h3>
+  <p>아래 actual P/S는 CompaniesMarketCap의 연말 스냅샷이며, vendor마다 basic/diluted share count 및 TTM/forward revenue 기준 차이가 있다. 실제 terminal data가 필요한 운용에서는 Bloomberg/FactSet으로 daily band 검증이 필요하다.<sup><a href="#s14">S14</a></sup> 현재 TTM P/S는 FinanceCharts 기준 71.91x, diluted market value/TTM revenue 기준 약 77.0x다.<sup><a href="#s15">S15</a></sup></p>
+  <div class="svgbox"><svg viewBox="0 0 760 300" role="img" aria-label="P/S band: 2020~2026 actual year-end snapshots">
+    <style>.axis{font:12px Arial;fill:#4A5568}.value{font:700 13px Arial;fill:#1F2933}.grid{stroke:#D7CCBD;stroke-width:1}</style>
+    <rect x="0" y="0" width="760" height="300" fill="#FFF9F0"/>
+    <text x="24" y="26" font-family="Arial" font-weight="700" font-size="15" fill="#1F2933">P/S band: 2020~2026 actual year-end snapshots</text>
+    <line x1="60" y1="240" x2="736" y2="240" class="grid"/>
+    <rect x="81.2" y="166.4" width="54.1" height="73.6" rx="4" fill="#D6A94B"/>
+<text x="108.3" y="158.4" text-anchor="middle" class="value">40.50x</text>
+<text x="108.3" y="270" text-anchor="middle" class="axis">2020</text>
+<rect x="177.8" y="196.9" width="54.1" height="43.1" rx="4" fill="#D6A94B"/>
+<text x="204.9" y="188.9" text-anchor="middle" class="value">23.70x</text>
+<text x="204.9" y="270" text-anchor="middle" class="axis">2021</text>
+<rect x="274.4" y="227.3" width="54.1" height="12.7" rx="4" fill="#D6A94B"/>
+<text x="301.4" y="219.3" text-anchor="middle" class="value">7.01x</text>
+<text x="301.4" y="270" text-anchor="middle" class="axis">2022</text>
+<rect x="371.0" y="209.5" width="54.1" height="30.5" rx="4" fill="#D6A94B"/>
+<text x="398.0" y="201.5" text-anchor="middle" class="value">16.80x</text>
+<text x="398.0" y="270" text-anchor="middle" class="axis">2023</text>
+<rect x="467.5" y="125.7" width="54.1" height="114.3" rx="4" fill="#D6A94B"/>
+<text x="494.6" y="117.7" text-anchor="middle" class="value">62.90x</text>
+<text x="494.6" y="270" text-anchor="middle" class="axis">2024</text>
+<rect x="564.1" y="77.5" width="54.1" height="162.5" rx="4" fill="#D6A94B"/>
+<text x="591.1" y="69.5" text-anchor="middle" class="value">89.40x</text>
+<text x="591.1" y="270" text-anchor="middle" class="axis">2025</text>
+<rect x="660.7" y="120.9" width="54.1" height="119.1" rx="4" fill="#D6A94B"/>
+<text x="687.7" y="112.9" text-anchor="middle" class="value">65.50x</text>
+<text x="687.7" y="270" text-anchor="middle" class="axis">2026</text>
+
+    </svg></div>
+  <div class="table-wrap"><table class=""><thead><tr><th>연도/구간</th><th>P/S</th><th>P/E</th><th>EV/EBITDA</th><th>P/FCF</th><th>해석</th></tr></thead><tbody><tr><td>2020 actual</td><td>40.5x</td><td>N/M</td><td>N/M</td><td>N/M</td><td>상장 직후 성장 프리미엄</td></tr><tr><td>2021 actual</td><td>23.7x</td><td>N/M/고평가</td><td>N/M</td><td>N/M</td><td>고성장 소프트웨어 de-rating 시작</td></tr><tr><td>2022 actual</td><td>7.0x</td><td>N/M</td><td>N/M</td><td>FCF 낮음</td><td>금리상승·성장주 붕괴</td></tr><tr><td>2023 actual</td><td>16.8x</td><td>흑자 전환 후 높음</td><td>높음</td><td>높음</td><td>AI narrative 초기</td></tr><tr><td>2024 actual</td><td>62.9x</td><td>매우 높음</td><td>매우 높음</td><td>매우 높음</td><td>AIP 재평가</td></tr><tr><td>2025 actual</td><td>89.4x</td><td>매우 높음</td><td>매우 높음</td><td>매우 높음</td><td>U.S. commercial 가속</td></tr><tr><td>2026 current snapshot</td><td>65.5x year-end source / 71.9x TTM vendor / 77.0x diluted TTM</td><td>175.9x</td><td>182.2x</td><td>149.7x</td><td>현재가는 bull quality 요구</td></tr><tr><td>2027E bear/base/bull</td><td>33x / 42x / 45x</td><td>90x / 110x / 120x</td><td>90x / 105x / 115x</td><td>70x / 73x / 68x</td><td>매출 가속 유지 필요</td></tr><tr><td>2028E bear/base/bull</td><td>24x / 36x / 39x</td><td>70x / 85x / 95x</td><td>70x / 80x / 90x</td><td>55x / 60x / 58x</td><td>상업 reference 확장 시 정당화</td></tr><tr><td>2029E bear/base/bull</td><td>19x / 30x / 35x</td><td>55x / 65x / 75x</td><td>55x / 60x / 70x</td><td>45x / 50x / 48x</td><td>규모의 경제 지속 필요</td></tr><tr><td>2030E bear/base/bull</td><td>16x / 25x / 30x</td><td>45x / 55x / 65x</td><td>45x / 50x / 60x</td><td>38x / 42x / 40x</td><td>terminal multiple 압축 가정</td></tr></tbody></table></div>
+
+  <h3>13. 리스크 관리: thesis break trigger</h3>
+  <div class="table-wrap"><table class=""><thead><tr><th>리스크</th><th>Thesis break trigger</th><th>가격 레벨</th><th>확인 시점</th><th>대응</th></tr></thead><tbody><tr><td>출하/배포 지연</td><td>Q2/Q3 revenue가 guide 하단 또는 U.S. commercial 성장률 급락</td><td>$140 이하에서 반영 시작</td><td>실적/컨콜</td><td>추가매수 금지, 15주 축소</td></tr><tr><td>Gross margin/FCF 정상화</td><td>adj. FCF margin <45%, contribution margin <68%</td><td>$125</td><td>분기별</td><td>DCF 재산정, 목표가 $115로 낮춤</td></tr><tr><td>고객 집중/Customer I</td><td>A/R concentration 35–40% 상회 또는 수금 지연</td><td>$125</td><td>10-Q</td><td>government/large customer exposure 재평가</td></tr><tr><td>Maven/Army 기대 과열</td><td>$10B cap이 task order로 전환되지 않거나 Program of Record 공식화 지연</td><td>$130</td><td>DoD/Army 예산</td><td>정부 optionality 프리미엄 제거</td></tr><tr><td>상업 고객 오판</td><td>Lumen/LG/HD/Airbus 확장 매출 확인 부재</td><td>$135</td><td>컨콜, customer releases</td><td>bull case 확률 축소</td></tr><tr><td>경쟁사 대체</td><td>hyperscaler/SI가 Ontology 대체 reference stack 공개·대형 고객 이탈</td><td>$120</td><td>고객 발표</td><td>핵심 thesis 훼손</td></tr><tr><td>SBC/희석</td><td>diluted share count YoY +3% 이상 지속, SBC/매출 재상승</td><td>$130</td><td>10-Q</td><td>목표가 per share 하향</td></tr><tr><td>short squeeze 이후 급락</td><td>2일 급등 후 거래량 급감, $140 weekly close 이탈</td><td>$140</td><td>주가/거래량</td><td>트레이딩 물량 15주 trim</td></tr><tr><td>M&A 기대 과열</td><td>근거 없는 인수 루머로 $225+ 진입</td><td>$225+</td><td>뉴스/옵션</td><td>15–30주 차익실현</td></tr></tbody></table></div>
+
+  <h3>14. 포트폴리오 실행안</h3>
+  <p><b>추천 행동: 전량 보유, 신규매수 금지.</b> 현재 75주, 평가액 $11,740, 포트폴리오 2.1%는 과도하지 않다. 목표 비중은 2.0–2.5%다. $125 이하에서 thesis가 intact하면 10–15주만 추가 검토, $190–205에서는 15주 차익실현, $224에서는 추가 15주, $255 overshoot에서는 15–30주 추가 차익실현을 권고한다.</p>
+  <div class="table-wrap"><table class=""><thead><tr><th>시나리오</th><th>주가</th><th>75주 평가액</th><th>현재 대비 손익</th><th>행동</th></tr></thead><tbody><tr><td>현재</td><td>$156.54</td><td>$11,740</td><td>—</td><td>75주 유지</td></tr><tr><td>Conservative/하방</td><td>$115</td><td>$8,625</td><td>-3,115</td><td>thesis intact면 추가 확인, KPI 훼손이면 15–30주 축소</td></tr><tr><td>Base</td><td>$172</td><td>$12,900</td><td>+$1,160</td><td>전량 보유</td></tr><tr><td>Bull</td><td>$224</td><td>$16,800</td><td>+$5,060</td><td>15주 차익실현, 60주 보유</td></tr><tr><td>Overshoot</td><td>$255</td><td>$19,125</td><td>+$7,385</td><td>추가 15–30주 차익실현</td></tr></tbody></table></div>
+  <p>실적 발표 전 행동: 추가매수 금지, $175 이상 단기 과열 시 10–15주 limit trim 준비. 실적 후 행동: beat + raise + RDV acceleration + margin 유지이면 60–75주 보유 지속; beat-only/no raise이면 $190 이상에서 15–30주 축소.</p>
+
+  <h3>15. 보고서 전 자체 점검</h3>
+  <ul class="checklist">
+    <li>단순 consensus 요약이 아니라 Maven/Army/Dell/LG/industrial events를 시간순으로 연결했다.</li>
+    <li>익명 고객은 Customer I A/R concentration으로만 다루고 확정 고객명으로 단정하지 않았다.</li>
+    <li>반도체/RF/우주통신 관련 항목은 PLTR에 해당하지 않으므로 관련성 낮음으로 분리했다.</li>
+    <li>자본구조는 ATM/convertible보다 options/SARs/SBC/founder voting control이 핵심이라고 재정의했다.</li>
+    <li>bull case를 열어두되, 현재 주가가 이미 base+part of bull을 반영한다는 valuation discipline을 유지했다.</li>
+    <li>다음 실적에서 수정해야 할 지표는 U.S. commercial, RDV/TCV, Customer I A/R, Dell pipeline, government task orders, FCF margin이다.</li>
+  </ul>
+
+  <div class="final-summary">
+    <h2 style="border-top:0;color:#fff;padding-top:0;margin-top:0;">최종 투자 행동 요약</h2>
+    <div class="row"><b>현재 주가:</b><span>$156.54</span></div>
+    <div class="row"><b>보수적 내재가치:</b><span>$115</span></div>
+    <div class="row"><b>12개월 base target:</b><span>$172</span></div>
+    <div class="row"><b>bull target:</b><span>$224</span></div>
+    <div class="row"><b>overshoot target:</b><span>$255</span></div>
+    <div class="row"><b>실적 발표 전 trading target:</b><span>$175</span></div>
+    <div class="row"><b>실적 발표 후 재평가 target:</b><span>$190</span></div>
+    <div class="row"><b>하방 리스크:</b><span>$115 1차, thesis break 시 $95</span></div>
+    <div class="row"><b>12개월 기대수익률:</b><span>확률가중 약 11.7%</span></div>
+    <div class="row"><b>보유 수량 기준 기대손익:</b><span>확률가중 약 $1,377; base +$1,160, bull +$5,060, overshoot +$7,385, $115 downside -3,115</span></div>
+    <div class="row"><b>추천 행동:</b><span>전량 보유, 신규매수 금지</span></div>
+    <div class="row"><b>목표 비중:</b><span>2.0–2.5%</span></div>
+    <div class="row"><b>실적 발표 전 행동:</b><span>추가매수 금지; $175 이상 과열 시 10–15주 trim 준비</span></div>
+    <div class="row"><b>실적 발표 후 행동:</b><span>beat + raise + RDV/TCV + margin이면 보유, beat-only/no raise이면 $190 이상 15–30주 축소</span></div>
+    <div class="row"><b>목표가 도달 시 행동:</b><span>$190–205 15주, $224 추가 15주, $255 overshoot 15–30주 차익실현</span></div>
+    <div class="row"><b>thesis 훼손 시 행동:</b><span>$115 이탈 + KPI 훼손이면 15–30주 축소; $95 thesis break이면 core만 남기거나 전량 매도 검토</span></div>
+    <div class="row"><b>가장 중요한 체크포인트:</b><span>Q2 FY raise, U.S. commercial/RDV, Customer I A/R, Maven/Army task orders, Dell reference pipeline</span></div>
+    <div class="row"><b>내가 틀렸다고 인정해야 하는 조건:</b><span>Q2/Q3에서 성장률이 급격히 둔화되고 RDV/TCV가 꺾이며, Dell/DoD가 revenue로 전환되지 않고, FCF margin이 45% 아래로 정상화되는 조합</span></div>
+  </div>
+
+  <h2>Sources</h2>
+  <ol class="sources"><li id="s1"><a href="https://www.sec.gov/Archives/edgar/data/1321655/000132165526000026/a2026q1ex991pressrelease.htm" target="_blank" rel="noopener">SEC Q1 2026 Earnings Release</a></li><li id="s2"><a href="https://www.sec.gov/Archives/edgar/data/1321655/000132165526000028/pltr-20260331.htm" target="_blank" rel="noopener">SEC Q1 2026 Form 10-Q</a></li><li id="s3"><a href="https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm" target="_blank" rel="noopener">SEC FY2025 Form 10-K</a></li><li id="s4"><a href="https://www.army.mil/article/287506/u_s_army_awards_enterprise_service_agreement_to_enhance_military_readiness_and_drive_operational_efficiency" target="_blank" rel="noopener">U.S. Army Enterprise Service Agreement, July 31 2025</a></li><li id="s5"><a href="https://www.reuters.com/technology/pentagon-adopt-palantir-ai-as-core-us-military-system-memo-says-2026-03-20/" target="_blank" rel="noopener">Reuters: Pentagon to adopt Palantir AI as core system, Mar 20 2026</a></li><li id="s6"><a href="https://www.reuters.com/technology/palantir-wins-480-million-us-army-deal-maven-prototype-2024-05-29/" target="_blank" rel="noopener">Reuters: Maven $480M prototype award, May 29 2024</a></li><li id="s7"><a href="https://www.reuters.com/business/usda-palantir-sign-300-million-software-purchase-agreement-2026-04-22/" target="_blank" rel="noopener">Reuters: USDA $300M BPA, Apr 22 2026</a></li><li id="s8"><a href="https://www.reuters.com/business/media-telecom/lumen-palantir-team-up-accelerate-enterprise-ai-adoption-2025-10-23/" target="_blank" rel="noopener">Reuters: Lumen multi-year AI partnership, Oct 23 2025</a></li><li id="s9"><a href="https://www.reuters.com/business/aerospace-defense/boeings-defense-space-unit-partners-with-palantir-ai-adoption-2025-09-23/" target="_blank" rel="noopener">Reuters: Boeing Defense &amp; Space partnership, Sep 23 2025</a></li><li id="s10"><a href="https://www.dell.com/en-us/blog/dell-and-palantir-introduce-an-on-premises-ai-operating-system/" target="_blank" rel="noopener">Dell: On-premises AI Operating System with Palantir, May 18 2026</a></li><li id="s11"><a href="https://www.palantir.com/docs/foundry/ontology/overview" target="_blank" rel="noopener">Palantir Ontology docs</a></li><li id="s12"><a href="https://www.palantir.com/docs/foundry/architecture-center/overview/" target="_blank" rel="noopener">Palantir Architecture Center: AIP, Foundry, Apollo</a></li><li id="s13"><a href="https://koreajoongangdaily.joins.com/news/2026-03-12/business/industry/LG-CNS-partners-with-Palantir-to-introduce-AI-solutions-to-Korean-companies/2543383" target="_blank" rel="noopener">Korea JoongAng Daily: LG CNS partnership, Mar 12 2026</a></li><li id="s14"><a href="https://companiesmarketcap.com/palantir/ps-ratio/" target="_blank" rel="noopener">CompaniesMarketCap: Palantir P/S ratio history</a></li><li id="s15"><a href="https://www.financecharts.com/stocks/PLTR/value/ps-ratio" target="_blank" rel="noopener">FinanceCharts: PLTR P/S ratio and comps</a></li><li id="s16"><a href="https://www.financecharts.com/stocks/PLTR/value/ev-to-ebitda" target="_blank" rel="noopener">FinanceCharts: PLTR EV/EBITDA</a></li><li id="s17"><a href="https://www.financecharts.com/stocks/PLTR/growth/free-cash-flow" target="_blank" rel="noopener">FinanceCharts: PLTR Free Cash Flow</a></li><li id="s18"><a href="https://www.marketscreener.com/quote/stock/PALANTIR-TECHNOLOGIES-INC-113108869/consensus/" target="_blank" rel="noopener">MarketScreener: PLTR analyst consensus</a></li><li id="s19"><a href="https://fintel.io/ss/us/pltr" target="_blank" rel="noopener">Fintel: PLTR short volume data</a></li></ol>
+  <p class="section-note">면책: 본 보고서는 투자 판단 보조 자료이며 투자자문이 아니다. 수치와 목표가는 확인 가능한 공시/시장 데이터와 명시적 가정에 기반한 추정치이며, 실시간 시장·컨센서스 데이터는 데이터 벤더별 share count와 TTM/forward 기준 차이가 있다.</p>
+</div>
+</body>
+</html>

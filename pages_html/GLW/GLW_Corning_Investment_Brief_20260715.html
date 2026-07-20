@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>GLW Corning 투자 브리프 · 2026-07-15</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">GLW 투자 핵심 요약 · 2026-07-15 기준 · YOUNG FINANCE · 城主(성주)</div>
+  <h1>AI 광통신 계약은 이익 체력을 바꿨지만<br/>현재 가격은 이미 큰 성공을 선반영했다</h1>
+  <p class="sub">최근 재평가의 본질은 ‘인수’가 아니라 Meta·Nvidia·Amazon과 이어진 대형 공급·투자 계약이다. <b>보유자는 핵심 물량을 유지하되 추격매수는 금지하고, 실적 전후 반등에서 비중을 7.0~7.5%로 정상화하는 전략</b>이 합리적이다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $187.64 · 7/14 종가</span>
+    <span class="badge buy">투자의견 HOLD · 반등 시 일부 축소</span>
+    <span class="badge watch">초기 목표비중 7.0~7.5%</span>
+    <span class="badge risk">$145 하회 시 thesis 재점검</span>
+    <span class="badge watch">다음 핵심 체크: 8월 초 Q2 실적</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+<section class="page">
+<h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+<div class="grid g4">
+  <div class="card green"><div class="label">핵심 thesis</div><div class="big">AI 광통신</div><p>GPU 클러스터가 커질수록 랙 내부·랙 간 연결에 필요한 광섬유, 케이블, 고밀도 커넥터 수요가 구조적으로 증가한다. Corning은 소재부터 케이블·연결 솔루션까지 수직 통합된 희소 공급자다.</p></div>
+  <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">좋은 회사<br/>비싼 가격</div><p>6월 30일 고점 $271.78에서 약 31% 조정됐지만, $187.64도 2027년 높은 성장과 프리미엄 배수를 상당 부분 요구한다. 싸졌지만 아직 ‘안전마진 구간’은 아니다.</p></div>
+  <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">Q2 가이드</div><p>Q2 Core Sales 약 $4.6B, Core EPS $0.73~0.77 달성과 하반기 광통신 매출 가속 여부가 계약 뉴스가 실제 이익으로 전환되는지를 증명한다.</p></div>
+  <div class="card red"><div class="label">가장 큰 위험</div><div class="big">멀티플 압축</div><p>계약 총액과 실제 연간 매출 인식은 다르다. 하이퍼스케일러 CAPEX 둔화, 증설비 상승, 고객 집중이 겹치면 실적이 성장해도 주가 배수가 먼저 낮아질 수 있다.</p></div>
+</div>
+<h3>시장 서사와 실제 투자 의미</h3>
+<table>
+<tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+<tr><td>Meta 계약</td><td>2030년까지 최대 $6B의 확정 성장</td><td>상한 계약 규모이지 즉시 매출이 아니다. 생산능력·인도 일정·가격 조건이 중요하다.</td><td>매출 가시성은 개선됐지만 계약액 전체를 기업가치에 즉시 더하면 과대평가된다.</td></tr>
+<tr><td>Nvidia·Amazon</td><td>AI 인프라의 표준 공급자 등극</td><td>고객 다변화와 미국 생산능력 투자라는 점이 더 중요하다. 계약 조건은 상당 부분 비공개다.</td><td>고객 집중 위험을 낮추지만 초기 CAPEX와 실행 리스크를 함께 반영해야 한다.</td></tr>
+<tr><td>주가 조정</td><td>고점 대비 31% 하락했으니 저평가</td><td>절대 가격보다 2027E EPS에 적용되는 배수가 여전히 높다.</td><td>보유는 가능하나 신규 매수는 $170 이하에서만 단계적으로 검토한다.</td></tr>
+<tr><td>기존 사업</td><td>광통신이 모든 부진을 상쇄</td><td>Display·Specialty Materials·Life Sciences의 둔화와 중국 광섬유 관세 리스크는 남아 있다.</td><td>광통신 성장률이 20% 아래로 떨어질 경우 프리미엄을 유지하기 어렵다.</td></tr>
+</table>
+<div class="callout"><b>한 문장 결론:</b> GLW는 AI 광통신의 구조적 승자 후보가 맞지만, 현재가는 ‘계약 발표’가 아니라 ‘매출·마진·현금흐름 실현’을 확인해야 추가 수익이 가능한 구간이다.</div>
+</section>
+
+<section class="page">
+<h2>2. 그래프 속성</h2>
+<div class="callout"><b>목적:</b> 뉴스의 크기보다 실제 숫자의 방향을 본다. 연간 그래프는 사업 체력, 분기 그래프는 AI 광통신 수요가 전사 실적을 얼마나 빠르게 끌어올리는지를 보여준다.</div>
+<h3>연도별 — 장기 체력</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">장기 추세에서는 광통신 성장의 재가속, GAAP 이익의 변동성, 그리고 주식 수 안정성을 함께 봅니다.</div></div><span class="chart-tag">Annual</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="172.9" x2="304" y2="172.9" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="175.9" fill="#8190A7" font-size="9">-0.5</text><line x1="24" y1="142.5" x2="304" y2="142.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="145.5" fill="#8190A7" font-size="9">0</text><line x1="24" y1="112.2" x2="304" y2="112.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="115.2" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="81.9" x2="304" y2="81.9" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="84.9" fill="#8190A7" font-size="9">1</text><line x1="24" y1="51.6" x2="304" y2="51.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="54.6" fill="#8190A7" font-size="9">1.5</text><rect x="27.1" y="74.0" width="24.9" height="68.5" rx="2" fill="#4BA3FF" /><text x="39.6" y="70.0" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.13</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2018</text><rect x="58.2" y="77.7" width="24.9" height="64.9" rx="2" fill="#4BA3FF" /><text x="70.7" y="73.7" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.07</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2019</text><rect x="89.3" y="106.2" width="24.9" height="36.4" rx="2" fill="#4BA3FF" /><text x="101.8" y="102.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.60</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2020</text><rect x="120.4" y="64.9" width="24.9" height="77.6" rx="2" fill="#4BA3FF" /><text x="132.9" y="60.9" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.28</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2021</text><rect x="151.6" y="49.2" width="24.9" height="93.4" rx="2" fill="#4BA3FF" /><text x="164.0" y="45.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.54</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2022</text><rect x="182.7" y="101.3" width="24.9" height="41.2" rx="2" fill="#4BA3FF" /><text x="195.1" y="97.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.68</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2023</text><rect x="213.8" y="107.4" width="24.9" height="35.2" rx="2" fill="#4BA3FF" /><text x="226.2" y="103.4" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.58</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2024</text><rect x="244.9" y="54.6" width="24.9" height="87.9" rx="2" fill="#4BA3FF" /><text x="257.3" y="50.6" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.45</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2025</text><rect x="276.0" y="39.5" width="24.9" height="103.1" rx="2" fill="#4BA3FF" /><text x="288.4" y="35.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">1.70</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">TTM</text><line x1="24" y1="142.5" x2="304" y2="142.5" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">5</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">10</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">15</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">20</text><rect x="27.1" y="93.9" width="24.9" height="64.1" rx="2" fill="#9A7CF3" /><text x="39.6" y="107.9" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">11.29</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2018</text><rect x="58.2" y="92.7" width="24.9" height="65.3" rx="2" fill="#9A7CF3" /><text x="70.7" y="106.7" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">11.50</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2019</text><rect x="89.3" y="93.8" width="24.9" height="64.2" rx="2" fill="#9A7CF3" /><text x="101.8" y="107.8" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">11.30</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2020</text><rect x="120.4" y="78.0" width="24.9" height="80.0" rx="2" fill="#9A7CF3" /><text x="132.9" y="92.0" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">14.08</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2021</text><rect x="151.6" y="77.5" width="24.9" height="80.5" rx="2" fill="#9A7CF3" /><text x="164.0" y="91.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">14.17</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2022</text><rect x="182.7" y="86.5" width="24.9" height="71.5" rx="2" fill="#9A7CF3" /><text x="195.1" y="100.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">12.59</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2023</text><rect x="213.8" y="83.5" width="24.9" height="74.5" rx="2" fill="#9A7CF3" /><text x="226.2" y="97.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">13.12</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2024</text><rect x="244.9" y="68.3" width="24.9" height="89.7" rx="2" fill="#9A7CF3" /><text x="257.3" y="82.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">15.80</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2025</text><rect x="276.0" y="64.3" width="24.9" height="93.7" rx="2" fill="#9A7CF3" /><text x="288.4" y="78.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">16.49</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">0.8</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">1</text><rect x="27.1" y="61.1" width="24.9" height="96.9" rx="2" fill="#37B9C5" /><text x="39.6" y="75.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.853</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2018</text><rect x="58.2" y="61.9" width="24.9" height="96.1" rx="2" fill="#37B9C5" /><text x="70.7" y="75.9" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.846</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2019</text><rect x="89.3" y="62.0" width="24.9" height="96.0" rx="2" fill="#37B9C5" /><text x="101.8" y="76.0" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.845</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2020</text><rect x="120.4" y="61.1" width="24.9" height="96.9" rx="2" fill="#37B9C5" /><text x="132.9" y="75.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.853</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2021</text><rect x="151.6" y="60.8" width="24.9" height="97.2" rx="2" fill="#37B9C5" /><text x="164.0" y="74.8" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.856</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2022</text><rect x="182.7" y="60.8" width="24.9" height="97.2" rx="2" fill="#37B9C5" /><text x="195.1" y="74.8" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.856</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2023</text><rect x="213.8" y="60.5" width="24.9" height="97.5" rx="2" fill="#37B9C5" /><text x="226.2" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.858</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2024</text><rect x="244.9" y="60.2" width="24.9" height="97.8" rx="2" fill="#37B9C5" /><text x="257.3" y="74.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.861</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">2025</text><rect x="276.0" y="60.1" width="24.9" height="97.9" rx="2" fill="#37B9C5" /><text x="288.4" y="74.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.862</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">2023→TTM 매출 약 +31%</span><span class="chart-pill">Q1 2026 GAAP EPS $0.43</span><span class="chart-pill">희석은 대체로 제한적</span></div>
+  <div class="chart-note">핵심 해석: 2023년 저점을 지나 매출과 이익이 재가속했지만, 2025~TTM 수치는 대형 AI 광통신 계약이 본격 매출화되기 전 단계입니다. 주가는 실적보다 훨씬 빠르게 상승했으므로 앞으로는 성장률뿐 아니라 현금흐름 전환 속도가 중요합니다.</div>
+</div>
+<h3>분기별 — 재가속의 속도</h3>
+<div class="chartboard">
+  <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 9개 분기는 회사가 발표한 Core Sales 중심으로 비교하고, EPS는 GAAP 기준의 반올림 수치입니다.</div></div><span class="chart-tag">Quarterly</span></div>
+  <div class="chart-mini-grid">
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="243.6" x2="304" y2="243.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="246.6" fill="#8190A7" font-size="9">-0.5</text><line x1="24" y1="142.5" x2="304" y2="142.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="145.5" fill="#8190A7" font-size="9">0</text><line x1="24" y1="41.5" x2="304" y2="41.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="44.5" fill="#8190A7" font-size="9">0.5</text><rect x="27.1" y="104.1" width="24.9" height="38.4" rx="2" fill="#4BA3FF" /><text x="39.6" y="100.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.19</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;24</text><rect x="58.2" y="118.3" width="24.9" height="24.3" rx="2" fill="#4BA3FF" /><text x="70.7" y="114.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.12</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;24</text><rect x="89.3" y="104.1" width="24.9" height="38.4" rx="2" fill="#4BA3FF" /><text x="101.8" y="100.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.19</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;24</text><rect x="120.4" y="126.4" width="24.9" height="16.2" rx="2" fill="#4BA3FF" /><text x="132.9" y="122.4" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.08</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;24</text><rect x="151.6" y="106.2" width="24.9" height="36.4" rx="2" fill="#4BA3FF" /><text x="164.0" y="102.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.18</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;25</text><rect x="182.7" y="71.8" width="24.9" height="70.7" rx="2" fill="#4BA3FF" /><text x="195.1" y="67.8" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.35</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;25</text><rect x="213.8" y="59.7" width="24.9" height="82.9" rx="2" fill="#4BA3FF" /><text x="226.2" y="55.7" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.41</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;25</text><rect x="244.9" y="39.5" width="24.9" height="103.1" rx="2" fill="#4BA3FF" /><text x="257.3" y="35.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.51</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;25</text><rect x="276.0" y="55.6" width="24.9" height="86.9" rx="2" fill="#4BA3FF" /><text x="288.4" y="51.6" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.43</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;26</text><line x1="24" y1="142.5" x2="304" y2="142.5" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="120.1" x2="304" y2="120.1" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="123.1" fill="#8190A7" font-size="9">2</text><line x1="24" y1="82.3" x2="304" y2="82.3" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="85.3" fill="#8190A7" font-size="9">4</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">6</text><rect x="27.1" y="96.3" width="24.9" height="61.7" rx="2" fill="#9A7CF3" /><text x="39.6" y="110.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.26</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;24</text><rect x="58.2" y="89.8" width="24.9" height="68.2" rx="2" fill="#9A7CF3" /><text x="70.7" y="103.8" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.60</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;24</text><rect x="89.3" y="87.4" width="24.9" height="70.6" rx="2" fill="#9A7CF3" /><text x="101.8" y="101.4" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.73</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;24</text><rect x="120.4" y="84.7" width="24.9" height="73.3" rx="2" fill="#9A7CF3" /><text x="132.9" y="98.7" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.87</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;24</text><rect x="151.6" y="88.3" width="24.9" height="69.7" rx="2" fill="#9A7CF3" /><text x="164.0" y="102.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.68</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;25</text><rect x="182.7" y="84.9" width="24.9" height="73.1" rx="2" fill="#9A7CF3" /><text x="195.1" y="98.9" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">3.86</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;25</text><rect x="213.8" y="77.2" width="24.9" height="80.8" rx="2" fill="#9A7CF3" /><text x="226.2" y="91.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">4.27</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;25</text><rect x="244.9" y="74.5" width="24.9" height="83.5" rx="2" fill="#9A7CF3" /><text x="257.3" y="88.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">4.41</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;25</text><rect x="276.0" y="75.6" width="24.9" height="82.4" rx="2" fill="#9A7CF3" /><text x="288.4" y="89.6" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">4.35</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="129.6" x2="304" y2="129.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="132.6" fill="#8190A7" font-size="9">0.2</text><line x1="24" y1="101.2" x2="304" y2="101.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="104.2" fill="#8190A7" font-size="9">0.5</text><line x1="24" y1="72.8" x2="304" y2="72.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="75.8" fill="#8190A7" font-size="9">0.8</text><line x1="24" y1="44.4" x2="304" y2="44.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="47.4" fill="#8190A7" font-size="9">1</text><rect x="27.1" y="60.5" width="24.9" height="97.5" rx="2" fill="#37B9C5" /><text x="39.6" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.858</text><text x="39.6" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;24</text><rect x="58.2" y="60.5" width="24.9" height="97.5" rx="2" fill="#37B9C5" /><text x="70.7" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.858</text><text x="70.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;24</text><rect x="89.3" y="60.5" width="24.9" height="97.5" rx="2" fill="#37B9C5" /><text x="101.8" y="74.5" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.858</text><text x="101.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;24</text><rect x="120.4" y="60.4" width="24.9" height="97.6" rx="2" fill="#37B9C5" /><text x="132.9" y="74.4" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.859</text><text x="132.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;24</text><rect x="151.6" y="60.3" width="24.9" height="97.7" rx="2" fill="#37B9C5" /><text x="164.0" y="74.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.860</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;25</text><rect x="182.7" y="60.3" width="24.9" height="97.7" rx="2" fill="#37B9C5" /><text x="195.1" y="74.3" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.860</text><text x="195.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q2 &#x27;25</text><rect x="213.8" y="60.2" width="24.9" height="97.8" rx="2" fill="#37B9C5" /><text x="226.2" y="74.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.861</text><text x="226.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q3 &#x27;25</text><rect x="244.9" y="60.2" width="24.9" height="97.8" rx="2" fill="#37B9C5" /><text x="257.3" y="74.2" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.861</text><text x="257.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q4 &#x27;25</text><rect x="276.0" y="60.1" width="24.9" height="97.9" rx="2" fill="#37B9C5" /><text x="288.4" y="74.1" text-anchor="middle" fill="#E9EFFA" font-size="9" font-weight="700">0.862</text><text x="288.4" y="180" text-anchor="middle" fill="#98A5BA" font-size="8.5">Q1 &#x27;26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+  </div>
+  <div class="chart-legend-row"><span class="chart-pill">Q1 '25→Q1 '26 Core Sales +18%</span><span class="chart-pill">광통신 Q1 '26 +36% YoY</span><span class="chart-pill">Q2 가이던스가 핵심</span></div>
+  <div class="chart-note">핵심 해석: Q3 2025 광통신 기대 미달 이후 Q4와 Q1 2026에 다시 가속했습니다. 다음 실적에서 Core Sales 약 $4.6B와 Core EPS $0.73~0.77 가이던스를 지키는지가 현재 프리미엄을 방어할 첫 관문입니다.</div>
+</div>
+
+<div class="grid g3">
+  <div class="card green"><div class="label">매출</div><div class="big">재가속</div><p>2023년 조정 이후 광통신과 신사업이 전사 성장률을 끌어올렸다. TTM 매출은 약 $16.5B 수준으로 추정된다.</p></div>
+  <div class="card blue"><div class="label">GAAP EPS</div><div class="big">질 개선 필요</div><p>GAAP EPS는 일회성·구조조정·헤지 요인의 영향을 크게 받는다. Core EPS 성장과 GAAP 현금흐름의 동행 여부를 같이 봐야 한다.</p></div>
+  <div class="card orange"><div class="label">주식 수</div><div class="big">안정적</div><p>대규모 희석은 핵심 위험이 아니다. 앞으로의 관건은 증설 CAPEX가 FCF를 얼마나 지연시키는지다.</p></div>
+</div>
+<h3>연간 데이터</h3>
+<table>
+<tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>2018</td><td class="right">11.29</td><td class="right">1.13</td><td class="right">0.853</td></tr><tr><td>2019</td><td class="right">11.50</td><td class="right">1.07</td><td class="right">0.846</td></tr><tr><td>2020</td><td class="right">11.30</td><td class="right">0.60</td><td class="right">0.845</td></tr><tr><td>2021</td><td class="right">14.08</td><td class="right">1.28</td><td class="right">0.853</td></tr><tr><td>2022</td><td class="right">14.17</td><td class="right">1.54</td><td class="right">0.856</td></tr><tr><td>2023</td><td class="right">12.59</td><td class="right">0.68</td><td class="right">0.856</td></tr><tr><td>2024</td><td class="right">13.12</td><td class="right">0.58</td><td class="right">0.858</td></tr><tr><td>2025</td><td class="right">15.80</td><td class="right">1.45</td><td class="right">0.861</td></tr><tr><td>TTM</td><td class="right">16.49</td><td class="right">1.70</td><td class="right">0.862</td></tr>
+</table>
+<p class="small">주: 2018~2024는 연차보고서 기준의 반올림 값, 2025·TTM은 2025 10-K와 2026 Q1 발표를 연결한 분석용 근사치다. 실제 투자 전 SEC XBRL 원수치를 재확인해야 한다.</p>
+
+<div class="grid g3" style="margin-top:14px">
+  <div class="card soft"><div class="label">Q1 2026 Core Sales</div><div class="big">$4.35B</div><p>전년 대비 강한 성장. 총 매출은 $4.14B로 발표됐다.</p></div>
+  <div class="card soft"><div class="label">Q1 2026 Optical</div><div class="big">$1.85B</div><p>전년 대비 36% 증가하며 전사 성장의 중심이 됐다.</p></div>
+  <div class="card soft"><div class="label">Q2 2026 Guide</div><div class="big">$4.6B</div><p>Core EPS $0.73~0.77. 가이드 상단 달성이 멀티플 방어의 최소 조건이다.</p></div>
+</div>
+<h3>분기 데이터</h3>
+<table>
+<tr><th>분기</th><th class="right">Core Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th></tr>
+<tr><td>Q1 '24</td><td class="right">3.26</td><td class="right">0.19</td><td class="right">0.858</td></tr><tr><td>Q2 '24</td><td class="right">3.60</td><td class="right">0.12</td><td class="right">0.858</td></tr><tr><td>Q3 '24</td><td class="right">3.73</td><td class="right">0.19</td><td class="right">0.858</td></tr><tr><td>Q4 '24</td><td class="right">3.87</td><td class="right">0.08</td><td class="right">0.859</td></tr><tr><td>Q1 '25</td><td class="right">3.68</td><td class="right">0.18</td><td class="right">0.860</td></tr><tr><td>Q2 '25</td><td class="right">3.86</td><td class="right">0.35</td><td class="right">0.860</td></tr><tr><td>Q3 '25</td><td class="right">4.27</td><td class="right">0.41</td><td class="right">0.861</td></tr><tr><td>Q4 '25</td><td class="right">4.41</td><td class="right">0.51</td><td class="right">0.861</td></tr><tr><td>Q1 '26</td><td class="right">4.35</td><td class="right">0.43</td><td class="right">0.862</td></tr>
+</table>
+<p class="small">주: Core Sales는 회사의 비GAAP 운영지표이며 GAAP 매출과 다르다. EPS는 분기 공시의 GAAP 수치를 반올림한 분석용 시계열로, Core EPS와 혼동하지 않는다.</p>
+
+<h3>투자자가 가져야 할 결론</h3>
+<table>
+<tr><th>관찰 항목</th><th>현재 판단</th><th>다음 확인점</th><th>행동</th></tr>
+<tr><td>성장</td><td>광통신이 전사 성장률을 확실히 끌어올리는 단계</td><td>Q2 Optical 성장률 25% 이상, 하반기 가이드 상향</td><td>충족 시 200주 핵심 보유 유지</td></tr>
+<tr><td>수익성</td><td>Core EPS는 개선되나 GAAP·FCF 질은 추가 확인 필요</td><td>Core operating margin의 20% 접근, FCF 전환</td><td>마진 정체 시 $200 이상에서 축소</td></tr>
+<tr><td>밸류에이션</td><td>고점 대비 조정됐으나 여전히 높은 기대 반영</td><td>2027E Core EPS $4.2 이상 가시성</td><td>$170 위 신규 매수 금지</td></tr>
+<tr><td>수급</td><td>뉴스 기반 급등·급락이 반복되는 고변동 구간</td><td>실적 발표 후 거래량과 갭 유지 여부</td><td>한 번에 매매하지 말고 25주 단위로 조절</td></tr>
+</table>
+<div class="callout"><b>그래프 결론:</b> 실적 방향은 좋지만 주가가 실적보다 먼저 달렸다. 다음 상승은 계약 뉴스보다 마진과 현금흐름이 만들어야 한다.</div>
+</section>
+
+<section class="page">
+<h2>3. 반드시 확인해야 할 7가지 체크포인트</h2>
+<table>
+<tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+<tr><td>1</td><td>Optical Communications 성장률</td><td>YoY 25% 이상, Enterprise·Data Center 동반 성장</td><td>15% 미만 또는 중국·통신사 부진으로 상쇄</td><td>25% 이상이면 핵심 보유, 15% 미만 2개 분기면 비중 2%p 축소</td></tr>
+<tr><td>2</td><td>하이퍼스케일 계약의 매출 전환</td><td>Meta 외 두 고객의 매출 기여와 backlog 공개 확대</td><td>계약 총액만 반복되고 인도·매출 일정이 지연</td><td>정량 가시성이 없으면 Bull 목표가 확률을 낮춘다</td></tr>
+<tr><td>3</td><td>Core operating margin</td><td>20% 목표에 접근하고 증분마진이 상승</td><td>증설·인건비·원재료비로 매출 성장 대비 마진 정체</td><td>마진 미달 시 $205 이상 반등에서 25~50주 축소</td></tr>
+<tr><td>4</td><td>FCF와 CAPEX</td><td>증설 중에도 잉여현금흐름 플러스, 운전자본 안정</td><td>CAPEX 급증과 재고·매출채권 증가</td><td>FCF가 2개 분기 연속 기대 미달이면 신규 매수 중단</td></tr>
+<tr><td>5</td><td>고객 집중·가격 협상력</td><td>Meta·Nvidia·Amazon 외 고객 확장, 장기 가격조건 개선</td><td>단일 고객 의존과 가격 인하 요구</td><td>고객 다변화 확인 전 Overshoot 가격을 기본값으로 쓰지 않는다</td></tr>
+<tr><td>6</td><td>비광통신 사업</td><td>Display 가격 안정, Apple 전용 생산 확대, Solar 정상화</td><td>스마트폰·디스플레이·Life Sciences 둔화가 확대</td><td>광통신 호조가 전사 GAAP 이익으로 연결되지 않으면 Trim</td></tr>
+<tr><td>7</td><td>중국·정책 리스크</td><td>관세 영향 제한, 미국 생산 보조와 고객 현지화 수혜</td><td>중국의 37.9% 반덤핑 관세 확대 또는 공급망 보복</td><td>$145 하회와 가이드 하향이 동반되면 thesis 재점검</td></tr>
+</table>
+<h3>사건 체인</h3>
+<table>
+<tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+<tr><td>2024-10</td><td>AT&amp;T와 $1B 다년 계약</td><td>AI 데이터센터 외에도 미국 광대역 투자 수요를 확보했다.</td><td>A · 회사/Reuters</td></tr>
+<tr><td>2025-09</td><td>Apple, Kentucky 커버글라스에 $2.5B 투자</td><td>Specialty Materials의 미국 생산과 장기 고객 락인을 강화했다.</td><td>A · Apple/AP</td></tr>
+<tr><td>2025-10</td><td>Q3 광통신 기대 미달·중국 반덤핑 관세</td><td>구조적 성장주라도 분기 변동성과 지역 리스크가 크다는 사례다.</td><td>A · Reuters</td></tr>
+<tr><td>2026-01</td><td>Meta와 2030년까지 최대 $6B 계약</td><td>AI 데이터센터 광섬유 수요를 장기 주문 가시성으로 전환했다.</td><td>A · 회사/Reuters</td></tr>
+<tr><td>2026-04</td><td>Q1 Optical $1.85B, +36%; 추가 hyperscale 2건 언급</td><td>계약 서사가 실제 분기 성장으로 나타나기 시작했다.</td><td>A · 실적 발표</td></tr>
+<tr><td>2026-05</td><td>Nvidia와 투자·장기 파트너십</td><td>AI 가속기 생태계의 핵심 고객과 생산능력 확장을 연결했다. 공개 자료 간 투자액 차이가 있어 금액보다 구조에 초점을 둔다.</td><td>B · 보도/조건 일부 비공개</td></tr>
+<tr><td>2026-06</td><td>Amazon과 미국 광통신 생산 다년 계약</td><td>Meta 의존도를 낮추고 미국 내 수요·생산을 동시에 확대한다.</td><td>A · Reuters/WSJ</td></tr>
+<tr><td>2026-06-30</td><td>52주 최고가 $271.78</td><td>계약 기대가 실적보다 빠르게 주가에 반영된 극단값이다.</td><td>A · 시장 데이터</td></tr>
+<tr><td>2026-07-14</td><td>$187.64 종가</td><td>고점 대비 30.96% 조정. 밸류에이션 재설정이 진행 중이다.</td><td>A · 시장 데이터</td></tr>
+</table>
+</section>
+
+<section class="page">
+<h2>4. 밸류에이션과 목표가</h2>
+<div class="bridge avoid-break"><div class="col"><div class="box" style="height:85px;background:#f2dfdc">$135</div><div class="name" style="position:static;margin-top:7px">하방</div></div><div class="col"><div class="box" style="height:95px;background:#f7eadf">$165</div><div class="name" style="position:static;margin-top:7px">보수</div></div><div class="col"><div class="box" style="height:102px;background:#e8edf1">$187.64</div><div class="name" style="position:static;margin-top:7px">현재</div></div><div class="col"><div class="box" style="height:109px;background:#e8f0e5">$210</div><div class="name" style="position:static;margin-top:7px">Base</div></div><div class="col"><div class="box" style="height:120px;background:#eee8f3">$243</div><div class="name" style="position:static;margin-top:7px">Bull</div></div><div class="col"><div class="box" style="height:130px;background:#efe7d5">$275</div><div class="name" style="position:static;margin-top:7px">Overshoot</div></div></div>
+<p class="small">모형: 2027년 Core EPS 시나리오 × 목표 배수. AI 광통신의 희소성 프리미엄을 인정하되, 역사적 제조업 배수보다 훨씬 높은 수준이므로 실패 조건을 엄격히 둔다.</p>
+<table>
+<tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th class="center">확률</th><th>실패 조건</th></tr>
+<tr><td>하방</td><td class="right"><b>$135</b></td><td>2027E Core EPS $3.00 × 45배. 광통신 성장 둔화와 멀티플 압축이 동시에 발생.</td><td class="center">20%</td><td>오히려 Q2~Q4 가이드가 연속 상향되고 FCF가 빠르게 개선</td></tr>
+<tr><td>보수·내재가치</td><td class="right"><b>$165</b></td><td>2027E Core EPS $3.50 × 47배. 계약은 실행되지만 증설비와 비광통신 부진이 상쇄.</td><td class="center">25%</td><td>Optical 25%+ 성장과 20% 마진이 조기 달성</td></tr>
+<tr><td>Base 12M</td><td class="right"><b>$210</b></td><td>2027E Core EPS $4.20 × 50배. Meta·Amazon 등 매출화, 마진 개선, FCF 정상화.</td><td class="center">35%</td><td>Core EPS 가시성이 $4 아래로 내려가거나 배수가 45배 미만으로 축소</td></tr>
+<tr><td>Bull</td><td class="right"><b>$243</b></td><td>2027E Core EPS $4.50 × 54배. AI 광통신이 전사 믹스를 바꾸고 추가 고객이 붙는다.</td><td class="center">15%</td><td>고객 CAPEX 둔화, 생산 램프 지연, 증분마진 미달</td></tr>
+<tr><td>Overshoot</td><td class="right"><b>$275</b></td><td>2027E Core EPS $5.00 × 55배. 실적 상향과 모멘텀 프리미엄이 동시에 극대화.</td><td class="center">5%</td><td>실적이 좋더라도 금리·수급으로 멀티플이 정상화</td></tr>
+</table>
+<h3>현재 주가가 싼가?</h3>
+<div class="grid g3">
+  <div class="card red"><div class="label">절대 밸류</div><div class="big">비싸다</div><p>현재가가 정당화되려면 2027년 Core EPS가 $4 안팎으로 빠르게 올라가고 45~50배 수준의 프리미엄도 유지돼야 한다.</p></div>
+  <div class="card orange"><div class="label">고점 대비</div><div class="big">싸졌다</div><p>$271.78 대비 약 31% 하락했지만 고점이 과열됐을 가능성이 크다. 고점 대비 낙폭은 내재가치의 근거가 아니다.</p></div>
+  <div class="card green"><div class="label">위험조정</div><div class="big">보유 가능</div><p>Base 기대수익률은 11.9%로 크지 않지만 Bull은 29.5%다. 신규 매수보다 핵심 보유와 가격 규율이 유리하다.</p></div>
+</div>
+<div class="callout"><b>밸류에이션 결론:</b> $165 이하는 장기 기대수익이 개선되는 구간, $180~200은 보유·관찰 구간, $210 이상은 실적 상향 없이는 일부 회수가 우선이다.</div>
+</section>
+
+<section class="page">
+<h2>5. 매수·매도 실행안</h2>
+<div class="callout"><b>추천 행동:</b> 기존 대화의 250주 보유가 그대로라는 가정에서, 지금 가격에 추가 매수하지 않는다. 실적 전후 $205~225 반등 시 25주씩 두 번 줄여 200주를 핵심 보유하고, $170 아래에서만 재진입을 검토한다.</div>
+<table>
+<tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+<tr><td>$200 초과</td><td>추격매수 금지</td><td>신규 0%</td><td>실적 상향 없이 가격만 상승하면 매수하지 않는다.</td></tr>
+<tr><td>$205~215</td><td>1차 일부 회수</td><td>보유 25주 매도</td><td>실적 전 기대감 급등 또는 실적 후 가이드가 Base 수준에 그칠 때</td></tr>
+<tr><td>$220~230</td><td>2차 일부 회수</td><td>추가 25주 매도</td><td>Bull 가정이 아직 확인되지 않았는데 배수가 먼저 확대될 때</td></tr>
+<tr><td>$168~172</td><td>1차 DCA</td><td>추가예산 35%</td><td>Q2 가이드 유지, Optical 성장 20% 이상</td></tr>
+<tr><td>$150~158</td><td>2차 DCA</td><td>추가예산 35%</td><td>시장·멀티플 조정이며 회사 가이던스 훼손이 없을 때</td></tr>
+<tr><td>$135~145</td><td>3차 조건부 DCA</td><td>추가예산 30%</td><td>FCF·고객 계약·마진 thesis가 유지될 때만. 가이드 하향이면 매수 금지</td></tr>
+<tr><td>$145 하회</td><td>Thesis 재점검</td><td>기계적 손절 아님</td><td>Optical 성장 15% 미만·가이드 하향·FCF 악화가 동반되면 25~50% 축소</td></tr>
+<tr><td>$243 이상</td><td>차익 실현</td><td>핵심 외 30~50%</td><td>실적이 Bull에 못 미치면 프리미엄을 현금화한다.</td></tr>
+</table>
+<h3>실적 발표 전후 판단표</h3>
+<table>
+<tr><th>실적 시나리오</th><th>핵심 숫자</th><th>예상 trading target</th><th>행동</th></tr>
+<tr><td>Beat + Raise</td><td>Core Sales &gt;$4.6B, EPS &gt;$0.77, Optical 30%+, 하반기 상향</td><td>$215~230</td><td>200주 핵심 보유. $225 이상에서 25주만 회수</td></tr>
+<tr><td>Beat, 가이드 유지</td><td>실적은 상회하지만 하반기 보수적</td><td>$195~215</td><td>추격 금지, $205 이상 25주 축소</td></tr>
+<tr><td>Inline</td><td>매출·EPS 가이드 중간, Optical 20~25%</td><td>$175~200</td><td>보유. $170 아래에서만 소량 DCA</td></tr>
+<tr><td>Miss 또는 가이드 하향</td><td>Optical &lt;20%, 마진 하락, 증설비 증가</td><td>$145~165</td><td>첫 하락일 매도보다 콘퍼런스콜 확인. thesis 훼손이면 50주 축소</td></tr>
+<tr><td>Thesis break</td><td>Optical &lt;15%가 2개 분기 지속 + FCF 악화 + 고객 일정 지연</td><td>$120~145</td><td>핵심 보유 전제를 폐기하고 비중을 절반 이하로 낮춘다.</td></tr>
+</table>
+<p class="small">한국 거주 투자자는 매도차익의 세후 효과와 연간 기본공제, 계좌별 규정을 별도로 확인해야 한다. 세금 때문에 위험을 방치하지도, 단기 변동 때문에 불필요한 회전매매를 하지도 않는 것이 원칙이다.</p>
+</section>
+
+<section class="page">
+<h2>6. 리스크</h2>
+<table>
+<tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+<tr><td>AI CAPEX 둔화</td><td>상위 고객이 데이터센터 투자를 연기하고 Corning의 backlog·인도 일정이 하향</td><td>Bull·Overshoot 확률을 0에 가깝게 낮추고 목표비중 5% 이하</td></tr>
+<tr><td>계약액과 실제 매출의 괴리</td><td>계약 뉴스 이후 2~3개 분기에도 Optical 성장률이 20%를 넘지 못함</td><td>$200 이상 반등에서 25~50주 축소</td></tr>
+<tr><td>증설 CAPEX·실행</td><td>Core EPS는 늘지만 FCF가 악화되고 운전자본이 급증</td><td>신규 DCA 중단, 보수가 $165 재검토</td></tr>
+<tr><td>고객 집중·가격 압력</td><td>한 고객 비중 급증, 가격 재협상, 최소구매 조건 약화</td><td>목표 배수 5~10배 하향 적용</td></tr>
+<tr><td>비광통신 사업 침체</td><td>Display·Specialty·Life Sciences가 전사 이익을 지속 훼손</td><td>광통신만 보고 전사 가치에 과도한 프리미엄을 주지 않는다</td></tr>
+<tr><td>중국·무역 규제</td><td>37.9% 반덤핑 관세 확대, 공급망·고객 보복</td><td>지역 매출·생산 이전 비용 확인 후 하방 시나리오 비중 확대</td></tr>
+<tr><td>고평가·금리</td><td>실적 상향에도 성장주 배수가 40배대로 압축</td><td>좋은 실적과 주가 하락이 동시에 가능함을 전제로 현금 여력 유지</td></tr>
+</table>
+
+<h3>GLW 가치사슬 생태계</h3>
+<div class="svgbox avoid-break">
+<svg viewBox="0 0 960 360" role="img" aria-label="GLW AI optical ecosystem map" style="display:block;width:100%;height:auto">
+  <rect x="25" y="35" width="190" height="72" rx="16" fill="#eee8f3" stroke="#17212b"/><text x="120" y="64" text-anchor="middle" font-size="16" font-weight="800">하이퍼스케일 고객</text><text x="120" y="88" text-anchor="middle" font-size="13">Meta · Amazon · Nvidia</text>
+  <rect x="25" y="235" width="190" height="72" rx="16" fill="#f7eadf" stroke="#17212b"/><text x="120" y="264" text-anchor="middle" font-size="16" font-weight="800">디바이스 고객</text><text x="120" y="288" text-anchor="middle" font-size="13">Apple · Samsung · OEM</text>
+  <rect x="365" y="120" width="230" height="112" rx="20" fill="#e8f0e5" stroke="#17212b" stroke-width="2"/><text x="480" y="158" text-anchor="middle" font-size="24" font-weight="900">CORNING</text><text x="480" y="184" text-anchor="middle" font-size="14">소재 · 공정 · 미국 생산능력</text><text x="480" y="207" text-anchor="middle" font-size="13">광섬유 / 케이블 / 커넥터 / 특수유리</text>
+  <rect x="745" y="35" width="190" height="72" rx="16" fill="#e8edf1" stroke="#17212b"/><text x="840" y="64" text-anchor="middle" font-size="16" font-weight="800">AI 데이터센터</text><text x="840" y="88" text-anchor="middle" font-size="13">고밀도·저지연 연결</text>
+  <rect x="745" y="235" width="190" height="72" rx="16" fill="#f2dfdc" stroke="#17212b"/><text x="840" y="264" text-anchor="middle" font-size="16" font-weight="800">최종 수요</text><text x="840" y="288" text-anchor="middle" font-size="13">스마트폰 · 디스플레이 · Solar</text>
+  <line x1="215" y1="71" x2="365" y2="151" stroke="#315b7d" stroke-width="3"/><polygon points="365,151 351,150 358,138" fill="#315b7d"/>
+  <line x1="215" y1="271" x2="365" y2="201" stroke="#315b7d" stroke-width="3"/><polygon points="365,201 352,213 350,198" fill="#315b7d"/>
+  <line x1="595" y1="151" x2="745" y2="71" stroke="#315b7d" stroke-width="3"/><polygon points="745,71 737,84 731,71" fill="#315b7d"/>
+  <line x1="595" y1="201" x2="745" y2="271" stroke="#315b7d" stroke-width="3"/><polygon points="745,271 731,270 738,258" fill="#315b7d"/>
+  <text x="290" y="87" text-anchor="middle" font-size="12" fill="#6b7480">장기 계약·투자</text>
+  <text x="290" y="264" text-anchor="middle" font-size="12" fill="#6b7480">전용 생산·공동개발</text>
+  <text x="670" y="88" text-anchor="middle" font-size="12" fill="#6b7480">광 연결 솔루션</text>
+  <text x="670" y="264" text-anchor="middle" font-size="12" fill="#6b7480">커버글라스·소재</text>
+  <text x="480" y="330" text-anchor="middle" font-size="13" fill="#6b7480">투자 포인트: 고객 뉴스 → 생산 램프 → 매출 → 증분마진 → FCF 순서로 검증</text>
+</svg>
+</div>
+
+<h2>마지막 요약</h2>
+<table>
+<tr><th>항목</th><th>결론</th></tr>
+<tr><td>현재가</td><td><b>$187.64</b> · 2026-07-14 미국장 종가</td></tr>
+<tr><td>보수가</td><td><b>$165</b> · 현재 대비 -12.1%</td></tr>
+<tr><td>Base 12M</td><td><b>$210</b> · 현재 대비 +11.9%</td></tr>
+<tr><td>Bull</td><td><b>$243</b> · 현재 대비 +29.5%</td></tr>
+<tr><td>Overshoot</td><td><b>$275</b> · 현재 대비 +46.6%</td></tr>
+<tr><td>하방</td><td><b>$135</b> · 현재 대비 -28.1%</td></tr>
+<tr><td>실적 전 trading target</td><td>$175~205 · 기대감만으로 $205를 넘으면 일부 회수 우선</td></tr>
+<tr><td>실적 후 trading target</td><td>Beat+Raise $215~230 / Inline $175~200 / Miss $145~165</td></tr>
+<tr><td>12M 기대수익률</td><td>Base +11.9% / Bull +29.5% / Downside -28.1%</td></tr>
+<tr><td>보유수량 기준 기대손익</td><td>기존 대화 기준 <b>250주 가정</b>: Base +$5,590, Bull +$13,840, Downside $-13,160<br/>1,000주 가정: Base +$22,360, Bull +$55,360, Downside $-52,640</td></tr>
+<tr><td>추천 행동</td><td><b>HOLD / NO CHASE.</b> $205~225에서 25주씩 총 50주 회수, 200주 핵심 보유. $170 이하에서만 조건부 재매수.</td></tr>
+<tr><td>목표 비중</td><td>7.0~7.5%. 현재 실제 수량·포트폴리오 가치가 달라졌다면 비중 기준을 우선 적용.</td></tr>
+<tr><td>가장 중요한 체크포인트</td><td>Q2 Core Sales 약 $4.6B, Core EPS $0.73~0.77, Optical 성장률 25%+, 하반기 가이드 상향 여부</td></tr>
+<tr><td>내가 틀렸다고 인정해야 하는 조건</td><td><b>Optical 성장률이 2개 분기 연속 15% 미만이고, 고객 인도 지연·FCF 악화·가이드 하향이 동시에 나타나는 경우.</b> 이때는 ‘AI 광통신 구조적 승자’ thesis를 폐기하고 비중을 절반 이하로 낮춘다.</td></tr>
+</table>
+
+<div class="foot">
+<b>참고 출처:</b>
+<a href="https://investor.corning.com/">Corning Investor Relations</a> ·
+<a href="https://www.sec.gov/edgar/browse/?CIK=24741&amp;owner=exclude">SEC EDGAR — Corning</a> ·
+<a href="https://www.reuters.com/business/corning-forecasts-first-quarter-sales-above-estimates-strong-optical-fiber-2026-01-28/">Reuters — Q4 2025/Meta</a> ·
+<a href="https://www.reuters.com/business/corning-faces-consumer-electronics-drag-even-data-center-business-booms-2026-04-28/">Reuters — Q1 2026</a> ·
+<a href="https://www.reuters.com/technology/amazon-corning-sign-multi-billion-dollar-deal-boost-fiber-optics-manufacturing-2026-06-08/">Reuters — Amazon partnership</a> ·
+<a href="https://apnews.com/article/2c33bfcce191a078926447f2c40980ab">AP — Apple $2.5B investment</a> ·
+<a href="https://www.marketwatch.com/data-news/corning-inc-stock-outperforms-competitors-on-strong-trading-day-3e614f07-ddf0d6cf5b0d">MarketWatch — 2026-07-14 close</a>.
+<br/>수치 주의: 주가와 공시·컨센서스는 2026-07-15 한국시간 작성 시점에 확인 가능한 최신 완료 거래일과 공개자료를 사용했다. 연간·분기 그래프의 일부 반올림·TTM 값은 비교용 분석 추정치이며, GAAP와 Core 지표를 혼용하지 않도록 표에 구분했다.
+<br/><b>YOUNG FINANCE · 城主(성주)</b><br/>
+본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.
+</div>
+</section>
+</div>
+</body>
+</html>

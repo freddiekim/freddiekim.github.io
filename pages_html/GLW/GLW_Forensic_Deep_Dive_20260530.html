@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GLW Forensic Deep Dive | Corning Inc. | 2026.05.30</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --paper:#f7f2e8;
+  --ink:#1d2430;
+  --muted:#64717f;
+  --line:#d7ccbb;
+  --card:#fffaf0;
+  --card2:#efe6d5;
+  --teal:#1c6e7d;
+  --navy:#123047;
+  --terracotta:#c85d3f;
+  --mustard:#d9a441;
+  --sage:#6b8f71;
+  --red:#a94334;
+  --blue:#406f9f;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", Segoe UI, sans-serif;
+  --serif: Georgia, "Times New Roman", serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.72;}
+a{color:var(--teal);text-decoration:none;border-bottom:1px solid rgba(28,110,125,.25)}
+.container{max-width:1240px;margin:0 auto;padding:0 28px}
+.header{border-bottom:2px solid var(--ink);padding:42px 0 34px;background:var(--paper)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--teal);text-transform:uppercase;margin-bottom:12px}
+.title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ticker{font-family:var(--serif);font-size:72px;line-height:.9;color:var(--navy);letter-spacing:-.05em}
+.company{font-size:22px;margin-top:8px;color:var(--ink);font-weight:700}
+.subtitle{font-size:13px;color:var(--muted);margin-top:6px;max-width:780px}
+.stamp{border:2px solid var(--ink);padding:13px 16px;min-width:230px;background:var(--card);}
+.stamp .label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.stamp .value{font-family:var(--mono);font-size:26px;color:var(--terracotta);font-weight:800}
+.stamp .note{font-size:11px;color:var(--muted)}
+.hero-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:28px}
+.poster{border:2px solid var(--ink);background:var(--card);padding:22px;min-height:220px;display:grid;grid-template-columns:1fr 240px;gap:24px;align-items:center}
+.poster h1{font-family:var(--serif);font-size:34px;line-height:1.05;color:var(--navy);margin-bottom:12px}
+.poster p{color:var(--muted);font-size:14px;max-width:720px}
+.visual{height:170px;position:relative;border-left:2px solid var(--line)}
+.v-circle{position:absolute;border-radius:50%;border:2px solid var(--navy);background:var(--card2)}
+.v1{width:120px;height:120px;right:30px;top:10px;background:#e7cf9d}
+.v2{width:80px;height:80px;right:126px;top:70px;background:#b8d0c3}
+.v3{width:44px;height:44px;right:0;top:92px;background:#d99b7b}
+.v-line{position:absolute;height:3px;background:var(--navy);right:20px;left:20px}
+.vl1{top:42px}.vl2{top:85px}.vl3{top:128px}
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.kpi{border:2px solid var(--line);background:var(--card);padding:14px}
+.kpi .l{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}.kpi .v{font-family:var(--mono);font-size:22px;font-weight:800;color:var(--navy)}.kpi .n{font-size:11px;color:var(--muted)}
+.section{padding:40px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;gap:14px;align-items:center;margin-bottom:22px}.sec-no{width:42px;height:42px;border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:800;color:var(--teal);background:var(--card)}.sec-title{font-family:var(--serif);font-size:29px;color:var(--navy);line-height:1.1}.sec-sub{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.card{border:2px solid var(--line);background:var(--card);padding:20px;margin-bottom:16px}.card.tight{padding:14px}.card h3{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:13px}.card h4{font-size:16px;color:var(--navy);margin-bottom:8px}.card p{margin-bottom:11px;color:#303846}.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.callout{border:2px solid var(--ink);background:var(--card2);padding:18px;margin:16px 0}.callout strong{color:var(--navy)}.callout .tag{font-family:var(--mono);font-size:11px;color:var(--terracotta);letter-spacing:.08em;text-transform:uppercase;font-weight:800;margin-bottom:8px}
+.table-wrap{overflow-x:auto}.data-table{width:100%;border-collapse:collapse;font-size:13px}.data-table th{font-family:var(--mono);font-size:10px;color:var(--navy);text-align:left;border-bottom:2px solid var(--ink);padding:10px;white-space:nowrap}.data-table td{border-bottom:1px solid var(--line);padding:10px;vertical-align:top;color:#303846}.data-table td.num,.data-table th.num{text-align:right;font-family:var(--mono)}.row-hi td{background:#efe2c9}.row-red td{background:#f0d4c9}.good{color:var(--sage);font-weight:800}.bad{color:var(--red);font-weight:800}.warn{color:var(--mustard);font-weight:800}.teal{color:var(--teal);font-weight:800}.mono{font-family:var(--mono)}
+.badge{display:inline-block;padding:3px 8px;border:1px solid var(--ink);font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--card2);margin:2px}.badge.good{background:#dfe8dc;color:#315f3c}.badge.bad{background:#edd4cd;color:#8d3526}.badge.warn{background:#efe0bd;color:#8a6420}.badge.blue{background:#d8e6ef;color:#245170}
+.signal-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.signal{border:2px solid var(--line);background:var(--card);padding:12px;min-height:134px}.signal .num{font-family:var(--mono);font-size:11px;color:var(--terracotta);font-weight:800}.signal h4{font-size:14px;margin:6px 0;color:var(--navy)}.signal p{font-size:12px;color:var(--muted);line-height:1.55}
+.timeline{position:relative;padding-left:26px}.timeline:before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--ink)}.tl{position:relative;margin-bottom:14px;border:2px solid var(--line);background:var(--card);padding:13px}.tl:before{content:"";position:absolute;left:-25px;top:15px;width:14px;height:14px;background:var(--terracotta);border:2px solid var(--ink)}.tl .date{font-family:var(--mono);font-size:11px;color:var(--teal);font-weight:800}.tl .event{font-weight:800;color:var(--navy);margin:2px 0}.tl .desc{font-size:12.5px;color:var(--muted)}
+.map{display:grid;grid-template-columns:1fr 120px 1fr 120px 1fr;gap:10px;align-items:center}.map-box{border:2px solid var(--ink);background:var(--card);padding:14px;min-height:135px}.map-box h4{font-family:var(--mono);font-size:11px;color:var(--teal);text-transform:uppercase;letter-spacing:.08em}.map-box ul{margin-left:18px;color:#303846;font-size:12.5px}.arrow{font-family:var(--serif);font-size:36px;text-align:center;color:var(--terracotta)}
+.bridge{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;align-items:stretch}.bridge .step{border:2px solid var(--ink);background:var(--card);padding:13px;text-align:center}.bridge .step .l{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase}.bridge .step .v{font-family:var(--mono);font-size:21px;font-weight:900;color:var(--navy)}.bridge .step .n{font-size:11px;color:var(--muted)}
+.chart-box{border:2px solid var(--line);background:var(--card);padding:18px;margin:16px 0}.chart-title{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--teal);text-transform:uppercase;margin-bottom:12px}.final{border:3px solid var(--ink);background:var(--card);padding:22px}.final-row{display:grid;grid-template-columns:260px 1fr;border-bottom:1px solid var(--line);padding:8px 0}.final-row:last-child{border-bottom:0}.final-row .l{font-family:var(--mono);font-size:12px;color:var(--navy);font-weight:800}.final-row .v{color:#303846}.disclaimer{font-size:11px;color:var(--muted);line-height:1.6;margin:22px 0 40px}.source-list li{margin-left:20px;margin-bottom:5px;color:var(--muted);font-size:12px}.small{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.hero-grid,.poster,.grid-2,.grid-3,.grid-4,.signal-grid,.map,.bridge{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.final-row{grid-template-columns:1fr}.ticker{font-size:54px}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <div class="eyebrow">Forensic Equity Research · AI Optical Infrastructure · 기준일 2026.05.30 KST</div>
+    <div class="title-row">
+      <div>
+        <div class="ticker">GLW</div>
+        <div class="company">Corning Incorporated — 시장이 아직 완전히 가격화하지 못한 “광연결 물리 레이어” 변곡점</div>
+        <div class="subtitle">보유 250주 · 현재 포트폴리오 비중 8.3% · 본 보고서는 일반 기업소개가 아니라 공시·고객계약·공급망·자본구조·컨콜/IR 발언을 시간순으로 연결한 forensic deep dive입니다.</div>
+      </div>
+      <div class="stamp">
+        <div class="label">Latest Verified Price</div>
+        <div class="value">$181.16</div>
+        <div class="note">2026.05.29 정규장 종가 · 5거래일 -6.6% · 시총 약 $155.9B</div>
+      </div>
+    </div>
+    <div class="hero-grid">
+      <div class="poster">
+        <div>
+          <h1>유리 회사가 아니라,<br>AI 클러스터의 “신경 배선”을 파는 회사.</h1>
+          <p>핵심 thesis는 단순합니다. GPU 수가 늘면 연산보다 먼저 데이터 이동이 병목이 됩니다. Corning은 유리·광섬유·고밀도 케이블·커넥터·CPO 부품까지 이어지는 물리 레이어를 보유하고, NVIDIA·Meta·Broadcom 사건 체인이 같은 방향을 가리키기 시작했습니다.</p>
+        </div>
+        <div class="visual" aria-label="flat vector optical infrastructure illustration">
+          <div class="v-line vl1"></div><div class="v-line vl2"></div><div class="v-line vl3"></div>
+          <div class="v-circle v1"></div><div class="v-circle v2"></div><div class="v-circle v3"></div>
+        </div>
+      </div>
+      <div class="kpi-grid">
+        <div class="kpi"><div class="l">Market Cap</div><div class="v">$155.9B</div><div class="n">latest quote 기준</div></div>
+        <div class="kpi"><div class="l">Position Value</div><div class="v">$45,290</div><div class="n">250주 × $181.16</div></div>
+        <div class="kpi"><div class="l">Q1 Core Sales</div><div class="v">$4.35B</div><div class="n">+18% YoY</div></div>
+        <div class="kpi"><div class="l">Optical Q1 Sales</div><div class="v">$1.85B</div><div class="n">+36% YoY</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">TD</div><div><div class="sec-title">Thesis Discovery — 처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</div><div class="sec-sub">보고서를 쓰기 전 먼저 찾은 구조적 단서</div></div></div>
+  <div class="signal-grid">
+    <div class="signal"><div class="num">01</div><h4>“광섬유”에서 “AI 광연결 설계 레이어”로 이동</h4><p>GlassWorks AI는 케이블 판매가 아니라 planning·design·deployment support까지 포함한 one-stop shop으로 포지셔닝됐다.</p></div>
+    <div class="signal"><div class="num">02</div><h4>Meta 계약은 단순 매출이 아니라 anchor customer 구조</h4><p>최대 $6B 장기계약과 Hickory 생산 확장은 고객이 Corning 생산 리스크를 일부 공유하는 형태다.</p></div>
+    <div class="signal"><div class="num">03</div><h4>NVIDIA warrant는 “고객 검증”보다 더 강한 신호</h4><p>SEC filing상 $500M warrant/pre-funded warrant 구조. 단순 보도자료보다 주주 희석과 전략적 lock-in을 동시에 만든다.</p></div>
+    <div class="signal"><div class="num">04</div><h4>Broadcom Bailly CPO는 reference-platform 단서</h4><p>51.2Tbps CPO 스위치에 fiber harness, FAU, PM fiber가 들어가며, “box 안으로 들어가는 Corning optics” thesis를 강화한다.</p></div>
+    <div class="signal"><div class="num">05</div><h4>Springboard 2030은 단순 장기목표가 아니다</h4><p>2026 $20B run-rate 이후 2030 high-confidence $35B, internal $40B를 제시했다. 시장은 이 중 어느 구간을 사는지 봐야 한다.</p></div>
+    <div class="signal"><div class="num">06</div><h4>Enterprise optical growth가 GPU growth보다 클 수 있음</h4><p>대형 클러스터는 scale-out뿐 아니라 optical scale-up layer가 추가되며, Corning은 fiber count가 GPU 수보다 빠를 수 있다고 제시한다.</p></div>
+    <div class="signal"><div class="num">07</div><h4>소형 적자주는 아니지만 자본구조 신호는 중요</h4><p>GLW는 적자 소형주가 아니나 shelf, warrant, capex, short interest가 이벤트 수급을 설명한다. squeeze보다 valuation unwind가 핵심 리스크다.</p></div>
+    <div class="signal"><div class="num">08</div><h4>고객명 미공개 구간은 alpha이자 위험</h4><p>Meta는 확정. 나머지 hyperscaler 후보는 단정하면 안 된다. Microsoft/AWS/Google/Oracle/xAI는 가능성 가설로만 다뤄야 한다.</p></div>
+    <div class="signal"><div class="num">09</div><h4>Glass core packaging은 옵션가치</h4><p>아직 base case에 넣을 수 없지만, AI GPU 패키징의 glass substrate가 현실화되면 GLW의 TAM은 광섬유 밖으로 확장된다.</p></div>
+    <div class="signal"><div class="num">10</div><h4>현재 주가는 base가 아니라 “base+상당한 bull premium”</h4><p>가격은 이미 2027~2028 FCF 개선과 AI 플랫폼 multiple을 많이 반영했다. 그래서 행동은 추격매수가 아니라 보유·조건부 트림이다.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">0</div><div><div class="sec-title">Executive Summary</div><div class="sec-sub">투자 thesis와 anti-thesis를 한 화면에 압축</div></div></div>
+  <div class="grid-2">
+    <div class="card"><h3>One-sentence thesis</h3><p><strong>GLW는 AI 데이터센터가 구리 한계에서 광연결로 이동하는 국면에서, fiber·cable·connector·CPO 부품·설계지원까지 가진 물리 레이어 플랫폼으로 재정의되고 있다.</strong></p></div>
+    <div class="card"><h3>One-sentence anti-thesis</h3><p><strong>그러나 현재 $181대 주가는 이미 2027~2028년 optical 성장과 high-confidence Springboard를 상당 부분 반영해, 실적 beat만으로는 충분하지 않은 가격이다.</strong></p></div>
+  </div>
+  <div class="table-wrap card tight">
+    <table class="data-table">
+      <tbody>
+        <tr><th>시장이 보는 회사</th><td>디스플레이·Gorilla Glass·광섬유를 파는 레거시 소재/산업재 회사</td></tr>
+        <tr><th>내가 새롭게 보는 회사</th><td>AI GPU 클러스터의 data movement bottleneck을 해결하는 광연결 physical-layer supplier 겸 reference design 참여자</td></tr>
+        <tr><th>리레이팅 가능 이유</th><td>Meta 최대 $6B 장기계약, NVIDIA warrant/파트너십, Broadcom CPO design-in, GlassWorks AI one-stop 포지셔닝, Springboard 2030 목표</td></tr>
+        <tr><th>리레이팅 실패 조건</th><td>Optical growth가 25% 미만으로 둔화, 20%대 core operating margin 훼손, capex가 FCF로 전환되지 않음, NVIDIA/Meta 관련 capacity milestone 지연</td></tr>
+        <tr class="row-hi"><th>투자 등급</th><td><span class="badge warn">Hold</span> <span class="badge blue">조건부 Trim</span> — 신규 추격매수 금지, 실적 전 과열 시 일부 차익실현</td></tr>
+        <tr class="row-hi"><th>포트폴리오 행동</th><td>현재 250주/8.3%는 허용 가능한 코어 포지션. $195 이상 실적 전 랠리에서는 25~50주 축소, $165 이하 thesis intact 조정에서는 25주만 재매수 후보.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">1</div><div><div class="sec-title">시장이 놓친 핵심 변곡점 5개</div><div class="sec-sub">확정 사실 · 합리적 추론 · 검증 필요 가설 분리</div></div></div>
+  <div class="table-wrap card tight">
+    <table class="data-table">
+      <thead><tr><th>변곡점</th><th>확정 사실</th><th>합리적 추론</th><th>검증 필요</th><th>왜 아직 완전 반영이 아닌가</th></tr></thead>
+      <tbody>
+        <tr><td><strong>NVIDIA 전략적 lock-in</strong></td><td>15M주 warrant($180), 3M주 pre-funded warrant, aggregate purchase price $500M 공시</td><td>NVIDIA AI 인프라 supply chain에서 GLW의 물리 레이어 중요도 상승</td><td>공장별 매출 기여와 실제 warrant 행사 여부</td><td>시장은 headline은 반영했지만 계약 economics와 dilution-adjusted value는 혼재</td></tr>
+        <tr><td><strong>Meta anchor customer</strong></td><td>최대 $6B 다년 계약, North Carolina/Hickory 생산 확장</td><td>단순 PO가 아니라 고객이 capacity risk를 공유하는 구조</td><td>연도별 인식 매출, 선급금/계약부채 구조</td><td>매출 timing이 불명확해 consensus model에 보수적으로 들어갈 가능성</td></tr>
+        <tr><td><strong>GlassWorks AI</strong></td><td>Contour Flow, MMC, design/deployment support를 one-stop shop으로 출시</td><td>제품 판매에서 network design layer로 상승</td><td>hyperscaler design standard 채택 여부</td><td>“유리/케이블 업체” 프레임이 아직 강함</td></tr>
+        <tr><td><strong>CPO reference platform</strong></td><td>Broadcom Bailly 51.2Tbps CPO에 Corning 부품 공급</td><td>GPU/ASIC bandwidth doubling과 box 안 광학화에서 GLW attach rate 상승</td><td>Bailly 이후 design win 수, optical engine 세대별 attach</td><td>CPO는 아직 초기 시장이라 매출 반영 시점 할인</td></tr>
+        <tr><td><strong>Springboard 2030</strong></td><td>2026 $20B run-rate, 2028 high-confidence $27B/internal $30B, 2030 $35B/$40B 목표</td><td>현재 가격은 2026이 아니라 2028~2030 identity change를 사는 것</td><td>FCF conversion, ROIC, capex intensity</td><td>매출 목표는 커졌지만 FCF 모델 가시성이 낮음</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">2</div><div><div class="sec-title">전통적 비즈니스 모델의 진화</div><div class="sec-sub">Legacy glass maker → AI optical platform supplier</div></div></div>
+  <div class="grid-3">
+    <div class="card"><h3>레거시 사업</h3><p>Display glass, Gorilla Glass, automotive ceramics, life sciences consumables, carrier fiber가 과거 정체성의 중심이었다. 이 프레임에서는 GLW는 경기민감 소재주이므로 20~25x EPS 이상을 받기 어렵다.</p></div>
+    <div class="card"><h3>현재 성장 축</h3><p>Optical Communications와 Solar가 성장률을 끌고 있다. 특히 Q1 2026 Optical은 매출 $1.846B, +36% YoY, 순이익 +93%로 테마가 아니라 손익계산서에 나타난 변화다.</p></div>
+    <div class="card"><h3>미래 고객군</h3><p>과거 TV·스마트폰·통신사 중심에서, Meta·NVIDIA ecosystem·Broadcom CPO·hyperscaler data center로 고객군이 이동한다. 고객 전환비용은 제품 자체보다 설계·인증·공장 capacity lock-in에서 생긴다.</p></div>
+  </div>
+  <div class="callout"><div class="tag">판단</div><p>GLW는 “완전한 데이터센터 turnkey 업체”는 아니다. GPU, switch ASIC, rack system, cooling을 모두 제공하지 않는다. 그러나 <strong>광연결 하위 시스템에서는 fiber부터 connector, cable, optical hardware, deployment support까지 제공하는 subsystem-turnkey 업체</strong>로 진화 중이다.</p></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">3</div><div><div class="sec-title">실적으로 증명되는 실체</div><div class="sec-sub">테마에서 펀더멘털로 이동했는가</div></div></div>
+  <div class="grid-4">
+    <div class="kpi"><div class="l">Q1 Core Sales</div><div class="v">$4.345B</div><div class="n">+18% YoY</div></div>
+    <div class="kpi"><div class="l">Q1 Core EPS</div><div class="v">$0.70</div><div class="n">+30% YoY</div></div>
+    <div class="kpi"><div class="l">Optical Sales</div><div class="v">$1.846B</div><div class="n">+36% YoY</div></div>
+    <div class="kpi"><div class="l">Cash & Equiv.</div><div class="v">$1.755B</div><div class="n">2026.03.31</div></div>
+  </div>
+  <div class="table-wrap card tight">
+    <table class="data-table">
+      <thead><tr><th>부문</th><th class="num">Q1 2026 매출</th><th class="num">YoY</th><th class="num">순이익/손실</th><th>Forensic 해석</th></tr></thead>
+      <tbody>
+        <tr class="row-hi"><td>Optical Communications</td><td class="num">$1.846B</td><td class="num good">+36%</td><td class="num good">$387M / +93%</td><td>AI 데이터센터 수요가 가장 직접적으로 드러난 부문. operating leverage가 thesis 핵심.</td></tr>
+        <tr><td>Glass Innovations</td><td class="num">$1.420B</td><td class="num">+1%</td><td class="num">$329M</td><td>레거시 안정판. 리레이팅의 원인은 아니지만 downside cushion.</td></tr>
+        <tr><td>Automotive</td><td class="num">$437M</td><td class="num bad">-1%</td><td class="num">$88M</td><td>차량 사이클 노출. AI thesis와는 별개 리스크.</td></tr>
+        <tr><td>Solar</td><td class="num">$370M</td><td class="num good">+80%</td><td class="num">$30M</td><td>미국 제조/IRA/Buy America optionality. 단 Q2 maintenance cost $30M 주의.</td></tr>
+        <tr><td>Life Sciences & Emerging Growth</td><td class="num">$272M</td><td class="num">0%</td><td class="num bad">-$24M</td><td>아직 손익 기여 미미. emerging option, not base thesis.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid-2">
+    <div class="chart-box"><div class="chart-title">Q1 2026 Segment Growth</div><canvas id="segmentChart" height="230"></canvas></div>
+    <div class="card"><h3>다음 분기 필수 KPI</h3><p><span class="badge blue">1</span> Optical Communications 성장률: <strong>+30% 이상</strong> 유지가 bull thesis의 최소선.</p><p><span class="badge blue">2</span> Core operating margin: <strong>20% 전후</strong> 유지. Solar $30M 비용이 있어도 방어되는지 확인.</p><p><span class="badge blue">3</span> NVIDIA/Meta capacity milestone: 신규 공장 착공, customer deposit/backlog, 계약부채 변화.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">4</div><div><div class="sec-title">고객·파트너·생태계 분석</div><div class="sec-sub">직접 고객 · 간접 고객 · 최종 수혜자 구분</div></div></div>
+  <div class="map">
+    <div class="map-box"><h4>Direct / Contractual</h4><ul><li>Meta: 최대 $6B 장기 공급계약</li><li>NVIDIA: warrant + optical connectivity capacity partnership</li><li>Broadcom: Bailly CPO optical components</li><li>Carrier / enterprise customers</li></ul></div>
+    <div class="arrow">→</div>
+    <div class="map-box"><h4>Indirect Ecosystem</h4><ul><li>NVIDIA accelerated computing supply chain</li><li>Switch ASIC / CPO platform</li><li>Hyperscaler AI data center builds</li><li>BEAD / Buy America broadband programs</li></ul></div>
+    <div class="arrow">→</div>
+    <div class="map-box"><h4>Final Demand</h4><ul><li>AI training and inference clusters</li><li>GPU scale-out / scale-up networks</li><li>Cloud AI customers and neoclouds</li><li>Long-haul and inter-campus fiber</li></ul></div>
+  </div>
+  <div class="table-wrap card tight" style="margin-top:16px">
+    <table class="data-table">
+      <thead><tr><th>기업</th><th>관련성</th><th>확정/추론</th><th>근거와 한계</th></tr></thead>
+      <tbody>
+        <tr class="row-hi"><td>NVIDIA</td><td><span class="badge good">매우 높음</span></td><td>확정</td><td>공식 파트너십과 SEC warrant filing. 다만 매출 인식 일정은 검증 필요.</td></tr>
+        <tr class="row-hi"><td>Meta</td><td><span class="badge good">매우 높음</span></td><td>확정</td><td>최대 $6B 다년 공급계약. AI 데이터센터 optical fiber/cable/connectivity 공급.</td></tr>
+        <tr><td>Broadcom</td><td><span class="badge good">높음</span></td><td>확정</td><td>Bailly 51.2Tbps CPO 스위치에 GLW optical components 공급.</td></tr>
+        <tr><td>Microsoft / Amazon / Google / Oracle</td><td><span class="badge warn">가능성</span></td><td>추론</td><td>hyperscaler AI capex와 제품 적합성은 높지만 공개 GLW 장기계약명은 확인 불가. 단정 금지.</td></tr>
+        <tr><td>AMD / Intel / Qualcomm / Samsung / TSMC</td><td><span class="badge warn">중간~낮음</span></td><td>옵션</td><td>CPO·glass core·advanced packaging 측면 optionality. 현재 GLW 직접 계약 thesis의 중심은 아님.</td></tr>
+        <tr><td>Apple</td><td><span class="badge warn">중간</span></td><td>레거시</td><td>Gorilla/cover glass 관련성. AI optical thesis와는 직접 연결 낮음.</td></tr>
+        <tr><td>SpaceX / Globalstar / Gogo / Skylo / Verizon</td><td><span class="badge bad">낮음</span></td><td>검증 필요</td><td>위성·항공·통신 레이어는 GLW 광섬유와 넓은 의미의 네트워크 인프라 관계가 있으나, 본 보고서의 핵심 사건 체인에는 직접 증거 없음.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">5</div><div><div class="sec-title">숨은 고객 및 M&A Optionality</div><div class="sec-sub">익명 고객 추정은 확정 사실과 분리</div></div></div>
+  <div class="grid-2">
+    <div class="card"><h3>익명 고객 후보군</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>후보</th><th>가능성</th><th>근거</th><th>반대 근거</th></tr></thead><tbody><tr><td>Microsoft/Azure</td><td class="num">25%</td><td>AI supercluster, OpenAI 인프라 수요, fiber density 필요</td><td>공개 GLW 계약명 없음</td></tr><tr><td>Amazon/AWS</td><td class="num">20%</td><td>대형 AI DC capex, 자체 Trainium cluster</td><td>공급망 다변화 가능성 높음</td></tr><tr><td>Google/Alphabet</td><td class="num">20%</td><td>TPU pod, internal networking, AI DC scale</td><td>자체 설계/기존 공급망 강함</td></tr><tr><td>Oracle/OCI</td><td class="num">15%</td><td>NVIDIA cluster 수요, neocloud 고객 확장</td><td>Meta급 직접 계약 규모 검증 부족</td></tr><tr><td>xAI/기타 neocloud</td><td class="num">10%</td><td>대형 GPU cluster speed, rapid procurement</td><td>신용/계약 안정성 불명확</td></tr></tbody></table></div></div>
+    <div class="card"><h3>M&A optionality</h3><p>GLW의 시가총액이 $155B대이므로 <strong>전면 인수 가능성은 base case에 거의 반영하지 않는다</strong>. 오히려 현실적인 optionality는 전략적 warrant, prepayment, JV, capacity reservation이다.</p><p><strong>전략적 인수 후보:</strong> NVIDIA나 hyperscaler가 full takeout을 하기엔 규모·반독점·비핵심 사업 문제가 크다. 다만 핵심 optical assets에 대한 장기 capacity reservation은 합리적이다.</p><p><strong>방어적 인수 후보:</strong> Broadcom·APH·TEL·COHR·Prysmian 등이 GLW 전체를 가져갈 가능성은 낮다. 경쟁사가 가져가면 NVIDIA/Meta가 피해를 볼 수 있으므로, 오히려 고객 lock-in 계약이 방어장치다.</p><p><span class="badge blue">Base</span> $0~5/share <span class="badge warn">Bull</span> $10~20/share <span class="badge bad">Overshoot</span> $30+/share narrative premium</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">6</div><div><div class="sec-title">자본구조와 수급 분석</div><div class="sec-sub">GLW는 소형 적자주는 아니지만 warrant·shelf·short data가 이벤트 수급을 설명</div></div></div>
+  <div class="table-wrap card tight">
+    <table class="data-table"><thead><tr><th>항목</th><th class="num">수치/조건</th><th>해석</th></tr></thead><tbody>
+      <tr><td>Cash & equivalents</td><td class="num">$1.755B</td><td>2026.03.31 기준. 단기 생존자금 이슈는 아님.</td></tr>
+      <tr><td>Operating cash flow Q1</td><td class="num">$362M</td><td>적자 cash burn 구조가 아니라 성장투자/working capital 관리 구조.</td></tr>
+      <tr><td>Long-term debt / total debt</td><td class="num">$7.718B / $8.973B</td><td>총부채/자본 42%, investment-grade 스타일의 자본구조.</td></tr>
+      <tr><td>Revolver</td><td class="num">$1.5B</td><td>2030년 만기, 미사용. 유동성 백스톱.</td></tr>
+      <tr><td>Shelf registration</td><td class="num">2026.04.24 자동 shelf</td><td>부채·보통주·우선주·warrant 등 발행 가능. 대규모 capex 유연성 확보.</td></tr>
+      <tr class="row-hi"><td>NVIDIA warrants</td><td class="num">15M주 @ $180 + 3M pre-funded</td><td>$500M aggregate purchase price. Fully diluted model에는 18M주 추가 반영.</td></tr>
+      <tr><td>Shares outstanding / modeled diluted</td><td class="num">~860.6M / ~889M</td><td>NVIDIA warrant, options/RSU 여지를 반영한 보수적 주식 수.</td></tr>
+      <tr><td>Short interest</td><td class="num">21.25M주 / 2.5~2.7% float</td><td>days-to-cover 1~1.6일. squeeze가 thesis 핵심은 아님.</td></tr>
+      <tr><td>Borrow fee</td><td class="num">~0.34%</td><td>tight borrow가 아니라 valuation unwind/실적 이벤트가 수급 리스크.</td></tr>
+    </tbody></table>
+  </div>
+  <div class="callout"><div class="tag">수급 분해</div><p>최근 상승은 short squeeze보다 <strong>NVIDIA 전략적 파트너십에 따른 multiple expansion</strong>이 핵심이다. 5월 말 하락은 thesis 훼손이 아니라 ① $180 strike 근처 warrant 기준점, ② ex-dividend/차익실현, ③ 높은 valuation에서의 실적 전 기대 조정이 결합된 것으로 본다.</p></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">7</div><div><div class="sec-title">기술 분석</div><div class="sec-sub">일반론이 아니라 제품·아키텍처·lock-in 레이어 분석</div></div></div>
+  <div class="table-wrap card tight">
+    <table class="data-table"><thead><tr><th>기술/제품</th><th>레이어</th><th>구체 내용</th><th>왜 필요한가</th><th>모방 난이도</th></tr></thead><tbody>
+      <tr><td>SMF-28 Contour fiber</td><td>Fiber</td><td>기존 대비 40% 작은 fiber와 bend resilience</td><td>dense AI DC에서 cable duct 공간과 굴곡 손실이 병목</td><td class="warn">높음</td></tr>
+      <tr><td>Contour Flow Cable</td><td>Cable</td><td>동일 cable diameter에 2배 fiber 수용 가능</td><td>기존 DC conduit를 뜯지 않고 capacity 확장</td><td class="warn">높음</td></tr>
+      <tr><td>MMC connector / PRIZM TMT</td><td>Connector</td><td>16/32-fiber, MPO 대비 최대 3배 density, lens-based expanded beam</td><td>rack unit당 연결밀도와 유지보수성 개선</td><td class="warn">중간~높음</td></tr>
+      <tr><td>Broadcom Bailly CPO 부품</td><td>CPO / inside-the-box</td><td>fiber harness, front-plate/external laser connectors, SMF/PM fiber, FAU</td><td>switch ASIC 가까이 광학을 붙여 bandwidth density와 power efficiency 개선</td><td class="warn">높음</td></tr>
+      <tr><td>Glass core substrate</td><td>Advanced packaging</td><td>AI GPU 패키징용 유리 기판 optionality</td><td>실리콘 인터포저 한계, 신호 무결성/전력효율 개선 가능성</td><td class="bad">아직 상업 검증 필요</td></tr>
+    </tbody></table>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>소프트웨어로 해결 가능한 문제인가?</h3><p>아니다. AI cluster의 data movement bottleneck은 routing algorithm만으로 해결되지 않는다. 물리적 link loss, bandwidth density, power per bit, bend loss, connector cleaning, rack 공간 문제는 <strong>fiber/cable/connector/CPO 부품 레벨</strong>의 문제다.</p></div>
+    <div class="card"><h3>Lock-in 구조</h3><p>한 번 DC 설계에 들어가면 cable diameter, connector standard, installation tooling, maintenance process, CPO packaging path가 함께 묶인다. 전환비용은 “부품 단가”가 아니라 <strong>재설계·인증·운영 리스크</strong>에서 발생한다.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">EC</div><div><div class="sec-title">최근 24개월 사건 체인 분석</div><div class="sec-sub">작아 보이는 사건을 시간순으로 연결</div></div></div>
+  <div class="table-wrap card tight">
+    <table class="data-table"><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>Thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead><tbody>
+      <tr><td>2025.03.27</td><td>GlassWorks AI 출시</td><td>data center products/services one-stop shop 발표</td><td>제품 판매에서 설계지원 레이어로 상승</td><td class="good">긍정</td><td>A</td><td>hyperscaler standard 채택 여부</td></tr>
+      <tr><td>2025.05.13</td><td>Broadcom Bailly CPO 협력</td><td>51.2Tbps CPO switch에 GLW optical components</td><td>CPO reference design 진입</td><td class="good">긍정</td><td>A</td><td>차세대 Tomahawk/Bailly design-in 반복</td></tr>
+      <tr><td>2025.07.17</td><td>EU Gorilla Glass commitments</td><td>exclusive dealing clause 관련 EU commitments 수용</td><td>레거시 consumer glass lock-in은 규제 감시 대상</td><td class="warn">중립/주의</td><td>A</td><td>Apple/Samsung 관련 매출 영향</td></tr>
+      <tr><td>2026.01.27</td><td>Meta 최대 $6B 장기계약</td><td>AI DC용 fiber/cable/connectivity 공급</td><td>anchor customer와 capacity risk sharing</td><td class="good">강한 긍정</td><td>A</td><td>계약부채/연도별 매출 인식</td></tr>
+      <tr><td>2026.01.28</td><td>FY2025 results / Springboard upgrade</td><td>FY core sales $16.41B, EPS $2.52, FCF $1.72B</td><td>테마가 실제 FCF로 전환 중</td><td class="good">긍정</td><td>A</td><td>2026 FCF 가이던스 상향</td></tr>
+      <tr><td>2026.03</td><td>OFC 2026 product refresh</td><td>Contour Flow, MMC, CPO 관련 신제품</td><td>fiber count와 connector density가 GPU growth 이상 성장 가능</td><td class="good">긍정</td><td>A</td><td>제품별 출하량/ASP</td></tr>
+      <tr><td>2026.04.24</td><td>자동 shelf registration</td><td>debt/common/preferred/warrants 발행 가능</td><td>capex 확장 자금 유연성 확보</td><td class="warn">중립</td><td>A</td><td>실제 발행 여부/희석 조건</td></tr>
+      <tr><td>2026.04.28</td><td>Q1 earnings</td><td>core sales +18%, core EPS +30%, Optical +36%</td><td>AI optical demand 실체화</td><td class="good">긍정</td><td>A</td><td>Q2 Optical +30% 이상 유지</td></tr>
+      <tr><td>2026.05.06</td><td>NVIDIA partnership + warrants</td><td>10배 US optical connectivity capacity, >50% US fiber expansion, $500M warrant purchase</td><td>NVIDIA가 GLW를 AI supply chain strategic node로 인정</td><td class="good">강한 긍정</td><td>A</td><td>공장별 ramp/capacity commitment</td></tr>
+      <tr><td>2026.05.29</td><td>주가 $181.16, 5일 조정</td><td>5거래일 -6.6%, volume 16.9M</td><td>headline 반영 후 valuation digestion</td><td class="warn">전술적 중립</td><td>A</td><td>$175 지지와 실적 전 기대 재형성</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">8</div><div><div class="sec-title">컨센서스 리비전 분석</div><div class="sec-sub">현재 시장은 base, bull, overshoot 중 무엇을 사는가</div></div></div>
+  <div class="grid-2">
+    <div class="card"><h3>현재 컨센서스</h3><p>공개 집계 기준 평균 목표가는 약 <strong>$197.67</strong>, median $210, high $230, low $149다. 2026 EPS 컨센서스는 약 $3.22, 2027 EPS는 약 $4.27로 집계된다.</p><p>최근 상향은 NVIDIA 파트너십 이후 빠르게 반영됐지만, JPMorgan은 valuation 부담을 이유로 Neutral로 낮추며 “2028년 이익까지 당겨야 설명되는 가격”이라는 anti-thesis를 제시했다.</p></div>
+    <div class="card"><h3>역산</h3><p>현재 $181.16은 2027E EPS $4.27 기준 <strong>42.4x</strong>다. $230 high target은 2027E EPS 기준 <strong>53.9x</strong>, 2028E EPS $5.64 기준 <strong>40.8x</strong>다.</p><p>따라서 현재 시장은 2026 base가 아니라 <strong>2028 bull-minus 시나리오</strong>를 일부 선반영한다. 다음 상승에는 beat만으로 부족하고 beat + raise + order/capacity evidence가 필요하다.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">9</div><div><div class="sec-title">이벤트 드리븐 분석</div><div class="sec-sub">실적 전후 매매 판단</div></div></div>
+  <div class="callout"><div class="tag">실적 발표일 주의</div><p>자료별로 다음 실적일이 <strong>2026년 7월 28~29일 또는 8월 4일</strong>로 엇갈린다. 따라서 본 전략은 특정 날짜가 아니라 <strong>실제 발표 전 마지막 거래일</strong>에 적용한다.</p></div>
+  <div class="table-wrap card tight">
+    <table class="data-table"><thead><tr><th>상황</th><th>오르기 위한 조건</th><th>빠지기 위한 조건</th><th>전술</th></tr></thead><tbody>
+      <tr><td>실적 전</td><td>주가 $175~190, 기대 과열 낮음</td><td>$195~205 이상 선반영</td><td>$195 이상 25주 trim, $205 이상 추가 25주 trim</td></tr>
+      <tr><td>실적 발표</td><td>Optical +30% 이상, core margin ~20%, Springboard 재확인/상향</td><td>Optical <25%, margin <18.5%, capex/FCF 악화</td><td>beat만으론 부족. beat + raise + backlog/capacity evidence 필요</td></tr>
+      <tr><td>실적 후</td><td>고객명/계약부채/공장 milestone 공개</td><td>Solar 비용이 구조적 margin drag로 확대</td><td>강한 증거면 매도분 재매수, 약하면 50주 추가 축소</td></tr>
+    </tbody></table>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">10</div><div><div class="sec-title">밸류에이션 — 4가지 방식</div><div class="sec-sub">DCF · FCF Yield · Relative Value · Re-rating Value</div></div></div>
+  <div class="bridge">
+    <div class="step"><div class="l">Bear DCF</div><div class="v">$92</div><div class="n">FCF 2030 $4.0B, 30x exit</div></div>
+    <div class="step"><div class="l">Base DCF</div><div class="v">$161</div><div class="n">FCF 2030 $6.0B, 35x exit</div></div>
+    <div class="step"><div class="l">Current</div><div class="v">$181</div><div class="n">base+premium</div></div>
+    <div class="step"><div class="l">Bull</div><div class="v">$230</div><div class="n">FCF 2030 $8.4B, 35x exit</div></div>
+    <div class="step"><div class="l">Overshoot</div><div class="v">$260</div><div class="n">AI platform multiple</div></div>
+  </div>
+  <div class="chart-box"><div class="chart-title">Valuation Bridge</div><canvas id="valuationChart" height="230"></canvas></div>
+  <div class="grid-2">
+    <div class="card"><h3>A. DCF</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>시나리오</th><th class="num">2026 매출</th><th class="num">2030 매출</th><th class="num">2030 FCF</th><th class="num">WACC</th><th class="num">Exit P/FCF</th><th class="num">주당가치</th></tr></thead><tbody><tr><td>Bear</td><td class="num">$18.6B</td><td class="num">$27B</td><td class="num">$4.0B</td><td class="num">10.0%</td><td class="num">30x</td><td class="num">$92</td></tr><tr class="row-hi"><td>Base</td><td class="num">$19.2B</td><td class="num">$35B</td><td class="num">$6.0B</td><td class="num">9.0%</td><td class="num">35x</td><td class="num">$161</td></tr><tr><td>Bull</td><td class="num">$20.0B</td><td class="num">$40B</td><td class="num">$8.4B</td><td class="num">8.5%</td><td class="num">35x</td><td class="num">$230</td></tr></tbody></table></div><p class="small">참고: 전통적 영구성장 DCF는 terminal g 3% 적용 시 base가 훨씬 낮아진다. 현재 주가는 perpetuity DCF가 아니라 platform rerating multiple을 지불하는 가격이다.</p></div>
+    <div class="card"><h3>B. FCF Yield / Owner Earnings</h3><p>Normalized 2028 FCF를 $4.2B로 두고 2.5~3.0% owner earnings yield를 적용하면 적정 equity value는 $140~168B, 주당 <strong>$157~189</strong>다. Bull normalized FCF $5.0B에 2.5% yield를 적용하면 <strong>$220대</strong>가 가능하다.</p><p>이 방식의 결론은 현재 가격이 base owner earnings 상단 근처이며, 추가 상승은 FCF trajectory가 한 단계 더 올라가야 한다는 것이다.</p></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><h3>C. 상대가치</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>기업</th><th class="num">시총</th><th class="num">P/E</th><th>포지션</th></tr></thead><tbody><tr class="row-hi"><td>GLW</td><td class="num">$155.9B</td><td class="num">87x</td><td>AI optical physical layer</td></tr><tr><td>APH</td><td class="num">$191.9B</td><td class="num">41x</td><td>connectors/sensors, higher ROIC</td></tr><tr><td>TEL</td><td class="num">$65.4B</td><td class="num">n.a.</td><td>industrial/auto connectivity</td></tr><tr><td>COHR</td><td class="num">$70.7B</td><td class="num">171x</td><td>lasers/optical components</td></tr><tr><td>FN</td><td class="num">$23.7B</td><td class="num">56x</td><td>optical manufacturing/EMS</td></tr><tr><td>LITE</td><td class="num">$82.2B</td><td class="num">154x</td><td>OCS/lasers/CPO adjacency</td></tr></tbody></table></div></div>
+    <div class="card"><h3>D. 리레이팅 가치</h3><p><span class="badge bad">Legacy identity</span> 2027E EPS $4.27 × 25x = $107</p><p><span class="badge blue">AI optical platform</span> 2027E EPS $4.27 × 48x = $205</p><p><span class="badge good">Bull platform</span> 2028E EPS $5.64 × 41x = $231</p><p><span class="badge warn">Overshoot</span> 2028 high EPS $7.14 × 36x 또는 narrative premium = $257~260</p><p>즉, 현재가는 legacy multiple과는 완전히 결별했으며, 이미 AI platform identity를 상당 부분 받고 있다.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">11</div><div><div class="sec-title">목표가 체계</div><div class="sec-sub">6개 target을 분리</div></div></div>
+  <div class="table-wrap card tight"><table class="data-table"><thead><tr><th>Target</th><th class="num">가격</th><th>적용 수치</th><th>Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead><tbody>
+    <tr><td>보수적 내재가치</td><td class="num">$150~160</td><td>2028 normalized FCF $4.2B</td><td>3.0% FCF yield / 35x exit</td><td>889M</td><td>55%</td><td>AI optical 성장 유지</td><td>Optical <25%</td></tr>
+    <tr class="row-hi"><td>12개월 Base target</td><td class="num">$205</td><td>2027E EPS $4.27</td><td>48x</td><td>889M</td><td>40%</td><td>Q2 beat+raise</td><td>margin <18.5%</td></tr>
+    <tr><td>Bull target</td><td class="num">$230</td><td>2028E EPS $5.64 또는 FCF $8.4B path</td><td>41x EPS / 35x FCF exit</td><td>889M</td><td>25%</td><td>NVIDIA/Meta milestone</td><td>capex가 FCF 잠식</td></tr>
+    <tr><td>시장 과열 overshoot</td><td class="num">$260</td><td>2028 high EPS 또는 CPO/Glass core option</td><td>narrative multiple</td><td>889M</td><td>12%</td><td>추가 hyperscaler 공개</td><td>rate/AI capex unwind</td></tr>
+    <tr><td>실적 전 trading target</td><td class="num">$195~205</td><td>event premium</td><td>단기 multiple expansion</td><td>889M</td><td>—</td><td>실적 기대 상승</td><td>기대 과열 후 sell-the-news</td></tr>
+    <tr><td>실적 후 재평가 target</td><td class="num">$210~230</td><td>beat + raise + order/capacity 증거</td><td>50x 2027E EPS 전후</td><td>889M</td><td>30%</td><td>Optical +30%+, margin 20%+</td><td>guidance no raise</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">12</div><div><div class="sec-title">2020~2030 멀티플 밴드</div><div class="sec-sub">실제 데이터와 미래 가정을 명확히 분리</div></div></div>
+  <div class="chart-box"><div class="chart-title">P/FCF Multiple Band — GLW vs APH/TEL/COHR/FN</div><canvas id="pfcfChart" height="320"></canvas><p class="small">2020~2025는 공개 재무자료 기반 연말 시가총액/FCF 근사치, 2026~2030은 본 보고서의 forward FCF 가정입니다. FN/COHR의 비정상적으로 높은 구간은 낮은 FCF 또는 음수/저수준 FCF에 따른 왜곡입니다.</p></div>
+  <div class="table-wrap card tight"><table class="data-table"><thead><tr><th>Year</th><th class="num">GLW P/S</th><th class="num">GLW P/E</th><th class="num">GLW EV/EBITDA</th><th class="num">GLW P/FCF</th><th class="num">APH P/FCF</th><th class="num">TEL P/FCF</th><th class="num">COHR P/FCF</th><th class="num">FN P/FCF</th></tr></thead><tbody id="multipleRows"></tbody></table></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">13</div><div><div class="sec-title">리스크 관리 — Thesis Break Triggers</div><div class="sec-sub">리스크를 가격·지표·대응으로 연결</div></div></div>
+  <div class="table-wrap card tight"><table class="data-table"><thead><tr><th>리스크</th><th>Thesis break trigger</th><th>가격 반영 시작</th><th>확인 시점</th><th>대응</th></tr></thead><tbody>
+    <tr><td>출하 지연</td><td>NVIDIA/Meta capacity milestone 지연, 고객 deposit 감소</td><td>$165 이하</td><td>Q2/Q3 call</td><td>50주 축소</td></tr>
+    <tr><td>Gross margin 정상화 실패</td><td>core operating margin <18.5%, gross margin 개선 중단</td><td>$170 이하</td><td>매 분기</td><td>추가매수 금지</td></tr>
+    <tr><td>현금/희석</td><td>shelf 사용이 growth capex가 아니라 balance sheet 방어로 보일 때</td><td>$160 이하</td><td>8-K/S-3</td><td>보유 150주 이하</td></tr>
+    <tr><td>고객 집중</td><td>Meta/NVIDIA 외 고객 다변화 증거 부재</td><td>$175 이하</td><td>10-Q concentration note</td><td>목표 multiple 하향</td></tr>
+    <tr><td>익명 고객 오판</td><td>미공개 고객이 실제 대형 hyperscaler가 아니거나 단기 재고 구축일 때</td><td>$165 이하</td><td>컨콜/계약부채</td><td>bull target 제거</td></tr>
+    <tr><td>경쟁사 대체</td><td>APH/TEL/COHR/LITE 또는 Asian fiber 업체가 design win 대체</td><td>$170 이하</td><td>고객사 capex/공급망 뉴스</td><td>50~75주 축소</td></tr>
+    <tr><td>규제/인증 지연</td><td>EU/US trade/Buy America, data center permitting 지연</td><td>$160 이하</td><td>정책/규제 발표</td><td>재매수 보류</td></tr>
+    <tr><td>Short squeeze 이후 급락</td><td>short interest가 높지 않은 상태에서 가격만 과열</td><td>$205 이상</td><td>매일</td><td>25~50주 trim</td></tr>
+    <tr><td>M&A 기대 과열</td><td>full takeout 루머가 valuation을 과도하게 밀어올림</td><td>$230 이상</td><td>뉴스/옵션 IV</td><td>추가 50주 trim</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">G</div><div><div class="sec-title">반대 Thesis</div><div class="sec-sub">bull case와 같은 강도로 써야 하는 이유</div></div></div>
+  <div class="grid-2">
+    <div class="card"><h3>우연한 사건 체인일 가능성</h3><p>GlassWorks AI, Broadcom CPO, Meta 계약, NVIDIA warrant가 모두 같은 방향을 가리키는 것은 맞지만, 각각이 독립적 사건일 가능성도 있다. 투자자는 이를 하나의 거대한 전략으로 과잉 연결할 위험이 있다.</p></div>
+    <div class="card"><h3>상업화 지연 가능성</h3><p>AI optical 수요는 강하지만 데이터센터 건설, 전력, permitting, switch generation transition, CPO adoption은 지연될 수 있다. 제품이 좋아도 ramp가 늦으면 현재 multiple은 압축된다.</p></div>
+    <div class="card"><h3>고객 수요가 재고 구축일 가능성</h3><p>hyperscaler가 공급망 리스크를 피하려고 선제적으로 fiber/cable inventory를 쌓는 단계라면, 2027 이후 성장률은 시장 기대보다 낮을 수 있다.</p></div>
+    <div class="card"><h3>대기업 자체조달/대체 가능성</h3><p>고객은 single-source를 원하지 않는다. APH/TEL/COHR/LITE/Prysmian/Sumitomo 등과 공급망을 다변화할 가능성이 크며, GLW가 전체 시장을 압살한다는 가정은 과도하다.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">14</div><div><div class="sec-title">포트폴리오 실행안</div><div class="sec-sub">250주 · 8.3% 비중 기준</div></div></div>
+  <div class="callout"><div class="tag">추천 행동</div><p><strong>전량 보유 + 실적 전 과열 시 일부 차익실현.</strong> 현재 8.3%는 GLW의 품질과 구조적 변곡점을 고려하면 허용 범위다. 다만 현재 가격은 신규 비중 확대 구간이 아니다.</p></div>
+  <div class="table-wrap card tight"><table class="data-table"><thead><tr><th>구분</th><th>조건</th><th class="num">가격</th><th class="num">수량</th><th>목표 보유</th><th>이유</th></tr></thead><tbody>
+    <tr class="row-hi"><td>현재</td><td>250주 보유</td><td class="num">$181.16</td><td class="num">250주</td><td>250주</td><td>비중 8.3%, 포지션 가치 $45,290</td></tr>
+    <tr><td>실적 전 1차 trim</td><td>실적 전 $195 이상 랠리</td><td class="num">$195~205</td><td class="num">25주 매도</td><td>225주</td><td>event premium 선반영</td></tr>
+    <tr><td>실적 전 2차 trim</td><td>$205 이상, 옵션/뉴스 과열</td><td class="num">$205~215</td><td class="num">25주 추가 매도</td><td>200주</td><td>sell-the-news 방어</td></tr>
+    <tr><td>Bull target 도달</td><td>$230 도달</td><td class="num">$225~235</td><td class="num">50주 매도</td><td>150주</td><td>고점 목표가 도달</td></tr>
+    <tr><td>Overshoot</td><td>$260 근접</td><td class="num">$250~265</td><td class="num">50주 매도</td><td>100주</td><td>narrative premium 회수</td></tr>
+    <tr><td>재매수</td><td>thesis intact 조정</td><td class="num">$160~165</td><td class="num">25주 매수</td><td>최대 275주</td><td>보수적 내재가치 부근</td></tr>
+    <tr><td>Thesis break</td><td>Optical <25% 또는 종가 $145 이틀</td><td class="num"><$145</td><td class="num">75~100주 매도</td><td>100~125주</td><td>구조적 thesis 훼손</td></tr>
+  </tbody></table></div>
+  <div class="grid-3">
+    <div class="card"><h3>Base 기대손익</h3><p>$205 target: <strong class="good">+$5,960</strong><br>250주 기준 +13.2%</p></div>
+    <div class="card"><h3>Bull 기대손익</h3><p>$230 target: <strong class="good">+$12,210</strong><br>250주 기준 +27.0%</p></div>
+    <div class="card"><h3>Bear 손실</h3><p>$149 downside: <strong class="bad">-$8,040</strong><br>250주 기준 -17.8%</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">15</div><div><div class="sec-title">보고서 전 자체 점검</div><div class="sec-sub">누락·과잉추론 방지 체크</div></div></div>
+  <div class="table-wrap card tight"><table class="data-table"><tbody>
+    <tr><th>단순 컨센서스 요약인가?</th><td>아니오. Meta/NVIDIA/Broadcom/GlassWorks/Springboard/자본구조를 사건 체인으로 연결했다.</td></tr>
+    <tr><th>확정과 추론을 분리했는가?</th><td>예. Meta·NVIDIA·Broadcom은 확정, 익명 hyperscaler 후보는 확률 가설로 표시했다.</td></tr>
+    <tr><th>루머를 사실처럼 썼는가?</th><td>아니오. 특히 NVIDIA warrant는 SEC filing의 $500M aggregate purchase price를 기준으로 정정 반영했다.</td></tr>
+    <tr><th>희석을 반영했는가?</th><td>예. 기본 주식 수 860.6M에 NVIDIA warrant 18M을 추가해 889M diluted model을 사용했다.</td></tr>
+    <tr><th>왜 지금이 변곡점인가?</th><td>2026년 1~5월에 Meta anchor 계약, Q1 Optical +36%, NVIDIA warrant, Springboard 2030이 한 방향으로 겹쳤기 때문이다.</td></tr>
+    <tr><th>다음 실적에서 수정해야 할 조건은?</th><td>Optical growth, margin, FCF, capacity milestone, 계약부채/고객 concentration이 기준을 벗어나면 target과 포지션을 재조정한다.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">Σ</div><div><div class="sec-title">최종 요약</div><div class="sec-sub">요청 형식 그대로 정리</div></div></div>
+  <div class="final">
+    <div class="final-row"><div class="l">현재 주가:</div><div class="v">$181.16</div></div>
+    <div class="final-row"><div class="l">보수적 내재가치:</div><div class="v">$150~160</div></div>
+    <div class="final-row"><div class="l">12개월 base target:</div><div class="v">$205</div></div>
+    <div class="final-row"><div class="l">bull target:</div><div class="v">$230</div></div>
+    <div class="final-row"><div class="l">overshoot target:</div><div class="v">$260</div></div>
+    <div class="final-row"><div class="l">실적 발표 전 trading target:</div><div class="v">$195~205에서 25~50주 trim 후보</div></div>
+    <div class="final-row"><div class="l">실적 발표 후 재평가 target:</div><div class="v">beat + raise + capacity evidence 시 $210~230, inline이면 $175~195, miss이면 $149~165</div></div>
+    <div class="final-row"><div class="l">하방 리스크:</div><div class="v">$149, thesis break 시 $145 이하</div></div>
+    <div class="final-row"><div class="l">12개월 기대수익률:</div><div class="v">base +13.2%, bull +27.0%, overshoot +43.5%, bear -17.8%</div></div>
+    <div class="final-row"><div class="l">보유 수량 기준 기대손익:</div><div class="v">base +$5,960 / bull +$12,210 / overshoot +$19,710 / bear -$8,040</div></div>
+    <div class="final-row"><div class="l">추천 행동:</div><div class="v">전량 보유, 신규 추격매수 금지, 실적 전 과열 시 일부 차익실현</div></div>
+    <div class="final-row"><div class="l">목표 비중:</div><div class="v">7.5~8.5%</div></div>
+    <div class="final-row"><div class="l">실적 발표 전 행동:</div><div class="v">$195 이상 25주 매도, $205 이상 25주 추가 매도, $175~190은 보유, $165 이하 thesis intact면 25주만 재매수 후보</div></div>
+    <div class="final-row"><div class="l">실적 발표 후 행동:</div><div class="v">Optical +30% 이상·margin 20% 전후·capacity milestone 확인 시 매도분 재매수/보유, Optical <25% 또는 margin <18.5%이면 50주 축소</div></div>
+    <div class="final-row"><div class="l">목표가 도달 시 행동:</div><div class="v">$205 25주 매도, $230 50주 추가, $260 50주 추가, 100~150주 core 보유</div></div>
+    <div class="final-row"><div class="l">thesis 훼손 시 행동:</div><div class="v">종가 $145 이틀 또는 고객/공장/FCF thesis 훼손 시 75~100주 축소</div></div>
+    <div class="final-row"><div class="l">가장 중요한 체크포인트:</div><div class="v">Q2 Optical Communications 성장률 + 고객 계약/계약부채 + NVIDIA capacity milestone</div></div>
+    <div class="final-row"><div class="l">내가 틀렸다고 인정해야 하는 조건:</div><div class="v">AI optical 수요가 지속적 capex cycle이 아니라 단기 재고 구축이고, GLW의 capex가 FCF/ROIC 개선으로 전환되지 못한다는 증거가 나오면 thesis를 낮춰야 한다.</div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="sec-head"><div class="sec-no">SRC</div><div><div class="sec-title">주요 출처 메모</div><div class="sec-sub">HTML 내부 참고용</div></div></div>
+  <ul class="source-list">
+    <li>Corning Q1 2026 earnings release and segment tables.</li>
+    <li>Corning FY2025 earnings release and Springboard plan updates.</li>
+    <li>Corning 2026 Q1 Form 10-Q and liquidity/capital structure disclosures.</li>
+    <li>NVIDIA-Corning partnership press release and Corning Form 8-K warrant disclosure.</li>
+    <li>Meta-Corning multiyear up to $6B agreement press release.</li>
+    <li>GlassWorks AI launch, OFC 2026 product release, Broadcom Bailly CPO collaboration.</li>
+    <li>Public market quote, analyst consensus, short-interest and borrow-fee data as of 2026.05.30 KST.</li>
+  </ul>
+  <div class="disclaimer">본 보고서는 공개자료와 모델 가정을 기반으로 한 투자 분석이며, 금융투자상품 매수·매도 권유가 아닙니다. 모델의 미래 수치는 애널리스트 가정이며 실제 실적, 주가, 세금, 환율, 체결가격에 따라 결과가 달라질 수 있습니다.</div>
+</section>
+
+</main>
+<script>
+const COLORS={teal:'#1c6e7d', navy:'#123047', terra:'#c85d3f', mustard:'#d9a441', sage:'#6b8f71', blue:'#406f9f', red:'#a94334', line:'#d7ccbb'};
+Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",Segoe UI,sans-serif';
+Chart.defaults.color='#64717f';
+Chart.defaults.borderColor='#d7ccbb';
+
+new Chart(document.getElementById('segmentChart'),{
+ type:'bar',
+ data:{labels:['Optical','Glass','Auto','Solar','Life/Emerging'],datasets:[{label:'YoY Growth %',data:[36,1,-1,80,0],backgroundColor:[COLORS.teal,COLORS.blue,COLORS.red,COLORS.sage,COLORS.mustard],borderColor:COLORS.navy,borderWidth:1}]},
+ options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw}% YoY`}}},scales:{y:{ticks:{callback:v=>v+'%'}}}}
+});
+
+new Chart(document.getElementById('valuationChart'),{
+ type:'bar',
+ data:{labels:['Downside','Conservative','Current','Base','Bull','Overshoot'],datasets:[{label:'$/share',data:[149,155,181.16,205,230,260],backgroundColor:[COLORS.red,COLORS.mustard,COLORS.navy,COLORS.teal,COLORS.sage,COLORS.terra],borderColor:COLORS.navy,borderWidth:1}]},
+ options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.raw}}},scales:{y:{ticks:{callback:v=>'$'+v},beginAtZero:false,min:120,max:280}}}
+});
+
+const years=[2020,2021,2022,2023,2024,2025,'2026F','2027F','2028F','2029F','2030F'];
+const glw=[34.2,17.9,26.7,42.2,41.8,53.1,78,58,45,36,30];
+const aph=[29.8,44.3,25.3,27.5,39.0,37.8,32.5,28.0,24.3,21.1,18.5];
+const tel=[28.0,26.5,21.4,18.2,15.3,20.9,16.4,14.8,13.5,12.3,11.4];
+const cohr=[49.1,16.9,49.2,33.3,73.7,150.5,null,184.7,82.1,52.8,38.9];
+const fn=[26.5,57.7,135.3,45.5,21.8,78.7,550.6,210.2,126.1,90.1,70.1];
+new Chart(document.getElementById('pfcfChart'),{
+ type:'line',
+ data:{labels:years,datasets:[
+  {label:'GLW',data:glw,borderColor:COLORS.teal,backgroundColor:COLORS.teal,pointRadius:3,tension:.25},
+  {label:'APH',data:aph,borderColor:COLORS.sage,backgroundColor:COLORS.sage,pointRadius:3,tension:.25},
+  {label:'TEL',data:tel,borderColor:COLORS.blue,backgroundColor:COLORS.blue,pointRadius:3,tension:.25},
+  {label:'COHR',data:cohr,borderColor:COLORS.mustard,backgroundColor:COLORS.mustard,pointRadius:3,tension:.25},
+  {label:'FN',data:fn,borderColor:COLORS.terra,backgroundColor:COLORS.terra,pointRadius:3,tension:.25}
+ ]},
+ options:{plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${c.raw===null?'n.m.':c.raw+'x'}`}}},scales:{y:{type:'logarithmic',min:10,max:650,ticks:{callback:v=>v+'x'}}}}
+});
+
+const ps=[2.6,2.1,1.8,2.0,3.4,7.0,8.1,6.8,5.5,4.6,4.0];
+const pe=[70,28,32,45,38,55,54,42,32,27,23];
+const ebitda=[15,12,13,15,18,32,33,25,20,17,15];
+const body=document.getElementById('multipleRows');
+years.forEach((y,i)=>{
+ const tr=document.createElement('tr'); if(i===6) tr.className='row-hi';
+ tr.innerHTML=`<td>${y}</td><td class="num">${ps[i]}x</td><td class="num">${pe[i]}x</td><td class="num">${ebitda[i]}x</td><td class="num">${glw[i]}x</td><td class="num">${aph[i]}x</td><td class="num">${tel[i]}x</td><td class="num">${cohr[i]===null?'n.m.':cohr[i]+'x'}</td><td class="num">${fn[i]}x</td>`;
+ body.appendChild(tr);
+});
+</script>
+</body>
+</html>

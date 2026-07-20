@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AVGO Broadcom 투자 브리프 · 2026-07-06</title>
+<style>
+:root{
+  --paper:#fbfaf6; --card:#ffffff; --ink:#17212b; --muted:#6b7480; --line:#d9d1c2;
+  --blue:#315b7d; --orange:#d07a3f; --green:#587a5a; --red:#a5534e; --sand:#efe7d5; --lav:#8d7aa8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.55}
+header{background:#f4ecdc;border-bottom:1px solid var(--line);padding:42px 26px 30px}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 24px 70px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:800}
+h1{font-size:38px;line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}
+h2{font-size:25px;margin:34px 0 14px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.025em}
+h3{font-size:18px;margin:22px 0 9px;color:var(--blue)}
+p{margin:8px 0}.sub{color:var(--muted);font-size:17px;max-width:920px}
+.grid{display:grid;gap:14px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}.soft{background:#f7f2e8}.blue{background:#e8edf1}.green{background:#e8f0e5}.red{background:#f2dfdc}.orange{background:#f7eadf}.lav{background:#eee8f3}
+.big{font-size:30px;font-weight:900;letter-spacing:-.03em}.small{font-size:12px;color:var(--muted)}.label{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800;background:white;margin:3px 4px 3px 0}.buy{background:#e8f0e5}.risk{background:#f2dfdc}.watch{background:#eee8f3}.price{background:#f7eadf}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}th,td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:14px}th{background:#efe7d5;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.05em}tr:last-child td{border-bottom:0}.right{text-align:right}.center{text-align:center}
+ul{margin:8px 0 0 20px;padding:0}li{margin:5px 0}.callout{border-left:6px solid var(--blue);padding:14px 16px;background:#fff;border-radius:14px;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.bar{height:16px;border:1px solid var(--ink);border-radius:999px;background:#fff;overflow:hidden}.bar>span{display:block;height:100%;background:var(--blue)}
+.bridge{display:flex;align-items:end;gap:12px;height:190px;border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px 18px 36px;position:relative}.bridge .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:end;height:130px}.bridge .box{width:100%;border:1px solid var(--ink);border-radius:12px 12px 4px 4px;background:#e8edf1;display:flex;align-items:start;justify-content:center;font-weight:900;padding-top:6px}.bridge .name{position:absolute;bottom:9px;font-size:12px;color:var(--muted);font-weight:700}.svgbox{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;overflow:hidden}.foot{font-size:12px;color:var(--muted);margin-top:28px;border-top:1px solid var(--line);padding-top:14px}.avoid-break{break-inside:avoid}
+@media(max-width:800px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:30px}.wrap{padding:20px 14px 60px}header{padding:32px 16px}.bridge{height:220px;gap:6px}.big{font-size:25px}th,td{font-size:13px;padding:9px 8px}}
+@media print{body{background:white}.wrap{max-width:none}.page{page-break-after:always}.card,table,.svgbox{box-shadow:none}}
+
+.chartboard{background:#202633;border:1px solid #384255;border-radius:22px;padding:18px 18px 16px;margin:14px 0 18px;box-shadow:0 6px 16px rgba(0,0,0,.06)}
+.chartboard-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.chartboard-title{font-size:18px;font-weight:900;color:#eef3fb;letter-spacing:-.02em}
+.chartboard-sub{font-size:12px;color:#9ea9bb}
+.chart-tag{display:inline-block;padding:5px 10px;border-radius:999px;border:1px solid #4a5670;color:#eef3fb;font-size:12px;font-weight:800;background:#2b3445}
+.chart-mini-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.chart-card-dark{background:#1f2632;border:1px solid #3a4457;border-radius:18px;padding:8px 8px 4px}
+.chart-card-dark svg{display:block;width:100%;height:auto}
+.chart-legend-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.chart-pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#2b3445;border:1px solid #46526b;color:#eef3fb;font-size:12px;font-weight:700}
+.chart-note{font-size:13px;color:#d6deeb;margin-top:10px;line-height:1.5}
+@media(max-width:800px){.chart-mini-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="padding-top:0;padding-bottom:0">
+  <div class="kicker">AVGO 투자 핵심 요약 · 2026-07-06 기준</div>
+  <h1>커스텀 AI ASIC의 왕좌는 인정한다<br/>다만 추격매수보다 ‘가격 규율’이 먼저다</h1>
+  <p class="sub">Broadcom은 AI 커스텀 칩·네트워킹·VMware 현금흐름이 동시에 작동하는 대형 복합 성장주다. <b>현재가는 2027년 AI 매출 가시성을 상당 부분 반영했으므로, 분할 진입은 가능하되 $410 위 신규 추격은 금지</b>한다.</p>
+  <div style="margin-top:14px">
+    <span class="badge price">현재 주가 $373.90</span>
+    <span class="badge buy">투자의견 Buy on Weakness / Hold</span>
+    <span class="badge watch">초기 목표비중 4%</span>
+    <span class="badge risk">$300 하회 시 thesis 재점검</span>
+    <span class="badge watch">AI 매출·마진·고객 다변화 체크</span>
+  </div>
+</div></header>
+
+<div class="wrap">
+<section class="page">
+  <h2>1. 투자자가 꼭 알아야 할 한 장 요약</h2>
+  <div class="grid g4">
+    <div class="card green"><div class="label">핵심 thesis</div><div class="big">AI ASIC + 네트워킹</div><p>GPU 독점의 대체재가 아니라, hyperscaler가 직접 설계하는 XPU/ASIC을 양산 가능하게 만드는 핵심 레일이다.</p></div>
+    <div class="card orange"><div class="label">현재 가격 해석</div><div class="big">싸진 않다</div><p>고점 대비 조정은 왔지만, TTM 매출 대비 약 25배 수준으로 2027년 성장 기대를 이미 크게 할인하고 있다.</p></div>
+    <div class="card blue"><div class="label">가장 중요한 촉매</div><div class="big">Q3 AI $16B</div><p>FY26 Q3 AI 반도체 매출이 $16B 가이던스를 달성하고 gross margin 훼손이 제한되면 재평가가 이어진다.</p></div>
+    <div class="card red"><div class="label">가장 큰 위험</div><div class="big">기대치 과잉</div><p>AI 고객의 멀티소싱, 낮아지는 AI 칩 마진, VMware 규제·고객 반발이 동시에 나오면 밸류에이션이 빠르게 압축된다.</p></div>
+  </div>
+
+  <h3>시장 인식 vs 보고서 핵심 해석</h3>
+  <table>
+    <tr><th>구분</th><th>시장 인식</th><th>보고서 핵심 해석</th><th>투자 의미</th></tr>
+    <tr><td>AI 반도체</td><td>엔비디아 다음의 최대 수혜주</td><td>AVGO의 강점은 GPU 대체가 아니라 고객별 커스텀 칩·네트워킹·패키징을 묶는 설계·양산 능력</td><td>AI capex가 커질수록 수혜지만 고객 concentration 리스크를 같이 봐야 함</td></tr>
+    <tr><td>소프트웨어</td><td>VMware는 안정적 현금흐름</td><td>높은 유지율과 가격 인상은 장점이나, 클라우드 고객 반발·규제 이슈가 tail risk</td><td>AI 반도체 밸류에이션을 방어하는 현금흐름 축</td></tr>
+    <tr><td>주가</td><td>고점 대비 20% 이상 하락해 매력</td><td>하락폭은 매력이나, 절대 밸류에이션은 아직 성장주 프리미엄 구간</td><td>$330~360에서 분할, $410 위 추격 금지</td></tr>
+    <tr><td>투자 판단</td><td>AI 대장주로 즉시 매수</td><td>좋은 회사와 좋은 가격은 다르다. AVGO는 좋은 회사지만 매수 가격 규율이 수익률을 결정</td><td>보유자는 Hold, 신규자는 3트랜치 DCA</td></tr>
+  </table>
+  <div class="callout"><b>한 문장 결론:</b> AVGO는 “살 기업”은 맞지만, 현재 구간에서는 한 번에 사는 종목이 아니라 <b>$360 이하부터 분할로 모아야 하는 고품질 고밸류 성장주</b>다.</div>
+</section>
+
+<section class="page">
+  <h2>2. 그래프 속성</h2>
+  <div class="callout"><b>목적:</b> AVGO는 단순 반도체 사이클주가 아니라 VMware 인수 이후 소프트웨어 현금흐름과 AI ASIC 성장이 합쳐진 구조다. 그래서 매출 성장률, EPS 회복, 주식수 희석/환원 여부를 같이 봐야 한다.</div>
+
+  <h3>연도별</h3>
+  <div class="chartboard">
+    <div class="chartboard-head"><div><div class="chartboard-title">Annual Trends</div><div class="chartboard-sub">2018~2025 + TTM 기준. 매출은 VMware와 AI ASIC으로 레벨업했고, EPS는 인수 비용 이후 회복 국면이다.</div></div><span class="chart-tag">Annual</span></div>
+    <div class="chart-mini-grid">
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">8</text><line x1="24" y1="57.5" x2="304" y2="57.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="60.5" fill="#8190A7" font-size="9">6</text><line x1="24" y1="91.0" x2="304" y2="91.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="94.0" fill="#8190A7" font-size="9">4</text><line x1="24" y1="124.5" x2="304" y2="124.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="127.5" fill="#8190A7" font-size="9">2</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="151.3" width="25.8" height="6.7" rx="2" fill="#4BA3FF" /><text x="36.9" y="147.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.40</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="147.4" width="25.8" height="10.6" rx="2" fill="#4BA3FF" /><text x="68.7" y="143.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.63</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="147.4" width="25.8" height="10.6" rx="2" fill="#4BA3FF" /><text x="100.5" y="143.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.63</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="133.0" width="25.8" height="25.0" rx="2" fill="#4BA3FF" /><text x="132.2" y="129.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.49</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="115.6" width="25.8" height="42.4" rx="2" fill="#4BA3FF" /><text x="164.0" y="111.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">2.53</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="106.9" width="25.8" height="51.1" rx="2" fill="#4BA3FF" /><text x="195.8" y="102.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">3.05</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="137.6" width="25.8" height="20.4" rx="2" fill="#4BA3FF" /><text x="227.5" y="133.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.22</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="78.9" width="25.8" height="79.1" rx="2" fill="#4BA3FF" /><text x="259.3" y="74.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.72</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="43.8" width="25.8" height="114.2" rx="2" fill="#4BA3FF" /><text x="291.1" y="39.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">6.82</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">80</text><line x1="24" y1="57.5" x2="304" y2="57.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="60.5" fill="#8190A7" font-size="9">60</text><line x1="24" y1="91.0" x2="304" y2="91.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="94.0" fill="#8190A7" font-size="9">40</text><line x1="24" y1="124.5" x2="304" y2="124.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="127.5" fill="#8190A7" font-size="9">20</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="123.1" width="25.8" height="34.9" rx="2" fill="#9A7CF3" /><text x="36.9" y="119.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">20.9</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="120.1" width="25.8" height="37.9" rx="2" fill="#9A7CF3" /><text x="68.7" y="116.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">22.6</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="118.0" width="25.8" height="40.0" rx="2" fill="#9A7CF3" /><text x="100.5" y="114.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">23.9</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="112.0" width="25.8" height="46.0" rx="2" fill="#9A7CF3" /><text x="132.2" y="108.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">27.4</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="102.4" width="25.8" height="55.6" rx="2" fill="#9A7CF3" /><text x="164.0" y="98.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">33.2</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="98.0" width="25.8" height="60.0" rx="2" fill="#9A7CF3" /><text x="195.8" y="94.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">35.8</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="71.6" width="25.8" height="86.4" rx="2" fill="#9A7CF3" /><text x="227.5" y="67.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">51.6</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="51.0" width="25.8" height="107.0" rx="2" fill="#9A7CF3" /><text x="259.3" y="47.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">63.9</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="31.7" width="25.8" height="126.3" rx="2" fill="#9A7CF3" /><text x="291.1" y="27.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">75.4</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">5</text><line x1="24" y1="50.8" x2="304" y2="50.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="53.8" fill="#8190A7" font-size="9">4</text><line x1="24" y1="77.6" x2="304" y2="77.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="80.6" fill="#8190A7" font-size="9">3</text><line x1="24" y1="104.4" x2="304" y2="104.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="107.4" fill="#8190A7" font-size="9">2</text><line x1="24" y1="131.2" x2="304" y2="131.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="134.2" fill="#8190A7" font-size="9">1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="44.6" width="25.8" height="113.4" rx="2" fill="#37B9C5" /><text x="36.9" y="40.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.23</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2018</text><rect x="55.8" y="43.3" width="25.8" height="114.7" rx="2" fill="#37B9C5" /><text x="68.7" y="39.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.28</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2019</text><rect x="87.5" y="45.4" width="25.8" height="112.6" rx="2" fill="#37B9C5" /><text x="100.5" y="41.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.20</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2020</text><rect x="119.3" y="42.2" width="25.8" height="115.8" rx="2" fill="#37B9C5" /><text x="132.2" y="38.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.32</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2021</text><rect x="151.1" y="39.3" width="25.8" height="118.7" rx="2" fill="#37B9C5" /><text x="164.0" y="35.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.43</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2022</text><rect x="182.9" y="34.2" width="25.8" height="123.8" rx="2" fill="#37B9C5" /><text x="195.8" y="30.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.62</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2023</text><rect x="214.6" y="28.6" width="25.8" height="129.4" rx="2" fill="#37B9C5" /><text x="227.5" y="24.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.83</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2024</text><rect x="246.4" y="26.7" width="25.8" height="131.3" rx="2" fill="#37B9C5" /><text x="259.3" y="22.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.90</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">2025</text><rect x="278.2" y="24.5" width="25.8" height="133.5" rx="2" fill="#37B9C5" /><text x="291.1" y="20.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.98</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">TTM</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    </div>
+    <div class="chart-legend-row"><span class="chart-pill">2024→2025 매출 +23.9%</span><span class="chart-pill">TTM 매출 약 $75.4B</span><span class="chart-pill">희석주식수 약 5.0B</span></div>
+    <div class="chart-note">핵심 해석: 매출은 2018년 $20.9B에서 TTM $75B대로 올라섰고, 2024년 VMware 인수 비용으로 눌린 EPS가 2025~TTM에서 빠르게 복구되는 그림이다. 단, 주식수는 장기적으로 늘었기 때문에 buyback과 FCF 전환율이 중요하다.</div>
+  </div>
+
+  <h3>분기별</h3>
+  <div class="chartboard">
+    <div class="chartboard-head"><div><div class="chartboard-title">Quarterly Trends</div><div class="chartboard-sub">최근 9개 분기. Q2 FY26 매출 $22.19B와 Q3 $29.4B 가이던스가 다음 재평가의 핵심이다.</div></div><span class="chart-tag">Quarterly</span></div>
+    <div class="chart-mini-grid">
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="GAAP EPS"><text x="12" y="14" fill="#AAB5C8" font-size="10">GAAP EPS</text><line x1="24" y1="69.0" x2="304" y2="69.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="72.0" fill="#8190A7" font-size="9">1</text><line x1="24" y1="122.0" x2="304" y2="122.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="125.0" fill="#8190A7" font-size="9">0</text><line x1="24" y1="148.5" x2="304" y2="148.5" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="151.5" fill="#8190A7" font-size="9">-0.5</text><rect x="24.0" y="87.6" width="25.8" height="34.4" rx="2" fill="#4BA3FF" /><text x="36.9" y="83.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.65</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'24</text><rect x="55.8" y="122.0" width="25.8" height="21.2" rx="2" fill="#FF6B6B" /><text x="68.7" y="155.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">-0.40</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'24</text><rect x="87.5" y="74.3" width="25.8" height="47.7" rx="2" fill="#4BA3FF" /><text x="100.5" y="70.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.90</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'24</text><rect x="119.3" y="90.2" width="25.8" height="31.8" rx="2" fill="#4BA3FF" /><text x="132.2" y="86.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.60</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'25</text><rect x="151.1" y="75.4" width="25.8" height="46.6" rx="2" fill="#4BA3FF" /><text x="164.0" y="71.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">0.88</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'25</text><rect x="182.9" y="32.5" width="25.8" height="89.5" rx="2" fill="#4BA3FF" /><text x="195.8" y="28.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.69</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'25</text><rect x="214.6" y="29.8" width="25.8" height="92.2" rx="2" fill="#4BA3FF" /><text x="227.5" y="25.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.74</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'25</text><rect x="246.4" y="39.9" width="25.8" height="82.1" rx="2" fill="#4BA3FF" /><text x="259.3" y="35.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.55</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'26</text><rect x="278.2" y="24.0" width="25.8" height="98.0" rx="2" fill="#4BA3FF" /><text x="291.1" y="20.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">1.85</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'26</text><line x1="24" y1="122.0" x2="304" y2="122.0" stroke="#56647C"/></svg></div>
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Sales ($bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Sales ($bln)</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">25</text><line x1="24" y1="50.8" x2="304" y2="50.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="53.8" fill="#8190A7" font-size="9">20</text><line x1="24" y1="77.6" x2="304" y2="77.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="80.6" fill="#8190A7" font-size="9">15</text><line x1="24" y1="104.4" x2="304" y2="104.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="107.4" fill="#8190A7" font-size="9">10</text><line x1="24" y1="131.2" x2="304" y2="131.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="134.2" fill="#8190A7" font-size="9">5</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="91.1" width="25.8" height="66.9" rx="2" fill="#9A7CF3" /><text x="36.9" y="87.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">12.5</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'24</text><rect x="55.8" y="87.9" width="25.8" height="70.1" rx="2" fill="#9A7CF3" /><text x="68.7" y="83.9" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">13.1</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'24</text><rect x="87.5" y="82.7" width="25.8" height="75.3" rx="2" fill="#9A7CF3" /><text x="100.5" y="78.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">14.1</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'24</text><rect x="119.3" y="78.0" width="25.8" height="80.0" rx="2" fill="#9A7CF3" /><text x="132.2" y="74.0" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">14.9</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'25</text><rect x="151.1" y="77.6" width="25.8" height="80.4" rx="2" fill="#9A7CF3" /><text x="164.0" y="73.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">15.0</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'25</text><rect x="182.9" y="72.5" width="25.8" height="85.5" rx="2" fill="#9A7CF3" /><text x="195.8" y="68.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">15.9</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'25</text><rect x="214.6" y="61.4" width="25.8" height="96.6" rx="2" fill="#9A7CF3" /><text x="227.5" y="57.4" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">18.0</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'25</text><rect x="246.4" y="54.5" width="25.8" height="103.5" rx="2" fill="#9A7CF3" /><text x="259.3" y="50.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">19.3</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'26</text><rect x="278.2" y="39.1" width="25.8" height="118.9" rx="2" fill="#9A7CF3" /><text x="291.1" y="35.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">22.2</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+      <div class="chart-card-dark"><svg viewBox="0 0 320 190" role="img" aria-label="Shares Outstanding (bln)"><text x="12" y="14" fill="#AAB5C8" font-size="10">Shares Outstanding (bln)</text><line x1="24" y1="24.0" x2="304" y2="24.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="27.0" fill="#8190A7" font-size="9">5</text><line x1="24" y1="50.8" x2="304" y2="50.8" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="53.8" fill="#8190A7" font-size="9">4</text><line x1="24" y1="77.6" x2="304" y2="77.6" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="80.6" fill="#8190A7" font-size="9">3</text><line x1="24" y1="104.4" x2="304" y2="104.4" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="107.4" fill="#8190A7" font-size="9">2</text><line x1="24" y1="131.2" x2="304" y2="131.2" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="134.2" fill="#8190A7" font-size="9">1</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#3A4457" stroke-dasharray="2 3" /><text x="308" y="161.0" fill="#8190A7" font-size="9">0</text><rect x="24.0" y="32.3" width="25.8" height="125.7" rx="2" fill="#37B9C5" /><text x="36.9" y="28.3" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.69</text><text x="36.9" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'24</text><rect x="55.8" y="29.6" width="25.8" height="128.4" rx="2" fill="#37B9C5" /><text x="68.7" y="25.6" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.79</text><text x="68.7" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'24</text><rect x="87.5" y="29.1" width="25.8" height="128.9" rx="2" fill="#37B9C5" /><text x="100.5" y="25.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.81</text><text x="100.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'24</text><rect x="119.3" y="27.8" width="25.8" height="130.2" rx="2" fill="#37B9C5" /><text x="132.2" y="23.8" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.86</text><text x="132.2" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'25</text><rect x="151.1" y="27.2" width="25.8" height="130.8" rx="2" fill="#37B9C5" /><text x="164.0" y="23.2" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.88</text><text x="164.0" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'25</text><rect x="182.9" y="26.7" width="25.8" height="131.3" rx="2" fill="#37B9C5" /><text x="195.8" y="22.7" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.90</text><text x="195.8" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q3'25</text><rect x="214.6" y="26.1" width="25.8" height="131.9" rx="2" fill="#37B9C5" /><text x="227.5" y="22.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.92</text><text x="227.5" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q4'25</text><rect x="246.4" y="25.1" width="25.8" height="132.9" rx="2" fill="#37B9C5" /><text x="259.3" y="21.1" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.96</text><text x="259.3" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q1'26</text><rect x="278.2" y="24.5" width="25.8" height="133.5" rx="2" fill="#37B9C5" /><text x="291.1" y="20.5" text-anchor="middle" fill="#E9EFFA" font-size="10" font-weight="700">4.98</text><text x="291.1" y="180" text-anchor="middle" fill="#98A5BA" font-size="9">Q2'26</text><line x1="24" y1="158.0" x2="304" y2="158.0" stroke="#56647C"/></svg></div>
+    </div>
+    <div class="chart-legend-row"><span class="chart-pill">Q2'25→Q2'26 매출 +48%</span><span class="chart-pill">Q2'26 AI 반도체 $10.8B</span><span class="chart-pill">Q3'26 매출 가이던스 $29.4B</span></div>
+    <div class="chart-note">핵심 해석: 분기 매출은 Q2'24 $12.5B에서 Q2'26 $22.2B까지 상승했다. 시장은 이미 다음 분기 $29.4B 매출과 $16B AI 반도체 매출을 가격에 반영하려 하므로, “가이던스 달성 + 마진 방어”가 동시에 필요하다.</div>
+  </div>
+
+  <div class="grid g3">
+    <div class="card soft"><div class="label">Annual Sales CAGR</div><div class="big">~20%</div><p>2018→2025 매출 기준. VMware 인수와 AI ASIC 수요가 성장률을 끌어올렸다.</p></div>
+    <div class="card soft"><div class="label">TTM P/S</div><div class="big">~24.7x</div><p>현재가와 약 4.98B 주식수 기준. 절대 밸류에이션은 여전히 높다.</p></div>
+    <div class="card soft"><div class="label">Key Question</div><div class="big">마진</div><p>AI ASIC 매출이 커질수록 매출은 강해지지만 mix 변화로 gross margin이 눌릴 수 있다.</p></div>
+  </div>
+
+  <h3>연간 데이터</h3>
+  <table>
+    <tr><th>연도</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th><th>투자 해석</th></tr>
+    <tr><td>2018</td><td class="right">20.85</td><td class="right">0.40</td><td class="right">4.23</td><td>Broadcom/CA 이후 반도체·인프라 소프트웨어 혼합 모델 시작</td></tr>
+    <tr><td>2019</td><td class="right">22.60</td><td class="right">0.63</td><td class="right">4.28</td><td>소프트웨어 M&A 효과가 매출과 마진 안정성에 기여</td></tr>
+    <tr><td>2020</td><td class="right">23.89</td><td class="right">0.63</td><td class="right">4.20</td><td>코로나 구간에서도 매출 방어</td></tr>
+    <tr><td>2021</td><td class="right">27.45</td><td class="right">1.49</td><td class="right">4.32</td><td>반도체 수요 회복과 EPS 레버리지 확인</td></tr>
+    <tr><td>2022</td><td class="right">33.20</td><td class="right">2.53</td><td class="right">4.43</td><td>데이터센터·네트워킹 수요 확대</td></tr>
+    <tr><td>2023</td><td class="right">35.82</td><td class="right">3.05</td><td class="right">4.62</td><td>VMware 인수 전 고수익 반도체+소프트웨어 체력 확인</td></tr>
+    <tr><td>2024</td><td class="right">51.57</td><td class="right">1.22</td><td class="right">4.83</td><td>VMware 편입으로 매출 레벨업, 인수 비용으로 GAAP EPS 일시 둔화</td></tr>
+    <tr><td>2025</td><td class="right">63.89</td><td class="right">4.72</td><td class="right">4.90</td><td>AI와 VMware 통합 효과가 EPS 복구로 연결</td></tr>
+    <tr><td>TTM</td><td class="right"><b>75.42</b></td><td class="right"><b>6.82</b></td><td class="right"><b>4.98</b></td><td>Q1~Q2 FY26 AI 가속 반영, 단 TTM EPS는 기사·공시 조합의 모델값</td></tr>
+  </table>
+
+  <h3>분기 데이터</h3>
+  <table>
+    <tr><th>분기</th><th class="right">Sales $B</th><th class="right">GAAP EPS</th><th class="right">Shares Out. B</th><th>투자 해석</th></tr>
+    <tr><td>Q2'24</td><td class="right">12.49</td><td class="right">0.65</td><td class="right">4.69</td><td>VMware 편입 초기, AI 매출 성장 시작</td></tr>
+    <tr><td>Q3'24</td><td class="right">13.07</td><td class="right">-0.40</td><td class="right">4.79</td><td>인수 관련 비용으로 GAAP EPS 일시 악화</td></tr>
+    <tr><td>Q4'24</td><td class="right">14.05</td><td class="right">0.90</td><td class="right">4.81</td><td>AI 매출 $12.2B 연간 달성, EPS 정상화</td></tr>
+    <tr><td>Q1'25</td><td class="right">14.92</td><td class="right">0.60</td><td class="right">4.86</td><td>AI·VMware 성장 지속, 비용 반영 구간</td></tr>
+    <tr><td>Q2'25</td><td class="right">15.00</td><td class="right">0.88</td><td class="right">4.88</td><td>AI 수요가 networking/ASIC에 확산</td></tr>
+    <tr><td>Q3'25</td><td class="right">15.95</td><td class="right">1.69</td><td class="right">4.90</td><td>AI 매출 $5.2B, 신규 고객 기대 강화</td></tr>
+    <tr><td>Q4'25</td><td class="right">18.02</td><td class="right">1.74</td><td class="right">4.92</td><td>연간 매출 $63.9B, AI와 VMware가 동시에 기여</td></tr>
+    <tr><td>Q1'26</td><td class="right">19.31</td><td class="right">1.55</td><td class="right">4.96</td><td>AI 매출 2배 이상 성장, Q2 가이던스 상향</td></tr>
+    <tr><td>Q2'26</td><td class="right"><b>22.19</b></td><td class="right"><b>1.85</b></td><td class="right"><b>4.98</b></td><td>AI 반도체 $10.8B, Q3 $16B 가이던스가 핵심</td></tr>
+  </table>
+
+  <h3>투자자가 가져야 할 결론</h3>
+  <table>
+    <tr><th>관찰값</th><th>좋은 해석</th><th>나쁜 해석</th><th>행동</th></tr>
+    <tr><td>매출 가속</td><td>AI ASIC 수요가 실제 매출로 전환</td><td>고객 주문이 특정 대형 고객에 집중</td><td>Q3 AI $16B 달성 여부 확인</td></tr>
+    <tr><td>EPS 회복</td><td>VMware 통합 비용 이후 영업 레버리지 발생</td><td>AI 칩 mix 확대로 gross margin 훼손</td><td>EPS보다 FCF margin과 gross margin을 우선 확인</td></tr>
+    <tr><td>주식수</td><td>$10B buyback과 FCF로 희석 방어 가능</td><td>주식보상·M&A로 per-share 성장 둔화</td><td>주식수 감소 전까지 multiple 상향은 보수적으로</td></tr>
+  </table>
+  <div class="callout"><b>한 문장 결론:</b> AVGO의 실적 방향은 강하지만 주가가 그 방향을 이미 많이 반영했다. 핵심은 “성장률”보다 <b>성장률 대비 지불 가격</b>이다.</div>
+</section>
+
+<section class="page">
+  <h2>3. 반드시 확인해야 할 7가지 체크포인트</h2>
+  <table>
+    <tr><th>#</th><th>체크포인트</th><th>좋은 신호</th><th>나쁜 신호</th><th>투자 행동</th></tr>
+    <tr><td>1</td><td>AI 반도체 매출</td><td>Q3 $16B 달성, YoY +200% 내외</td><td>$15B 미만 또는 다음 분기 둔화</td><td>달성 시 Hold/추가, 미달 시 비중 축소</td></tr>
+    <tr><td>2</td><td>고객 다변화</td><td>Google·Meta 외 OpenAI/Anthropic/기타 고객 수주 확대</td><td>대형 고객 멀티소싱 심화, MediaTek/Marvell 침투</td><td>고객 수 증가 확인 전 overshoot 가격 추격 금지</td></tr>
+    <tr><td>3</td><td>Gross margin</td><td>AI mix 확대에도 margin 하락 100~200bp 내 통제</td><td>AI ASIC 급증이 전사 margin을 빠르게 희석</td><td>마진 하락 시 목표가를 Base→보수로 낮춤</td></tr>
+    <tr><td>4</td><td>VMware</td><td>갱신율 유지, ARR·FCF 방어</td><td>고객 반발·규제 조사·가격 인하 압박</td><td>소프트웨어 cash cow 훼손 시 thesis 재점검</td></tr>
+    <tr><td>5</td><td>네트워킹 attach</td><td>Tomahawk/Jericho/optical attach로 ASIC 외 매출 동반 성장</td><td>ASIC만 성장하고 네트워킹 attach 약화</td><td>AI 매출 질을 판단하는 핵심 보조지표</td></tr>
+    <tr><td>6</td><td>FCF·Buyback</td><td>$10B buyback 집행과 FCF margin 유지</td><td>CAPEX·운전자본 부담으로 FCF 전환율 하락</td><td>per-share 성장 확인 전 비중 4% 초과 금지</td></tr>
+    <tr><td>7</td><td>주가 레벨</td><td>$330~360에서 지지, $410 돌파 후 실적 확인</td><td>$300 하회 또는 실적 후 갭다운</td><td>$300 하회 시 “틀렸다” 인정하고 재평가</td></tr>
+  </table>
+
+  <h3>사건 체인</h3>
+  <table>
+    <tr><th>시점</th><th>사건</th><th>왜 중요한가</th><th>신뢰도</th></tr>
+    <tr><td>2023-11</td><td>VMware 인수 완료</td><td>AVGO를 순수 반도체에서 반도체+인프라 소프트웨어 현금흐름 모델로 전환</td><td>A</td></tr>
+    <tr><td>2024-07</td><td>10-for-1 주식분할</td><td>현재 주가·EPS·주식수 해석은 분할 후 기준으로 봐야 함</td><td>A</td></tr>
+    <tr><td>2024-12</td><td>FY24 매출 $51.6B, AI 매출 $12.2B</td><td>VMware 통합과 AI 반도체 성장의 첫 레벨업 증거</td><td>A</td></tr>
+    <tr><td>2025-12</td><td>FY25 매출 $63.9B, Q4 매출 $18.02B</td><td>AI 수요가 연간 실적으로 이어졌고 EPS도 회복</td><td>A</td></tr>
+    <tr><td>2026-03</td><td>FY26 Q1 매출 $19.31B, AI 매출 2배 이상 성장</td><td>AI ASIC 수요가 경기 사이클보다 강함을 확인</td><td>A</td></tr>
+    <tr><td>2026-06</td><td>FY26 Q2 매출 $22.19B, Q3 매출 $29.4B 가이던스</td><td>다음 12개월 valuation의 핵심 기준선</td><td>A</td></tr>
+    <tr><td>2026-07</td><td>Apple custom chip 개발 계약 2031년까지 연장 보도</td><td>무선·커스텀 칩 고객 stickiness 재확인</td><td>B</td></tr>
+  </table>
+</section>
+
+<section class="page">
+  <h2>4. 밸류에이션과 목표가</h2>
+  <div class="bridge avoid-break">
+    <div class="col"><div class="box" style="height:63px;background:#f2dfdc">$300</div><div class="name">하방</div></div>
+    <div class="col"><div class="box" style="height:82px;background:#f7eadf">$390</div><div class="name">보수</div></div>
+    <div class="col"><div class="box" style="height:78px;background:#e8edf1">$373.90</div><div class="name">현재</div></div>
+    <div class="col"><div class="box" style="height:98px;background:#e8f0e5">$465</div><div class="name">Base</div></div>
+    <div class="col"><div class="box" style="height:115px;background:#eee8f3">$550</div><div class="name">Bull</div></div>
+    <div class="col"><div class="box" style="height:130px;background:#efe7d5">$620</div><div class="name">Overshoot</div></div>
+  </div>
+
+  <table>
+    <tr><th>목표가</th><th class="right">가격</th><th>핵심 가정</th><th class="right">확률</th><th>실패 조건</th></tr>
+    <tr><td>하방</td><td class="right"><b>$300</b></td><td>AI 매출은 성장하나 가이던스 기대치 미달, margin 우려와 고밸류 압축 동시 발생</td><td class="right">20%</td><td>Q3 $29.4B 달성 + FY27 AI $100B 가시성 강화</td></tr>
+    <tr><td>보수 / 내재가치</td><td class="right"><b>$390</b></td><td>FY26 매출 $100B 전후, AI 성장 반영하되 multiple은 현재보다 보수 적용</td><td class="right">25%</td><td>Q3 이후 신규 고객 수주와 margin 방어가 동시에 확인</td></tr>
+    <tr><td>Base 12M</td><td class="right"><b>$465</b></td><td>Q3 매출 $29.4B 달성, AI 반도체 $16B, VMware FCF 안정, FY27 성장 가시성 유지</td><td class="right">35%</td><td>AI 매출 둔화 또는 gross margin 하락 폭 확대</td></tr>
+    <tr><td>Bull</td><td class="right"><b>$550</b></td><td>신규 hyperscaler 고객 추가, FY27 AI 매출 $100B 이상 가시성, 네트워킹 attach 동반 성장</td><td class="right">15%</td><td>멀티소싱 뉴스 또는 software 규제 부담</td></tr>
+    <tr><td>Overshoot</td><td class="right"><b>$620</b></td><td>AI ASIC을 “Nvidia 외 최대 대체 축”으로 시장이 재평가, multiple 재확장</td><td class="right">5%</td><td>AI capex 피크 논쟁 또는 고객별 주문 지연</td></tr>
+  </table>
+
+  <h3>현재 주가가 싼가?</h3>
+  <div class="grid g3">
+    <div class="card green"><div class="label">좋은 점</div><div class="big">Base +24.4%</div><p>현재가 $373.90 대비 Base $465의 12개월 기대수익률은 약 +24.4%다. 대형주치고 매력은 있다.</p></div>
+    <div class="card orange"><div class="label">부담</div><div class="big">P/S ~25x</div><p>TTM 매출 기준 밸류에이션은 여전히 높은 편이다. 실적이 좋아도 guidance 기대치가 높으면 주가는 빠질 수 있다.</p></div>
+    <div class="card red"><div class="label">판단</div><div class="big">분할만</div><p>$360 이하부터 매수 효율이 올라간다. $410 위에서는 실적 확인 전 신규 매수 금지.</p></div>
+  </div>
+</section>
+
+<section class="page">
+  <h2>5. 매수·매도 실행안</h2>
+  <div class="callout"><b>추천 행동:</b> 기존 보유자는 Hold, 신규 진입자는 <b>현재가에서 1차 30~35%만</b> 가능하다. 핵심은 “좋은 기업을 나쁜 가격에 사지 않는 것”이다.</div>
+
+  <table>
+    <tr><th>구간</th><th>행동</th><th>비중</th><th>조건</th></tr>
+    <tr><td>$360~375</td><td>1차 진입</td><td>목표비중의 35%</td><td>Q3 AI $16B 가이던스가 유지되고 $360 부근 지지 확인</td></tr>
+    <tr><td>$330~350</td><td>2차 진입</td><td>목표비중의 35%</td><td>시장 조정성 하락이며 thesis 훼손 뉴스가 없을 때</td></tr>
+    <tr><td>$300~320</td><td>3차 진입</td><td>목표비중의 30%</td><td>AI 매출·VMware FCF가 유지되는데 valuation 압축만 발생할 때</td></tr>
+    <tr><td>$410 이상</td><td>추격 금지</td><td>0%</td><td>실적 전 기대감만으로 상승하면 신규 매수 금지</td></tr>
+    <tr><td>$465</td><td>일부 회수</td><td>신규 매수분 20~30%</td><td>Base 도달 시 원금 일부 회수 또는 비중 정상화</td></tr>
+    <tr><td>$550 이상</td><td>차익실현</td><td>초과비중 30~50%</td><td>Bull multiple 구간. 실적이 동반되지 않으면 반드시 회수</td></tr>
+    <tr><td>$300 하회</td><td>thesis 재점검</td><td>추가매수 중단</td><td>가격 하락만이 아니라 AI guidance·margin·고객 이탈 여부 확인</td></tr>
+  </table>
+
+  <h3>실적 발표 전후 판단표</h3>
+  <table>
+    <tr><th>상황</th><th>숫자 기준</th><th>주가 반응</th><th>행동</th></tr>
+    <tr><td>좋은 실적 + 좋은 가이던스</td><td>Q3 $29.4B 이상, AI $16B 이상, margin 안정</td><td>$410 돌파 후 안착</td><td>보유 유지, 추가매수는 눌림에서만</td></tr>
+    <tr><td>좋은 실적 + 애매한 가이던스</td><td>매출 beat이나 AI·margin commentary 약함</td><td>$360~410 박스권</td><td>신규 매수 보류, 기존만 Hold</td></tr>
+    <tr><td>실적 미달</td><td>AI $16B 가이던스 하향 또는 FY27 visibility 약화</td><td>$330 하회 가능</td><td>목표가 Base→보수로 낮추고 비중 축소</td></tr>
+    <tr><td>thesis break</td><td>대형 고객 이탈, gross margin 급락, VMware FCF 훼손</td><td>$300 하회</td><td>내가 틀렸다고 인정, 신규 매수 중단</td></tr>
+  </table>
+</section>
+
+<section class="page">
+  <h2>6. 리스크</h2>
+  <table>
+    <tr><th>리스크</th><th>Thesis break trigger</th><th>대응</th></tr>
+    <tr><td>AI 매출 기대치 과잉</td><td>Q3 AI 반도체 매출 $16B 미달 또는 다음 분기 성장률 둔화</td><td>Base 목표가 $465를 $390으로 낮추고 신규매수 중단</td></tr>
+    <tr><td>고객 concentration</td><td>Google/Meta/OpenAI/Anthropic 중 대형 고객 주문 지연·멀티소싱 확대</td><td>hyperscaler별 capex와 공급사 변화 확인 전 비중 4% 초과 금지</td></tr>
+    <tr><td>마진 훼손</td><td>AI ASIC mix 확대로 gross margin이 300bp 이상 구조적으로 하락</td><td>매출 성장보다 FCF margin을 우선 보고 valuation multiple 축소</td></tr>
+    <tr><td>VMware 규제·고객 반발</td><td>가격 정책 변경 압박, EU/클라우드 사업자 규제 이슈 확대</td><td>소프트웨어 cash flow 할인율 상향, 보수 목표가 적용</td></tr>
+    <tr><td>밸류에이션 압축</td><td>금리 상승·AI capex 피크 논쟁으로 P/S·P/E 동반 하락</td><td>DCA만 허용, $410 이상 추격 금지</td></tr>
+    <tr><td>한국 투자자 세금</td><td>해외주식 매도차익 과세 22%로 잦은 매매 비용 증가</td><td>단기 회전보다 분할 진입·목표 비중 관리 우선</td></tr>
+  </table>
+
+  <div class="svgbox avoid-break">
+    <svg viewBox="0 0 960 310" role="img" aria-label="AVGO ecosystem map" style="width:100%;height:auto;display:block">
+      <rect x="20" y="20" width="920" height="270" rx="22" fill="#fbfaf6" stroke="#d9d1c2"/>
+      <rect x="390" y="105" width="180" height="85" rx="18" fill="#e8edf1" stroke="#17212b"/>
+      <text x="480" y="142" text-anchor="middle" font-size="24" font-weight="900" fill="#17212b">AVGO</text>
+      <text x="480" y="166" text-anchor="middle" font-size="13" fill="#6b7480">Custom ASIC · Networking · VMware</text>
+      <rect x="70" y="52" width="210" height="64" rx="16" fill="#e8f0e5" stroke="#587a5a"/>
+      <text x="175" y="82" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Hyperscalers</text>
+      <text x="175" y="102" text-anchor="middle" font-size="12" fill="#6b7480">Google · Meta · OpenAI · Anthropic</text>
+      <rect x="70" y="192" width="210" height="64" rx="16" fill="#f7eadf" stroke="#d07a3f"/>
+      <text x="175" y="222" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">AI Datacenter</text>
+      <text x="175" y="242" text-anchor="middle" font-size="12" fill="#6b7480">XPU · Networking · Optical attach</text>
+      <rect x="680" y="52" width="210" height="64" rx="16" fill="#eee8f3" stroke="#8d7aa8"/>
+      <text x="785" y="82" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Software Cash Flow</text>
+      <text x="785" y="102" text-anchor="middle" font-size="12" fill="#6b7480">VMware · Security · Mainframe</text>
+      <rect x="680" y="192" width="210" height="64" rx="16" fill="#f2dfdc" stroke="#a5534e"/>
+      <text x="785" y="222" text-anchor="middle" font-size="16" font-weight="800" fill="#17212b">Risk Layer</text>
+      <text x="785" y="242" text-anchor="middle" font-size="12" fill="#6b7480">Margin · Regulation · Multi-sourcing</text>
+      <line x1="280" y1="84" x2="390" y2="132" stroke="#315b7d" stroke-width="3"/>
+      <line x1="280" y1="224" x2="390" y2="165" stroke="#315b7d" stroke-width="3"/>
+      <line x1="570" y1="132" x2="680" y2="84" stroke="#315b7d" stroke-width="3"/>
+      <line x1="570" y1="165" x2="680" y2="224" stroke="#a5534e" stroke-width="3" stroke-dasharray="7 5"/>
+    </svg>
+  </div>
+
+  <h2>마지막 요약</h2>
+  <table>
+    <tr><th>항목</th><th>값</th><th>해석</th></tr>
+    <tr><td>현재가</td><td><b>$373.90</b></td><td>2026-07-06 종가 기준</td></tr>
+    <tr><td>보수가</td><td><b>$390</b></td><td>현재가 대비 +4.3%, 안전마진은 크지 않음</td></tr>
+    <tr><td>Base</td><td><b>$465</b></td><td>12개월 기대수익률 +24.4%</td></tr>
+    <tr><td>Bull</td><td><b>$550</b></td><td>12개월 기대수익률 +47.1%</td></tr>
+    <tr><td>Overshoot</td><td><b>$620</b></td><td>AI ASIC multiple 재확장 시나리오</td></tr>
+    <tr><td>실적 전·후 trading target</td><td><b>$360~410 / $465</b></td><td>실적 전 박스, Q3 가이던스 확인 후 Base target</td></tr>
+    <tr><td>하방</td><td><b>$300</b></td><td>Downside -19.8%</td></tr>
+    <tr><td>12M 기대수익률</td><td><b>Base +24.4% / Bull +47.1% / Downside -19.8%</b></td><td>목표가와 현재가 산식 일치</td></tr>
+    <tr><td>보유수량 기준 기대손익</td><td><b>현재 보유 0주: $0</b></td><td>입력값이 없어 0주 처리</td></tr>
+    <tr><td>1,000주 가정 기대손익</td><td><b>Base +$91,100 / Bull +$176,100 / Downside -$73,900</b></td><td>세전 달러 기준, 한국 양도세 22% 별도 고려</td></tr>
+    <tr><td>추천 행동</td><td><b>Buy on Weakness / Hold</b></td><td>1차 $360~375, 2차 $330~350, 3차 $300~320</td></tr>
+    <tr><td>목표 비중</td><td><b>초기 4%</b></td><td>AI 대형주 프리미엄 때문에 한 번에 6% 이상 진입 금지</td></tr>
+    <tr><td>가장 중요한 체크포인트</td><td><b>Q3 AI $16B와 margin 방어</b></td><td>매출 성장과 수익성의 동시 확인 필요</td></tr>
+    <tr><td>내가 틀렸다고 인정해야 하는 조건</td><td><b>$300 하회 + AI guidance 하향 + gross margin 급락</b></td><td>이 조합이면 단순 조정이 아니라 thesis 훼손</td></tr>
+  </table>
+
+  <div class="foot">
+    참고 출처: Broadcom IR/SEC filings, Reuters, MarketWatch, Investopedia, WSJ, 회사 보도자료 및 공개 실적 자료. 일부 2026 TTM 및 분기 EPS는 공개 보도·가이던스·주식수 추정치를 조합한 모델값이므로 매매 전 최신 10-Q/10-K와 데이터 제공업체 수치를 재확인해야 합니다.<br/>
+    본 자료는 투자 판단 보조용이며, 매수·매도 권유나 수익 보장을 의미하지 않습니다. 가격·컨센서스는 작성 시점 기준이므로 매매 전 최신값을 재확인해야 합니다.
+  </div>
+</section>
+</div>
+</body>
+</html>

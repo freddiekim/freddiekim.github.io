@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sandisk × Kimi K3 투자 Q&A · FINANCE / 城主 · 2026-07-21</title>
+<meta name="description" content="FINANCE / 城主 하우스 스타일로 정리한 Sandisk × Kimi K3 투자 Q&A." />
+
+<style>
+:root{
+  --paper:#fbfaf6;
+  --paper-2:#f4ecdc;
+  --card:#ffffff;
+  --ink:#17212b;
+  --muted:#6b7480;
+  --line:#d9d1c2;
+  --blue:#315b7d;
+  --blue-soft:#e8edf1;
+  --orange:#d07a3f;
+  --orange-soft:#f7eadf;
+  --green:#587a5a;
+  --green-soft:#e8f0e5;
+  --red:#a5534e;
+  --red-soft:#f2dfdc;
+  --sand:#efe7d5;
+  --lav:#8d7aa8;
+  --lav-soft:#eee8f3;
+  --navy:#1f3344;
+  --shadow:0 10px 28px rgba(44,53,61,.07);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;
+  line-height:1.62;
+  letter-spacing:-.008em;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 76px}
+.hero{
+  margin:0 -24px 26px;
+  padding:46px max(24px,calc((100vw - 1120px)/2 + 24px)) 34px;
+  background:var(--paper-2);
+  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"城主";
+  position:absolute;
+  right:max(24px,calc((100vw - 1120px)/2 + 24px));
+  top:18px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:92px;
+  line-height:1;
+  color:rgba(49,91,125,.075);
+  font-weight:900;
+  pointer-events:none;
+}
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--blue);
+  font-weight:900;
+}
+h1{
+  font-size:clamp(38px,6vw,66px);
+  line-height:1.03;
+  margin:10px 0 15px;
+  letter-spacing:-.055em;
+  max-width:900px;
+}
+.hero p{font-size:17px;color:var(--muted);max-width:900px;margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.badge{
+  display:inline-block;
+  border:1px solid var(--ink);
+  border-radius:999px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:850;
+  background:#fff;
+  color:var(--ink);
+}
+.badge:nth-child(1){background:var(--orange-soft)}
+.badge:nth-child(2){background:var(--green-soft)}
+.badge:nth-child(3){background:var(--blue-soft)}
+.badge:nth-child(4){background:var(--lav-soft)}
+.verdict{
+  margin:24px 0 0;
+  padding:17px 18px;
+  border:1px solid #c9bda8;
+  border-left:5px solid var(--orange);
+  background:#fffaf1;
+  border-radius:14px;
+  max-width:980px;
+  font-size:16px;
+  box-shadow:var(--shadow);
+}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:24px 0 30px}
+.metric{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--card);
+  padding:17px;
+  min-height:132px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.metric:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--blue)}
+.metric:nth-child(2):before{background:var(--orange)}
+.metric:nth-child(3):before{background:var(--green)}
+.metric:nth-child(4):before{background:var(--lav)}
+.metric b{display:block;font-size:24px;line-height:1.2;margin:7px 0 8px;letter-spacing:-.03em}
+.metric small{color:var(--muted);font-size:12px;line-height:1.5}
+.metric .k{font-size:11px;letter-spacing:.11em;color:var(--muted);font-weight:900;text-transform:uppercase}
+.layout{display:grid;grid-template-columns:244px minmax(0,1fr);gap:26px;margin-top:12px}
+.side{
+  position:sticky;top:16px;align-self:start;
+  border:1px solid var(--line);border-radius:16px;background:#fff;
+  padding:16px;max-height:calc(100vh - 32px);overflow:auto;box-shadow:var(--shadow)
+}
+.side h3{font-size:11px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin:0 0 9px;font-weight:900}
+.side a{display:block;color:#46525e;padding:8px 10px;border-radius:9px;font-size:13px;font-weight:650}
+.side a:hover{background:var(--blue-soft);color:var(--ink);text-decoration:none}
+.toolbar{
+  display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;
+  padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:var(--shadow)
+}
+input[type="search"]{flex:1;min-width:230px;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 13px;outline:none}
+input[type="search"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,91,125,.10)}
+button{border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:750}
+button:hover{background:var(--sand)}
+section{scroll-margin-top:20px}
+.section-head{margin:38px 0 14px;border-top:2px solid var(--ink);padding-top:15px}
+.section-head h2{font-size:28px;letter-spacing:-.035em;margin:0}
+.section-head h2::first-letter{color:var(--blue)}
+.section-head p{color:var(--muted);margin:4px 0 0;font-size:14px}
+details.qna{
+  border:1px solid var(--line);border-radius:var(--radius);background:#fff;
+  margin:11px 0;overflow:hidden;box-shadow:var(--shadow)
+}
+details.qna[open]{border-color:#b7c2cb}
+summary{list-style:none;cursor:pointer;padding:18px 19px;display:grid;grid-template-columns:43px 1fr auto;gap:12px;align-items:center;font-weight:800}
+summary::-webkit-details-marker{display:none}
+.qnum{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);border:1px solid #c7d2da;color:var(--blue);font-size:12px;font-weight:900}
+.qtitle{font-size:17px;line-height:1.35;letter-spacing:-.02em}
+.chev{color:var(--muted);transition:.2s;font-size:16px}
+details[open] .chev{transform:rotate(180deg)}
+.answer{padding:2px 20px 22px 74px;border-top:1px solid var(--line)}
+.answer p{margin:14px 0}.answer ul,.answer ol{padding-left:20px;margin:12px 0}.answer li{margin:7px 0}
+.callout{padding:14px 16px;border-radius:13px;margin:15px 0;border:1px solid var(--line);background:var(--sand)}
+.callout.good{border-color:#bdcdb8;background:var(--green-soft)}
+.callout.warn{border-color:#dfc3a8;background:var(--orange-soft)}
+.callout.bad{border-color:#d6b0ac;background:var(--red-soft)}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;border-radius:999px;padding:4px 8px;margin-right:6px;border:1px solid var(--line);background:#fff}
+.tag.good{color:var(--green);border-color:#b9c9b6;background:var(--green-soft)}
+.tag.neutral{color:var(--blue);border-color:#c4d1da;background:var(--blue-soft)}
+.tag.warn{color:var(--orange);border-color:#dfc0a3;background:var(--orange-soft)}
+.tag.bad{color:var(--red);border-color:#d9b4b0;background:var(--red-soft)}
+.formula{
+  padding:21px;border-radius:16px;border:1px solid #2b4457;
+  background:var(--navy);color:#f6f2e8;text-align:center;font-size:18px;margin:18px 0;
+  box-shadow:0 10px 25px rgba(31,51,68,.12)
+}
+.formula strong{color:#f1c96d}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;background:#fff}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0eadf;color:var(--ink);font-size:12px;letter-spacing:.01em}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even) td{background:#fcfbf7}
+.mini-bars{display:grid;gap:10px;margin:16px 0;padding:16px;border-radius:15px;background:var(--navy);color:#fff}
+.barrow{display:grid;grid-template-columns:180px 1fr 44px;gap:10px;align-items:center;font-size:13px}
+.bar{height:10px;background:#142635;border-radius:999px;overflow:hidden;border:1px solid #436077}
+.fill{height:100%;background:linear-gradient(90deg,#8fb2c7,#f0c96b);border-radius:999px}
+.source-chip{font-size:11px;border:1px solid #c9d2d8;background:var(--blue-soft);padding:3px 7px;border-radius:7px;white-space:nowrap;font-weight:750}
+.source-line{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.decision{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.decision .box{border:1px solid var(--line);border-radius:15px;padding:16px;background:#fff;box-shadow:var(--shadow)}
+.decision .box:nth-child(1){background:var(--green-soft)}
+.decision .box:nth-child(2){background:var(--orange-soft)}
+.decision .box:nth-child(3){background:var(--red-soft)}
+.decision h4{margin:0 0 7px}.decision p{color:#58636c;font-size:13px;margin:0}
+.sources{counter-reset:src;padding-left:22px}.sources li{margin:10px 0;color:#55616b}.sources a{word-break:break-word}
+.note{font-size:12px;color:var(--muted)}
+footer{margin-top:42px;border-top:2px solid var(--ink);padding-top:16px;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+@media(max-width:920px){
+  .layout{grid-template-columns:1fr}.side{position:relative;top:auto;max-height:none}.grid4,.decision{grid-template-columns:1fr 1fr}
+  .hero{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}.hero:after{right:22px}
+  .answer{padding:2px 18px 21px}.barrow{grid-template-columns:130px 1fr 36px}
+}
+@media(max-width:580px){
+  .wrap{padding-left:14px;padding-right:14px}.hero{margin-left:-14px;margin-right:-14px;padding:36px 14px 28px}.hero:after{font-size:62px;right:12px}
+  .grid4,.decision{grid-template-columns:1fr}summary{grid-template-columns:38px 1fr auto;padding:16px 14px}.qtitle{font-size:15px}
+  .hero p{font-size:15px}.toolbar{padding:9px}button{flex:1}.answer{padding-left:14px;padding-right:14px}
+}
+@media print{
+  body{background:#fff}.wrap{max-width:none;padding:0 12mm}.hero{margin:0 -12mm 8mm;padding:14mm 12mm 9mm}.side,.toolbar{display:none}.layout{display:block}
+  .metric,details.qna,.callout,.formula,.decision .box{box-shadow:none;break-inside:avoid}.formula{background:#fff;color:#111;border-color:#777}
+  details.qna .answer{display:block}.source-chip,a{color:#055}.hero:after{display:none}
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="eyebrow">FINANCE / 城主 · RESEARCH NOTE / Q&A</div>
+    <h1>Sandisk × Kimi K3<br>AI 스토리지 투자 논리<br>재점검 Q&A</h1>
+    <p>Kimi K3의 KV 캐시 효율화와 에이전트 병렬화가 NAND·eSSD 수요에 미치는 영향부터, Sandisk의 제조 구조·해자·고마진·ROIC·30배 상승 이후 주가 경로까지 하나의 Q&A로 묶었습니다.</p>
+    <div class="badges">
+      <span class="badge">기준일 2026-07-21</span><span class="badge">공개자료 중심</span><span class="badge">17개 핵심 질문</span><span class="badge">FINANCE / 城主 Edition</span>
+    </div>
+    <div class="verdict"><b>핵심 결론:</b> Kimi K3는 Sandisk에 명확한 악재가 아니다. 다만 K3가 장기 AI 스토리지 수요 논리를 강화하는 것과, 현재 79~81% 수준의 매출총이익률이 장기간 유지된다는 것은 전혀 다른 주장이다. 주가의 다음 단계는 <b>가격 상승이 아닌 비트 출하·점유율·정상화 FCF</b>가 증명해야 한다.</div>
+  </header>
+
+  <div class="grid4">
+    <div class="metric"><span class="k">K3 → SNDK</span><b>중립~약한 호재</b><small>롱컨텍스트·병렬 에이전트는 SSD 계층 수요를 늘릴 수 있으나, 직접 수주 증거는 아직 없음.</small></div>
+    <div class="metric"><span class="k">현재 실적</span><b>구조 + 사이클</b><small>데이터센터 믹스 개선은 진짜지만, 가격 급등과 공급 부족이 이익 폭증의 큰 부분.</small></div>
+    <div class="metric"><span class="k">해자</span><b>중간 이상</b><small>공동 제조·IP·컨트롤러·펌웨어·고객 인증. 독점은 아니며 기존 대형사가 강하게 경쟁.</small></div>
+    <div class="metric"><span class="k">주가 경로</span><b>횡보 가능성 높음</b><small>30배 상승 뒤에는 이익 추정치가 계속 올라야만 멀티플 압축을 이길 수 있음.</small></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <h3>Navigation</h3>
+      <a href="#snapshot">숫자로 보는 현재</a>
+      <a href="#k3">A. Kimi K3 & KV 캐시</a>
+      <a href="#business">B. 사업 구조와 해자</a>
+      <a href="#valuation">C. ROIC·비교·주가</a>
+      <a href="#checklist">D. 투자 검증 체크리스트</a>
+      <a href="#sources">출처</a>
+      <a href="#top">맨 위로</a>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <input id="qsearch" type="search" placeholder="질문 검색: K3, KV 캐시, 마이크론, ROIC, 30배…" />
+        <button onclick="toggleAll(true)">모두 펼치기</button>
+        <button onclick="toggleAll(false)">모두 접기</button>
+        <button onclick="window.print()">인쇄 / PDF</button>
+      </div>
+
+      <section id="snapshot">
+        <div class="section-head"><h2>숫자로 보는 현재</h2><p>현재 주가보다 더 중요한 것은 실적의 급격한 변화 폭입니다.</p></div>
+        <table>
+          <thead><tr><th>항목</th><th>FY26 Q1</th><th>FY26 Q2</th><th>FY26 Q3</th><th>FY26 Q4 가이던스</th></tr></thead>
+          <tbody>
+            <tr><td>매출</td><td>$2.31B</td><td>$3.03B</td><td>$5.95B</td><td>$7.75~8.25B</td></tr>
+            <tr><td>GAAP 매출총이익률</td><td>29.8%</td><td>50.9%</td><td>78.4%</td><td>78.9~80.9%</td></tr>
+            <tr><td>데이터센터 매출</td><td>$269M</td><td>$440M</td><td>$1.467B</td><td>세부 미제시</td></tr>
+            <tr><td>해석</td><td>초기 회복</td><td>가격·믹스 개선</td><td>공급 부족 + 고가치 믹스 폭발</td><td>슈퍼사이클 지속 가정</td></tr>
+          </tbody>
+        </table>
+        <div class="callout warn"><b>가장 중요한 경고:</b> 매출총이익률이 두 분기 만에 29.8% → 78.4%로 변한 산업은, 높은 마진의 절대수치보다 <b>마진이 왜 변했는지</b>를 먼저 봐야 합니다. 구조적 해자만으로 설명하기에는 변동 폭이 너무 큽니다.</div>
+        <div class="source-line"><a class="source-chip" href="#s7">[S7] Q3 실적</a><a class="source-chip" href="#s8">[S8] Q2 실적</a><a class="source-chip" href="#s9">[S9] Q1 실적</a></div>
+      </section>
+
+      <section id="k3">
+        <div class="section-head"><h2>A. Kimi K3와 AI 스토리지</h2><p>효율화가 총수요 감소인지, 사용량 폭발의 촉매인지 구분합니다.</p></div>
+
+        <details class="qna" open data-keywords="kimi k3 kv 캐시 75% 6배 kda">
+          <summary><span class="qnum">Q1</span><span class="qtitle">Kimi K3가 KV 캐시를 최대 75% 줄이고 1M 컨텍스트에서 6배 빠르다는 말은 맞나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">부분적으로 맞음</span> K3가 2.8조 파라미터, KDA 기반 하이브리드 어텐션, 최대 100만 토큰 컨텍스트를 제공한다는 점은 Kimi 공식 문서로 확인됩니다.</p>
+            <p>그러나 <b>KV 캐시 최대 75% 절감·최대 6배 디코딩 처리량</b>은 K3 전체의 실서비스 실측치가 아니라, 별도의 <i>Kimi Linear 48B</i> 연구에서 보고된 결과입니다. K3가 같은 KDA 계열을 쓰므로 방향성은 유효하지만 숫자를 K3에 그대로 대입하면 안 됩니다.</p>
+            <div class="callout good"><b>정확한 표현:</b> “K3는 KV 캐시 효율화 아키텍처를 채택했다. 다만 75%·6배는 K3 직접 실측으로 아직 확정되지 않았다.”</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] Kimi 공식 안내</a><a class="source-chip" href="#s2">[S2] K3 기술 블로그</a><a class="source-chip" href="#s3">[S3] Kimi Linear 논문</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="병렬 에이전트 jevons 총수요 롱컨텍스트">
+          <summary><span class="qnum">Q2</span><span class="qtitle">개별 에이전트의 KV 캐시가 줄어도, 전체 메모리·SSD 수요는 늘어날 수 있나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">가능성이 높음</span> 총수요는 에이전트 하나의 효율만으로 결정되지 않습니다.</p>
+            <div class="formula"><strong>총 캐시·스토리지 수요</strong> ≈ 에이전트당 사용량 × 동시 에이전트 수 × 컨텍스트 길이 × 작업 지속시간 × 재사용/압축 보정</div>
+            <p>에이전트당 캐시가 75% 줄어 0.25배가 되더라도, 동시 에이전트가 20배·평균 컨텍스트가 2배가 되면 총수요는 단순 예시로 10배가 됩니다. 이것이 효율 향상이 사용량을 키울 수 있다는 Jevons 관점입니다.</p>
+            <p>Kimi 공식 서비스가 K3 Swarm을 대규모 검색·일괄처리용으로 구분하고 있다는 점도 “단일 에이전트의 지능”보다 “병렬 작업량”을 키우는 방향과 부합합니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] K3 Swarm</a><a class="source-chip" href="#s5">[S5] 수요 급증·연산 부족 보도</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="mooncake ssd offload hbm dram nvme kimi">
+          <summary><span class="qnum">Q3</span><span class="qtitle">K3와 Mooncake는 Sandisk에 좋은가, 나쁜가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">중립~약한 호재</span> Moonshot의 Mooncake 서빙 시스템은 GPU HBM뿐 아니라 CPU·DRAM·SSD를 활용해 KV 캐시를 계층화합니다. 즉 SSD가 단순 파일창고가 아니라 추론 과정의 캐시 계층으로 들어갈 수 있다는 실증 사례입니다.</p>
+            <p>다만 산업 전체 SSD 수요가 늘어나는 것과 Sandisk가 그 주문을 가져오는 것은 별개입니다. 실제 수혜는 제품 인증, 컨트롤러·펌웨어, 지연시간, 내구성, 공급계약으로 확인해야 합니다.</p>
+            <table><thead><tr><th>경로</th><th>영향</th><th>강도</th></tr></thead><tbody>
+              <tr><td>HBM/DRAM</td><td>활성 작업과 핫 캐시 저장</td><td>직접적·강함</td></tr>
+              <tr><td>고성능 NVMe SSD</td><td>콜드/웜 KV 캐시·컨텍스트 오프로딩</td><td>중간</td></tr>
+              <tr><td>Sandisk 실적</td><td>제품 채택과 점유율이 확인돼야 함</td><td>현재는 약함</td></tr>
+            </tbody></table>
+            <div class="source-line"><a class="source-chip" href="#s4">[S4] Mooncake 논문</a><a class="source-chip" href="#s12">[S12] Sandisk AI eSSD</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="양즈린 발언 천개 에이전트 뇌 하나 손 천개 검증">
+          <summary><span class="qnum">Q4</span><span class="qtitle">“똑똑한 하나가 아니라 천 개의 에이전트, 뇌 하나에 손 천 개”라는 양즈린 발언은 어떻게 다뤄야 하나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">직접 인용 주의</span> 공개된 Kimi 공식 문서에서는 K3 Swarm과 병렬·장기 작업 철학은 확인되지만, 해당 한국어 문장과 정확히 일치하는 1차 원문은 이번 조사에서 확인하지 못했습니다.</p>
+            <p>따라서 투자 리서치에서는 <b>직접 인용문</b>으로 단정하기보다 “K3 Swarm의 배포 철학을 요약한 2차 표현”으로 처리하는 것이 안전합니다. 투자 논리는 문구 자체가 아니라 실제 동시성, 사용량, 컴퓨팅 부족, 인프라 확장으로 검증해야 합니다.</p>
+            <div class="callout warn"><b>검증 우선순위:</b> CEO의 멋진 문장 &lt; K3 Swarm 사용량 &lt; GPU·DRAM·SSD 증설 &lt; 공급업체 수주.</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] 공식 K3/K3 Swarm</a><a class="source-chip" href="#s5">[S5] 실제 연산 용량 부족</a><a class="source-chip" href="#s6">[S6] AP 보도</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="가이던스 강화 약화 fy2027 데이터센터">
+          <summary><span class="qnum">Q5</span><span class="qtitle">K3는 Sandisk의 가이던스를 강화할까, 약화할까?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">장기 논리 강화</span><span class="tag neutral">단기 숫자 중립</span> K3 발표가 이미 잡힌 분기 주문과 ASP를 즉시 바꾸지는 않습니다. 따라서 다음 분기 가이던스의 직접 상향 요인이라고 보기 어렵습니다.</p>
+            <p>하지만 1~3년 관점에서는 롱컨텍스트·멀티에이전트·KV 캐시 계층화가 AI 데이터센터의 플래시 TAM을 키울 수 있어, 회사의 “AI 추론용 eSSD 구조적 성장” 논리를 강화합니다.</p>
+            <table><thead><tr><th>기간</th><th>예상 영향</th></tr></thead><tbody>
+              <tr><td>현재 분기</td><td>거의 없음. 이미 체결된 주문·가격이 지배</td></tr>
+              <tr><td>FY2027</td><td>eSSD 수요·고객 인증·NBM 확대 시 약한~중간 강화</td></tr>
+              <tr><td>장기</td><td>SSD가 추론 메모리 계층으로 자리잡으면 구조적 TAM 확대</td></tr>
+            </tbody></table>
+            <p>반대로 KDA 효율·캐시 재사용·압축이 에이전트 사용량 증가보다 빠르면 실질 수요 증가는 제한될 수 있습니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s4">[S4] Mooncake</a><a class="source-chip" href="#s7">[S7] Sandisk 가이던스</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="50주 35주 40주 비중 축소 kimi 매도">
+          <summary><span class="qnum">Q6</span><span class="qtitle">K3가 악재가 아니라면 50주를 35주로 줄이라는 안은 폐기해야 하나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">매도 사유 변경</span> K3를 이유로 35주까지 급히 줄일 근거는 약해졌습니다. 그러나 단일 사이클 종목이 포트폴리오의 약 15%를 차지하는 집중 위험은 그대로입니다.</p>
+            <p>따라서 논리는 “K3 악재 회피”가 아니라 “피크 이익 오판 시 자산 충격 제한”이어야 합니다. 즉 40~45주로 완만하게 낮춘 뒤, 실적에서 정상화 마진과 NBM의 질을 확인하는 접근이 더 일관적입니다.</p>
+            <div class="callout good"><b>정리:</b> K3 때문에 매도 X · 집중도와 피크 마진 위험 때문에 일부 축소 O.</div>
+          </div>
+        </details>
+      </section>
+
+      <section id="business">
+        <div class="section-head"><h2>B. Sandisk의 사업 구조와 해자</h2><p>“칩을 직접 만들지 않는다”는 표현부터 정확히 수정합니다.</p></div>
+
+        <details class="qna" open data-keywords="칩 직접 생산 kioxia flash ventures fabless 제조">
+          <summary><span class="qnum">Q7</span><span class="qtitle">Sandisk는 칩을 직접 만들지 않고 Kioxia에서 메모리를 사 오는 회사인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">표현 수정 필요</span> Sandisk는 엔비디아처럼 순수 팹리스도 아니고, 단순 유통·조립업체도 아닙니다.</p>
+            <ul>
+              <li>Kioxia와 Flash Ventures를 공동 운영하며 각 법인의 지분 49.9%를 보유합니다.</li>
+              <li>공정기술과 메모리 설계를 공동 개발하고 공동 소유합니다.</li>
+              <li>JV 생산량의 일반적으로 절반을 원가+소폭 마진에 구매할 권리가 있습니다.</li>
+              <li>선택한 생산량과 무관하게 고정비 절반을 부담하고, 필요한 설비투자도 약 절반을 지원합니다.</li>
+              <li>컨트롤러는 주로 자체 설계하고 펌웨어·검증·제품화를 수행합니다.</li>
+            </ul>
+            <div class="callout good"><b>정확한 정의:</b> “공장을 Kioxia가 운영하지만, Sandisk가 기술·설비·고정비·생산량을 공동 부담하는 공유 팹형 수직통합 모델.”</div>
+            <div class="source-line"><a class="source-chip" href="#s10">[S10] 10-K 제조 구조</a><a class="source-chip" href="#s11">[S11] 10-Q JV 의무</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="경쟁사 신규 진입 해자 컨트롤러 펌웨어 인증">
+          <summary><span class="qnum">Q8</span><span class="qtitle">Sandisk 같은 경쟁사가 새로 생기지 않는 이유와 해자는 무엇인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">진입장벽 높음</span> 소비자용 SSD 조립은 가능하지만, 하이퍼스케일러용 eSSD 공급자는 쉽게 생기지 않습니다.</p>
+            <table><thead><tr><th>해자</th><th>왜 어려운가</th></tr></thead><tbody>
+              <tr><td>NAND 공정·수율</td><td>수백 단 3D NAND를 대량·고수율로 생산하는 데 장기간의 학습곡선과 수십억 달러가 필요</td></tr>
+              <tr><td>공급 접근권</td><td>Flash Ventures의 약 50% 출력권과 원가 기반 조달 구조는 신규 업체가 복제하기 어려움</td></tr>
+              <tr><td>컨트롤러·펌웨어</td><td>QoS, 오류정정, 수명·열·전력 관리, 텔레메트리 최적화가 워크로드별로 필요</td></tr>
+              <tr><td>고객 인증</td><td>고객별 검증에 오랜 시간이 걸리고, 장애 시 GPU 클러스터 전체 비용이 커서 공급자 교체가 느림</td></tr>
+              <tr><td>규모와 공급 안정성</td><td>동일한 품질·펌웨어로 대규모 물량을 수년간 공급해야 함</td></tr>
+            </tbody></table>
+            <p>다만 이것은 독점 해자가 아닙니다. 삼성전자·Micron·SK hynix/Solidigm·Kioxia 같은 기존 대형사는 충분히 공격할 수 있습니다. 따라서 해자는 <b>신규 진입을 막는 데는 강하지만, 기존 상위사와의 경쟁을 막는 데는 중간 수준</b>입니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s10">[S10] 공동 기술·제조</a><a class="source-chip" href="#s12">[S12] 엔터프라이즈 기능</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="마이크론 1등 고성능 낸드 누구나 만들 수 있나 245tb">
+          <summary><span class="qnum">Q9</span><span class="qtitle">고성능 NAND는 Micron이 1등 아닌가? 누구나 만들 수 있는가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">영역별 선두가 다름</span> Micron은 245TB QLC SSD와 차세대 NAND에서 기술 선두 중 하나입니다. 그러나 “고성능 NAND 전체 1등”은 속도·용량·내구성·전력·시장점유율 중 어떤 지표를 말하느냐에 따라 달라집니다.</p>
+            <p>Sandisk도 BiCS8·UltraQLC 기반 최대 122.88TB SN670을 제공하며, 완전 수직 통합 플랫폼과 엔터프라이즈 보호 기능을 강조합니다. 제품 세대마다 Micron·Samsung·Solidigm·Sandisk의 우위가 바뀔 수 있습니다.</p>
+            <div class="callout warn"><b>투자자가 봐야 할 것:</b> 최고 스펙 한 개가 아니라, 대형 고객의 실제 인증 수·양산 수율·수주 물량·ASP·내구성·전력 효율.</div>
+            <div class="source-line"><a class="source-chip" href="#s12">[S12] Sandisk SN670</a><a class="source-chip" href="#s13">[S13] Micron 245TB</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="샌디스크 마이크론 하이닉스 많이 오른 이유 분사 순수 낸드">
+          <summary><span class="qnum">Q10</span><span class="qtitle">Sandisk가 Micron과 SK hynix보다 훨씬 많이 오른 이유는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">작은 기저 × 순수 노출 × 이익 레버리지</span> Sandisk의 상승률이 더 컸던 것은 업계 1위여서가 아니라, <b>가장 낮은 출발점에서 NAND 가격과 이익 추정치 상승에 가장 순수하게 노출</b>됐기 때문입니다.</p>
+            <div class="mini-bars" aria-label="상승 요인 정성적 기여도">
+              <div class="barrow"><span>트로프 이익 기저</span><div class="bar"><div class="fill" style="width:92%"></div></div><b>매우 큼</b></div>
+              <div class="barrow"><span>NAND ASP·공급 부족</span><div class="bar"><div class="fill" style="width:84%"></div></div><b>큼</b></div>
+              <div class="barrow"><span>데이터센터 믹스</span><div class="bar"><div class="fill" style="width:67%"></div></div><b>중상</b></div>
+              <div class="barrow"><span>분사 후 재평가</span><div class="bar"><div class="fill" style="width:58%"></div></div><b>중간</b></div>
+              <div class="barrow"><span>NBM·재무구조</span><div class="bar"><div class="fill" style="width:42%"></div></div><b>보조</b></div>
+            </div>
+            <p class="note">※ 위 막대는 회사가 공개한 회계 분해가 아니라 투자 관점의 정성적 기여도입니다.</p>
+            <ul>
+              <li><b>순수 플레이:</b> Micron과 SK hynix는 DRAM·HBM·NAND가 섞여 있지만 Sandisk는 Flash 업사이클 민감도가 더 높습니다.</li>
+              <li><b>기저 효과:</b> 분사 초기·업황 저점의 작은 시가총액과 낮은 이익 기저에서 출발했습니다.</li>
+              <li><b>이익 레버리지:</b> 매출은 Q1→Q3 약 2.6배였지만 영업이익은 훨씬 더 빠르게 증가했습니다.</li>
+              <li><b>재평가:</b> 데이터센터 매출 +233% QoQ, NBM 다년 계약, 무차입 메시지가 “단순 소비자 NAND” 이미지를 바꿨습니다.</li>
+            </ul>
+            <div class="callout warn"><b>주의:</b> 주가 30배는 사업 품질이 30배 개선됐다는 뜻이 아닙니다. 이익 저점·분사 할인·공급 부족이 동시에 역전된 결과입니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s7">[S7] Q3 이익 급증</a><a class="source-chip" href="#s17">[S17] 독립 상장</a><a class="source-chip" href="#s18">[S18] 52주 가격 범위</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="업계 1위 아닌데 고마진 80% 마진 공급 부족 가격">
+          <summary><span class="qnum">Q11</span><span class="qtitle">업계 1위가 아닌데도 30배 상승하고 고마진을 가져갈 수 있는 이유는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">고마진 ≠ 영구 해자</span> 공급이 부족한 산업에서는 1위만 가격을 올리는 것이 아닙니다. 고객 인증을 통과한 공급자의 물량 자체가 희소하면 2~4위도 한계가격에 가까운 ASP를 받을 수 있습니다.</p>
+            <ul>
+              <li>AI 고객은 특정 용량·지연시간·내구성·펌웨어가 검증된 SSD를 원하므로 단기 대체가 쉽지 않습니다.</li>
+              <li>Sandisk의 데이터센터 믹스가 올라가면서 동일 비트라도 더 높은 가치로 판매됐습니다.</li>
+              <li>공급 부족 시 NAND ASP 상승분이 원가 상승보다 빠르게 반영되어 매출총이익률이 급팽창합니다.</li>
+              <li>작은 시가총액에서 EPS 추정치가 수십 배 상향되면 업계 1위가 아니어도 주가 상승률은 가장 클 수 있습니다.</li>
+            </ul>
+            <p>그러나 Q1 29.8%에서 Q3 78.4%로 뛴 마진은 독점 소프트웨어의 안정적 마진과 다릅니다. 공급 정상화 뒤에도 50% 안팎을 지키는지가 진짜 해자 시험입니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s7">[S7] 가격·믹스 설명</a><a class="source-chip" href="#s8">[S8] 마진 변화</a><a class="source-chip" href="#s9">[S9] Q1 기준점</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="공급 부족 현재 잘나가는 이유 구조적 성장 가격 효과">
+          <summary><span class="qnum">Q12</span><span class="qtitle">현재 Sandisk가 잘나가는 것은 결국 공급 부족 때문인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">상당 부분 그렇다</span> 회사도 Q3 매출 초과가 고가치 고객 믹스와 <b>높은 가격</b>에서 비롯됐다고 밝혔습니다. 공급 부족·ASP 상승 없이 78%대 마진을 설명하기는 어렵습니다.</p>
+            <p>다만 전부 가격만의 효과도 아닙니다. 데이터센터 매출이 $440M에서 $1.467B로 증가했고, 고객 인증·eSSD 배치·NBM 계약 확대가 동시에 진행됐습니다.</p>
+            <table><thead><tr><th>현재 이익의 원천</th><th>판단</th></tr></thead><tbody>
+              <tr><td>NAND·eSSD 가격 상승</td><td>가장 큰 단기 기여</td></tr>
+              <tr><td>공급 부족·재고 정상화</td><td>매우 큰 기여</td></tr>
+              <tr><td>데이터센터 제품 믹스</td><td>구조적 기여</td></tr>
+              <tr><td>출하량·점유율 확대</td><td>확인 중</td></tr>
+              <tr><td>NBM 다년계약</td><td>지속성의 핵심, 세부 조건은 제한적 공개</td></tr>
+            </tbody></table>
+            <div class="callout bad"><b>베어 시나리오:</b> 공급 증가 → ASP 하락 → 가격 효과 소멸 → 데이터센터 비트 성장만으로 마진을 방어하지 못하면 현재 EPS는 피크가 됩니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s7">[S7] 가격·믹스 및 NBM</a><a class="source-chip" href="#s10">[S10] 공급·가동률 위험</a></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="valuation">
+        <div class="section-head"><h2>C. ROIC, 경쟁사, 30배 상승 이후</h2><p>좋은 기업과 좋은 주가 구간을 분리합니다.</p></div>
+
+        <details class="qna" data-keywords="워런 버핏 roic 30% compounder 장기">
+          <summary><span class="qnum">Q13</span><span class="qtitle">Sandisk는 버핏이 선호하는 장기 ROIC 30% 이상 기업이 될 수 있나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">아직 미검증</span> 현재의 높은 이익과 ROIC는 업황·가격·믹스 효과가 겹친 수치입니다. 버핏식 기업은 높은 ROIC 자체보다 <b>적은 추가 자본으로 높은 ROIC를 반복</b>해야 합니다.</p>
+            <p>Sandisk는 장부상 팹을 직접 소유하지 않는 것처럼 보여도 Flash Ventures 설비투자·고정비·리스 보증을 실질적으로 절반 부담합니다. 따라서 소프트웨어처럼 자본이 거의 필요 없는 구조가 아닙니다.</p>
+            <div class="callout good"><b>30% 장기 ROIC 가능 조건:</b> eSSD 비중 상승 + NBM이 가격·마진을 방어 + 공급 확대 후에도 GM 45~55% 이상 + JV 현금투입을 반영한 FCF 성장.</div>
+            <p>현재 평가는 “이미 검증된 복리기업”보다 <b>사이클 기업이 구조적 AI 스토리지 기업으로 전환하는지 시험받는 단계</b>가 적절합니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s10">[S10] 실질 자본의무</a><a class="source-chip" href="#s11">[S11] JV 투자·보증</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="roic 순위 하이닉스 삼성 마이크론 샌디스크">
+          <summary><span class="qnum">Q14</span><span class="qtitle">향후 5~10년 높은 ROIC를 오래 유지할 가능성 순위는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">주관적 장기 순위</span> <b>① SK hynix → ② Samsung Memory → ③ Micron → ④ Sandisk</b>로 봅니다. 삼성전자는 연결회사 전체가 아니라 메모리 사업 관점입니다.</p>
+            <table><thead><tr><th>순위</th><th>회사</th><th>지속성 논리</th><th>핵심 위험</th></tr></thead><tbody>
+              <tr><td>1</td><td>SK hynix</td><td>HBM 고객 인증·패키징·수율 선도, 고부가 DRAM과 eSSD</td><td>고객 집중·대규모 투자·경쟁 추격</td></tr>
+              <tr><td>2</td><td>Samsung Memory</td><td>규모·제품군·현금력·DRAM/NAND/로직 통합</td><td>조직 복잡성·비메모리 투자 부담</td></tr>
+              <tr><td>3</td><td>Micron</td><td>HBM·DRAM·NAND·eSSD 기술력과 미국 전략자산</td><td>신규 팹 CAPEX와 작은 규모</td></tr>
+              <tr><td>4</td><td>Sandisk</td><td>AI eSSD와 NBM의 큰 개선 가능성</td><td>NAND 단일 노출·가격 사이클·JV 자본의무</td></tr>
+            </tbody></table>
+            <p>단기 최고 ROIC는 순위가 바뀔 수 있지만, “높고 오래”라는 조건에서는 HBM·DRAM의 차별화와 규모가 더 유리합니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s14">[S14] Micron 실적</a><a class="source-chip" href="#s15">[S15] SK hynix 실적</a><a class="source-chip" href="#s16">[S16] Samsung Memory 실적</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="팔란티어 성장성 비교 pltr software sandisk">
+          <summary><span class="qnum">Q15</span><span class="qtitle">Sandisk의 장기 성장성은 Palantir보다 좋은가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">성장의 속도와 질이 다름</span> 단기 매출·EPS 증가율은 Sandisk가 더 높을 수 있지만, 5~10년 성장의 반복성과 자본효율은 Palantir 같은 소프트웨어 기업이 구조적으로 우위입니다.</p>
+            <table><thead><tr><th>구분</th><th>Sandisk</th><th>Palantir형 소프트웨어</th></tr></thead><tbody>
+              <tr><td>성장 원천</td><td>ASP·비트 출하·제품 믹스·점유율</td><td>고객·계약·사용량·제품 확장</td></tr>
+              <tr><td>추가 자본</td><td>공정 전환·설비·재고 필요</td><td>상대적으로 낮음</td></tr>
+              <tr><td>마진 변동</td><td>사이클에 매우 민감</td><td>상대적으로 안정</td></tr>
+              <tr><td>단기 이익 탄력</td><td>매우 큼</td><td>큼</td></tr>
+              <tr><td>장기 예측 가능성</td><td>낮음~중간</td><td>중간~높음</td></tr>
+            </tbody></table>
+            <p>따라서 Sandisk가 Palantir보다 좋은 투자일 수는 있어도, 그 이유는 “성장 질이 더 좋아서”가 아니라 <b>현재 가격이 정상화 이익 대비 더 싸고, 이익 추정치가 계속 상향될 가능성</b>이 있기 때문이어야 합니다.</p>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="30배 10배 횡보 하락 테슬라 팔란티어 엔비디아 확률">
+          <summary><span class="qnum">Q16</span><span class="qtitle">1년간 30배 오른 Sandisk도 몇 달~몇 년 횡보하거나 하락할 가능성이 높은가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">가능성 높음</span> 주가가 10배·30배 올랐다는 사실이 수학적으로 하락을 강제하지는 않습니다. 그러나 기대치·수급·포지셔닝이 과도하게 앞서면, 실적이 계속 좋아도 주가는 이익 추정치가 따라올 때까지 횡보할 수 있습니다.</p>
+            <p>Sandisk는 특히 소프트웨어가 아니라 사이클 기업이므로, “성장률 둔화”보다 “현재 이익이 피크인가”라는 의심이 생기면 멀티플과 EPS가 동시에 낮아질 수 있습니다.</p>
+            <table><thead><tr><th>향후 경로</th><th>주관적 확률</th><th>조건</th></tr></thead><tbody>
+              <tr><td>6~18개월 고점 미회복·넓은 박스권</td><td><b>65~75%</b></td><td>실적은 좋지만 성장률 둔화, 피크 마진 논쟁 지속</td></tr>
+              <tr><td>고점 대비 50% 이상 조정 경험</td><td><b>55~65%</b></td><td>이미 큰 조정이 진행된 만큼 추가 하락폭은 가이던스에 좌우</td></tr>
+              <tr><td>12개월 내 신속한 신고가 회복</td><td><b>20~30%</b></td><td>FY27 EPS·FCF가 시장 기대를 연속 상회</td></tr>
+              <tr><td>현재 수준에서 추가 50% 하락</td><td><b>10~20%</b></td><td>공급과잉·마진 급락·AI 수요 둔화가 동시에 발생</td></tr>
+            </tbody></table>
+            <p class="note">※ 통계적 예측모델이 아니라, 2026-07-21 공개 정보에 기반한 투자 시나리오 가중치입니다.</p>
+            <div class="callout warn"><b>핵심:</b> “30배 올랐으니 무조건 50% 더 하락”은 틀립니다. 그러나 “이익이 아무리 좋아도 기대치 소화에 긴 시간이 필요할 확률이 높다”는 판단은 타당합니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s18">[S18] 52주 가격 범위</a><a class="source-chip" href="#s7">[S7] 이익 추정치 급변의 근거</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="왜 투자 이유 어디서 찾아야 bit shipment asp nbm fcf 체크리스트">
+          <summary><span class="qnum">Q17</span><span class="qtitle">횡보·하락 가능성이 높은데도 투자한다면, 그 이유는 어디서 찾아야 하나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">가격이 아니라 증거에서 찾기</span> “AI가 크니까”가 아니라, 다음 네 가지가 주가 조정 속도보다 빠르게 개선되는지에서 이유를 찾아야 합니다.</p>
+            <ol>
+              <li><b>비트 출하량과 점유율:</b> 매출 증가가 ASP만이 아니라 실제 물량·고객 수 증가로 이어지는가.</li>
+              <li><b>정상화 마진:</b> 공급 부족이 완화돼도 GM 45~55% 이상을 방어할 제품 믹스와 계약이 있는가.</li>
+              <li><b>NBM의 질:</b> 다년 계약이 단순 물량 약속인지, 최소 구매·선급금·마진 보호를 포함하는지.</li>
+              <li><b>진짜 FCF:</b> Flash Ventures의 웨이퍼 대금, 대출, 설비지원, 리스보증까지 반영한 뒤에도 FCF가 성장하는가.</li>
+            </ol>
+            <div class="callout good"><b>투자할 이유가 생기는 순간:</b> 주가가 떨어지는데 정상화 EPS·FCF 추정치는 유지 또는 상승하고, 데이터센터 비트 출하와 고객 인증이 계속 늘어날 때.</div>
+            <div class="callout bad"><b>투자하지 말아야 할 순간:</b> 주가가 싸 보여도 매출 증가의 대부분이 가격이고, 고객 주문이 앞당겨졌으며, 신규 공급능력이 빠르게 들어와 정상화 이익이 계속 하향될 때.</div>
+          </div>
+        </details>
+      </section>
+
+      <section id="checklist">
+        <div class="section-head"><h2>D. 다음 실적에서 확인할 9개 항목</h2><p>내러티브를 숫자로 바꾸는 체크리스트입니다.</p></div>
+        <div class="decision">
+          <div class="box"><h4 style="color:var(--green)">강화 신호</h4><p>데이터센터 비트 출하·고객 수 증가, FY27 공급 대부분 계약, NBM 선급금·의무구매, GM 정상화 바닥 상향.</p></div>
+          <div class="box"><h4 style="color:var(--orange)">중립 신호</h4><p>매출·EPS는 상회하지만 ASP 기여가 대부분, 장기 마진 답변 회피, 공급 증설과 수요가 비슷하게 증가.</p></div>
+          <div class="box"><h4 style="color:var(--red)">약화 신호</h4><p>비트 출하 둔화, 고객 재고 증가, 주문 앞당김, NBM 세부조건 약함, Flash Ventures 현금투입 급증.</p></div>
+        </div>
+        <table>
+          <thead><tr><th>#</th><th>확인 항목</th><th>좋은 답</th><th>나쁜 답</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>데이터센터 매출 분해</td><td>비트·고객·제품 믹스가 동시 성장</td><td>대부분 ASP 상승</td></tr>
+            <tr><td>2</td><td>eSSD 고객 인증</td><td>신규 하이퍼스케일러 양산 전환</td><td>계속 “평가 중”</td></tr>
+            <tr><td>3</td><td>NBM 재무조건</td><td>선급금·최소구매·가격방어</td><td>취소 가능한 물량예약</td></tr>
+            <tr><td>4</td><td>FY27 비트 공급</td><td>대부분 계약·타이트</td><td>미판매 물량 증가</td></tr>
+            <tr><td>5</td><td>정상화 GM</td><td>50% 안팎 이상의 근거 제시</td><td>80%만 강조하고 장기 답변 회피</td></tr>
+            <tr><td>6</td><td>BiCS8 원가 하락</td><td>수율·비트당 원가 개선</td><td>전환 비용·수율 문제</td></tr>
+            <tr><td>7</td><td>JV 현금투입</td><td>FCF 대비 안정적</td><td>설비대출·보증 급증</td></tr>
+            <tr><td>8</td><td>경쟁사 증설</td><td>절제된 공급 증가</td><td>삼성·Micron·Kioxia 공격 증설</td></tr>
+            <tr><td>9</td><td>AI 스토리지 수요</td><td>KV SSD·캐시 계층 실수주</td><td>기술 내러티브만 있고 주문 없음</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="sources">
+        <div class="section-head"><h2>출처</h2><p>회사 공시·공식 문서·논문을 우선하고, 가격 범위와 최신 수요 상황에 한해 보도자료를 보조적으로 사용했습니다.</p></div>
+        <ol class="sources">
+          <li id="s1"><b>Kimi Help Center — K3 / K3 Swarm.</b> 2.8T 파라미터, KDA, 1M 컨텍스트, Swarm 용도. <a href="https://www.kimi.com/ko-kr/help/getting-started/agentic-chat" target="_blank" rel="noopener">원문</a></li>
+          <li id="s2"><b>Kimi K3 Tech Blog.</b> K3의 공식 아키텍처와 장기 작업 포지셔닝. <a href="https://www.kimi.com/fr-fr/blog/kimi-k3" target="_blank" rel="noopener">원문</a></li>
+          <li id="s3"><b>Kimi Linear: An Expressive, Efficient Attention Architecture.</b> KV 캐시 최대 75% 감소·1M 컨텍스트 최대 6배 처리량은 별도 48B 연구 결과. <a href="https://arxiv.org/abs/2510.26692" target="_blank" rel="noopener">논문</a></li>
+          <li id="s4"><b>Mooncake: A KVCache-centric Disaggregated Architecture for LLM Serving.</b> CPU·DRAM·SSD를 활용한 Kimi 서빙 캐시. <a href="https://arxiv.org/abs/2407.00079" target="_blank" rel="noopener">논문</a></li>
+          <li id="s5"><b>Reuters, 2026-07-20.</b> K3 수요가 연산 용량을 넘어 신규 구독을 일시 중단했다는 보도. <a href="https://www.reuters.com/legal/transactional/chinas-moonshot-pauses-kimi-subscriptions-amid-hot-demand-ipo-push-2026-07-20/" target="_blank" rel="noopener">기사</a></li>
+          <li id="s6"><b>Associated Press, 2026-07-20.</b> K3 수요 급증과 인프라 제약 보도. <a href="https://apnews.com/article/4c66a2e0f557ce79d3cc2d769c9a6226" target="_blank" rel="noopener">기사</a></li>
+          <li id="s7"><b>Sandisk FY2026 Q3 Results, 2026-04-30.</b> 매출 $5.95B, GM 78.4%, 데이터센터 +233% QoQ, Q4 GM 79~81%, NBM. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-third-quarter-2026-financial-results" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s8"><b>Sandisk FY2026 Q2 Results, 2026-01-29.</b> 매출 $3.025B, GM 50.9%, 데이터센터 $440M. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-second-quarter-2026-financial-results" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s9"><b>Sandisk FY2026 Q1 Results, 2025-11-06.</b> 매출 $2.308B, GM 29.8%, 초기 고객 인증 현황. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-first-quarter-2026-financial-results" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s10"><b>Sandisk FY2025 Form 10-K.</b> Flash Ventures 49.9%, 공동 기술개발, 절반 출력권, 원가+소폭 마진, 고정비·CAPEX 의무. <a href="https://www.sec.gov/Archives/edgar/data/2023554/000202355425000034/sndk-20250627.htm" target="_blank" rel="noopener">SEC</a></li>
+          <li id="s11"><b>Sandisk Form 10-Q, quarter ended 2026-04-03.</b> JV 대출·투자·보증·고정비 의무 최신치. <a href="https://www.sec.gov/Archives/edgar/data/2023554/000162828026029401/sndk-20260403.htm" target="_blank" rel="noopener">SEC</a></li>
+          <li id="s12"><b>Sandisk SN670 NVMe SSD.</b> BiCS8·UltraQLC, 최대 122.88TB, 엔터프라이즈 보호·보안 기능. <a href="https://www.sandisk.com/ko-kr/products/ssd/enterprise-ssd/sandisk-sn670-nvme-ssd?sku=SN670U2015123TTOG" target="_blank" rel="noopener">제품 문서</a></li>
+          <li id="s13"><b>Micron 6600 ION 245TB SSD.</b> G9 QLC 기반 245TB 데이터센터 SSD 출하. <a href="https://investors.micron.com/news-releases/news-release-details/industry-leading-245tb-micron-6600-ion-data-center-ssd-now" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s14"><b>Micron FY2026 Q3 Results.</b> AI 메모리·NAND·데이터센터 실적과 향후 가이던스. <a href="https://investors.micron.com/news-releases/news-release-details/micron-technology-inc-reports-record-results-third-quarter" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s15"><b>SK hynix FY2025 Results.</b> HBM 성장, 2025년 영업이익률 49%. <a href="https://news.skhynix.com/sk-hynix-announces-fy25-financial-results/" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s16"><b>Samsung Electronics Q1 2026 Results.</b> Memory 사업의 ASP 상승·HBM·SSD 성장. <a href="https://news.samsung.com/global/samsung-electronics-announces-first-quarter-2026-results" target="_blank" rel="noopener">공식 발표</a></li>
+          <li id="s17"><b>Sandisk separation from Western Digital, 2025-02-24.</b> 독립 상장 시작. <a href="https://www.sec.gov/Archives/edgar/data/2023554/000119312525033433/d849281dex991.htm" target="_blank" rel="noopener">SEC/회사 발표</a></li>
+          <li id="s18"><b>Sandisk 52-week historical range.</b> 저점·고점 기준의 상승 배수 참고용 2차 자료. <a href="https://ph.investing.com/equities/sandisk-corp-historical-data" target="_blank" rel="noopener">가격 자료</a></li>
+        </ol>
+      </section>
+
+      <footer>
+        <b>FINANCE / 城主 · Research Discipline</b><br><b>면책:</b> 본 문서는 투자 판단을 돕기 위한 시나리오 분석이며 매수·매도 권유가 아닙니다. 확률은 통계적으로 검증된 예측값이 아니라 공개 정보에 대한 주관적 가중치입니다. 특히 Sandisk의 매출총이익률과 EPS는 NAND 가격, 공급 조절, 고객 재고, 제품 믹스에 따라 크게 변할 수 있습니다.
+      </footer>
+    </main>
+  </div>
+</div>
+<script>
+  const qs = [...document.querySelectorAll('details.qna')];
+  function toggleAll(open){ qs.forEach(q=>q.open=open); }
+  document.getElementById('qsearch').addEventListener('input', e=>{
+    const term=e.target.value.trim().toLowerCase();
+    qs.forEach(q=>{
+      const hay=(q.innerText+' '+(q.dataset.keywords||'')).toLowerCase();
+      q.classList.toggle('hidden', term && !hay.includes(term));
+      if(term && hay.includes(term)) q.open=true;
+    });
+  });
+</script>
+</body>
+</html>

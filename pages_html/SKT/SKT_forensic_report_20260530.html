@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>SK텔레콤 Forensic Equity Deep Dive — 2026-05-30</title>
+<style>
+:root {
+  --paper:#f7f2e7;
+  --ink:#2f2d2a;
+  --muted:#6f665c;
+  --line:#d8cfbd;
+  --navy:#315c60;
+  --terracotta:#c46a4a;
+  --mustard:#d19a3a;
+  --sage:#7b9e87;
+  --brown:#5a4a42;
+  --white:#fffaf0;
+}
+* { box-sizing:border-box; }
+html, body { margin:0; background:var(--paper); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif; line-height:1.55; }
+body { padding:34px 18px; }
+.report { max-width:1180px; margin:0 auto; }
+.hero { border:2px solid var(--ink); padding:34px; background:var(--white); position:relative; }
+.hero h1 { margin:0 0 8px; font-size:36px; line-height:1.12; letter-spacing:-0.04em; }
+.hero .kicker { color:var(--terracotta); font-weight:800; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+.hero p { max-width:920px; }
+.badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+.badge { border:1.5px solid var(--ink); padding:8px 12px; background:var(--paper); font-weight:700; }
+.grid { display:grid; grid-template-columns:repeat(12,1fr); gap:18px; margin-top:18px; }
+.card { border:1.5px solid var(--ink); background:var(--white); padding:20px; }
+.card h3 { margin-top:0; letter-spacing:-0.03em; }
+.span4 { grid-column:span 4; }
+.span6 { grid-column:span 6; }
+.span8 { grid-column:span 8; }
+.span12 { grid-column:span 12; }
+.metric { font-size:30px; font-weight:900; color:var(--navy); letter-spacing:-0.05em; }
+.metric small { display:block; font-size:13px; font-weight:600; color:var(--muted); letter-spacing:0; }
+.section { margin-top:34px; }
+.section h2 { font-size:28px; border-bottom:2px solid var(--ink); padding-bottom:10px; letter-spacing:-0.04em; }
+.section h2 span { color:var(--terracotta); }
+h3 { font-size:20px; letter-spacing:-0.03em; }
+.signals { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.signal { background:var(--white); border:1.5px solid var(--ink); padding:16px; min-height:128px; }
+.signal span { display:inline-block; background:var(--navy); color:var(--white); padding:3px 8px; margin-bottom:8px; font-weight:900; }
+.signal b { display:block; font-size:17px; margin-bottom:6px; }
+.signal p { margin:0; color:var(--muted); }
+table { width:100%; border-collapse:collapse; margin:14px 0; background:var(--white); font-size:13.5px; }
+th, td { border:1px solid var(--line); padding:9px 10px; vertical-align:top; }
+th { background:#efe1bf; text-align:left; font-weight:900; }
+td { background:rgba(255,250,240,.72); }
+.note { border-left:5px solid var(--terracotta); padding:12px 16px; background:#fff4df; margin:12px 0; }
+.good { color:var(--navy); font-weight:800; }
+.warn { color:var(--terracotta); font-weight:800; }
+.source { font-size:12.5px; color:var(--muted); }
+.svgbox { border:1.5px solid var(--ink); background:var(--paper); margin:14px 0; overflow:auto; }
+.svgtitle { font:bold 18px "Noto Sans KR", Arial; fill:#2f2d2a; }
+.svglbl { font:12px "Noto Sans KR", Arial; fill:#5a4a42; }
+.svgbridge { font:bold 13px "Noto Sans KR", Arial; fill:#fffaf0; }
+.svgfo { font:11.5px "Noto Sans KR", Arial; color:#2f2d2a; text-align:center; line-height:1.2; font-weight:800; }
+.node { font:bold 17px "Noto Sans KR", Arial; fill:#2f2d2a; }
+.node.small { font:12px "Noto Sans KR", Arial; fill:#2f2d2a; }
+.nodewhite { font:14px "Noto Sans KR", Arial; fill:#fffaf0; }
+.nodewhite.big { font:bold 25px "Noto Sans KR", Arial; fill:#fffaf0; }
+.edge line { stroke:#5a4a42; stroke-width:2.2; }
+.svgnote { font:13px "Noto Sans KR", Arial; fill:#5a4a42; }
+.twocol { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+ul.tight { margin-top:8px; padding-left:20px; }
+.final { border:2px solid var(--ink); background:var(--navy); color:var(--white); padding:22px; }
+.final table td, .final table th { border-color:#9fb3ae; }
+.final table th { background:#d19a3a; color:#2f2d2a; }
+.final table td { background:#fffaf0; color:#2f2d2a; font-weight:700; }
+.footer { margin:36px 0 10px; font-size:12px; color:var(--muted); }
+@media (max-width:900px) {
+  .span4,.span6,.span8 { grid-column:span 12; }
+  .signals,.twocol { grid-template-columns:1fr; }
+  .hero h1 { font-size:28px; }
+}
+</style>
+</head>
+<body>
+<main class="report">
+  <section class="hero">
+    <div class="kicker">Forensic Equity Deep Dive · SK Telecom · 017670</div>
+    <h1>“통신 배당주”로 보이는 회사가<br/>국내 AI 인프라 운영권으로 재정의되는 순간</h1>
+    <p><b>분석 기준일:</b> 2026년 5월 30일(KST) · <b>최신 주가:</b> 2026년 5월 29일 KRX 종가 100,600원 · <b>보유:</b> 250주 · <b>포트폴리오 비중:</b> 3.0%</p>
+    <p class="source">주의: 2026년 5월 30일은 토요일이므로 “현재 주가”는 직전 거래일 2026년 5월 29일 장마감 데이터 기준이다. 이 보고서는 투자 판단 보조자료이며, 공시·회사 발표·뉴스·공개 컨센서스를 재구성한 분석이다.</p>
+    <div class="badges">
+      <span class="badge">투자의견: Buy, 보유자 기준</span>
+      <span class="badge">포트폴리오 행동: 전량 보유</span>
+      <span class="badge">신규 추격매수: 금지</span>
+      <span class="badge">핵심 KPI: AIDC 매출·배당·법률 리스크</span>
+    </div>
+  </section>
+
+  <section class="grid">
+    <div class="card span4"><div class="metric">100,600원<small>5/29 종가, +3.82%, 거래량 약 192만주</small></div></div>
+    <div class="card span4"><div class="metric">21.6조원<small>시가총액, 상장주식 214.79m 기준</small></div></div>
+    <div class="card span4"><div class="metric">1,314억원<small>1Q26 AIDC 매출, +89.3% YoY</small></div></div>
+    <div class="card span4"><div class="metric">5,376억원<small>1Q26 영업이익, 해킹 이후 회복</small></div></div>
+    <div class="card span4"><div class="metric">830원<small>1Q26 분기배당 재개</small></div></div>
+    <div class="card span4"><div class="metric">112,000원<small>12개월 base target</small></div></div>
+  </section>
+
+  <section class="section">
+    <h2><span>1단계.</span> 내가 처음 보면 놓칠 가능성이 높은 10가지 숨은 신호</h2>
+    <div class="signals"><div class="signal"><span>01</span><b>SKB 100%화의 진짜 의미</b><p>공개적으로는 단순 지배구조 정리지만, 실제로는 IDC·fiber·B2B cash flow를 AI DC 플랫폼 안으로 완전히 넣는 사건이다.</p></div>
+<div class="signal"><span>02</span><b>AIDC 매출이 이미 숫자로 찍혔다</b><p>2025년 AIDC 5,199억원, 1Q26 1,314억원(+89.3% YoY). AI 스토리가 아니라 매출 계정으로 움직이기 시작했다.</p></div>
+<div class="signal"><span>03</span><b>AWS 15년 + OpenAI MOU + NVIDIA GPU가 같은 방향</b><p>세 사건은 별도 PR이 아니라 ‘국내 sovereign AI compute’라는 하나의 supply chain을 가리킨다.</p></div>
+<div class="signal"><span>04</span><b>통신 해킹은 악재이면서 회복 기저</b><p>2025년 EPS를 훼손했지만, 2026년에는 가입자 순증·배당 재개·비용 정상화로 기저 효과가 생겼다.</p></div>
+<div class="signal"><span>05</span><b>Anthropic은 투자자산이 아니라 변동성 엔진</b><p>지분율은 작지만 시장은 AI 프록시로 거래한다. 적정가와 주가 반영가의 차이를 분리해야 한다.</p></div>
+<div class="signal"><span>06</span><b>SKT는 칩 회사가 아니다</b><p>NVIDIA·SK hynix와 연결돼도 SKT의 moat는 실리콘이 아니라 전력·부지·망·보안·운영·고객 접근권이다.</p></div>
+<div class="signal"><span>07</span><b>소형 성장주식 자본구조 리스크가 없다</b><p>전환사채/ATM/warrant overhang이 아니라, debt-funded capex와 배당정책이 핵심 리스크다.</p></div>
+<div class="signal"><span>08</span><b>시장 컨센서스가 분산돼 있다</b><p>공개 평균 목표가는 대체로 현재가 근처·아래지만, 상단은 130k~147k/일부 140k로 벌어졌다. 리레이팅 논쟁이 시작됐다는 뜻이다.</p></div>
+<div class="signal"><span>09</span><b>M&amp;A는 외부 인수보다 내부 옵션</b><p>규제·지배주주 구조상 SKT 매각은 낮다. 더 현실적인 옵션은 AIDC JV, 데이터센터 지분유동화, Anthropic 일부 현금화다.</p></div>
+<div class="signal"><span>10</span><b>현재 주가는 base만 사는 가격이 아니다</b><p>100,600원은 통신 정상화만으로는 설명이 부족하다. AIDC·Anthropic·배당 정상화 중 최소 둘은 성공해야 한다.</p></div></div>
+  </section>
+
+  <section class="section">
+    <h2><span>Thesis Discovery.</span> 내가 발견한 핵심 변곡점</h2>
+    <div class="note"><b>핵심 결론:</b> SK텔레콤의 리레이팅은 “무선 ARPU 회복”만으로는 설명되지 않는다. 2025년 해킹으로 눌린 EPS가 2026년 정상화되는 동시에, AWS·OpenAI·NVIDIA·MSIT·SKB 100%화가 모두 <b>국내 AI compute 운영권</b>을 향하고 있다. 그러나 현 주가 100,600원은 이미 이 narrative를 일부 산 가격이다. 따라서 보유는 맞지만, 추격매수는 Q2 KPI 확인 전에는 비대칭이 약하다.</div>
+
+    <h3>A. 기업 정체성 재정의</h3>
+    <table>
+      <tr><th>시장 인식</th><td>고배당 통신 1위, 무선 가입자·ARPU·마케팅비·규제에 좌우되는 레거시 utility.</td></tr>
+      <tr><th>실제 이동 방향</th><td>AI 데이터센터 개발·운영, GPUaaS, sovereign AI compute, B2B AI 인프라, telco AI service의 결합. “AI 반도체 회사”가 아니라 <b>망·전력·부지·보안·고객접점·운영</b> 레이어를 가진 infrastructure platform.</td></tr>
+      <tr><th>Reference platform 여부</th><td>칩셋 reference design은 아니다. 하지만 AWS AI Zone, OpenAI Stargate Korea, NVIDIA Blackwell/GPUaaS, MSIT sovereign AI program이 결합되면 “한국 내 AI workload가 거쳐야 하는 운영/reference 인프라”로 진화할 가능성이 있다.</td></tr>
+      <tr><th>Valuation 변화</th><td>순수 통신: 6~8x normalized P/E 또는 배당수익률 valuation. 변곡점 이후: core telco + AI/DC infra option + Anthropic stake + strategic JV option의 SOTP.</td></tr>
+    </table>
+
+    <h3>B. 고객·공급망·파트너 맵</h3>
+    <div class="svgbox">
+<svg class="ecosvg" viewBox="0 0 980 520" role="img" aria-label="SK텔레콤 AI 인프라 생태계 관계도">
+  <rect x="0" y="0" width="980" height="520" fill="#f7f2e7"/>
+  <text x="40" y="42" class="svgtitle">고객·공급망·파트너 관계도: SKT는 ‘칩’이 아니라 ‘운영권/망/전력/보안’ 레이어</text>
+  <g class="edge">
+    <line x1="490" y1="250" x2="180" y2="110"/><line x1="490" y1="250" x2="180" y2="250"/><line x1="490" y1="250" x2="180" y2="390"/>
+    <line x1="490" y1="250" x2="490" y2="90"/><line x1="490" y1="250" x2="490" y2="410"/>
+    <line x1="490" y1="250" x2="800" y2="110"/><line x1="490" y1="250" x2="800" y2="250"/><line x1="490" y1="250" x2="800" y2="390"/>
+  </g>
+  <g>
+    <rect x="385" y="192" width="210" height="116" rx="14" fill="#315c60"/>
+    <text x="490" y="232" text-anchor="middle" class="nodewhite big">SK텔레콤</text>
+    <text x="490" y="258" text-anchor="middle" class="nodewhite">AIDC operator</text>
+    <text x="490" y="282" text-anchor="middle" class="nodewhite">network + security + B2B</text>
+  </g>
+  <g>
+    <rect x="65" y="70" width="230" height="78" rx="12" fill="#d19a3a"/>
+    <text x="180" y="104" text-anchor="middle" class="node">AWS AI Zone</text>
+    <text x="180" y="128" text-anchor="middle" class="node small">15년 Ulsan infra</text>
+    <rect x="65" y="210" width="230" height="78" rx="12" fill="#7b9e87"/>
+    <text x="180" y="244" text-anchor="middle" class="node">OpenAI / Stargate</text>
+    <text x="180" y="268" text-anchor="middle" class="node small">MOU·JV 후보</text>
+    <rect x="65" y="350" width="230" height="78" rx="12" fill="#c46a4a"/>
+    <text x="180" y="384" text-anchor="middle" class="node">MSIT·Sovereign AI</text>
+    <text x="180" y="408" text-anchor="middle" class="node small">국가 AI 모델 compute</text>
+  </g>
+  <g>
+    <rect x="375" y="52" width="230" height="78" rx="12" fill="#efe1bf"/>
+    <text x="490" y="86" text-anchor="middle" class="node">SK Broadband</text>
+    <text x="490" y="110" text-anchor="middle" class="node small">fiber · IDC · B2B, 100%</text>
+    <rect x="375" y="372" width="230" height="78" rx="12" fill="#efe1bf"/>
+    <text x="490" y="406" text-anchor="middle" class="node">Anthropic / A. / Telco AI</text>
+    <text x="490" y="430" text-anchor="middle" class="node small">모델·서비스 콜옵션</text>
+  </g>
+  <g>
+    <rect x="685" y="70" width="230" height="78" rx="12" fill="#d19a3a"/>
+    <text x="800" y="104" text-anchor="middle" class="node">NVIDIA</text>
+    <text x="800" y="128" text-anchor="middle" class="node small">Blackwell · AI-RAN</text>
+    <rect x="685" y="210" width="230" height="78" rx="12" fill="#7b9e87"/>
+    <text x="800" y="244" text-anchor="middle" class="node">SK hynix / SK Gas / SK AX</text>
+    <text x="800" y="268" text-anchor="middle" class="node small">HBM · LNG power · SI</text>
+    <rect x="685" y="350" width="230" height="78" rx="12" fill="#c46a4a"/>
+    <text x="800" y="384" text-anchor="middle" class="node">기업·스타트업·제조</text>
+    <text x="800" y="408" text-anchor="middle" class="node small">최종 AI workload</text>
+  </g>
+  <text x="40" y="486" class="svgnote">굵은 결론: 고객 lock-in은 단말/RF 칩 전환비용이 아니라 전력·망·데이터 주권·GPU cluster·운영보안·장기계약 전환비용에서 발생한다.</text>
+</svg>
+</div>
+    <table>
+      <thead><tr><th>분류</th><th>확정/관찰된 상대</th><th>경제적 의미</th><th>Lock-in 구조</th><th>주의점</th></tr></thead>
+      <tbody>
+        <tr><td>직접/준직접 고객·파트너</td><td>AWS, OpenAI, MSIT, Lambda, 국내 기업·스타트업, SK Group 제조 계열</td><td>AIDC/GPUaaS/sovereign AI workload 수요</td><td>전력·부지·fiber·security·GPU cluster·운영계약</td><td>계약별 매출 인식·오프테이크 여부는 공개 제한</td></tr>
+        <tr><td>공급망</td><td>NVIDIA, SK hynix, Supermicro/Penguin Solutions, SK Gas, SK Broadband</td><td>GPU·HBM·rack/cooling·power·fiber</td><td>장비 검증, 전력/냉각 설계, 데이터센터 운영 노하우</td><td>GPU/전력 capex가 FCF를 압박할 수 있음</td></tr>
+        <tr><td>최종 수혜 고객</td><td>국내 AI 모델 개발사, 공공기관, 제조업, enterprise AI 사용 기업, 소비자 AI 서비스</td><td>AI workload 증가가 SKT infra demand로 전환</td><td>데이터 주권, latency, compliance, enterprise contract</td><td>클라우드 economics가 AWS/OpenAI 쪽으로 더 많이 귀속될 가능성</td></tr>
+      </tbody>
+    </table>
+
+    <h3>C. 최근 24개월 사건 체인</h3>
+    <table>
+<thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 증거</th></tr></thead><tbody>
+<tr><td>2023-08-13</td><td>Anthropic 전략투자</td><td>SKT가 Anthropic에 추가 1억 달러 투자 및 통신사 특화 LLM 공동개발 계약.</td><td>단순 재무투자보다 telco AI reference layer 확보 시도.</td><td>AI 콜옵션의 원천. 단, 지분율은 희석.</td><td>A</td><td>지분율·장부가·처분제한·Claude 국내 B2B 매출 연동</td></tr>
+<tr><td>2024-12</td><td>GPUaaS/Lambda Korea region</td><td>Gasan 데이터센터 기반 NVIDIA H100 GPUaaS 시작, H200 확장 계획.</td><td>AI DC가 슬로건에서 매출 인프라로 이동.</td><td>AIDC 매출의 초기 proof.</td><td>B</td><td>GPU utilization, 외부 고객 수, 단가</td></tr>
+<tr><td>2025-04-18~04-23</td><td>USIM 데이터 침해 발견·조사팀 구성</td><td>대량 outbound traffic, KISA 신고, 민관 합동조사 착수.</td><td>레거시 통신 신뢰 훼손이 2025 EPS를 압박.</td><td>2026 회복 사이클의 낮은 기저 형성.</td><td>A</td><td>재발방지 이행·소송 충당부채</td></tr>
+<tr><td>2025-06-20/22</td><td>SK-AWS Ulsan AI Zone</td><td>15년 전략 계약. Ulsan AI Zone은 2027년 가동 목표.</td><td>SKT/SKB 네트워크·IDC가 hyperscaler onshore infra로 연결.</td><td>AIDC multiple의 핵심 근거.</td><td>A</td><td>MW, capex 분담, 매출 인식 구조, take-or-pay 여부</td></tr>
+<tr><td>2025-08-05</td><td>Haein Blackwell cluster</td><td>1,000개 이상 NVIDIA Blackwell GPU 기반 sovereign AI infra; MSIT program provider.</td><td>민간·공공 sovereign AI 수요를 lock-in.</td><td>일반 IDC가 아닌 국가 AI 컴퓨팅 레이어.</td><td>A</td><td>GPU 감가상각 대비 매출총이익, 정부/모델 고객 계약</td></tr>
+<tr><td>2025-08-28</td><td>PIPC 과징금</td><td>개인정보위 약 1,348억원 과징금. SKT 행정소송 제기.</td><td>신뢰비용은 실현됐고, 잔여 법률 tail risk는 남음.</td><td>Valuation discount 요인.</td><td>A</td><td>소송 일정, 충당부채, 추가 집단소송</td></tr>
+<tr><td>2025-10-01</td><td>OpenAI Stargate Korea</td><td>OpenAI와 SK가 한국 AI 데이터센터 개발·건설·운영 협력 MOU.</td><td>AWS와 별개로 OpenAI 수요 파이프라인 등장.</td><td>Base에는 소액, bull에는 주요 optionality.</td><td>B</td><td>JV 지분, 용량, 고객/오프테이크 확정</td></tr>
+<tr><td>2025-10-31</td><td>NVIDIA Manufacturing AI Cloud</td><td>SK가 50,000개 이상 NVIDIA GPU·디지털트윈, SKT-NVIDIA AI-RAN 공동개발 발표.</td><td>SKT가 GPU operator 및 6G AI-RAN 실험 레이어에 위치.</td><td>AI/DC와 네트워크 기술 narrative 강화.</td><td>A</td><td>SKT 매출 귀속, SK hynix 내부수요 비중</td></tr>
+<tr><td>2025-11-03</td><td>Jung Jaihun CEO AIDC 비전</td><td>새 CEO가 Ulsan AIDC 1GW 확장, comprehensive AIDC developer 비전 발표.</td><td>경영진 언어가 통신 방어에서 AIDC 개발자로 변화.</td><td>정체성 리레이팅 단서.</td><td>A</td><td>CAPEX funding, 신규 부지·전력 계약</td></tr>
+<tr><td>2026-02-11</td><td>OpenAI/SKT DC 착공 보도</td><td>Reuters: OpenAI, Samsung SDS, SKT가 한국 DC 건설 준비; 초기 20MW, SKT는 timing 검토.</td><td>MOU가 regulatory/public agenda로 이동.</td><td>검증 필요인 bull catalyst.</td><td>B</td><td>착공 공시, JV 계약, 전력/토지/고객 확정</td></tr>
+<tr><td>2026-03-26/27</td><td>SKB 주식교환 결정</td><td>SKT/SKB 이사회·주식교환 계약. 현금 정산 방식.</td><td>SKB minority friction 제거.</td><td>IDC·B2B·fiber 가치 100% 내부화.</td><td>A</td><td>SKB 합병/사업부 재편, 데이터센터 carve-out</td></tr>
+<tr><td>2026-04-13~04-28</td><td>Anthropic 가치·목표가 논쟁</td><td>일부 증권사는 Anthropic 적정가 1.5~1.7조원, 주가 반영은 3~6조원 추정.</td><td>시장 과열과 진짜 콜옵션을 분리해야 함.</td><td>현재 주가가 base보다 bull-light에 가깝다는 증거.</td><td>B</td><td>Anthropic 신규 밸류/IPO, 실제 SKT 지분율</td></tr>
+<tr><td>2026-05-07</td><td>1Q26 실적</td><td>매출 4.3923조, 영업이익 5,376억, 순이익 3,164억; 핸드셋 순증 21만; AIDC +89.3%.</td><td>해킹 이후 정상화 + AI 매출 proof.</td><td>보고서 핵심 KPI 확인.</td><td>A</td><td>2Q AIDC 지속성, 무선 ARPU/churn, 배당</td></tr>
+<tr><td>2026-05-29</td><td>SKB 100% 자회사 완료</td><td>SKB 지분 99.24%→100%, 신주 발행 없음, 내부자금 현금정산.</td><td>희석 없는 B2B/IDC 통합 옵션.</td><td>AIDC/브로드밴드 SOTP 할인 축소.</td><td>A</td><td>통합 KPI 공개, SKB capex/FCF, 합병 가능성</td></tr>
+<tr><td>2026-05-29</td><td>주가 100,600원 마감</td><td>거래량 192만주, 시총 21.6조원, 52주 고가 111,500원.</td><td>시장 가격은 이미 회복+AI 선택권을 매수.</td><td>추격매수보다 확인매수 구간.</td><td>A</td><td>100k 지지, 외국인/기관 수급, Q2 beat quality</td></tr>
+</tbody></table>
+  </section>
+
+  <section class="section">
+    <h2><span>0.</span> Executive Summary</h2>
+    <div class="twocol">
+      <div class="card">
+        <h3>한 문장 투자 thesis</h3>
+        <p>SK텔레콤은 2025년 사이버 사고로 훼손된 통신 이익이 정상화되는 동안, SKB 100% 지배·AWS/OpenAI/NVIDIA/MSIT 축을 통해 국내 AI 인프라 운영권을 확보해 multiple이 재평가될 수 있다.</p>
+      </div>
+      <div class="card">
+        <h3>한 문장 anti-thesis</h3>
+        <p>AIDC와 Anthropic optionality는 상당 부분 주가에 선반영됐고, 실제 경제성이 낮거나 법률·보안 비용이 재발하면 현재 가격은 bull case를 너무 일찍 산 것이 된다.</p>
+      </div>
+    </div>
+    <table>
+      <tr><th>현재 시장이 보는 회사</th><td>고배당 통신주 + 해킹 이후 회복주 + Anthropic proxy.</td></tr>
+      <tr><th>새롭게 보는 회사</th><td>국내 AI compute utility / AIDC developer / telco AI platform. 단, 실리콘 moat가 아닌 물리 인프라 moat.</td></tr>
+      <tr><th>리레이팅 가능 이유</th><td>1Q26 AIDC 매출 +89.3%, AWS 15년 Ulsan, OpenAI MOU, NVIDIA Blackwell/GPUaaS, SKB 100%화가 같은 방향으로 연결된다.</td></tr>
+      <tr><th>리레이팅 실패 조건</th><td>AIDC 매출이 일회성 GPU 리세일/내부거래 성격에 그치거나, OpenAI/AWS economics가 SKT에 낮게 귀속되거나, 사이버 법률비용이 재점화될 때.</td></tr>
+      <tr><th>투자 등급</th><td><b>Buy</b> — 단, 신규 추격매수가 아니라 보유자 기준 Buy. 현 가격은 보수적 내재가치가 아니라 high-base/bull-light 가격이다.</td></tr>
+      <tr><th>포트폴리오 행동</th><td><b>전량 보유.</b> 3.0% 비중 유지. 90,000~92,000원 또는 Q2 AIDC KPI 확인 전까지 신규 매수 금지.</td></tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>1.</span> 시장이 놓친 핵심 변곡점</h2>
+    <table>
+      <thead><tr><th>발견</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 완전 반영 전인가</th></tr></thead>
+      <tbody>
+        <tr><td>SKB 100%화</td><td>2026-05-29 SKB 지분 100%화 완료, 신주 발행 없음.</td><td>fiber·B2B·IDC 통합 의사결정이 빨라진다.</td><td>향후 SKB 합병/데이터센터 carve-out 가능성.</td><td>시장에는 지배구조 정리로만 보일 수 있음.</td></tr>
+        <tr><td>AIDC 매출 proof</td><td>1Q26 AIDC 1,314억원, YoY +89.3%.</td><td>GPUaaS·Gasan utilization이 실제 매출을 만든다.</td><td>장기 gross margin이 통신보다 높을 가능성.</td><td>아직 전체 매출의 작은 비중이라 컨센서스가 낮게 할인.</td></tr>
+        <tr><td>Hyperscaler/sovereign triangulation</td><td>AWS 15년, OpenAI MOU, MSIT sovereign AI, NVIDIA GPU.</td><td>국내 AI compute hub에서 SKT가 운영 레이어를 맡을 가능성.</td><td>take-or-pay/offtake 계약이 붙으면 re-rating 폭이 커짐.</td><td>MOU와 장기계약이 혼재돼 시장이 아직 확정 매출로 못 잡음.</td></tr>
+        <tr><td>Anthropic valuation call option</td><td>SKT 2023년 1억 달러 투자, 지분율은 희석.</td><td>AI proxy 수급이 SKT 주가에 유입.</td><td>IPO/secondary 때 현금화 가능성.</td><td>지분율·락업·실현가능가치가 불투명해 과소/과대평가가 공존.</td></tr>
+        <tr><td>해킹 이후 정상화</td><td>1Q26 핸드셋 순증 21만, 배당 830원 재개.</td><td>2025년 비용 기저가 2026년 이익 회복을 키운다.</td><td>연간 배당이 3,320원 수준으로 회복될 가능성.</td><td>법률 tail risk 때문에 투자자들이 완전 정상화에 할인 적용.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>2.</span> 전통적 비즈니스 모델의 진화</h2>
+    <div class="twocol">
+      <div class="card">
+        <h3>레거시 사업</h3>
+        <ul class="tight">
+          <li>무선 통신, 유선/브로드밴드, IPTV, enterprise data services.</li>
+          <li>가치평가: 배당수익률, ARPU, 가입자, 마케팅비, 규제 리스크 중심.</li>
+          <li>리스크: 요금 규제, 설비투자, 경쟁사 프로모션, 보안 사고.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>현재 성장 축</h3>
+        <ul class="tight">
+          <li>AIDC/GPUaaS, Ulsan AI Zone, sovereign AI infra, telco AI LLM/agent.</li>
+          <li>가치평가: MW, GPU utilization, 장기 계약, B2B 고객 lock-in, FCF conversion.</li>
+          <li>리스크: GPU 감가상각, 전력·냉각, hyperscaler 수익 귀속, 보안·데이터 주권.</li>
+        </ul>
+      </div>
+    </div>
+    <p>판단: SKT는 “제품 판매 기업”이라기보다 <b>운영형 플랫폼</b>으로 진화 중이다. 다만 아직 Equinix/Digital Realty식 pure data-center multiple을 줄 단계는 아니다. 통신 cash cow에 AI/DC option을 얹는 SOTP가 맞다.</p>
+  </section>
+
+  <section class="section">
+    <h2><span>3.</span> 실적으로 증명되는 실체</h2>
+    <div class="svgbox"><svg viewBox="0 0 780 280" role="img" aria-label="매출·영업이익 추이: 2025년 충격 후 1Q26 회복">
+<rect x="0" y="0" width="780" height="280" fill="#f7f2e7"/>
+<text x="60" y="24" class="svgtitle">매출·영업이익 추이: 2025년 충격 후 1Q26 회복</text>
+<line x1="60" y1="230.0" x2="760" y2="230.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="234.0" class="svglbl">0.0</text>
+<line x1="60" y1="182.5" x2="760" y2="182.5" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="186.5" class="svglbl">4.5</text>
+<line x1="60" y1="135.0" x2="760" y2="135.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="139.0" class="svglbl">9.0</text>
+<line x1="60" y1="87.5" x2="760" y2="87.5" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="91.5" class="svglbl">13.5</text>
+<line x1="60" y1="40.0" x2="760" y2="40.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="44.0" class="svglbl">17.9</text>
+<rect x="90.8" y="46.8" width="39.2" height="183.2" rx="3" fill="#315c60"/>
+<rect x="134.0" y="212.9" width="39.2" height="17.1" rx="3" fill="#c46a4a"/>
+<text x="130.0" y="258" text-anchor="middle" class="svglbl">2022</text>
+<rect x="230.8" y="43.5" width="39.2" height="186.5" rx="3" fill="#315c60"/>
+<rect x="274.0" y="211.5" width="39.2" height="18.5" rx="3" fill="#c46a4a"/>
+<text x="270.0" y="258" text-anchor="middle" class="svglbl">2023</text>
+<rect x="370.8" y="40.0" width="39.2" height="190.0" rx="3" fill="#315c60"/>
+<rect x="414.0" y="210.7" width="39.2" height="19.3" rx="3" fill="#c46a4a"/>
+<text x="410.0" y="258" text-anchor="middle" class="svglbl">2024</text>
+<rect x="510.8" y="48.9" width="39.2" height="181.1" rx="3" fill="#315c60"/>
+<rect x="554.0" y="218.7" width="39.2" height="11.3" rx="3" fill="#c46a4a"/>
+<text x="550.0" y="258" text-anchor="middle" class="svglbl">2025</text>
+<rect x="650.8" y="43.9" width="39.2" height="186.1" rx="3" fill="#315c60"/>
+<rect x="694.0" y="207.2" width="39.2" height="22.8" rx="3" fill="#c46a4a"/>
+<text x="690.0" y="258" text-anchor="middle" class="svglbl">1Q26x4*</text>
+<rect x="570" y="16" width="13" height="13" fill="#315c60"/><text x="590" y="27" class="svglbl">매출</text>
+<rect x="645" y="16" width="13" height="13" fill="#c46a4a"/><text x="665" y="27" class="svglbl">영업이익</text>
+</svg></div>
+    <div class="svgbox"><svg viewBox="0 0 780 280" role="img" aria-label="AIDC 매출 trajectory: ‘슬로건’에서 ‘매출 계정’으로">
+<rect x="0" y="0" width="780" height="280" fill="#f7f2e7"/>
+<text x="70" y="24" class="svgtitle">AIDC 매출 trajectory: ‘슬로건’에서 ‘매출 계정’으로</text>
+<line x1="70" y1="230.0" x2="750" y2="230.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="234.0" class="svglbl">0</text>
+<line x1="70" y1="182.5" x2="750" y2="182.5" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="186.5" class="svglbl">62</text>
+<line x1="70" y1="135.0" x2="750" y2="135.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="139.0" class="svglbl">124</text>
+<line x1="70" y1="87.5" x2="750" y2="87.5" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="91.5" class="svglbl">186</text>
+<line x1="70" y1="40.0" x2="750" y2="40.0" stroke="#d8cfbd" stroke-width="1"/>
+<text x="8" y="44.0" class="svglbl">248</text>
+<path d="M 70.0 177.1 L 240.0 130.3 L 410.0 129.6 L 580.0 111.2 L 750.0 69.0" fill="none" stroke="#315c60" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="70.0" cy="177.1" r="5" fill="#c46a4a"/>
+<text x="70.0" y="258" text-anchor="middle" class="svglbl">1Q25</text>
+<text x="70.0" y="167.1" text-anchor="middle" class="svglbl">69</text>
+<circle cx="240.0" cy="130.3" r="5" fill="#c46a4a"/>
+<text x="240.0" y="258" text-anchor="middle" class="svglbl">FY25/4</text>
+<text x="240.0" y="120.3" text-anchor="middle" class="svglbl">130</text>
+<circle cx="410.0" cy="129.6" r="5" fill="#c46a4a"/>
+<text x="410.0" y="258" text-anchor="middle" class="svglbl">1Q26</text>
+<text x="410.0" y="119.6" text-anchor="middle" class="svglbl">131</text>
+<circle cx="580.0" cy="111.2" r="5" fill="#c46a4a"/>
+<text x="580.0" y="258" text-anchor="middle" class="svglbl">26E Q</text>
+<text x="580.0" y="101.2" text-anchor="middle" class="svglbl">155</text>
+<circle cx="750.0" cy="69.0" r="5" fill="#c46a4a"/>
+<text x="750.0" y="258" text-anchor="middle" class="svglbl">27E Q</text>
+<text x="750.0" y="59.0" text-anchor="middle" class="svglbl">210</text>
+</svg></div>
+    <table>
+      <thead><tr><th>항목</th><th>최근 실체</th><th>분석</th><th>다음 분기 확인 KPI</th></tr></thead>
+      <tbody>
+        <tr><td>매출</td><td>1Q26 4.3923조원, FY25 17.099조원</td><td>통신 본업은 회복, AIDC가 성장 축.</td><td>2Q 매출 QoQ, 무선 service revenue, SKB 성장률</td></tr>
+        <tr><td>영업이익</td><td>1Q26 5,376억원, FY25 1.073조원</td><td>2025년 해킹 비용·이탈·보상 이후 회복.</td><td>2Q 영업이익 4,800억~5,300억 이상이면 thesis intact</td></tr>
+        <tr><td>현금/FCF</td><td>FY25 현금 1.49조, 영업현금흐름 3.924조, 유형자산 취득 2.207조</td><td>생존 runway가 아니라 capex allocation이 핵심.</td><td>AI DC capex, project finance, dividend payout</td></tr>
+        <tr><td>AIDC</td><td>1Q26 1,314억원, YoY +89.3%</td><td>Gasan utilization + GPUaaS가 매출 가시화.</td><td>분기 AIDC 1,500억원 이상, GPU utilization, 외부고객 비중</td></tr>
+        <tr><td>배당</td><td>1Q26 830원 재개</td><td>연환산 3,320원은 목표일 뿐 확정 아님.</td><td>Q2·Q3 배당 유지, 기말 감액배당 여부</td></tr>
+      </tbody>
+    </table>
+    <div class="note">Unit economics 추정: AIDC/GPUaaS는 공개된 ASP·GPU 대수·고객 mix가 제한적이다. 본 보고서는 2026E AIDC 매출을 6,200억~7,000억원 범위로 놓고, 2027년 이후에는 AWS/OpenAI/sovereign workloads의 실제 계약 공개 여부에 따라 단계적으로 상향한다.</div>
+  </section>
+
+  <section class="section">
+    <h2><span>4.</span> 고객·파트너·생태계 분석</h2>
+    <table>
+      <thead><tr><th>기업/기관</th><th>관련성</th><th>근거</th><th>투자 해석</th></tr></thead>
+      <tbody>
+        <tr><td>NVIDIA</td><td class="good">높음</td><td>Blackwell GPU cluster, Manufacturing AI Cloud, AI-RAN 공동개발.</td><td>GPU 공급/레퍼런스와 6G AI-RAN narrative. 단, NVIDIA economics가 우위.</td></tr>
+        <tr><td>AWS</td><td class="good">높음</td><td>Ulsan AWS AI Zone, 15년 전략 계약, 2027년 가동 목표.</td><td>가장 확정성 높은 hyperscaler anchor.</td></tr>
+        <tr><td>OpenAI</td><td class="good">중~높음</td><td>Stargate Korea MOU, Reuters의 DC 건설 준비 보도.</td><td>확정 매출보다 bull option. 계약 공개 전까지 base에는 제한 반영.</td></tr>
+        <tr><td>Anthropic</td><td class="good">높음</td><td>2023년 1억 달러 투자 및 telco LLM 협력.</td><td>재무 콜옵션 + telco AI product option. 지분율 희석 주의.</td></tr>
+        <tr><td>SK hynix</td><td class="good">높음</td><td>HBM/AI 인프라 supply chain, SK group AI Factory 수요.</td><td>그룹 시너지. SKT 실적에 직접 귀속되는지는 구분 필요.</td></tr>
+        <tr><td>Samsung</td><td>중간</td><td>OpenAI Korea DC/JV 구도에서 Samsung SDS와 병렬.</td><td>협력/경쟁 혼재. SKT 직접 수익은 미확정.</td></tr>
+        <tr><td>Microsoft/Amazon/Google/Oracle</td><td>중간~낮음</td><td>AWS는 높음. 나머지는 Anthropic/AI ecosystem 간접.</td><td>직접 고객으로 단정 금지.</td></tr>
+        <tr><td>AMD/Intel/Qualcomm/TSMC</td><td>낮음</td><td>칩 공급망 후보이나 SKT와 확정 핵심 계약은 제한.</td><td>“반도체 프록시”로 과잉 해석 금지.</td></tr>
+        <tr><td>Apple/SpaceX/Globalstar/Gogo/Skylo/Verizon</td><td>낮음</td><td>위성·NTN·글로벌 통신 생태계와 테마상 연결되나 공시상 직접 매출 근거 없음.</td><td>관련성 낮음. 보고서 thesis에서 제외.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>5.</span> 숨은 고객 및 M&A optionality</h2>
+    <table>
+      <thead><tr><th>익명/잠재 고객 후보</th><th>근거</th><th>반대 근거</th><th>가능성</th><th>가격 반영 방식</th></tr></thead>
+      <tbody>
+        <tr><td>AWS AI Zone 고객군</td><td>15년 계약, Ulsan onshore infra, AWS AI services.</td><td>AWS가 고객 관계·마진 대부분을 가져갈 수 있음.</td><td>45%</td><td>Base에 AIDC 성장 일부 반영.</td></tr>
+        <tr><td>OpenAI Stargate Korea</td><td>OpenAI/SK MOU, Reuters의 건설 준비 보도.</td><td>MOU/준비 단계, timing 검토.</td><td>25%</td><td>Base 2~3천원, Bull 1.5~2만원/주.</td></tr>
+        <tr><td>MSIT·국가 AI 모델 컨소시엄</td><td>Haein cluster, national AI foundation model program.</td><td>정부 수요는 단가·margin이 제한될 수 있음.</td><td>20%</td><td>Base 안정성 요인, premium 제한.</td></tr>
+        <tr><td>SK Group manufacturing affiliates</td><td>SK hynix 등 제조 AI cloud, digital twin.</td><td>내부거래라 external multiple 적용 어려움.</td><td>10%</td><td>비용 효율·활용률 보강으로 반영.</td></tr>
+      </tbody>
+    </table>
+    <h3>M&A/전략적 옵션</h3>
+    <ul class="tight">
+      <li><b>외부 인수 가능성:</b> 낮음. 대형 기간통신사, SK Inc. 30.57% 지배, 규제/외국인 보유 제한 때문에 hyperscaler가 SKT 전체를 인수할 가능성은 낮다.</li>
+      <li><b>현실적 옵션:</b> AIDC JV, 데이터센터 지분유동화, project finance, infrastructure fund co-investment, SKB 흡수합병/사업부 재편, Anthropic 지분 일부 현금화.</li>
+      <li><b>가격 반영:</b> Base 5,000~8,000원/주, Bull 15,000~25,000원/주, Overshoot 35,000원/주 이상. 외부 takeover premium은 base에 0원.</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2><span>6.</span> 자본구조와 수급 분석</h2>
+    <table>
+      <thead><tr><th>항목</th><th>확인 수치/상태</th><th>해석</th></tr></thead>
+      <tbody>
+        <tr><td>주식 수</td><td>발행주식 214,790,053주, 자기주식 1,807,778주, 유통/발행 차이 존재.</td><td>valuation은 보수적으로 215m fully diluted shares 사용.</td></tr>
+        <tr><td>희석</td><td>미국식 소형주에서 흔한 ATM/전환사채/warrant overhang 없음. 옵션/PSU는 상대적으로 작음.</td><td>주가를 누르는 구조는 희석보다 capex/법률/배당 불확실성.</td></tr>
+        <tr><td>현금</td><td>FY25 cash 1.49조원, ST financial instruments 1,514억원.</td><td>runway 리스크 낮음.</td></tr>
+        <tr><td>부채</td><td>단기차입 1,300억원, 유동성 장기부채 1.123조, 비유동 debentures 7.294조, 장기차입 3,000억원, lease liabilities 약 1.526조.</td><td>AI DC capex가 늘면 leverage와 배당 사이 trade-off 심화.</td></tr>
+        <tr><td>Hybrid bonds</td><td>4,000억원, 2083 만기, 4.95%, equity 분류.</td><td>회계상 equity지만 경제적으로 고정금리 부담.</td></tr>
+        <tr><td>대주주</td><td>SK Inc. 30.57%, 국민연금 6.67%, 자기주식 0.84%.</td><td>외부 M&A 가능성 낮음, 내부 전략 옵션 높음.</td></tr>
+        <tr><td>Short interest</td><td>ADR SKM short interest 3.61m shares, float 0.95%, days-to-cover 1.7.</td><td>short squeeze가 핵심 상승 원인은 아님.</td></tr>
+        <tr><td>최근 거래량</td><td>5/29 KRX 약 192만주, 평균 대비 높음.</td><td>펀더멘털+AI optionality+수급이 섞인 회복 rally.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>7.</span> 기술 분석: 어디에 moat가 있는가</h2>
+    <table>
+      <thead><tr><th>레이어</th><th>SKT 강점</th><th>제품/기술명</th><th>모방 난이도</th><th>전환비용</th></tr></thead>
+      <tbody>
+        <tr><td>GPUaaS</td><td>국내 IDC·망·B2B 고객, GPU cluster 운영</td><td>H100/H200, Blackwell Haein cluster, Petasus AI Cloud, AI Cloud Manager</td><td>중간. 자본만 있으면 가능하지만 운영·전력·보안이 병목.</td><td>높음: workload migration, compliance, reserved capacity.</td></tr>
+        <tr><td>AIDC</td><td>부지·전력·fiber·cooling·망 접속</td><td>Gasan, Ulsan AWS AI Zone, Southwest OpenAI MOU</td><td>높음: 전력계약, 부지, 인허가, cooling, 보안.</td><td>높음: 장기 계약·데이터 주권·latency.</td></tr>
+        <tr><td>AI-RAN/Network AI</td><td>전국 통신망 운영 데이터와 field testing</td><td>NVIDIA AI-RAN pilot, autonomous network operations</td><td>중간~높음: 통신망 실전 검증 필요.</td><td>중간: RAN vendor와 carrier operation 연동.</td></tr>
+        <tr><td>Telco AI service</td><td>가입자 접점과 고객서비스 데이터</td><td>A., telco LLM with Anthropic, AICC</td><td>중간: 모델은 commoditize될 수 있음.</td><td>중간: 서비스 습관·요금제·고객 데이터.</td></tr>
+        <tr><td>실리콘/RF</td><td>직접 강점 아님</td><td>해당 없음</td><td>해당 없음</td><td>SKT thesis의 핵심 아님.</td></tr>
+      </tbody>
+    </table>
+    <div class="note">기술 결론: 이 회사의 기술 장벽은 칩셋명 하나가 아니라 <b>운영·규제·보안·전력·네트워크가 결합된 물리적 lock-in</b>이다. 따라서 반도체식 P/S를 주는 것은 과도하지만, 통신 utility multiple만 주는 것도 과소평가다.</div>
+  </section>
+
+  <section class="section">
+    <h2><span>8.</span> 컨센서스 리비전 분석</h2>
+    <table>
+      <thead><tr><th>출처</th><th>평균 목표가</th><th>상단/하단</th><th>의견</th><th>해석</th></tr></thead>
+      <tbody>
+        <tr><td>Investing.com Korea</td><td>93,740원</td><td>130,000 / 55,000원</td><td>Buy: 14, Hold: 7, Sell: 4</td><td>현재가 100,600원은 평균 목표가보다 높다.</td></tr>
+        <tr><td>NewsPim/Thinkpool</td><td>100,765원</td><td>하나 140,000원, 한국투자 121,000원 언급</td><td>최근 6개월 평균 목표가 +54.7%</td><td>리레이팅 논쟁이 시작됐다.</td></tr>
+        <tr><td>ValueInvesting.io</td><td>98,333원</td><td>147,000 / 55,550원</td><td>Hold</td><td>상단은 bull optionality를 반영하지만 평균은 보수적.</td></tr>
+        <tr><td>MarketScreener</td><td>개별 액션</td><td>Nomura 51,000→89,000, Neutral</td><td>중립 유지</td><td>애널리스트가 가격을 따라 올리는 국면.</td></tr>
+      </tbody>
+    </table>
+    <p><b>판단:</b> 지금 시장은 “base case”를 사는 가격이 아니다. 평균 컨센서스 기준으로는 이미 fair~overvalued이고, 주가가 더 오르려면 <b>beat만으로는 부족</b>하다. 필요한 것은 beat + AIDC 지속 성장 + 배당 정상화 + 법률 tail risk 완화다.</p>
+  </section>
+
+  <section class="section">
+    <h2><span>9.</span> 이벤트 드리븐 분석</h2>
+    <table>
+      <thead><tr><th>이벤트</th><th>시점</th><th>오르기 위한 조건</th><th>빠지기 위한 조건</th></tr></thead>
+      <tbody>
+        <tr><td>2Q26 실적</td><td>미확정. 공개 추정은 2026-08-05 전후.</td><td>AIDC 1,500억원+, wireless 순증/ARPU 방어, 영업이익 5,000억원 내외, 배당 유지.</td><td>AIDC QoQ 정체, 비용 재발, 배당 불확실, 법률비용 확대.</td></tr>
+        <tr><td>OpenAI/Southwest DC</td><td>2026년 중</td><td>JV/용량/MW/capex/offtake 공개.</td><td>MOU 지연·축소·SKT 귀속 economics 미미.</td></tr>
+        <tr><td>Ulsan AWS AI Zone</td><td>2027년 가동 목표</td><td>전력·건설 정상, 고객 demand 공개.</td><td>capex overrun, power delay, AWS economics 편중.</td></tr>
+        <tr><td>Anthropic</td><td>수시</td><td>valuation 상향, IPO/secondary visibility, 지분율 확인.</td><td>AI valuation correction, lock-up/희석, 실제 지분 낮음.</td></tr>
+        <tr><td>사이버 소송</td><td>2026년 이후</td><td>과징금 감액/합의, 재발방지 audit 통과.</td><td>집단소송 확산, 추가 과징금/보상, 보안투자비 급증.</td></tr>
+      </tbody>
+    </table>
+    <h3>다음 컨콜 질문</h3>
+    <ul class="tight">
+      <li>AIDC 매출 1,314억원 중 GPUaaS, colocation, internal group, hyperscaler 관련 매출 비중은?</li>
+      <li>AWS Ulsan의 SKT/SKB 매출 인식 방식은 lease, managed services, capacity charge 중 무엇인가?</li>
+      <li>OpenAI southwest DC는 SKT capex인가 JV/project finance인가?</li>
+      <li>1Q26 배당 830원을 연간 유지할 확률과 조건은?</li>
+      <li>정보보호 투자 5년 계획이 capex/opex/FCF에 미치는 연간 영향은?</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2><span>10.</span> 밸류에이션</h2>
+    <h3>A. DCF</h3>
+    <table>
+      <thead><tr><th>Case</th><th>매출 성장률</th><th>GM/OM/FCF margin 가정</th><th>WACC</th><th>Terminal</th><th>희석 전/후 주당가치</th><th>해석</th></tr></thead>
+      <tbody>
+        <tr><td>Bear</td><td>0~1%</td><td>OP margin 7~8%, FCF margin 4~5%</td><td>8.5%</td><td>g 1.0%, EV/EBITDA 4.5x</td><td>70k / 68k</td><td>해킹/법률/AI capex 부담, 통신 utility로 회귀.</td></tr>
+        <tr><td>Base</td><td>2~4%</td><td>OP margin 10~11%, FCF margin 6~7%</td><td>7.7%</td><td>g 1.5%, EV/EBITDA 5.8x</td><td>112k / 110k</td><td>통신 정상화 + AIDC 유효 매출 + 배당 정상화.</td></tr>
+        <tr><td>Bull</td><td>4~7%</td><td>OP margin 12~13%, FCF margin 8~9%</td><td>7.3%</td><td>g 2.0%, EV/EBITDA 7.0x</td><td>138k / 135k</td><td>AWS/OpenAI/sovereign AI economics가 SKT에 의미 있게 귀속.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>B. FCF Yield / Owner Earnings</h3>
+    <table>
+      <thead><tr><th>Case</th><th>Normalized FCFE</th><th>적정 FCF yield</th><th>적정 시총</th><th>주당가치</th></tr></thead>
+      <tbody>
+        <tr><td>Conservative</td><td>1.25조원</td><td>7.5%</td><td>16.7조원</td><td>78,000원</td></tr>
+        <tr><td>Base</td><td>1.45조원</td><td>6.2%</td><td>23.4조원</td><td>109,000원 + option 3,000원</td></tr>
+        <tr><td>Bull</td><td>1.75조원</td><td>5.8%</td><td>30.2조원</td><td>141,000원, 희석/법률 할인 후 135,000원</td></tr>
+      </tbody>
+    </table>
+
+    <h3>C. 상대가치</h3>
+    <table>
+      <thead><tr><th>Peer set</th><th>적용 multiple</th><th>SKT 프리미엄/디스카운트 이유</th></tr></thead>
+      <tbody>
+        <tr><td>국내 통신: KT, LG U+</td><td>P/S 0.4~0.7x, P/E 8~12x</td><td>SKT는 AIDC/Anthropic으로 프리미엄 가능. 단 현재 P/S 1.2x 이상은 이미 프리미엄.</td></tr>
+        <tr><td>글로벌 통신: NTT, KDDI, Verizon, AT&T</td><td>EV/EBITDA 5~8x</td><td>통신 안정성은 유사하나 AI infra narrative는 SKT가 더 선명.</td></tr>
+        <tr><td>DC infra: Equinix, Digital Realty</td><td>EV/EBITDA/FFO high multiple</td><td>SKT는 pure-play가 아니므로 full multiple 적용 금지. AIDC 부문에만 option multiple 적용.</td></tr>
+        <tr><td>AI infra strategic comps</td><td>P/S 3~8x for growth assets</td><td>AIDC 매출이 반복·외부고객·high utilization로 증명될 때만 부분 적용.</td></tr>
+      </tbody>
+    </table>
+
+    <h3>D. 리레이팅 가치</h3>
+    <div class="svgbox"><svg viewBox="0 0 780 240" role="img" aria-label="valuation bridge">
+<rect x="0" y="0" width="780" height="240" fill="#f7f2e7"/>
+<text x="45" y="26" class="svgtitle">리레이팅 가치 브리지: base target 112,000원</text>
+<rect x="45.0" y="82" width="430.7" height="56" rx="4" fill="#315c60"/>
+<text x="260.3" y="115" text-anchor="middle" class="svgbridge">+76k</text>
+<foreignObject x="45.0" y="174" width="440.7" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="svgfo">통신/브로드밴드<br/>현금흐름</div></foreignObject>
+<rect x="485.7" y="82" width="45.3" height="56" rx="4" fill="#d19a3a"/>
+<text x="508.3" y="115" text-anchor="middle" class="svgbridge">+8k</text>
+<foreignObject x="485.7" y="174" width="55.3" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="svgfo">Anthropic·AI<br/>투자자산</div></foreignObject>
+<rect x="541.0" y="82" width="90.7" height="56" rx="4" fill="#7b9e87"/>
+<text x="586.3" y="115" text-anchor="middle" class="svgbridge">+16k</text>
+<foreignObject x="541.0" y="174" width="100.7" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="svgfo">AIDC<br/>실물옵션</div></foreignObject>
+<rect x="641.7" y="82" width="34.0" height="56" rx="4" fill="#c46a4a"/>
+<text x="658.7" y="115" text-anchor="middle" class="svgbridge">+6k</text>
+<foreignObject x="641.7" y="174" width="44.0" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="svgfo">SKB 100%<br/>통합효율</div></foreignObject>
+<rect x="685.7" y="144" width="79.3" height="34" rx="4" fill="#5a4a42"/>
+<text x="725.3" y="166" text-anchor="middle" class="svgbridge">-14k</text>
+<foreignObject x="685.7" y="174" width="89.3" height="56"><div xmlns="http://www.w3.org/1999/xhtml" class="svgfo">순부채·법률<br/>할인</div></foreignObject>
+<line x1="45" y1="142" x2="745" y2="142" stroke="#2f2d2a" stroke-width="1.5"/>
+</svg></div>
+    <table>
+      <thead><tr><th>구분</th><th>현재 정체성 multiple</th><th>변곡점 이후 target</th><th>주당 가치 영향</th></tr></thead>
+      <tbody>
+        <tr><td>Core telco</td><td>배당/FCF yield 중심</td><td>FCF yield 6~7%</td><td>76k~92k</td></tr>
+        <tr><td>AIDC</td><td>매출 일부로 저평가</td><td>2027E 매출 0.8~1.0조에 2~4x sales</td><td>8k~25k</td></tr>
+        <tr><td>Anthropic/AI investments</td><td>변동성 높음</td><td>확률가중 NAV 0.8~1.7조</td><td>4k~8k base, 15k+ bull</td></tr>
+        <tr><td>SKB 통합</td><td>지배구조 discount</td><td>100% control, B2B/IDC 통합</td><td>4k~8k</td></tr>
+        <tr><td>법률/보안/부채 할인</td><td>불확실성</td><td>tail risk discount</td><td>-10k~-18k</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>11.</span> 목표가 체계</h2>
+    <table>
+      <thead><tr><th>Target</th><th>가격</th><th>적용 매출/EPS/FCF</th><th>Multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th></tr></thead>
+      <tbody>
+        <tr><td>보수적 내재가치</td><td>78,000원</td><td>FCFE 1.25조</td><td>7.5% yield</td><td>215m</td><td>25%</td><td>통신 정상화만 반영</td><td>법률비용 확대</td></tr>
+        <tr><td>12개월 base target</td><td>112,000원</td><td>2026E 매출 17.7조, OP 1.83조, FCFE 1.45조</td><td>FCF yield 6.2% + option</td><td>215m</td><td>45%</td><td>Q2 beat, AIDC 성장, 배당 유지</td><td>AIDC QoQ 정체</td></tr>
+        <tr><td>Bull case target</td><td>135,000원</td><td>2027E AIDC 0.8조+, OP 2.1조+</td><td>AIDC 3x sales partial + core FCF</td><td>215m</td><td>20%</td><td>OpenAI/AWS 계약구조 공개</td><td>SKT 귀속 economics 낮음</td></tr>
+        <tr><td>과열 overshoot</td><td>160,000원</td><td>Anthropic/NVIDIA/OpenAI narrative full 반영</td><td>AI option premium 극대화</td><td>215m</td><td>7%</td><td>Anthropic valuation/IPO + OpenAI DC 확정</td><td>AI valuation correction</td></tr>
+        <tr><td>실적 전 trading target</td><td>104,000~108,000원</td><td>단기 모멘텀</td><td>기대감 multiple</td><td>215m</td><td>50%</td><td>수급·컨센서스 상향</td><td>현재가 대비 risk/reward 둔화</td></tr>
+        <tr><td>실적 후 재평가 target</td><td>115,000원</td><td>Q2 AIDC 1,500억원+, OP 5,000억원대</td><td>base multiple 상단</td><td>215m</td><td>40%</td><td>beat + 배당 + 가이던스</td><td>beat만 있고 guide 없음</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>12.</span> 2020~2030 멀티플 밴드</h2>
+    <div class="note">2021년 SK스퀘어 분할 및 2025년 사이버 사고로 시계열 비교성이 낮다. 아래 표의 2020~2023 multiple은 공개 재무·주가 데이터를 바탕으로 재구성한 indicative band이며, 2024~현재는 공시 수치와 현재 주가 기반이다. 미래치는 본 보고서의 가정이다.</div>
+    <table>
+<thead><tr><th>연도/Case</th><th>P/S</th><th>P/E</th><th>EV/EBITDA</th><th>P/FCF</th><th>비고</th></tr></thead><tbody>
+<tr><td>2020</td><td>0.4</td><td>11.5</td><td>3.7</td><td>8.5</td><td>실제/재구성: 분할 전후 비교 주의</td></tr>
+<tr><td>2021</td><td>0.6</td><td>10.0</td><td>3.9</td><td>8.0</td><td>분할 연도: 비교성 낮음</td></tr>
+<tr><td>2022</td><td>0.58</td><td>8.5</td><td>3.8</td><td>7.8</td><td>정상화</td></tr>
+<tr><td>2023</td><td>0.6</td><td>8.2</td><td>4.0</td><td>7.5</td><td>AI Pyramid 발표 후</td></tr>
+<tr><td>2024</td><td>0.66</td><td>9.6</td><td>3.6</td><td>6.8</td><td>자사주 소각 반영</td></tr>
+<tr><td>2025</td><td>0.67</td><td>29.3</td><td>4.2</td><td>7.2</td><td>해킹 비용·EPS 훼손</td></tr>
+<tr><td>현재</td><td>1.26</td><td>53.1</td><td>6.6</td><td>13.5</td><td>5/29 주가 100,600원 기준</td></tr>
+<tr><td>2027 Bear</td><td>0.85</td><td>14.0</td><td>5.2</td><td>11.0</td><td>추정</td></tr>
+<tr><td>2027 Base</td><td>1.2</td><td>16.0</td><td>6.0</td><td>12.5</td><td>추정</td></tr>
+<tr><td>2027 Bull</td><td>1.55</td><td>20.0</td><td>7.5</td><td>15.0</td><td>추정</td></tr>
+<tr><td>2030 Bear</td><td>0.8</td><td>11.0</td><td>4.7</td><td>10.0</td><td>추정</td></tr>
+<tr><td>2030 Base</td><td>1.25</td><td>14.0</td><td>6.5</td><td>12.0</td><td>추정</td></tr>
+<tr><td>2030 Bull</td><td>1.7</td><td>18.0</td><td>8.5</td><td>16.0</td><td>추정</td></tr>
+</tbody></table>
+  </section>
+
+  <section class="section">
+    <h2><span>13.</span> 리스크 관리: thesis break trigger</h2>
+    <table>
+      <thead><tr><th>리스크</th><th>Thesis break 지표</th><th>가격 반영 시작</th><th>확인 시점</th><th>대응</th></tr></thead>
+      <tbody>
+        <tr><td>출하/가동 지연</td><td>AWS/OpenAI/Ulsan 일정 6개월+ 지연</td><td>95,000원 하회</td><td>분기별</td><td>신규매수 금지, 20% 축소</td></tr>
+        <tr><td>AIDC margin 리스크</td><td>AIDC 성장에도 OP margin 개선 없음</td><td>92,000원</td><td>2Q/3Q26</td><td>target multiple 하향</td></tr>
+        <tr><td>현금 소진/부채</td><td>AI capex로 net debt/EBITDA 급등, 배당 축소</td><td>90,000원</td><td>반기</td><td>비중 2% 이하 축소</td></tr>
+        <tr><td>고객 집중</td><td>AWS/OpenAI 등 특정 고객 economics 공개 후 SKT margin 낮음</td><td>95,000원</td><td>계약 공시</td><td>AIDC option 가치 절반 삭감</td></tr>
+        <tr><td>익명 고객 오판</td><td>OpenAI DC가 SKT와 무관하거나 소규모로 확정</td><td>96,000원</td><td>2026년 중</td><td>bull target 폐기</td></tr>
+        <tr><td>경쟁사 대체</td><td>KT/LG U+/네이버/삼성SDS가 주요 sovereign workload 수주</td><td>93,000원</td><td>수주 발표</td><td>AIDC growth assumption 하향</td></tr>
+        <tr><td>규제/보안</td><td>추가 과징금·집단소송·보안사고 재발</td><td>88,000원</td><td>상시</td><td>즉시 30~50% 축소</td></tr>
+        <tr><td>Short squeeze 이후 급락</td><td>거래량 급증 후 100k 이탈, ADR short 감소 지속</td><td>100,000원</td><td>일간</td><td>추격매수 금지 유지</td></tr>
+        <tr><td>M&A 기대 과열</td><td>외부 인수 루머만으로 140k+ 도달</td><td>135,000원 이상</td><td>상시</td><td>50주 이상 차익실현</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>14.</span> 포트폴리오 실행안</h2>
+    <table>
+      <tr><th>현재 보유</th><td>250주, 평가액 25,150,000원, 포트폴리오 3.0%</td></tr>
+      <tr><th>추천 행동</th><td><b>전량 보유</b>. 현재가에서 신규 추격매수 금지.</td></tr>
+      <tr><th>목표 비중</th><td>기본 3.0%, Q2 AIDC KPI 확인 시 3.5%까지. 135,000원 이상에서는 2.5%로 축소.</td></tr>
+      <tr><th>매수 가격</th><td>90,000~92,000원: 25주씩 2차 분할. 단, AIDC 매출·배당 thesis가 intact일 때만.</td></tr>
+      <tr><th>매도 가격</th><td>128,000~135,000원: 50주 차익실현. 155,000~160,000원: 추가 75주 축소.</td></tr>
+      <tr><th>실적 발표 전</th><td>100,000원 부근 보유. 104,000~108,000원까지는 trading band, 신규 매수는 금지.</td></tr>
+      <tr><th>실적 발표 후</th><td>AIDC 1,500억원+, OP 5,000억원대, 배당 유지면 보유 지속/소폭 확대. Beat만 있고 가이던스 없으면 50주 축소 검토.</td></tr>
+      <tr><th>Thesis 훼손 시</th><td>82,000원 또는 AIDC/배당/법률 중 2개 이상 훼손 시 125주까지 축소.</td></tr>
+    </table>
+    <table>
+      <thead><tr><th>Case</th><th>가격</th><th>주가손익</th><th>배당 가정</th><th>보유 250주 기준 기대손익</th></tr></thead>
+      <tbody>
+        <tr><td>Base</td><td>112,000원</td><td>2,850,000원</td><td>830,000원</td><td>3,680,000원</td></tr>
+        <tr><td>Bull</td><td>135,000원</td><td>8,600,000원</td><td>830,000원</td><td>9,430,000원</td></tr>
+        <tr><td>Overshoot</td><td>160,000원</td><td>14,850,000원</td><td>830,000원</td><td>15,680,000원</td></tr>
+        <tr><td>Downside</td><td>82,000원</td><td>-4,650,000원</td><td>830,000원</td><td>-3,820,000원</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2><span>15.</span> 보고서 전 자체 점검</h2>
+    <table>
+      <thead><tr><th>점검 질문</th><th>답변</th></tr></thead>
+      <tbody>
+        <tr><td>단순 컨센서스 요약인가?</td><td>아니오. 컨센서스는 현재가 대비 평균 목표가가 낮다는 risk check로 사용했고, thesis는 사건 체인으로 재구성했다.</td></tr>
+        <tr><td>고객·공급망·자금조달·공시를 시간순으로 연결했는가?</td><td>예. AWS/OpenAI/NVIDIA/MSIT/SKB/SEC/해킹 사건을 시간순으로 연결했다.</td></tr>
+        <tr><td>익명 고객 추정에서 확정/추론을 분리했는가?</td><td>예. AWS는 확정성이 높고, OpenAI는 MOU/준비 단계로 분리했다.</td></tr>
+        <tr><td>Bull case를 너무 보수적으로 누르지 않았는가?</td><td>overshoot 160,000원까지 열어두되 base에는 계약 미확정분을 낮게 반영했다.</td></tr>
+        <tr><td>루머를 확정 사실처럼 쓴 부분은 없는가?</td><td>OpenAI DC, Anthropic 지분율, M&A는 모두 검증 필요/확률가중으로 처리했다.</td></tr>
+        <tr><td>자본구조와 희석을 충분히 반영했는가?</td><td>예. 소형 성장주식식 ATM/전환사채 overhang은 없고, capex/debt/배당 리스크로 재정의했다.</td></tr>
+        <tr><td>왜 지금이 변곡점인가?</td><td>1Q26 실적 반등, SKB 100%화 완료, AIDC 매출 growth, hyperscaler/sovereign 계약이 동시에 모였다.</td></tr>
+        <tr><td>다음 실적에서 무엇이 확인되면 수정해야 하나?</td><td>AIDC 매출·margin·외부고객, 배당 유지, 보안/법률 비용, capex funding 구조.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section final">
+    <h2 style="border-color:#fffaf0;color:#fffaf0"><span style="color:#d19a3a">최종</span> 투자 행동 요약</h2>
+    <table>
+      <tr><th>현재 주가</th><td>100,600원</td></tr>
+      <tr><th>보수적 내재가치</th><td>78,000원</td></tr>
+      <tr><th>12개월 base target</th><td>112,000원</td></tr>
+      <tr><th>bull target</th><td>135,000원</td></tr>
+      <tr><th>overshoot target</th><td>160,000원</td></tr>
+      <tr><th>실적 발표 전 trading target</th><td>104,000~108,000원</td></tr>
+      <tr><th>실적 발표 후 재평가 target</th><td>115,000원</td></tr>
+      <tr><th>하방 리스크</th><td>82,000원, 법률/보안 재점화 시 78,000원</td></tr>
+      <tr><th>12개월 기대수익률</th><td>Base 가격수익률 +11.3%, 배당 3,320원 가정 시 총 +14.6%</td></tr>
+      <tr><th>보유 수량 기준 기대손익</th><td>Base 약 +3,680,000원, Bull 약 +9,430,000원, Overshoot 약 +15,680,000원, Downside 약 -3,820,000원</td></tr>
+      <tr><th>추천 행동</th><td>전량 보유</td></tr>
+      <tr><th>목표 비중</th><td>3.0% 유지, 확인 후 최대 3.5%</td></tr>
+      <tr><th>실적 발표 전 행동</th><td>보유. 104,000원 이상 신규 매수 금지.</td></tr>
+      <tr><th>실적 발표 후 행동</th><td>AIDC 1,500억원+·배당 유지·법률비용 안정이면 보유/소폭 확대. 미달 시 50주 축소.</td></tr>
+      <tr><th>목표가 도달 시 행동</th><td>128,000~135,000원 50주 차익실현, 155,000~160,000원 추가 75주 축소.</td></tr>
+      <tr><th>thesis 훼손 시 행동</th><td>82,000원 이탈 또는 AIDC/배당/법률 중 2개 훼손 시 125주까지 축소.</td></tr>
+      <tr><th>가장 중요한 체크포인트</th><td>2Q26 AIDC 매출의 지속성, AWS/OpenAI economics, 배당 830원 유지, 사이버 소송 비용.</td></tr>
+      <tr><th>내가 틀렸다고 인정해야 하는 조건</th><td>AIDC 매출이 2개 분기 연속 1,100억원 이하로 하락하거나, OpenAI/AWS가 SKT 매출·margin에 거의 기여하지 않는 구조로 확인되거나, 추가 보안사고/법률비용으로 배당 정상화가 깨지는 경우.</td></tr>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>Sources</h2>
+    <ol class="source"><li id="S1"><b>[S1]</b> Maeil Business stock page: SK텔레콤 017670 2026-05-29 종가·거래량·시총·PER — <a href="https://stock.mk.co.kr/price/home/KR7017670001">https://stock.mk.co.kr/price/home/KR7017670001</a></li>
+<li id="S2"><b>[S2]</b> Google Finance: 017670 KRX price, market cap, volume, dividend fields — <a href="https://www.google.com/finance/quote/017670:KRX">https://www.google.com/finance/quote/017670:KRX</a></li>
+<li id="S3"><b>[S3]</b> SK Telecom Newsroom: 1Q26 results, AIDC revenue growth, dividend reinstatement — <a href="https://news.sktelecom.com/en/3039">https://news.sktelecom.com/en/3039</a></li>
+<li id="S4"><b>[S4]</b> SEC Form 6-K audited FY2025 consolidated financial statements — <a href="https://www.sec.gov/Archives/edgar/data/1015650/000119312526101145/d25304d6k.htm">https://www.sec.gov/Archives/edgar/data/1015650/000119312526101145/d25304d6k.htm</a></li>
+<li id="S5"><b>[S5]</b> SEC 2025 Form 20-F filing detail — <a href="https://www.sec.gov/Archives/edgar/data/1015650/000119312526188763/0001193125-26-188763-index.htm">https://www.sec.gov/Archives/edgar/data/1015650/000119312526188763/0001193125-26-188763-index.htm</a></li>
+<li id="S6"><b>[S6]</b> SK Group + AWS Ulsan AI Zone announcement — <a href="https://eng.sk.com/news/sk-group-and-aws-team-up-to-build-cloud-computing-infrastructure-to-support-ai-innovation">https://eng.sk.com/news/sk-group-and-aws-team-up-to-build-cloud-computing-infrastructure-to-support-ai-innovation</a></li>
+<li id="S7"><b>[S7]</b> OpenAI: Samsung and SK join Stargate initiative — <a href="https://openai.com/index/samsung-and-sk-join-stargate/">https://openai.com/index/samsung-and-sk-join-stargate/</a></li>
+<li id="S8"><b>[S8]</b> SK Group: OpenAI partnership, SKT to collaborate on Korea AI data center — <a href="https://eng.sk.com/news/sk-group-partners-with-openai-to-advance-global-ai-infrastructure">https://eng.sk.com/news/sk-group-partners-with-openai-to-advance-global-ai-infrastructure</a></li>
+<li id="S9"><b>[S9]</b> SK Telecom AIDC expansion / 1GW vision — <a href="https://news.sktelecom.com/en/2276">https://news.sktelecom.com/en/2276</a></li>
+<li id="S10"><b>[S10]</b> SK Telecom sovereign AI infrastructure powered by NVIDIA Blackwell — <a href="https://news.sktelecom.com/en/2056">https://news.sktelecom.com/en/2056</a></li>
+<li id="S11"><b>[S11]</b> SK Group/NVIDIA Manufacturing AI Cloud and AI-RAN — <a href="https://eng.sk.com/news/sk-accelerates-ai-transformation-in-manufacturing-with-ai-factory-powered-by-nvidia">https://eng.sk.com/news/sk-accelerates-ai-transformation-in-manufacturing-with-ai-factory-powered-by-nvidia</a></li>
+<li id="S12"><b>[S12]</b> SK Telecom/SK Broadband comprehensive share exchange 6-K summary — <a href="https://www.stocktitan.net/sec-filings/SKM/6-k-sk-telecom-co-ltd-current-report-foreign-issuer-7b1b160b82b3.html">https://www.stocktitan.net/sec-filings/SKM/6-k-sk-telecom-co-ltd-current-report-foreign-issuer-7b1b160b82b3.html</a></li>
+<li id="S13"><b>[S13]</b> MSIT final investigation results on SK Telecom data breach — <a href="https://www.msit.go.kr/eng/bbs/view.do%3Bjsessionid%3DhkKV7Gza1mcXySBSv1IJ6e9aM8mgmP8PU6Q6FqvH.AP_msit_1?bbsSeqNo=42&mId=4&mPid=2&nttSeqNo=1139&sCode=eng">https://www.msit.go.kr/eng/bbs/view.do%3Bjsessionid%3DhkKV7Gza1mcXySBSv1IJ6e9aM8mgmP8PU6Q6FqvH.AP_msit_1?bbsSeqNo=42&amp;mId=4&amp;mPid=2&amp;nttSeqNo=1139&amp;sCode=eng</a></li>
+<li id="S14"><b>[S14]</b> Reuters: PIPC fine over SK Telecom data leak — <a href="https://www.reuters.com/sustainability/boards-policy-regulation/south-korea-agency-fines-sk-telecom-97-million-over-major-data-leak-2025-08-28/">https://www.reuters.com/sustainability/boards-policy-regulation/south-korea-agency-fines-sk-telecom-97-million-over-major-data-leak-2025-08-28/</a></li>
+<li id="S15"><b>[S15]</b> SK Telecom official Anthropic investment announcement — <a href="https://www.sktelecom.com/en/press/press_detail.do?idx=1576">https://www.sktelecom.com/en/press/press_detail.do?idx=1576</a></li>
+<li id="S16"><b>[S16]</b> Anthropic SKT partnership announcement — <a href="https://www.anthropic.com/news/skt-partnership-announcement">https://www.anthropic.com/news/skt-partnership-announcement</a></li>
+<li id="S17"><b>[S17]</b> Yonhap: Anthropic stake valuation debate and target revision — <a href="https://www.yna.co.kr/view/AKR20260413027400008">https://www.yna.co.kr/view/AKR20260413027400008</a></li>
+<li id="S18"><b>[S18]</b> Investing.com Korea: 017670 analyst target consensus — <a href="https://kr.investing.com/equities/sk-telecom-co-ltd-consensus-estimates">https://kr.investing.com/equities/sk-telecom-co-ltd-consensus-estimates</a></li>
+<li id="S19"><b>[S19]</b> MarketScreener: analyst actions, Nomura target revision — <a href="https://www.marketscreener.com/quote/stock/SK-TELECOM-CO-LTD-6494908/consensus/">https://www.marketscreener.com/quote/stock/SK-TELECOM-CO-LTD-6494908/consensus/</a></li>
+<li id="S20"><b>[S20]</b> MarketBeat: SKM short interest — <a href="https://www.marketbeat.com/stocks/NYSE/SKM/short-interest/">https://www.marketbeat.com/stocks/NYSE/SKM/short-interest/</a></li>
+<li id="S21"><b>[S21]</b> MarketBeat: estimated next earnings date — <a href="https://www.marketbeat.com/stocks/NYSE/SKM/earnings/">https://www.marketbeat.com/stocks/NYSE/SKM/earnings/</a></li></ol>
+  </section>
+
+  <div class="footer">
+    작성 기준: 2026-05-30. 모든 원화 금액은 별도 표기가 없는 한 KRW. “추정/검증 필요”로 표시한 항목은 확정 사실이 아니다. 본 보고서는 투자자문이 아니며, 투자 결정과 손익은 투자자 본인에게 귀속된다.
+  </div>
+</main>
+</body>
+</html>

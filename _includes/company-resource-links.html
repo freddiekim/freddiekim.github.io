@@ -36,10 +36,24 @@
       {% assign qa_count = qa_count | plus: 1 %}
       {% assign qa_parts = qa_file.name | remove: ".html" | split: "_" %}
       {% assign qa_date_raw = qa_parts | last %}
+      {% assign qa_subject_end = qa_parts.size | minus: 1 %}
+      {% assign qa_subject = "" %}
+      {% for qa_part in qa_parts %}
+        {% if forloop.index0 > 1 and forloop.index0 < qa_subject_end %}
+          {% if qa_subject != "" %}{% assign qa_subject = qa_subject | append: " " %}{% endif %}
+          {% assign qa_subject = qa_subject | append: qa_part %}
+        {% endif %}
+      {% endfor %}
       {% if qa_date_raw.size == 8 %}
         {% assign qa_month = qa_date_raw | slice: 4, 2 | plus: 0 %}
         {% assign qa_day = qa_date_raw | slice: 6, 2 | plus: 0 %}
-        {% capture qa_title %}QnA {{ qa_month }}/{{ qa_day }}{% endcapture %}
+        {% if qa_subject != "" %}
+          {% capture qa_title %}{{ qa_subject }} · {{ qa_month }}/{{ qa_day }}{% endcapture %}
+        {% else %}
+          {% capture qa_title %}QnA {{ qa_month }}/{{ qa_day }}{% endcapture %}
+        {% endif %}
+      {% elsif qa_subject != "" %}
+        {% assign qa_title = qa_subject %}
       {% else %}
         {% assign qa_title = "QnA" %}
       {% endif %}
