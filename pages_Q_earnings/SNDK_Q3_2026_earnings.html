@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandisk FY2026 3Q 실적 정리 · FINANCE / 城主 · 2026-07-26</title>
+<meta name="description" content="첨부된 Sandisk FY2026 3Q earnings presentation과 Form 10-Q만 이용해 정리한 3분기 실적 HTML 브리프.">
+<style>
+:root{
+  --paper:#fbfaf6;
+  --paper-2:#f4ecdc;
+  --card:#ffffff;
+  --ink:#17212b;
+  --muted:#6b7480;
+  --line:#d9d1c2;
+  --blue:#315b7d;
+  --blue-soft:#e8edf1;
+  --orange:#d07a3f;
+  --orange-soft:#f7eadf;
+  --green:#587a5a;
+  --green-soft:#e8f0e5;
+  --red:#a5534e;
+  --red-soft:#f2dfdc;
+  --sand:#efe7d5;
+  --lav:#8d7aa8;
+  --lav-soft:#eee8f3;
+  --navy:#1f3344;
+  --shadow:0 10px 28px rgba(44,53,61,.07);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;
+  line-height:1.62;
+  letter-spacing:-.008em;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 76px}
+.hero{
+  margin:0 -24px 26px;
+  padding:46px max(24px,calc((100vw - 1120px)/2 + 24px)) 34px;
+  background:var(--paper-2);
+  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"城主";
+  position:absolute;
+  right:max(24px,calc((100vw - 1120px)/2 + 24px));
+  top:18px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:92px;
+  line-height:1;
+  color:rgba(49,91,125,.075);
+  font-weight:900;
+  pointer-events:none;
+}
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--blue);
+  font-weight:900;
+}
+h1{
+  font-size:clamp(38px,6vw,66px);
+  line-height:1.03;
+  margin:10px 0 15px;
+  letter-spacing:-.055em;
+  max-width:930px;
+}
+.hero p{font-size:17px;color:var(--muted);max-width:920px;margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.badge{
+  display:inline-block;
+  border:1px solid var(--ink);
+  border-radius:999px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:850;
+  background:#fff;
+  color:var(--ink);
+}
+.badge:nth-child(1){background:var(--orange-soft)}
+.badge:nth-child(2){background:var(--green-soft)}
+.badge:nth-child(3){background:var(--blue-soft)}
+.badge:nth-child(4){background:var(--lav-soft)}
+.verdict{
+  margin:24px 0 0;
+  padding:17px 18px;
+  border:1px solid #c9bda8;
+  border-left:5px solid var(--orange);
+  background:#fffaf1;
+  border-radius:14px;
+  max-width:980px;
+  font-size:16px;
+  box-shadow:var(--shadow);
+}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:24px 0 30px}
+.metric{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--card);
+  padding:17px;
+  min-height:132px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.metric:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--blue)}
+.metric:nth-child(2):before{background:var(--orange)}
+.metric:nth-child(3):before{background:var(--green)}
+.metric:nth-child(4):before{background:var(--lav)}
+.metric b{display:block;font-size:24px;line-height:1.2;margin:7px 0 8px;letter-spacing:-.03em}
+.metric small{color:var(--muted);font-size:12px;line-height:1.5}
+.metric .k{font-size:11px;letter-spacing:.11em;color:var(--muted);font-weight:900;text-transform:uppercase}
+.layout{display:grid;grid-template-columns:244px minmax(0,1fr);gap:26px;margin-top:12px}
+.side{
+  position:sticky;top:16px;align-self:start;
+  border:1px solid var(--line);border-radius:16px;background:#fff;
+  padding:16px;max-height:calc(100vh - 32px);overflow:auto;box-shadow:var(--shadow)
+}
+.side h3{font-size:11px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin:0 0 9px;font-weight:900}
+.side a{display:block;color:#46525e;padding:8px 10px;border-radius:9px;font-size:13px;font-weight:650}
+.side a:hover{background:var(--blue-soft);color:var(--ink);text-decoration:none}
+.toolbar{
+  display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;
+  padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:var(--shadow)
+}
+button{border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:750}
+button:hover{background:var(--sand)}
+section{scroll-margin-top:20px}
+.section-head{margin:38px 0 14px;border-top:2px solid var(--ink);padding-top:15px}
+.section-head h2{font-size:28px;letter-spacing:-.035em;margin:0}
+.section-head h2::first-letter{color:var(--blue)}
+.section-head p{color:var(--muted);margin:4px 0 0;font-size:14px}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius);background:#fff;
+  margin:11px 0;padding:19px 20px;box-shadow:var(--shadow)
+}
+.card h3{margin:0 0 9px;font-size:19px;letter-spacing:-.025em}
+.card p{margin:8px 0}
+.callout{padding:14px 16px;border-radius:13px;margin:15px 0;border:1px solid var(--line);background:var(--sand)}
+.callout.good{border-color:#bdcdb8;background:var(--green-soft)}
+.callout.warn{border-color:#dfc3a8;background:var(--orange-soft)}
+.callout.bad{border-color:#d6b0ac;background:var(--red-soft)}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;border-radius:999px;padding:4px 8px;margin-right:6px;border:1px solid var(--line);background:#fff}
+.tag.good{color:var(--green);border-color:#b9c9b6;background:var(--green-soft)}
+.tag.neutral{color:var(--blue);border-color:#c4d1da;background:var(--blue-soft)}
+.tag.warn{color:var(--orange);border-color:#dfc0a3;background:var(--orange-soft)}
+.tag.bad{color:var(--red);border-color:#d9b4b0;background:var(--red-soft)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:16px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;background:#fff}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0eadf;color:var(--ink);font-size:12px;letter-spacing:.01em}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even) td{background:#fcfbf7}
+.right{text-align:right;white-space:nowrap}
+.center{text-align:center}
+.source-chip{font-size:11px;border:1px solid #c9d2d8;background:var(--blue-soft);padding:3px 7px;border-radius:7px;white-space:nowrap;font-weight:750}
+.source-line{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.chartboard{background:var(--navy);color:#fff;border-radius:18px;padding:18px;margin:16px 0;overflow:hidden}
+.chartboard h3{margin:0 0 4px;color:#fff}
+.chartboard p{color:#c7d4dd;font-size:12px;margin:0 0 12px}
+.chartboard svg{width:100%;height:auto;display:block}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.mini-bars{display:grid;gap:10px;margin:16px 0;padding:16px;border-radius:15px;background:var(--navy);color:#fff}
+.barrow{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;font-size:13px}
+.bar{height:10px;background:#142635;border-radius:999px;overflow:hidden;border:1px solid #436077}
+.fill{height:100%;background:#8fb2c7;border-radius:999px}
+.fill.orange{background:#e4a06f}
+.fill.green{background:#8ab08b}
+.fill.red{background:#c97d77}
+.fill.lav{background:#b5a2cf}
+.fill.w-edge{width:61.6%}
+.fill.w-datacenter{width:24.7%}
+.fill.w-consumer{width:13.8%}
+.note{font-size:12px;color:var(--muted)}
+.final{
+  border:2px solid var(--ink);border-radius:20px;background:#fff;padding:23px;
+  margin-top:35px;box-shadow:var(--shadow)
+}
+.final h2{margin:0 0 9px;font-size:27px}
+.final .big{font-size:24px;line-height:1.38;letter-spacing:-.035em;margin:8px 0 15px}
+footer{margin-top:42px;border-top:2px solid var(--ink);padding-top:16px;color:var(--muted);font-size:12px}
+@media(max-width:920px){
+  .layout{grid-template-columns:1fr}.side{position:relative;top:auto;max-height:none}.grid4,.split{grid-template-columns:1fr 1fr}
+  .hero{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}.hero:after{right:22px}
+  .barrow{grid-template-columns:118px 1fr 52px}
+}
+@media(max-width:580px){
+  .wrap{padding-left:14px;padding-right:14px}.hero{margin-left:-14px;margin-right:-14px;padding:36px 14px 28px}.hero:after{font-size:62px;right:12px}
+  .grid4,.split{grid-template-columns:1fr}.hero p{font-size:15px}.toolbar{padding:9px}button{flex:1}
+  th,td{padding:9px 8px;font-size:11px}.right{white-space:normal}.barrow{grid-template-columns:1fr}.barrow span:last-child{text-align:left}
+}
+@media print{
+  body{background:#fff}.wrap{max-width:none;padding:0 12mm}.hero{margin:0 -12mm 8mm;padding:14mm 12mm 9mm}.side,.toolbar{display:none}.layout{display:block}
+  .metric,.card,.callout,.final,.chartboard{box-shadow:none;break-inside:avoid}
+  .chartboard{background:#fff;color:#111;border:1px solid #777}.chartboard h3,.chartboard p{color:#111}
+  .source-chip,a{color:#055}.hero:after{display:none}
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="eyebrow">FINANCE / 城主 · SANDISK 3Q REVIEW</div>
+    <h1>Sandisk FY2026<br>3분기 실적 정리</h1>
+    <p>첨부된 FY2026 3Q earnings presentation과 Form 10-Q만 이용해 정리한 요약입니다. 주가, 컨센서스, 이전 투자 판단은 제외하고 회사가 공시한 3분기 실적과 다음 분기 가이던스만 다룹니다.</p>
+    <div class="badges">
+      <span class="badge">분기 종료 2026-04-03</span>
+      <span class="badge">발표자료 2026-04-30</span>
+      <span class="badge">10-Q filed 2026-05-01</span>
+      <span class="badge">첨부 PDF 2개 기준</span>
+    </div>
+    <div class="verdict"><b>한줄 결론:</b> Q3는 NAND 가격과 AI/고성능 스토리지 수요가 동시에 붙으면서 매출, 마진, 현금흐름이 모두 급증한 분기입니다. 다만 성장의 핵심 원인이 <b>ASP 상승</b>에 크게 기대고 있고, Flash Ventures 의무와 재고 빌드가 다음 체크포인트입니다.</div>
+  </header>
+
+  <div class="grid4">
+    <div class="metric"><span class="k">Revenue</span><b>$5.95B</b><small>Q3 매출. 전년 동기 대비 +251%, 전분기 대비 +97%.</small></div>
+    <div class="metric"><span class="k">Non-GAAP GM</span><b>78.4%</b><small>Non-GAAP 기준 매출총이익률. GAAP gross margin도 78.4%.</small></div>
+    <div class="metric"><span class="k">EPS</span><b>$23.41</b><small>Non-GAAP diluted EPS. GAAP diluted EPS는 $23.03.</small></div>
+    <div class="metric"><span class="k">Adjusted FCF</span><b>$2.955B</b><small>Q3 조정 잉여현금흐름. Q3 operating cash flow는 $3.038B.</small></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <h3>Contents</h3>
+      <a href="#summary">01 핵심 요약</a>
+      <a href="#pnl">02 손익</a>
+      <a href="#segments">03 부문별 매출</a>
+      <a href="#drivers">04 성장 동인</a>
+      <a href="#cash">05 현금흐름</a>
+      <a href="#commitments">06 JV와 의무</a>
+      <a href="#guide">07 Q4 가이던스</a>
+      <a href="#watch">08 체크포인트</a>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <button type="button" onclick="window.print()">PDF/인쇄</button>
+        <button type="button" onclick="document.location='#top'">맨 위로</button>
+      </div>
+
+      <section id="summary">
+        <div class="section-head">
+          <h2>01 핵심 요약</h2>
+          <p>3분기 실적의 의미를 손익, 수요, 재무상태로 압축했습니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>Q3는 가격 상승이 실적 레버리지로 바로 연결된 분기</h3>
+          <p>매출은 $5.95B로 전년 동기 대비 251% 증가했습니다. 회사는 매출 증가의 주된 이유를 GB당 평균판매가격, 즉 ASP 상승으로 설명했습니다. Q3 전체 exabytes sold는 전년 동기 대비 거의 변하지 않았지만, ASP가 248% 상승하면서 매출과 마진이 급격히 개선됐습니다.</p>
+          <div class="source-line">
+            <span class="source-chip">Presentation p.3, p.7</span>
+            <span class="source-chip">Form 10-Q p.39-p.40</span>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="callout good">
+            <span class="tag good">강점</span>
+            <p><b>수익성:</b> GAAP gross margin 78.4%, 영업이익률 69.1%, 순이익률 60.8%로 매우 높은 마진을 기록했습니다.</p>
+          </div>
+          <div class="callout warn">
+            <span class="tag warn">주의</span>
+            <p><b>민감도:</b> 전체 매출 증가가 물량보다 ASP에 크게 의존했습니다. 가격 사이클이 꺾이면 손익 레버리지도 반대로 작동할 수 있습니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pnl">
+        <div class="section-head">
+          <h2>02 손익</h2>
+          <p>10-Q 기준 GAAP 실적과 발표자료의 Non-GAAP 핵심 수치를 함께 정리했습니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th class="right">Q3 FY2026</th>
+              <th class="right">Q3 FY2025</th>
+              <th class="right">YoY</th>
+              <th>해석</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Revenue, net</td>
+              <td class="right">$5.950B</td>
+              <td class="right">$1.695B</td>
+              <td class="right">+251%</td>
+              <td>매출 급증. 발표자료 기준 QoQ도 +97%.</td>
+            </tr>
+            <tr>
+              <td>Gross profit</td>
+              <td class="right">$4.662B</td>
+              <td class="right">$0.382B</td>
+              <td class="right">+1,120%</td>
+              <td>가격 상승이 원가 증가보다 훨씬 빠르게 반영됨.</td>
+            </tr>
+            <tr>
+              <td>Gross margin</td>
+              <td class="right">78.4%</td>
+              <td class="right">22.5%</td>
+              <td class="right">+55.9ppt</td>
+              <td>10-Q의 GAAP gross margin. 발표자료의 Non-GAAP GM도 78.4%.</td>
+            </tr>
+            <tr>
+              <td>Operating income</td>
+              <td class="right">$4.111B</td>
+              <td class="right">-$1.881B</td>
+              <td class="right">흑자전환</td>
+              <td>영업이익률 69.1%.</td>
+            </tr>
+            <tr>
+              <td>Net income</td>
+              <td class="right">$3.615B</td>
+              <td class="right">-$1.933B</td>
+              <td class="right">흑자전환</td>
+              <td>순이익률 60.8%.</td>
+            </tr>
+            <tr>
+              <td>Diluted EPS</td>
+              <td class="right">$23.03</td>
+              <td class="right">-$13.33</td>
+              <td class="right">흑자전환</td>
+              <td>Non-GAAP diluted EPS는 $23.41.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="chartboard">
+          <h3>Revenue와 Gross Margin 추이</h3>
+          <p>발표자료의 Q3'25, Q4'25, Q1'26, Q2'26, Q3'26 Non-GAAP 재무표 기준.</p>
+          <svg viewBox="0 0 920 310" role="img" aria-label="Sandisk quarterly revenue and gross margin chart">
+            <rect x="0" y="0" width="920" height="310" rx="14" fill="#1f3344"></rect>
+            <line x1="70" y1="250" x2="850" y2="250" stroke="#5b7182" stroke-width="1"></line>
+            <line x1="70" y1="70" x2="850" y2="70" stroke="#344d61" stroke-width="1"></line>
+            <line x1="70" y1="130" x2="850" y2="130" stroke="#344d61" stroke-width="1"></line>
+            <line x1="70" y1="190" x2="850" y2="190" stroke="#344d61" stroke-width="1"></line>
+            <text x="70" y="36" fill="#f6f2e8" font-size="15" font-weight="700">Revenue ($M)</text>
+            <text x="732" y="36" fill="#f6f2e8" font-size="15" font-weight="700">Gross margin</text>
+            <g fill="#8fb2c7">
+              <rect x="118" y="190" width="56" height="60" rx="6"></rect>
+              <rect x="260" y="183" width="56" height="67" rx="6"></rect>
+              <rect x="402" y="168" width="56" height="82" rx="6"></rect>
+              <rect x="544" y="143" width="56" height="107" rx="6"></rect>
+              <rect x="686" y="40" width="56" height="210" rx="6" fill="#e4a06f"></rect>
+            </g>
+            <polyline points="146,199 288,188 430,176 572,115 714,62" fill="none" stroke="#f1c96d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <g fill="#f6f2e8" font-size="13">
+              <text x="104" y="278">Q3'25</text>
+              <text x="246" y="278">Q4'25</text>
+              <text x="388" y="278">Q1'26</text>
+              <text x="530" y="278">Q2'26</text>
+              <text x="672" y="278">Q3'26</text>
+            </g>
+            <g fill="#c7d4dd" font-size="12" text-anchor="middle">
+              <text x="146" y="184">$1,695</text>
+              <text x="288" y="177">$1,901</text>
+              <text x="430" y="162">$2,308</text>
+              <text x="572" y="137">$3,025</text>
+              <text x="714" y="34">$5,950</text>
+            </g>
+            <g fill="#f1c96d" font-size="12" text-anchor="middle">
+              <text x="146" y="216">22.7%</text>
+              <text x="288" y="205">26.5%</text>
+              <text x="430" y="193">29.9%</text>
+              <text x="572" y="106">51.1%</text>
+              <text x="714" y="54">78.4%</text>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <section id="segments">
+        <div class="section-head">
+          <h2>03 부문별 매출</h2>
+          <p>Datacenter와 Edge가 Q3 매출 대부분을 차지했습니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>End Market</th>
+              <th class="right">Q3 매출</th>
+              <th class="right">매출 비중</th>
+              <th class="right">QoQ</th>
+              <th class="right">YoY</th>
+              <th>내용</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Datacenter</td>
+              <td class="right">$1.467B</td>
+              <td class="right">24.7%</td>
+              <td class="right">+233%</td>
+              <td class="right">+645%</td>
+              <td>TLC enterprise SSD 수요가 Q3 성장을 견인. Q4에는 QLC Stargate 솔루션의 매출 출하 시작을 기대한다고 언급.</td>
+            </tr>
+            <tr>
+              <td>Edge</td>
+              <td class="right">$3.663B</td>
+              <td class="right">61.6%</td>
+              <td class="right">+118%</td>
+              <td class="right">+295%</td>
+              <td>PC와 스마트폰에서 프리미엄 디바이스 쪽으로 수요 믹스가 이동.</td>
+            </tr>
+            <tr>
+              <td>Consumer</td>
+              <td class="right">$0.820B</td>
+              <td class="right">13.8%</td>
+              <td class="right">-10%</td>
+              <td class="right">+44%</td>
+              <td>전분기 대비 감소는 역사적 계절성과 부합. 차세대 Portable SSD 출시와 소비자 캠페인을 언급.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="mini-bars">
+          <div class="barrow"><span>Edge</span><div class="bar"><div class="fill orange w-edge"></div></div><span>61.6%</span></div>
+          <div class="barrow"><span>Datacenter</span><div class="bar"><div class="fill w-datacenter"></div></div><span>24.7%</span></div>
+          <div class="barrow"><span>Consumer</span><div class="bar"><div class="fill green w-consumer"></div></div><span>13.8%</span></div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>지역</th>
+              <th class="right">Q3 매출</th>
+              <th class="right">매출 비중</th>
+              <th>해석</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Asia</td>
+              <td class="right">$4.272B</td>
+              <td class="right">71.8%</td>
+              <td>가장 큰 지역. 10-Q는 Asia와 Americas 증가가 Edge 및 Datacenter 고객에서 발생했다고 설명.</td>
+            </tr>
+            <tr>
+              <td>Americas</td>
+              <td class="right">$1.209B</td>
+              <td class="right">20.3%</td>
+              <td>두 번째 매출 지역.</td>
+            </tr>
+            <tr>
+              <td>Europe, Middle East and Africa</td>
+              <td class="right">$0.469B</td>
+              <td class="right">7.9%</td>
+              <td>상대적으로 작은 비중.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="drivers">
+        <div class="section-head">
+          <h2>04 성장 동인</h2>
+          <p>10-Q는 매출 증가 원인을 ASP와 exabytes sold로 나눠 설명합니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>전체 매출: 물량보다 가격 효과</h3>
+          <p>Q3 순매출은 전년 동기 대비 251% 증가했습니다. 회사는 이를 주로 GB당 ASP 248% 상승 때문이라고 설명했고, exabytes sold는 전년 동기 대비 보합 수준이라고 밝혔습니다. 즉 Q3의 핵심은 단순 출하량 폭증이 아니라 가격 상승이었습니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>구분</th>
+              <th class="right">매출 YoY</th>
+              <th class="right">ASP per GB</th>
+              <th class="right">Exabytes sold</th>
+              <th>읽는 법</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>전체</td>
+              <td class="right">+251%</td>
+              <td class="right">+248%</td>
+              <td class="right">Flat</td>
+              <td>가격 상승이 전체 실적을 대부분 설명.</td>
+            </tr>
+            <tr>
+              <td>Datacenter</td>
+              <td class="right">+645%</td>
+              <td class="right">+186%</td>
+              <td class="right">+160%</td>
+              <td>가격과 물량이 동시에 증가한 가장 질 좋은 성장.</td>
+            </tr>
+            <tr>
+              <td>Edge</td>
+              <td class="right">+295%</td>
+              <td class="right">+343%</td>
+              <td class="right">-10%</td>
+              <td>프리미엄 믹스와 가격 효과가 핵심. 물량은 감소.</td>
+            </tr>
+            <tr>
+              <td>Consumer</td>
+              <td class="right">+44%</td>
+              <td class="right">+139%</td>
+              <td class="right">-40%</td>
+              <td>가격은 올랐지만 물량 감소가 매출 증가폭을 제한.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout warn">
+          <span class="tag warn">핵심 리스크</span>
+          <p>Q3의 초고마진은 ASP가 cost per GB 움직임을 앞질렀기 때문에 가능했습니다. 따라서 다음 분기에도 가격, 고부가 제품 믹스, Datacenter 출하가 유지되는지가 가장 중요합니다.</p>
+        </div>
+      </section>
+
+      <section id="cash">
+        <div class="section-head">
+          <h2>05 현금흐름과 재무상태</h2>
+          <p>Q3 자체 현금흐름은 강했고, 10-Q 기준 장기부채는 0이 됐습니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th class="right">금액</th>
+              <th>출처와 해석</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Cash and cash equivalents</td>
+              <td class="right">$3.735B</td>
+              <td>2026-04-03 기준. 2025-06-27의 $1.481B에서 크게 증가.</td>
+            </tr>
+            <tr>
+              <td>Long-term debt</td>
+              <td class="right">$0</td>
+              <td>2025-06-27에는 $1.829B. 2026-03-04 Term Loan Facility 잔액을 전액 상환.</td>
+            </tr>
+            <tr>
+              <td>YTD operating cash flow</td>
+              <td class="right">$4.545B</td>
+              <td>9개월 누적 영업현금흐름. 전년 동기 -$10M에서 개선.</td>
+            </tr>
+            <tr>
+              <td>YTD PP&amp;E purchases</td>
+              <td class="right">$134M</td>
+              <td>9개월 누적 유형자산 매입. 현금 기준 직접 PP&amp;E 투자는 낮은 편.</td>
+            </tr>
+            <tr>
+              <td>Q3 adjusted free cash flow</td>
+              <td class="right">$2.955B</td>
+              <td>발표자료 기준. Q3 operating cash flow $3.038B에서 PP&amp;E 및 Flash Ventures 관련 조정을 반영.</td>
+            </tr>
+            <tr>
+              <td>Repurchase program</td>
+              <td class="right">$6.0B</td>
+              <td>부채 전액 상환 이후 발표한 자사주 매입 프로그램.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="split">
+          <div class="card">
+            <h3>CapEx는 Q3 현금 기준으로는 낮음</h3>
+            <p>발표자료 기준 Q3 Sandisk total cash CapEx는 $83M, 순매출 대비 1.4%입니다. Total gross CapEx는 $240M, 순매출 대비 4.0%입니다.</p>
+          </div>
+          <div class="card">
+            <h3>다만 신규 노드 전환 투자는 진행 중</h3>
+            <p>회사는 FY2026에 제품 포트폴리오 수요와 기술 요구를 맞추기 위해 자본투자를 늘렸고, FY2026 CapEx 대부분은 BiCS8 기술 투자를 지원한다고 설명했습니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="commitments">
+        <div class="section-head">
+          <h2>06 JV와 의무</h2>
+          <p>첨부자료상 리스크의 중심은 단순 CapEx보다 Flash Ventures 구조와 장기 현금의무입니다.</p>
+        </div>
+
+        <div class="card">
+          <h3>Flash Ventures 구조</h3>
+          <p>Sandisk는 Kioxia와의 Flash Ventures에서 플래시 기반 메모리 웨이퍼의 대부분을 조달합니다. 구조상 Sandisk 지분은 49.9%, Kioxia 지분은 50.1%로 제시되어 있습니다. Sandisk의 몫은 일반적으로 Flash Ventures 산출량의 약 50%이며, 선택한 산출량과 무관하게 고정비의 절반을 부담해야 합니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th class="right">금액</th>
+              <th>의미</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Notes receivable and investments in Flash Ventures</td>
+              <td class="right">$684M</td>
+              <td>10-Q 대차대조표에 잡힌 Flash Ventures 관련 채권과 투자.</td>
+            </tr>
+            <tr>
+              <td>Q3 net payments to Flash Ventures</td>
+              <td class="right">$0.9B</td>
+              <td>웨이퍼 구매와 순대여 관련 지급.</td>
+            </tr>
+            <tr>
+              <td>YTD net payments to Flash Ventures</td>
+              <td class="right">$2.7B</td>
+              <td>9개월 누적 지급 규모.</td>
+            </tr>
+            <tr>
+              <td>Maximum estimable loss exposure</td>
+              <td class="right">$2.967B</td>
+              <td>채권, 지분투자, 운용리스 보증, 재고와 선급금을 포함한 합리적으로 추정 가능한 최대 손실 노출.</td>
+            </tr>
+            <tr>
+              <td>Known material cash requirements</td>
+              <td class="right">$12.793B</td>
+              <td>Flash Ventures, 구매의무, Nanya 투자, 운용리스 등을 포함한 알려진 현금 요구액 총계.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="chartboard">
+          <h3>Known Material Cash Requirements</h3>
+          <p>2026-04-03 기준 10-Q의 장단기 현금 요구액.</p>
+          <svg viewBox="0 0 920 270" role="img" aria-label="Known material cash requirements by category">
+            <rect x="0" y="0" width="920" height="270" rx="14" fill="#1f3344"></rect>
+            <g font-size="13" fill="#f6f2e8">
+              <text x="70" y="54">Flash Ventures related commitments</text>
+              <text x="70" y="104">Purchase obligations and other commitments</text>
+              <text x="70" y="154">Investment commitment</text>
+              <text x="70" y="204">Operating leases</text>
+            </g>
+            <g>
+              <rect x="350" y="38" width="430" height="18" rx="9" fill="#8fb2c7"></rect>
+              <rect x="350" y="88" width="326" height="18" rx="9" fill="#e4a06f"></rect>
+              <rect x="350" y="138" width="64" height="18" rx="9" fill="#8ab08b"></rect>
+              <rect x="350" y="188" width="20" height="18" rx="9" fill="#b5a2cf"></rect>
+            </g>
+            <g font-size="13" fill="#c7d4dd">
+              <text x="795" y="54">$6.543B</text>
+              <text x="690" y="104">$4.970B</text>
+              <text x="430" y="154">$0.972B</text>
+              <text x="386" y="204">$0.308B</text>
+            </g>
+            <text x="70" y="244" fill="#c7d4dd" font-size="12">Total: $12.793B. Remaining three months of FY2026: $2.086B.</text>
+          </svg>
+        </div>
+
+        <div class="callout warn">
+          <span class="tag warn">해석</span>
+          <p>첨부자료만 보면 Q3 현재 현금흐름은 매우 좋지만, 회사의 공급 구조는 JV 고정비와 장기 투자 약정에 묶여 있습니다. 즉 단기 손익보다 다음 사이클에서 가격 하락, 가동률 조정, JV 투자 부담이 어떻게 변하는지가 리스크입니다.</p>
+        </div>
+      </section>
+
+      <section id="guide">
+        <div class="section-head">
+          <h2>07 Q4 가이던스</h2>
+          <p>회사가 제시한 FY2026 4분기 가이던스입니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>항목</th>
+              <th class="right">GAAP</th>
+              <th class="right">Non-GAAP</th>
+              <th>중간값 기준 해석</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Revenue</td>
+              <td class="right">$7.750B - $8.250B</td>
+              <td class="right">$7.750B - $8.250B</td>
+              <td>중간값 $8.000B. Q3 $5.950B 대비 약 +34.5%.</td>
+            </tr>
+            <tr>
+              <td>Gross margin</td>
+              <td class="right">78.9% - 80.9%</td>
+              <td class="right">79.0% - 81.0%</td>
+              <td>Q3 78.4%보다 높은 80% 내외 유지 가정.</td>
+            </tr>
+            <tr>
+              <td>Operating expenses</td>
+              <td class="right">$523M - $558M</td>
+              <td class="right">$480M - $500M</td>
+              <td>Non-GAAP 중간값 $490M.</td>
+            </tr>
+            <tr>
+              <td>Interest and other income, net</td>
+              <td class="right">$12M - $32M</td>
+              <td class="right">$10M - $30M</td>
+              <td>순이자/기타 항목은 플러스 가정.</td>
+            </tr>
+            <tr>
+              <td>Tax expense</td>
+              <td class="right">N/A</td>
+              <td class="right">$775M - $875M</td>
+              <td>Non-GAAP 세금 비용 중간값 $825M.</td>
+            </tr>
+            <tr>
+              <td>Diluted net income per share</td>
+              <td class="right">N/A</td>
+              <td class="right">$30.00 - $33.00</td>
+              <td>중간값 $31.50.</td>
+            </tr>
+            <tr>
+              <td>Diluted shares outstanding</td>
+              <td class="right">약 158M</td>
+              <td class="right">약 158M</td>
+              <td>Q3 diluted shares 157M과 유사.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout good">
+          <span class="tag good">회사 기준선</span>
+          <p>Q4 가이던스는 Q3 대비 매출이 다시 30.3%-38.7% 증가하고, gross margin도 79%-81%로 더 높아지는 시나리오입니다. 첨부자료 기준으로는 Q4에도 Datacenter 출하와 프리미엄 믹스가 유지되는지 확인해야 합니다.</p>
+        </div>
+      </section>
+
+      <section id="watch">
+        <div class="section-head">
+          <h2>08 체크포인트</h2>
+          <p>다음 실적에서 확인해야 할 항목만 정리했습니다.</p>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>체크 항목</th>
+              <th>왜 중요한가</th>
+              <th>첨부자료 근거</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ASP 유지 여부</td>
+              <td>Q3 매출 증가의 주된 요인이 ASP 상승이었기 때문에 가격이 꺾이면 매출과 마진이 동시에 흔들릴 수 있음.</td>
+              <td>전체 ASP per GB +248%, exabytes sold flat.</td>
+            </tr>
+            <tr>
+              <td>Datacenter 성장의 질</td>
+              <td>Datacenter는 ASP와 exabytes sold가 동시에 증가한 부문. Q4 QLC Stargate 매출 출하가 중요.</td>
+              <td>Datacenter 매출 +645% YoY, +233% QoQ.</td>
+            </tr>
+            <tr>
+              <td>Edge 프리미엄 믹스</td>
+              <td>Edge는 최대 매출 부문이지만 물량은 감소하고 ASP 효과가 컸음. 프리미엄 믹스 유지가 필요.</td>
+              <td>Edge 매출 $3.663B, 매출 비중 61.6%, exabytes sold -10%.</td>
+            </tr>
+            <tr>
+              <td>재고와 운전자본</td>
+              <td>수요 대응을 위해 inventory build가 있었고 DIO가 상승. 가격 사이클 전환 시 재고 부담으로 바뀔 수 있음.</td>
+              <td>DIO 158일, 전년 150일. 재고 $2.238B.</td>
+            </tr>
+            <tr>
+              <td>Flash Ventures 의무</td>
+              <td>고정비 절반 부담, JV 투자 자금 지원, lease guarantee가 구조적 리스크.</td>
+              <td>Known material cash requirements $12.793B, maximum estimable loss exposure $2.967B.</td>
+            </tr>
+            <tr>
+              <td>현금 배분</td>
+              <td>부채 상환 후 $6B 자사주 매입 프로그램을 발표. 실적 사이클과 현금의무 사이에서 실제 집행 속도가 중요.</td>
+              <td>현금 $3.735B, 장기부채 $0, repurchase program $6B.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="final">
+          <h2>최종 정리</h2>
+          <p class="big"><b>첨부파일 기준 Sandisk Q3는 “가격 상승 + Datacenter 진입 + 초고마진 + 현금흐름 개선”이 동시에 나온 분기입니다.</b></p>
+          <p>가장 좋은 부분은 Datacenter에서 가격과 물량이 함께 늘어난 점, 부채를 전액 상환한 점, Q4에도 매출과 마진이 더 높아지는 가이던스를 냈다는 점입니다. 가장 조심할 부분은 전체 성장의 상당 부분이 ASP에 기대고 있다는 점, Edge와 Consumer의 물량은 감소했다는 점, Flash Ventures 관련 장기 현금의무가 크다는 점입니다.</p>
+        </div>
+      </section>
+
+      <footer>
+        <p><b>사용한 자료:</b> `SNDK_3Q_2026_presentation(1).pdf`, `SNDK_3Q_2026_10Q(1).pdf`.</p>
+        <p>이 문서는 위 첨부자료의 공개 수치만 요약한 자료이며, 주가 전망이나 투자 권유를 포함하지 않습니다. 작성일: 2026-07-26 KST.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

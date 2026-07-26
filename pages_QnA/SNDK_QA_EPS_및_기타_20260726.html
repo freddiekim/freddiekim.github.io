@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 인프라 13F × Sandisk 투자 Q&A 총정리 · FINANCE / 城主 · 2026-07-26</title>
+<meta name="description" content="Situational Awareness LP의 13F, AI 전력·데이터센터·광통신 포지션, Sandisk의 NAND 사업과 FY2027 실적 가정을 공개자료로 정리한 Q&A.">
+<style>
+:root{
+  --paper:#fbfaf6;
+  --paper-2:#f4ecdc;
+  --card:#ffffff;
+  --ink:#17212b;
+  --muted:#6b7480;
+  --line:#d9d1c2;
+  --blue:#315b7d;
+  --blue-soft:#e8edf1;
+  --orange:#d07a3f;
+  --orange-soft:#f7eadf;
+  --green:#587a5a;
+  --green-soft:#e8f0e5;
+  --red:#a5534e;
+  --red-soft:#f2dfdc;
+  --sand:#efe7d5;
+  --lav:#8d7aa8;
+  --lav-soft:#eee8f3;
+  --navy:#1f3344;
+  --shadow:0 10px 28px rgba(44,53,61,.07);
+  --radius:18px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;
+  line-height:1.64;
+  letter-spacing:-.008em;
+}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 76px}
+.hero{
+  margin:0 -24px 26px;
+  padding:46px max(24px,calc((100vw - 1120px)/2 + 24px)) 34px;
+  background:var(--paper-2);
+  border-bottom:1px solid var(--line);
+  position:relative;
+  overflow:hidden;
+}
+.hero:after{
+  content:"城主";
+  position:absolute;
+  right:max(24px,calc((100vw - 1120px)/2 + 24px));
+  top:18px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:92px;
+  line-height:1;
+  color:rgba(49,91,125,.075);
+  font-weight:900;
+  pointer-events:none;
+}
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--blue);
+  font-weight:900;
+}
+h1{
+  font-size:clamp(38px,6vw,66px);
+  line-height:1.03;
+  margin:10px 0 15px;
+  letter-spacing:-.055em;
+  max-width:930px;
+}
+.hero p{font-size:17px;color:var(--muted);max-width:920px;margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.badge{
+  display:inline-block;
+  border:1px solid var(--ink);
+  border-radius:999px;
+  padding:5px 10px;
+  font-size:12px;
+  font-weight:850;
+  background:#fff;
+  color:var(--ink);
+}
+.badge:nth-child(1){background:var(--orange-soft)}
+.badge:nth-child(2){background:var(--green-soft)}
+.badge:nth-child(3){background:var(--blue-soft)}
+.badge:nth-child(4){background:var(--lav-soft)}
+.verdict{
+  margin:24px 0 0;
+  padding:17px 18px;
+  border:1px solid #c9bda8;
+  border-left:5px solid var(--orange);
+  background:#fffaf1;
+  border-radius:14px;
+  max-width:980px;
+  font-size:16px;
+  box-shadow:var(--shadow);
+}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:24px 0 30px}
+.metric{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:var(--card);
+  padding:17px;
+  min-height:132px;
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.metric:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--blue)}
+.metric:nth-child(2):before{background:var(--orange)}
+.metric:nth-child(3):before{background:var(--green)}
+.metric:nth-child(4):before{background:var(--lav)}
+.metric b{display:block;font-size:24px;line-height:1.2;margin:7px 0 8px;letter-spacing:-.03em}
+.metric small{color:var(--muted);font-size:12px;line-height:1.5}
+.metric .k{font-size:11px;letter-spacing:.11em;color:var(--muted);font-weight:900;text-transform:uppercase}
+.layout{display:grid;grid-template-columns:244px minmax(0,1fr);gap:26px;margin-top:12px}
+.side{
+  position:sticky;
+  top:16px;
+  align-self:start;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+  padding:16px;
+  max-height:calc(100vh - 32px);
+  overflow:auto;
+  box-shadow:var(--shadow);
+}
+.side h3{font-size:11px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin:0 0 9px;font-weight:900}
+.side a{display:block;color:#46525e;padding:8px 10px;border-radius:9px;font-size:13px;font-weight:650}
+.side a:hover{background:var(--blue-soft);color:var(--ink);text-decoration:none}
+.toolbar{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-bottom:18px;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+input[type="search"]{
+  flex:1;
+  min-width:230px;
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px 13px;
+  outline:none;
+}
+input[type="search"]:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(49,91,125,.10)}
+button{border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:750}
+button:hover{background:var(--sand)}
+section{scroll-margin-top:20px}
+.section-head{margin:38px 0 14px;border-top:2px solid var(--ink);padding-top:15px}
+.section-head h2{font-size:28px;letter-spacing:-.035em;margin:0}
+.section-head h2::first-letter{color:var(--blue)}
+.section-head p{color:var(--muted);margin:4px 0 0;font-size:14px}
+details.qna{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#fff;
+  margin:11px 0;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+details.qna[open]{border-color:#b7c2cb}
+summary{
+  list-style:none;
+  cursor:pointer;
+  padding:18px 19px;
+  display:grid;
+  grid-template-columns:43px 1fr auto;
+  gap:12px;
+  align-items:center;
+  font-weight:800;
+}
+summary::-webkit-details-marker{display:none}
+.qnum{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);border:1px solid #c7d2da;color:var(--blue);font-size:12px;font-weight:900}
+.qtitle{font-size:17px;line-height:1.35;letter-spacing:-.02em}
+.chev{color:var(--muted);transition:.2s;font-size:16px}
+details[open] .chev{transform:rotate(180deg)}
+.answer{padding:2px 20px 22px 74px;border-top:1px solid var(--line)}
+.answer p{margin:14px 0}
+.answer ul,.answer ol{padding-left:20px;margin:12px 0}
+.answer li{margin:7px 0}
+.callout{padding:14px 16px;border-radius:13px;margin:15px 0;border:1px solid var(--line);background:var(--sand)}
+.callout.good{border-color:#bdcdb8;background:var(--green-soft)}
+.callout.warn{border-color:#dfc3a8;background:var(--orange-soft)}
+.callout.bad{border-color:#d6b0ac;background:var(--red-soft)}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;border-radius:999px;padding:4px 8px;margin-right:6px;border:1px solid var(--line);background:#fff}
+.tag.good{color:var(--green);border-color:#b9c9b6;background:var(--green-soft)}
+.tag.neutral{color:var(--blue);border-color:#c4d1da;background:var(--blue-soft)}
+.tag.warn{color:var(--orange);border-color:#dfc0a3;background:var(--orange-soft)}
+.tag.bad{color:var(--red);border-color:#d9b4b0;background:var(--red-soft)}
+.formula{
+  padding:21px;
+  border-radius:16px;
+  border:1px solid #2b4457;
+  background:var(--navy);
+  color:#f6f2e8;
+  text-align:center;
+  font-size:18px;
+  margin:18px 0;
+  box-shadow:0 10px 25px rgba(31,51,68,.12);
+}
+.formula strong{color:#f1c96d}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:#fff}
+.table-wrap table{min-width:760px}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0eadf;color:var(--ink);font-size:12px;letter-spacing:.01em}
+tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even) td{background:#fcfbf7}
+.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.up{color:var(--green);font-weight:850}
+.down{color:var(--red);font-weight:850}
+.flat{color:var(--muted);font-weight:750}
+.mini-bars{display:grid;gap:10px;margin:16px 0;padding:16px;border-radius:15px;background:var(--navy);color:#fff}
+.barrow{display:grid;grid-template-columns:180px 1fr 52px;gap:10px;align-items:center;font-size:13px}
+.bar{height:10px;background:#142635;border-radius:999px;overflow:hidden;border:1px solid #436077}
+.fill{height:100%;background:linear-gradient(90deg,#8fb2c7,#f0c96b);border-radius:999px}
+.source-chip{font-size:11px;border:1px solid #c9d2d8;background:var(--blue-soft);padding:3px 7px;border-radius:7px;white-space:nowrap;font-weight:750}
+.source-line{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.decision{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.decision .box{border:1px solid var(--line);border-radius:15px;padding:16px;background:#fff;box-shadow:var(--shadow)}
+.decision .box:nth-child(1){background:var(--green-soft)}
+.decision .box:nth-child(2){background:var(--orange-soft)}
+.decision .box:nth-child(3){background:var(--red-soft)}
+.decision h4{margin:0 0 7px}
+.decision p{color:#58636c;font-size:13px;margin:0}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:14px 0}
+.scope .box{border:1px solid var(--line);border-radius:15px;padding:16px;background:#fff}
+.scope .box:first-child{background:var(--green-soft)}
+.scope .box:last-child{background:var(--red-soft)}
+.scope h3{margin:0 0 7px;font-size:17px}
+.scope p{margin:0;color:#58636c;font-size:13px}
+.sources{counter-reset:src;padding-left:22px}
+.sources li{margin:10px 0;color:#55616b}
+.sources a{word-break:break-word}
+.note{font-size:12px;color:var(--muted)}
+footer{margin-top:42px;border-top:2px solid var(--ink);padding-top:16px;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+@media(max-width:920px){
+  .layout{grid-template-columns:1fr}
+  .side{position:relative;top:auto;max-height:none}
+  .grid4,.decision,.scope{grid-template-columns:1fr 1fr}
+  .hero{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}
+  .hero:after{right:22px}
+  .answer{padding:2px 18px 21px}
+  .barrow{grid-template-columns:130px 1fr 42px}
+}
+@media(max-width:580px){
+  .wrap{padding-left:14px;padding-right:14px}
+  .hero{margin-left:-14px;margin-right:-14px;padding:36px 14px 28px}
+  .hero:after{font-size:62px;right:12px}
+  .grid4,.decision,.scope{grid-template-columns:1fr}
+  summary{grid-template-columns:38px 1fr auto;padding:16px 14px}
+  .qtitle{font-size:15px}
+  .hero p{font-size:15px}
+  .toolbar{padding:9px}
+  button{flex:1}
+  .answer{padding-left:14px;padding-right:14px}
+  .barrow{grid-template-columns:1fr}
+  th,td{padding:9px 8px;font-size:11px}
+}
+@media print{
+  body{background:#fff}
+  .wrap{max-width:none;padding:0 12mm}
+  .hero{margin:0 -12mm 8mm;padding:14mm 12mm 9mm}
+  .side,.toolbar{display:none}
+  .layout{display:block}
+  .metric,details.qna,.callout,.formula,.decision .box,.scope .box{box-shadow:none;break-inside:avoid}
+  .formula,.mini-bars{background:#fff;color:#111;border:1px solid #777}
+  details.qna .answer{display:block}
+  .source-chip,a{color:#055}
+  .hero:after{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="eyebrow">FINANCE / 城主 · PUBLIC RESEARCH NOTE / Q&amp;A</div>
+    <h1>AI 인프라 13F × Sandisk<br>투자 Q&amp;A 총정리</h1>
+    <p>Leopold Aschenbrenner의 Situational Awareness LP부터 Bloom Energy, 광통신, Applied Digital, 네오클라우드, 그리고 Sandisk의 NAND 사업·실적·FY2027 EPS 가정까지 이어진 질문을 공개용 한 편으로 다시 구성했습니다.</p>
+    <div class="badges">
+      <span class="badge">기준일 2026-07-26</span>
+      <span class="badge">공개자료 우선</span>
+      <span class="badge">25개 핵심 질문</span>
+      <span class="badge">개인 금융정보 제외</span>
+    </div>
+    <div class="verdict"><b>한줄 결론:</b> 이 포트폴리오의 일관성은 특정 종목을 오래 보유하는 데 있지 않고, <b>AI의 물리적 병목—전력·데이터센터·컴퓨트·스토리지</b>에 자본을 빠르게 재배치하는 데 있습니다. Sandisk의 강세 논리도 생산량 6배가 아니라 <b>ASP·고부가 믹스·다년계약·공정전환</b>에 달려 있습니다. FY2027 EPS $214는 가능한 강세 시나리오지만 회사 가이던스가 아니며, 높은 NAND 가격과 약 80% 마진의 지속을 요구합니다.</div>
+  </header>
+
+  <div class="grid4">
+    <div class="metric"><span class="k">Latest 13F</span><b>2026-03-31</b><small>2026-05-18 제출. Q2 2026 13F는 아직 발표 전입니다.</small></div>
+    <div class="metric"><span class="k">Common Long Book</span><b>$3.86B</b><small>Q1 2026 보통주 롱 기준. 옵션 기초자산 공시값은 별도입니다.</small></div>
+    <div class="metric"><span class="k">SNDK FY26 Q3</span><b>$5.95B / $23.41</b><small>매출 / Non-GAAP 희석 EPS. 전분기 대비 매출 +97%.</small></div>
+    <div class="metric"><span class="k">FY27 EPS</span><b>$200~215</b><small>자료 제공처별 컨센서스 범위. 회사가 제시한 가이던스가 아닙니다.</small></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <h3>Navigation</h3>
+      <a href="#scope">공개본 범위</a>
+      <a href="#fund">A. 펀드와 13F</a>
+      <a href="#infra">B. AI 인프라 종목</a>
+      <a href="#sandisk">C. 왜 Sandisk인가</a>
+      <a href="#earnings">D. Q3·Q4와 공장</a>
+      <a href="#math">E. FY2027 EPS 수학</a>
+      <a href="#valuation">F. 목표주가와 리스크</a>
+      <a href="#checklist">다음 실적 체크리스트</a>
+      <a href="#sources">출처</a>
+      <a href="#top">맨 위로</a>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <input id="qsearch" type="search" placeholder="질문 검색: 13F, Bloom, Lumentum, APLD, Nebius, ASP, EPS 214…">
+        <button onclick="toggleAll(true)">모두 펼치기</button>
+        <button onclick="toggleAll(false)">모두 접기</button>
+        <button onclick="window.print()">인쇄 / PDF</button>
+      </div>
+
+      <section id="scope">
+        <div class="section-head"><h2>공개본 범위</h2><p>기업·산업 분석은 남기고 개인 재무정보와 개인화된 매매 판단은 제거했습니다.</p></div>
+        <div class="scope">
+          <div class="box"><h3>포함</h3><p>13F 공시 내역, 기업별 사업모델, Sandisk 실적·가이던스·공장 일정, EPS와 매출 가정의 계산, 산업·밸류에이션 리스크.</p></div>
+          <div class="box"><h3>제외</h3><p>개인 보유 종목·수량·비중·매입가·평가금액·현금화 일정·자산배분·개인별 매수·매도 판단.</p></div>
+        </div>
+        <div class="callout warn"><b>읽는 법:</b> 13F는 늦게 공개되는 스냅샷이고, 애널리스트 추정치는 계속 변합니다. 본문에 표시된 “추정”과 “역산”은 회사 공식 전망과 구분해 읽어야 합니다.</div>
+      </section>
+
+      <section id="fund">
+        <div class="section-head"><h2>A. Leopold Aschenbrenner와 13F</h2><p>공시에서 확인되는 사실과 공시만으로는 알 수 없는 부분을 분리합니다.</p></div>
+
+        <details class="qna" open data-keywords="leopold aschenbrenner situational awareness lp 펀드 이름">
+          <summary><span class="qnum">Q1</span><span class="qtitle">Leopold Aschenbrenner가 이끄는 펀드는 무엇인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">공시 확인</span> 운용사 이름은 <b>Situational Awareness LP</b>입니다. SEC CIK는 <b>0002045724</b>이며, 공개 13F는 2024년 4분기부터 확인됩니다.</p>
+            <p>공개 포트폴리오의 공통 주제는 AI 소프트웨어 자체보다 <b>전력, 냉각, 데이터센터, 반도체, 네트워크, 스토리지</b>처럼 AI 확장을 물리적으로 제한하는 병목입니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] SEC Q1 2026</a><a class="source-chip" href="#s3">[S3] Filing history</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="13f 한계 공매도 옵션 현금 사모 지연 notional">
+          <summary><span class="qnum">Q2</span><span class="qtitle">13F에서 무엇을 볼 수 있고, 무엇은 볼 수 없나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>13F는 분기 말 기준의 일부 미국 상장증권 롱 포지션을 최대 45일 뒤에 보여줍니다. 따라서 현재 포트폴리오와 같다고 볼 수 없습니다.</p>
+            <ul>
+              <li><b>보이는 것:</b> 공시 대상 보통주, 일부 ETF, 콜·풋 옵션이 통제하는 기초주식 수와 기초자산 가치.</li>
+              <li><b>보이지 않는 것:</b> 현금, 공매도, 다수의 파생상품, 옵션 프리미엄·행사가·만기·델타, 비상장 투자, 전체 펀드 NAV.</li>
+              <li><b>주의:</b> 옵션의 공시값은 실제 지급한 프리미엄이 아니라 통제하는 주식의 명목가치입니다.</li>
+            </ul>
+            <div class="callout bad"><b>따라서:</b> Q1 2026의 총 13F 공시값 $13.68B를 곧바로 “운용자산 $13.68B” 또는 “$8B를 실제로 공매도했다”로 읽으면 틀립니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] SEC information table</a><a class="source-chip" href="#s4">[S4] SEC 13F FAQ</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="전체 13f 역사 분기 규모 holdings q4 2024 q1 2026">
+          <summary><span class="qnum">Q3</span><span class="qtitle">지금까지 발표된 13F의 흐름은?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>보유 기준일</th><th class="num">공시 항목 수</th><th class="num">총 공시값</th><th>대표 포지션·변화</th></tr></thead>
+                <tbody>
+                  <tr><td>2024 Q4</td><td class="num">6</td><td class="num">$0.255B</td><td>Marvell, Vistra, Vertiv, Talen 중심의 초기 AI 전력·인프라 바스켓</td></tr>
+                  <tr><td>2025 Q1</td><td class="num">12</td><td class="num">$1.006B</td><td>Intel 콜이 가장 크고 Broadcom, Onto, Vistra, APLD, IREN 추가</td></tr>
+                  <tr><td>2025 Q2</td><td class="num">9</td><td class="num">$2.123B</td><td>Intel 콜 유지, SMH 풋 신설, Core Scientific·IREN·APLD 확대</td></tr>
+                  <tr><td>2025 Q3</td><td class="num">28</td><td class="num">$4.138B</td><td>CoreWeave·Core Scientific·IREN 확대, 광통신과 Sandisk 진입</td></tr>
+                  <tr><td>2025 Q4</td><td class="num">29</td><td class="num">$5.517B</td><td>Bloom, CoreWeave 콜, Intel 콜, Lumentum이 대형 포지션</td></tr>
+                  <tr><td>2026 Q1</td><td class="num">42</td><td class="num">$13.677B</td><td>반도체 풋 명목가치 급증, 롱 북은 Bloom·Sandisk·CoreWeave·IREN 중심</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">※ 총 공시값은 보통주와 옵션의 기초자산 명목가치를 합친 값입니다. 분기 사이의 실제 자금 유입·수익률·AUM 변화를 뜻하지 않습니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s3">[S3] 13F history</a><a class="source-chip" href="#s1">[S1] Q1 2026</a><a class="source-chip" href="#s2">[S2] Q4 2025</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="q1 2026 비중 늘린 주식 줄인 주식 표 bloom sandisk coreweave iren apld">
+          <summary><span class="qnum">Q4</span><span class="qtitle">2026년 1분기에 비중을 늘린 주식과 줄인 주식은?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">보통주 롱 기준</span> 아래 비중은 옵션을 제외한 보통주 롱 북 $3.86B을 분모로 다시 계산했습니다. 가격 변동의 영향을 피하기 위해 <b>주식 수 변화</b>도 함께 봐야 합니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>종목</th><th class="num">Q4 주식 수</th><th class="num">Q1 주식 수</th><th class="num">주식 수 변화</th><th class="num">Q4 롱 비중</th><th class="num">Q1 롱 비중</th><th>판정</th></tr></thead>
+                <tbody>
+                  <tr><td>Sandisk</td><td class="num">1,054,200</td><td class="num">1,140,119</td><td class="num up">+8.1%</td><td class="num">6.4%</td><td class="num up">18.8%</td><td>보통주 증액 + 콜 611,900주 신규</td></tr>
+                  <tr><td>CoreWeave</td><td class="num">6,098,812</td><td class="num">7,177,919</td><td class="num up">+17.7%</td><td class="num">11.2%</td><td class="num up">14.4%</td><td>보통주 확대, 콜 수량은 큰 폭 축소</td></tr>
+                  <tr><td>IREN</td><td class="num">8,700,621</td><td class="num">11,698,835</td><td class="num up">+34.5%</td><td class="num">8.4%</td><td class="num up">10.4%</td><td>2분기 연속 핵심 롱</td></tr>
+                  <tr><td>Applied Digital</td><td class="num">11,339,060</td><td class="num">13,478,438</td><td class="num up">+18.9%</td><td class="num">7.1%</td><td class="num up">8.3%</td><td>AI 데이터센터 임대 노출 확대</td></tr>
+                  <tr><td>Riot Platforms</td><td class="num">6,167,700</td><td class="num">11,502,137</td><td class="num up">+86.5%</td><td class="num">2.0%</td><td class="num up">3.7%</td><td>전력 보유형 데이터센터 옵션 확대</td></tr>
+                  <tr><td>CleanSpark</td><td class="num">1,640,400</td><td class="num">12,276,139</td><td class="num up">+648.4%</td><td class="num">0.4%</td><td class="num up">2.7%</td><td>가장 큰 주식 수 증가율</td></tr>
+                  <tr><td>Bitfarms</td><td class="num">6,897,100</td><td class="num">19,875,840</td><td class="num up">+188.2%</td><td class="num">0.4%</td><td class="num up">1.0%</td><td>소형 전력·컴퓨트 옵션 확대</td></tr>
+                  <tr><td>Bitdeer</td><td class="num">1,788,000</td><td class="num">3,439,450</td><td class="num up">+92.4%</td><td class="num">0.5%</td><td class="num up">0.8%</td><td>증액</td></tr>
+                  <tr><td>Bloom Energy</td><td class="num">10,076,022</td><td class="num">6,485,408</td><td class="num down">-35.6%</td><td class="num">22.4%</td><td class="num">22.8%</td><td>주식 수는 축소, 가격 상승으로 롱 비중은 유지</td></tr>
+                  <tr><td>Core Scientific</td><td class="num">28,756,478</td><td class="num">26,008,473</td><td class="num down">-9.6%</td><td class="num">10.7%</td><td class="num">10.1%</td><td>부분 축소</td></tr>
+                  <tr><td>Solaris Energy Infrastructure</td><td class="num">1,866,500</td><td class="num">1,105,551</td><td class="num down">-40.8%</td><td class="num">2.2%</td><td class="num">1.6%</td><td>부분 축소</td></tr>
+                  <tr><td>Lumentum</td><td class="num">1,298,400</td><td class="num">0</td><td class="num down">-100%</td><td class="num">12.2%</td><td class="num">0%</td><td>전량 공시 제외</td></tr>
+                  <tr><td>Coherent</td><td class="num">480,300</td><td class="num">0</td><td class="num down">-100%</td><td class="num">2.3%</td><td class="num">0%</td><td>전량 공시 제외</td></tr>
+                  <tr><td>Cipher Mining</td><td class="num">10,469,093</td><td class="num">0</td><td class="num down">-100%</td><td class="num">3.9%</td><td class="num">0%</td><td>전량 공시 제외</td></tr>
+                  <tr><td>EQT</td><td class="num">2,482,225</td><td class="num">0</td><td class="num down">-100%</td><td class="num">3.4%</td><td class="num">0%</td><td>보통주·콜 모두 공시 제외</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><b>Bloom 해석 주의:</b> 보유 주식 수는 35.6% 줄었지만 분기 말 가격 상승 때문에 장부가치와 롱 북 비중은 거의 유지됐습니다. “비중이 늘었다”와 “주식을 더 샀다”는 같은 말이 아닙니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] Q1 2026 원문</a><a class="source-chip" href="#s2">[S2] Q4 2025 원문</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="옵션 풋 콜 61.9% short 반도체 hedge smh nvda">
+          <summary><span class="qnum">Q5</span><span class="qtitle">Q1 2026의 거대한 반도체 풋은 AI 붕괴에 베팅했다는 뜻인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">단정 불가</span> 공시값을 단순 분해하면 보통주 롱 약 28.2%, 풋 기초자산 명목가치 약 61.9%, 콜 명목가치 약 10.0%입니다.</p>
+            <div class="mini-bars" aria-label="Q1 2026 13F gross disclosed value composition">
+              <div class="barrow"><span>풋 명목가치</span><div class="bar"><div class="fill" style="width:61.9%"></div></div><b>61.9%</b></div>
+              <div class="barrow"><span>보통주 롱</span><div class="bar"><div class="fill" style="width:28.2%"></div></div><b>28.2%</b></div>
+              <div class="barrow"><span>콜 명목가치</span><div class="bar"><div class="fill" style="width:10%"></div></div><b>10.0%</b></div>
+            </div>
+            <p>하지만 풋의 행사가·만기·프리미엄·델타가 없으므로 <b>방향성 숏, 포트폴리오 헤지, 변동성 거래</b> 중 무엇인지 알 수 없습니다. 동시에 Sandisk와 Micron 콜을 보유하고 반도체 지수·대형주 풋을 보유한 구조는 “AI 인프라의 특정 병목은 롱, 넓은 반도체 베타는 헤지”일 가능성과 부합하지만 이것도 추정입니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] SEC Q1 2026</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="장기 보유 스타일 회전율 오래 가져갈 주식 core holdings">
+          <summary><span class="qnum">Q6</span><span class="qtitle">이 펀드는 주식을 길게 가져가는 스타일인가? 어떤 종목이 계속 남을 가능성이 큰가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">테마는 길고 종목은 유동적</span> 6개 분기의 짧은 이력만 보면 전통적인 저회전 장기보유형보다 <b>촉매와 병목을 따라 빠르게 회전하는 집중형</b>에 가깝습니다. Intel 콜, Vistra, 광통신처럼 대형 포지션도 한두 분기 만에 크게 바뀌었습니다.</p>
+            <p>현재 공시에서 상대적으로 연속성이 강한 것은 <b>IREN, Applied Digital, Core Scientific</b>이고, Q4→Q1에 더 커진 핵심 종목은 <b>Sandisk, CoreWeave, IREN, Applied Digital</b>입니다. 다만 “다음 분기에도 보유”를 보장하는 증거는 아닙니다.</p>
+            <div class="callout good"><b>지속되는 것은 종목보다 프레임:</b> 전력 확보 → 데이터센터 건설 → GPU 컴퓨트 → 네트워크 → 스토리지라는 AI 물리 인프라 사슬입니다.</div>
+          </div>
+        </details>
+      </section>
+
+      <section id="infra">
+        <div class="section-head"><h2>B. Bloom·광통신·APLD·네오클라우드</h2><p>각 포지션의 역할과 13F만으로 추론할 수 있는 범위를 정리합니다.</p></div>
+
+        <details class="qna" open data-keywords="bloom energy 비중 거품 시총 점유율 연료전지">
+          <summary><span class="qnum">Q7</span><span class="qtitle">Bloom Energy의 실제 비중은 얼마이고, 저점유율·고시총 논란은 타당한가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>Q1 2026 기준 Bloom 보통주는 <b>보통주 롱 북의 22.8%</b>로 가장 컸습니다. 별도로 408,500주 콜의 기초자산 공시값 $55.35M이 있습니다. 보통주와 콜을 총 13F 공시값 $13.68B로 나누면 합산 약 <b>6.8%</b>지만, 이 분모는 거대한 풋 명목가치를 포함하므로 투자 비중으로는 덜 유용합니다.</p>
+            <p>분기 중 보통주 수는 1,007.6만 주에서 648.5만 주로 <b>35.6% 감소</b>했습니다. 즉 강한 장기 논리를 유지하면서도 가격 상승 구간에서 일부 이익을 실현했을 가능성이 있습니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>강세 논리</th><th>약세 논리</th></tr></thead>
+                <tbody>
+                  <tr><td>전력망 연결을 기다리지 않고 데이터센터 현장에 비교적 빠르게 설치 가능한 고체산화물 연료전지</td><td>2026-07-25 기준 시총 약 $52.6B, LTM 매출 약 $3B 수준으로 매출 대비 밸류에이션이 매우 높음</td></tr>
+                  <tr><td>Q1 2026 매출 $751.1M, 전년 대비 +130.4%; 제품 매출 +208.4%</td><td>전체 전력시장 기준 현재 점유율은 작고, 대형 프로젝트의 인허가·가스·금융·고객 이행 위험 존재</td></tr>
+                  <tr><td>AI 데이터센터의 “전력 가동 시점”이 가격보다 중요한 병목이 되면 희소성 프리미엄 가능</td><td>낮은 점유율에서 높은 시총은 향후 대규모 점유율 상승과 높은 마진을 이미 선반영했다는 뜻</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><b>판단:</b> “점유율이 낮으니 가치가 없다”도, “AI 전력이 부족하니 어떤 가격도 정당하다”도 과도합니다. 현재 밸류에이션은 기술의 존재가 아니라 <b>설치 속도·GW 확대·프로젝트 수익성</b>을 여러 해 연속 증명해야 정당화됩니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] 13F</a><a class="source-chip" href="#s6">[S6] Bloom Q1</a><a class="source-chip" href="#s7">[S7] 시장가치</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="coherent lumentum 0% 전량 매도 이유 추측 광학 optics">
+          <summary><span class="qnum">Q8</span><span class="qtitle">Coherent와 Lumentum을 0%로 만든 이유를 설명한 글이 있나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag bad">공식 설명 없음</span> 펀드가 매도 이유를 직접 밝힌 공개 서한·인터뷰는 확인되지 않았습니다. 확인되는 사실은 Q4 2025의 Lumentum 129.8만 주와 Coherent 48.0만 주가 Q1 2026 13F에서 사라졌다는 것뿐입니다.</p>
+            <p>외부 글에서 가장 자주 제시되는 추정은 다음 세 가지입니다.</p>
+            <ol>
+              <li><b>밸류에이션 선반영·이익 실현:</b> 광통신 주가가 실제 생산능력과 매출 램프보다 먼저 크게 올랐다는 해석.</li>
+              <li><b>병목의 위치 이동:</b> 광부품에서 당장 계약과 현금흐름이 보이는 전력·데이터센터·NAND로 자본을 이동했을 가능성.</li>
+              <li><b>포트폴리오 헤지 재구성:</b> 같은 분기에 반도체·네트워크 관련 풋 명목가치를 크게 늘려 개별 롱을 정리했을 가능성.</li>
+            </ol>
+            <div class="callout warn"><b>반대 증거도 있음:</b> Nvidia는 2026년 3월 두 회사에 각각 $2B 투자와 구매 약정을 발표했습니다. 따라서 “광통신 수요가 끝났다”기보다 <b>좋은 산업과 좋은 매수가격은 다르다</b>는 해석이 더 안전합니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s2">[S2] Q4 13F</a><a class="source-chip" href="#s1">[S1] Q1 13F</a><a class="source-chip" href="#s8">[S8] Exit 보도</a><a class="source-chip" href="#s9">[S9] Nvidia 투자</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="apld applied digital 어플라이드디지털 사업 뭐하는 회사 데이터센터 임대">
+          <summary><span class="qnum">Q9</span><span class="qtitle">Applied Digital(APLD)은 정확히 무엇을 하는 회사인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">AI 데이터센터 개발·임대</span> APLD는 전력 부지를 확보하고 고밀도 냉각을 갖춘 데이터센터를 설계·건설·운영한 뒤, 하이퍼스케일러나 GPU 클라우드 사업자에게 장기 임대합니다. 과거 암호화폐 호스팅 기반도 남아 있습니다.</p>
+            <table>
+              <thead><tr><th>회사</th><th>주로 파는 것</th><th>핵심 리스크</th></tr></thead>
+              <tbody>
+                <tr><td>Applied Digital</td><td>전력·토지·건물·냉각을 묶은 MW 단위 데이터센터 용량</td><td>건설비, 프로젝트 금융, 준공 지연, 임차인 집중</td></tr>
+                <tr><td>CoreWeave</td><td>GPU 컴퓨트 시간과 AI 클라우드 서비스</td><td>GPU 조달·부채·고객 집중·기술 세대 전환</td></tr>
+                <tr><td>IREN</td><td>전력 보유형 데이터센터, 비트코인 채굴, AI/HPC 컴퓨트 옵션</td><td>전력 개발, 자본집약도, 사업전환 실행</td></tr>
+              </tbody>
+            </table>
+            <p>APLD의 경제성은 “AI가 성장하는가”보다 <b>MW당 건설비, 임대료, 자금조달 금리, 가동 시점, 임차인 신용</b>에 의해 결정됩니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s10">[S10] APLD 회사 설명</a><a class="source-chip" href="#s11">[S11] 장기 임대</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="nebius nbis 네비우스 iren coreweave 선호 13g 5.6%">
+          <summary><span class="qnum">Q10</span><span class="qtitle">Leopold가 Nebius보다 IREN과 CoreWeave를 더 좋게 본다고 할 수 있나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">현재는 그 전제가 틀림</span> Q1 2026 13F 기준으로는 CoreWeave가 롱 북 14.4%, IREN이 10.4%였고 Nebius는 없었습니다. 그러나 분기 말 이후인 <b>2026-05-27</b>, Situational Awareness 측은 Schedule 13G로 Nebius <b>12,410,060주, 발행주식의 5.6%</b>를 공개했습니다.</p>
+            <p>이 지분은 13G 발생일인 5월 19일 기준이며 Q1 13F 뒤에 취득된 것으로 보입니다. 따라서 현재 공개정보로는 “Nebius를 싫어한다”가 아니라, <b>공개 시점이 늦었을 뿐 매우 큰 확신을 보였다</b>고 읽는 편이 맞습니다.</p>
+            <div class="callout good"><b>업데이트된 해석:</b> CoreWeave는 순수 GPU 클라우드, IREN은 전력·부지 기반 컴퓨트, Nebius는 AI 클라우드와 플랫폼을 함께 갖춘 서로 다른 노출입니다. 펀드는 셋 중 하나를 고른 것이 아니라 AI 컴퓨트 공급망의 여러 층을 동시에 보유한 것으로 보입니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s1">[S1] Q1 13F</a><a class="source-chip" href="#s5">[S5] Nebius 13G</a></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="sandisk">
+        <div class="section-head"><h2>C. 왜 NAND 1등이 아니라 Sandisk인가</h2><p>시장점유율 순위와 주가의 이익 민감도는 같은 개념이 아닙니다.</p></div>
+
+        <details class="qna" open data-keywords="nand 5위 삼성전자 하이닉스 마이크론 왜 sandisk pure play 점유율">
+          <summary><span class="qnum">Q11</span><span class="qtitle">NAND 5위라면 삼성전자나 SK hynix를 사는 것이 더 합리적이지 않나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">목적이 다름</span> 삼성전자·SK hynix가 기업의 질과 규모에서 우위일 수 있지만, Sandisk를 사는 투자자는 대개 “가장 좋은 종합 반도체 회사”보다 <b>NAND 가격과 엔터프라이즈 SSD 믹스에 가장 민감한 상장 순수 노출</b>을 찾습니다.</p>
+            <table>
+              <thead><tr><th>회사</th><th>투자 노출</th><th>NAND 호황이 주가에 미치는 민감도</th></tr></thead>
+              <tbody>
+                <tr><td>Samsung Electronics</td><td>DRAM·NAND·파운드리·모바일·가전 등 복합</td><td>낮음~중간: NAND 호재가 다른 사업에 희석</td></tr>
+                <tr><td>SK hynix</td><td>HBM·DRAM 중심 + Solidigm NAND/eSSD</td><td>중간: 핵심 밸류에이션은 HBM이 좌우</td></tr>
+                <tr><td>Micron</td><td>DRAM·HBM·NAND</td><td>중간: 메모리 순수 노출이지만 DRAM 비중 큼</td></tr>
+                <tr><td>Sandisk</td><td>NAND·클라이언트/엔터프라이즈 SSD·플래시 제품</td><td>높음: ASP·믹스·원가 변화가 이익에 직접 반영</td></tr>
+              </tbody>
+            </table>
+            <p>Sandisk의 매력은 1등이라서가 아니라 <b>작은 이익 기반, NAND 순수 노출, 데이터센터 믹스 전환, 독립 상장 후 재평가</b>가 겹쳐 이익 탄력이 가장 크게 나타날 수 있다는 데 있습니다. 반대로 사이클이 꺾일 때 하방 민감도도 큽니다.</p>
+            <div class="callout warn"><b>점유율 순위의 함정:</b> Kioxia와 Sandisk는 같은 Flash Ventures 생산기반을 공유하고 경제적 출력을 나누므로, 조사기관이 매출과 웨이퍼를 어느 회사에 귀속하느냐에 따라 “단독 순위”가 실제 제조규모를 완전히 보여주지 못할 수 있습니다.</div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="sandisk 칩 생산 안함 fabless kioxia flash ventures 50% 제조">
+          <summary><span class="qnum">Q12</span><span class="qtitle">Sandisk는 실제로 칩을 생산하지 않는 회사인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag bad">“단순 리셀러”는 틀림</span> Kioxia가 일본 팹 건물을 소유하고 웨이퍼 제조 서비스를 수행하는 것은 맞습니다. 그러나 생산장비와 공정기술은 Flash Ventures를 통해 공동 소유·투자되고, Sandisk와 Kioxia는 통상 출력의 약 50%씩을 구매할 권리를 가집니다.</p>
+            <p>Sandisk는 자신의 몫에 대한 변동비와 고정비, 설비 관련 의무를 부담하며 웨이퍼를 원가+소폭 마진으로 구매합니다. 이후 컨트롤러, 펌웨어, 제품 설계, 조립·테스트, SSD 시스템, 고객 인증과 판매를 담당합니다.</p>
+            <div class="formula"><strong>정확한 표현</strong> = 자체 팹 단독 소유 회사도 아니고, 칩을 떼다 파는 팹리스 리셀러도 아닌 <b>공동개발·공동투자형 제조 파트너</b></div>
+            <div class="source-line"><a class="source-chip" href="#s16">[S16] FY2025 10-K</a><a class="source-chip" href="#s15">[S15] FY26 Q3 10-Q</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="sandisk 많이 사는 이유 30배 주가 operating leverage pure play nbm buyback">
+          <summary><span class="qnum">Q13</span><span class="qtitle">투자자들이 Sandisk를 많이 산 핵심 이유는 무엇인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <ol>
+              <li><b>순수 NAND 베타:</b> 공급 부족과 ASP 상승이 매출·마진·EPS에 가장 직접적으로 반영됩니다.</li>
+              <li><b>작은 출발점의 영업 레버리지:</b> FY26 Q1 EPS $1.22가 Q3 $23.41로 커지며 고정비 대비 이익 탄력이 드러났습니다.</li>
+              <li><b>데이터센터 믹스:</b> Q3 데이터센터 매출은 전분기 대비 233% 증가한 $1.467B로 확대됐습니다.</li>
+              <li><b>NBM 다년계약:</b> Q3 말 3개 계약 기준 RPO는 $41.6B였습니다. 이후 2개가 추가돼 총 5개가 됐고, FY27 비트의 3분의 1 이상과 $11B 이상의 금융보증이 실적 가시성을 높였습니다.</li>
+              <li><b>독립회사 재평가:</b> Western Digital에서 분리된 뒤 HDD와 섞이지 않은 NAND 이익이 직접 평가받기 시작했습니다.</li>
+              <li><b>현금흐름·자사주:</b> 호황기의 현금창출을 주식 수 감소로 연결할 수 있다는 기대가 EPS에 추가 레버리지를 줍니다.</li>
+            </ol>
+            <div class="callout bad"><b>같은 이유가 위험이 됨:</b> 순수 NAND 노출은 ASP가 내려갈 때 매출총이익률과 EPS가 가장 빠르게 되돌아갈 수 있다는 뜻입니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s12">[S12] Q3 결과</a><a class="source-chip" href="#s15">[S15] Q3 10-Q</a><a class="source-chip" href="#s17">[S17] Q3 call</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="샌디스크 구조적 성장 사이클 asp mix nand pure play">
+          <summary><span class="qnum">Q14</span><span class="qtitle">Sandisk의 성장은 구조적인가, 단순 NAND 사이클인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag neutral">둘 다</span> 구조적 요소는 AI 추론·데이터센터의 저장수요, enterprise SSD 믹스, 장기계약, 컨트롤러·펌웨어·고객 인증입니다. 사이클 요소는 NAND 공급 부족, ASP 급등, 경쟁사 감산과 소비자 재고입니다.</p>
+            <table>
+              <thead><tr><th>구조적 증거</th><th>사이클 증거</th></tr></thead>
+              <tbody>
+                <tr><td>데이터센터 매출과 exabyte 동시 성장</td><td>Q3 전체 exabyte가 전년과 같았는데 ASP/GB가 +248%</td></tr>
+                <tr><td>FY27 비트의 1/3 이상을 다년계약으로 커버</td><td>매출총이익률이 Q1 29.8% → Q3 78.4%로 급변</td></tr>
+                <tr><td>BiCS8·BiCS10 원가와 고용량 eSSD 로드맵</td><td>TrendForce는 2027년 하반기 공급제약 완화를 전망</td></tr>
+              </tbody>
+            </table>
+            <p>투자 논리의 질은 “이번 분기 이익이 크다”가 아니라 <b>ASP가 정상화된 뒤에도 데이터센터 비트·믹스·계약이 높은 정상화 EPS를 남기는가</b>로 결정됩니다.</p>
+          </div>
+        </details>
+      </section>
+
+      <section id="earnings">
+        <div class="section-head"><h2>D. FY2026 Q3·Q4와 K2 공장</h2><p>첨부 분기자료에서 확인되는 실적과 향후 공장 반영 시점을 연결합니다.</p></div>
+
+        <details class="qna" open data-keywords="q3 분기 실적 매출 eps gross margin q1 q2 q4 guidance">
+          <summary><span class="qnum">Q15</span><span class="qtitle">FY2026 3분기 실적과 4분기 가이던스의 핵심 숫자는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>항목</th><th class="num">FY26 Q1</th><th class="num">FY26 Q2</th><th class="num">FY26 Q3</th><th class="num">FY26 Q4 회사 가이던스</th><th class="num">Q4 시장 추정*</th></tr></thead>
+                <tbody>
+                  <tr><td>매출</td><td class="num">$2.308B</td><td class="num">$3.025B</td><td class="num">$5.950B</td><td class="num">$7.75~8.25B</td><td class="num">약 $8.39B</td></tr>
+                  <tr><td>Non-GAAP GM</td><td class="num">29.8%</td><td class="num">51.1%</td><td class="num">78.4%</td><td class="num">79~81%</td><td class="num">—</td></tr>
+                  <tr><td>Non-GAAP EPS</td><td class="num">$1.22</td><td class="num">$6.20</td><td class="num">$23.41</td><td class="num">$30~33</td><td class="num">약 $34.52</td></tr>
+                  <tr><td>데이터센터 매출</td><td class="num">$269M</td><td class="num">$440M</td><td class="num">$1.467B</td><td class="num">미제시</td><td class="num">미제시</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">* 시장 추정은 2026-07-26 전후 데이터 스냅샷이며 수시로 변합니다. 회사 공식 가이던스와 구분해야 합니다.</p>
+            <div class="callout good"><b>Q3의 의미:</b> 매출 +97% QoQ에 비해 비용 증가는 제한적이어서 Non-GAAP 영업이익이 +272%, EPS가 +278% 증가했습니다. 가격과 믹스가 고정비 구조를 통과하며 이익 레버리지가 폭발한 분기입니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s12">[S12] Q3</a><a class="source-chip" href="#s13">[S13] Q2</a><a class="source-chip" href="#s14">[S14] Q1</a><a class="source-chip" href="#s19">[S19] Q4 컨센서스</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="asp 매출 증가 생산량 exabyte 가격 248% 18%">
+          <summary><span class="qnum">Q16</span><span class="qtitle">Q3 매출 증가는 생산량보다 ASP 상승 때문인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">전체 기준으로는 그렇다</span> 전년 동기 대비 Q3 전체 매출은 +251%였고, ASP/GB는 +248%, 판매 exabyte는 동일했습니다. 9개월 누적으로는 ASP +76%, exabyte +18%였습니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Q3 YoY</th><th class="num">매출</th><th class="num">ASP/GB</th><th class="num">Exabyte</th><th>해석</th></tr></thead>
+                <tbody>
+                  <tr><td>전체</td><td class="num">+251%</td><td class="num">+248%</td><td class="num">보합</td><td>전체 성장의 대부분이 가격</td></tr>
+                  <tr><td>Datacenter</td><td class="num">+645%</td><td class="num">+186%</td><td class="num">+160%</td><td>가격과 물량이 모두 성장</td></tr>
+                  <tr><td>Edge</td><td class="num">+295%</td><td class="num">+343%</td><td class="num">-10%</td><td>가격이 물량 감소를 압도</td></tr>
+                  <tr><td>Consumer</td><td class="num">+44%</td><td class="num">+139%</td><td class="num">-40%</td><td>수요 약세를 가격이 상쇄</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><b>핵심 구분:</b> “회사는 물량이 전혀 늘지 않았다”는 전체 분기 YoY 기준으로는 맞지만, 데이터센터 안에서는 exabyte가 160% 증가했습니다. 성장의 질은 시장별로 크게 다릅니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s15">[S15] Q3 10-Q</a></div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="q4 guidance reflected price meet beat 주가 반영 가이던스">
+          <summary><span class="qnum">Q17</span><span class="qtitle">현재 주가는 Q4 가이던스를 반영한 것인가? 가이던스만 만족해도 오를까?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>Q4 회사 가이던스는 4월 30일부터 공개돼 있으므로 <b>정보 자체는 이미 반영</b>됐다고 보는 것이 맞습니다. 이후 주가는 가이던스 상단 초과 가능성, FY2027 가이던스, NBM 계약, NAND 가격, 시장 위험선호를 계속 재평가합니다.</p>
+            <table>
+              <thead><tr><th>실적 발표 조합</th><th>일반적 해석</th></tr></thead>
+              <tbody>
+                <tr><td>Q4 가이던스 충족 + FY27 기대 유지</td><td>이미 높아진 기대 때문에 중립 또는 변동성 확대 가능</td></tr>
+                <tr><td>Q4 상회 + FY27 매출·마진 상향</td><td>이익 추정치가 다시 올라 주가에 가장 긍정적</td></tr>
+                <tr><td>Q4 상회 + FY27 가격 정상화 경고</td><td>좋은 과거 실적보다 약한 다음 가이던스를 반영해 하락 가능</td></tr>
+                <tr><td>Q4 미달 또는 NBM 조건 약화</td><td>피크 EPS 논쟁이 커져 하락 위험 확대</td></tr>
+              </tbody>
+            </table>
+            <div class="callout warn"><b>결론:</b> 높은 기대가 형성된 종목은 “가이던스 충족”이 호재가 아니라 최소 통과선일 수 있습니다. 방향을 가르는 숫자는 Q4보다 FY2027의 ASP·비트·GM입니다.</div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="capex 리스크 kioxia flash ventures 공장 투자 prepayments k2">
+          <summary><span class="qnum">Q18</span><span class="qtitle">Sandisk에도 CAPEX 투자 리스크가 있나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">있지만 재무제표에 덜 직접적으로 보임</span> 팹 건물을 Kioxia가 보유하기 때문에 Sandisk의 직접 현금 CAPEX만 보면 자산집약도가 낮아 보일 수 있습니다. 그러나 Flash Ventures 장비·고정비·리스보증·건물 감가상각 선급금으로 경제적 투자를 분담합니다.</p>
+            <p>2026-04-03 기준 K1·Y7·K2 관련 선급금 잔액은 $856M이었고, 추가 건물 감가상각 선급금 약 $373M을 FY2026~FY2029에 지급할 의무가 있었습니다. Yokkaichi JV 연장과 관련한 $1.165B 지급도 2026~2029년에 나뉘어 예정돼 있습니다.</p>
+            <div class="callout bad"><b>CAPEX의 양면:</b> 공급 부족기에 공정전환 투자는 고마진 물량을 늘리지만, 수요가 둔화되면 감가상각·고정비와 추가 공급이 ASP를 함께 압박합니다. “팹을 직접 소유하지 않는다”는 이유로 CAPEX 위험을 0으로 보면 안 됩니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s15">[S15] Q3 10-Q</a><a class="source-chip" href="#s16">[S16] FY2025 10-K</a><a class="source-chip" href="#s21">[S21] JV 연장</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="k2 공장 2027 생산량 반영 bics10 july 2026 schedule fab2">
+          <summary><span class="qnum">Q19</span><span class="qtitle">현재 짓고 있는 K2 공장은 FY2027 생산량에 언제 반영되나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>K2는 더 이상 “짓기만 하는 공장”이 아닙니다. 2025년 9월 개장 후 BiCS8을 생산했고, <b>2026년 7월 3일 BiCS10 생산 시작</b>을 공식 발표했습니다. FY2027은 2026년 7월에 시작하므로 생산 개시는 FY27 Q1에 해당합니다.</p>
+            <p>다만 웨이퍼 투입과 매출 인식은 동시에 일어나지 않습니다. 수율 안정화, 조립·테스트, SSD 제작, 고객 인증을 거쳐야 하므로 경제적 기여는 <b>FY27 Q2~Q4에 단계적으로 커질 가능성</b>이 높습니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>시점</th><th>공장·제품 단계</th><th>실적 반영 해석</th></tr></thead>
+                <tbody>
+                  <tr><td>2025-09</td><td>K2 개장, BiCS8 가동</td><td>FY26에 이미 일부 비용·생산 반영</td></tr>
+                  <tr><td>2026-07-03</td><td>332단 BiCS10 생산 시작</td><td>FY27 Q1 웨이퍼 생산 개시</td></tr>
+                  <tr><td>FY27 Q2~Q3</td><td>수율·장비·제품 램프</td><td>판매 가능한 비트와 원가 개선이 점진 반영</td></tr>
+                  <tr><td>FY27 Q4 이후</td><td>고객 인증·제품 믹스 확대</td><td>의미 있는 매출·마진 기여 가능, 규모는 미공개</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout warn"><b>59%의 오해:</b> BiCS10의 비트 밀도가 BiCS8보다 59% 높다는 발표는 칩 설계상의 밀도 개선입니다. 회사 전체 생산량이 한 번에 59% 늘거나 6배가 된다는 뜻이 아닙니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s20">[S20] K2 BiCS10 생산</a></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="math">
+        <div class="section-head"><h2>E. FY2027 EPS $214는 어떻게 가능한가</h2><p>가격·물량·믹스와 영업 레버리지를 같은 식 안에서 봅니다.</p></div>
+
+        <details class="qna" open data-keywords="2027 eps 214 가능 회사 guidance consensus 200 215">
+          <summary><span class="qnum">Q20</span><span class="qtitle">FY2027 EPS가 $200을 넘는다는 것이 정말 가능한가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag warn">가능하지만 공격적</span> $200~215는 Sandisk가 발표한 FY27 가이던스가 아니라 애널리스트 컨센서스입니다. 2026-07-17 Twelve Data 스냅샷은 FY27 평균 EPS $207.85, 매출 $49.02B였고, 다른 데이터 화면은 EPS 약 $213, 대화에서 검토한 최신 강세 수치는 $214·$50.32B였습니다.</p>
+            <p>컨센서스 분산도 큽니다. 같은 화면에서 FY27 EPS 최저 $143.95, 최고 $396.08이었습니다. 즉 $214는 확정치가 아니라 <b>중앙 부근의 가정</b>일 뿐입니다.</p>
+            <div class="callout good"><b>가능하게 하는 조건:</b> Q4 수준보다 더 높은 ASP·데이터센터 믹스, FY27 비트 mid-to-high teens 성장, GM 약 80% 유지, 고정비 레버리지, 자사주 매입.</div>
+            <div class="callout bad"><b>무너뜨리는 조건:</b> 2027년 NAND 공급 증가, 소비자 수요 약세, NBM 가격 하락, K2 램프 비용, GM 정상화가 예상보다 빠르게 진행.</div>
+            <div class="source-line"><a class="source-chip" href="#s18">[S18] FY27 estimates</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="분기별 eps 증가율 214 달성 q1 q2 q3 q4 13.5%">
+          <summary><span class="qnum">Q21</span><span class="qtitle">FY2027 EPS $214를 달성하려면 분기별 EPS가 얼마나 증가해야 하나?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>FY27 Q1 시장 추정 $43.80을 출발점으로 두고, 나머지 3개 분기가 같은 속도로 증가해 연간 $214가 되도록 <b>역산</b>하면 Q2~Q4는 분기당 약 <b>13.5%</b>씩 증가해야 합니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>분기</th><th class="num">매출 시나리오</th><th class="num">QoQ</th><th class="num">EPS 시나리오</th><th class="num">QoQ</th><th>성격</th></tr></thead>
+                <tbody>
+                  <tr><td>FY26 Q3 실제</td><td class="num">$5.95B</td><td class="num">+96.7%</td><td class="num">$23.41</td><td class="num">+277.6%</td><td>실제</td></tr>
+                  <tr><td>FY26 Q4 추정</td><td class="num">$8.39B</td><td class="num">+41.0%</td><td class="num">$34.52</td><td class="num">+47.5%</td><td>시장 추정</td></tr>
+                  <tr><td>FY27 Q1 추정</td><td class="num">$10.62B</td><td class="num">+26.6%</td><td class="num">$43.80</td><td class="num">+26.9%</td><td>시장 추정</td></tr>
+                  <tr><td>FY27 Q2 역산</td><td class="num">$11.83B</td><td class="num">+11.4%</td><td class="num">$49.72</td><td class="num">+13.5%</td><td>평활화 역산</td></tr>
+                  <tr><td>FY27 Q3 역산</td><td class="num">$13.18B</td><td class="num">+11.4%</td><td class="num">$56.43</td><td class="num">+13.5%</td><td>평활화 역산</td></tr>
+                  <tr><td>FY27 Q4 역산</td><td class="num">$14.69B</td><td class="num">+11.4%</td><td class="num">$64.05</td><td class="num">+13.5%</td><td>평활화 역산</td></tr>
+                  <tr><td><b>FY27 합계</b></td><td class="num"><b>$50.32B</b></td><td class="num">—</td><td class="num"><b>$214.00</b></td><td class="num">—</td><td>대화에서 검토한 시나리오</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">※ FY27 Q2~Q4는 공개된 분기별 컨센서스가 아니라 연간 합계를 만족하도록 일정 성장률로 역산한 예시입니다. 실제 분기 모양은 가격 계약·출하·세금·계절성에 따라 달라집니다.</p>
+            <div class="source-line"><a class="source-chip" href="#s18">[S18] Q1/FY27 estimates</a><a class="source-chip" href="#s19">[S19] Q4 estimate</a></div>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="bit 생산량 15% 매출 150% 10배 잘못 계산 asp mix formula">
+          <summary><span class="qnum">Q22</span><span class="qtitle">비트 생산량이 15% 늘 뿐인데 매출이 150% 늘려면 생산량이 10배 필요한 것 아닌가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p><span class="tag good">10배는 아님</span> 매출 +150%는 매출이 원래의 <b>2.5배</b>가 된다는 뜻입니다. 10배는 +900%입니다.</p>
+            <div class="formula"><strong>매출 배수</strong> ≈ 비트 판매량 배수 × 실현 ASP/비트 배수 × 제품 믹스 보정</div>
+            <p>FY26 매출 약 $19.81B에서 FY27 $50.32B로 가는 연간 비교는 2.54배입니다. 비트가 15% 늘어 1.15배라면, 필요한 ASP·믹스 배수는 <b>2.54 ÷ 1.15 = 2.21배</b>, 즉 약 +121%입니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>FY27 비트 증가 가정</th><th class="num">필요 ASP·믹스 배수</th><th class="num">필요 ASP·믹스 증가율</th></tr></thead>
+                <tbody>
+                  <tr><td>+15%</td><td class="num">2.21배</td><td class="num">+121%</td></tr>
+                  <tr><td>+17%</td><td class="num">2.17배</td><td class="num">+117%</td></tr>
+                  <tr><td>+19%</td><td class="num">2.14배</td><td class="num">+114%</td></tr>
+                  <tr><td>ASP·믹스 보합</td><td class="num">비트 2.54배 필요</td><td class="num">비트 +154%</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>다만 이 연간 비교는 FY26 초반의 낮은 가격 분기를 포함해 왜곡이 큽니다. FY26 Q4 추정 $8.39B을 연율화한 $33.56B와 비교하면 FY27 $50.32B는 +49.9%입니다. 이때 비트 +15~19%를 가정하면 추가로 필요한 ASP·믹스 상승은 약 <b>+26~30%</b>입니다.</p>
+            <div class="callout good"><b>정확한 결론:</b> FY27 매출은 생산량 6배나 10배를 요구하지 않습니다. 이미 FY26 Q3~Q4에 크게 오른 가격이 FY27 평균에 깔리고, 거기에 비트 +15~19%와 ASP·데이터센터 믹스 +26~30%가 더해지는 시나리오입니다.</div>
+          </div>
+        </details>
+
+        <details class="qna" data-keywords="eps 224% 매출 154% 왜 더 빨리 증가 operating leverage margin buyback">
+          <summary><span class="qnum">Q23</span><span class="qtitle">매출보다 EPS가 훨씬 빨리 증가하는 이유는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>FY26 초기에는 낮은 ASP와 공장 가동·전환 비용 때문에 매출총이익률이 낮았습니다. 가격이 오르면 매출 증가분의 큰 부분이 기존 고정비 위로 통과해 영업이익이 더 빠르게 증가합니다.</p>
+            <div class="formula"><strong>EPS</strong> ≈ [매출 × 매출총이익률 − 비교적 고정적인 운영비 ± 기타손익 − 세금] ÷ 희석주식 수</div>
+            <ol>
+              <li><b>마진:</b> GM이 FY26 Q1 29.8%에서 Q3 78.4%로 상승했습니다.</li>
+              <li><b>고정비 레버리지:</b> Q3 매출 +97% QoQ 동안 Non-GAAP 운영비는 +8%였습니다.</li>
+              <li><b>믹스:</b> 데이터센터 eSSD는 소비자 NAND보다 높은 가치·수익성을 가질 수 있습니다.</li>
+              <li><b>주식 수:</b> 자사주 매입은 같은 순이익을 더 적은 주식으로 나눠 EPS를 높입니다.</li>
+            </ol>
+            <div class="callout bad"><b>역방향도 동일:</b> ASP가 하락해 GM이 80%에서 50%로 내려오면 매출 감소보다 EPS 감소가 훨씬 커질 수 있습니다. 영업 레버리지는 상승기에만 유리한 것이 아닙니다.</div>
+          </div>
+        </details>
+      </section>
+
+      <section id="valuation">
+        <div class="section-head"><h2>F. 주가 $1,200·$1,500와 목표주가 $3,000의 의미</h2><p>주가를 EPS로 바꾸려면 반드시 적용 PER 가정을 함께 써야 합니다.</p></div>
+
+        <details class="qna" open data-keywords="1200 1500 가격 eps 가정 per 8 10 12 15">
+          <summary><span class="qnum">Q24</span><span class="qtitle">주가 $1,200와 $1,500은 FY2027 EPS를 얼마로 가정한 가격인가?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>주가만으로 단일 EPS를 역산할 수는 없습니다. 투자자가 메모리 사이클 기업에 몇 배의 PER을 주는지가 먼저 정해져야 합니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>적용 FY27 PER</th><th class="num">$1,200가 요구하는 EPS</th><th class="num">$1,500가 요구하는 EPS</th><th>해석</th></tr></thead>
+                <tbody>
+                  <tr><td>8배</td><td class="num">$150</td><td class="num">$187.50</td><td>강한 사이클 할인 적용</td></tr>
+                  <tr><td>10배</td><td class="num">$120</td><td class="num">$150</td><td>보수적 메모리 멀티플</td></tr>
+                  <tr><td>12배</td><td class="num">$100</td><td class="num">$125</td><td>일부 구조적 성장 인정</td></tr>
+                  <tr><td>15배</td><td class="num">$80</td><td class="num">$100</td><td>계약·AI 프리미엄을 크게 인정</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>반대로 EPS $214가 실제로 달성된다면 $1,200는 5.6배, $1,500는 7.0배입니다. 시장이 이처럼 낮은 배수를 준다면 <b>$214가 피크이고 곧 크게 하락할 것</b>을 의심하는 것입니다.</p>
+          </div>
+        </details>
+
+        <details class="qna" open data-keywords="애널리스트 목표주가 3100 3000 2900 2500 evercore bernstein cantor bofa asp">
+          <summary><span class="qnum">Q25</span><span class="qtitle">주가는 하락하는데 애널리스트들이 목표주가를 $2,500~3,100으로 높이는 이유는?</span><span class="chev">⌄</span></summary>
+          <div class="answer">
+            <p>목표주가 상향의 핵심은 “주가가 올랐으니 더 오른다”가 아니라 <b>FY27 EPS 추정치와 이익 지속기간을 동시에 상향</b>했기 때문입니다. NBM 계약의 최소 매출·선급금·금융보증이 과거 NAND 사이클보다 하락기 현금흐름을 지켜준다는 논리입니다.</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>기관</th><th class="num">이전 목표</th><th class="num">업데이트 목표</th><th class="num">EPS $214 기준 PER</th><th>핵심 논리</th></tr></thead>
+                <tbody>
+                  <tr><td>Evercore</td><td class="num">$1,400*</td><td class="num">$3,100</td><td class="num">14.5배</td><td>NBM 기반 EPS·FCF 지속성, 공급부족 장기화</td></tr>
+                  <tr><td>Bernstein</td><td class="num">$1,700</td><td class="num">$3,000</td><td class="num">14.0배</td><td>FY27 EPS $243 base case, 계약의 하락 방어</td></tr>
+                  <tr><td>Cantor Fitzgerald</td><td class="num">$1,800</td><td class="num">$2,900</td><td class="num">13.6배</td><td>ASP와 고부가 SSD, 다년계약</td></tr>
+                  <tr><td>BofA</td><td class="num">$2,100</td><td class="num">$2,500</td><td class="num">11.7배</td><td>FY27 매출·EPS 상향, 타이트한 wafer 공급</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="note">* Evercore의 직전 목표치는 보도 시점별로 다르게 표시될 수 있습니다. 표는 대화에서 검토한 최신 업데이트와 공개 보도를 결합한 요약입니다.</p>
+            <div class="callout warn"><b>목표주가의 약점:</b> EPS $214가 아니라 $150이면 같은 목표주가는 16.7~20.7배가 됩니다. 2027년 하반기에 공급이 완화되고 GM이 내려오면 “낮은 PER”처럼 보이던 주가가 실제로는 피크 이익에 높은 가격을 준 것이 될 수 있습니다.</div>
+            <div class="callout bad"><b>주가 하락과 목표가 상향은 모순이 아님:</b> 단기 주가는 반도체 위험회피·포지션 정리·실적 전 불확실성으로 하락할 수 있고, 애널리스트는 장기 EPS 모델을 올릴 수 있습니다. 어느 쪽이 맞는지는 다음 가이던스가 결정합니다.</div>
+            <div class="source-line"><a class="source-chip" href="#s22">[S22] Bernstein</a><a class="source-chip" href="#s23">[S23] Evercore</a><a class="source-chip" href="#s24">[S24] Cantor</a><a class="source-chip" href="#s25">[S25] BofA</a></div>
+          </div>
+        </details>
+      </section>
+
+      <section id="checklist">
+        <div class="section-head"><h2>다음 실적에서 확인할 체크리스트</h2><p>강세 시나리오와 피크 사이클을 가르는 공개 지표입니다.</p></div>
+        <div class="decision">
+          <div class="box"><h4 style="color:var(--green)">강화 신호</h4><p>FY27 매출·EPS가 높은 컨센서스 이상, GM 약 80% 유지, 데이터센터 exabyte 성장, RPO·금융보증 증가, K2 수율 개선.</p></div>
+          <div class="box"><h4 style="color:var(--orange)">중립 신호</h4><p>Q4는 상회하지만 FY27 수치가 제한적, 매출 성장은 지속되나 ASP 기여가 대부분, 계약조건 공개가 부족.</p></div>
+          <div class="box"><h4 style="color:var(--red)">약화 신호</h4><p>ASP 둔화, Edge·Consumer 물량 감소 지속, 2027 공급 증가, GM 정상화, JV 현금투입·K2 램프 비용 상승.</p></div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>확인 항목</th><th>좋은 답</th><th>나쁜 답</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>FY27 매출·EPS</td><td>$50B·$200대 가시성 제시</td><td>컨센서스와 큰 괴리 또는 가이드 회피</td></tr>
+              <tr><td>2</td><td>ASP와 비트 분해</td><td>가격과 데이터센터 물량이 함께 성장</td><td>전체 성장이 다시 가격에만 의존</td></tr>
+              <tr><td>3</td><td>정상화 GM</td><td>계약·믹스로 높은 바닥 제시</td><td>80% 현 수준만 강조하고 장기 답변 회피</td></tr>
+              <tr><td>4</td><td>NBM/RPO</td><td>계약 비트·RPO·보증이 모두 증가</td><td>가격 조정·취소·고객집중 위험 확대</td></tr>
+              <tr><td>5</td><td>K2/BiCS10</td><td>수율·비트당 원가·인증 일정 준수</td><td>램프 지연·스타트업 비용 증가</td></tr>
+              <tr><td>6</td><td>JV 현금의무</td><td>조정 FCF 대비 안정적</td><td>선급금·장비·리스보증 급증</td></tr>
+              <tr><td>7</td><td>2027 수급</td><td>상반기 타이트함이 하반기까지 연장</td><td>중국·기존 업체 공급증가가 수요 초과</td></tr>
+              <tr><td>8</td><td>소비자 수요</td><td>스마트폰·PC 물량 바닥 확인</td><td>가격 상승이 최종수요를 더 훼손</td></tr>
+              <tr><td>9</td><td>자사주와 주식 수</td><td>FCF 범위 안에서 실질 주식 수 감소</td><td>고점 매입 후 CAPEX 자금 부담</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout warn"><b>산업 경고:</b> TrendForce는 2026년 NAND 공급 부족을 4~5%로 보지만, 공정전환과 중국 공급 확대로 2027년 하반기에는 공급제약이 완화될 수 있다고 전망합니다. FY27 후반 EPS가 가장 공격적인 이유입니다.</div>
+        <div class="source-line"><a class="source-chip" href="#s26">[S26] TrendForce 2027 수급</a></div>
+      </section>
+
+      <section id="sources">
+        <div class="section-head"><h2>출처</h2><p>SEC·회사 공시를 우선하고, 애널리스트 목표가와 시장 추정치는 보도·데이터 제공처를 보조적으로 사용했습니다.</p></div>
+        <ol class="sources">
+          <li id="s1"><b>Situational Awareness LP, Form 13F-HR, quarter ended 2026-03-31.</b> 42개 공시 항목, 보통주·콜·풋 수량과 기초자산 가치. <a href="https://www.sec.gov/Archives/edgar/data/2045724/000204572426000008/xslForm13F_X02/salp13fq1xml.xml" target="_blank" rel="noopener">SEC 원문</a></li>
+          <li id="s2"><b>Situational Awareness LP, Form 13F-HR, quarter ended 2025-12-31.</b> Bloom, CoreWeave, Lumentum, Coherent 등 직전 분기 비교 기준. <a href="https://www.sec.gov/Archives/edgar/data/2045724/000204572426000002/xslForm13F_X02/SALP_13FQ425.xml" target="_blank" rel="noopener">SEC 원문</a></li>
+          <li id="s3"><b>Situational Awareness LP filing history.</b> Q4 2024~Q1 2026 공시일·항목 수·총 공시값. <a href="https://13f.info/manager/0002045724-situational-awareness-lp" target="_blank" rel="noopener">13F.info</a></li>
+          <li id="s4"><b>SEC Form 13F Frequently Asked Questions.</b> 보고대상과 제도 해설. <a href="https://www.sec.gov/divisions/investment/13ffaq" target="_blank" rel="noopener">SEC</a></li>
+          <li id="s5"><b>Situational Awareness / Nebius Schedule 13G, filed 2026-05-27.</b> 12,410,060주, 5.6% 공동 실질소유. <a href="https://www.sec.gov/Archives/edgar/data/1513845/000093583626000303/xslSCHEDULE_13G_X02/primary_doc.xml" target="_blank" rel="noopener">SEC 원문</a></li>
+          <li id="s6"><b>Bloom Energy Q1 2026 results.</b> 매출 $751.1M, +130.4% YoY, GM 30.0%, 영업현금흐름 $73.6M. <a href="https://investor.bloomenergy.com/press-releases/press-release-details/2026/Bloom-Energy-Reports-Record-First-Quarter-2026-Results-and-Raises-Full-Year-2026-Guidance/default.aspx" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s7"><b>Bloom Energy market capitalization history.</b> 2026-07-25 시가총액 약 $52.59B 참고. <a href="https://www.macrotrends.net/stocks/charts/BE/bloom-energy/market-cap" target="_blank" rel="noopener">Macrotrends</a></li>
+          <li id="s8"><b>Lumentum·Coherent exit coverage.</b> Q1 2026 전량 공시 제외와 시장 반응. <a href="https://www.barrons.com/articles/umentum-coherent-stock-leopold-aschenbrenner-ai-11023a1b" target="_blank" rel="noopener">Barron's</a></li>
+          <li id="s9"><b>Nvidia investment in Lumentum and Coherent, 2026-03-02.</b> 각각 $2B 투자 및 구매·생산능력 약정. <a href="https://www.reuters.com/technology/nvidia-invest-2-billion-photonic-product-maker-lumentum-2026-03-02/" target="_blank" rel="noopener">Reuters</a></li>
+          <li id="s10"><b>Applied Digital company information.</b> AI·HPC 데이터센터 설계·개발·운영 사업. <a href="https://ir.applieddigital.com/company-information" target="_blank" rel="noopener">회사 자료</a></li>
+          <li id="s11"><b>Applied Digital, 210MW Delta Forge 2 lease.</b> 15년 take-or-pay 구조와 장기 임대모델. <a href="https://ir.applieddigital.com/news-events/press-releases/detail/154/applied-digital-signs-210-mw-lease-at-delta-forge-2" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s12"><b>Sandisk FY2026 Q3 results, 2026-04-30.</b> 매출 $5.95B, Non-GAAP EPS $23.41, GM 78.4%, Q4 가이던스. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-third-quarter-2026-financial-results" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s13"><b>Sandisk FY2026 Q2 results, 2026-01-29.</b> 매출 $3.025B, Non-GAAP EPS $6.20. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-second-quarter-2026-financial-results" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s14"><b>Sandisk FY2026 Q1 results, 2025-11-06.</b> 매출 $2.308B, Non-GAAP EPS $1.22. <a href="https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-first-quarter-2026-financial-results" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s15"><b>Sandisk Form 10-Q, quarter ended 2026-04-03.</b> ASP·exabyte 분해, RPO $41.6B, Flash Ventures·K2 선급금과 의무. <a href="https://www.sec.gov/Archives/edgar/data/2023554/000162828026029401/sndk-20260403.htm" target="_blank" rel="noopener">SEC</a></li>
+          <li id="s16"><b>Sandisk FY2025 Form 10-K.</b> Kioxia 제조서비스, Flash Ventures 약 50% 출력권, 원가+소폭 마진, 고정비 의무. <a href="https://www.sec.gov/Archives/edgar/data/2023554/000202355425000034/sndk-20250627.htm" target="_blank" rel="noopener">SEC</a></li>
+          <li id="s17"><b>Sandisk FY2026 Q3 earnings call.</b> NBM 5개, $11B 이상 금융보증, FY27 비트 1/3 이상, mid-to-high teens bit growth. <a href="https://www.fool.com/earnings/call-transcripts/2026/04/30/sandisk-sndk-q3-2026-earnings-transcript/" target="_blank" rel="noopener">Transcript</a></li>
+          <li id="s18"><b>Sandisk analyst estimate snapshot.</b> 2026-07-17 기준 FY27 EPS $207.85·매출 $49.02B, 넓은 추정 범위와 상향 추세. <a href="https://twelvedata.com/markets/542904/stock/nasdaq/sndk/analysis" target="_blank" rel="noopener">Twelve Data</a></li>
+          <li id="s19"><b>Sandisk Q4 FY2026 earnings estimate.</b> 2026-08-05 발표 예정, Normalized EPS $34.52·매출 $8.39B 스냅샷. <a href="https://seekingalpha.com/symbol/SNDK/earnings" target="_blank" rel="noopener">Seeking Alpha</a></li>
+          <li id="s20"><b>Kioxia and Sandisk begin BiCS10 production at K2.</b> 2026-07-03 생산 개시, 2025-09 개장 이후 BiCS8 생산과 단계적 확장. <a href="https://www.sandisk.com/company/newsroom/press-releases/2026/2026-07-02-kioxia-sandisk-begin-production-10th-gen-3d-flash-memory-kitakami" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s21"><b>Kioxia and Sandisk extend Yokkaichi JV through 2034.</b> Sandisk의 $1.165B 지급 일정. <a href="https://www.sandisk.com/company/newsroom/press-releases/2026/2026-01-29-kioxia-and-sandisk-extend-yokkaichi-joint-venture-agreement-through-2034" target="_blank" rel="noopener">회사 발표</a></li>
+          <li id="s22"><b>Bernstein raises Sandisk target to $3,000.</b> FY27 EPS $243 base case, 계약의 하락 방어 논리. <a href="https://www.investing.com/news/analyst-ratings/bernstein-raises-sandisk-stock-price-target-to-3000-on-downside-protection-93CH-4766435" target="_blank" rel="noopener">Investing.com</a></li>
+          <li id="s23"><b>Sandisk declines while Evercore lifts its target.</b> Evercore $3,100, NBM 최소 매출·금융보증과 EPS·FCF 지속성 해석. <a href="https://www.marketwatch.com/story/sandisks-stock-is-plunging-but-some-analysts-are-getting-even-more-bullish-cba3472f" target="_blank" rel="noopener">MarketWatch</a></li>
+          <li id="s24"><b>Cantor raises Sandisk target to $2,900.</b> 2026-06-08, 기존 $1,800에서 상향. <a href="https://www.tipranks.com/news/the-fly/sandisk-price-target-raised-to-2900-from-1800-at-cantor-fitzgerald-thefly-news" target="_blank" rel="noopener">The Fly / TipRanks</a></li>
+          <li id="s25"><b>BofA raises Sandisk target to $2,500.</b> 2026-07-01, 기존 $2,100에서 상향. <a href="https://finance.yahoo.com/markets/stocks/articles/bank-america-revamps-sandisk-stock-200400379.html" target="_blank" rel="noopener">Yahoo Finance</a></li>
+          <li id="s26"><b>TrendForce NAND outlook, 2026-07-21.</b> 2026년 4~5% 공급부족, 2027년 하반기 공급제약 완화 전망. <a href="https://www.trendforce.com/presscenter/news/20260721-13148.html" target="_blank" rel="noopener">TrendForce</a></li>
+        </ol>
+      </section>
+
+      <footer>
+        <b>FINANCE / 城主 · Public Research Discipline</b><br>
+        <b>공개본 처리:</b> 개인 보유자산, 수량, 비중, 매입가, 평가금액, 현금화 계획과 개인화된 매매 판단은 포함하지 않았습니다.<br>
+        <b>면책:</b> 본 문서는 공개자료를 정리한 교육·리서치 자료이며 투자 권유가 아닙니다. 13F는 지연된 불완전한 공시이고, 애널리스트 추정과 목표주가는 수시로 변경됩니다. 모든 역산 시나리오는 가정을 설명하기 위한 계산 예시입니다.
+      </footer>
+    </main>
+  </div>
+</div>
+<script>
+const qs=[...document.querySelectorAll('details.qna')];
+function toggleAll(open){qs.forEach(q=>q.open=open);}
+document.getElementById('qsearch').addEventListener('input',e=>{
+  const term=e.target.value.trim().toLowerCase();
+  qs.forEach(q=>{
+    const hay=(q.innerText+' '+(q.dataset.keywords||'')).toLowerCase();
+    q.classList.toggle('hidden',term&&!hay.includes(term));
+    if(term&&hay.includes(term))q.open=true;
+  });
+});
+</script>
+</body>
+</html>

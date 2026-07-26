@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandisk: NAND가 DRAM보다 더 오를 여지가 있는 이유 · 한국어 번역 · FINANCE / 城主</title>
+<meta name="description" content="Seeking Alpha의 Sandisk: Why NAND May Have More Room To Run Than DRAM 기사를 첨부 PDF에 근거해 한국어로 옮긴 번역본.">
+<style>
+:root{
+  --paper:#fbfaf6;--paper-2:#f4ecdc;--card:#fff;--ink:#17212b;--muted:#6b7480;
+  --line:#d9d1c2;--blue:#315b7d;--blue-soft:#e8edf1;--orange:#d07a3f;
+  --orange-soft:#f7eadf;--green:#587a5a;--green-soft:#e8f0e5;--red:#a5534e;
+  --red-soft:#f2dfdc;--sand:#efe7d5;--lav:#8d7aa8;--lav-soft:#eee8f3;
+  --navy:#1f3344;--shadow:0 10px 28px rgba(44,53,61,.07);--radius:18px
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;line-height:1.75;letter-spacing:-.009em}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px 76px}
+.hero{margin:0 -24px 28px;padding:48px max(24px,calc((100vw - 1120px)/2 + 24px)) 38px;background:var(--paper-2);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero:after{content:"城主";position:absolute;right:max(24px,calc((100vw - 1120px)/2 + 24px));top:18px;font-family:Georgia,"Times New Roman",serif;font-size:92px;line-height:1;color:rgba(49,91,125,.075);font-weight:900;pointer-events:none}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:900}
+h1{font-size:clamp(36px,5.8vw,64px);line-height:1.06;margin:10px 0 15px;letter-spacing:-.055em;max-width:920px}
+.hero .sub{font-size:17px;color:var(--muted);max-width:900px;margin:0}
+.byline{margin-top:14px;font-size:13px;color:#4f5b65}
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:21px}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:5px 10px;font-size:12px;font-weight:850;background:#fff}
+.badge:nth-child(1){background:var(--orange-soft)}.badge:nth-child(2){background:var(--green-soft)}.badge:nth-child(3){background:var(--blue-soft)}.badge:nth-child(4){background:var(--lav-soft)}
+.verdict{margin:24px 0 0;padding:17px 18px;border:1px solid #c9bda8;border-left:5px solid var(--orange);background:#fffaf1;border-radius:14px;max-width:980px;font-size:15px;box-shadow:var(--shadow)}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin:24px 0 30px}
+.metric{border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:17px;min-height:132px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.metric:before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--blue)}
+.metric:nth-child(2):before{background:var(--orange)}.metric:nth-child(3):before{background:var(--green)}.metric:nth-child(4):before{background:var(--lav)}
+.metric b{display:block;font-size:24px;line-height:1.2;margin:7px 0 8px;letter-spacing:-.03em}
+.metric small{color:var(--muted);font-size:12px;line-height:1.5}.metric .k{font-size:11px;letter-spacing:.11em;color:var(--muted);font-weight:900;text-transform:uppercase}
+.layout{display:grid;grid-template-columns:244px minmax(0,1fr);gap:26px;margin-top:12px}
+.side{position:sticky;top:16px;align-self:start;border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;max-height:calc(100vh - 32px);overflow:auto;box-shadow:var(--shadow)}
+.side h3{font-size:11px;color:var(--blue);letter-spacing:.14em;text-transform:uppercase;margin:0 0 9px;font-weight:900}
+.side a{display:block;color:#46525e;padding:7px 10px;border-radius:9px;font-size:12px;font-weight:650}
+.side a:hover{background:var(--blue-soft);color:var(--ink);text-decoration:none}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;padding:12px;border:1px solid var(--line);border-radius:15px;background:#fff;box-shadow:var(--shadow)}
+button{border:1px solid var(--ink);background:#fff;color:var(--ink);border-radius:10px;padding:10px 12px;cursor:pointer;font-weight:750}
+button:hover{background:var(--sand)}
+section{scroll-margin-top:20px}.section-head{margin:39px 0 15px;border-top:2px solid var(--ink);padding-top:15px}
+.section-head h2{font-size:28px;line-height:1.25;letter-spacing:-.035em;margin:0}.section-head h2::first-letter{color:var(--blue)}
+.section-head p{color:var(--muted);margin:4px 0 0;font-size:13px}
+.article{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:24px 25px;box-shadow:var(--shadow)}
+.article p{margin:0 0 17px}.article p:last-child{margin-bottom:0}
+.article h3{font-size:22px;line-height:1.35;margin:28px 0 11px;letter-spacing:-.03em}
+.article h3:first-child{margin-top:0}
+.article strong{color:#101921}
+.lead{font-size:18px;line-height:1.72}
+.source-line{display:flex;flex-wrap:wrap;gap:7px;margin-top:15px}
+.source-chip{font-size:11px;border:1px solid #c9d2d8;background:var(--blue-soft);padding:3px 7px;border-radius:7px;white-space:nowrap;font-weight:750}
+.callout{padding:15px 17px;border-radius:13px;margin:18px 0;border:1px solid var(--line);background:var(--sand)}
+.callout.good{border-color:#bdcdb8;background:var(--green-soft)}.callout.warn{border-color:#dfc3a8;background:var(--orange-soft)}.callout.bad{border-color:#d6b0ac;background:var(--red-soft)}
+.tag{display:inline-block;font-size:11px;font-weight:900;letter-spacing:.04em;border-radius:999px;padding:4px 8px;margin-right:6px;border:1px solid var(--line);background:#fff}
+.tag.good{color:var(--green);border-color:#b9c9b6;background:var(--green-soft)}.tag.warn{color:var(--orange);border-color:#dfc0a3;background:var(--orange-soft)}.tag.bad{color:var(--red);border-color:#d9b4b0;background:var(--red-soft)}
+.quote{margin:19px 0;padding:19px 20px;border-left:5px solid var(--blue);background:var(--blue-soft);border-radius:0 14px 14px 0;font-size:17px;font-weight:650}
+.chartboard{background:var(--navy);color:#fff;border-radius:18px;padding:20px;margin:18px 0;overflow:hidden}
+.chartboard h3{margin:0 0 4px;color:#fff;font-size:19px}.chartboard p{color:#c7d4dd;font-size:12px;margin:0 0 15px}
+.barrow{display:grid;grid-template-columns:120px 1fr 65px;gap:11px;align-items:center;margin:11px 0;font-size:13px;font-weight:750}
+.bar{height:13px;background:#142635;border-radius:999px;overflow:hidden;border:1px solid #436077}
+.fill{height:100%;border-radius:999px;background:#8fb2c7}.fill.nand{width:100%;background:#e4a06f}.fill.dram{width:53.4%;background:#8fb2c7}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:18px 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px;background:#fff}
+th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f0eadf;color:var(--ink);font-size:12px}tr:last-child td{border-bottom:0}tbody tr:nth-child(even) td{background:#fcfbf7}.right{text-align:right;white-space:nowrap}
+.final{border:2px solid var(--ink);border-radius:20px;background:#fff;padding:24px;margin-top:36px;box-shadow:var(--shadow)}
+.final h2{margin:0 0 9px;font-size:27px}.final p{margin:8px 0}
+.note{font-size:12px;color:var(--muted)}
+footer{margin-top:42px;border-top:2px solid var(--ink);padding-top:16px;color:var(--muted);font-size:12px}
+@media(max-width:920px){.layout{grid-template-columns:1fr}.side{position:relative;top:auto;max-height:none}.grid4{grid-template-columns:1fr 1fr}.hero{margin-left:-24px;margin-right:-24px;padding-left:24px;padding-right:24px}.hero:after{right:22px}}
+@media(max-width:580px){.wrap{padding-left:14px;padding-right:14px}.hero{margin-left:-14px;margin-right:-14px;padding:36px 14px 28px}.hero:after{font-size:62px;right:12px}.grid4{grid-template-columns:1fr}.hero .sub{font-size:15px}.toolbar{padding:9px}button{flex:1}.article{padding:19px 17px}.barrow{grid-template-columns:86px 1fr 50px}th,td{padding:9px 8px;font-size:11px}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:0 12mm}.hero{margin:0 -12mm 8mm;padding:14mm 12mm 9mm}.side,.toolbar{display:none}.layout{display:block}.metric,.article,.callout,.final,.chartboard{box-shadow:none;break-inside:avoid}.chartboard{background:#fff;color:#111;border:1px solid #777}.chartboard h3,.chartboard p{color:#111}.hero:after{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="eyebrow">FINANCE / 城主 · FULL KOREAN TRANSLATION</div>
+    <h1>Sandisk:<br>NAND가 DRAM보다 더 오를 여지가 있는 이유</h1>
+    <p class="sub">Carla Magliocco가 Seeking Alpha에 기고한 원문을 첨부 PDF에 근거해 한 편의 한국어 글로 옮겼습니다.</p>
+    <div class="byline">원문 게시일 2026-07-23 · 종목 Sandisk Corporation (NASDAQ: SNDK) · 작성자 Carla Magliocco</div>
+    <div class="badges">
+      <span class="badge">전체 기사 번역</span>
+      <span class="badge">NAND vs. DRAM</span>
+      <span class="badge">강세·약세 논거</span>
+      <span class="badge">첨부 PDF만 사용</span>
+    </div>
+    <div class="verdict"><b>번역 원칙:</b> 원문의 주장, 수치, 비교, 어조를 유지해 자연스러운 한국어로 옮겼습니다. 원문에 포함된 전망이나 계산을 별도로 검증하거나 수정하지 않았으며, 이 HTML에는 추가 투자 판단을 넣지 않았습니다.</div>
+  </header>
+
+  <div class="grid4">
+    <div class="metric"><span class="k">Recent Drawdown</span><b>약 -30%</b><small>저자는 최근 한 달간 주가가 약 30% 하락했다고 설명합니다.</small></div>
+    <div class="metric"><span class="k">2026 NAND Growth</span><b>+234%</b><small>원문이 제시한 2026년 NAND 성장 전망.</small></div>
+    <div class="metric"><span class="k">Long-term Deals</span><b>약 40%</b><small>저자가 언급한 장기계약 적용 생산 비중.</small></div>
+    <div class="metric"><span class="k">Next Earnings</span><b>8월 5일</b><small>원문 작성 당시 예정된 FY2026 Q4 실적 발표일.</small></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <h3>Contents</h3>
+      <a href="#summary">01 원문 요약</a>
+      <a href="#intro">02 들어가며</a>
+      <a href="#business">03 Sandisk의 사업</a>
+      <a href="#bear">04 약세 논거</a>
+      <a href="#bull">05 강세 논거</a>
+      <a href="#choice">06 Sandisk를 고른 이유</a>
+      <a href="#preview">07 Q4 프리뷰</a>
+      <a href="#valuation">08 밸류에이션</a>
+      <a href="#risks">09 리스크와 결론</a>
+      <a href="#disclosure">10 공시</a>
+    </aside>
+
+    <main>
+      <div class="toolbar">
+        <button type="button" onclick="window.print()">PDF/인쇄</button>
+        <button type="button" onclick="document.location='#top'">맨 위로</button>
+      </div>
+
+      <section id="summary">
+        <div class="section-head">
+          <h2>01 원문 요약</h2>
+          <p>기사 첫머리에 제시된 네 가지 핵심 문장입니다.</p>
+        </div>
+        <div class="article">
+          <p>Sandisk 주가는 최근 한 달 동안 거의 30% 하락했지만, AI가 이끄는 NAND 수요는 여전히 강세 논리를 지지한다.</p>
+          <p>NAND 가격은 투자 경쟁 때문에 DRAM보다 더 빠르게 상승하고 있다.</p>
+          <p>저자는 지난 몇 주 동안 가장 자주 접한 약세 주장과 강세 주장을 함께 분석했다.</p>
+          <p>가장 큰 위험은 여전히 업황의 순환성이며, 그중에서도 메모리 가격의 급격한 변동성이 핵심이다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.1</span></div>
+        </div>
+      </section>
+
+      <section id="intro">
+        <div class="section-head">
+          <h2>02 들어가며</h2>
+          <p>최근 급락 이후 저자가 Sandisk를 다시 매수한 배경입니다.</p>
+        </div>
+        <div class="article">
+          <p class="lead">나는 최근 Sandisk Corporation(SNDK)이 고점에서 20% 넘게 하락했을 때 포트폴리오의 작은 일부를 투자했다. 이후 주가는 더 내려가 사상 최고가 대비 거의 42% 하락했다. 회사의 사업과 업종 흐름을 분석한 뒤에는 적당한 규모로 추가 매수했다. 지난 1년 동안 주가가 570%나 올랐다는 사실에도 불구하고, 변동성 너머에 여전히 상승 잠재력이 있다고 생각하기 때문이다.</p>
+          <p>지난주에는 하락 폭이 크고 조정 기간도 이어지면서 애널리스트와 투자자 사이에 전반적인 불신이 퍼지고 있다고 느꼈다. 이런 불신은 거의 모든 AI 하드웨어 종목으로 번졌지만, 메모리 종목은 그동안 상승 폭이 가장 컸기 때문에 특히 두드러졌다.</p>
+          <p>따라서 이 글에서는 AI 메모리 병목 현상이라는 맥락에서 Sandisk의 사업을 간단히 살펴보려 한다. 다만 핵심은 약세 논거와 강세 논거를 균형 있게 분석하는 데 있다. 지난 며칠간 주가 하락을 설명하려는 해석과 메모리 랠리의 종료를 예측하는 글을 많이 읽었다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.2</span></div>
+        </div>
+      </section>
+
+      <section id="business">
+        <div class="section-head">
+          <h2>03 Sandisk의 사업: 메모리 시장에서 NAND의 무게</h2>
+          <p>NAND와 DRAM의 역할, 그리고 Sandisk의 순수 NAND 노출을 설명합니다.</p>
+        </div>
+        <div class="article">
+          <p>Sandisk는 NAND 메모리를 판매한다. NAND는 전원이 꺼져도 데이터를 잃지 않는 비휘발성 메모리다. 주로 SSD, 즉 솔리드스테이트드라이브 형태로 판매되며, 본질적으로는 과거의 하드디스크와 같은 역할을 훨씬 작고 대규모화된 형태로 수행한다.</p>
+          <p>반면 휘발성 메모리는 DRAM, 즉 동적 임의접근 메모리다. DRAM은 실행 중인 프로그램을 임시로 저장하면서 실시간으로 작동한다. 데이터센터 AI가 널리 사용되면서 순간적으로 훨씬 많은 정보를 처리해야 할 필요가 생겼고, 그 결과 DRAM의 중요성이 커졌다. AI 용도로 속도를 크게 높이기 위해 설계된 DRAM 변형이 HBM, 즉 고대역폭 메모리다.</p>
+          <p>AI 추론, 다시 말해 기계가 몇 초 안에 ‘생각’하게 만드는 과정에 DRAM이 필요하기 때문에 시장의 관심은 DRAM에 집중되어 있다. 하지만 NAND도 크게 뒤처져 있지 않다. 실제로 NAND 가격은 DRAM보다 더 빠르게 오르기 시작했다. AI 하드웨어가 발전할수록 더 많은 데이터를 영구적으로 저장해야 하므로 NAND 역시 반드시 필요하다. 우리가 매일 여는 AI 채팅을 떠올리면 이해하기 쉽다. 이런 대규모 메모리 부하를 줄이기 위해 NAND 업체들은 HBF, 즉 고대역폭 플래시를 개발하고 있다.</p>
+          <p>메모리 업체가 모두 NAND와 DRAM을 함께 만드는 것은 아니다. 두 종류 모두에서 높은 시장점유율을 가진 곳은 Micron Technology, Samsung Electronics, SK hynix 정도다. Sandisk는 NAND만 생산하며 SSD 사업을 데이터센터, 엔터프라이즈, 소매 소비자라는 세 범주로 나눈다.</p>
+          <div class="callout"><strong>원문의 핵심 구분:</strong> DRAM은 연산 중 데이터를 임시로 처리하는 휘발성 메모리이고, NAND는 데이터를 장기간 보존하는 비휘발성 메모리다. 저자는 AI 인프라 확대에 두 종류가 모두 필요하다고 본다.</div>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.2-p.3</span></div>
+        </div>
+      </section>
+
+      <section id="bear">
+        <div class="section-head">
+          <h2>04 약세 논거: 7월 하락을 설명할 수 있는가</h2>
+          <p>저자는 Sandisk와 메모리 업종에 미칠 잠재적 충격이 큰 순서대로 네 가지를 제시합니다.</p>
+        </div>
+        <div class="article">
+          <h3><span class="tag bad">1</span> 끝없이 반복되는 순환성</h3>
+          <p>가장 타당하고 무게가 크다고 생각하는 논거부터 시작하자. 바로 순환성이다. 메모리 가격의 강세 사이클은 영원히 지속될 수 없고 조만간 끝난다는 논리다. 나도 동의한다. Sandisk의 사업이 오직 현물가격에만 의존한다면, 현물가격이 떨어질 때 Sandisk 역시 하락할 것이다. 단순한 논리다.</p>
+          <p>이에 대응해 기업들은 가격을 고정하거나 변동 폭을 최소화한 계약을 체결하며 위험을 헤지하고 있다. 예를 들어 Sandisk는 생산량의 거의 40%를 장기계약으로 묶어 두고 있으며, 여기에는 FY2027 기준 416억 달러의 잔여수행의무(RPO)가 포함된다. 다시 말해 생산량의 약 60%는 현물가격에 노출되어 있고 변동성이 매우 높다. 이 부분은 매도 의견을 제시한 다른 글에서도 잘 설명되어 있다. 한편 Sandisk는 FY2026 매출을 190억 달러로 전망한다.</p>
+          <p>내가 강조하고 싶은 점은 현물가격이 0으로 떨어져 생산량 60%에서 나오는 매출이 아예 사라진다고 가정하더라도, 여전히 약 420억 달러의 매출이 남아 전년 대비 거의 380% 증가한다는 것이다. 물론 주식시장의 변동성을 생각하면 현물가격 하락 소식만으로도 주가는 타격을 받을 것이다. 현재 그런 일이 벌어지고 있는 것은 아니지만, Sandisk를 매수하려는 투자자는 반드시 순환성을 고려해야 한다.</p>
+
+          <h3><span class="tag bad">2</span> 중국 제조업체와의 경쟁 심화</h3>
+          <p>시장에서 경쟁은 언제나 진지하게 고려해야 할 요소다. 다만 현재는 개별 기업의 펀더멘털보다 업종 전체의 흐름이 더 큰 힘을 발휘할 수 있는 구간이라고 본다. 이런 상황에서는 경쟁이 업종의 근본 구조를 바꾸지 못한다. 메모리에 심각한 병목이 존재한다면 누가 점유율이 조금 더 높고 낮은지는 크게 중요하지 않다. DRAM을 만들든 NAND를 만들든 모든 업체가 전년 대비 이례적인 성장을 보여 주기 때문에 관련 종목이 함께 오를 수 있다.</p>
+          <p>그렇더라도 경쟁 자체는 분석해야 한다. Sandisk에는 강력한 아시아 경쟁사들이 있고, 특히 다른 업체보다 빠르게 성장하는 중국의 Yangtze Memory Technologies가 있다. 이 회사의 시장점유율은 2025년 1분기 8%에서 2026년 1분기 13%로 상승했다.</p>
+          <p>중국 기업이 이 시장에 진입해 업종 전체가 성장하는 동안에도 이 정도로 빠르게 커졌다는 사실은 가볍게 넘길 수 없다. 중국이 개입된 만큼 보조금이 기업 성장에 영향을 주는 지정학 문제와도 연결된다. 전기차, 반도체 개발, AI 챗봇 같은 다른 산업에서도 같은 현상을 볼 수 있다.</p>
+
+          <h3><span class="tag bad">3</span> 공급 증가는 피할 수 없다</h3>
+          <p>순환성과 연결되는 또 하나의 흥미로운 설명은 공급이 곧 늘어난다는 주장이다. 메모리 시장 주요 업체들의 대규모 투자로 공급이 크게 증가할 것이라는 뜻이다. 예를 들어 SK hynix는 청주 NAND 공장 한 곳에만 100조 원, 약 670억 달러를 투자하겠다고 발표했다. 이는 1,100조 원, 약 7,800억 달러에 달하는 더 큰 자본지출 계획의 일부다.</p>
+          <p>다만 NAND 투자가 큰 금액이기는 해도 SK hynix 전체 투자액의 10%에 불과하다. 전체 메모리 클러스터 완공은 2033년으로 예상되며, 생산이 당장 시작되는 것도 아니다. 회사 설명에 따르면 현재 확장을 추진 중인 용인 클러스터도 건설에 9년이 걸렸다. 따라서 공급 증가가 약세 요인이 될 가능성은 배제할 수 없지만, 단기적인 악재는 아니라고 본다.</p>
+
+          <h3><span class="tag bad">4</span> 한국 업체의 기술 우위</h3>
+          <p>앞서 언급한 약세 분석 글은 SK hynix와 Samsung이 생산하는 새로운 메모리 기술, 321단 QLC V-NAND 출시를 지적했다. 기술 우위는 생산비와 메모리 장치에 담을 수 있는 저장 용량에 영향을 줄 수 있다. 솔직히 말해 이 부분은 확신하기 어렵다.</p>
+          <p>하지만 내가 파악한 바로는 이 시장은 카메라가 가장 좋은 제품이 이기는 스마트폰 시장과 다르다. 적층 수에 엄청난 차이가 생기지 않는 한 이 약세 논거의 무게는 크지 않다고 생각한다. Samsung이 Sandisk보다 더 많은 테라바이트를 담은 메모리 장치를 공급할 수 있을까? 알 수 없다. 가능하다고 가정하더라도 핵심 촉매인 GB당 비용을 바꾸지는 못할 것 같다. 내가 틀릴 수도 있고 엔지니어 독자의 의견도 환영하지만, 메모리가 원자재처럼 거래되는 현재 업종에서는 기술 우위의 중요성이 그다지 커 보이지 않는다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.3-p.6</span></div>
+        </div>
+      </section>
+
+      <section id="bull">
+        <div class="section-head">
+          <h2>05 강세 논거: 메모리 랠리가 계속될 수 있는 이유</h2>
+          <p>약세 논거에 대한 반론과 함께 추가 수요·공급 근거를 제시합니다.</p>
+        </div>
+        <div class="article">
+          <h3><span class="tag good">1</span> NAND 가격에는 더 오를 여지가 있다</h3>
+          <p>Sandisk 관련 기사 여러 편의 댓글을 읽던 중 한 사용자가 흥미로운 내용을 언급했고, 이후 이를 추가로 조사했다.</p>
+          <p>Stanford University 웹사이트에서 찾은 정보에 따르면 NAND 플래시 메모리 가격은 GB당 0.105달러다. 그 사용자가 언급한 0.25달러와는 아직 거리가 있다. 그뿐만 아니라 10년 전의 GB당 0.30달러에도 크게 못 미친다.</p>
+          <p>NAND는 구조가 더 단순하기 때문에 보통 DRAM보다 저렴하지만, 현재 수요를 생각하면 가격이 계속 상승할 여지가 있다고 본다. 실제로 이미 그런 일이 벌어지고 있다. 2026년 NAND 성장률 전망은 234%로, DRAM의 125%보다 높다.</p>
+          <div class="chartboard">
+            <h3>원문이 제시한 2026년 성장 전망</h3>
+            <p>NAND 234%를 100으로 두고 상대 길이를 표시했습니다.</p>
+            <div class="barrow"><span>NAND</span><div class="bar"><div class="fill nand"></div></div><span>234%</span></div>
+            <div class="barrow"><span>DRAM</span><div class="bar"><div class="fill dram"></div></div><span>125%</span></div>
+          </div>
+          <p>왜 이런 일이 일어나는지 생각해 보았다. NAND와 DRAM 공장은 완전히 다른 시설이 아니기 때문에 같은 생산 공간과 투자를 놓고 경쟁한다. 투자의 80~90%가 DRAM과 HBM으로 향하면 NAND 투자가 제한되고 공급 증가도 지연된다. 그 결과 1TB SSD 가격은 45달러에서 90달러로 두 배가 되었고, 기업 계약 가격은 분기마다 33~50% 상승했다. 가격 인상이 최종 판매자에게 전달될 무렵에는 상승 폭이 약 15~17%로 줄어든다.</p>
+
+          <h3><span class="tag good">2</span> 핵심 원재료 부족이 공급 확대를 늦출 수 있다</h3>
+          <p>메모리 공장이 실제 생산을 시작하기까지 수년이 걸릴 수 있다는 점은 이미 살펴봤다. 게다가 AI 공급망은 보이는 것보다 훨씬 복잡하다. 카타르 공장에 대한 미사일 공격 등으로 이어진 중동 분쟁은 헬륨 유통에도 일부 영향을 미쳤다. 2025년 한 해에만 Samsung과 SK hynix의 본거지인 한국은 헬륨의 65%를 카타르에서 구매했다.</p>
+          <p>헬륨은 반도체 공장의 냉각 공정에 필요한 핵심 원재료다. 지난 3월 CNBC에서 이 주제를 다룬 기사를 많이 읽었는데, 최근 긴장이 다시 높아지면서 이 문제가 재부상했다고 본다. 미국은 세계 최대 헬륨 생산국이기 때문에 이 상황에서 큰 이점을 얻을 수 있고, Sandisk를 포함한 미국 내 메모리·반도체 생산업체도 혜택을 받을 가능성이 있다. 요약하면 메모리 생산에 필요한 원재료 역시 변동성이 크며, 공급 확대를 쉽게 지연시킬 수 있다.</p>
+
+          <h3><span class="tag good">3</span> CEO들도 메모리 지출 증가와 공급 문제를 예상한다</h3>
+          <p>Seeking Alpha 사용자들이 최근 언급한 내용 가운데 하나는 IBM CEO Arvind Krishna가 2026년 2분기 실적 발표 후 한 발언이었다. 그의 말은 수요가 지속되고 있으며, 이것이 IBM이 직면한 문제의 일부임을 확인해 준다. IBM은 AI 붐을 이끄는 세 가지 핵심 부품 가운데 어느 것도 직접 생산하지 않는다. 또한 고객들이 서둘러 구매하고 있다는 사실은 앞으로 가격이 더 오를 것으로 예상하고 있음을 시사한다. 메모리 반도체 가격이 내려갈 것으로 생각한다면, 고객들이 왜 지금 사려고 하겠는가?</p>
+          <p>여기에 SK hynix를 소유한 SK그룹 최태원 회장의 발언도 덧붙이고 싶다. 그는 반도체 가격이 더 상승하고 메모리 산업이 완전한 혼란에 빠질 수 있다고 전망했다.</p>
+          <div class="quote">“내년에는 사실상 어느 기업도 의미 있는 공급 증가를 이루기 어려울 것이므로 수요와 공급의 격차는 크게 벌어질 수밖에 없다. 전 세계 기업들이 메모리 반도체를 구하기 위해 아우성치는 상황이며, 말 그대로 완전한 혼란이라고 표현할 수 있을 정도다.”</div>
+          <p>최근 미국에 상장한 SK hynix가 공급을 크게 늘려 높은 메모리 가격의 호황을 끝낼 회사처럼 묘사되는 분위기가 있어 이 인용문을 가져왔다.</p>
+
+          <h3><span class="tag good">4</span> 은행들은 Sandisk 목표가를 최대 3,100달러로 유지한다</h3>
+          <p>강세 논거로서 Sandisk에서 마음에 들었던 또 하나는 주가가 고점 대비 약 40% 하락했는데도 주요 은행과 리서치 회사들이 2026년 목표가를 올렸다는 점이다. 지난 2주 동안 Wedbush와 Goldman Sachs는 목표가를 각각 1,200달러와 2,200달러로 높였다.</p>
+          <p>Bernstein은 목표가를 더 크게 올려 주당 3,000달러를 제시했다. 가장 높은 목표가는 3,100달러 전망을 유지한 Evercore에서 나왔다.</p>
+          <table>
+            <thead><tr><th>기관</th><th class="right">이전 목표가</th><th class="right">새 목표가</th></tr></thead>
+            <tbody>
+              <tr><td>Evercore</td><td class="right">$3,100</td><td class="right">$3,100</td></tr>
+              <tr><td>Bernstein</td><td class="right">$1,700</td><td class="right">$3,000</td></tr>
+              <tr><td>Cantor Fitzgerald</td><td class="right">$1,800</td><td class="right">$2,900</td></tr>
+              <tr><td>BofA</td><td class="right">$2,100</td><td class="right">$2,500</td></tr>
+            </tbody>
+          </table>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.6-p.9</span></div>
+        </div>
+      </section>
+
+      <section id="choice">
+        <div class="section-head">
+          <h2>06 내가 Sandisk를 선택한 이유</h2>
+          <p>AI 관련 업종에 투자하는 저자의 접근 방식입니다.</p>
+        </div>
+        <div class="article">
+          <p>나는 업계의 더 성숙한 경쟁사들과 시가총액을 비교했을 때 Sandisk의 잠재력이 더 매력적이라고 생각해 이 회사를 선택했다. 위성통신 업종에서 AST SpaceMobile을 바라봤을 때와 비슷한 판단이었다.</p>
+          <p>또한 DRAM보다 가격 상승 잠재력이 더 크다고 보아 NAND 시장을 선호했다. 마지막으로 다른 업체들이 막대한 자본지출과 복잡한 인프라가 필요한 DRAM에 베팅하는 동안, Sandisk는 NAND에 집중한 순수 플레이 기업에 더 가깝다. Sandisk의 최근 12개월 자본지출은 1억7,900만 달러다.</p>
+          <p>다만 내 글마다 강조해 온 점을 분명히 하고 싶다. 현재는 실적보다 업종의 흐름이 더 큰 영향을 미치고 있다. 이 현상은 강세 자산과 약세 자산 모두에서, 좋은 방향과 나쁜 방향 모두로 작용한다. 메모리와 AI 하드웨어 관련 사업에서 바로 그런 일이 벌어지고 있다.</p>
+          <p>그렇기 때문에 특정 종목 하나가 다른 종목보다 무조건 낫다는 주장에는 동의하지 않는다. 메모리 가격이 하락하면 모든 관련 자산이 떨어질 것이다. SK hynix나 Sandisk가 NAND를 만든다고 해서 피할 수 있는 것도 아니고, Micron이 DRAM을 만든다고 해서 살아남는 것도 아니다. 비중이나 사업 구조에 따라 일부 업체가 더 잘 대응할 수는 있겠지만 하락 폭은 비슷할 것이라고 본다. 내가 Sandisk를 선택했듯, 투자자는 다른 메모리 종목을 선택할 수도 있다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.9</span></div>
+        </div>
+      </section>
+
+      <section id="preview">
+        <div class="section-head">
+          <h2>07 FY2026 4분기 프리뷰</h2>
+          <p>원문 작성 당시 실적 발표 일정과 시장 예상치입니다.</p>
+        </div>
+        <div class="article">
+          <p>Sandisk는 8월 5일 FY2026 4분기 실적을 발표할 예정이며, 예상 주당순이익은 34달러다. 연간 기준으로는 FY2026 EPS 66달러, FY2027 EPS 214달러가 예상된다.</p>
+          <p>매출이나 EPS에 대한 하향 조정은 없으며, 두 항목 모두 19건의 상향 조정이 있었다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.9-p.10</span></div>
+        </div>
+      </section>
+
+      <section id="valuation">
+        <div class="section-head">
+          <h2>08 밸류에이션 배수는 성장을 선반영한다</h2>
+          <p>저자는 일부 배수는 비싸 보이지만 PEG는 성장 대비 저렴하다고 해석합니다.</p>
+        </div>
+        <div class="article">
+          <p>일부 밸류에이션 배수만 보면 현재 가격에서도 이런 종목들이 비싸다고 생각할 수 있다. 그러나 P/E와 PEG, 즉 주가수익성장비율 같은 다른 배수는 내 관점에서 저렴한 기회를 가리킨다.</p>
+          <p>PEG는 0.13배로, 내가 전망한 FY2026 4분기와 FY2027의 성장을 반영한다. 주가는 이익의 거의 55배에 거래되는 반면 업종 중앙값은 34배다.</p>
+          <p>그러나 SNDK는 6월에 이익의 80배까지 평가받았다. 또한 일부 AI 인프라 관련 종목은 시장의 강한 상승 추세 덕분에 합리적인 밸류에이션 범위를 넘어선다. Nebius Group, Ciena, Datadog의 P/E가 각각 75배, 135배, 667배라는 점을 떠올릴 수 있다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.10</span></div>
+        </div>
+      </section>
+
+      <section id="risks">
+        <div class="section-head">
+          <h2>09 리스크: 추세의 갑작스러운 전환</h2>
+          <p>강세 의견을 유지하면서도 공급 회복과 순환성을 핵심 위험으로 인정합니다.</p>
+        </div>
+        <div class="article">
+          <p>내 투자 논리는 강세지만 약세 논거에서 제시한 위험은 현실이며, 그 어느 것도 부정하지 않는다. 내가 읽은 약세 글들은 많은 유용한 정보를 주었고, 이 글에서 이를 요약하려 했다.</p>
+          <p>Sandisk나 다른 메모리 기업에 투자할 때 반드시 고려해야 할 가장 큰 위험은 여전히 공급 문제라고 생각한다. 시장경제는 그렇게 움직이기 때문에 언젠가는 공급이 수요를 따라잡기 시작할 것이다. 다만 나는 그것이 단기간, 즉 앞으로 1~2년 안에 일어나지는 않을 것으로 본다.</p>
+          <h3>마무리</h3>
+          <p>메모리와 AI 하드웨어 공급망의 강세 사이클이 계속될 것이라는 확신으로 매수하고 있기는 하지만, Sandisk 분석에서는 균형을 유지하려 했다. 네 가지 약세 논거와 네 가지 강세 논거를 사용해 가능한 한 많은 정보를 담으려 했다. 물론 빠진 내용도 있을 것이고 논거를 다르게 분류할 수도 있다. 이런 종류의 요약을 더 발전시키는 데 열려 있다.</p>
+          <p>큰 틀에서 보면 약세 논거는 실제 위험이지만, 메모리 종목의 상승 추세를 바꿀 만큼 강하지는 않다고 느낀다.</p>
+          <p>여러분의 시간은 어떤 투자 결정보다 소중하다. 이 글을 읽는 데 시간을 내주셔서 감사드린다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.10-p.11</span></div>
+        </div>
+      </section>
+
+      <section id="disclosure">
+        <div class="section-head">
+          <h2>10 작성자 및 공시</h2>
+          <p>원문 하단의 작성자 소개와 이해관계 공시를 번역했습니다.</p>
+        </div>
+        <div class="article">
+          <p><strong>작성자 소개:</strong> Carla Magliocco는 방어적 자산에 대한 노출을 유지하면서 기술 업종의 상승 잠재력을 포착하는 균형 잡힌 포트폴리오 구축에 집중하는 독립 투자자다. 확신이 높은 아이디어를 선호한다.</p>
+          <p><strong>애널리스트 공시:</strong> 작성자는 주식 보유, 옵션 또는 기타 파생상품을 통해 SNDK 주식에 유리한 롱 포지션을 보유하고 있다. 이 글은 작성자가 직접 작성했으며 본인의 의견을 담고 있다. Seeking Alpha 외에는 이 글에 대한 보상을 받지 않으며, 글에서 언급한 기업과 사업상 관계가 없다.</p>
+          <p><strong>Seeking Alpha 공시:</strong> 과거 성과는 미래 결과를 보장하지 않는다. 특정 투자자에게 어떤 투자가 적합한지에 관한 추천이나 조언을 제공하지 않는다. 위에 표현된 견해는 Seeking Alpha 전체의 의견과 다를 수 있다. Seeking Alpha는 허가받은 증권 딜러, 브로커, 미국 투자자문사 또는 투자은행이 아니다. 분석가는 전문 투자자와 개인 투자자를 포함한 제3자 작성자이며, 관련 기관의 면허나 자격을 보유하지 않을 수 있다.</p>
+          <div class="source-line"><span class="source-chip">첨부 PDF p.11</span></div>
+        </div>
+      </section>
+
+      <div class="final">
+        <h2>번역본 안내</h2>
+        <p>이 문서는 첨부된 <strong>“Sandisk: Why NAND May Have More Room To Run Than DRAM”</strong> PDF 한 편의 전체 내용을 한국어로 재구성한 번역본입니다.</p>
+        <p class="note">원문의 견해와 수치는 작성자 Carla Magliocco에게 귀속됩니다. 번역 과정에서 읽기 편하도록 문단과 표·카드 형식을 조정했지만 별도의 투자 의견이나 외부 자료는 추가하지 않았습니다.</p>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <strong>FINANCE / 城主</strong> · Korean Translation Edition<br>
+    Source: Sandisk _ Why NAND May Have More Room To Run Than DRAM (NASDAQ _ SNDK) _ Seeking Alpha.pdf<br>
+    번역문은 정보 전달을 위한 것이며 투자 자문이 아닙니다.
+  </footer>
+</div>
+</body>
+</html>
