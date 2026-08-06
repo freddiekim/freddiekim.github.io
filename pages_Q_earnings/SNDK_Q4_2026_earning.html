@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Sandisk FY2026 4분기 실적자료 — 페이지별 한국어 정리</title>
+<style>
+:root{
+  --ivory:#f5f0e6;
+  --cream:#fbf7ee;
+  --paper:#ffffff;
+  --ink:#182334;
+  --muted:#697383;
+  --line:#ddd5c7;
+  --blue:#1f66d1;
+  --orange:#e67e22;
+  --green:#1f8a5b;
+  --red:#d94141;
+  --sand:#ece2d2;
+  --navy:#152844;
+  --shadow:0 10px 28px rgba(34,39,49,.08);
+  --radius:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  line-height:1.68;
+  letter-spacing:-.012em;
+}
+a{color:inherit}
+button{font:inherit}
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:420px;
+  padding:64px clamp(22px,6vw,88px) 54px;
+  background:var(--cream);
+  border-bottom:1px solid var(--line);
+}
+.hero-grid{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:52px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;font-weight:800;font-size:12px;letter-spacing:.13em;color:var(--navy)}
+.eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--red)}
+h1{font-size:clamp(38px,6vw,72px);line-height:1.03;margin:22px 0 20px;letter-spacing:-.055em;max-width:920px}
+h1 span{color:var(--blue)}
+.hero p{max-width:760px;font-size:17px;color:#4e5968;margin:0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 11px;font-size:12px;font-weight:800;color:#4d5867}
+.artboard{position:relative;min-height:300px}
+.block{position:absolute;border-radius:22px;border:1px solid rgba(18,35,55,.1)}
+.b1{width:64%;height:44%;right:0;top:0;background:var(--blue)}
+.b2{width:48%;height:48%;left:0;bottom:5%;background:var(--orange)}
+.b3{width:38%;height:38%;right:7%;bottom:0;background:var(--green)}
+.b4{width:26%;height:28%;left:18%;top:15%;background:var(--red)}
+.art-label{position:absolute;z-index:2;inset:0;display:grid;place-items:center;text-align:center;font-size:clamp(42px,7vw,86px);font-weight:950;line-height:.92;letter-spacing:-.08em;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.08)}
+.layout{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;padding:34px 28px 90px}
+.side{position:sticky;top:18px;align-self:start;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:var(--shadow);max-height:calc(100vh - 36px);overflow:auto}
+.side h2{font-size:13px;letter-spacing:.12em;margin:0 0 12px;color:var(--muted)}
+.side a{display:flex;justify-content:space-between;align-items:center;text-decoration:none;padding:8px 9px;border-radius:10px;font-size:12px;color:#596373}
+.side a:hover,.side a:focus{background:var(--cream);color:var(--navy)}
+.side .n{font-weight:900;color:var(--blue);margin-right:8px}
+.main{min-width:0}
+.scope{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.scope .mini{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;box-shadow:var(--shadow)}
+.scope b{display:block;font-size:20px;margin-bottom:3px}
+.scope span{font-size:12px;color:var(--muted)}
+.page-card{scroll-margin-top:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);margin:0 0 22px;overflow:hidden}
+.page-head{display:flex;align-items:flex-start;gap:15px;padding:22px 24px 17px;border-bottom:1px solid var(--line);background:#fffdf8}
+.page-no{flex:0 0 auto;display:grid;place-items:center;width:46px;height:46px;border-radius:14px;background:var(--navy);color:#fff;font-weight:950;font-size:15px}
+.page-title{margin:0;font-size:clamp(21px,3vw,31px);line-height:1.22;letter-spacing:-.035em}
+.page-kicker{margin:5px 0 0;color:var(--muted);font-size:12px;font-weight:750}
+.content{padding:24px}
+.content p{margin:0 0 14px}
+.content ul{margin:0;padding-left:1.2rem}
+.content li{margin:6px 0}
+.lead{font-size:18px;font-weight:760;color:var(--navy);padding:15px 17px;border-left:5px solid var(--blue);background:#f5f8fe;border-radius:0 12px 12px 0}
+.note{font-size:12px;color:var(--muted);padding:11px 13px;background:var(--cream);border:1px solid var(--line);border-radius:12px}
+.callout{padding:17px;border-radius:15px;border:1px solid var(--line);background:var(--cream);margin:15px 0}
+.callout.red{border-left:5px solid var(--red)}
+.callout.blue{border-left:5px solid var(--blue)}
+.callout.green{border-left:5px solid var(--green)}
+.callout.orange{border-left:5px solid var(--orange)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:10px 0 18px}
+.metric{border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:15px;padding:16px;background:#fff}
+.metric:nth-child(2){border-top-color:var(--orange)}
+.metric:nth-child(3){border-top-color:var(--green)}
+.metric:nth-child(4){border-top-color:var(--red)}
+.metric .value{font-size:clamp(24px,3.4vw,38px);font-weight:950;letter-spacing:-.05em;line-height:1.05}
+.metric .label{font-size:12px;color:var(--muted);margin-top:8px}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.data-card{border:1px solid var(--line);border-radius:15px;padding:17px;background:#fff}
+.data-card h4{margin:0 0 8px;font-size:16px;color:var(--navy)}
+.data-card .big{font-size:29px;font-weight:950;letter-spacing:-.04em}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;margin:13px 0}
+table{border-collapse:collapse;width:100%;min-width:690px;background:#fff;font-size:13px}
+th,td{padding:11px 12px;border-bottom:1px solid #e8e1d6;text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;white-space:normal}
+thead th{background:var(--navy);color:#fff;font-weight:850}
+tbody tr:nth-child(even){background:#fcfaf6}
+tbody tr:last-child td{border-bottom:0}
+.subhead td{font-weight:900;color:var(--navy);background:#f0f4fb}
+.positive{color:var(--green);font-weight:850}.negative{color:var(--red);font-weight:850}
+.chart-shell{border:1px solid var(--line);border-radius:16px;background:#fff;padding:14px;margin:16px 0;overflow:hidden}
+.chart-title{font-size:13px;font-weight:900;color:var(--navy);margin:0 0 9px}
+svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:var(--muted);margin-top:7px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.term{display:grid;grid-template-columns:190px minmax(0,1fr);gap:14px;padding:13px 0;border-bottom:1px solid #ebe4d9}
+.term:last-child{border-bottom:0}.term b{color:var(--navy)}
+.footer{max-width:1440px;margin:0 auto;padding:0 28px 60px;color:var(--muted);font-size:12px}
+.source{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;gap:15px;justify-content:space-between;align-items:center}
+.source a{color:var(--blue);font-weight:850;word-break:break-all}
+.top-link{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;text-decoration:none;box-shadow:var(--shadow);z-index:20}
+.small{font-size:12px;color:var(--muted)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:22px 0}
+@media(max-width:1000px){
+ .hero-grid{grid-template-columns:1fr}.artboard{min-height:220px}.layout{grid-template-columns:1fr}.side{position:relative;top:auto;max-height:none;display:none}.scope{grid-template-columns:1fr 1fr}.metrics{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:1fr}.term{grid-template-columns:1fr;gap:4px}
+}
+@media(max-width:640px){
+ .hero{padding:40px 20px}.layout{padding:22px 14px 70px}.page-head,.content{padding:18px}.scope{grid-template-columns:1fr}.metrics,.grid-2{grid-template-columns:1fr}.page-no{width:40px;height:40px}.source{display:block}.source a{display:block;margin-top:8px}table{font-size:12px}th,td{padding:9px}
+}
+@media print{
+ body{background:#fff}.side,.top-link{display:none}.layout{display:block;max-width:none;padding:0}.hero{min-height:auto;page-break-after:always}.page-card{box-shadow:none;break-inside:avoid;margin-bottom:14px}.source{break-inside:avoid}
+}
+</style>
+</head>
+<body id="top">
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">FINANCE / 城主 · PAGE-BY-PAGE</div>
+      <h1>Sandisk FY2026 4분기<br><span>실적자료 한국어 정리</span></h1>
+      <p>2026년 8월 5일 공개된 25페이지 실적 프레젠테이션을 원문 순서 그대로 페이지별로 정리했습니다. 외부 정보나 투자 의견은 덧붙이지 않았으며, 원문의 수치·표·각주·면책문구를 한국어로 옮겼습니다.</p>
+      <div class="hero-meta">
+        <span class="badge">회계분기 종료 2026.07.03</span>
+        <span class="badge">총 25페이지</span>
+        <span class="badge">단일 HTML · 반응형</span>
+        <span class="badge">그래프: 인라인 SVG</span>
+      </div>
+    </div>
+    <div class="artboard" aria-hidden="true">
+      <div class="block b1"></div><div class="block b2"></div><div class="block b3"></div><div class="block b4"></div>
+      <div class="art-label">SNDK<br>FY26</div>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="side" aria-label="페이지 목차">
+  <h2>CONTENTS / 目次</h2>
+  <a href="#p1"><span><span class="n">01</span>표지</span><span>→</span></a>
+  <a href="#p2"><span><span class="n">02</span>면책사항</span><span>→</span></a>
+  <a href="#p3"><span><span class="n">03</span>개요</span><span>→</span></a>
+  <a href="#p4"><span><span class="n">04</span>추론 시대</span><span>→</span></a>
+  <a href="#p5"><span><span class="n">05</span>기술 리더십</span><span>→</span></a>
+  <a href="#p6"><span><span class="n">06</span>핵심 실적</span><span>→</span></a>
+  <a href="#p7"><span><span class="n">07</span>시장별 실적</span><span>→</span></a>
+  <a href="#p8"><span><span class="n">08</span>데이터센터</span><span>→</span></a>
+  <a href="#p9"><span><span class="n">09</span>엣지</span><span>→</span></a>
+  <a href="#p10"><span><span class="n">10</span>컨슈머</span><span>→</span></a>
+  <a href="#p11"><span><span class="n">11</span>NBM</span><span>→</span></a>
+  <a href="#p12"><span><span class="n">12</span>시장 전망</span><span>→</span></a>
+  <a href="#p13"><span><span class="n">13</span>Non-GAAP 실적</span><span>→</span></a>
+  <a href="#p14"><span><span class="n">14</span>설비투자</span><span>→</span></a>
+  <a href="#p15"><span><span class="n">15</span>1분기 가이던스</span><span>→</span></a>
+  <a href="#p16"><span><span class="n">16</span>재무 전망</span><span>→</span></a>
+  <a href="#p17"><span><span class="n">17</span>부록</span><span>→</span></a>
+  <a href="#p18"><span><span class="n">18</span>JV 구조</span><span>→</span></a>
+  <a href="#p19"><span><span class="n">19</span>조정표 I</span><span>→</span></a>
+  <a href="#p20"><span><span class="n">20</span>조정표 II</span><span>→</span></a>
+  <a href="#p21"><span><span class="n">21</span>조정표 III</span><span>→</span></a>
+  <a href="#p22"><span><span class="n">22</span>현금흐름 조정</span><span>→</span></a>
+  <a href="#p23"><span><span class="n">23</span>각주 I</span><span>→</span></a>
+  <a href="#p24"><span><span class="n">24</span>각주 II</span><span>→</span></a>
+  <a href="#p25"><span><span class="n">25</span>종료 표지</span><span>→</span></a>
+</nav>
+
+<main class="main">
+<section class="scope" aria-label="문서 범위">
+  <div class="mini"><b>25</b><span>원문 페이지 수</span></div>
+  <div class="mini"><b>FY2026 Q4</b><span>2026년 7월 3일 종료 분기</span></div>
+  <div class="mini"><b>원문 한정</b><span>외부 의견·추가 조사 제외</span></div>
+</section>
+
+<section class="page-card" id="p1">
+  <div class="page-head"><div class="page-no">01</div><div><h2 class="page-title">표지 — FY2026 4분기 재무 결과</h2><p class="page-kicker">FINANCIAL RESULTS · FISCAL FOURTH QUARTER 2026</p></div></div>
+  <div class="content">
+    <p class="lead">Sandisk가 2026년 8월 5일 공개한 FY2026 4분기 재무 결과 자료이며, 대상 분기는 2026년 7월 3일 종료 분기입니다.</p>
+    <div class="callout red"><b>공개 등급:</b> PUBLIC</div>
+  </div>
+</section>
+
+<section class="page-card" id="p2">
+  <div class="page-head"><div class="page-no">02</div><div><h2 class="page-title">면책사항</h2><p class="page-kicker">Forward-looking statements · Non-GAAP measures</p></div></div>
+  <div class="content">
+    <div class="grid-2">
+      <div class="data-card">
+        <h4>미래예측진술의 범위</h4>
+        <p>이 자료에는 미국 연방 증권법상 미래예측진술이 포함됩니다. 여기에는 FY2027 1분기 이후의 사업 전망과 운영·재무 성과, 새로운 사업모델(NBM) 계약을 포함한 사업계획, 성장전략, 시장 예상, 비트 할당 전망, 전략 우선순위 및 기대 재무성과가 포함되지만 이에 한정되지 않습니다.</p>
+        <p>진술은 경영진의 현재 기대에 기초하며 실제 결과는 크게 달라질 수 있습니다. FY2026 4분기 수치는 당시 경영진이 이용할 수 있는 최신 예비 정보이며, 결산 절차·최종 조정·독립감사인의 감사·10-K 제출 전 추가 상황에 따라 최종 10-K 수치와 달라질 수 있습니다.</p>
+      </div>
+      <div class="data-card">
+        <h4>주요 위험과 불확실성</h4>
+        <p>글로벌·지역 경제 악화, 무역정책·관세·무역전쟁, 제품 수요 변동, 가격·평균판매가격 변동, 인플레이션, 금리 변화와 경기침체, 글로벌 보건위기, 사업·시장 상황, 경쟁 제품과 가격, 신기술 개발·출시 및 기술전환 관리가 포함됩니다.</p>
+        <p>또한 구조조정·인수·매각·비용절감·합작사 등 전략적 이니셔티브, 제품 결함, 제품 램프·제조·공급망 차질, Kioxia를 포함한 핵심 파트너 의존, 장기계약 위험, 수요·업황 사이클·고객 배치시점·수요예측 오류에 따른 실적 변동도 포함됩니다.</p>
+      </div>
+    </div>
+    <div class="callout orange">
+      <b>추가 위험:</b> 숙련 경영·기술인력의 확보·유지·육성, 사업운영에서 AI 사용과 관련된 위험, 핵심 고객 관계 변화 또는 고객기반 통합, 사이버보안 사고와 데이터시스템 위험, 지식재산 의존, 환율 변동, 경쟁사 행동, 자사주 매입 프로그램 위험, 법률·규제 준수 위험, SEC 제출문서에 기재된 기타 위험이 포함됩니다.
+    </div>
+    <p>투자자는 이러한 진술에 과도하게 의존해서는 안 됩니다. 진술은 자료 작성일 현재만 유효하며, 법률상 요구되는 경우를 제외하면 회사는 새 정보나 사건을 반영해 이를 업데이트하거나 수정할 의무가 없습니다.</p>
+    <hr class="sep">
+    <div class="callout blue">
+      <b>Non-GAAP 관련:</b> 본 자료는 Non-GAAP 재무지표를 포함합니다. 가장 직접적으로 비교 가능한 GAAP 지표와의 조정표는 부록 및 FY2026 4분기 실적 보도자료에 포함됩니다. 회사 통제 밖이거나 합리적으로 예측할 수 없는 중요 항목이 있어 Non-GAAP 가이던스를 GAAP 기준으로 완전히 조정하지 못했으며, 과도한 노력 없이는 완전한 조정표를 제공할 수 없다고 설명합니다.
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p3">
+  <div class="page-head"><div class="page-no">03</div><div><h2 class="page-title">개요 — FY2026의 구조적 전환</h2><p class="page-kicker">Overview</p></div></div>
+  <div class="content">
+    <ul>
+      <li>FY2026은 Sandisk에 근본적인 변곡점이 된 해이며, 사업구조를 고부가가치 최종시장 중심으로 재편하고 데이터센터를 핵심 성장축으로 확립했습니다.</li>
+      <li>TLC와 QLC 전반의 BiCS 리더십 및 고도화된 HBF를 통해 제품 포트폴리오를 강화했습니다.</li>
+      <li>새로운 사업모델(NBM), 더 탄력적인 공급망, 강화된 대차대조표가 성장성과 지속성을 갖춘 잉여현금흐름을 뒷받침합니다.</li>
+      <li>4분기는 기록적인 매출·매출총이익률·EPS를 달성해 모두 가이던스 상단을 웃돌았고, 45억 달러의 자사주를 매입한 증명 구간이었습니다.</li>
+      <li>이러한 조치들이 구조적으로 더 높고 지속적인 이익창출력을 만들고 있다고 회사는 설명합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p4">
+  <div class="page-head"><div class="page-no">04</div><div><h2 class="page-title">추론의 시대 — NAND 수요 구조 재편</h2><p class="page-kicker">The Era of Inference: Reshaping NAND Demand</p></div></div>
+  <div class="content">
+    <ul>
+      <li>AI는 본질적으로 메모리 중심이며 스토리지 집약적인 문제로, NAND 수요의 방정식을 바꾸고 있습니다.</li>
+      <li>추론과 에이전틱 AI로의 전환이 전례 없는 규모의 데이터를 생성하면서 스토리지 요구량을 새롭게 정의하고 있습니다.</li>
+      <li>모든 AI 상호작용은 저장·검색·저지연 제공이 필요한 콘텐츠를 만들며, 이 과정에는 Sandisk의 고용량 엔터프라이즈 SSD를 포함한 데이터 스토리지 제품이 필요합니다.</li>
+      <li>NAND는 세계에서 가장 확장성이 높은 반도체 기술이며 AI 아키텍처의 핵심 구성요소가 되었습니다.</li>
+      <li>수요는 세계 최대 기술기업들의 전략적 장기 인프라 투자에 기반합니다. 이 기업들은 수년 앞선 성능·신뢰성·공급 안정성을 위해 규모를 갖추고 공급을 보장할 수 있는 공급사와 점점 더 협력하고 있습니다.</li>
+      <li>NBM은 고객에게 장기공급 확신을 주고 Sandisk에는 더 명확한 수요 가시성과 지속적인 현금흐름을 제공합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p5">
+  <div class="page-head"><div class="page-no">05</div><div><h2 class="page-title">기술 및 제품 리더십</h2><p class="page-kicker">Technology and Product Leadership</p></div></div>
+  <div class="content">
+    <ul>
+      <li>BiCS는 NAND 업계의 골드 스탠더드로 인정받고 있으며, 올해 BiCS8을 전체 비트 생산의 과반으로 확대했습니다.</li>
+      <li>BiCS8은 CBA와 하이브리드 웨이퍼 본딩 같은 혁신으로 구현됐습니다. 이후 로드맵은 이 기반 기술을 활용해 TLC와 QLC 모두에서 업계 최고 수준의 성능·집적도·전력효율을 제공하도록 설계됐습니다.</li>
+      <li>차세대 제품은 여러 스케일링 축에 걸친 지속적인 혁신으로 성능과 원가 리더십을 확장합니다.</li>
+      <li>이번 분기부터 QLC Stargate 플랫폼의 매출 인식 출하를 시작했습니다.</li>
+      <li>제품군은 성능 집약적 컴퓨팅 워크로드부터 고용량 AI 데이터 레이크까지 포괄합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p6">
+  <div class="page-head"><div class="page-no">06</div><div><h2 class="page-title">FY2026 4분기 재무 하이라이트</h2><p class="page-kicker">Fiscal Q4 2026 Financial Highlights</p></div></div>
+  <div class="content">
+    <div class="metrics">
+      <div class="metric"><div class="value">약 $9.0B</div><div class="label">매출 · 전분기 대비 +51% · 전년 대비 +372%</div></div>
+      <div class="metric"><div class="value">$39.25</div><div class="label">Non-GAAP 희석 순이익 EPS</div></div>
+      <div class="metric"><div class="value">84.6%</div><div class="label">Non-GAAP 매출총이익률</div></div>
+      <div class="metric"><div class="value">$5.0B</div><div class="label">조정 잉여현금흐름</div></div>
+    </div>
+    <p class="lead">순차 매출 성장의 약 3분의 1은 출하량 증가, 약 3분의 2는 가격 상승에서 발생했습니다.</p>
+    <p class="note">Non-GAAP EPS·매출총이익률·조정 잉여현금흐름은 Non-GAAP 지표입니다. 조정 FCF는 NBM 선급금 및 보증금 관련 19억3,800만 달러를 제외합니다.</p>
+  </div>
+</section>
+
+<section class="page-card" id="p7">
+  <div class="page-head"><div class="page-no">07</div><div><h2 class="page-title">최종시장별 FY2026 4분기 재무성과</h2><p class="page-kicker">Datacenter · Edge · Consumer</p></div></div>
+  <div class="content">
+    <div class="chart-shell">
+      <p class="chart-title">분기 매출과 Non-GAAP 매출총이익률</p>
+      <svg viewBox="0 0 900 390" role="img" aria-label="FY2025 4분기부터 FY2026 4분기까지 매출과 매출총이익률 차트">
+        <rect x="0" y="0" width="900" height="390" rx="16" fill="#fff"/>
+        <line x1="86" y1="320" x2="820" y2="320" stroke="#d7d0c5" stroke-width="2"/>
+        <line x1="86" y1="65" x2="86" y2="320" stroke="#d7d0c5" stroke-width="2"/>
+        <g fill="#7b8491" font-size="14" font-family="sans-serif">
+          <text x="22" y="324">$0</text><text x="15" y="265">$2B</text><text x="15" y="207">$4B</text><text x="15" y="149">$6B</text><text x="15" y="91">$8B</text>
+        </g>
+        <g>
+          <rect x="125" y="266" width="80" height="54" rx="7" fill="#1f66d1"/><rect x="125" y="246" width="80" height="20" rx="7" fill="#e67e22" opacity=".88"/>
+          <rect x="265" y="255" width="80" height="65" rx="7" fill="#1f66d1"/><rect x="265" y="242" width="80" height="13" rx="7" fill="#e67e22" opacity=".88"/>
+          <rect x="405" y="225" width="80" height="95" rx="7" fill="#1f66d1"/><rect x="405" y="214" width="80" height="11" rx="7" fill="#e67e22" opacity=".88"/>
+          <rect x="545" y="146" width="80" height="174" rx="7" fill="#1f66d1"/><rect x="545" y="128" width="80" height="18" rx="7" fill="#e67e22" opacity=".88"/>
+          <rect x="685" y="73" width="80" height="247" rx="7" fill="#1f66d1"/><rect x="685" y="56" width="80" height="17" rx="7" fill="#e67e22" opacity=".88"/>
+        </g>
+        <polyline points="165,250 305,238 445,185 585,116 725,91" fill="none" stroke="#d94141" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g fill="#d94141"><circle cx="165" cy="250" r="6"/><circle cx="305" cy="238" r="6"/><circle cx="445" cy="185" r="6"/><circle cx="585" cy="116" r="6"/><circle cx="725" cy="91" r="6"/></g>
+        <g fill="#182334" font-size="14" font-weight="800" font-family="sans-serif" text-anchor="middle">
+          <text x="165" y="346">FQ4'25</text><text x="305" y="346">FQ1'26</text><text x="445" y="346">FQ2'26</text><text x="585" y="346">FQ3'26</text><text x="725" y="346">FQ4'26</text>
+        </g>
+        <g fill="#d94141" font-size="13" font-weight="900" font-family="sans-serif" text-anchor="middle">
+          <text x="165" y="235">26%</text><text x="305" y="223">30%</text><text x="445" y="170">51%</text><text x="585" y="101">78%</text><text x="725" y="76">85%</text>
+        </g>
+        <g fill="#182334" font-size="13" font-weight="850" font-family="sans-serif" text-anchor="middle">
+          <text x="165" y="239"> </text><text x="165" y="300">$1.901B</text><text x="305" y="294">$2.308B</text><text x="445" y="271">$3.025B</text><text x="585" y="224">$5.950B</text><text x="725" y="190">$8.965B</text>
+        </g>
+      </svg>
+      <div class="legend"><span><i style="background:#1f66d1"></i>분기 매출</span><span><i style="background:#d94141"></i>Non-GAAP 매출총이익률</span></div>
+      <p class="small">원문 막대는 데이터센터·엣지·컨슈머의 분기별 구성을 누적 형태로 보여주지만, 과거 분기의 세부 시장별 숫자는 별도로 표기하지 않습니다. 위 SVG는 원문에 명시된 총매출과 매출총이익률을 표시합니다.</p>
+    </div>
+    <div class="grid-3">
+      <div class="data-card"><h4>데이터센터</h4><div class="big">$2,977M</div><p><span class="positive">전분기 대비 +103%</span><br><span class="positive">전년 대비 +1,298%</span></p></div>
+      <div class="data-card"><h4>엣지</h4><div class="big">$5,432M</div><p><span class="positive">전분기 대비 +48%</span><br><span class="positive">전년 대비 +392%</span></p></div>
+      <div class="data-card"><h4>컨슈머</h4><div class="big">$556M</div><p><span class="negative">전분기 대비 -32%</span><br><span class="negative">전년 대비 -5%</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p8">
+  <div class="page-head"><div class="page-no">08</div><div><h2 class="page-title">최종시장 — 데이터센터</h2><p class="page-kicker">Datacenter</p></div></div>
+  <div class="content">
+    <ul>
+      <li>다수의 하이퍼스케일 및 AI 인프라 고객에 컴퓨팅 중심 TLC 엔터프라이즈 SSD 공급을 확대했습니다.</li>
+      <li>데이터센터 비트 비중은 FY2025 4분기 12%에서 FY2026 4분기 38%로 상승해 기술적 입지를 보여줍니다.</li>
+      <li>FY2026 4분기 매출은 29억7,700만 달러로 전분기 대비 103% 증가했습니다. FY2026 연간 매출은 51억5,300만 달러로 전년 대비 437% 증가했습니다.</li>
+      <li>데이터센터는 가장 빠르게 성장하는 최종시장이며 장기 성장의 중심축입니다.</li>
+      <li>회사는 전체 TAM에서 데이터센터가 차지하는 비중이 CY2025 약 30%에서 CY2026 약 50%로 확대되고, CY2027에도 시장 성장률을 계속 웃돌 것으로 예상합니다.</li>
+    </ul>
+    <p class="note">출처 표기: Sandisk 내부 시장모델.</p>
+  </div>
+</section>
+
+<section class="page-card" id="p9">
+  <div class="page-head"><div class="page-no">09</div><div><h2 class="page-title">최종시장 — 엣지</h2><p class="page-kicker">Edge</p></div></div>
+  <div class="content">
+    <ul>
+      <li>엣지는 스마트폰·PC·태블릿과 자동차·로봇·온디바이스 에이전틱 AI 등 새롭게 등장하는 피지컬 AI 활용처를 포함하는 크고 전략적으로 중요한 시장입니다.</li>
+      <li>단기적으로 PC와 스마트폰은 AI 지원 기기 및 프리미엄 구성으로 수요가 이동하면서 조정 국면을 겪고 있으며, 이 과정에서 기기당 스토리지 용량이 증가합니다.</li>
+      <li>PC 시장에서는 고급 기기 수요를 반영한 수익성 높은 제품 믹스로 OEM들이 매출과 마진을 확대하고 있습니다.</li>
+      <li>회사는 이 시장들이 CY2027에 성장세로 복귀할 것으로 예상합니다.</li>
+      <li>FY2026 4분기 매출은 54억3,200만 달러로 전분기 대비 48% 증가했습니다. FY2026 연간 매출은 121억6,000만 달러로 전년 대비 195% 증가했습니다.</li>
+      <li>장기적으로 온디바이스 AI와 풍부한 콘텐츠가 엣지에서 고성능 플래시의 역할을 계속 확대할 것으로 봅니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p10">
+  <div class="page-head"><div class="page-no">10</div><div><h2 class="page-title">최종시장 — 컨슈머</h2><p class="page-kicker">Consumer</p></div></div>
+  <div class="content">
+    <ul>
+      <li>Sandisk의 글로벌 소비자 시장 입지는 업계 내 의미 있는 차별화 요소로, 최종 사용자와 채널 파트너에 독특한 접점을 제공합니다.</li>
+      <li>브랜드 투자를 지속하고 시장진입·판매 역량을 정교화하고 있습니다.</li>
+      <li>소비자가 가치 있게 보는 제품·기능·경험을 중심으로 혁신합니다.</li>
+      <li>FY2026 4분기 매출은 5억5,600만 달러로 전분기 대비 32% 감소했습니다. FY2026 연간 매출은 29억3,500만 달러로 전년 대비 29% 증가했습니다.</li>
+      <li>컨슈머 사업은 데이터센터·엣지·컨슈머로 구성된 균형 포트폴리오의 축으로, 사업 다각화·마진 기회·채널 도달범위·제품 믹스 유연성을 더합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p11">
+  <div class="page-head"><div class="page-no">11</div><div><h2 class="page-title">새로운 사업모델(NBM)</h2><p class="page-kicker">New Business Models</p></div></div>
+  <div class="content">
+    <div class="metrics">
+      <div class="metric"><div class="value">8</div><div class="label">데이터센터·엣지에서 계약한 고객 수</div></div>
+      <div class="metric"><div class="value">$93.9B</div><div class="label">최저가격 기준 최소 계약매출</div></div>
+      <div class="metric"><div class="value">$59.8B</div><div class="label">분기말 RPO · 분기 후 계약 포함 시 $91.1B</div></div>
+      <div class="metric"><div class="value">$16.5B</div><div class="label">현금 보증금 및 금융상품 형태의 재무보증</div></div>
+    </div>
+    <div class="chart-shell">
+      <p class="chart-title">NBM 비트 커밋 및 계약기간</p>
+      <svg viewBox="0 0 900 250" role="img" aria-label="FY2027과 FY2028 NBM 비트 커밋 비율 및 계약기간">
+        <rect width="900" height="250" rx="16" fill="#fff"/>
+        <g font-family="sans-serif">
+          <text x="70" y="55" font-size="16" font-weight="900" fill="#182334">FY2027 비트 커밋</text>
+          <rect x="70" y="76" width="330" height="34" rx="17" fill="#ece2d2"/><rect x="70" y="76" width="165" height="34" rx="17" fill="#1f66d1"/>
+          <text x="410" y="101" font-size="24" font-weight="950" fill="#1f66d1">1/2</text>
+          <text x="70" y="155" font-size="16" font-weight="900" fill="#182334">FY2028 비트 커밋</text>
+          <rect x="70" y="176" width="330" height="34" rx="17" fill="#ece2d2"/><rect x="70" y="176" width="220" height="34" rx="17" fill="#1f8a5b"/>
+          <text x="410" y="201" font-size="24" font-weight="950" fill="#1f8a5b">약 2/3</text>
+          <rect x="565" y="55" width="265" height="155" rx="18" fill="#fbf7ee" stroke="#ddd5c7"/>
+          <text x="697" y="105" font-size="44" text-anchor="middle" font-weight="950" fill="#e67e22">4년+</text>
+          <text x="697" y="139" font-size="14" text-anchor="middle" fill="#697383">가중평균 계약기간</text>
+          <text x="697" y="164" font-size="14" text-anchor="middle" fill="#697383">최대 5년</text>
+        </g>
+      </svg>
+    </div>
+    <ul>
+      <li>추가로 5건을 체결했습니다. 신규 고객 3곳, 기존 계약 확대 2건이며, 3건은 분기 종료 전에, 2건은 분기 종료 후에 마감됐습니다.</li>
+      <li>가격은 고정요소와 변동요소를 혼합하며 변동분에는 하한과 상한이 적용됩니다. 최저가격에서도 매력적인 마진을 확보하도록 설계됐습니다.</li>
+      <li>공급·수요 약정은 연도별·분기별로 정해져 운영 가시성과 재무적 보호가 높아집니다.</li>
+      <li>보증은 각 계약의 후반부로 갈수록 해제되므로, 남은 의무 대비 보장범위는 시간이 지날수록 높아집니다.</li>
+      <li>신규 NBM은 전략 고객, 약 5년 기간, 성장하는 물량, 매력적인 경제성을 기준으로 매우 선별적으로 체결합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p12">
+  <div class="page-head"><div class="page-no">12</div><div><h2 class="page-title">시장 전망</h2><p class="page-kicker">Market Outlook</p></div></div>
+  <div class="content">
+    <ul>
+      <li>AI 추론이 핵심 순풍으로 작용해 NAND 시장이 가속 성장할 것으로 예상합니다.</li>
+      <li>CY2026 NAND 시장 매출은 3,000억 달러를 넘어 전년 대비 3배가 될 것으로 추정합니다.</li>
+      <li>CY2027 NAND 시장 매출은 5,000억 달러로 예상합니다.</li>
+      <li>고객 수요 증가가 Sandisk의 공급 증가보다 빠르며, CY2027 이후까지 비트 할당 상태가 이어질 것으로 예상합니다.</li>
+    </ul>
+    <div class="chart-shell">
+      <p class="chart-title">NAND 시장 매출 전망</p>
+      <svg viewBox="0 0 900 340" role="img" aria-label="2026년과 2027년 NAND 시장 매출 전망">
+        <rect width="900" height="340" rx="16" fill="#fff"/>
+        <line x1="120" y1="275" x2="810" y2="275" stroke="#d7d0c5" stroke-width="2"/>
+        <rect x="235" y="115" width="160" height="160" rx="12" fill="#1f66d1"/>
+        <rect x="520" y="30" width="160" height="245" rx="12" fill="#1f8a5b"/>
+        <g font-family="sans-serif" text-anchor="middle">
+          <text x="315" y="100" font-size="28" font-weight="950" fill="#1f66d1">$300B+</text>
+          <text x="600" y="20" font-size="28" font-weight="950" fill="#1f8a5b">$500B</text>
+          <text x="315" y="305" font-size="17" font-weight="900" fill="#182334">CY2026E</text>
+          <text x="600" y="305" font-size="17" font-weight="900" fill="#182334">CY2027E</text>
+        </g>
+      </svg>
+      <p class="small">원문 출처: TechInsights NAND Market Report Q2 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p13">
+  <div class="page-head"><div class="page-no">13</div><div><h2 class="page-title">Non-GAAP 재무실적</h2><p class="page-kicker">단위: 백만 달러, EPS 제외</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>항목</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th><th>QoQ</th><th>YoY</th></tr></thead>
+      <tbody>
+        <tr><td>매출</td><td>$1,901</td><td>$5,950</td><td>$8,965</td><td class="positive">+51%</td><td class="positive">+372%</td></tr>
+        <tr><td>매출총이익률</td><td>26.4%</td><td>78.4%</td><td>84.6%</td><td class="positive">+6.2%p</td><td class="positive">+58.2%p</td></tr>
+        <tr><td>영업비용</td><td>$402</td><td>$448</td><td>$484</td><td>+8%</td><td>+20%</td></tr>
+        <tr><td>영업이익</td><td>$100</td><td>$4,218</td><td>$7,104</td><td class="positive">+68%</td><td>*</td></tr>
+        <tr><td>순이자·기타수익(비용)</td><td>$(37)</td><td>$(3)</td><td>$8</td><td class="positive">+367%</td><td class="positive">+122%</td></tr>
+        <tr><td>희석 EPS</td><td>$0.29</td><td>$23.41</td><td>$39.25</td><td class="positive">+68%</td><td>*</td></tr>
+        <tr><td>영업현금흐름</td><td>$94</td><td>$3,038</td><td>$7,126</td><td class="positive">+135%</td><td>*</td></tr>
+        <tr><td>조정 잉여현금흐름</td><td>$77</td><td>$2,417</td><td>$5,035</td><td class="positive">+108%</td><td>*</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">* 의미 있는 비교수치가 아님. 조정 잉여현금흐름은 각 기간 NBM 선급금·보증금 영향(Q4'25 $0, Q3'26 $538M, Q4'26 $1,938M)을 제외합니다.</p>
+  </div>
+</section>
+
+<section class="page-card" id="p14">
+  <div class="page-head"><div class="page-no">14</div><div><h2 class="page-title">총 설비투자 및 현금 설비투자 추세·계획</h2><p class="page-kicker">Quarter ended July 3, 2026</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>항목</th><th>금액</th></tr></thead>
+      <tbody>
+        <tr><td>순매출</td><td>$8,965M</td></tr>
+        <tr class="subhead"><td>Sandisk 지분 기준 JV 총 CapEx</td><td>$519M</td></tr>
+        <tr><td>외부 조달</td><td>$290M</td></tr>
+        <tr><td>Sandisk 웨이퍼 구매(장비 감가상각)</td><td>$119M</td></tr>
+        <tr><td>CapEx 조달액</td><td>$409M</td></tr>
+        <tr><td>Sandisk 지분 기준 JV 현금 CapEx(전공정)</td><td>$110M</td></tr>
+        <tr><td>유형자산 구매(후공정·사무실)</td><td>$43M</td></tr>
+        <tr class="subhead"><td>Sandisk 총 현금 CapEx</td><td>$153M</td></tr>
+        <tr><td>순매출 대비</td><td>1.7%</td></tr>
+        <tr class="subhead"><td>Sandisk 총 Gross CapEx</td><td>$562M</td></tr>
+        <tr><td>순매출 대비</td><td>6.3%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid-2">
+      <div class="callout blue">JV 총 CapEx는 주로 노드 전환과 수급 정렬에 따라 변동합니다.</div>
+      <div class="callout green">JV 총 CapEx는 보조금·리스·벤더 지급조건 같은 외부재원과, 매출원가에 포함되는 장비 감가상각 같은 내부재원의 조합으로 조달됩니다.</div>
+      <div class="callout orange">Sandisk 지분의 JV 현금 CapEx와 유형자산 구매를 합한 금액이 순현금 CapEx입니다.</div>
+      <div class="callout red">FY2026 CapEx의 대부분은 BiCS8 기술 투자에 사용됐습니다.</div>
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p15">
+  <div class="page-head"><div class="page-no">15</div><div><h2 class="page-title">FY2027 1분기 가이던스</h2><p class="page-kicker">Fiscal First Quarter Guidance</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>항목</th><th>GAAP</th><th>Non-GAAP</th></tr></thead>
+      <tbody>
+        <tr><td>매출</td><td>$10,300M–$10,800M</td><td>$10,300M–$10,800M</td></tr>
+        <tr><td>매출총이익률</td><td>83.0%–84.9%</td><td>83.0%–85.0%</td></tr>
+        <tr><td>영업비용</td><td>$574M–$614M</td><td>$520M–$540M</td></tr>
+        <tr><td>세율</td><td>N/A</td><td>15%</td></tr>
+        <tr><td>희석 EPS</td><td>N/A</td><td>$44.00–$46.00</td></tr>
+        <tr><td>희석주식수</td><td>약 155M</td><td>약 155M</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout blue">
+      <b>각주 1:</b> Non-GAAP 매출총이익률 가이던스는 주식보상비용 약 500만~700만 달러를 제외합니다. Non-GAAP 영업비용 가이던스는 주식보상비용 약 5,400만~7,400만 달러를 제외합니다. Non-GAAP 희석 EPS 가이던스는 이 항목들을 합친 약 5,900만~8,100만 달러를 제외합니다. 제외 항목의 시기와 금액은 더 세부적으로 확정·배분하기 어렵고, 기타 일부 조정도 발생시점과 사건에 좌우돼 합리적 예측이 불가능하므로 GAAP와의 완전한 조정표는 과도한 노력 없이는 제공할 수 없습니다.
+    </div>
+    <div class="callout orange">
+      <b>각주 2:</b> Non-GAAP 세금비용은 Non-GAAP 세전이익 또는 손실을 기준으로 산정됩니다. GAAP 세금과의 차이는 ① Non-GAAP 순이익에서 제외한 항목의 세무처리 차이, ② 중간기간 GAAP 세금이 손실 관할지역을 제외한 연간 예상 GAAP 세금을 기초로 산정되는 점, ③ 중간기간 GAAP 세금이 일부 GAAP 영업비용의 시기·확정에 좌우되는 점에서 발생할 수 있습니다.
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p16">
+  <div class="page-head"><div class="page-no">16</div><div><h2 class="page-title">재무 전망</h2><p class="page-kicker">Financial Outlook</p></div></div>
+  <div class="content">
+    <ul>
+      <li>BiCS8과 BiCS10 증산에 따라 자본지출이 전년 대비 증가하며, 공급량은 10%대 중후반 성장할 계획입니다.</li>
+      <li>매출 대비 투자비중은 연간 약 6%로 낮아집니다.</li>
+      <li>현재 수준과 유사한 높은 재고일수는 NBM을 지원하며, 더 높은 부품 원가도 반영합니다.</li>
+      <li>재고수준 상승으로 연간 판매가능 비트 성장률은 10%대 중반으로 낮아집니다.</li>
+      <li>자본배분 우선순위는 사업 투자와 잉여현금의 주주환원입니다.</li>
+      <li>분사 이후 총 200억 달러의 자사주 매입을 승인했으며, 45억 달러를 집행하고 155억 달러의 승인 한도가 남아 있습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="page-card" id="p17">
+  <div class="page-head"><div class="page-no">17</div><div><h2 class="page-title">부록 시작</h2><p class="page-kicker">APPENDIX</p></div></div>
+  <div class="content"><p class="lead">이 페이지는 본문 종료 후 부록이 시작됨을 알리는 구분 표지입니다.</p></div>
+</section>
+
+<section class="page-card" id="p18">
+  <div class="page-head"><div class="page-no">18</div><div><h2 class="page-title">합작사 운영 프레임워크</h2><p class="page-kicker">Flash Ventures · Sandisk 49.9% / Kioxia 50.1%</p></div></div>
+  <div class="content">
+    <div class="grid-3">
+      <div class="data-card"><h4>Sandisk의 역할</h4>
+        <ul><li>Kioxia와 공정기술·메모리 설계를 포함한 플래시를 공동개발하고 Flash Ventures 사용을 위한 IP를 제공합니다.</li><li>Flash Ventures 제조거점에서 핵심 제조·R&amp;D 기능을 수행합니다.</li><li>Flash Ventures 웨이퍼를 원가에 소폭 마크업을 더해 구매합니다.</li><li>장비 감가상각·리스비용을 포함한 Flash Ventures 비용을 부담합니다.</li><li>Flash Ventures 영업현금흐름을 초과하는 장비구매분을 대출·자본·리스보증 방식으로 지원합니다.</li></ul>
+      </div>
+      <div class="data-card"><h4>Flash Ventures의 역할</h4>
+        <ul><li>플래시 웨이퍼 생산 및 R&amp;D 라인 장비를 소유·리스합니다.</li><li>파운드리 계약에 따라 Kioxia로부터 원가로 웨이퍼를 구매합니다.</li><li>Sandisk와 Kioxia에 원가에 소폭 마크업을 더해 웨이퍼를 판매합니다.</li><li>장비 감가상각·리스비용을 포함한 비용을 양사에 청구합니다.</li><li>장비구매 일부를 Sandisk와 Kioxia로부터 차입하고, 잉여 영업현금흐름으로 해당 대출을 상환합니다.</li></ul>
+      </div>
+      <div class="data-card"><h4>Kioxia의 역할</h4>
+        <ul><li>Sandisk와 공정기술·메모리 설계를 포함한 플래시를 공동개발하고 Flash Ventures 사용을 위한 IP를 제공합니다.</li><li>Flash Ventures 제조거점에서 핵심 제조·R&amp;D 기능을 수행합니다.</li><li>Flash Ventures 웨이퍼를 원가에 소폭 마크업을 더해 구매합니다.</li><li>장비 감가상각·리스비용을 포함한 Flash Ventures 비용을 부담합니다.</li><li>영업현금흐름을 초과하는 장비구매분을 대출·자본·리스보증 방식으로 지원합니다.</li><li>클린룸을 소유·운영하고 Flash Ventures에 원가로 웨이퍼 제조서비스를 제공합니다.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-card" id="p19">
+  <div class="page-head"><div class="page-no">19</div><div><h2 class="page-title">GAAP → Non-GAAP 조정표 I</h2><p class="page-kicker">매출총이익 및 영업비용</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>매출총이익 조정 · 백만 달러</th><th>Q4'25</th><th>Q1'26</th><th>Q2'26</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody>
+        <tr><td>매출</td><td>$1,901</td><td>$2,308</td><td>$3,025</td><td>$5,950</td><td>$8,965</td></tr>
+        <tr><td>GAAP 매출총이익</td><td>498</td><td>687</td><td>1,541</td><td>4,662</td><td>7,582</td></tr>
+        <tr><td>주식보상비용</td><td>4</td><td>4</td><td>5</td><td>4</td><td>6</td></tr>
+        <tr class="subhead"><td>Non-GAAP 매출총이익</td><td>$502</td><td>$691</td><td>$1,546</td><td>$4,666</td><td>$7,588</td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>영업비용 조정 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody>
+        <tr><td>GAAP 영업비용</td><td>$480</td><td>$551</td><td>$545</td></tr>
+        <tr><td>주식보상비용</td><td>(45)</td><td>(50)</td><td>(61)</td></tr>
+        <tr><td>사업분리 비용</td><td>(17)</td><td>(7)</td><td>—</td></tr>
+        <tr><td>직원 해고 및 기타</td><td>(16)</td><td>—</td><td>—</td></tr>
+        <tr><td>채무상환손실</td><td>—</td><td>(46)</td><td>—</td></tr>
+        <tr class="subhead"><td>Non-GAAP 영업비용</td><td>$402</td><td>$448</td><td>$484</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="page-card" id="p20">
+  <div class="page-head"><div class="page-no">20</div><div><h2 class="page-title">GAAP → Non-GAAP 조정표 II</h2><p class="page-kicker">영업이익 · 기타손익 · 법인세</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>영업이익 조정 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody><tr><td>GAAP 영업이익(손실)</td><td>$18</td><td>$4,111</td><td>$7,037</td></tr><tr><td>매출총이익 조정</td><td>4</td><td>4</td><td>6</td></tr><tr><td>영업비용 조정</td><td>78</td><td>103</td><td>61</td></tr><tr class="subhead"><td>Non-GAAP 영업이익</td><td>$100</td><td>$4,218</td><td>$7,104</td></tr></tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>순이자·기타손익 조정 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody><tr><td>GAAP 순이자·기타수익(비용)</td><td>$(36)</td><td>$(4)</td><td>$812</td></tr><tr><td>주식증권 순(이익)손실</td><td>1</td><td>—</td><td>(804)</td></tr><tr><td>기타, 순액</td><td>(2)</td><td>1</td><td>—</td></tr><tr class="subhead"><td>Non-GAAP 순이자·기타수익(비용)</td><td>$(37)</td><td>$(3)</td><td>$8</td></tr></tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>법인세 조정 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody><tr><td>GAAP 법인세비용</td><td>$5</td><td>$492</td><td>$946</td></tr><tr><td>법인세 조정</td><td>16</td><td>48</td><td>4</td></tr><tr class="subhead"><td>Non-GAAP 법인세비용</td><td>$21</td><td>$540</td><td>$950</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="page-card" id="p21">
+  <div class="page-head"><div class="page-no">21</div><div><h2 class="page-title">GAAP → Non-GAAP 조정표 III</h2><p class="page-kicker">순이익 · EPS · 희석주식수</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>순이익 조정 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody>
+        <tr><td>GAAP 순이익(손실)</td><td>$(23)</td><td>$3,615</td><td>$6,903</td></tr>
+        <tr><td>주식보상비용</td><td>49</td><td>54</td><td>67</td></tr>
+        <tr><td>사업분리 비용</td><td>17</td><td>7</td><td>—</td></tr>
+        <tr><td>직원 해고 및 기타</td><td>16</td><td>—</td><td>—</td></tr>
+        <tr><td>채무상환손실</td><td>—</td><td>46</td><td>—</td></tr>
+        <tr><td>주식증권 순(이익)손실</td><td>1</td><td>—</td><td>(804)</td></tr>
+        <tr><td>기타, 순액</td><td>(2)</td><td>1</td><td>—</td></tr>
+        <tr><td>법인세 조정</td><td>(16)</td><td>(48)</td><td>(4)</td></tr>
+        <tr class="subhead"><td>Non-GAAP 순이익</td><td>$42</td><td>$3,675</td><td>$6,162</td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>주당수치 및 주식수</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody><tr><td>GAAP 희석 EPS</td><td>$(0.16)</td><td>$23.03</td><td>$43.97</td></tr><tr><td>Non-GAAP 희석 EPS</td><td>$0.29</td><td>$23.41</td><td>$39.25</td></tr><tr><td>GAAP 희석 가중평균주식수</td><td>145M</td><td>157M</td><td>157M</td></tr><tr><td>Non-GAAP 희석 가중평균주식수</td><td>147M</td><td>157M</td><td>157M</td></tr></tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="page-card" id="p22">
+  <div class="page-head"><div class="page-no">22</div><div><h2 class="page-title">GAAP → Non-GAAP 현금흐름 조정</h2><p class="page-kicker">Free Cash Flow · Adjusted Free Cash Flow</p></div></div>
+  <div class="content">
+    <div class="table-wrap"><table>
+      <thead><tr><th>현금흐름 · 백만 달러</th><th>Q4'25</th><th>Q3'26</th><th>Q4'26</th></tr></thead>
+      <tbody>
+        <tr><td>영업활동 현금흐름</td><td>$94</td><td>$3,038</td><td>$7,126</td></tr>
+        <tr><td>유형자산 순구매</td><td>(45)</td><td>(45)</td><td>(43)</td></tr>
+        <tr class="subhead"><td>잉여현금흐름</td><td>49</td><td>2,993</td><td>7,083</td></tr>
+        <tr><td>Flash Ventures 관련 활동, 순액</td><td>28</td><td>(38)</td><td>(110)</td></tr>
+        <tr><td>NBM 선급금·보증금 영향</td><td>—</td><td>(538)</td><td>(1,938)</td></tr>
+        <tr class="subhead"><td>조정 잉여현금흐름</td><td>$77</td><td>$2,417</td><td>$5,035</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="page-card" id="p23">
+  <div class="page-head"><div class="page-no">23</div><div><h2 class="page-title">Non-GAAP 각주 I</h2><p class="page-kicker">정의와 조정항목: 영업권·주식보상·분리비용</p></div></div>
+  <div class="content">
+    <p>본 자료의 Non-GAAP 지표는 Non-GAAP 매출총이익, 영업비용, 영업이익, 순이자·기타수익(비용), 법인세비용, 순이익, 희석 순이익(손실) EPS, 희석 가중평균주식수, 잉여현금흐름 및 조정 잉여현금흐름입니다.</p>
+    <p>이 지표들은 GAAP 기준이 아니며 GAAP 지표의 대체재도 아니고, 다른 회사가 같은 이름으로 사용하는 지표와 다를 수 있습니다. 회사는 GAAP 지표와 함께 제시할 때 기간별 이익성과를 측정·비교하는 데 유용하다고 봅니다. 핵심 운영성과를 반영하지 않는다고 보는 비용·이익·손실을 제외하고, 애널리스트들이 사용하는 재무모형·추정과도 일관된다는 이유입니다. 경영진은 성과평가와 계획·예측에 이 지표들을 주요 지표로 사용하지만, GAAP 결과를 대체하거나 우월한 지표로 봐서는 안 됩니다.</p>
+    <div class="term"><b>영업권 손상</b><span>분사 완료 후 FY2025 3분기에 주가와 시가총액을 근거로 장기자산·영업권의 손상징후를 확인했습니다. 정량평가 결과 보고단위의 장부가치가 공정가치를 초과해 2025년 6월 27일 종료 연도에 18억 달러의 손상차손을 인식했습니다. 회사는 이를 영업성과나 사업의 기초 실적을 반영하지 않는 항목으로 봅니다.</span></div>
+    <div class="term"><b>주식보상비용</b><span>기업마다 사용하는 주식보상 형태, 산정방법, 주관적 가정이 다르고 시장상황에 따라 가치가 변동합니다. 이를 제외하면 시간에 따른 사업의 기초성과와 동종사 비교를 더 잘 이해할 수 있으며, 다수의 동종사도 Non-GAAP 결과에서 제외한다고 설명합니다.</span></div>
+    <div class="term"><b>사업분리 비용</b><span>WDC는 2023년 10월 30일 Sandisk를 독립 상장사로 분리하는 계획을 승인했고, 최종 승인 후 2025년 2월 21일 분리를 완료했습니다. 그 전까지 Sandisk는 WDC의 100% 자회사였습니다. 분리 완료까지 발생한 분리·전환비용은 손익계산서의 사업분리 비용으로 기록됐으며, 회사는 이를 영업성과나 기초 사업실적을 반영하지 않는다고 봅니다.</span></div>
+  </div>
+</section>
+
+<section class="page-card" id="p24">
+  <div class="page-head"><div class="page-no">24</div><div><h2 class="page-title">Non-GAAP 각주 II</h2><p class="page-kicker">기타 조정항목 및 FCF 정의</p></div></div>
+  <div class="content">
+    <div class="term"><b>직원 해고 및 기타</b><span>예상 시장수요에 맞춰 운영을 재조정하기 위해 인력감축·구조조정을 실시하거나 장기자산 손상비용을 인식할 수 있습니다. 구조조정 관련 부동산 매각이익, 과거 비용의 환입, 시설 투자자본을 줄이기 위한 세일앤리스백 등의 크레딧도 포함될 수 있습니다. 금액과 발생빈도가 불규칙해 기초 사업성과를 나타내지 않는다고 봅니다.</span></div>
+    <div class="term"><b>사업매각 (이익)손실</b><span>일부 부품·조립 제조 외주화 전략에 따라 2024년 9월 28일 제조 자회사 한 곳의 지분 80%를 매각했습니다. 2025년 9월 25일 수정계약에 1,000만 달러의 운전자본 지원 조항이 포함됐고, FY2026 1분기에 이를 사업매각손실로 인식했습니다. 전체 거래는 일회성 이익을 발생시켰으며 회사는 이를 지속 영업의 기초성과로 보지 않습니다.</span></div>
+    <div class="term"><b>채무상환손실</b><span>기존 부채의 조기상환 비용 및 관련 미상각 발행비용 상각으로 발생할 수 있습니다. 영업성과를 반영하지 않는다고 봅니다.</span></div>
+    <div class="term"><b>주식증권 순(이익)손실</b><span>시장성 지분증권의 지속적인 시가평가 조정, 지분투자 매각이익, 관련 손상비용으로 구성되며 영업성과를 반영하지 않는다고 봅니다.</span></div>
+    <div class="term"><b>기타 조정</b><span>지속 영업의 일부가 아니라고 판단하는 비정기적 비용·이익입니다. 2026년 7월 3일 종료 연도에는 과거부터 존재하던 일부 법적 사안의 합의비용이 포함됐으며, 금액과 빈도가 불규칙합니다.</span></div>
+    <div class="term"><b>법인세 조정</b><span>일부 Non-GAAP 세전 조정의 시기 때문에 예상 연간 Non-GAAP 세율과 예상 연간 GAAP 세율을 적용한 세금의 차이를 포함합니다. 과거 분기 세무포지션과 관련된 미인식 세제혜택의 재측정 및 이자도 포함됩니다. 지속 사업의 기초성과를 나타내지 않는다는 이유로 제외합니다.</span></div>
+    <div class="term"><b>잉여현금흐름</b><span>영업활동 현금흐름에서 유형자산 순구매를 차감한 금액입니다.</span></div>
+    <div class="term"><b>조정 잉여현금흐름</b><span>잉여현금흐름에 Flash Ventures 관련 순활동을 더하고, NBM 계약의 현금 선급금과 보증금 수령·반환 영향을 차감한 금액입니다. 회사는 NBM 지급이 핵심 기초 현금흐름을 나타내지 않는다고 보아 조정합니다. 이 지표는 사업투자, 전략적 인수, 대차대조표 강화 등 전략적 기회에 사용할 수 있는 현금을 보여주는 유용한 지표라고 설명합니다.</span></div>
+    <div class="term"><b>마진 계산</b><span>GAAP 및 Non-GAAP 매출총이익률은 각각 GAAP 및 Non-GAAP 매출총이익을 매출로 나눠 계산합니다. 영업활동 현금흐름 마진과 조정 잉여현금흐름 마진도 각각 해당 현금흐름을 매출로 나눠 계산합니다.</span></div>
+  </div>
+</section>
+
+<section class="page-card" id="p25">
+  <div class="page-head"><div class="page-no">25</div><div><h2 class="page-title">종료 표지</h2><p class="page-kicker">SANDISK</p></div></div>
+  <div class="content"><p class="lead">Sandisk 로고로 구성된 프레젠테이션 종료 화면입니다. 별도의 수치나 본문은 없습니다.</p></div>
+</section>
+</main>
+</div>
+
+<footer class="footer">
+  <div class="source">
+    <div><b>원문</b><br>Sandisk Financial Results — Fiscal Fourth Quarter 2026, 2026-08-05</div>
+    <a href="https://investor.sandisk.com/static-files/c75d1bee-c5c9-4e5a-8605-302c1aeac59b" target="_blank" rel="noopener">원문 PDF 열기</a>
+  </div>
+</footer>
+<a class="top-link" href="#top" aria-label="맨 위로">↑</a>
+</body>
+</html>

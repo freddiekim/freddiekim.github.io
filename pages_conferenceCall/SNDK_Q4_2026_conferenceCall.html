@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sandisk FY2026 Q4 Earnings Call 전체 한글 정리</title>
+<meta name="description" content="Yahoo Finance Sandisk SNDK FY2026 4분기 실적 컨퍼런스콜 전사 내용을 순서대로 빠짐없이 정리한 한국어 단일 HTML."/>
+<style>
+:root{
+ --paper:#fbfaf6;--card:#fff;--ink:#17212b;--muted:#69737e;--line:#d9d1c2;
+ --blue:#315b7d;--orange:#d07a3f;--green:#587a5a;--red:#a5534e;
+ --sand:#f4ecdc;--blue-soft:#e8edf1;--orange-soft:#f7eadf;
+ --green-soft:#e8f0e5;--red-soft:#f2dfdc;--lav:#eee8f3;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;
+ line-height:1.62;letter-spacing:-.01em}
+header{background:var(--sand);border-bottom:1px solid var(--line);padding:42px 24px 31px}
+.wrap{max-width:1120px;margin:auto;padding:25px 22px 72px}
+.kicker{font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);font-weight:900}
+h1{font-size:40px;line-height:1.08;margin:8px 0 11px;letter-spacing:-.048em}
+h2{font-size:25px;margin:36px 0 15px;border-top:2px solid var(--ink);padding-top:16px;letter-spacing:-.028em}
+h3{font-size:18px;color:var(--blue);margin:21px 0 9px}
+p{margin:8px 0} .sub{font-size:16px;color:var(--muted);max-width:960px}
+.badge{display:inline-block;border:1px solid var(--ink);border-radius:999px;padding:4px 10px;
+ font-size:12px;font-weight:850;background:#fff;margin:3px 4px 3px 0}
+.grid{display:grid;gap:14px} .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))} .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px}
+.blue{background:var(--blue-soft)} .orange{background:var(--orange-soft)}
+.green{background:var(--green-soft)} .red{background:var(--red-soft)} .soft{background:#f7f2e8}
+.label{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.big{font-size:29px;font-weight:950;letter-spacing:-.04em;line-height:1.14;margin:4px 0}
+.small{font-size:12px;color:var(--muted)}
+.callout{border-left:5px solid var(--orange);background:#fff;padding:15px 17px;border-radius:0 16px 16px 0;margin-top:15px}
+.callout.blue-line{border-left-color:var(--blue)} .callout.green-line{border-left-color:var(--green)}
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:13px}
+th,td{padding:10px 9px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+th{background:#f1ecdf;font-size:11px;letter-spacing:.04em} tr:last-child td{border-bottom:0}
+.scroll{overflow-x:auto} .scroll table{min-width:790px}
+.chart{background:#fff;border:1px solid var(--line);border-radius:18px;padding:13px;margin-top:14px;overflow:hidden}
+svg{width:100%;height:auto;display:block} .gridline{stroke:#ded9cf;stroke-width:1}
+.axis{fill:#69737e;font-size:10px} .svg-title{fill:#17212b;font-size:14px;font-weight:900}
+.svg-note{fill:#69737e;font-size:10px} .value{fill:#17212b;font-size:11px;font-weight:900}
+.bar-blue{fill:#315b7d} .bar-orange{fill:#d07a3f} .bar-green{fill:#587a5a} .bar-red{fill:#a5534e}
+.line-blue{fill:none;stroke:#315b7d;stroke-width:3} .line-orange{fill:none;stroke:#d07a3f;stroke-width:3}
+.dot-blue{fill:#315b7d} .dot-orange{fill:#d07a3f}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:13px 0}
+.node{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 13px;font-weight:800}
+.arrow{font-weight:950;color:var(--orange)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+button{appearance:none;border:1px solid var(--ink);background:#fff;color:var(--ink);
+ border-radius:999px;padding:7px 12px;font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+button:hover{background:var(--blue-soft)}
+.qa{background:#fff;border:1px solid var(--line);border-radius:17px;margin:10px 0;overflow:hidden}
+.qa summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+ cursor:pointer;padding:14px 16px;background:#fff}
+.qa summary::-webkit-details-marker{display:none}
+.qno{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sand);font-size:11px;font-weight:900;color:var(--blue)}
+.qa summary small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.chev{font-size:20px;color:var(--orange);transition:.2s}
+.qa[open] .chev{transform:rotate(45deg)}
+.qa-body{border-top:1px solid var(--line);padding:15px 16px 17px}
+.question{background:var(--orange-soft);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.answer{background:var(--blue-soft);border-radius:14px;padding:12px 14px}
+.answer p{padding-left:14px;position:relative} .answer p:before{content:"";position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:var(--blue)}
+.toc{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px} .toc a{text-decoration:none;color:var(--blue);font-size:12px;font-weight:800;border-bottom:1px solid var(--blue)}
+.footer{font-size:11px;color:var(--muted);border-top:1px solid var(--line);margin-top:31px;padding-top:17px}
+.footer a{color:var(--blue);word-break:break-all}
+@media(max-width:820px){
+ .g2,.g3,.g4{grid-template-columns:1fr} h1{font-size:31px}
+ header{padding:32px 18px 24px} .wrap{padding:18px 14px 56px}
+ table{font-size:12px} th,td{padding:8px 7px}
+ .qa summary{grid-template-columns:auto 1fr auto;padding:12px}
+}
+@media print{
+ body{background:#fff} .wrap{max-width:none} .toolbar{display:none}
+ details.qa:not([open]) .qa-body{display:block} details.qa:not([open]){display:block}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap" style="padding-top:0;padding-bottom:0">
+<div class="kicker">FINANCE / 城主 · SOURCE-ONLY CALL SUMMARY</div>
+<h1>SANDISK <span style="color:var(--blue)">SNDK</span><br>FY2026 4분기 실적 컨퍼런스콜</h1>
+<p class="sub">2026년 8월 5일 진행된 Yahoo Finance / Quartr 전사본 ID 658567의 전체 흐름을 한국어로 재구성했습니다. 경영진 발표와 모든 애널리스트 질의응답을 원문 순서대로 정리했으며 외부 의견이나 별도 투자 판단은 넣지 않았습니다.</p>
+<div>
+<span class="badge">Fiscal Q4 2026</span>
+<span class="badge">전체 준비발언</span>
+<span class="badge">Q&amp;A 14개 항목</span>
+<span class="badge">추가 자료 없음</span>
+</div>
+<div class="toc">
+<a href="#call">통화 정보</a><a href="#prepared">경영진 발표</a><a href="#financials">실적·가이던스</a><a href="#qa">전체 Q&amp;A</a><a href="#source">출처</a>
+</div>
+</div>
+</header>
+
+<main class="wrap">
+
+<section id="call">
+<h2>1. 통화 정보와 전체 요약</h2>
+<div class="grid g4">
+<div class="card blue"><div class="label">발표일</div><div class="big">2026.08.05</div><p class="small">Sandisk FY2026 4분기 실적 컨퍼런스콜.</p></div>
+<div class="card green"><div class="label">CEO</div><div class="big">David Goeckeler</div><p class="small">전략·기술·시장·고객관계 설명.</p></div>
+<div class="card orange"><div class="label">CFO</div><div class="big">Luis Visoso</div><p class="small">NBM·실적·현금흐름·가이던스 설명.</p></div>
+<div class="card red"><div class="label">IR</div><div class="big">Ivan Donaldson</div><p class="small">면책 고지와 진행·마무리.</p></div>
+</div>
+<div class="callout">
+<b>통화 진행:</b> 모든 참가자는 경영진 발표 동안 청취 모드였고 발표 후 전화 질의응답이 진행됐다. 통화는 녹음됐다. 회사는 미래예측진술이 현재의 가정과 기대에 근거하며 실제 결과가 달라질 수 있다고 고지했고, SEC 공시의 위험요인을 참고하도록 안내했다. Non-GAAP 수치의 GAAP 조정표는 회사 IR 자료에 포함된다고 설명했다.
+</div>
+<div class="grid g4" style="margin-top:14px">
+<div class="card green"><div class="label">Q4 매출</div><div class="big">$8.965B</div><p>Q/Q +51%, Y/Y +372%.</p></div>
+<div class="card blue"><div class="label">Q4 Non-GAAP EPS</div><div class="big">$39.25</div><p>Q3 $23.41, 전년 $0.29.</p></div>
+<div class="card orange"><div class="label">Q4 Non-GAAP GM</div><div class="big">84.6%</div><p>Q3 78.4%, 전년 26.4%.</p></div>
+<div class="card red"><div class="label">NBM 최소매출</div><div class="big">$93.9B</div><p>모든 체결 NBM의 floor 가격 기준.</p></div>
+</div>
+</section>
+
+<section id="prepared">
+<h2>2. David Goeckeler CEO 준비발언</h2>
+
+<h3>FY2026에 구축한 기반</h3>
+<p>CEO는 FY2026 동안 기술 리더십, 장기 고객 파트너십, 재무적 유연성, 운영 역량을 강화해 다음 단계의 실행·성장·주주환원을 위한 기반을 만들었다고 설명했다. TLC와 QLC 전반의 BiCS 포트폴리오를 강화하고 High Bandwidth Flash를 계속 발전시켰으며, 데이터센터를 주요 성장축으로 세우고 NBM을 통해 고객관계를 다년 계약으로 확장했다고 말했다.</p>
+<p>회사는 순현금 재무상태와 자본배분 체계를 구축해 사업에 재투자하면서 잉여자본을 주주에게 돌려주는 구조로 바꿨다고 설명했다. Q4에는 매출, Gross Margin, EPS가 모두 회사 가이던스 상단을 웃돌았고 $4.5B의 자사주를 매입했다.</p>
+
+<h3>AI 추론과 NAND 수요</h3>
+<p>CEO는 AI가 본질적으로 메모리 중심이자 저장장치 집약적인 문제이며, 추론과 Agentic AI가 NAND 수요의 구조를 바꾸고 있다고 설명했다. AI 상호작용마다 데이터가 생성되고 저장·검색·저지연 제공이 필요하며, 고용량 Enterprise SSD가 이 과정에 사용된다고 말했다.</p>
+<p>세계 최대 기술기업들의 장기 인프라 투자가 수요를 뒷받침하고 있으며, 고객은 수년 앞의 성능·신뢰성과 공급을 보장할 수 있는 공급자와 전략적으로 협력하려 한다고 설명했다. 장기 파트너십은 고객에게 공급 확실성을 주고 Sandisk에는 수요, 투자계획, 현금흐름의 가시성을 제공한다고 말했다.</p>
+
+<h3>BiCS8·TLC·QLC Stargate·HBF</h3>
+<p>BiCS가 업계의 기준으로 인정받고 있으며 FY2026에 BiCS8이 전체 비트 생산의 과반으로 확대됐다고 설명했다. BiCS8은 TLC·QLC 모두에서 성능, 밀도, 전력효율을 제공하며 CBA와 hybrid wafer bonding 같은 기술을 활용한다. 향후 세대도 여러 축의 스케일링을 통해 성능과 원가 경쟁력을 이어갈 계획이라고 말했다.</p>
+<p>컴퓨팅 중심 TLC Enterprise SSD를 다수 hyperscale·AI 인프라 고객으로 확대했다. Q4부터 QLC Stargate 플랫폼의 매출 출하를 시작해 고성능 컴퓨팅 워크로드와 고용량 AI 데이터레이크를 함께 대응하는 포트폴리오를 갖췄다고 설명했다.</p>
+<div class="grid g3">
+<div class="card blue"><div class="label">데이터센터 비트 비중</div><div class="big">12% → 38%</div><p>1년 전 약 12%에서 FY2026 말 38%로 상승.</p></div>
+<div class="card green"><div class="label">TLC Enterprise SSD</div><div class="big">Compute</div><p>성능과 지연시간이 중요한 AI·hyperscale 워크로드.</p></div>
+<div class="card orange"><div class="label">QLC Stargate</div><div class="big">Revenue Ship</div><p>Q4부터 매출 출하 시작, 고용량 AI 데이터레이크 대응.</p></div>
+</div>
+
+<h3>Edge·Consumer·통합 가치사슬</h3>
+<p>Edge는 스마트폰, PC, 태블릿뿐 아니라 자동차, 로봇, 온디바이스 Agentic AI 같은 Physical AI 사용처까지 포함하는 전략적 시장이라고 설명했다. 단기적으로 PC와 스마트폰은 조정기를 겪지만 AI 기기와 프리미엄 제품으로 믹스가 이동해 특히 스마트폰 저장용량이 늘고 있다고 말했다. CY2027에는 두 시장이 다시 성장하고 장기적으로 온디바이스 AI, richer content, 새로운 폼팩터가 고성능 플래시 수요를 넓힐 것으로 예상했다.</p>
+<p>Consumer 부문에서는 글로벌 브랜드와 채널 접점이 차별점이며 브랜드 투자, go-to-market 역량, 소비자가 중시하는 제품 경험을 계속 개선한다고 설명했다.</p>
+<p>Sandisk는 NAND die 설계, Kioxia와의 JV를 통한 전공정 웨이퍼 제조, 컨트롤러와 시스템 설계, 후공정 조립·테스트, 고객 납품까지 가치사슬 전체를 관리한다고 말했다. R&amp;D, BiCS 시스템 전문성, 다양한 최종시장 덕분에 기술을 가장 높은 가치를 제공하는 시장으로 배분할 수 있다고 설명했다.</p>
+<p>공급 증가는 주로 신규 웨이퍼 투입보다 노드 전환의 생산성 향상으로 달성하며, 장기 비트 성장은 mid-to-high teens를 목표로 한다. 매출 대비 자본집약도는 하락해 현금창출력이 높아지는 구조라고 설명했다.</p>
+</section>
+
+<section id="financials">
+<h2>3. Luis Visoso CFO — NBM, 실적, 현금흐름, 가이던스</h2>
+
+<h3>NBM 계약 구조와 규모</h3>
+<p>4월 실적발표에서 5개 NBM을 공개한 뒤 5개 계약을 추가로 체결했다. 추가분은 신규 고객과의 NBM 3건과 기존 NBM 확대 2건으로 구성된다. 이 가운데 3건은 Q4 종료 전, 2건은 분기 종료 후 체결됐다. 현재 데이터센터와 Edge에 걸친 8개 고객과 NBM 관계를 맺고 있다.</p>
+<div class="grid g4">
+<div class="card blue"><div class="label">가중평균 계약기간</div><div class="big">4년 이상</div><p>최장 계약은 5년.</p></div>
+<div class="card green"><div class="label">FY27 NBM 비트</div><div class="big">&gt;50%</div><p>비트 공급의 과반.</p></div>
+<div class="card orange"><div class="label">FY28 NBM 비트</div><div class="big">약 2/3</div><p>NBM이 주된 거래방식으로 확대.</p></div>
+<div class="card red"><div class="label">금융보증</div><div class="big">$16.5B</div><p>현금 예치와 금융상품의 조합.</p></div>
+</div>
+<p>NBM 가격은 고정 요소와 변동 요소를 함께 사용하며, 변동 가격에는 floor와 ceiling이 있다. 회사는 floor 가격에서도 매력적인 마진을 기대한다. 비-NBM 공급은 시장가격에 따라 변동한다.</p>
+<p>모든 체결 NBM의 floor 가격 기준 최소 예상매출은 $93.9B이며 회사는 실제 매출이 이를 웃돌 것으로 본다. 분기 말 RPO는 $59.8B였고, 분기 후 체결된 2개 계약까지 포함하면 $91.1B다. 최소 계약매출과 RPO의 차이는 이미 인식한 매출이다.</p>
+<p>각 계약은 현금 예치와 금융기관이 제공·관리하는 금융상품으로 보증된다. 보증은 계약 후반부에 해제되며 시간이 지날수록 RPO 대비 보증 비율이 높아진다. 계약은 연도별·분기별 공급과 수요를 상세히 정의한다.</p>
+<p>향후 계약은 전략적 중요성, 약 5년의 기간, 증가하는 물량, 매력적인 경제성을 기준으로 매우 선택적으로 검토할 계획이다.</p>
+
+<div class="chart">
+<svg viewBox="0 0 1040 320" role="img" aria-label="NBM 계약 가시성">
+<text x="55" y="24" class="svg-title">NBM 계약 가시성</text>
+<line x1="55" y1="265" x2="1005" y2="265" class="gridline"/>
+<line x1="55" y1="195" x2="1005" y2="195" class="gridline"/>
+<line x1="55" y1="125" x2="1005" y2="125" class="gridline"/>
+<line x1="55" y1="55" x2="1005" y2="55" class="gridline"/>
+<text x="15" y="269" class="axis">0%</text><text x="8" y="199" class="axis">25%</text>
+<text x="8" y="129" class="axis">50%</text><text x="8" y="59" class="axis">75%</text>
+<rect x="145" y="124" width="150" height="141" rx="9" class="bar-blue"/>
+<text x="220" y="113" text-anchor="middle" class="value">&gt;50%</text>
+<text x="220" y="292" text-anchor="middle" class="axis">FY2027 비트</text>
+<rect x="360" y="78" width="150" height="187" rx="9" class="bar-green"/>
+<text x="435" y="67" text-anchor="middle" class="value">약 67%</text>
+<text x="435" y="292" text-anchor="middle" class="axis">FY2028 비트</text>
+<rect x="620" y="76" width="105" height="189" rx="8" class="bar-orange"/>
+<text x="672" y="65" text-anchor="middle" class="value">$93.9B</text>
+<text x="672" y="292" text-anchor="middle" class="axis">최소 계약매출</text>
+<rect x="750" y="82" width="105" height="183" rx="8" class="bar-blue"/>
+<text x="802" y="71" text-anchor="middle" class="value">$91.1B</text>
+<text x="802" y="292" text-anchor="middle" class="axis">RPO*</text>
+<rect x="880" y="232" width="105" height="33" rx="8" class="bar-red"/>
+<text x="932" y="222" text-anchor="middle" class="value">$16.5B</text>
+<text x="932" y="292" text-anchor="middle" class="axis">금융보증</text>
+<text x="620" y="313" class="svg-note">* 분기 후 체결된 2개 NBM 포함</text>
+</svg>
+</div>
+
+<h3>Q4 및 FY2026 실적</h3>
+<div class="scroll">
+<table>
+<tr><th>항목</th><th>FY26 Q4</th><th>비교</th><th>회사 설명</th></tr>
+<tr><td>매출</td><td><b>$8.965B</b></td><td>Q/Q +51%, Y/Y +372%</td><td>기존 가이드 $7.75–8.25B 상회. 순차 성장의 약 1/3은 물량, 2/3는 가격.</td></tr>
+<tr><td>Datacenter</td><td><b>$2.977B</b></td><td>Q/Q +103%</td><td>가장 빠르게 성장한 최종시장.</td></tr>
+<tr><td>Edge</td><td><b>$5.432B</b></td><td>Q/Q +48%</td><td>프리미엄 구성·저장용량·가격 반영.</td></tr>
+<tr><td>Consumer</td><td><b>$556M</b></td><td>Q/Q -32%</td><td>가격·시장 조정 속도가 기업용 시장보다 느림.</td></tr>
+<tr><td>Non-GAAP Gross Margin</td><td><b>84.6%</b></td><td>Q3 78.4%, 전년 26.4%</td><td>가이드 79–81% 상회.</td></tr>
+<tr><td>Non-GAAP OpEx</td><td><b>$484M</b></td><td>매출의 5.4%, Q3 7.5%</td><td>가이드 $480–500M. R&amp;D가 OpEx의 약 65%.</td></tr>
+<tr><td>Non-GAAP Operating Margin</td><td><b>79.2%</b></td><td>Q3 70.9%</td><td>추가 operating leverage.</td></tr>
+<tr><td>Non-GAAP EPS</td><td><b>$39.25</b></td><td>Q3 $23.41, 전년 $0.29</td><td>가이드 $30–33 상회. 희석주식 157M.</td></tr>
+</table>
+</div>
+
+<div class="chart">
+<svg viewBox="0 0 1040 330" role="img" aria-label="Q3 Q4 Q1 가이던스 비교">
+<text x="55" y="24" class="svg-title">Q3 → Q4 → FY27 Q1 가이던스 중간값</text>
+<line x1="55" y1="270" x2="1005" y2="270" class="gridline"/>
+<line x1="55" y1="200" x2="1005" y2="200" class="gridline"/>
+<line x1="55" y1="130" x2="1005" y2="130" class="gridline"/>
+<line x1="55" y1="60" x2="1005" y2="60" class="gridline"/>
+<rect x="95" y="166" width="80" height="104" rx="7" class="bar-blue"/>
+<rect x="195" y="113" width="80" height="157" rx="7" class="bar-green"/>
+<rect x="295" y="85" width="80" height="185" rx="7" class="bar-orange"/>
+<text x="235" y="299" text-anchor="middle" class="axis">Revenue ($B)</text>
+<text x="135" y="156" text-anchor="middle" class="value">5.95</text>
+<text x="235" y="103" text-anchor="middle" class="value">8.97</text>
+<text x="335" y="75" text-anchor="middle" class="value">10.55*</text>
+<rect x="470" y="208" width="80" height="62" rx="7" class="bar-blue"/>
+<rect x="570" y="166" width="80" height="104" rx="7" class="bar-green"/>
+<rect x="670" y="151" width="80" height="119" rx="7" class="bar-orange"/>
+<text x="610" y="299" text-anchor="middle" class="axis">Non-GAAP EPS ($)</text>
+<text x="510" y="198" text-anchor="middle" class="value">23.41</text>
+<text x="610" y="156" text-anchor="middle" class="value">39.25</text>
+<text x="710" y="141" text-anchor="middle" class="value">45.00*</text>
+<polyline points="820,105 900,88 980,91" class="line-blue"/>
+<circle cx="820" cy="105" r="5" class="dot-blue"/><circle cx="900" cy="88" r="5" class="dot-blue"/><circle cx="980" cy="91" r="5" class="dot-blue"/>
+<text x="820" y="94" text-anchor="middle" class="value">78.4%</text>
+<text x="900" y="77" text-anchor="middle" class="value">84.6%</text>
+<text x="980" y="80" text-anchor="middle" class="value">84.0%*</text>
+<text x="900" y="299" text-anchor="middle" class="axis">Gross Margin</text>
+<text x="55" y="320" class="svg-note">* FY27 Q1 가이던스 중간값</text>
+</svg>
+</div>
+
+<h3>FY2026 연간 최종시장 매출</h3>
+<div class="scroll">
+<table>
+<tr><th>최종시장</th><th>FY2026 매출</th><th>Y/Y</th></tr>
+<tr><td>Datacenter</td><td>$5.153B</td><td>+437%</td></tr>
+<tr><td>Edge</td><td>$12.160B</td><td>+195%</td></tr>
+<tr><td>Consumer</td><td>$2.935B</td><td>+29%</td></tr>
+<tr><td><b>전체</b></td><td><b>$20.248B</b></td><td><b>+175%</b>; 비트 성장 mid-teens</td></tr>
+</table>
+</div>
+
+<h3>GAAP 조정, 현금흐름, 자사주</h3>
+<p>주요 GAAP→Non-GAAP 조정에는 Nanya 투자 이익 $807M과 주식보상비용 $67M이 포함됐다. 주가 상승과 관련된 직원 지분의 베스팅으로 $175M 세금혜택을 인식했고, Nanya 이익에 대한 세금 $170M이 이를 대부분 상쇄했다.</p>
+<p>Q4 중 보통주 2.836M주를 $4.5B에 매입했다.</p>
+<div class="chart">
+<svg viewBox="0 0 1040 300" role="img" aria-label="현금흐름 브리지">
+<text x="55" y="24" class="svg-title">Q4 Adjusted Free Cash Flow 브리지 ($B)</text>
+<line x1="55" y1="230" x2="1000" y2="230" class="gridline"/>
+<rect x="95" y="52" width="165" height="178" rx="8" class="bar-blue"/>
+<text x="177" y="42" text-anchor="middle" class="value">$7.126B</text>
+<text x="177" y="258" text-anchor="middle" class="axis">영업현금흐름</text>
+<text x="300" y="115" class="svg-title">−</text>
+<rect x="345" y="226" width="145" height="4" rx="2" class="bar-red"/>
+<text x="417" y="210" text-anchor="middle" class="value">$0.153B</text>
+<text x="417" y="258" text-anchor="middle" class="axis">Net Cash CapEx</text>
+<text x="525" y="115" class="svg-title">−</text>
+<rect x="575" y="181" width="145" height="49" rx="7" class="bar-orange"/>
+<text x="647" y="170" text-anchor="middle" class="value">$1.938B</text>
+<text x="647" y="258" text-anchor="middle" class="axis">NBM 선급금·예치</text>
+<text x="755" y="115" class="svg-title">=</text>
+<rect x="810" y="104" width="165" height="126" rx="8" class="bar-green"/>
+<text x="892" y="94" text-anchor="middle" class="value">$5.035B</text>
+<text x="892" y="258" text-anchor="middle" class="axis">Adjusted FCF</text>
+<text x="55" y="287" class="svg-note">Adjusted FCF margin 56%. Gross CapEx $562M, 매출의 6.3%. 기말 현금 $4.762B.</text>
+</svg>
+</div>
+
+<h3>NAND 시장 전망과 FY2027 Q1 가이던스</h3>
+<div class="grid g3">
+<div class="card blue"><div class="label">CY2026 NAND 시장</div><div class="big">&gt;$300B</div><p>회사 추정, 전년 대비 약 3배.</p></div>
+<div class="card green"><div class="label">CY2027 NAND 시장</div><div class="big">약 $500B</div><p>회사 추정치.</p></div>
+<div class="card orange"><div class="label">DC TAM 비중</div><div class="big">30% → 50%</div><p>CY2025 약 30%에서 CY2026 약 50%.</p></div>
+</div>
+<p>경영진은 데이터센터가 2027년에도 전체 시장보다 빠르게 성장하고 고객 수요가 Sandisk 공급보다 빠르게 증가해 비트 배분 상태가 CY2027 이후까지 이어질 것으로 예상했다.</p>
+<div class="scroll">
+<table>
+<tr><th>FY2027 Q1 항목</th><th>가이던스</th><th>설명</th></tr>
+<tr><td>매출</td><td>$10.3B–$10.8B</td><td>비트 성장과 가격 상승이 모두 순차 성장을 견인.</td></tr>
+<tr><td>Non-GAAP Gross Margin</td><td>83%–85%</td><td>제품 믹스, 부품원가 등 신중한 가정 포함.</td></tr>
+<tr><td>Non-GAAP OpEx</td><td>$520M–$540M</td><td>R&amp;D·혁신 투자와 직원 주식보상 관련 세금 증가.</td></tr>
+<tr><td>Non-GAAP EPS</td><td>$44–$46</td><td>완전희석주식 약 155M 가정.</td></tr>
+<tr><td>FY27 비트·재고</td><td>판매가능 비트 mid-teens</td><td>NBM 이행과 부품원가 대응을 위해 높은 재고일수 유지.</td></tr>
+<tr><td>FY27 CapEx</td><td>전년 대비 증가, 매출의 약 6%</td><td>BiCS8·BiCS10 ramp 중심.</td></tr>
+</table>
+</div>
+<p>이사회는 $14B의 추가 자사주 매입을 승인해 남은 총 승인액이 $15.5B가 됐다. 회사는 우선 사업에 투자한 뒤 잉여현금을 주주에게 환원하겠다고 설명했다.</p>
+
+<div class="callout green-line">
+<b>CEO 마무리:</b> FY2026은 데이터센터를 주요 성장축으로 만들고, 향후 10년의 제조·공급 기반을 확보하며, 최대 고객과 거래하는 방식을 장기계약으로 재구성한 해라고 정리했다. FY2027에는 데이터센터·Edge·Consumer의 균형 잡힌 포트폴리오, TLC·QLC 기술, HBF, NBM, 순현금 재무상태, 적극적인 자본환원 프로그램을 바탕으로 현금흐름을 늘리겠다고 말했다.
+</div>
+</section>
+
+<section id="qa">
+<h2>4. 전체 질의응답 — 원문 순서</h2>
+<p class="sub">질문자의 질문과 경영진 답변을 누락 없이 항목별로 재구성했습니다. 아래 버튼으로 전체 문답을 펼치거나 접을 수 있습니다.</p>
+<div class="toolbar">
+<button type="button" id="openAll">전체 펼치기</button>
+<button type="button" id="closeAll">전체 접기</button>
+</div>
+
+    <details class="qa" open>
+      <summary>
+        <span class="qno">01</span>
+        <span><b>Ben Reitzes · Melius Research</b><small>NBM 마진과 자사주 매입 속도</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>지난 분기 NBM 계약의 마진이 약 80% 수준이라고 설명했는데 현재도 같은 범위인지, 또는 다음 분기 전체 Gross Margin 가이던스에 더 가까워졌는지 질문했다. 또한 분기당 약 $5B 규모의 매입을 반복할 수 있는지, 향후 자사주 매입 속도를 어떻게 봐야 하는지 물었다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 기존 $6B 승인 가운데 첫 분기에 $4.5B를 집행했고, 이후 이사회가 $14B를 추가 승인했다고 설명했다. 회사는 포트폴리오의 현금창출력에 자신이 있으며 자사주 매입을 일관되게 실행할 계획이라고 답했다.</p><p>그는 최근 2~3개 분기 동안 최대 고객들과 장기 수요 약정을 깊이 협의해 이제 4년을 넘는 가시성을 확보했다고 말했다.</p><p>Luis Visoso는 특정 단일 수치를 확정하지는 않았지만 NBM의 마진을 대체로 80% 안팎으로 예상한다고 답했다. 가격이 더 오르면 일부 상승분도 Sandisk가 반영할 수 있으며, 8개 전략적 고객과 체결한 계약의 경제성에 만족한다고 설명했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" open>
+      <summary>
+        <span class="qno">02</span>
+        <span><b>Mark Newman · Bernstein</b><small>Q4 성장의 물량·가격 기여와 Q1 가이던스</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>Q4의 비트 출하 증가율과 FY27 Q1 가이던스가 기대보다 다소 낮아 보이는 이유를 질문했다. 물량, 장기계약에 따른 가격 상승 제한, 또는 보수적 가정 가운데 무엇이 원인인지 물었다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>Luis Visoso는 Q4 순차 매출 증가분의 약 3분의 1이 추가 비트, 약 3분의 2가 가격에서 나왔다고 답했다.</p><p>회사별 가격 인상 시점이 다르므로 한 분기만 비교하기보다 여러 분기에 걸쳐 봐야 한다고 설명했다. Sandisk는 앞선 분기에도 상당한 가격 인상을 반영했다.</p><p>FY27 Q1 매출 성장은 비트 증가와 완만한 가격 상승이 모두 기여할 것으로 예상했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">03</span>
+        <span><b>David Gibson · MST</b><small>NVIDIA CMX·Storage NEXT와 HBF 일정</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>NVIDIA의 Context Memory CMX 표준 및 Storage NEXT 계획이 Sandisk의 향후 제품 기회인지 질문했다. 또한 SK hynix와 발표한 HBF 관련 표준 이후 실제 샘플이 1~3년 중 어느 정도 시점에 나올 수 있는지 물었다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 추론용 메모리 아키텍처 전반에서 많은 혁신이 진행되고 있으며, CMX와 Storage NEXT를 포함한 다양한 방향이 Sandisk에 기회가 될 수 있다고 답했다. 추론은 메모리 병목의 영향을 크게 받고 저장장치가 중요한 역할을 한다고 설명했다.</p><p>FMS 기조연설에서 HBF를 적용했을 때의 성능 시뮬레이션과 병목 완화 가능성을 제시했다고 말했다.</p><p>향후 아키텍처는 고객의 실제 사용 사례가 결정하므로 고객과 긴밀히 협력하는 것이 중요하다고 강조했다. NBM 고객들은 수년간의 분기별·월별 제품 믹스 전망을 제공하므로 Sandisk가 고객 배치 구조의 변화에 맞춰 로드맵을 조정할 수 있다고 설명했다.</p><p>HBF는 약 1년 반 전 처음 공개한 뒤 연구 아이디어 단계에서 고객과의 깊은 협의 단계로 크게 진전됐다고 말했다. 자문위원회 확대와 FMS 고객 발언을 언급했지만, 샘플·출하·출시의 구체적인 날짜는 이 통화에서 제시하지 않았고 다음 주 Investor Day에서 추가 설명하겠다고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">04</span>
+        <span><b>Jim Schneider · Goldman Sachs</b><small>향후 NBM 고객 구성과 추가 hyperscaler 계약</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>이미 체결했거나 앞으로 체결할 NBM 고객을 데이터센터, hyperscaler, Edge 등 어떤 비중으로 구성하려는지, 추가 대형 hyperscaler 계약을 추진 중인지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>Luis Visoso는 특정 시장에 한정하지 않고 다음 조건을 충족하는 고객을 선별한다고 설명했다: Sandisk 제품을 높게 평가하는 전략적 고객, 이상적으로 약 5년의 기간, 매년 증가하는 물량, Sandisk가 투자와 지속 가능한 주주 수익을 모두 달성할 수 있는 경제성.</p><p>현재 계약은 데이터센터와 Edge 양쪽에 걸쳐 있으며 개별 계약이나 고객 이름은 공개하지 않겠다고 답했다.</p><p>David Goeckeler는 이 전환을 시작한 지 2개 분기 남짓인데도 FY27 공급의 50% 이상이 이미 약정됐고 해당 고객들의 연간 구매주문도 확보했다고 설명했다. FY28에는 약 3분의 2로 올라가며 제품 믹스와 경제성도 파악하고 있다고 말했다.</p><p>1년 전 약 3개월이던 가시성이 4년 이상으로 늘었고, 일부 대형 고객은 첫 계약 후 한 분기 만에 추가 물량을 요구하고 있다고 말했다. 추가 고객과도 깊은 협의를 계속하지만 남은 공급이 줄고 있어 향후 계약은 선택적으로 진행하겠다고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">05</span>
+        <span><b>Jim Schneider · Goldman Sachs</b><small>자본배분·지속적 자사주 매입·배당</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>자사주 매입을 보다 정기적으로 지속할 능력과 배당 도입 가능성을 포함해 전체 자본배분 방침을 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>Luis Visoso는 첫째 우선순위가 사업 투자라고 답했다. OpEx, CapEx, Nanya 투자, JV 연장 등을 통해 어떤 환경에서도 회사를 더 견고하게 만들겠다고 설명했다.</p><p>둘째 우선순위였던 충분한 현금 확보와 TAB 부채 제거는 완료했다고 말했다.</p><p>이후 회사의 역할은 잉여현금을 주주에게 돌려주는 것이며, 현 시점에는 자사주 매입이 더 세금 효율적이고 적절한 방식이라고 판단한다고 답했다. 배당을 약속하지는 않았고 향후 상황이 바뀔 수 있다고 덧붙였다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">06</span>
+        <span><b>CJ Muse · Cantor</b><small>가격 상승에도 Q1 마진이 낮아지는 이유와 NBM 내구성</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>가격이 순차적으로 오르는데도 FY27 Q1 Gross Margin 가이던스가 Q4보다 약간 낮은 이유를 물었다. 더 큰 관점에서는 이번 사이클이 오래 지속될 수 있다는 확신과 NBM 계약의 안전성을 설명해 달라고 요청했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 회사가 단기 최고 마진뿐 아니라 사업의 지속성·가시성·고객관계를 함께 최적화하고 있다고 답했다. 자신은 80%대 중반 Gross Margin을 제품에 대한 공정한 수익으로 본다고 말했다.</p><p>과거처럼 매분기 공급망 조직이 가격을 협상하는 구조에서 벗어나 고객 CEO·CFO 수준의 전략적 관계로 전환됐다고 설명했다.</p><p>FY27 공급 절반을 수년간 약정한 고객에게 배정하고 있으며 NBM 경제성은 앞서 설명한 약 80% Gross Margin 수준이라고 말했다. 나머지 비계약 포트폴리오는 시장가격과 믹스의 영향을 받는다.</p><p>$16.5B의 금융보증은 고객이 약정을 이행하지 않을 경우 Sandisk를 보호하고 양측의 이해관계를 맞추는 장치라고 설명했다. 회사는 실제 보증금을 받는 상황을 예상하지 않지만 극단적 사건에 대한 보호장치라고 말했다.</p><p>일부 고객이 한 분기 만에 계약을 확대하고 있고, 4년 이상의 높은 경제성 가시성이 생겼다는 점을 장기 수요에 대한 신뢰 근거로 제시했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">07</span>
+        <span><b>Joe Moore · Morgan Stanley</b><small>BiCS8·BiCS10 전환 CapEx와 비트 성장</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>BiCS8·BiCS10 전환으로 Gross CapEx가 증가하는 상황에서, DRAM도 생산하는 경쟁사들이 DRAM 투자에 집중할 가능성을 고려해 Sandisk가 기술 전환을 더 빠르게 하기 위해 지출을 늘릴지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>Luis Visoso는 장기적으로 mid-to-high teens 비트 성장을 목표로 하며 그 수준에 맞춰 투자하고 있다고 답했다.</p><p>노드 전환 초기에는 비용이 낮고 쉬운 전환부터 수행하며, 이후 단계로 갈수록 더 비싼 전환이 필요해 연도별 달러 지출이 늘 수 있다고 설명했다. 과거 공장 가동률이 낮았을 때 확보해 둔 일부 장비를 재사용한 효과도 있었다.</p><p>기존 계획은 바뀌지 않았다고 답했다. 다만 FY27에는 NBM 공급을 안정적으로 이행하기 위한 재고를 더 쌓기 때문에 판매 가능한 비트 성장률이 평상시 목표보다 약간 낮은 mid-teens가 될 것이라고 설명했다.</p><p>이어 $500B 규모로 예상하는 FY27 NAND 시장에서 점유율을 유지할 수 있느냐는 질문에는 경영진이 시장과 함께 성장하는 것이 목표이며 가능하다고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">08</span>
+        <span><b>Karl Ackerman · BNP Paribas</b><small>Consumer 감소와 NBM 고객 수요</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>Consumer 매출 감소가 공급 배분 선택인지 실제 수요 때문인지 물었다. NBM 계약의 달러 약정과 소비자 수요의 관계, 장기계약이 없는 Consumer 시장에서 수요를 어떻게 파악하는지도 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 Consumer 시장의 가격과 물량 조정 속도가 기업용 거래시장보다 느리다고 설명했다. 다른 시장의 가격이 매우 빠르게 오르는 환경에서는 Consumer 가격을 같은 속도로 올리기 어렵고, 적절한 가격과 출하량의 균형을 찾는 데 시간이 더 필요하다고 말했다.</p><p>Luis Visoso는 Consumer 가격도 상승해 해당 시장의 TAM에 일부 영향이 있었다고 말했다. 그러나 Consumer 사업과 시장점유율에는 만족하며 계속 투자하겠다고 답했다.</p><p>NBM은 Consumer 사업과 직접 관련되지 않는다고 명확히 했다.</p><p>NBM 고객의 장기 수요에 대해서는 계약 후 몇 달 만에 추가 물량을 요청한 사례가 있어 고객 자신도 최초 약정을 보수적으로 잡았을 가능성이 있다고 설명했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">09</span>
+        <span><b>Mike Tsvetanov · Wells Fargo</b><small>NAND 공급·수요가 언제 수렴하는가</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>4년 이상의 가시성과 공급 성장 계획을 감안할 때 산업 공급과 수요가 언제 균형에 도달할 것으로 보는지, 세 달 전과 판단이 달라졌는지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 시장에서는 공급과 수요가 항상 가격을 통해 맞춰진다고 전제했다. 모든 고객이 원하는 가격에 원하는 물량을 받는 시점을 묻는다면 훨씬 복잡한 문제라고 답했다.</p><p>분기 단위 거래만으로 5~10년 뒤 수요를 예측하는 것은 매우 어렵고, 잘못된 투자 판단은 2023년처럼 심각한 결과를 낳을 수 있다고 설명했다.</p><p>불과 3~4개 분기 전에는 거의 모든 거래가 분기 단위였지만 이제 고객들이 5년 수요를 약정하고 Sandisk는 4년 이상의 가시성을 확보했다고 말했다.</p><p>산업 전체의 추상적 전망보다 개별 고객과 공급자가 수요·공급을 깊이 논의해 투자계획을 맞추는 방식으로 균형을 만들어야 한다고 설명했다. 8개 대형 고객의 장기 전망이 향후 Sandisk의 투자 의사결정에 직접 반영될 것이라고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">10</span>
+        <span><b>Blayne Curtis · Jefferies</b><small>PC·스마트폰 조정 속 Edge 매출</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>PC와 스마트폰 시장이 하반기에 감소할 가능성이 있는데도 Edge가 강한 이유와 향후 몇 분기의 전망을 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 NAND가 스마트폰·PC를 포함한 다양한 시장에 공급된다는 점을 장점으로 꼽았다.</p><p>CY2026 스마트폰과 PC 출하대수는 각각 mid-teens 감소할 것으로 보지만, 스마트폰의 평균 저장용량은 mid-teens 증가하고 PC 평균 용량은 대체로 보합이라고 설명했다.</p><p>CY2027에는 두 시장의 출하대수가 안정되고 평균 저장용량이 다시 증가해 전체 exabyte 성장이 재개될 것으로 예상했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">11</span>
+        <span><b>Blayne Curtis · Jefferies</b><small>NBM과 Q1 Gross Margin 가이던스</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>가격이 오르는데 마진이 소폭 낮아지는 이유와 NBM이 마진에 부담을 주는지 재차 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>Luis Visoso는 NBM을 Gross Margin의 부담 요인으로 보지 않으며 계약 마진은 좋다고 답했다.</p><p>그는 최근 5개 분기 동안 Gross Margin이 매 분기 확대됐다고 설명했다. 전사본에는 시작점 22.7%에서 ‘86.5%’까지라고 기재돼 있으나, 같은 통화에서 공식적으로 발표한 Q4 Non-GAAP Gross Margin은 84.6%다. 이 문서는 두 표기를 임의로 합치지 않고 그대로 구분한다.</p><p>Q1 가이던스 83~85%에는 제품 믹스, 부품원가 및 기타 항목에 대한 신중한 가정이 포함됐다고 설명했다. 범위 상단은 Q4와 비슷하고 하단은 다소 낮다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">12</span>
+        <span><b>Wamsi Mohan · Bank of America</b><small>$300B → $500B NAND 시장 전망과 Sandisk 성장</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>비트 성장률이 크게 가속되지 않는데 NAND 시장 매출이 CY2026 $300B 이상에서 CY2027 약 $500B로 늘어난다는 전망이 가격 정상화를 전제로 하는지 물었다. 또한 Sandisk가 시장보다 빠르게, 비슷하게, 또는 느리게 성장할지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 Sandisk가 시장과 함께 성장하는 것이 목표이자 계획이라고 답했다.</p><p>회사는 가격, 예측 가능성, 계약기간을 장기화하는 방향으로 사업을 바꾸고 있으며 2027년 말과 2028년까지 매우 강한 수요를 보고 있다고 말했다. 일부 고객은 10년 말까지의 수요 신호도 제공하고 있다고 설명했다.</p><p>FY27에는 NBM 이행을 위해 재고를 더 보유하므로 단기 판매가능 비트 성장에는 일부 영향이 있지만, 장기적으로 시장과 함께 성장하면서 높은 수익성과 가시성을 동시에 확대할 계획이라고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">13</span>
+        <span><b>Asiya Merchant · Citi</b><small>KV Cache·Agentic AI와 2027년 이후 NAND 수요</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>KV Cache 기회에 대한 회사의 시각과 Agentic AI 확산을 반영해 최근 한 분기 동안 2027년 이후 전망이 어떻게 변했는지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 KV Cache에서 필요한 NAND의 양과 시스템 구성은 사용 사례에 따라 달라지므로 고객과 긴밀히 연구하고 있다고 답했다.</p><p>모델이 커지고 context length가 길어지며 agentic AI가 추가적인 배수 효과를 만들기 때문에 NAND 요구량에 더 낙관적으로 변하고 있다고 말했다.</p><p>대규모 추론 아키텍처는 공급자가 임의로 정하기보다 고객의 실제 서비스·사용 사례가 요구사항을 결정한다고 설명했다. 공급자는 고객별 시스템 구조를 이해하며 함께 설계해야 한다고 강조했다.</p><p>일부 고객이 한 분기 동안 새로 파악한 수요를 바탕으로 향후 3~5년 약정을 확대하고 있어 수요 이야기가 계속 강해지고 있다고 말했다. 다음 주 Investor Day에서 회사의 계산 방식을 더 구체적으로 설명하겠다고 답했다.</p></div>
+      </div>
+    </details>
+    <details class="qa" >
+      <summary>
+        <span class="qno">14</span>
+        <span><b>Vijay Rakesh · Mizuho</b><small>BiCS10·HBF 가격 프리미엄과 시장 초과 성장</small></span>
+        <span class="chev">＋</span>
+      </summary>
+      <div class="qa-body">
+        <div class="question"><b>질문</b><p>BiCS10과 HBF가 기존 NAND보다 가격 프리미엄을 받을 수 있는지, 그리고 FY27에 산업 성장률을 웃돌 수 있는 요인이 무엇인지 질문했다.</p></div>
+        <div class="answer"><b>경영진 답변 정리</b><p>David Goeckeler는 해당 노드와 기술의 가격을 구체적으로 논의하기에는 아직 이르다고 답했다.</p><p>BiCS10은 오랫동안 개발한 뛰어난 노드이며 다음 주 Investor Day에서 기술진이 더 자세히 설명할 것이라고 말했다.</p><p>HBF는 클라우드 고객과 디바이스 고객 모두와 추론 플랫폼 활용을 깊이 논의하고 있다고 설명했다.</p><p>Sandisk의 비트 성장은 주로 노드 전환의 생산성 향상에서 나오므로, 기술 전환만으로도 시장 성장률 이상의 생산 증가가 가능하다고 말했다. 다만 노드 전환 속도를 바꾸는 데에는 상당한 시간이 필요하며 시장 수요에 맞춰 계속 조정한다고 답했다.</p></div>
+      </div>
+    </details>
+</section>
+
+<section>
+<h2>5. 통화 종료</h2>
+<p>Vijay Rakesh의 질문에 대한 답변을 끝으로 질의응답이 종료됐다. 진행자는 Ivan Donaldson에게 마무리 발언을 넘겼고, Ivan Donaldson은 참석자들에게 감사를 표하며 분기 중 다시 소통하겠다고 말했다. 운영자가 회의 종료를 알렸다.</p>
+</section>
+
+<section id="source">
+<h2>6. 출처와 정리 원칙</h2>
+<div class="card soft">
+<p><b>사용자가 제공한 원문:</b><br>
+<a href="https://finance.yahoo.com/quote/SNDK/earnings/SNDK-Q4-2026-earnings_call-658567.html">https://finance.yahoo.com/quote/SNDK/earnings/SNDK-Q4-2026-earnings_call-658567.html</a></p>
+<p><b>전사 데이터:</b> 원문 페이지에 표시된 Quartr 제공 Q4 FY2026 transcript, ID 658567.</p>
+<p><b>접근용 동일 전사 페이지:</b><br>
+<a href="https://stockanalysis.com/stocks/sndk/transcripts/658567-q4-2026/">https://stockanalysis.com/stocks/sndk/transcripts/658567-q4-2026/</a></p>
+<p><b>정리 원칙:</b> 이 HTML에는 해당 컨퍼런스콜에서 나온 경영진 발표와 질의응답만 포함했다. 외부 뉴스, 애널리스트 의견, 목표주가, 현재 주가, 경쟁사 수치는 추가하지 않았다. 모든 설명은 직역 대신 한국어 문맥에 맞게 충실히 재구성했다.</p>
+<p><b>전사 표기 차이:</b> Q&amp;A 중 CFO 발언의 Gross Margin ‘86.5%’ 표기는 동일 통화의 공식 발표 수치 84.6%와 다르다. 원문 전사상의 차이를 숨기지 않고 해당 문답에서 별도로 표시했다.</p>
+</div>
+</section>
+
+<div class="footer">
+Sandisk Corporation FY2026 Q4 Earnings Call · 2026-08-05 · Source-only Korean organization · FINANCE / 城主
+</div>
+
+</main>
+<script>
+const qas = [...document.querySelectorAll('details.qa')];
+document.getElementById('openAll').addEventListener('click', () => qas.forEach(x => x.open = true));
+document.getElementById('closeAll').addEventListener('click', () => qas.forEach(x => x.open = false));
+</script>
+</body>
+</html>
