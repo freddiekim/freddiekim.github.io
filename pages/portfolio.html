@@ -2,7 +2,7 @@
 layout: null
 title: My Portfolio
 ---
-{% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/pages_portfolio/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
+{% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/pages_portfolio/portfolio_blog_summary_'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign latest_report = portfolio_reports | last %}
 {% assign archive_count = portfolio_reports.size | minus: 1 %}
 {% if latest_report %}
@@ -565,7 +565,7 @@ title: My Portfolio
       <div>
         <p class="portfolio-kicker">About My Portfolio</p>
         <h1>YOUNG FINANCE Portfolio</h1>
-        <p class="portfolio-lede">포트폴리오의 최신 상태, 주전 10개·후보 10개·소액 보유 6개 구성과 비중 변화를 한 화면에서 확인하는 투자 운영 페이지입니다.</p>
+        <p class="portfolio-lede">2026년 8월 14일 기준 포트폴리오의 최신 상태, 주전 10개·후보 10개·소액 보유 6개 구성과 비중 변화를 한 화면에서 확인하는 투자 운영 페이지입니다.</p>
       </div>
       <aside class="hero-panel">
         <span>Latest Update</span>

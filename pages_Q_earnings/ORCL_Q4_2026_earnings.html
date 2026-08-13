@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Oracle Q4 & FY2026 Earnings — 페이지별 한글 정리</title>
+<style>
+:root{
+  --ivory:#f6f0e5;--cream:#fbf7ef;--paper:#ffffff;--ink:#1f2a28;--muted:#6b746f;
+  --line:#ded8cd;--blue:#2f6fb2;--orange:#d9822b;--green:#3c8a61;--red:#c34d42;--navy:#24302e;
+  --softblue:#edf4fb;--softgreen:#edf7f1;--softorange:#fff3e5;--softred:#fcecea;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--ivory);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;line-height:1.58}
+.wrap{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:28px 0 64px}
+.hero{background:var(--navy);color:#fff;border:1px solid #1b2624;border-radius:24px;padding:30px;box-shadow:0 8px 24px rgba(31,42,40,.08)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:13px;text-transform:uppercase}.brand .slash{color:#f1c86d}
+.hero h1{font-size:clamp(30px,5vw,56px);line-height:1.05;margin:18px 0 12px;letter-spacing:-.035em}.hero p{margin:0;color:#dce4df;max-width:860px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}.badge{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 11px;font-size:12px;color:#f5f7f6}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.blue{background:var(--blue)}.orange{background:var(--orange)}.green{background:var(--green)}.red{background:var(--red)}
+.note{margin:18px 0 0;padding:14px 16px;background:#fff8e9;border:1px solid #ead8b3;border-radius:14px;color:#5e543f;font-size:13px}
+.nav{display:flex;gap:8px;overflow:auto;padding:15px 1px 6px;scrollbar-width:thin}.nav a{flex:0 0 auto;text-decoration:none;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:700}.nav a:hover{border-color:#aeb8b2}
+.page{background:var(--paper);border:1px solid var(--line);border-radius:20px;margin-top:18px;overflow:hidden;box-shadow:0 7px 18px rgba(31,42,40,.045)}
+.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:21px 22px 14px;border-bottom:1px solid #ece7de}.page-no{font-size:12px;font-weight:800;color:var(--orange);letter-spacing:.08em}.page h2{font-size:22px;line-height:1.25;margin:3px 0 0;letter-spacing:-.02em}.page-body{padding:22px}.lede{font-size:16px;color:#3e4946;margin:0 0 14px}.small{font-size:12px;color:var(--muted)}
+.grid{display:grid;gap:12px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.metric{border:1px solid #d8e1dc;background:var(--softgreen);border-radius:16px;padding:16px}.metric .value{font-size:28px;font-weight:900;line-height:1.05}.metric .growth{font-size:12px;font-weight:800;color:var(--green);margin-top:5px}.metric .label{font-size:13px;color:#46534f;margin-top:10px}
+.card{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:16px}.card h3{margin:0 0 9px;font-size:15px}.card p{margin:0}.card ul{margin:8px 0 0;padding-left:20px}.card li+li{margin-top:5px}
+.kicker{font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}.accent-blue{border-top:4px solid var(--blue)}.accent-green{border-top:4px solid var(--green)}.accent-orange{border-top:4px solid var(--orange)}.accent-red{border-top:4px solid var(--red)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.tbl{border-collapse:collapse;width:100%;min-width:620px;background:#fff}.tbl th,.tbl td{padding:11px 12px;border-bottom:1px solid #ece7de;text-align:left;vertical-align:top;font-size:13px}.tbl th{background:#f6f3ed;color:#48514e;font-size:12px;letter-spacing:.02em}.tbl tr:last-child td{border-bottom:0}.tbl .section td{font-weight:800;background:#eef6f8}.pos{color:var(--green);font-weight:800}.foot{margin-top:14px;padding:12px 14px;border-left:4px solid var(--orange);background:#fff8ed;font-size:12px;color:#655b48;border-radius:8px}.foot p{margin:0}.foot p+p{margin-top:6px}
+.seven{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.diff{border:1px solid var(--line);border-radius:14px;padding:12px 10px;background:#fff;min-height:142px}.diff .n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--softorange);color:var(--orange);font-weight:900;font-size:12px}.diff strong{display:block;font-size:12px;line-height:1.35;margin-top:10px}.iconline{height:40px;margin-top:12px}.iconline svg{width:40px;height:40px;display:block}
+.band{display:grid;grid-template-columns:220px 1fr;gap:12px;align-items:stretch;margin-top:12px}.band-stat{background:var(--softgreen);border:1px solid #d6e8dd;border-radius:16px;padding:16px}.band-stat strong{font-size:24px;display:block}.band-stat span{font-size:12px}.band-copy{background:#f9faf8;border:1px solid var(--line);border-radius:16px;padding:14px 16px}.band-copy ul{margin:0;padding-left:19px}.band-copy li+li{margin-top:5px}
+.vector{background:#f7faf8;border:1px solid var(--line);border-radius:16px;padding:12px;overflow:hidden}.vector svg{display:block;width:100%;height:auto}.vector-caption{font-size:12px;color:var(--muted);margin-top:8px}
+.site{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center}.site-icon{background:#eaf2ed;border:1px solid #d5e0da;border-radius:16px;padding:14px}.site-icon svg{width:100%;height:auto}.site strong{font-size:21px}.site p{margin:5px 0 0;color:#55615d}
+.flow{display:grid;grid-template-columns:1fr 70px 1fr;gap:10px;align-items:center}.flow .big{font-size:29px;font-weight:900}.arrow{display:grid;place-items:center}.arrow svg{width:52px;height:30px}
+.quote{padding:16px 18px;background:var(--softblue);border-left:4px solid var(--blue);border-radius:10px;color:#334960}.legal{font-size:13px;color:#46514d}.legal p{margin:0 0 11px}
+.event{background:#fff8ee;border:1px solid #ead7bd;border-radius:18px;padding:22px;display:grid;grid-template-columns:1.3fr .7fr;gap:20px;align-items:center}.event h3{font-size:30px;line-height:1.05;margin:0 0 10px}.datebox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}.datebox strong{font-size:22px}
+.oracle-lockup{display:grid;place-items:center;min-height:260px;background:var(--navy);border-radius:18px;color:white;font-weight:900;font-size:clamp(42px,9vw,88px);letter-spacing:.08em}
+.footer{margin-top:24px;padding:18px 3px;color:var(--muted);font-size:12px}.footer strong{color:var(--ink)}
+@media(max-width:900px){.metric-grid,.grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}.seven{grid-template-columns:repeat(2,minmax(0,1fr))}.band{grid-template-columns:1fr}.event{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}.site{grid-template-columns:110px 1fr}}
+@media(max-width:620px){.wrap{width:min(100% - 18px,1180px);padding-top:10px}.hero{padding:22px 18px;border-radius:18px}.page{border-radius:16px}.page-body,.page-head{padding:17px}.metric-grid,.grid-2,.grid-3{grid-template-columns:1fr}.metric .value{font-size:24px}.seven{grid-template-columns:1fr 1fr}.site{grid-template-columns:1fr}.site-icon{max-width:150px}.event h3{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="brand">FINANCE <span class="slash">/</span> 城主</div>
+    <h1>Oracle Q4 & FY2026 Earnings</h1>
+    <p>2026년 6월 10일 Oracle 실적 프레젠테이션을 <strong>페이지 순서 그대로</strong> 한국어로 정리한 문서입니다. 원문에 있는 숫자·문장·각주·시각적 메시지만 재구성했으며, 외부 자료나 별도 투자 의견은 추가하지 않았습니다.</p>
+    <div class="hero-meta">
+      <span class="badge"><span class="dot blue"></span>20 pages</span>
+      <span class="badge"><span class="dot orange"></span>Q4 & FY2026</span>
+      <span class="badge"><span class="dot green"></span>Oracle</span>
+      <span class="badge"><span class="dot red"></span>Source-only summary</span>
+    </div>
+    <div class="note">원문 PDF의 사진은 HTML에 삽입하지 않았습니다. 사진 페이지는 원문에 표시된 장소명과 “건설 현장 사진”이라는 시각적 내용을 텍스트·벡터 카드로 정리했습니다.</div>
+  </header>
+
+  <nav class="nav" aria-label="페이지 바로가기">
+    <a href="#p1">1</a><a href="#p2">2</a><a href="#p3">3</a><a href="#p4">4</a><a href="#p5">5</a><a href="#p6">6</a><a href="#p7">7</a><a href="#p8">8</a><a href="#p9">9</a><a href="#p10">10</a><a href="#p11">11</a><a href="#p12">12</a><a href="#p13">13</a><a href="#p14">14</a><a href="#p15">15</a><a href="#p16">16</a><a href="#p17">17</a><a href="#p18">18</a><a href="#p19">19</a><a href="#p20">20</a>
+  </nav>
+
+  <section class="page" id="p1">
+    <div class="page-head"><div><div class="page-no">PAGE 01</div><h2>Q4 & Fiscal Year 2026 Earnings</h2></div></div>
+    <div class="page-body">
+      <p class="lede"><strong>Oracle 2026 회계연도 4분기 및 연간 실적 발표</strong></p>
+      <div class="card accent-orange"><div class="kicker">Date</div><p>2026년 6월 10일</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="p2">
+    <div class="page-head"><div><div class="page-no">PAGE 02</div><h2>Safe Harbor Statement · 면책조항</h2></div></div>
+    <div class="page-body legal">
+      <p>이 프레젠테이션에서 Oracle의 미래 계획, 기대, 믿음, 의도 및 전망과 관련된 진술에는 2027 회계연도 가이던스, 데이터센터 건설 진행 상황, 계획 중인 인프라 등이 포함되며, 이러한 진술은 “미래예측진술(forward-looking statements)”입니다. 이 진술에는 중대한 위험과 불확실성이 따릅니다.</p>
+      <p>여러 요인이 현재의 기대에 영향을 줄 수 있으며, 실제 결과가 예상과 크게 달라질 수 있습니다. 사업에 영향을 미치는 이러한 요인과 기타 위험에 대한 자세한 논의는 Oracle의 미국 증권거래위원회(SEC) 제출 서류에 포함되어 있으며, 가장 최근의 Form 10-K 및 Form 10-Q, 특히 “Risk Factors” 항목을 참조할 수 있습니다.</p>
+      <p>해당 서류는 SEC를 통해 온라인으로 확인하거나, Oracle Investor Relations Department 전화 <strong>(650) 506-4073</strong>으로 문의하거나, Oracle Investor Relations 웹사이트의 SEC Filings를 통해 확인할 수 있습니다.</p>
+      <p>이 프레젠테이션의 모든 정보는 <strong>2026년 6월 10일 현재</strong> 기준입니다. Oracle은 새로운 정보나 향후 사건이 발생하더라도 이 진술을 업데이트할 의무를 부담하지 않습니다.</p>
+    </div>
+  </section>
+
+  <section class="page" id="p3">
+    <div class="page-head"><div><div class="page-no">PAGE 03</div><h2>Non-GAAP Financial Measures · 비GAAP 재무지표</h2></div></div>
+    <div class="page-body legal">
+      <p>Oracle은 GAAP 기준으로 제시된 재무실적을 보완하기 위해 비GAAP 지표를 사용합니다. 비GAAP 지표는 특정 사업결합 회계 항목, 인수 관련 비용, 그리고 주식기준보상 등 기타 중요한 비용을 제외하며, 과거 재무성과와 미래 실적을 이해하는 데 도움이 된다고 회사는 설명합니다.</p>
+      <p>비GAAP 재무지표는 단독으로 보거나 비교 가능한 GAAP 지표를 대체하기 위한 것이 아니며, GAAP에 따라 작성된 연결재무제표와 함께 읽어야 합니다. 이번 논의에는 일부 비GAAP 재무지표가 포함됩니다.</p>
+    </div>
+  </section>
+
+  <section class="page" id="p4">
+    <div class="page-head"><div><div class="page-no">PAGE 04</div><h2>Q4 2026 Financial Highlights</h2></div></div>
+    <div class="page-body">
+      <div class="metric-grid">
+        <div class="metric"><div class="value">$19.2B</div><div class="growth">+21% USD / +20% CD</div><div class="label">총매출</div></div>
+        <div class="metric"><div class="value">$8.6B</div><div class="growth">+22% USD / +21% CD</div><div class="label">비GAAP 영업이익</div></div>
+        <div class="metric"><div class="value">$2.11</div><div class="growth">+24% USD / +23% CD</div><div class="label">비GAAP EPS</div></div>
+        <div class="metric"><div class="value">$5.8B</div><div class="growth">+93% USD / +92% CD</div><div class="label">클라우드 인프라 매출(IaaS)</div></div>
+        <div class="metric"><div class="value">$4.1B</div><div class="growth">+10% USD / +9% CD</div><div class="label">클라우드 애플리케이션 매출(SaaS)</div></div>
+        <div class="metric"><div class="value">+$85B</div><div class="growth">Q/Q growth from Q3</div><div class="label">총 RPO의 Q3 대비 증가액</div></div>
+      </div>
+      <div class="foot">
+        <p><strong>1.</strong> 성장률은 전년동기 대비이며, USD와 constant currency(CD) 기준을 각각 표시.</p>
+        <p><strong>2.</strong> 비GAAP EPS $2.11에는 특정 거래에서 발생한 일회성 순투자이익이 포함됨. 이를 제외한 Q4 비GAAP EPS는 <strong>$2.03</strong>이며, USD 기준 <strong>+20%</strong>, constant currency 기준 <strong>+18%</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p5">
+    <div class="page-head"><div><div class="page-no">PAGE 05</div><h2>FY 2026 Financial Highlights</h2></div></div>
+    <div class="page-body">
+      <div class="metric-grid">
+        <div class="metric"><div class="value">$67.4B</div><div class="growth">+17% USD / +16% CD</div><div class="label">총매출</div></div>
+        <div class="metric"><div class="value">$28.9B</div><div class="growth">+16% USD / +13% CD</div><div class="label">비GAAP 영업이익</div></div>
+        <div class="metric"><div class="value">$7.63</div><div class="growth">+27% USD / +24% CD</div><div class="label">비GAAP EPS</div></div>
+        <div class="metric"><div class="value">$32.0B</div><div class="growth">+54% USD</div><div class="label">영업현금흐름</div></div>
+        <div class="metric"><div class="value">$48B</div><div class="growth">Net cash outlay</div><div class="label">자본지출(Capex) 순현금 지출액</div></div>
+        <div class="metric"><div class="value">$638B</div><div class="growth">+363% USD / +362% CD</div><div class="label">총 RPO</div></div>
+      </div>
+      <div class="foot">
+        <p><strong>1.</strong> 성장률은 전년 대비이며 USD와 constant currency(CD) 기준을 각각 표시.</p>
+        <p><strong>2.</strong> FY2026 비GAAP EPS $7.63에는 특정 거래에서 발생한 일회성 순투자이익이 포함됨. 이를 제외하면 FY2026 비GAAP EPS는 <strong>$6.83</strong>, USD 기준 <strong>+13%</strong>, constant currency 기준 <strong>+11%</strong>.</p>
+        <p><strong>3.</strong> Oracle은 GAAP 현금흐름표에 표시되는 자본지출 현금흐름을 보완하기 위해 최근 4개 분기 기준 “자본지출 순현금 지출액(net cash outlay for capital expenditures)”을 제시합니다. 이는 자본지출에서 <strong>(1) 자본지출 관련 기타 단기 금융 현금흐름</strong>과 <strong>(2) 자본지출에 대한 유의적인 금융요소를 포함하는 고객 선급금</strong>을 차감해 계산합니다. 회사는 이 보조 지표가 자본지출을 충당하는 데 필요한 실제 현금 요구액에 관한 추가 정보를 제공하며, 경영진의 향후 자본지출 전망에도 사용된다고 설명합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p6">
+    <div class="page-head"><div><div class="page-no">PAGE 06</div><h2>Oracle Cloud Revenue Highlights</h2></div></div>
+    <div class="page-body">
+      <div class="table-wrap"><table class="tbl">
+        <thead><tr><th>Q4 2026</th><th>매출</th><th>전년동기 대비</th></tr></thead>
+        <tbody>
+          <tr class="section"><td>Cloud Applications</td><td>$4.1B</td><td class="pos">+10%</td></tr>
+          <tr><td>Fusion Back-Office</td><td>$1.5B</td><td class="pos">+12%</td></tr>
+          <tr><td>NetSuite</td><td>$1.1B</td><td class="pos">+9%</td></tr>
+          <tr><td>Industry (Oracle Health 포함)</td><td>$1.2B</td><td class="pos">+8%</td></tr>
+          <tr class="section"><td>Cloud Infrastructure</td><td>$5.8B</td><td class="pos">+93%</td></tr>
+          <tr><td>Database</td><td>$0.8B</td><td class="pos">+29%</td></tr>
+          <tr><td>└ 그중 Multi-Cloud DB</td><td>—</td><td class="pos">+404%</td></tr>
+          <tr><td>Infrastructure (CPU &amp; GPU)</td><td>$4.8B</td><td class="pos">+119%</td></tr>
+        </tbody>
+      </table></div>
+      <div class="foot"><p><strong>1.</strong> 모든 성장률은 USD 기준 전년동기 대비.</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="p7">
+    <div class="page-head"><div><div class="page-no">PAGE 07</div><h2>OCI Infrastructure Differentiation</h2></div></div>
+    <div class="page-body">
+      <div class="seven">
+        <div class="diff"><div class="n">1</div><strong>Zettascale을 위해 설계된 AI 인프라</strong><div class="iconline"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="14" fill="none" stroke="#2f6fb2" stroke-width="2"/><circle cx="20" cy="8" r="3" fill="#d9822b"/><circle cx="31" cy="25" r="3" fill="#3c8a61"/><circle cx="9" cy="26" r="3" fill="#c34d42"/><path d="M20 11v7M29 24l-6-3M11 25l7-4" stroke="#2f6fb2" stroke-width="2"/></svg></div></div>
+        <div class="diff"><div class="n">2</div><strong>낮은 지연시간, 고성능 네트워킹</strong><div class="iconline"><svg viewBox="0 0 40 40"><path d="M7 27h26M10 23l5-7 6 4 8-10" fill="none" stroke="#3c8a61" stroke-width="2.5"/><circle cx="10" cy="23" r="2" fill="#2f6fb2"/><circle cx="15" cy="16" r="2" fill="#d9822b"/><circle cx="21" cy="20" r="2" fill="#c34d42"/><circle cx="29" cy="10" r="2" fill="#2f6fb2"/></svg></div></div>
+        <div class="diff"><div class="n">3</div><strong>Bare Metal 인프라</strong><div class="iconline"><svg viewBox="0 0 40 40"><rect x="8" y="8" width="24" height="8" rx="2" fill="none" stroke="#2f6fb2" stroke-width="2"/><rect x="8" y="19" width="24" height="8" rx="2" fill="none" stroke="#2f6fb2" stroke-width="2"/><circle cx="13" cy="12" r="1.5" fill="#d9822b"/><circle cx="13" cy="23" r="1.5" fill="#3c8a61"/></svg></div></div>
+        <div class="diff"><div class="n">4</div><strong>최신 GPU, CPU 및 기타 가속기 선택</strong><div class="iconline"><svg viewBox="0 0 40 40"><rect x="10" y="10" width="20" height="20" rx="3" fill="none" stroke="#3c8a61" stroke-width="2"/><rect x="15" y="15" width="10" height="10" fill="none" stroke="#2f6fb2" stroke-width="2"/><path d="M14 6v4M20 6v4M26 6v4M14 30v4M20 30v4M26 30v4M6 14h4M6 20h4M6 26h4M30 14h4M30 20h4M30 26h4" stroke="#d9822b" stroke-width="2"/></svg></div></div>
+        <div class="diff"><div class="n">5</div><strong>분산형 AI 워크로드에 최적화</strong><div class="iconline"><svg viewBox="0 0 40 40"><circle cx="10" cy="20" r="4" fill="none" stroke="#2f6fb2" stroke-width="2"/><circle cx="30" cy="10" r="4" fill="none" stroke="#3c8a61" stroke-width="2"/><circle cx="30" cy="30" r="4" fill="none" stroke="#d9822b" stroke-width="2"/><path d="M14 18l12-6M14 22l12 6M30 14v12" stroke="#6b746f" stroke-width="2"/></svg></div></div>
+        <div class="diff"><div class="n">6</div><strong>AI 혁신 및 개발자 생산성에 집중</strong><div class="iconline"><svg viewBox="0 0 40 40"><path d="M8 26h8l4 6 4-6h8V10H8z" fill="none" stroke="#2f6fb2" stroke-width="2"/><path d="M14 17h12M14 22h8" stroke="#3c8a61" stroke-width="2"/></svg></div></div>
+        <div class="diff"><div class="n">7</div><strong>신뢰성·엔터프라이즈 준비·설계 단계부터 보안</strong><div class="iconline"><svg viewBox="0 0 40 40"><path d="M20 6l12 5v8c0 8-5 13-12 16-7-3-12-8-12-16v-8z" fill="none" stroke="#3c8a61" stroke-width="2"/><path d="M15 20l3 3 7-8" fill="none" stroke="#2f6fb2" stroke-width="2.5"/></svg></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p8">
+    <div class="page-head"><div><div class="page-no">PAGE 08</div><h2>Infrastructure Highlights</h2></div></div>
+    <div class="page-body">
+      <div class="band"><div class="band-stat"><span>RPO</span><strong>$638B</strong><span>Q4에서 +$85B RPO</span></div><div class="band-copy"><ul><li>Q4 RPO의 대부분은 <strong>Bring-Your-Own-Hardware</strong> 또는 <strong>Pre-pay</strong> 형태.</li><li>계약상 마진은 유지되면서 개선되고 있음.</li><li>고객 다변화가 가속.</li></ul></div></div>
+      <div class="band"><div class="band-stat"><span>DC CAPACITY</span><strong>+1.2GW</strong><span>FY26에 추가된 데이터센터 용량</span></div><div class="band-copy"><ul><li>실행은 계획대로 진행 중이며 데이터센터 인도가 가속.</li><li>AI 인프라 이용률 <strong>97.5%</strong>.</li><li>AI 데이터센터 용량의 <strong>98%</strong>가 이미 계약됨.</li></ul></div></div>
+      <div class="band"><div class="band-stat"><span>CPU &amp; GPU REVENUE</span><strong>$4.8B</strong><span>Q4 USD 기준 +119% y/y</span></div><div class="band-copy"><ul><li>FY26 매 분기 인프라 매출 성장이 가속.</li><li>FY27에도 가속이 계속될 것으로 예상.</li></ul></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="p9">
+    <div class="page-head"><div><div class="page-no">PAGE 09</div><h2>Adding close to 1GW Next Quarter</h2></div></div>
+    <div class="page-body">
+      <div class="vector">
+        <svg viewBox="0 0 1000 350" role="img" aria-label="다음 분기에 약 1GW 용량 추가와 글로벌 데이터센터 분포를 표현한 벡터 요약">
+          <rect width="1000" height="350" rx="20" fill="#243b30"/>
+          <text x="55" y="68" fill="#f0c96a" font-size="44" font-weight="800">Adding close to 1GW</text><text x="555" y="68" fill="#fff" font-size="44" font-weight="800">Next Quarter</text>
+          <ellipse cx="500" cy="210" rx="340" ry="112" fill="#3e624c" opacity=".9"/>
+          <path d="M210 190c45-55 95-59 145-40 34 13 50 3 67-20 31 13 53 26 81 18 25-7 45-3 73 15 33 22 63 16 90-7 47 15 93 41 134 74-58 47-142 76-285 79-133 3-236-25-305-67z" fill="#355844"/>
+          <g fill="#8fc6df" stroke="#b9dce9" stroke-width="3" opacity=".95">
+            <circle cx="250" cy="188" r="7"/><circle cx="279" cy="206" r="7"/><circle cx="314" cy="192" r="7"/><circle cx="338" cy="221" r="7"/>
+            <circle cx="425" cy="165" r="7"/><circle cx="448" cy="181" r="7"/><circle cx="474" cy="158" r="7"/><circle cx="501" cy="180" r="7"/><circle cx="530" cy="169" r="7"/>
+            <circle cx="612" cy="196" r="7"/><circle cx="639" cy="210" r="7"/><circle cx="665" cy="224" r="7"/><circle cx="695" cy="197" r="7"/>
+            <circle cx="745" cy="204" r="7"/><circle cx="774" cy="193" r="7"/><circle cx="804" cy="216" r="7"/><circle cx="707" cy="259" r="7"/>
+            <circle cx="557" cy="250" r="7"/><circle cx="398" cy="247" r="7"/><circle cx="351" cy="264" r="7"/><circle cx="840" cy="267" r="7"/>
+          </g>
+        </svg>
+        <div class="vector-caption">원문은 세계 지도 위에 다수의 데이터센터 위치 점을 표시하고, 제목으로 “다음 분기에 약 1GW 추가”를 강조함.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p10"><div class="page-head"><div><div class="page-no">PAGE 10</div><h2>Abilene, TX</h2></div></div><div class="page-body"><div class="site"><div class="site-icon"><svg viewBox="0 0 160 120"><rect x="18" y="50" width="124" height="46" rx="4" fill="#fff" stroke="#3c8a61" stroke-width="3"/><rect x="31" y="61" width="38" height="26" fill="#edf4fb" stroke="#2f6fb2" stroke-width="2"/><rect x="83" y="61" width="46" height="26" fill="#fff3e5" stroke="#d9822b" stroke-width="2"/><path d="M30 50V31h98v19" fill="none" stroke="#6b746f" stroke-width="3"/><path d="M24 103h112" stroke="#c34d42" stroke-width="3"/></svg></div><div><strong>Abilene, Texas</strong><p>원문 페이지 전체는 해당 지역의 대규모 데이터센터 시설 및 건설 현장을 보여주는 항공 사진으로 구성.</p></div></div></div></section>
+  <section class="page" id="p11"><div class="page-head"><div><div class="page-no">PAGE 11</div><h2>Shackleford, TX</h2></div></div><div class="page-body"><div class="site"><div class="site-icon"><svg viewBox="0 0 160 120"><path d="M15 94h130" stroke="#6b746f" stroke-width="3"/><rect x="27" y="63" width="75" height="31" fill="#fff" stroke="#3c8a61" stroke-width="3"/><path d="M105 94V38l8-10 7 10v56M113 44l20 13M113 56l-22 12" fill="none" stroke="#2f6fb2" stroke-width="3"/><circle cx="113" cy="34" r="4" fill="#d9822b"/></svg></div><div><strong>Shackleford, Texas</strong><p>원문 페이지 전체는 데이터센터 건설 부지와 전력 인프라가 함께 보이는 항공 현장 사진으로 구성.</p></div></div></div></section>
+  <section class="page" id="p12"><div class="page-head"><div><div class="page-no">PAGE 12</div><h2>Doña Ana, NM</h2></div></div><div class="page-body"><div class="site"><div class="site-icon"><svg viewBox="0 0 160 120"><path d="M10 91h140" stroke="#8a735d" stroke-width="3"/><path d="M14 70l26-24 21 20 29-31 32 35 22-12" fill="none" stroke="#6b746f" stroke-width="3"/><rect x="32" y="76" width="95" height="15" fill="#fff" stroke="#d9822b" stroke-width="2"/><path d="M45 76V59M60 76V54M75 76V61M90 76V50M105 76V58" stroke="#2f6fb2" stroke-width="2"/></svg></div><div><strong>Doña Ana, New Mexico</strong><p>원문 페이지 전체는 사막 지형의 대규모 데이터센터 건설 부지를 보여주는 항공 사진으로 구성.</p></div></div></div></section>
+  <section class="page" id="p13"><div class="page-head"><div><div class="page-no">PAGE 13</div><h2>Saline, MI</h2></div></div><div class="page-body"><div class="site"><div class="site-icon"><svg viewBox="0 0 160 120"><rect x="22" y="58" width="116" height="38" fill="#fff" stroke="#3c8a61" stroke-width="3"/><path d="M35 58v-16h38v16M82 58v-23h42v23" fill="none" stroke="#2f6fb2" stroke-width="3"/><path d="M12 103h136" stroke="#6b746f" stroke-width="3"/><path d="M35 103l10-11h64l10 11" fill="none" stroke="#d9822b" stroke-width="3"/></svg></div><div><strong>Saline, Michigan</strong><p>원문 페이지 전체는 대규모 기초 공사와 건물 골조가 진행 중인 데이터센터 건설 현장 항공 사진으로 구성.</p></div></div></div></section>
+  <section class="page" id="p14"><div class="page-head"><div><div class="page-no">PAGE 14</div><h2>Port Washington, WI</h2></div></div><div class="page-body"><div class="site"><div class="site-icon"><svg viewBox="0 0 160 120"><rect x="18" y="62" width="124" height="35" fill="#fff" stroke="#3c8a61" stroke-width="3"/><path d="M27 62h106M38 62V45h31v17M83 62V39h38v23" fill="none" stroke="#2f6fb2" stroke-width="3"/><path d="M25 104h110" stroke="#6b746f" stroke-width="3"/><path d="M30 53l12-10M100 45l13-12" stroke="#d9822b" stroke-width="3"/></svg></div><div><strong>Port Washington, Wisconsin</strong><p>원문 페이지 전체는 다수의 크레인과 골조, 대형 건물 공사가 진행 중인 데이터센터 건설 현장 항공 사진으로 구성.</p></div></div></div></section>
+
+  <section class="page" id="p15">
+    <div class="page-head"><div><div class="page-no">PAGE 15</div><h2>Unlocking the Value of our RPO</h2></div></div>
+    <div class="page-body">
+      <div class="grid grid-2">
+        <div class="card accent-blue"><div class="kicker">Long-term Financial Outlook</div><h3>FY25 → FY30</h3><div class="metric-grid" style="grid-template-columns:1fr 1fr"><div class="metric"><div class="value">31% CAGR</div><div class="label">총매출</div></div><div class="metric"><div class="value">28% CAGR</div><div class="label">비GAAP EPS</div></div></div></div>
+        <div class="card accent-orange"><div class="kicker">Capex and Funding Expectations</div><h3>FY26 → FY27</h3>
+          <div class="flow"><div class="metric"><div class="small">FY26</div><div class="big">$48B</div><div class="label">자본지출 순현금 지출액</div></div><div class="arrow"><svg viewBox="0 0 60 30"><path d="M5 15h40" stroke="#d9822b" stroke-width="5"/><path d="M42 5l13 10-13 10" fill="none" stroke="#d9822b" stroke-width="5"/></svg></div><div class="metric"><div class="small">FY27</div><div class="big">~$70B</div><div class="label">자본지출 순현금 지출액</div></div></div>
+          <div class="flow" style="margin-top:10px"><div class="metric"><div class="small">FY26</div><div class="big">$48B</div><div class="label">Capital Market Funding</div></div><div class="arrow"><svg viewBox="0 0 60 30"><path d="M5 15h40" stroke="#2f6fb2" stroke-width="5"/><path d="M42 5l13 10-13 10" fill="none" stroke="#2f6fb2" stroke-width="5"/></svg></div><div class="metric"><div class="small">FY27</div><div class="big">~$40B</div><div class="label">Capital Market Funding</div></div></div>
+        </div>
+      </div>
+      <div class="foot"><p><strong>1.</strong> Oracle은 GAAP 현금흐름표에 제시되는 자본지출 현금흐름을 보완하기 위해 최근 4개 분기 기준 자본지출 순현금 지출액을 제공합니다. 이 값은 자본지출에서 <strong>(1) 자본지출 관련 기타 단기 금융 현금흐름</strong>과 <strong>(2) 자본지출과 관련해 유의적인 금융요소를 포함하는 고객 선급금</strong>을 차감한 값입니다. 회사는 이 지표가 자본지출 자금조달에 필요한 현금 요구량에 관한 추가 정보를 제공하며 경영진의 자본지출 전망에도 사용된다고 설명합니다.</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="p16">
+    <div class="page-head"><div><div class="page-no">PAGE 16</div><h2>FY27 Guidance</h2></div></div>
+    <div class="page-body">
+      <div class="grid grid-2">
+        <div class="metric"><div class="value">$90B</div><div class="growth">+34% y/y in constant currency</div><div class="label">총매출</div></div>
+        <div class="metric"><div class="value">$8.05</div><div class="growth">+18% y/y in constant currency</div><div class="label">비GAAP EPS</div></div>
+      </div>
+      <div class="foot"><p><strong>1.</strong> FY2026 비GAAP EPS에는 특정 거래에서 발생한 일회성 순투자이익이 포함됨. 이를 제외하면 FY2026 비GAAP EPS는 <strong>$6.83</strong>이며, 이 조정치를 기준으로 FY2027 비GAAP EPS 성장률은 constant currency 기준 <strong>18%</strong>.</p></div>
+    </div>
+  </section>
+
+  <section class="page" id="p17">
+    <div class="page-head"><div><div class="page-no">PAGE 17</div><h2>Q1 FY27 Guidance</h2></div></div>
+    <div class="page-body">
+      <div class="metric-grid">
+        <div class="metric"><div class="value">27–29%</div><div class="growth">Constant Currency &amp; USD</div><div class="label">총매출 성장률</div></div>
+        <div class="metric"><div class="value">57–63%</div><div class="growth">Constant Currency</div><div class="label">클라우드 매출 성장률</div></div>
+        <div class="metric"><div class="value">58–64%</div><div class="growth">US Dollar</div><div class="label">클라우드 매출 성장률</div></div>
+      </div>
+      <div class="grid grid-2" style="margin-top:12px">
+        <div class="metric"><div class="value">$1.71–1.75</div><div class="growth">+16–19% · Constant Currency</div><div class="label">비GAAP EPS</div></div>
+        <div class="metric"><div class="value">$1.72–1.76</div><div class="growth">+17–20% · US Dollar</div><div class="label">비GAAP EPS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="p18">
+    <div class="page-head"><div><div class="page-no">PAGE 18</div><h2>Q&amp;A</h2></div></div>
+    <div class="page-body"><div class="quote">질의응답(Q&amp;A) 전환 페이지. 별도의 수치나 설명 문구는 없음.</div></div>
+  </section>
+
+  <section class="page" id="p19">
+    <div class="page-head"><div><div class="page-no">PAGE 19</div><h2>Oracle AI World / Investor Day</h2></div></div>
+    <div class="page-body">
+      <div class="event"><div><div class="kicker" style="color:var(--red)">ORACLE</div><h3>AI World</h3><p><strong>Las Vegas · October 25–28</strong></p><p class="small">원문 표기: oracle.com/ai-world</p></div><div class="datebox"><div class="small">Investor Day</div><strong>October 28</strong></div></div>
+    </div>
+  </section>
+
+  <section class="page" id="p20">
+    <div class="page-head"><div><div class="page-no">PAGE 20</div><h2>Closing</h2></div></div>
+    <div class="page-body"><div class="oracle-lockup">ORACLE</div><p class="small" style="margin:10px 0 0">원문은 어두운 배경 중앙의 Oracle 로고만 있는 종료 페이지.</p></div>
+  </section>
+
+  <footer class="footer">
+    <strong>Source scope.</strong> 사용자가 제공한 Oracle Q4 &amp; FY2026 Earnings 프레젠테이션 20페이지 내용만 정리했습니다. 원문 전 페이지에는 “Copyright © 2026, Oracle and/or its affiliates.”가 반복 표기되어 있습니다. 본 HTML은 외부 라이브러리·외부 이미지·canvas·iframe을 사용하지 않으며, 시각 요소는 CSS와 인라인 SVG로만 구성했습니다.
+  </footer>
+</div>
+</body>
+</html>
