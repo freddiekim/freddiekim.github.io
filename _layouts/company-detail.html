@@ -86,6 +86,7 @@
     .link-chip.resource-qa { background: var(--sky); }
     .link-chip.resource-quarter { background: var(--green); color: var(--cream); }
     .link-chip.resource-summary { background: #f4a083; }
+    .link-chip.resource-call-summary { background: #c8b6e8; }
     .resource-chip > span {
       align-items: center;
       background: var(--line);
@@ -298,8 +299,7 @@
         {% if conference_calls %}
           <article class="card wide">
             <h3>컨퍼런스 콜 요약</h3>
-            {% capture ticker_file_prefix %}{{ company.ticker | downcase }}_{% endcapture %}
-            {% assign ticker_file_prefix_size = ticker_file_prefix | size %}
+            {% capture ticker_call_directory %}/pages_conferenceCall/{{ company.ticker }}/{% endcapture %}
             {% for call in conference_calls %}
               <div class="call-item">
                 <p>{{ call.summary }}</p>
@@ -323,10 +323,9 @@
                 <div class="link-grid" style="margin-top:12px">
                   <a class="link-chip" href="{{ call.url }}" target="_self">원문 자료</a>
                   {% for call_file in conference_call_files reversed %}
-                    {% assign call_file_name_down = call_file.name | downcase %}
-                    {% assign call_file_prefix = call_file_name_down | slice: 0, ticker_file_prefix_size %}
-                    {% if call_file_prefix == ticker_file_prefix %}
+                    {% if call_file.path contains ticker_call_directory %}
                       {% assign call_parts = call_file.name | remove: ".html" | split: "_" %}
+                      {% assign call_date_raw = call_parts | last %}
                       {% assign call_quarter_raw = "" %}
                       {% assign call_year = "" %}
                       {% for call_part in call_parts %}
@@ -345,10 +344,16 @@
                       {% endfor %}
                       {% assign call_quarter = call_quarter_raw | replace: "Q", "" | replace: "q", "" %}
                       {% assign call_year_short = call_year | slice: 2, 2 %}
+                      {% assign call_written_label = "" %}
+                      {% if call_date_raw.size == 8 %}
+                        {% assign call_month = call_date_raw | slice: 4, 2 | plus: 0 %}
+                        {% assign call_day = call_date_raw | slice: 6, 2 | plus: 0 %}
+                        {% capture call_written_label %}작성 {{ call_month }}/{{ call_day }}{% endcapture %}
+                      {% endif %}
                       {% if call_year_short != "" and call_quarter != "" %}
-                        <a class="link-chip call" href="{{ call_file.path | relative_url }}" target="_self">{{ call_year_short }} {{ call_quarter }}Q 어닝콜</a>
+                        <a class="link-chip call" href="{{ call_file.path | relative_url }}" target="_self">{{ call_year_short }} {{ call_quarter }}Q 어닝콜{% if call_written_label != "" %} · {{ call_written_label | strip }}{% endif %}</a>
                       {% else %}
-                        <a class="link-chip call" href="{{ call_file.path | relative_url }}" target="_self">어닝콜</a>
+                        <a class="link-chip call" href="{{ call_file.path | relative_url }}" target="_self">어닝콜{% if call_written_label != "" %} · {{ call_written_label | strip }}{% endif %}</a>
                       {% endif %}
                     {% endif %}
                   {% endfor %}

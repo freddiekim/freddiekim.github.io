@@ -8,7 +8,8 @@
     report: "기업분석",
     qa: "QnA",
     quarter: "분기자료",
-    summary: "분기자료 요약"
+    summary: "분기자료 요약",
+    "call-summary": "어닝콜 요약"
   };
 
   function cleanText(value) {

@@ -1007,6 +1007,10 @@ body.sidebar-open .header-control-group {
     background: #f4a083;
 }
 
+.company-board-links .resource-call-summary {
+    background: #c8b6e8;
+}
+
 .company-board-links .resource-qa {
     background: var(--poster-sky);
 }

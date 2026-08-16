@@ -1,8 +1,10 @@
 {% assign resource_company = include.company %}
 {% assign resource_ticker = resource_company.ticker %}
 {% assign resource_ticker_key = resource_ticker | upcase %}
-{% capture resource_file_prefix %}{{ resource_ticker | downcase }}_{% endcapture %}
-{% assign resource_file_prefix_size = resource_file_prefix | size %}
+{% capture resource_report_directory %}/pages_html/{{ resource_ticker }}/{% endcapture %}
+{% capture resource_qa_directory %}/pages_QnA/{{ resource_ticker }}/{% endcapture %}
+{% capture resource_summary_directory %}/pages_Q_earnings/{{ resource_ticker }}/{% endcapture %}
+{% capture resource_call_summary_directory %}/pages_conferenceCall/{{ resource_ticker }}/{% endcapture %}
 {% assign resource_earnings = site.data.earnings_presentations[resource_ticker_key] %}
 {% assign resource_calls = site.data.conference_calls[resource_ticker_key] %}
 {% assign resource_annuals = site.data.annual_reports[resource_ticker_key] %}
@@ -10,8 +12,7 @@
 {% assign report_count = 0 %}
 {% capture report_items %}
   {% for report in report_files reversed %}
-    {% assign report_ticker = report.name | split: "_" | first | upcase %}
-    {% if report_ticker == resource_ticker_key %}
+    {% if report.path contains resource_report_directory %}
       {% assign report_count = report_count | plus: 1 %}
       {% assign report_parts = report.name | remove: ".html" | split: "_" %}
       {% assign report_date_raw = report_parts | last %}
@@ -30,9 +31,7 @@
 {% assign qa_count = 0 %}
 {% capture qa_items %}
   {% for qa_file in qa_files reversed %}
-    {% assign qa_file_name_down = qa_file.name | downcase %}
-    {% assign qa_file_prefix = qa_file_name_down | slice: 0, resource_file_prefix_size %}
-    {% if qa_file_prefix == resource_file_prefix %}
+    {% if qa_file.path contains resource_qa_directory %}
       {% assign qa_count = qa_count | plus: 1 %}
       {% assign qa_parts = qa_file.name | remove: ".html" | split: "_" %}
       {% assign qa_date_raw = qa_parts | last %}
@@ -81,11 +80,10 @@
 {% assign summary_count = 0 %}
 {% capture summary_items %}
   {% for summary in earnings_summary_files reversed %}
-    {% assign summary_name_down = summary.name | downcase %}
-    {% assign summary_prefix = summary_name_down | slice: 0, resource_file_prefix_size %}
-    {% if summary_prefix == resource_file_prefix %}
+    {% if summary.path contains resource_summary_directory %}
       {% assign summary_count = summary_count | plus: 1 %}
       {% assign summary_parts = summary.name | remove: ".html" | split: "_" %}
+      {% assign summary_date_raw = summary_parts | last %}
       {% assign summary_quarter_raw = "" %}
       {% assign summary_year = "" %}
       {% for summary_part in summary_parts %}
@@ -103,20 +101,29 @@
         {% endif %}
       {% endfor %}
       {% assign summary_quarter = summary_quarter_raw | replace: "Q", "" | replace: "q", "" %}
-      {% if summary_year != "" and summary_quarter != "" %}
-        {% capture summary_title %}{{ summary_year }} {{ summary_quarter }}Q 요약{% endcapture %}
-      {% else %}
-        {% assign summary_title = "분기자료 요약" %}
+      {% assign summary_written_label = "" %}
+      {% if summary_date_raw.size == 8 %}
+        {% assign summary_month = summary_date_raw | slice: 4, 2 | plus: 0 %}
+        {% assign summary_day = summary_date_raw | slice: 6, 2 | plus: 0 %}
+        {% capture summary_written_label %}작성 {{ summary_month }}/{{ summary_day }}{% endcapture %}
       {% endif %}
-      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary" data-resource-href="{{ summary.path | relative_url | escape }}" data-resource-title="{{ summary_title | strip | escape }}" data-resource-meta="실적 요약" hidden></span>
+      {% if summary_year != "" and summary_quarter != "" %}
+        {% capture summary_title %}{{ summary_year }} {{ summary_quarter }}Q 요약{% if summary_written_label != "" %} · {{ summary_written_label | strip }}{% endif %}{% endcapture %}
+      {% else %}
+        {% capture summary_title %}분기자료 요약{% if summary_written_label != "" %} · {{ summary_written_label | strip }}{% endif %}{% endcapture %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary" data-resource-href="{{ summary.path | relative_url | escape }}" data-resource-title="{{ summary_title | strip | escape }}" data-resource-meta="분기자료 요약" hidden></span>
     {% endif %}
   {% endfor %}
+{% endcapture %}
+
+{% assign call_summary_count = 0 %}
+{% capture call_summary_items %}
   {% for call_file in conference_call_files reversed %}
-    {% assign call_file_name_down = call_file.name | downcase %}
-    {% assign call_file_prefix = call_file_name_down | slice: 0, resource_file_prefix_size %}
-    {% if call_file_prefix == resource_file_prefix %}
-      {% assign summary_count = summary_count | plus: 1 %}
+    {% if call_file.path contains resource_call_summary_directory %}
+      {% assign call_summary_count = call_summary_count | plus: 1 %}
       {% assign call_parts = call_file.name | remove: ".html" | split: "_" %}
+      {% assign call_date_raw = call_parts | last %}
       {% assign call_quarter_raw = "" %}
       {% assign call_year = "" %}
       {% for call_part in call_parts %}
@@ -134,13 +141,18 @@
         {% endif %}
       {% endfor %}
       {% assign call_quarter = call_quarter_raw | replace: "Q", "" | replace: "q", "" %}
-      {% assign call_year_short = call_year | slice: 2, 2 %}
-      {% if call_year_short != "" and call_quarter != "" %}
-        {% capture call_title %}{{ call_year_short }} {{ call_quarter }}Q 어닝콜 요약{% endcapture %}
-      {% else %}
-        {% assign call_title = "어닝콜 요약" %}
+      {% assign call_written_label = "" %}
+      {% if call_date_raw.size == 8 %}
+        {% assign call_month = call_date_raw | slice: 4, 2 | plus: 0 %}
+        {% assign call_day = call_date_raw | slice: 6, 2 | plus: 0 %}
+        {% capture call_written_label %}작성 {{ call_month }}/{{ call_day }}{% endcapture %}
       {% endif %}
-      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="summary" data-resource-href="{{ call_file.path | relative_url | escape }}" data-resource-title="{{ call_title | strip | escape }}" data-resource-meta="어닝콜 요약" hidden></span>
+      {% if call_year != "" and call_quarter != "" %}
+        {% capture call_title %}{{ call_year }} {{ call_quarter }}Q 어닝콜 요약{% if call_written_label != "" %} · {{ call_written_label | strip }}{% endif %}{% endcapture %}
+      {% else %}
+        {% capture call_title %}어닝콜 요약{% if call_written_label != "" %} · {{ call_written_label | strip }}{% endif %}{% endcapture %}
+      {% endif %}
+      <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="call-summary" data-resource-href="{{ call_file.path | relative_url | escape }}" data-resource-title="{{ call_title | strip | escape }}" data-resource-meta="어닝콜 요약" hidden></span>
     {% endif %}
   {% endfor %}
 {% endcapture %}
@@ -186,10 +198,16 @@
 {% else %}
   <span class="{{ include.chip_class }} resource-chip resource-summary is-disabled" aria-disabled="true">분기자료 요약 <span>0</span></span>
 {% endif %}
+{% if call_summary_count > 0 %}
+  <a class="{{ include.chip_class }} resource-chip resource-call-summary js-company-resource-trigger" href="#" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="call-summary">어닝콜 요약 <span>{{ call_summary_count }}</span></a>
+{% else %}
+  <span class="{{ include.chip_class }} resource-chip resource-call-summary is-disabled" aria-disabled="true">어닝콜 요약 <span>0</span></span>
+{% endif %}
 
 <span class="js-company-resource-item" data-resource-ticker="{{ resource_ticker | escape }}" data-resource-kind="overview" data-resource-href="{{ overview_href | strip | escape }}" data-resource-title="{{ resource_company.name | escape }} 개요" data-resource-meta="{{ resource_ticker | escape }}" hidden></span>
 {{ report_items }}
 {{ qa_items }}
 {{ quarter_items }}
 {{ summary_items }}
+{{ call_summary_items }}
 {{ audio_items }}
