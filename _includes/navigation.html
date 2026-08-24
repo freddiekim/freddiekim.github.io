@@ -32,29 +32,32 @@
     {% endfor %}
     {% assign report_ticker_list = report_tickers | split: "|" %}
     {% assign covered_tickers = "" %}
-    {% assign companies = site.data.company_research | sort: "portfolio_rank" %}
-    {% assign role_order = "starter|candidate|small|watchlist" | split: "|" %}
+    {% assign portfolio = site.data.portfolio_snapshot %}
+    {% assign positions = portfolio.positions %}
+    {% assign companies = site.data.company_research | sort: "ticker" %}
+    {% assign role_order = "new|increase|decrease|hold|watchlist" | split: "|" %}
+    {% assign current_tickers = "|" %}
+    {% for position in positions %}
+      {% assign current_ticker = position.ticker | upcase %}
+      {% assign current_tickers = current_tickers | append: current_ticker | append: "|" %}
+    {% endfor %}
     {% for role in role_order %}
       {% case role %}
-        {% when "starter" %}
-          {% assign role_label = "주전" %}
-        {% when "candidate" %}
-          {% assign role_label = "후보" %}
-        {% when "small" %}
-          {% assign role_label = "소액 보유" %}
+        {% when "new" %}
+          {% assign role_label = "신규 진입" %}
+        {% when "increase" %}
+          {% assign role_label = "비중 확대" %}
+        {% when "decrease" %}
+          {% assign role_label = "비중 축소" %}
+        {% when "hold" %}
+          {% assign role_label = "비중 유지" %}
         {% when "watchlist" %}
-          {% assign role_label = "Watch List" %}
-        {% else %}
-          {% assign role_label = "기타" %}
+          {% assign role_label = "관심 종목" %}
       {% endcase %}
       {% assign role_total = 0 %}
-      {% for company in companies %}
-        {% assign company_role = company.portfolio_role %}
-        {% if company_role == nil or company_role == "" %}
-          {% assign company_role = "other" %}
-        {% endif %}
-        {% if company_role == role and company.portfolio_weight %}
-          {% assign role_total = role_total | plus: company.portfolio_weight %}
+      {% for position in positions %}
+        {% if position.status == role %}
+          {% assign role_total = role_total | plus: position.weight %}
         {% endif %}
       {% endfor %}
       <li class="sidebar-role-label sidebar-role-label-{{ role }}">
@@ -63,26 +66,36 @@
           <small>{{ role_total | round: 1 }}%</small>
         {% endif %}
       </li>
-      {% for company in companies %}
-        {% assign ticker = company.ticker %}
-        {% assign ticker_key = ticker | upcase %}
-        {% assign company_role = company.portfolio_role %}
-        {% if company_role == nil or company_role == "" %}
-          {% assign company_role = "other" %}
-        {% endif %}
-        {% if company_role == role %}
-          {% assign covered_marker = "|" | append: ticker_key | append: "|" %}
-          {% assign covered_tickers = covered_tickers | append: covered_marker %}
-          <li class="sidebar-company-item sidebar-company-item-{{ role }}">
-            <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">
-              <span>{{ ticker }}</span>
-              {% if company.portfolio_weight %}
-                <small>{{ company.portfolio_weight | round: 1 }}%</small>
-              {% endif %}
-            </a>
-          </li>
-        {% endif %}
-      {% endfor %}
+      {% if role == "watchlist" %}
+        {% for company in companies %}
+          {% assign ticker = company.ticker %}
+          {% assign ticker_key = ticker | upcase %}
+          {% assign ticker_marker = "|" | append: ticker_key | append: "|" %}
+          {% unless current_tickers contains ticker_marker %}
+            {% assign covered_tickers = covered_tickers | append: ticker_marker %}
+            <li class="sidebar-company-item sidebar-company-item-watchlist">
+              <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">
+                <span>{{ ticker }}</span>
+              </a>
+            </li>
+          {% endunless %}
+        {% endfor %}
+      {% else %}
+        {% for position in positions %}
+          {% if position.status == role %}
+            {% assign ticker = position.ticker %}
+            {% assign ticker_key = ticker | upcase %}
+            {% assign covered_marker = "|" | append: ticker_key | append: "|" %}
+            {% assign covered_tickers = covered_tickers | append: covered_marker %}
+            <li class="sidebar-company-item sidebar-company-item-{{ role }}">
+              <a class="sidebar-report-link" href="#company-{{ ticker | downcase }}">
+                <span>{{ ticker }}</span>
+                <small>{{ position.weight | round: 1 }}%</small>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     {% endfor %}
     {% assign has_other_reports = false %}
     {% for ticker in report_ticker_list %}

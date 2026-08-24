@@ -3,8 +3,22 @@ layout: null
 title: My Portfolio
 ---
 {% assign portfolio_reports = site.static_files | where_exp: "file", "file.path contains '/pages_portfolio/portfolio_blog_summary_'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
-{% assign latest_report = portfolio_reports | last %}
+{% assign portfolio = site.data.portfolio_snapshot %}
+{% assign latest_report = nil %}
+{% for portfolio_report in portfolio_reports %}
+  {% if portfolio_report.path == portfolio.snapshot_path %}
+    {% assign latest_report = portfolio_report %}
+  {% endif %}
+{% endfor %}
+{% unless latest_report %}
+  {% assign latest_report = portfolio_reports | last %}
+{% endunless %}
 {% assign archive_count = portfolio_reports.size | minus: 1 %}
+{% assign current_positions = portfolio.positions %}
+{% assign new_positions = current_positions | where: "status", "new" %}
+{% assign increase_positions = current_positions | where: "status", "increase" %}
+{% assign decrease_positions = current_positions | where: "status", "decrease" %}
+{% assign hold_positions = current_positions | where: "status", "hold" %}
 {% if latest_report %}
   {% assign latest_parts = latest_report.name | remove: ".html" | split: "_" %}
   {% assign latest_date_raw = latest_parts | last %}
@@ -346,15 +360,23 @@ title: My Portfolio
     }
 
     .role-chip:nth-child(1) {
-      background: #f4a083;
+      background: var(--gold);
     }
 
     .role-chip:nth-child(2) {
-      background: var(--sky);
+      background: #7fd0a6;
     }
 
     .role-chip:nth-child(3) {
-      background: #7fd0a6;
+      background: #f4a083;
+    }
+
+    .role-chip:nth-child(4) {
+      background: var(--sky);
+    }
+
+    .role-chip:nth-child(5) {
+      background: #b9aad7;
     }
 
     .role-chip strong {
@@ -556,7 +578,7 @@ title: My Portfolio
         <a class="report-action report-action-alt" href="{{ '/pages/investment-diary.html' | relative_url }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Investment Diary</a>
         <a class="report-action report-action-alt" href="{{ '/pages/quarterly-report.html' | relative_url }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Quarter &amp; Annual Reports</a>
         {% if latest_report %}
-          <a class="report-action" href="{{ latest_report.path | relative_url }}" target="_self"><i class="fa fa-external-link" aria-hidden="true"></i> Latest Snapshot</a>
+          <a class="report-action" href="{{ latest_report.path | relative_url }}" target="_self"><i class="fa fa-external-link" aria-hidden="true"></i> Selected Snapshot</a>
         {% endif %}
       </div>
     </nav>
@@ -565,10 +587,10 @@ title: My Portfolio
       <div>
         <p class="portfolio-kicker">About My Portfolio</p>
         <h1>YOUNG FINANCE Portfolio</h1>
-        <p class="portfolio-lede">2026년 8월 14일 기준 포트폴리오의 최신 상태, 주전 10개·후보 10개·소액 보유 6개 구성과 비중 변화를 한 화면에서 확인하는 투자 운영 페이지입니다.</p>
+        <p class="portfolio-lede">{{ portfolio.as_of }} 기준 {{ current_positions.size }}개 보유 종목, 주식 {{ portfolio.stock_weight | round: 1 }}%·현금 {{ portfolio.cash_weight | round: 1 }}%의 선택 상태를 직전 3개 포트폴리오와 비교합니다.</p>
       </div>
       <aside class="hero-panel">
-        <span>Latest Update</span>
+        <span>Selected Date</span>
         {% if latest_report %}
           <strong>
             {% if latest_date_raw.size == 8 %}
@@ -589,7 +611,7 @@ title: My Portfolio
       {% if latest_report %}
         <article class="latest-card" aria-labelledby="latest-portfolio-title">
           <div class="card-head">
-            <h2 id="latest-portfolio-title">Latest Portfolio Snapshot</h2>
+            <h2 id="latest-portfolio-title">Selected Portfolio Snapshot</h2>
             <span class="portfolio-date">
               {% if latest_date_raw.size == 8 %}
                 {{ latest_date_raw | slice: 0, 4 }}.{{ latest_date_raw | slice: 4, 2 }}.{{ latest_date_raw | slice: 6, 2 }}
@@ -616,23 +638,31 @@ title: My Portfolio
         <article class="portfolio-card">
           <p class="portfolio-kicker">Portfolio Playbook</p>
           <h2>운용 철학</h2>
-          <p>2026.07.19 기준 YOUNG FINANCE의 포트폴리오는 주식 99.8%, 현금 0.2%입니다. 주전, 후보, 소액 보유를 구분해 핵심 확신과 관찰 포지션을 함께 관리합니다.</p>
+          <p>{{ portfolio.as_of }} 기준 주식 {{ portfolio.stock_weight | round: 1 }}%, 현금 {{ portfolio.cash_weight | round: 1 }}%입니다. 보유 규모 자체보다 직전 스냅샷 대비 신규 편입과 비중 변화의 방향을 중심으로 관리합니다.</p>
         </article>
 
         <article class="portfolio-card">
           <h2>역할 정의</h2>
           <div class="role-grid">
             <div class="role-chip">
-              <strong>주전</strong>
-              <span>핵심 선발 라인업. 포트폴리오 방향성을 만드는 고확신 보유 종목입니다.</span>
+              <strong>신규 진입 · {{ new_positions.size }}</strong>
+              <span>{{ new_positions | map: "ticker" | join: ", " }}</span>
             </div>
             <div class="role-chip">
-              <strong>후보</strong>
-              <span>교체 카드. 비중을 키울지 줄일지 계속 점검하는 실행 후보군입니다.</span>
+              <strong>비중 확대 · {{ increase_positions.size }}</strong>
+              <span>{{ increase_positions | map: "ticker" | join: ", " }}</span>
             </div>
             <div class="role-chip">
-              <strong>소액 보유</strong>
-              <span>작은 비중으로 유지하며 기회와 리스크를 관찰하는 포지션입니다.</span>
+              <strong>비중 축소 · {{ decrease_positions.size }}</strong>
+              <span>{{ decrease_positions | map: "ticker" | join: ", " }}</span>
+            </div>
+            <div class="role-chip">
+              <strong>비중 유지 · {{ hold_positions.size }}</strong>
+              <span>{{ hold_positions | map: "ticker" | join: ", " }}</span>
+            </div>
+            <div class="role-chip">
+              <strong>관심 종목</strong>
+              <span>7월 3일 기준 포트폴리오에 없지만 기업 자료가 남아 있는 종목은 메인 페이지 관심 종목으로 이동합니다.</span>
             </div>
           </div>
         </article>
@@ -640,9 +670,9 @@ title: My Portfolio
         <article class="portfolio-card">
           <h2>점검 루틴</h2>
           <ul>
-            <li>주전 10개 종목 67.7%의 쏠림과 리스크 기여도를 먼저 봅니다.</li>
-            <li>후보 10개 23.4%와 소액 보유 6개 8.7% 중 주전으로 올릴 종목이 있는지 점검합니다.</li>
-            <li>현금 0.2% 상태에서 새 기회를 만들려면 어느 후보를 줄일지 먼저 확인합니다.</li>
+            <li>7월 3일 기준 비중을 6월 23일과 비교해 ±0.15%p 이상 변한 종목을 확대·축소로 구분합니다.</li>
+            <li>6월 22일과 6월 20일 스냅샷까지 함께 보며 일시적 변화인지 지속 추세인지 확인합니다.</li>
+            <li>현금 {{ portfolio.cash_weight | round: 1 }}%와 상위 10개 {{ portfolio.top_ten_weight | round: 1 }}%의 집중도를 함께 점검합니다.</li>
           </ul>
         </article>
       </aside>
@@ -653,9 +683,9 @@ title: My Portfolio
       <div class="section-heading">
         <div>
           <p class="portfolio-kicker">Portfolio Archive</p>
-          <h2 id="archive-title">Previous Snapshots</h2>
+          <h2 id="archive-title">Other Snapshots</h2>
         </div>
-        <p>이전 포트폴리오 자료는 날짜별 카드로 정리됩니다. 최신 화면과 비교할 때 비중, 수익률, 역할 변화만 빠르게 확인하면 됩니다.</p>
+        <p>다른 날짜의 포트폴리오 자료를 카드로 정리했습니다. 선택한 7월 3일 화면과 비교해 비중, 수익률, 역할 변화를 확인할 수 있습니다.</p>
       </div>
 
       {% if archive_count > 0 %}

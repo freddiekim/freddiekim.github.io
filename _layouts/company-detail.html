@@ -6,6 +6,27 @@
     {% assign company = item %}
   {% endif %}
 {% endfor %}
+{% assign portfolio_entry = nil %}
+{% for position in site.data.portfolio_snapshot.positions %}
+  {% assign position_ticker = position.ticker | upcase %}
+  {% if position_ticker == ticker_key %}
+    {% assign portfolio_entry = position %}
+  {% endif %}
+{% endfor %}
+{% assign formation_key = "" %}
+{% for formation_item in site.data.company_positions %}
+  {% assign formation_ticker = formation_item.ticker | upcase %}
+  {% if formation_ticker == ticker_key %}
+    {% assign formation_key = formation_item.position %}
+  {% endif %}
+{% endfor %}
+{% assign formation_label = "" %}
+{% case formation_key %}
+  {% when "striker" %}{% assign formation_label = "공격수" %}
+  {% when "midfielder" %}{% assign formation_label = "미드필더" %}
+  {% when "defender" %}{% assign formation_label = "수비수" %}
+  {% when "candidate" %}{% assign formation_label = "후보" %}
+{% endcase %}
 {% assign report_files = site.static_files | where_exp: "file", "file.path contains '/pages_html/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign conference_call_files = site.static_files | where_exp: "file", "file.path contains '/pages_conferenceCall/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
 {% assign earnings_summary_files = site.static_files | where_exp: "file", "file.path contains '/pages_Q_earnings/'" | where_exp: "file", "file.extname == '.html'" | sort: "name" %}
@@ -151,14 +172,15 @@
       padding: 9px 12px;
       text-transform: uppercase;
     }
-    .meta-pill-role-starter,
+    .meta-pill-role-new { background: var(--gold); color: var(--ink); }
+    .meta-pill-role-increase { background: var(--green); }
+    .meta-pill-role-decrease { background: var(--red); }
+    .meta-pill-role-hold { background: #285f8f; }
+    .meta-pill-role-watchlist { background: #b9aad7; color: var(--ink); }
     .meta-pill-position-striker { background: var(--red); }
-    .meta-pill-role-candidate,
     .meta-pill-position-midfielder { background: #285f8f; }
     .meta-pill-position-defender { background: var(--gold); color: var(--ink); }
-    .meta-pill-role-small,
-    .meta-pill-position-other { background: var(--green); }
-    .meta-pill-role-watchlist { background: #b9aad7; color: var(--ink); }
+    .meta-pill-position-candidate { background: #6b7280; }
     .grid {
       display: grid;
       gap: 16px;
@@ -226,41 +248,33 @@
     </nav>
 
     {% if company %}
-      {% assign role_label = "기타" %}
-      {% case company.portfolio_role %}
-        {% when "starter" %}{% assign role_label = "주전" %}
-        {% when "candidate" %}{% assign role_label = "후보" %}
-        {% when "small" %}{% assign role_label = "소액 보유" %}
-        {% when "striker" %}{% assign role_label = "공격수" %}
-        {% when "midfielder" %}{% assign role_label = "미드필더" %}
-        {% when "defender" %}{% assign role_label = "수비수" %}
-        {% when "watchlist" %}{% assign role_label = "Watch List" %}
-      {% endcase %}
-      {% assign position_key = "" %}
-      {% for position_item in site.data.company_positions %}
-        {% assign position_ticker = position_item.ticker | upcase %}
-        {% if position_ticker == ticker_key %}
-          {% assign position_key = position_item.position %}
-        {% endif %}
-      {% endfor %}
-      {% assign position_label = "" %}
-      {% case position_key %}
-        {% when "striker" %}{% assign position_label = "공격수" %}
-        {% when "midfielder" %}{% assign position_label = "미드필더" %}
-        {% when "defender" %}{% assign position_label = "수비수" %}
-        {% when "other" %}{% assign position_label = "기타" %}
+      {% assign portfolio_status = "watchlist" %}
+      {% if portfolio_entry %}
+        {% assign portfolio_status = portfolio_entry.status %}
+      {% endif %}
+      {% assign role_label = "관심 종목" %}
+      {% case portfolio_status %}
+        {% when "new" %}{% assign role_label = "신규 진입" %}
+        {% when "increase" %}{% assign role_label = "비중 확대" %}
+        {% when "decrease" %}{% assign role_label = "비중 축소" %}
+        {% when "hold" %}{% assign role_label = "비중 유지" %}
       {% endcase %}
 
       <header class="hero">
         <div class="meta-row">
-          <span class="meta-pill meta-pill-role-{{ company.portfolio_role }}">{{ role_label }}</span>
-          {% if position_label != "" %}
-            <span class="meta-pill meta-pill-position-{{ position_key }}">{{ position_label }}</span>
+          <span class="meta-pill meta-pill-role-{{ portfolio_status }}">{{ role_label }}</span>
+          {% if formation_label != "" %}
+            <span class="meta-pill meta-pill-position-{{ formation_key }}">{{ formation_label }}</span>
           {% endif %}
-          {% if company.portfolio_weight %}
-            <span class="meta-pill">{{ company.portfolio_weight | round: 1 }}%</span>
+          {% if portfolio_entry %}
+            <span class="meta-pill">{{ portfolio_entry.weight | round: 1 }}%</span>
+            {% if portfolio_entry.delta %}
+              <span class="meta-pill">{{ site.data.portfolio_snapshot.previous_label }} 대비 {% if portfolio_entry.delta > 0 %}+{% endif %}{{ portfolio_entry.delta | round: 1 }}%p</span>
+            {% else %}
+              <span class="meta-pill">직전 3회 미보유</span>
+            {% endif %}
           {% else %}
-            <span class="meta-pill">Research List</span>
+            <span class="meta-pill">기준 포트폴리오 미보유</span>
           {% endif %}
         </div>
         <h1>{{ company.ticker }}</h1>

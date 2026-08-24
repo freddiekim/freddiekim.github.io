@@ -581,6 +581,22 @@ body.sidebar-open .header-control-group {
     color: #b9aad7 !important;
 }
 
+.sidebar-nav .sidebar-role-label-new {
+    color: var(--poster-sun) !important;
+}
+
+.sidebar-nav .sidebar-role-label-increase {
+    color: #7fd0a6 !important;
+}
+
+.sidebar-nav .sidebar-role-label-decrease {
+    color: #f4a083 !important;
+}
+
+.sidebar-nav .sidebar-role-label-hold {
+    color: var(--poster-sky) !important;
+}
+
 .sidebar-nav li a.sidebar-report-link {
     border-left: 4px solid transparent;
     border-radius: 0;
@@ -612,6 +628,22 @@ body.sidebar-open .header-control-group {
 
 .sidebar-nav .sidebar-company-item-watchlist a.sidebar-report-link {
     border-left-color: #b9aad7;
+}
+
+.sidebar-nav .sidebar-company-item-new a.sidebar-report-link {
+    border-left-color: var(--poster-sun);
+}
+
+.sidebar-nav .sidebar-company-item-increase a.sidebar-report-link {
+    border-left-color: var(--poster-green);
+}
+
+.sidebar-nav .sidebar-company-item-decrease a.sidebar-report-link {
+    border-left-color: var(--poster-red);
+}
+
+.sidebar-nav .sidebar-company-item-hold a.sidebar-report-link {
+    border-left-color: var(--poster-blue);
 }
 
 .research-library-section,
@@ -732,6 +764,23 @@ body.sidebar-open .header-control-group {
 .portfolio-role-watchlist {
     background: #b9aad7 !important;
     color: var(--poster-ink) !important;
+}
+
+.portfolio-role-new {
+    background: var(--poster-sun) !important;
+    color: var(--poster-ink) !important;
+}
+
+.portfolio-role-increase {
+    background: var(--poster-green) !important;
+}
+
+.portfolio-role-decrease {
+    background: var(--poster-red) !important;
+}
+
+.portfolio-role-hold {
+    background: var(--poster-blue) !important;
 }
 
 .analysis-card-reports,
@@ -887,6 +936,22 @@ body.sidebar-open .header-control-group {
     background: #b9aad7;
 }
 
+.company-role-panel-new .company-role-head {
+    background: var(--poster-sun);
+}
+
+.company-role-panel-increase .company-role-head {
+    background: #7fd0a6;
+}
+
+.company-role-panel-decrease .company-role-head {
+    background: #f4a083;
+}
+
+.company-role-panel-hold .company-role-head {
+    background: var(--poster-sky);
+}
+
 .company-role-head h3 {
     color: var(--poster-ink) !important;
     font-size: clamp(40px, 5vw, 64px);
@@ -966,9 +1031,35 @@ body.sidebar-open .header-control-group {
     border-style: dashed;
 }
 
+.portfolio-position.portfolio-role-candidate {
+    background: #6b7280 !important;
+}
+
 .company-board-main b {
     font-size: 20px;
     padding: 12px 16px;
+}
+
+.company-board-weight {
+    align-items: flex-end;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.company-board-weight span {
+    color: var(--poster-ink-soft);
+    font-size: 14px;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.company-board-history {
+    color: var(--poster-ink-soft) !important;
+    font-size: 14px;
+    font-weight: 800;
+    margin: 12px 0 0;
 }
 
 .company-board-links {
