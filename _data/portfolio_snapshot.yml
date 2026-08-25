@@ -1,257 +1,218 @@
-as_of: "2026-07-03"
-snapshot_path: "/pages_portfolio/portfolio_blog_summary_20260703.html"
-stock_weight: 98.589
-cash_weight: 1.411
-top_ten_weight: 67.077
-previous_label: "06.23"
+as_of: "2026-08-22"
+snapshot_path: "/pages_portfolio/portfolio_blog_summary_20260822.html"
+stock_weight: 98.475
+cash_weight: 1.525
+top_ten_weight: 67.018
+previous_label: "07.03"
 comparison_dates:
-  - "2026-06-23"
-  - "2026-06-22"
-  - "2026-06-20"
+  - "2026-07-03"
 change_threshold: 0.15
 
 positions:
-  - ticker: SNDK
-    rank: 1
-    weight: 11.749
-    status: increase
-    delta: 7.798
-    history:
-      - { date: "06.23", weight: 3.951 }
-      - { date: "06.22", weight: 1.733 }
-      - { date: "06.20", weight: 1.651 }
-
   - ticker: TSLA
+    rank: 1
+    weight: 12.916
+    status: increase
+    delta: 1.228
+    history:
+      - { date: "07.03", weight: 11.688 }
+
+  - ticker: SNDK
     rank: 2
-    weight: 11.688
-    status: increase
-    delta: 3.283
+    weight: 11.717
+    status: hold
+    delta: -0.032
     history:
-      - { date: "06.23", weight: 8.405 }
-      - { date: "06.22", weight: 9.213 }
-      - { date: "06.20", weight: 11.350 }
-
-  - ticker: GLW
-    rank: 3
-    weight: 9.743
-    status: increase
-    delta: 0.409
-    history:
-      - { date: "06.23", weight: 9.334 }
-      - { date: "06.22", weight: 9.341 }
-      - { date: "06.20", weight: 9.207 }
-
-  - ticker: INTC
-    rank: 4
-    weight: 8.484
-    status: decrease
-    delta: -0.335
-    history:
-      - { date: "06.23", weight: 8.819 }
-      - { date: "06.22", weight: 8.479 }
-      - { date: "06.20", weight: 6.962 }
+      - { date: "07.03", weight: 11.749 }
 
   - ticker: MU
-    rank: 5
-    weight: 5.796
-    status: decrease
-    delta: -2.832
+    rank: 3
+    weight: 6.452
+    status: increase
+    delta: 0.656
     history:
-      - { date: "06.23", weight: 8.628 }
-      - { date: "06.22", weight: 8.972 }
-      - { date: "06.20", weight: 8.570 }
+      - { date: "07.03", weight: 5.796 }
 
   - ticker: SKHynix
-    rank: 6
-    weight: 4.656
+    rank: 4
+    weight: 6.095
     status: increase
-    delta: 2.692
+    delta: 1.439
     history:
-      - { date: "06.23", weight: 1.964 }
-      - { date: "06.22", weight: 2.152 }
-      - { date: "06.20", weight: 2.044 }
+      - { date: "07.03", weight: 4.656 }
 
-  - ticker: SVCO
-    rank: 7
-    weight: 4.396
-    status: increase
-    delta: 0.545
-    history:
-      - { date: "06.23", weight: 3.851 }
-      - { date: "06.22", weight: 4.911 }
-      - { date: "06.20", weight: 10.090 }
-
-  - ticker: AVGO
-    rank: 8
-    weight: 3.569
+  - ticker: INTC
+    rank: 5
+    weight: 6.012
     status: decrease
-    delta: -0.225
+    delta: -2.472
     history:
-      - { date: "06.23", weight: 3.794 }
-      - { date: "06.22", weight: 3.730 }
-      - { date: "06.20", weight: 4.663 }
+      - { date: "07.03", weight: 8.484 }
+
+  - ticker: GLW
+    rank: 6
+    weight: 6.000
+    status: decrease
+    delta: -3.743
+    history:
+      - { date: "07.03", weight: 9.743 }
 
   - ticker: SKT
-    rank: 9
-    weight: 3.505
-    status: decrease
-    delta: -0.181
-    history:
-      - { date: "06.23", weight: 3.686 }
-      - { date: "06.22", weight: 3.704 }
-      - { date: "06.20", weight: 3.743 }
-
-  - ticker: QCOM
-    rank: 10
-    weight: 3.491
+    rank: 7
+    weight: 5.794
     status: increase
-    delta: 1.518
+    delta: 2.289
     history:
-      - { date: "06.23", weight: 1.973 }
-      - { date: "06.22", weight: 2.145 }
-      - { date: "06.20", weight: 2.136 }
+      - { date: "07.03", weight: 3.505 }
 
-  - ticker: JBL
-    rank: 11
-    weight: 3.041
-    status: decrease
-    delta: -1.691
+  - ticker: SAMSUNG_ELEC
+    rank: 8
+    weight: 4.328
+    status: increase
+    delta: 2.783
     history:
-      - { date: "06.23", weight: 4.732 }
-      - { date: "06.22", weight: 4.521 }
-      - { date: "06.20", weight: 4.919 }
+      - { date: "07.03", weight: 1.545 }
 
-  - ticker: BE
-    rank: 12
-    weight: 2.951
+  - ticker: ORCL
+    rank: 9
+    weight: 3.943
     status: new
     history: []
 
-  - ticker: AMD
-    rank: 13
-    weight: 2.666
-    status: hold
-    delta: -0.025
+  - ticker: SVCO
+    rank: 10
+    weight: 3.761
+    status: decrease
+    delta: -0.635
     history:
-      - { date: "06.23", weight: 2.691 }
-      - { date: "06.22", weight: 2.650 }
-      - { date: "06.20", weight: 2.640 }
+      - { date: "07.03", weight: 4.396 }
 
   - ticker: PLTR
-    rank: 14
-    weight: 2.560
+    rank: 11
+    weight: 3.002
     status: increase
-    delta: 0.794
+    delta: 0.442
     history:
-      - { date: "06.23", weight: 1.766 }
-      - { date: "06.22", weight: 1.715 }
-      - { date: "06.20", weight: 1.820 }
+      - { date: "07.03", weight: 2.560 }
+
+  - ticker: JBL
+    rank: 12
+    weight: 2.787
+    status: decrease
+    delta: -0.254
+    history:
+      - { date: "07.03", weight: 3.041 }
+
+  - ticker: AMD
+    rank: 13
+    weight: 2.737
+    status: hold
+    delta: 0.071
+    history:
+      - { date: "07.03", weight: 2.666 }
 
   - ticker: MRVL
-    rank: 15
-    weight: 2.429
-    status: decrease
-    delta: -2.336
-    history:
-      - { date: "06.23", weight: 4.765 }
-      - { date: "06.22", weight: 4.525 }
-      - { date: "06.20", weight: 4.694 }
-
-  - ticker: CDNS
-    rank: 16
-    weight: 2.217
+    rank: 14
+    weight: 2.637
     status: increase
-    delta: 0.631
+    delta: 0.208
     history:
-      - { date: "06.23", weight: 1.586 }
-      - { date: "06.22", weight: 1.511 }
-      - { date: "06.20", weight: 2.342 }
-
-  - ticker: "ON"
-    rank: 17
-    weight: 2.168
-    status: increase
-    delta: 0.992
-    history:
-      - { date: "06.23", weight: 1.176 }
-      - { date: "06.22", weight: 1.233 }
-      - { date: "06.20", weight: 1.149 }
-
-  - ticker: MPWR
-    rank: 18
-    weight: 2.041
-    status: decrease
-    delta: -0.816
-    history:
-      - { date: "06.23", weight: 2.857 }
-      - { date: "06.22", weight: 2.879 }
-      - { date: "06.20", weight: 3.545 }
+      - { date: "07.03", weight: 2.429 }
 
   - ticker: DELL
-    rank: 19
-    weight: 1.952
-    status: hold
-    delta: -0.101
+    rank: 15
+    weight: 2.459
+    status: increase
+    delta: 0.507
     history:
-      - { date: "06.23", weight: 2.053 }
-      - { date: "06.22", weight: 1.981 }
-      - { date: "06.20", weight: 1.935 }
+      - { date: "07.03", weight: 1.952 }
 
-  - ticker: SOFI
-    rank: 20
-    weight: 1.947
-    status: hold
-    delta: 0.046
-    history:
-      - { date: "06.23", weight: 1.901 }
-      - { date: "06.22", weight: 1.788 }
-      - { date: "06.20", weight: 1.692 }
+  - ticker: TEM
+    rank: 16
+    weight: 2.425
+    status: new
+    history: []
 
-  - ticker: AMAT
-    rank: 21
-    weight: 1.791
+  - ticker: AVGO
+    rank: 17
+    weight: 2.050
     status: decrease
-    delta: -0.519
+    delta: -1.519
     history:
-      - { date: "06.23", weight: 2.310 }
-      - { date: "06.22", weight: 1.178 }
+      - { date: "07.03", weight: 3.569 }
+
+  - ticker: QCOM
+    rank: 18
+    weight: 1.788
+    status: decrease
+    delta: -1.703
+    history:
+      - { date: "07.03", weight: 3.491 }
 
   - ticker: HYUNDAI_STEEL
-    rank: 22
-    weight: 1.692
-    status: decrease
-    delta: -0.289
+    rank: 19
+    weight: 1.772
+    status: hold
+    delta: 0.080
     history:
-      - { date: "06.23", weight: 1.981 }
-      - { date: "06.22", weight: 2.041 }
-      - { date: "06.20", weight: 2.160 }
-
-  - ticker: SAMSUNG_ELEC
-    rank: 23
-    weight: 1.545
-    status: increase
-    delta: 0.155
-    history:
-      - { date: "06.23", weight: 1.390 }
-      - { date: "06.22", weight: 1.520 }
-      - { date: "06.20", weight: 1.527 }
+      - { date: "07.03", weight: 1.692 }
 
   - ticker: ADI
-    rank: 24
-    weight: 1.494
-    status: hold
-    delta: -0.142
+    rank: 20
+    weight: 1.660
+    status: increase
+    delta: 0.166
     history:
-      - { date: "06.23", weight: 1.636 }
-      - { date: "06.22", weight: 1.657 }
-      - { date: "06.20", weight: 1.642 }
+      - { date: "07.03", weight: 1.494 }
+
+  - ticker: NBIS
+    rank: 21
+    weight: 1.463
+    status: new
+    history: []
+
+  - ticker: STM
+    rank: 22
+    weight: 1.350
+    status: new
+    history: []
+
+  - ticker: CRWV
+    rank: 23
+    weight: 1.113
+    status: new
+    history: []
 
   - ticker: SAMSUNG_EM
-    rank: 25
-    weight: 1.018
-    status: decrease
-    delta: -0.767
+    rank: 24
+    weight: 1.054
+    status: hold
+    delta: 0.036
     history:
-      - { date: "06.23", weight: 1.785 }
-      - { date: "06.22", weight: 1.917 }
-      - { date: "06.20", weight: 1.958 }
+      - { date: "07.03", weight: 1.018 }
+
+  - ticker: SOFI
+    rank: 25
+    weight: 1.052
+    status: decrease
+    delta: -0.895
+    history:
+      - { date: "07.03", weight: 1.947 }
+
+  - ticker: CRCL
+    rank: 26
+    weight: 0.979
+    status: new
+    history: []
+
+  - ticker: NAVER
+    rank: 27
+    weight: 0.675
+    status: new
+    history: []
+
+  - ticker: GCTS
+    rank: 28
+    weight: 0.454
+    status: new
+    history: []

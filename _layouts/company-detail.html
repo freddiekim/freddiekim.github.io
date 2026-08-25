@@ -271,7 +271,7 @@
             {% if portfolio_entry.delta %}
               <span class="meta-pill">{{ site.data.portfolio_snapshot.previous_label }} 대비 {% if portfolio_entry.delta > 0 %}+{% endif %}{{ portfolio_entry.delta | round: 1 }}%p</span>
             {% else %}
-              <span class="meta-pill">직전 3회 미보유</span>
+              <span class="meta-pill">{{ site.data.portfolio_snapshot.previous_label }} 미보유</span>
             {% endif %}
           {% else %}
             <span class="meta-pill">기준 포트폴리오 미보유</span>

@@ -18,7 +18,7 @@
       <p class="analysis-kicker">Company Research</p>
       <h2>Company Research</h2>
       <p class="analysis-thesis">
-        {{ portfolio.as_of }} 기준 포트폴리오를 직전 3개 스냅샷과 비교했습니다. 보유 종목은 신규 진입·비중 확대·비중 축소·비중 유지로, 기준 포트폴리오에 없는 기업은 관심 종목으로 정리합니다.
+        {{ portfolio.as_of }} 기준 포트폴리오를 2026년 7월 3일 포트폴리오와 비교했습니다. 보유 종목은 신규 진입·비중 확대·비중 축소·비중 유지로, 기준 포트폴리오에 없는 기업은 관심 종목으로 정리합니다.
       </p>
     </div>
 
@@ -27,7 +27,7 @@
         {% case role %}
           {% when "new" %}
             {% assign role_label = "신규 진입" %}
-            {% assign role_desc = "직전 3개 비교 포트폴리오에 없었고 기준 스냅샷에 새로 편입된 종목입니다." %}
+            {% assign role_desc = "7월 3일 포트폴리오에는 없었고 8월 22일 포트폴리오에 새로 편입된 종목입니다." %}
           {% when "increase" %}
             {% assign role_label = "비중 확대" %}
             {% capture role_desc %}{{ portfolio.previous_label }} 대비 비중이 0.15%p 이상 늘어난 보유 종목입니다.{% endcapture %}
@@ -141,7 +141,7 @@
                               {% endfor %}
                             </p>
                           {% else %}
-                            <p class="company-board-history">직전 3개 스냅샷 미보유</p>
+                            <p class="company-board-history">{{ portfolio.previous_label }} 미보유</p>
                           {% endif %}
                         </div>
                         <div class="company-board-weight">

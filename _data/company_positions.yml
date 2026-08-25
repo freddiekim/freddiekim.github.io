@@ -1,76 +1,85 @@
-# Portfolio formation roles from the 2026-07-03 snapshot.
+# Portfolio formation roles from the 2026-08-22 snapshot.
 
-- ticker: TSLA
+- ticker: SNDK
   position: striker
 
-- ticker: INTC
+- ticker: TSLA
   position: striker
 
 - ticker: MU
   position: midfielder
 
-- ticker: SNDK
+- ticker: SVCO
+  position: midfielder
+
+- ticker: INTC
   position: midfielder
 
 - ticker: GLW
   position: midfielder
 
-- ticker: QCOM
-  position: midfielder
-
-- ticker: AVGO
-  position: defender
-
-- ticker: SVCO
-  position: defender
-
 - ticker: SKHynix
+  position: defender
+
+- ticker: ORCL
+  position: defender
+
+- ticker: SAMSUNG_ELEC
   position: defender
 
 - ticker: SKT
   position: defender
 
-- ticker: JBL
+- ticker: PLTR
   position: candidate
 
-- ticker: BE
+- ticker: JBL
   position: candidate
 
 - ticker: AMD
   position: candidate
 
-- ticker: PLTR
-  position: candidate
-
 - ticker: MRVL
-  position: candidate
-
-- ticker: CDNS
-  position: candidate
-
-- ticker: "ON"
-  position: candidate
-
-- ticker: MPWR
   position: candidate
 
 - ticker: DELL
   position: candidate
 
-- ticker: SOFI
+- ticker: TEM
   position: candidate
 
-- ticker: AMAT
+- ticker: AVGO
+  position: candidate
+
+- ticker: QCOM
   position: candidate
 
 - ticker: HYUNDAI_STEEL
   position: candidate
 
-- ticker: SAMSUNG_ELEC
-  position: candidate
-
 - ticker: ADI
   position: candidate
 
+- ticker: NBIS
+  position: candidate
+
+- ticker: STM
+  position: candidate
+
+- ticker: CRWV
+  position: candidate
+
 - ticker: SAMSUNG_EM
+  position: candidate
+
+- ticker: SOFI
+  position: candidate
+
+- ticker: CRCL
+  position: candidate
+
+- ticker: NAVER
+  position: candidate
+
+- ticker: GCTS
   position: candidate
