@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.description | escape }}">
+  <title>{{ page.title | escape }}{% unless page.nav == 'home' %} · YOUNG FINANCE{% endunless %}</title>
+  <link rel="icon" href="{{ '/img/young-finance-suwon-day.png' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/font-awesome/css/font-awesome.min.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/css/workspace.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M' }}">
+</head>
+<body class="workspace-page">
+  <a class="skip-link" href="#main">본문으로 이동</a>
+  <header class="site-topbar">
+    <div class="site-width topbar-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <img src="{{ '/img/young-finance-suwon-day.png' | relative_url }}" alt="" width="42" height="42">
+        <span>YOUNG FINANCE</span>
+      </a>
+      <nav aria-label="주 메뉴">
+        <a href="{{ '/' | relative_url }}" {% if page.nav == 'home' %}aria-current="page"{% endif %}>홈</a>
+        <a href="{{ '/pages/research.html' | relative_url }}" {% if page.nav == 'research' %}aria-current="page"{% endif %}>자료실</a>
+        <a href="{{ '/pages/portfolio.html' | relative_url }}" {% if page.nav == 'portfolio' %}aria-current="page"{% endif %}>포트폴리오</a>
+        <a href="{{ '/pages/quarterly-report.html' | relative_url }}">분기보고서</a>
+        <a href="{{ '/pages/investment-diary.html' | relative_url }}">투자기록</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-width" data-research-index="{{ '/research-index.json' | relative_url }}">
+    {{ content }}
+  </main>
+  <footer class="site-width site-footer">
+    <span>YOUNG FINANCE <span class="footer-divider">/</span> 개인 투자 기록</span>
+    <a href="{{ '/pages/about.html' | relative_url }}">소개 <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+  </footer>
+  <script id="portfolio-data" type="application/json">{{ site.data.portfolio_snapshot | jsonify }}</script>
+  <script id="company-catalog" type="application/json">[
+    {% assign catalog_separator = '' %}{% for company in site.data.company_research %}{% assign overview = site.pages | where: 'ticker', company.ticker | first %}{% if overview %}{{ catalog_separator }}{"ticker":{{ company.ticker | jsonify }},"name":{{ company.name | jsonify }},"url":{{ overview.url | relative_url | jsonify }}}{% assign catalog_separator = ',' %}{% endif %}{% endfor %}
+  ]</script>
+  <script src="{{ '/js/research-workspace.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
+</body>
+</html>

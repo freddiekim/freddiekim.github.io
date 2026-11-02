@@ -1,0 +1,26 @@
+{% assign portfolio = site.data.portfolio_snapshot %}
+<span id="company-research"></span>
+<section class="holdings-section" id="holdings" aria-labelledby="holdings-title">
+  <div class="section-heading holdings-heading">
+    <div><h2 id="holdings-title">보유 기업</h2><p class="section-meta">비중순 · 현금 포함 총자산 기준 · {{ portfolio.as_of }}</p></div>
+    <label class="search-field"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">보유 기업 검색</span><input type="search" id="holding-search" placeholder="종목명·티커 검색" autocomplete="off"></label>
+  </div>
+  <div class="table-scroll">
+    <table class="holdings-table">
+      <thead><tr><th scope="col" class="rank-column">순위</th><th scope="col">기업</th><th scope="col" class="weight-column">비중</th><th scope="col" class="latest-column">최신 분석</th><th scope="col" class="resource-column"><span class="sr-only">기업 자료</span></th></tr></thead>
+      <tbody>
+        {% for position in portfolio.positions %}
+        <tr id="company-{{ position.ticker | downcase }}" data-holding-search="{{ position.ticker | escape }} {{ position.code | escape }} {{ position.name | escape }}">
+          <td class="rank-column">{{ forloop.index }}</td>
+          <td><a class="company-link" href="{{ '/pages/research.html' | relative_url }}?company={{ position.ticker | url_encode }}"><strong>{{ position.name | escape }}</strong><span>{{ position.code | default: position.ticker | escape }}</span></a></td>
+          <td class="weight-column"><strong>{{ position.weight | round: 2 }}<small>%</small></strong><span class="weight-track" aria-hidden="true"><span style="width:{{ position.weight | times: 100 | divided_by: portfolio.positions.first.weight }}%"></span></span></td>
+          <td class="latest-column"><a data-latest-for="{{ position.ticker | escape }}" href="{{ '/pages/research.html' | relative_url }}?company={{ position.ticker | url_encode }}">자료실</a></td>
+          <td class="resource-column"><a class="icon-link" title="{{ position.name | escape }} 자료 전체 보기" aria-label="{{ position.name | escape }} 자료 전체 보기" href="{{ '/pages/research.html' | relative_url }}?company={{ position.ticker | url_encode }}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot><tr><td></td><th scope="row">현금</th><td class="weight-column"><strong>{{ portfolio.cash_weight | round: 2 }}<small>%</small></strong></td><td colspan="2"></td></tr></tfoot>
+    </table>
+  </div>
+  <p class="list-state" id="holding-empty" hidden>일치하는 보유 기업이 없습니다.</p>
+</section>

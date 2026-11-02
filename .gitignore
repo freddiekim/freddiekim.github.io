@@ -1,3 +1,6 @@
 _site
 Gemfile.lock
 .jekyll-cache
+/scripts/
+.DS_Store
+/_data/company_analysis_current_prices*.csv

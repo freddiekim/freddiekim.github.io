@@ -1,0 +1,31 @@
+---
+layout: null
+---
+[
+{% assign separator = '' %}
+{% for file in site.static_files %}
+  {% assign kind = '' %}
+  {% if file.extname == '.html' %}
+    {% if file.path contains '/pages_html/' %}{% assign kind = 'analysis' %}
+    {% elsif file.path contains '/pages_Q_earnings/' %}{% assign kind = 'earnings' %}
+    {% elsif file.path contains '/pages_conferenceCall/' %}{% assign kind = 'call' %}
+    {% elsif file.path contains '/pages_QnA/' %}{% assign kind = 'qa' %}
+    {% elsif file.path contains '/pages_Quarter&Annual/' %}{% assign kind = 'quarterly' %}
+    {% elsif file.path contains '/pages_portfolio/' %}{% assign kind = 'portfolio' %}
+    {% endif %}
+  {% endif %}
+  {% if kind != '' %}
+    {% assign parts = file.path | split: '/' %}
+    {% assign ticker = parts[2] %}
+    {% if kind == 'quarterly' or kind == 'portfolio' %}{% assign ticker = 'YOUNG FINANCE' %}{% endif %}
+    {% assign metadata = site.data.document_meta[file.path] %}
+    {% assign date_token = file.name | remove: '.html' | split: '_' | last %}
+    {% assign date_number = date_token | plus: 0 %}
+    {% assign document_date = '' %}
+    {% if date_token.size == 8 and date_number > 20000101 and date_number < 21000101 %}{% assign document_date = date_token %}{% endif %}
+    {% if metadata.date %}{% assign document_date = metadata.date %}{% endif %}
+    {{ separator }}{"url":{{ file.path | relative_url | jsonify }},"filename":{{ file.name | jsonify }},"ticker":{{ ticker | jsonify }},"kind":{{ kind | jsonify }},"date":{{ document_date | jsonify }},"title":{{ metadata.title | default: '' | jsonify }}}
+    {% assign separator = ',' %}
+  {% endif %}
+{% endfor %}
+]

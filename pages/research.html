@@ -1,0 +1,17 @@
+---
+layout: workspace
+title: 자료실
+nav: research
+---
+<section class="page-heading">
+  <div><p class="eyebrow">RESEARCH LIBRARY</p><h1>자료실</h1></div>
+  <p class="section-meta" id="library-total" aria-live="polite"></p>
+</section>
+<div class="library-toolbar">
+  <label class="search-field"><i class="fa fa-search" aria-hidden="true"></i><span class="sr-only">전체 자료 검색</span><input type="search" id="research-search" placeholder="종목명·티커·자료 검색" autocomplete="off"></label>
+  <label class="category-field"><span class="sr-only">자료 종류</span><select id="research-category"><option value="all">전체 자료</option><option value="analysis">기업분석</option><option value="earnings">실적 요약</option><option value="call">어닝콜</option><option value="qa">질의응답</option><option value="quarterly">분기보고서</option><option value="portfolio">포트폴리오 기록</option></select></label>
+  <button type="button" class="icon-button" id="clear-filters" aria-label="검색 조건 초기화" title="검색 조건 초기화"><i class="fa fa-undo" aria-hidden="true"></i></button>
+</div>
+<div class="library-context" id="company-context" hidden></div>
+<ol class="document-list library-list" id="research-documents" aria-live="polite"><li class="list-state">자료를 불러오는 중입니다.</li></ol>
+<div class="library-more"><button type="button" id="load-more" class="more-button" hidden>더 보기 <i class="fa fa-angle-down" aria-hidden="true"></i></button></div>

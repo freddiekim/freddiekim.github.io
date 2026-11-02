@@ -1,218 +1,295 @@
-as_of: "2026-08-22"
-snapshot_path: "/pages_portfolio/portfolio_blog_summary_20260822.html"
-stock_weight: 98.475
-cash_weight: 1.525
-top_ten_weight: 67.018
-previous_label: "07.03"
+# Public allocation only. Account identifiers, balances and position quantities are not published.
+---
+as_of: '2026-11-03'
+snapshot_path: "/pages/portfolio.html"
+stock_weight: 99.951228
+cash_weight: 0.048772
+top_ten_weight: 67.905683
+previous_label: '11.01'
 comparison_dates:
-  - "2026-07-03"
+- '2026-11-01'
 change_threshold: 0.15
-
 positions:
-  - ticker: TSLA
-    rank: 1
-    weight: 12.916
-    status: increase
-    delta: 1.228
-    history:
-      - { date: "07.03", weight: 11.688 }
-
-  - ticker: SNDK
-    rank: 2
-    weight: 11.717
-    status: hold
-    delta: -0.032
-    history:
-      - { date: "07.03", weight: 11.749 }
-
-  - ticker: MU
-    rank: 3
-    weight: 6.452
-    status: increase
-    delta: 0.656
-    history:
-      - { date: "07.03", weight: 5.796 }
-
-  - ticker: SKHynix
-    rank: 4
-    weight: 6.095
-    status: increase
-    delta: 1.439
-    history:
-      - { date: "07.03", weight: 4.656 }
-
-  - ticker: INTC
-    rank: 5
-    weight: 6.012
-    status: decrease
-    delta: -2.472
-    history:
-      - { date: "07.03", weight: 8.484 }
-
-  - ticker: GLW
-    rank: 6
-    weight: 6.000
-    status: decrease
-    delta: -3.743
-    history:
-      - { date: "07.03", weight: 9.743 }
-
-  - ticker: SKT
-    rank: 7
-    weight: 5.794
-    status: increase
-    delta: 2.289
-    history:
-      - { date: "07.03", weight: 3.505 }
-
-  - ticker: SAMSUNG_ELEC
-    rank: 8
-    weight: 4.328
-    status: increase
-    delta: 2.783
-    history:
-      - { date: "07.03", weight: 1.545 }
-
-  - ticker: ORCL
-    rank: 9
-    weight: 3.943
-    status: new
-    history: []
-
-  - ticker: SVCO
-    rank: 10
-    weight: 3.761
-    status: decrease
-    delta: -0.635
-    history:
-      - { date: "07.03", weight: 4.396 }
-
-  - ticker: PLTR
-    rank: 11
-    weight: 3.002
-    status: increase
-    delta: 0.442
-    history:
-      - { date: "07.03", weight: 2.560 }
-
-  - ticker: JBL
-    rank: 12
-    weight: 2.787
-    status: decrease
-    delta: -0.254
-    history:
-      - { date: "07.03", weight: 3.041 }
-
-  - ticker: AMD
-    rank: 13
-    weight: 2.737
-    status: hold
-    delta: 0.071
-    history:
-      - { date: "07.03", weight: 2.666 }
-
-  - ticker: MRVL
-    rank: 14
-    weight: 2.637
-    status: increase
-    delta: 0.208
-    history:
-      - { date: "07.03", weight: 2.429 }
-
-  - ticker: DELL
-    rank: 15
-    weight: 2.459
-    status: increase
-    delta: 0.507
-    history:
-      - { date: "07.03", weight: 1.952 }
-
-  - ticker: TEM
-    rank: 16
-    weight: 2.425
-    status: new
-    history: []
-
-  - ticker: AVGO
-    rank: 17
-    weight: 2.050
-    status: decrease
-    delta: -1.519
-    history:
-      - { date: "07.03", weight: 3.569 }
-
-  - ticker: QCOM
-    rank: 18
-    weight: 1.788
-    status: decrease
-    delta: -1.703
-    history:
-      - { date: "07.03", weight: 3.491 }
-
-  - ticker: HYUNDAI_STEEL
-    rank: 19
-    weight: 1.772
-    status: hold
-    delta: 0.080
-    history:
-      - { date: "07.03", weight: 1.692 }
-
-  - ticker: ADI
-    rank: 20
-    weight: 1.660
-    status: increase
-    delta: 0.166
-    history:
-      - { date: "07.03", weight: 1.494 }
-
-  - ticker: NBIS
-    rank: 21
-    weight: 1.463
-    status: new
-    history: []
-
-  - ticker: STM
-    rank: 22
-    weight: 1.350
-    status: new
-    history: []
-
-  - ticker: CRWV
-    rank: 23
-    weight: 1.113
-    status: new
-    history: []
-
-  - ticker: SAMSUNG_EM
-    rank: 24
-    weight: 1.054
-    status: hold
-    delta: 0.036
-    history:
-      - { date: "07.03", weight: 1.018 }
-
-  - ticker: SOFI
-    rank: 25
-    weight: 1.052
-    status: decrease
-    delta: -0.895
-    history:
-      - { date: "07.03", weight: 1.947 }
-
-  - ticker: CRCL
-    rank: 26
-    weight: 0.979
-    status: new
-    history: []
-
-  - ticker: NAVER
-    rank: 27
-    weight: 0.675
-    status: new
-    history: []
-
-  - ticker: GCTS
-    rank: 28
-    weight: 0.454
-    status: new
-    history: []
+- ticker: TSLA
+  name: 테슬라
+  code: TSLA
+  market: US
+  rank: 1
+  weight: 14.831494
+  status: increase
+  delta: 0.429494
+  history:
+  - date: '11.01'
+    weight: 14.402
+- ticker: INTC
+  name: 인텔
+  code: INTC
+  market: US
+  rank: 2
+  weight: 10.149573
+  status: decrease
+  delta: -0.494327
+  history:
+  - date: '11.01'
+    weight: 10.6439
+- ticker: MU
+  name: 마이크론 테크놀로지
+  code: MU
+  market: US
+  rank: 3
+  weight: 7.641299
+  status: decrease
+  delta: -0.220001
+  history:
+  - date: '11.01'
+    weight: 7.8613
+- ticker: SKHynix
+  name: SK하이닉스
+  code: '000660'
+  market: KR
+  rank: 4
+  weight: 6.91917
+  status: increase
+  delta: 0.41487
+  history:
+  - date: '11.01'
+    weight: 6.5043
+- ticker: SNDK
+  name: 샌디스크
+  code: SNDK
+  market: US
+  rank: 5
+  weight: 6.463738
+  status: decrease
+  delta: -0.169462
+  history:
+  - date: '11.01'
+    weight: 6.6332
+- ticker: SAMSUNG_ELEC
+  name: 삼성전자
+  code: '005930'
+  market: KR
+  rank: 6
+  weight: 6.451659
+  status: increase
+  delta: 0.265359
+  history:
+  - date: '11.01'
+    weight: 6.1863
+- ticker: SKT
+  name: SK텔레콤
+  code: '017670'
+  market: KR
+  rank: 7
+  weight: 4.850396
+  status: hold
+  delta: 0.113696
+  history:
+  - date: '11.01'
+    weight: 4.7367
+- ticker: META
+  name: 메타 플랫폼스(페이스북)
+  code: META
+  market: US
+  rank: 8
+  weight: 3.677933
+  status: hold
+  delta: -0.014267
+  history:
+  - date: '11.01'
+    weight: 3.6922
+- ticker: NBIS
+  name: 네비우스 그룹
+  code: NBIS
+  market: US
+  rank: 9
+  weight: 3.582627
+  status: hold
+  delta: -0.118973
+  history:
+  - date: '11.01'
+    weight: 3.7016
+- ticker: PLTR
+  name: 팔란티어 테크
+  code: PLTR
+  market: US
+  rank: 10
+  weight: 3.337794
+  status: hold
+  delta: 0.021794
+  history:
+  - date: '11.01'
+    weight: 3.316
+- ticker: GOOG
+  name: 알파벳 C
+  code: GOOG
+  market: US
+  rank: 11
+  weight: 3.045618
+  status: hold
+  delta: 0.039018
+  history:
+  - date: '11.01'
+    weight: 3.0066
+- ticker: AMD
+  name: AMD
+  code: AMD
+  market: US
+  rank: 12
+  weight: 2.934328
+  status: hold
+  delta: -0.096372
+  history:
+  - date: '11.01'
+    weight: 3.0307
+- ticker: TEM
+  name: 템퍼스 AI
+  code: TEM
+  market: US
+  rank: 13
+  weight: 2.889305
+  status: increase
+  delta: 0.287805
+  history:
+  - date: '11.01'
+    weight: 2.6015
+- ticker: BE
+  name: 블룸 에너지
+  code: BE
+  market: US
+  rank: 14
+  weight: 2.858052
+  status: hold
+  delta: 0.028152
+  history:
+  - date: '11.01'
+    weight: 2.8299
+- ticker: SPCX
+  name: 스페이스X
+  code: SPCX
+  market: US
+  rank: 15
+  weight: 2.633922
+  status: hold
+  delta: 0.110422
+  history:
+  - date: '11.01'
+    weight: 2.5235
+- ticker: DELL
+  name: 델 테크놀로지스
+  code: DELL
+  market: US
+  rank: 16
+  weight: 2.482743
+  status: hold
+  delta: -0.064657
+  history:
+  - date: '11.01'
+    weight: 2.5474
+- ticker: MRVL
+  name: 마벨 테크놀로지 그룹
+  code: MRVL
+  market: US
+  rank: 17
+  weight: 2.21152
+  status: decrease
+  delta: -0.57118
+  history:
+  - date: '11.01'
+    weight: 2.7827
+- ticker: LITE
+  name: 루멘텀 홀딩스
+  code: LITE
+  market: US
+  rank: 18
+  weight: 2.0962
+  status: hold
+  delta: 0.0773
+  history:
+  - date: '11.01'
+    weight: 2.0189
+- ticker: AAOI
+  name: 어플라이드 옵토일렉트로닉스
+  code: AAOI
+  market: US
+  rank: 19
+  weight: 1.775781
+  status: hold
+  delta: -0.048219
+  history:
+  - date: '11.01'
+    weight: 1.824
+- ticker: ORCL
+  name: 오라클
+  code: ORCL
+  market: US
+  rank: 20
+  weight: 1.774482
+  status: hold
+  delta: -0.108318
+  history:
+  - date: '11.01'
+    weight: 1.8828
+- ticker: ROBOTIS
+  name: 로보티즈
+  code: '108490'
+  market: KR
+  rank: 21
+  weight: 1.773127
+  status: hold
+  delta: 0.054327
+  history:
+  - date: '11.01'
+    weight: 1.7188
+- ticker: CRWV
+  name: 코어위브
+  code: CRWV
+  market: US
+  rank: 22
+  weight: 1.769625
+  status: hold
+  delta: -0.075175
+  history:
+  - date: '11.01'
+    weight: 1.8448
+- ticker: SVCO
+  name: 실바코 그룹
+  code: SVCO
+  market: US
+  rank: 23
+  weight: 1.586935
+  status: hold
+  delta: -0.035065
+  history:
+  - date: '11.01'
+    weight: 1.622
+- ticker: HYUNDAI_STEEL
+  name: 현대제철
+  code: '004020'
+  market: KR
+  rank: 24
+  weight: 1.296895
+  status: increase
+  delta: 0.150395
+  history:
+  - date: '11.01'
+    weight: 1.1465
+- ticker: SAMSUNG_EM
+  name: 삼성전기
+  code: '009150'
+  market: KR
+  rank: 25
+  weight: 0.867414
+  status: hold
+  delta: 0.028614
+  history:
+  - date: '11.01'
+    weight: 0.8388
+- ticker: GCTS
+  name: GCT 세미컨덕터 홀딩
+  code: GCTS
+  market: US
+  rank: 26
+  weight: 0.049598
+  status: new
+  history: []
