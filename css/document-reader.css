@@ -1,0 +1,76 @@
+/* Shared reading rules for the archived reports and site pages. */
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 24px; }
+*, *::before, *::after { box-sizing: border-box; }
+img, video, canvas { max-width: 100%; }
+img, video { height: auto; }
+iframe { max-width: 100%; }
+pre { max-width: 100%; overflow-x: auto; }
+.reader-table, .reader-chart { min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+.reader-table:focus-visible, .reader-chart:focus-visible { outline: 2px solid #315b7d; outline-offset: 3px; }
+.reader-table > table { margin-bottom: 0; }
+.reader-hint { display: none; }
+.reader-chart > svg { display: block; height: auto; }
+.reader-summary { margin: 14px 0 22px; }
+.reader-summary ol { padding-left: 24px; margin: 0; }
+.reader-summary li { padding: 10px 0; border-bottom: 1px solid #d9d8d1; }
+.reader-summary li:last-child { border-bottom: 0; }
+.reader-summary strong { display: block; margin-bottom: 4px; }
+.reader-summary p { margin: 3px 0; }
+.reader-period, .reader-public-note { font-size: 13px; line-height: 1.65; color: #56636a; }
+.reader-public-note { padding: 12px 14px; border-left: 3px solid #587a5a; background: #f1f5f2; }
+.reader-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; max-width: 1180px; margin: 0 auto; padding: 12px 20px; border-bottom: 1px solid #d9d8d1; font: 14px/1.5 -apple-system, BlinkMacSystemFont, sans-serif; }
+.reader-nav a { color: #315b7d; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center; }
+.reader-toc summary { cursor: pointer; padding: 12px 0; font-weight: 700; }
+.document-reader .reader-grid { min-width: 0; }
+.document-reader .reader-grid > * { min-width: 0; }
+
+@media (max-width: 760px) {
+  .document-reader body { width: auto !important; min-width: 0 !important; margin: 0 !important; overflow-wrap: anywhere; }
+  .document-reader body:not(.reader-workspace) { font-size: 16px; line-height: 1.7; }
+  .document-reader body:not(.reader-workspace) :is(main, section, article, header, footer, aside, div, nav) { min-width: 0; max-width: 100%; }
+  .document-reader body:not(.reader-workspace) :is(.wrap, .container, .page, .report, .report-wrap, .detail-shell, .pf-blog-summary, .shell, .document, .sheet) { width: auto !important; min-width: 0 !important; margin-inline: auto !important; padding: 20px 16px !important; }
+  .document-reader body:not(.reader-workspace) :is(.hero, .cover, .header, header.top) { margin-inline: 0 !important; padding: 22px 16px !important; }
+  .document-reader body:not(.reader-workspace) h1 { font-size: 28px !important; line-height: 1.25 !important; letter-spacing: -.025em; }
+  .document-reader body:not(.reader-workspace) h1 small { display: block; margin-top: 10px; font-size: 16px !important; line-height: 1.6; }
+  .document-reader body:not(.reader-workspace) :is(h2, .sec-title, .sectitle, .section-title) { font-size: 22px !important; line-height: 1.45 !important; }
+  .document-reader body:not(.reader-workspace) h3 { font-size: 18px !important; line-height: 1.5 !important; }
+  .document-reader body:not(.reader-workspace) :is(p, li, dd, .lead, .subtitle) { font-size: 16px; line-height: 1.75; }
+  .document-reader body:not(.reader-workspace) :is(.meta, .note, .small, .footnote, .sec-sub) { font-size: 13px !important; line-height: 1.65; text-align: left; }
+  .document-reader body:not(.reader-workspace) :is(.card, .box, .panel, .chart-card) { padding: 16px !important; }
+  .document-reader :is(.reader-grid, .grid2, .grid3, .grid4, .grid-2, .grid-3, .grid-4, .two, .three, .four, .signal-grid, .mini-chart-grid, .pf-grid) { grid-template-columns: minmax(0, 1fr) !important; }
+  .document-reader .reader-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .document-reader .reader-kpis :is(.v, .value) { font-size: 23px !important; overflow-wrap: anywhere; white-space: normal !important; }
+  .document-reader body:not(.reader-workspace) :is(.row, .meta-row, .chart-header, .final-row, header.top, .topbar) { flex-wrap: wrap; }
+  .document-reader :is(.topbar, .meta-row, .link-grid) a { white-space: normal; overflow-wrap: anywhere; }
+  .document-reader :is(.tag, .pill, .badge, .chip) { white-space: normal !important; line-height: 1.55; }
+  .document-reader :is(.hero, .cover)::after { display: none; }
+  .document-reader .reader-table { width: 100%; margin-block: 14px; }
+  .document-reader .reader-table table { width: 100% !important; max-width: none; font-size: 14px; }
+  .document-reader .reader-table :is(th, td) { font-size: 14px !important; line-height: 1.65 !important; padding: 10px 9px !important; height: auto; }
+  .document-reader .reader-table:not(.reader-stack-wrap) > table { min-width: var(--reader-table-width, 0); }
+  .document-reader .reader-wide-table tr > :first-child { position: sticky; left: 0; z-index: 1; background: var(--card, #fff); max-width: 170px; white-space: normal !important; }
+  .document-reader .reader-wide-table thead tr > :first-child { z-index: 2; }
+  .document-reader .reader-stack { display: block; min-width: 0 !important; table-layout: auto; border: 0; }
+  .document-reader .reader-stack > thead, .document-reader .reader-stack > tr:first-child:has(th) { display: none; }
+  .document-reader .reader-stack :is(tbody, tfoot) { display: block; }
+  .document-reader .reader-stack tr { display: block; margin-bottom: 16px; border: 1px solid #d9d8d1; border-radius: 8px; overflow: hidden; background: var(--card, #fff); }
+  .document-reader .reader-stack :is(td, th) { display: block; width: auto !important; min-width: 0; max-width: 100%; text-align: left !important; white-space: normal !important; border: 0; border-bottom: 1px solid #e5e3dd; background: transparent; }
+  .document-reader .reader-stack :is(td, th):first-child { font-weight: 750; background: #f0f2ef; color: #22312e; }
+  .document-reader .reader-stack :is(td, th)[data-reader-label]::before { content: attr(data-reader-label); display: block; margin-bottom: 4px; color: #66716f; font-size: 12px; font-weight: 600; }
+  .document-reader .reader-stack :is(td, th):last-child { border-bottom: 0; }
+  .document-reader .reader-hint { display: block; margin: 4px 0 7px; font-size: 12px; color: #65716f; }
+  .document-reader .reader-chart > svg { width: var(--reader-chart-width, 100%) !important; max-width: none !important; }
+  .document-reader .reader-chart { margin-block: 12px; }
+  .document-reader .reader-fixed-nav { position: static !important; width: auto !important; height: auto !important; max-height: none !important; inset: auto !important; }
+  .document-reader .reader-toc { margin-bottom: 16px; padding: 0 12px; border: 1px solid #d9d8d1; border-radius: 8px; }
+  .document-reader .reader-nav { padding-inline: 16px; }
+  .document-reader .reader-summary li { padding-block: 12px; }
+  .document-reader .reader-public-note { font-size: 13px !important; }
+  .document-reader .pf-perf-row { grid-template-columns: 65px 64px minmax(0, 1fr); gap: 8px; }
+  .document-reader .shape { pointer-events: none; max-width: 100%; right: 0; }
+}
+
+@media print {
+  .reader-nav, .reader-hint { display: none !important; }
+  .reader-table, .reader-chart { overflow: visible; }
+}
