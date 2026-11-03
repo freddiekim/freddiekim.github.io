@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+<html class="document-reader" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>TSLA Forensic Investor Brief · 2026-11-03 · YOUNG FINANCE 城主</title>
+<style>
+:root{--bg:#f4efe6;--card:#fffaf0;--text:#243036;--muted:#6f756e;--accent:#d97941;--green:#7f8f68;--bluegray:#5d7285;--risk:#c95b4a;--line:#ded4c3;--grid:#e7ddcc;--teal:#5f9ea0;--bull:#b86432;--hl:#f6dcc6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;line-height:1.55;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:3px solid var(--text);padding-bottom:14px;margin-bottom:22px;flex-wrap:wrap}
+.brand{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--accent)}
+h1{margin:4px 0 0;font-size:34px;letter-spacing:-.02em}
+h1 small{font-size:16px;color:var(--muted);font-weight:600}
+.meta{font-size:12.5px;color:var(--muted);text-align:right}
+h2{font-size:21px;margin:38px 0 12px;display:flex;align-items:center;gap:10px}
+h2 .no{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--text);color:var(--card);font-size:14px;align-items:center;justify-content:center}
+h3{font-size:15px;margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .l{font-size:12px;color:var(--muted);font-weight:700}
+.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.01em}
+.kpi .s{font-size:12px;color:var(--muted)}
+.kpi.risk{border-left:6px solid var(--risk)} .kpi.green{border-left:6px solid var(--green)} .kpi.blue{border-left:6px solid var(--bluegray)} .kpi.org{border-left:6px solid var(--accent)} .kpi.bull{border-left:6px solid var(--bull)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:800;margin-right:6px}
+.p-hold{background:var(--bluegray);color:#fff}.p-risk{background:var(--risk);color:#fff}.p-green{background:var(--green);color:#fff}.p-org{background:var(--accent);color:#fff}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:6px;vertical-align:1px}
+.t-fact{background:#e3e8dc;color:#4f5d3d}.t-inf{background:#f3e3d3;color:#9a5528}.t-ver{background:#f1d9d4;color:#9b3d30}
+mark{background:var(--hl);color:inherit;padding:0 3px;border-radius:4px;font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13.2px}
+th,td{border-bottom:1px solid var(--grid);padding:8px 8px;text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:800;background:#f8f1e4}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl{overflow-x:auto}
+.note{font-size:12.5px;color:var(--muted)}
+.callout{border-left:5px solid var(--accent);background:#fbf1e3;padding:10px 14px;border-radius:0 12px 12px 0;margin:10px 0;font-size:14px}
+.callout.r{border-color:var(--risk);background:#f8e9e5}
+.callout.g{border-color:var(--green);background:#eef0e6}
+ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:3px 0}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vs .side{border-radius:16px;padding:14px 16px;border:1px solid var(--line)}
+.vs .bullside{background:#eef0e6}.vs .bearside{background:#f8e9e5}
+.final{background:var(--text);color:var(--card);border-radius:18px;padding:22px 24px}
+.final h2{color:var(--card);margin-top:0}
+.final dl{display:grid;grid-template-columns:230px 1fr;gap:6px 16px;margin:0}
+.final dt{color:#ded4c3;font-weight:700;font-size:13.5px}
+.final dd{margin:0;font-weight:600}
+.final mark{background:#d97941;color:#fff}
+.src li{font-size:12.5px;margin:3px 0;word-break:break-all}
+a{color:var(--bluegray)}
+/* ---- required chart CSS ---- */
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:22px 0}
+.chart-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.chart-header h3{margin:0;font-size:16px}
+.tabs{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:700}
+.tabs .active{color:var(--text);border:2px solid var(--bluegray);border-radius:10px;padding:5px 10px;background:rgba(93,114,133,0.10)}
+.mini-chart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.mini-chart h3{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.mini-chart svg{width:100%;height:auto;display:block}
+.mini-chart .basis{font-size:11.5px;color:var(--muted);margin-top:4px}
+.grid{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 3}
+.zero{stroke:var(--text);stroke-width:1.2;opacity:.55}
+.bar-negative{fill:var(--risk)}.bar-positive{fill:var(--bluegray)}.bar-revenue{fill:var(--accent)}.bar-shares{fill:var(--teal)}
+.bar-outline{fill:none;stroke-width:2.5;stroke:currentColor}
+.bar-label{font-size:11px;font-weight:800;fill:var(--text)}
+.axis-label{font-size:10px;font-weight:700;fill:var(--muted)}
+.wide svg{width:100%;height:auto;display:block}
+@media (max-width:900px){
+ .mini-chart-grid{grid-template-columns:1fr}
+ .chart-header{align-items:flex-start;flex-direction:column}
+ .grid2,.grid3,.grid4,.vs{grid-template-columns:1fr}
+ .final dl{grid-template-columns:1fr}
+ h1{font-size:27px}
+}
+</style>
+<link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head>
+<body>
+<div class="wrap">
+<header class="top">
+<div>
+<div class="brand">YOUNG FINANCE · 城主 FORENSIC BRIEF</div>
+<h1>Tesla, Inc. (TSLA) <small>투자자용 핵심 요약 · 보유 14.84%</small></h1>
+</div>
+<div class="meta">분석 기준일 2026-11-03 (KST)<br/>주가: 11/2 정규장 종가 $403.82 · 11/3 프리마켓 $402.39<br/>매입가 미입력 · 비중은 참고 환산치 → 손익은 <b>현재가 대비</b>로 계산</div>
+</header><p class="reader-public-note">공개본 · 수량은 2026-11-03 총자산 기준 비중으로 환산했습니다(참고가 $403.82, 달러 환율 11/1 기준). 매매 증감·손익 기여도는 %p이며, 현재 포트폴리오와 다를 수 있습니다.</p>
+<div class="card" style="font-size:13px">
+<span class="tag t-fact">확정</span> SEC 공시·IR·다수 매체 일치   <span class="tag t-inf">추론</span> 확정 사실로부터의 해석   <span class="tag t-ver">검증 필요</span> 단일 출처/집계처 차이 · 신뢰도 A(공시) / B(복수 언론) / C(단일·루머)
+</div>
+<!-- ============ 0. PRE-SUMMARY A–E ============ -->
+<h2><span class="no">0</span>먼저 보는 forensic 요약 (A–E)</h2>
+<h3>놓치기 쉬운 핵심 신호 3개</h3><div class="grid3">
+<div class="card">
+<h3>A-1. 발행주식 <mark>+19%</mark>, 그런데 EPS 분모는 그대로</h3>
+<p><span class="tag t-fact">확정</span> 10-Q 표지 발행주식: 3Q25 약 33.3억 → <b>2026-10-15 39.53억주</b>. 대부분 Musk 제한주(2025 보상 4.24억 + 2018 옵션 행사분 2.86억).</p>
+<p><span class="tag t-fact">확정</span> 희석 EPS 분모는 35.4억주. 제한주는 "획득 확정 전까지" 제외.</p>
+<p><span class="tag t-inf">추론</span> <mark>EPS 희석이 잠복</mark>해 있다. 성과 달성 시 최대 +12% 희석이 뒤늦게 반영된다.</p>
+</div>
+<div class="card">
+<h3>A-2. 합병가 $506이면 Musk 보상이 즉시 열린다</h3>
+<p><span class="tag t-fact">확정</span> 2025 보상의 지배권 변경(change-in-control) 조항: 시총은 딜 가치로 1회 측정, 달성 트랜치는 즉시 확정.</p>
+<p><span class="tag t-fact">확정</span> 시총 $2T ≈ <b>주당 $506</b> → 3,531만주 1차 트랜치. $3T(≈$759)면 3개 트랜치.</p>
+<p><span class="tag t-inf">추론</span> 합병 가격이 <mark>$506 이상</mark>으로 책정될 유인이 존재. 주주에게 단기 프리미엄, 동시에 희석.</p>
+</div>
+<div class="card">
+<h3>A-3. FCF 흑자는 "capex 이연" 효과</h3>
+<p><span class="tag t-fact">확정</span> 2026 capex 가이던스 &gt;$25B → <b>~$20B로 하향</b>. 9개월 누적 $13.0B → 4Q 함의 ~$7B.</p>
+<p><span class="tag t-fact">확정</span> 9/29 $30B 무담보 신용한도(미인출, 2026 인출 계획 없음). $20B 지연인출 대출은 18개월 내 미사용분 축소.</p>
+<p><span class="tag t-inf">추론</span> 3Q FCF $1.53B는 지출이 2027로 밀린 결과일 수 있다. <mark>2027 capex가 진짜 시험대</mark>.</p>
+</div>
+</div>
+<div class="vs">
+<div class="side bullside">
+<h3>B. 기업 정체성 재정의</h3>
+<table>
+<tr><th style="width:28%">시장의 레거시 잣대</th><td>EV 제조사 + AI 옵션. 인도 대수·자동차 마진으로 평가.</td></tr>
+<tr><th>실제 이동 중인 밸류체인</th><td>차량 현금흐름 → <b>로보택시 운영(TaaS) · FSD 구독 · Optimus · 자체 칩(AI5/Terafab)</b>로 재투자하는 physical-AI 지주회사.</td></tr>
+<tr><th>진화 형태</th><td>제품 회사 → <mark>플랫폼(FSD/로보택시 네트워크) + AI 인프라 레이어</mark>. 단, 매출 비중은 아직 서비스·기타 16%.</td></tr>
+<tr><th>매출·마진 변화</th><td>서비스·기타 +33% YoY, 매출총이익 사상 최대 $734M. 반복매출(구독) 비중 상승 → 장기적으로 마진·lock-in ↑.</td></tr>
+<tr><th>멀티플 영향</th><td>EV 멀티플(10~20x P/E)로는 설명 불가. 현재 <b>2027E 조정 EPS 187배</b>는 플랫폼+합병 옵션 가격.</td></tr>
+</table>
+</div>
+<div class="side bearside">
+<h3>E. 반대 thesis (같은 강도)</h3>
+<ul class="tight">
+<li><b>우연일 가능성:</b> 신용한도·capex 하향·합병 특위는 각각 독립된 재무관리일 수 있다. 하나의 "큰 그림"으로 엮는 건 서사 과잉.</li>
+<li><b>기대 과대평가:</b> 로보택시 누적 무감독 200만 마일, 연환산 매출은 아직 미공시. Optimus 램프는 Musk 본인도 "완만하고 울퉁불퉁".</li>
+<li><b>EPS 미성장:</b> 매출 −0.2%, GAAP EPS −44%, opex +39%, SBC $1.17B/분기. 보상주 획득 시 분모 최대 +12%.</li>
+<li><b>매크로:</b> Fed 9월 인상(3.75–4.00%), 10년물 5%대, 9월 고용 +2.9만·실업률 4.2%. 장기 성장주 할인율 불리.</li>
+<li><b>급락 위험:</b> 숏 비중 ~2.5%로 스퀴즈 연료는 없다. 하락은 합병 무산·실적 실망 등 이벤트형.</li>
+<li><b>M&amp;A 과열:</b> 승인 요건은 <mark>전체 발행주식의 50%</mark>(약 19.8억주). Musk도 "꽤 높은 허들". 무산 시 프리미엄 소멸.</li>
+</ul>
+</div>
+</div>
+<section class="reader-quarter"><h2>2026년 4분기 사건 요약</h2><p class="reader-period">10–12월 중 원문에 날짜가 명시된 핵심 사건입니다. 작성일 이후 일정은 예정으로 표시했습니다.</p><div class="reader-summary"><ol><li><strong>10/15 · Short interest</strong><p><b>원문 사실:</b> 6,935만주, days-to-cover 2.2</p><p><b>의미:</b> 유통주식 대비 ~2.5%(계산)</p></li><li><strong>10/20 · SpaceX 콜: 합병 특위</strong><p><b>원문 사실:</b> 양사 독립이사 특위 구성, 조건 미합의, Tesla 승인=전체주식 50%</p><p><b>의미:</b> 12월 주총 전후 발표 가능(Barclays 견해)</p></li><li><strong>10/21 · Q3 실적</strong><p><b>원문 사실:</b> 매출 $28.05B, GAAP EPS $0.22(−44%), 조정 $0.48 beat, GM 19.6%, FCF $1.53B, capex 가이던스 ~$20B</p><p><b>의미:</b> 마진 회복·지출 이연</p></li><li><strong>10/26 · Barclays 상향</strong><p><b>원문 사실:</b> Overweight, 목표가 $370→$450</p><p><b>의미:</b> 합병·로보택시 반영</p></li><li><strong>11/2 · Fort Worth 로보택시 개시</strong><p><b>원문 사실:</b> 주가 +1.0% $403.82(나스닥 −1.07%)</p><p><b>의미:</b> 도시 확장 속도</p></li></ol></div></section>
+
+<!-- ============ 1. EXEC SUMMARY ============ -->
+<h2><span class="no">1</span>Executive Summary</h2>
+<div class="callout g"><b>Thesis:</b> 자동차 마진은 바닥을 통과(GM ex-credit 18.1%)했고, FSD 구독·로보택시·Semi가 2027년부터 매출 구조를 바꾼다. SpaceX 합병은 <mark>$500대 가격의 근거</mark>가 될 수 있다.</div>
+<div class="callout r"><b>Anti-thesis:</b> 매출은 2년째 ~$100B에서 정체, GAAP EPS −44%. 지금 주가는 EPS가 아니라 <mark>합병 프리미엄</mark>을 사고 있고, 목표가에 닿을수록 Musk 보상주가 희석으로 돌아온다.</div>
+<div class="grid2">
+<div class="card"><h3>현재 시장이 보는 회사</h3>로보택시·Optimus 옵션이 붙은 EV 메이커 + "SpaceX와 합쳐질 회사".</div>
+<div class="card"><h3>내가 새롭게 보는 회사</h3>차량 현금흐름을 AI·로봇·칩 capex로 돌리는 <b>physical-AI 지주회사</b>. 향후 6개월 가격은 펀더멘털보다 <mark>합병 교환비율</mark>이 결정. <span class="tag t-inf">추론</span></div>
+</div>
+<div class="grid4">
+<div class="kpi blue"><div class="l">투자 등급</div><div class="v">HOLD</div><div class="s"><span class="pill p-hold">보유</span>신규 매수 금지($400대)</div></div>
+<div class="kpi blue"><div class="l">현재 주가</div><div class="v">$403.82</div><div class="s">시총 ~$1.60T (39.53억주)</div></div>
+<div class="kpi green"><div class="l">보수적 내재가치</div><div class="v">$190</div><div class="s">SOTP, −53% <span class="tag t-inf">추론</span></div></div>
+<div class="kpi org"><div class="l">12개월 base</div><div class="v">$420</div><div class="s">+4%</div></div>
+<div class="kpi bull"><div class="l">bull</div><div class="v">$560</div><div class="s">+39% · 합병 ≥$2T</div></div>
+<div class="kpi bull"><div class="l">overshoot</div><div class="v">$650</div><div class="s">+61% · 수급/합병 과열</div></div>
+<div class="kpi risk"><div class="l">하방 리스크</div><div class="v">$260</div><div class="s">−36% · 합병 무산+실적 실망</div></div>
+<div class="kpi org"><div class="l">12M 기대수익률(확률가중)</div><div class="v">+9.6%</div><div class="s">기대가 $442.5 · 세전</div></div>
+</div>
+<div class="card">총자산 대비 시나리오 기여도 (세전, 문서 기준가 대비): 기대 +1.42%p · base +0.59%p · bull +5.74%p · overshoot +9.05%p · 하방 −5.29%p · 내재가치 수렴 −7.86%p.</div>
+<!-- ============ 2. INFLECTIONS ============ -->
+<h2>핵심 변곡점 3개</h2><div class="reader-summary"><ol><li><strong>로보택시 상용화</strong><p><b>확정 사실:</b> Cybercab Austin 투입(9/3), 누적 무감독 ~200만 마일(QoQ 8배), Fort Worth 개시</p><p><b>합리적 추론:</b> 2027 2Q부터 실적 기여(Musk 발언)</p><p><b>검증되지 않은 가설:</b> 2027 말 수십 개 도시 · 고객 차량 참여</p><p><b>다음 확인 지표:</b> 유료 마일·차량당 매출·도시 수</p></li><li><strong>SpaceX 합병</strong><p><b>확정 사실:</b> 특위 구성, 조건 미합의, 전체 발행주식 50% 필요</p><p><b>합리적 추론:</b> Tesla 주주 몫 50~66%(Morningstar 추정)</p><p><b>검증되지 않은 가설:</b> 12/0.30%총 전 발표</p><p><b>다음 확인 지표:</b> 교환비율, 딜 가치 vs $506</p></li><li><strong>capex 슈퍼사이클</strong><p><b>확정 사실:</b> 2026 ~$20B, "향후 수년 증가", $30B 신용한도</p><p><b>합리적 추론:</b> 2027 $25~35B, FCF 적자 가능</p><p><b>검증되지 않은 가설:</b> Terafab 2028 3Q 대량생산</p><p><b>다음 확인 지표:</b> 2027 capex 가이던스, 인출 여부</p></li></ol></div>
+
+<!-- ============ 3. NUMBERS ============ -->
+<h2><span class="no">3</span>투자자가 반드시 봐야 할 숫자</h2>
+<div class="card tbl">
+<table>
+<tr><th>항목</th><th>FY23</th><th>FY24</th><th>FY25</th><th>3Q25</th><th>1Q26</th><th>2Q26</th><th>3Q26</th><th>해석</th></tr>
+<tr><td>매출 ($B)</td><td class="n">96.77</td><td class="n">97.69</td><td class="n">94.83</td><td class="n">28.10</td><td class="n">22.39</td><td class="n">28.24</td><td class="n">28.05</td><td>3년째 ~$95–104B 박스권</td></tr>
+<tr><td>GAAP 희석 EPS</td><td class="n">4.30*</td><td class="n">2.04</td><td class="n">1.08</td><td class="n">0.39</td><td class="n">0.13</td><td class="n">0.32</td><td class="n">0.22</td><td><mark>TTM $0.91</mark></td></tr>
+<tr><td>조정(non-GAAP) EPS</td><td class="n">3.12</td><td class="n">2.42</td><td class="n">1.66</td><td class="n">0.50</td><td class="n">0.41</td><td class="n">0.33</td><td class="n">0.48</td><td>SBC·평가손익 제외</td></tr>
+<tr><td>매출총이익률</td><td class="n">18.2%</td><td class="n">17.9%</td><td class="n">≈18%</td><td class="n">18.0%</td><td class="n">21.1%</td><td class="n">16.8%</td><td class="n">19.6%</td><td>회복세</td></tr>
+<tr><td>영업이익률</td><td class="n">9.2%</td><td class="n">7.2%</td><td class="n">≈4.6%</td><td class="n">5.8%</td><td class="n">4.2%</td><td class="n">1.4%</td><td class="n">2.6%</td><td><mark>opex가 이익 잠식</mark></td></tr>
+<tr><td>순이익 ($B)</td><td class="n">15.0</td><td class="n">7.1</td><td class="n">3.79</td><td class="n">1.37</td><td class="n">0.48</td><td class="n">1.11</td><td class="n">0.79</td><td>2Q·3Q 평가손익 포함</td></tr>
+<tr><td>FCF ($B)</td><td class="n">4.4</td><td class="n">3.6</td><td class="n">6.2</td><td class="n">3.99</td><td class="n">1.44</td><td class="n">−1.09</td><td class="n">1.53</td><td>capex 타이밍 의존</td></tr>
+<tr><td>현금·투자 ($B)</td><td class="n">29.1</td><td class="n">36.6</td><td class="n">44.1</td><td class="n">41.6</td><td class="n">44.7</td><td class="n">43.5</td><td class="n">45.4</td><td>순현금 ~$36B</td></tr>
+<tr><td>금융부채 ($B)</td><td class="n">—</td><td class="n">—</td><td class="n">8.2</td><td class="n">—</td><td class="n">9.0</td><td class="n" colspan="2">검증 필요(~8–9)</td><td>대부분 비소구(ABS·중국 운전자금)</td></tr>
+<tr><td>희석 가중주식 (억)</td><td class="n">34.85</td><td class="n">34.98</td><td class="n">≈35.2</td><td class="n">35.3</td><td class="n">35.38</td><td class="n">35.4</td><td class="n">35.41</td><td>+0.3% YoY</td></tr>
+<tr><td>표지 발행주식 (억)</td><td class="n">31.85</td><td class="n">32.2</td><td class="n">37.5</td><td class="n">33.3</td><td class="n">37.56</td><td class="n">39.5</td><td class="n">39.53</td><td><mark>제한주 포함 +19%</mark></td></tr>
+<tr><td>Short interest</td><td class="n" colspan="6">3/31: 6,560만주 → 10/15: 6,935만주 (DTC 2.2)</td><td class="n">~2.5%</td><td>유통주식 대비(계산)</td></tr>
+<tr><td>밸류에이션</td><td colspan="7">P/E TTM GAAP <b>444x</b> · 2026E 조정 1.77 기준 <b>228x</b> · 2027E 2.16 기준 <b>187x</b> · EV/Sales TTM <b>~15x</b></td><td>EPS 아닌 옵션 가격</td></tr>
+</table>
+<p class="note">* FY23 EPS에는 일회성 세무 평가충당금 환입(~$5.9B) 포함. FY25 영업이익률·희석주식은 분기 합산 추정. 3Q25 표지 주식 수는 MarketBeat 집계 <span class="tag t-ver">검증 필요</span>.</p>
+</div>
+<div class="grid2">
+<div class="card"><h3>매출 vs EPS · EPS vs 주식 수</h3>
+<ul class="tight">
+<li>3Q26 매출 −0.2% vs GAAP EPS <b>−44%</b>. 원인은 주식 수가 아니라 <mark>opex +39%·R&amp;D +69%·SBC $1.17B</mark>.</li>
+<li>희석 가중주식은 +0.3%뿐. 지금 EPS 하락은 "마진 문제"다.</li>
+<li>다음 희석은 <b>성과 달성 시</b> 온다: 2025 보상 4.24억주(최대 +12%).</li>
+</ul></div>
+<div class="card"><h3>주가는 무엇을 반영하나</h3>
+<ul class="tight">
+<li>매출 성장도, EPS 성장도 아니다. 2026E 매출 +12% 컨센, EPS는 2년 연속 하락.</li>
+<li>현재 $1.6T는 <mark>로보택시·Optimus·합병 옵션</mark>에 약 $0.9T를 지불한 가격 <span class="tag t-inf">추론</span>.</li>
+<li>희석 반복 가능성: 높음. 주가 상승 = 보상 트랜치 달성 = 분모 증가.</li>
+</ul></div>
+</div>
+<div class="chart-card">
+<div class="chart-header"><h3>연도별: GAAP EPS · 매출 · 희석주식</h3><div class="tabs"><span>Timeframe</span><span class="active">Annual</span><span>Quarterly</span></div></div>
+<div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP Diluted EPS ($)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">-1</text>
+<line class="zero" x1="10" x2="268" y1="155.1" y2="155.1"></line>
+<text class="axis-label" x="274" y="158.1">0</text>
+<line class="grid" x1="10" x2="268" y1="128.2" y2="128.2"></line>
+<text class="axis-label" x="274" y="131.2">1</text>
+<line class="grid" x1="10" x2="268" y1="101.3" y2="101.3"></line>
+<text class="axis-label" x="274" y="104.3">2</text>
+<line class="grid" x1="10" x2="268" y1="74.4" y2="74.4"></line>
+<text class="axis-label" x="274" y="77.4">3</text>
+<line class="grid" x1="10" x2="268" y1="47.5" y2="47.5"></line>
+<text class="axis-label" x="274" y="50.5">4</text>
+<rect fill="#c95b4a" height="8.9" rx="4" width="18.7" x="16.8" y="155.1"></rect>
+<text class="bar-label" text-anchor="middle" x="26.1" y="176.0">-0.33</text>
+<text class="axis-label" text-anchor="middle" x="26.1" y="198">'19</text>
+<rect fill="#5d7285" height="5.6" rx="4" width="18.7" x="49.0" y="149.5"></rect>
+<text class="bar-label" text-anchor="middle" x="58.4" y="144.5">0.21</text>
+<text class="axis-label" text-anchor="middle" x="58.4" y="198">'20</text>
+<rect fill="#5d7285" height="43.8" rx="4" width="18.7" x="81.3" y="111.3"></rect>
+<text class="bar-label" text-anchor="middle" x="90.6" y="106.3">1.63</text>
+<text class="axis-label" text-anchor="middle" x="90.6" y="198">'21</text>
+<rect fill="#5d7285" height="97.4" rx="4" width="18.7" x="113.5" y="57.7"></rect>
+<text class="bar-label" text-anchor="middle" x="122.9" y="52.7">3.62</text>
+<text class="axis-label" text-anchor="middle" x="122.9" y="198">'22</text>
+<rect fill="#5d7285" height="115.7" rx="4" width="18.7" x="145.8" y="39.4"></rect>
+<text class="bar-label" text-anchor="middle" x="155.1" y="34.4">4.30</text>
+<text class="axis-label" text-anchor="middle" x="155.1" y="198">'23</text>
+<rect fill="#5d7285" height="54.9" rx="4" width="18.7" x="178.0" y="100.2"></rect>
+<text class="bar-label" text-anchor="middle" x="187.4" y="95.2">2.04</text>
+<text class="axis-label" text-anchor="middle" x="187.4" y="198">'24</text>
+<rect fill="#5d7285" height="29.0" rx="4" width="18.7" x="210.3" y="126.1"></rect>
+<text class="bar-label" text-anchor="middle" x="219.6" y="121.1">1.08</text>
+<text class="axis-label" text-anchor="middle" x="219.6" y="198">'25</text>
+<rect fill="none" height="24.5" rx="4" stroke="#5d7285" stroke-dasharray="4 2" stroke-width="2.2" width="18.7" x="242.5" y="130.6"></rect>
+<text class="bar-label" text-anchor="middle" x="251.9" y="125.6">0.91</text>
+<text class="axis-label" text-anchor="middle" x="251.9" y="198">TTM</text>
+<text class="axis-label" style="fill:#7f8f68" text-anchor="middle" x="58.4" y="20">▲흑자전환</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">FY19 −$0.33 → FY20 흑자 전환. TTM = 4Q25~3Q26 합.</div></div>
+<div class="mini-chart"><h3>Revenue ($B)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">0</text>
+<line class="grid" x1="10" x2="268" y1="143.0" y2="143.0"></line>
+<text class="axis-label" x="274" y="146.0">30</text>
+<line class="grid" x1="10" x2="268" y1="104.0" y2="104.0"></line>
+<text class="axis-label" x="274" y="107.0">60</text>
+<line class="grid" x1="10" x2="268" y1="65.0" y2="65.0"></line>
+<text class="axis-label" x="274" y="68.0">90</text>
+<line class="grid" x1="10" x2="268" y1="26.0" y2="26.0"></line>
+<text class="axis-label" x="274" y="29.0">120</text>
+<rect class="bar-revenue" height="32.0" rx="4" width="18.7" x="16.8" y="150.0"></rect>
+<text class="bar-label" text-anchor="middle" x="26.1" y="145.0">24.6</text>
+<text class="axis-label" text-anchor="middle" x="26.1" y="198">'19</text>
+<rect class="bar-revenue" height="41.0" rx="4" width="18.7" x="49.0" y="141.0"></rect>
+<text class="bar-label" text-anchor="middle" x="58.4" y="136.0">31.5</text>
+<text class="axis-label" text-anchor="middle" x="58.4" y="198">'20</text>
+<rect class="bar-revenue" height="70.0" rx="4" width="18.7" x="81.3" y="112.0"></rect>
+<text class="bar-label" text-anchor="middle" x="90.6" y="107.0">53.8</text>
+<text class="axis-label" text-anchor="middle" x="90.6" y="198">'21</text>
+<rect class="bar-revenue" height="105.9" rx="4" width="18.7" x="113.5" y="76.1"></rect>
+<text class="bar-label" text-anchor="middle" x="122.9" y="71.1">81.5</text>
+<text class="axis-label" text-anchor="middle" x="122.9" y="198">'22</text>
+<rect class="bar-revenue" height="125.8" rx="4" width="18.7" x="145.8" y="56.2"></rect>
+<text class="bar-label" text-anchor="middle" x="155.1" y="51.2">96.8</text>
+<text class="axis-label" text-anchor="middle" x="155.1" y="198">'23</text>
+<rect class="bar-revenue" height="127.0" rx="4" width="18.7" x="178.0" y="55.0"></rect>
+<text class="bar-label" text-anchor="middle" x="187.4" y="50.0">97.7</text>
+<text class="axis-label" text-anchor="middle" x="187.4" y="198">'24</text>
+<rect class="bar-revenue" height="123.3" rx="4" width="18.7" x="210.3" y="58.7"></rect>
+<text class="bar-label" text-anchor="middle" x="219.6" y="53.7">94.8</text>
+<text class="axis-label" text-anchor="middle" x="219.6" y="198">'25</text>
+<rect fill="none" height="137.8" rx="4" stroke="#d97941" stroke-dasharray="4 2" stroke-width="2.2" width="18.7" x="242.5" y="44.2"></rect>
+<text class="bar-label" text-anchor="middle" x="251.9" y="39.2">106.0</text>
+<text class="axis-label" text-anchor="middle" x="251.9" y="198">26E</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">26E = 컨센서스 $106.03B (Yahoo, 45명)</div></div>
+<div class="mini-chart"><h3>Shares Outstanding (B)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">0</text>
+<line class="grid" x1="10" x2="268" y1="143.0" y2="143.0"></line>
+<text class="axis-label" x="274" y="146.0">1</text>
+<line class="grid" x1="10" x2="268" y1="104.0" y2="104.0"></line>
+<text class="axis-label" x="274" y="107.0">2</text>
+<line class="grid" x1="10" x2="268" y1="65.0" y2="65.0"></line>
+<text class="axis-label" x="274" y="68.0">3</text>
+<line class="grid" x1="10" x2="268" y1="26.0" y2="26.0"></line>
+<text class="axis-label" x="274" y="29.0">4</text>
+<rect class="bar-shares" height="103.7" rx="4" width="18.7" x="16.8" y="78.3"></rect>
+<text class="bar-label" text-anchor="middle" x="26.1" y="73.3">2.66</text>
+<text class="axis-label" text-anchor="middle" x="26.1" y="198">'19</text>
+<rect class="bar-shares" height="126.8" rx="4" width="18.7" x="49.0" y="55.2"></rect>
+<text class="bar-label" text-anchor="middle" x="58.4" y="50.2">3.25</text>
+<text class="axis-label" text-anchor="middle" x="58.4" y="198">'20</text>
+<rect class="bar-shares" height="132.2" rx="4" width="18.7" x="81.3" y="49.8"></rect>
+<text class="bar-label" text-anchor="middle" x="90.6" y="44.8">3.39</text>
+<text class="axis-label" text-anchor="middle" x="90.6" y="198">'21</text>
+<rect class="bar-shares" height="135.7" rx="4" width="18.7" x="113.5" y="46.3"></rect>
+<text class="bar-label" text-anchor="middle" x="122.9" y="41.3">3.48</text>
+<text class="axis-label" text-anchor="middle" x="122.9" y="198">'22</text>
+<rect class="bar-shares" height="136.1" rx="4" width="18.7" x="145.8" y="45.9"></rect>
+<text class="bar-label" text-anchor="middle" x="155.1" y="40.9">3.49</text>
+<text class="axis-label" text-anchor="middle" x="155.1" y="198">'23</text>
+<rect class="bar-shares" height="136.5" rx="4" width="18.7" x="178.0" y="45.5"></rect>
+<text class="bar-label" text-anchor="middle" x="187.4" y="40.5">3.50</text>
+<text class="axis-label" text-anchor="middle" x="187.4" y="198">'24</text>
+<rect class="bar-shares" height="137.3" rx="4" width="18.7" x="210.3" y="44.7"></rect>
+<text class="bar-label" text-anchor="middle" x="219.6" y="39.7">3.52</text>
+<text class="axis-label" text-anchor="middle" x="219.6" y="198">'25</text>
+<rect fill="none" height="138.1" rx="4" stroke="#5f9ea0" stroke-dasharray="4 2" stroke-width="2.2" width="18.7" x="242.5" y="43.9"></rect>
+<text class="bar-label" text-anchor="middle" x="251.9" y="38.9">3.54</text>
+<text class="axis-label" text-anchor="middle" x="251.9" y="198">MRQ</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">기준: <b>희석 가중평균주식</b>(10-K/10-Q), 2020·2022 분할 조정. FY25는 분기 기준 추정.</div></div>
+</div>
+</div>
+<div class="card">
+<b>투자 해석</b>
+<ul class="tight">
+<li>FY23 이후 매출은 정체, EPS는 $4.30 → TTM $0.91로 <mark>−79%</mark>. 가격 인하·크레딧 소멸·AI opex가 원인.</li>
+<li>희석 가중주식은 FY21 이후 +4.6%로 작다. EPS 하락은 희석이 아닌 이익률 붕괴.</li>
+<li>FY19→FY20 주식 +22%는 증자형 희석(생존). 지금의 희석 위험은 <b>보상형</b>이다.</li>
+<li>앞으로도 "매출 성장 + EPS 정체" 반복 가능성 높음: capex·R&amp;D가 수년간 증가 가이던스.</li>
+<li>다음 실적 핵심: <b>영업이익률 ≥4%</b>와 opex 증가율.</li>
+</ul>
+</div>
+<div class="chart-card">
+<div class="chart-header"><h3>분기별: GAAP EPS · 매출 · 희석주식</h3><div class="tabs"><span>Timeframe</span><span>Annual</span><span class="active">Quarterly</span></div></div>
+<div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP Diluted EPS ($)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">0</text>
+<line class="grid" x1="10" x2="268" y1="143.0" y2="143.0"></line>
+<text class="axis-label" x="274" y="146.0">0.2</text>
+<line class="grid" x1="10" x2="268" y1="104.0" y2="104.0"></line>
+<text class="axis-label" x="274" y="107.0">0.4</text>
+<line class="grid" x1="10" x2="268" y1="65.0" y2="65.0"></line>
+<text class="axis-label" x="274" y="68.0">0.6</text>
+<line class="grid" x1="10" x2="268" y1="26.0" y2="26.0"></line>
+<text class="axis-label" x="274" y="29.0">0.8</text>
+<rect fill="#5d7285" height="128.7" rx="4" width="18.7" x="16.8" y="53.3"></rect>
+<text class="bar-label" text-anchor="middle" x="26.1" y="48.3">0.66</text>
+<text class="axis-label" text-anchor="middle" x="26.1" y="198">4Q24</text>
+<rect fill="#5d7285" height="23.4" rx="4" width="18.7" x="49.0" y="158.6"></rect>
+<text class="bar-label" text-anchor="middle" x="58.4" y="153.6">0.12</text>
+<text class="axis-label" text-anchor="middle" x="58.4" y="198">1Q25</text>
+<rect fill="#5d7285" height="64.3" rx="4" width="18.7" x="81.3" y="117.7"></rect>
+<text class="bar-label" text-anchor="middle" x="90.6" y="112.7">0.33</text>
+<text class="axis-label" text-anchor="middle" x="90.6" y="198">2Q25</text>
+<rect fill="#5d7285" height="76.1" rx="4" width="18.7" x="113.5" y="105.9"></rect>
+<text class="bar-label" text-anchor="middle" x="122.9" y="100.9">0.39</text>
+<text class="axis-label" text-anchor="middle" x="122.9" y="198">3Q25</text>
+<rect fill="#5d7285" height="46.8" rx="4" width="18.7" x="145.8" y="135.2"></rect>
+<text class="bar-label" text-anchor="middle" x="155.1" y="130.2">0.24</text>
+<text class="axis-label" text-anchor="middle" x="155.1" y="198">4Q25</text>
+<rect fill="#5d7285" height="25.3" rx="4" width="18.7" x="178.0" y="156.7"></rect>
+<text class="bar-label" text-anchor="middle" x="187.4" y="151.7">0.13</text>
+<text class="axis-label" text-anchor="middle" x="187.4" y="198">1Q26</text>
+<rect fill="#5d7285" height="62.4" rx="4" width="18.7" x="210.3" y="119.6"></rect>
+<text class="bar-label" text-anchor="middle" x="219.6" y="114.6">0.32</text>
+<text class="axis-label" text-anchor="middle" x="219.6" y="198">2Q26</text>
+<rect fill="#5d7285" height="42.9" rx="4" width="18.7" x="242.5" y="139.1"></rect>
+<text class="bar-label" text-anchor="middle" x="251.9" y="134.1">0.22</text>
+<text class="axis-label" text-anchor="middle" x="251.9" y="198">3Q26</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">8개 분기 모두 흑자. 4Q24 $0.66 → 3Q26 $0.22.</div></div>
+<div class="mini-chart"><h3>Revenue ($B)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">0</text>
+<line class="grid" x1="10" x2="268" y1="143.0" y2="143.0"></line>
+<text class="axis-label" x="274" y="146.0">8</text>
+<line class="grid" x1="10" x2="268" y1="104.0" y2="104.0"></line>
+<text class="axis-label" x="274" y="107.0">16</text>
+<line class="grid" x1="10" x2="268" y1="65.0" y2="65.0"></line>
+<text class="axis-label" x="274" y="68.0">24</text>
+<line class="grid" x1="10" x2="268" y1="26.0" y2="26.0"></line>
+<text class="axis-label" x="274" y="29.0">32</text>
+<rect class="bar-revenue" height="125.3" rx="4" width="16.6" x="16.0" y="56.7"></rect>
+<text class="bar-label" text-anchor="middle" x="24.3" y="51.7">25.7</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="24.3" y="198">4Q24</text>
+<rect class="bar-revenue" height="94.3" rx="4" width="16.6" x="44.7" y="87.7"></rect>
+<text class="bar-label" text-anchor="middle" x="53.0" y="82.7">19.3</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="53.0" y="198">1Q25</text>
+<rect class="bar-revenue" height="109.7" rx="4" width="16.6" x="73.4" y="72.3"></rect>
+<text class="bar-label" text-anchor="middle" x="81.7" y="67.3">22.5</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="81.7" y="198">2Q25</text>
+<rect class="bar-revenue" height="137.0" rx="4" width="16.6" x="102.0" y="45.0"></rect>
+<text class="bar-label" text-anchor="middle" x="110.3" y="40.0">28.1</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="110.3" y="198">3Q25</text>
+<rect class="bar-revenue" height="121.4" rx="4" width="16.6" x="130.7" y="60.6"></rect>
+<text class="bar-label" text-anchor="middle" x="139.0" y="55.6">24.9</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="139.0" y="198">4Q25</text>
+<rect class="bar-revenue" height="109.2" rx="4" width="16.6" x="159.4" y="72.8"></rect>
+<text class="bar-label" text-anchor="middle" x="167.7" y="67.8">22.4</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="167.7" y="198">1Q26</text>
+<rect class="bar-revenue" height="137.7" rx="4" width="16.6" x="188.0" y="44.3"></rect>
+<text class="bar-label" text-anchor="middle" x="196.3" y="39.3">28.2</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="196.3" y="198">2Q26</text>
+<rect class="bar-revenue" height="136.7" rx="4" width="16.6" x="216.7" y="45.3"></rect>
+<text class="bar-label" text-anchor="middle" x="225.0" y="40.3">28.1</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="225.0" y="198">3Q26</text>
+<rect fill="none" height="138.8" rx="4" stroke="#d97941" stroke-dasharray="4 2" stroke-width="2.2" width="16.6" x="245.4" y="43.2"></rect>
+<text class="bar-label" text-anchor="middle" x="253.7" y="38.2">28.5</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="253.7" y="198">4Q26E</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">4Q26E = 컨센서스 $28.47B (Yahoo, 28명)</div></div>
+<div class="mini-chart"><h3>Shares Outstanding (B)</h3><svg role="img" viewbox="0 0 320 232" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="10" x2="268" y1="182.0" y2="182.0"></line>
+<text class="axis-label" x="274" y="185.0">0.0</text>
+<line class="grid" x1="10" x2="268" y1="143.0" y2="143.0"></line>
+<text class="axis-label" x="274" y="146.0">1.1</text>
+<line class="grid" x1="10" x2="268" y1="104.0" y2="104.0"></line>
+<text class="axis-label" x="274" y="107.0">2.2</text>
+<line class="grid" x1="10" x2="268" y1="65.0" y2="65.0"></line>
+<text class="axis-label" x="274" y="68.0">3.3</text>
+<line class="grid" x1="10" x2="268" y1="26.0" y2="26.0"></line>
+<text class="axis-label" x="274" y="29.0">4.4</text>
+<rect class="bar-shares" height="124.1" rx="4" width="18.7" x="16.8" y="57.9"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="26.1" y="73.9">3.50</text>
+<text class="axis-label" text-anchor="middle" x="26.1" y="198">4Q24</text>
+<rect class="bar-shares" height="124.8" rx="4" width="18.7" x="49.0" y="57.2"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="58.4" y="73.2">3.52</text>
+<text class="axis-label" text-anchor="middle" x="58.4" y="198">1Q25</text>
+<rect class="bar-shares" height="124.8" rx="4" width="18.7" x="81.3" y="57.2"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="90.6" y="73.2">3.52</text>
+<text class="axis-label" text-anchor="middle" x="90.6" y="198">2Q25</text>
+<rect class="bar-shares" height="125.2" rx="4" width="18.7" x="113.5" y="56.8"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="122.9" y="72.8">3.53</text>
+<text class="axis-label" text-anchor="middle" x="122.9" y="198">3Q25</text>
+<rect class="bar-shares" height="125.2" rx="4" width="18.7" x="145.8" y="56.8"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="155.1" y="72.8">3.53</text>
+<text class="axis-label" text-anchor="middle" x="155.1" y="198">4Q25</text>
+<rect class="bar-shares" height="125.5" rx="4" width="18.7" x="178.0" y="56.5"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="187.4" y="72.5">3.54</text>
+<text class="axis-label" text-anchor="middle" x="187.4" y="198">1Q26</text>
+<rect class="bar-shares" height="125.5" rx="4" width="18.7" x="210.3" y="56.5"></rect>
+<text class="bar-label" style="fill:#fffaf0;font-size:9.5px" text-anchor="middle" x="219.6" y="72.5">3.54</text>
+<text class="axis-label" text-anchor="middle" x="219.6" y="198">2Q26</text>
+<rect fill="none" height="125.5" rx="4" stroke="#5f9ea0" stroke-dasharray="4 2" stroke-width="2.2" width="18.7" x="242.5" y="56.5"></rect>
+<text class="bar-label" style="fill:#243036;font-size:9.5px" text-anchor="middle" x="251.9" y="72.5">3.54</text>
+<text class="axis-label" text-anchor="middle" x="251.9" y="198">3Q26</text>
+<polyline fill="none" points="26.1,67.8 58.4,67.8 90.6,67.5 122.9,63.9 155.1,49.0 187.4,48.7 219.6,42.0 251.9,42.0" stroke="#d97941" stroke-dasharray="3 3" stroke-width="1.6"></polyline>
+<circle cx="26.1" cy="67.8" fill="#d97941" r="3.2"></circle>
+<circle cx="58.4" cy="67.8" fill="#d97941" r="3.2"></circle>
+<circle cx="90.6" cy="67.5" fill="#d97941" r="3.2"></circle>
+<circle cx="122.9" cy="63.9" fill="#d97941" r="3.2"></circle>
+<circle cx="155.1" cy="49.0" fill="#d97941" r="3.2"></circle>
+<circle cx="187.4" cy="48.7" fill="#d97941" r="3.2"></circle>
+<circle cx="219.6" cy="42.0" fill="#d97941" r="3.2"></circle>
+<circle cx="251.9" cy="42.0" fill="#d97941" r="3.2"></circle>
+<text class="bar-label" style="fill:#b86432" text-anchor="middle" x="251.9" y="35.0">3.95</text>
+<text class="axis-label" style="fill:#b86432" x="12" y="14">● 표지 발행주식(제한주 포함)</text>
+<text class="axis-label" x="10" y="224">점선 테두리 = 추정·TTM·MRQ (확정 실적과 구분)</text>
+</svg><div class="basis">막대: <b>희석 가중평균주식</b>(EPS 분모), MRQ=3Q26 점선. 주황 점: 표지 발행주식(제한주 포함) — 증가 = <b>희석 가능성</b>.</div></div>
+</div>
+</div>
+<div class="card">
+<b>투자 해석</b>
+<ul class="tight">
+<li>2Q26 매출 사상 최대인데 EPS 0.32의 68%가 SpaceX 지분 평가이익. <mark>본업 EPS는 더 낮다</mark>.</li>
+<li>3Q26 GAAP 순이익에 비트코인 평가이익 70562.64%p, SpaceX 평가손실 −$142M. 분기 EPS가 시가평가에 흔들린다.</li>
+<li>막대(EPS 분모)와 주황 점(발행주식)의 간격 = <b>아직 EPS에 안 들어간 희석</b>(약 4억주).</li>
+<li>이 희석은 성장 투자형이 아닌 경영자 보상형. 주주가치에 중립 이하 <span class="tag t-inf">추론</span>.</li>
+<li>4Q 확인: 매출 $28.5B 상회 여부보다 <b>opex와 크레딧 제외 자동차 GM</b>.</li>
+</ul>
+</div>
+<!-- ============ 4. ECOSYSTEM ============ -->
+<h2><span class="no">4</span>고객·파트너·생태계</h2>
+<div class="chart-card wide">
+<div class="chart-header"><h3>관계도</h3><span class="note">선 굵기 동일 · 점선 = 익명/후보</span></div>
+<svg role="img" viewbox="0 0 760 440" xmlns="http://www.w3.org/2000/svg">
+<line opacity="0.75" stroke="#b86432" stroke-width="1.8" x1="380" x2="380" y1="220" y2="48"></line>
+<line opacity="0.75" stroke="#b86432" stroke-width="1.8" x1="380" x2="600" y1="220" y2="80"></line>
+<line opacity="0.75" stroke="#5d7285" stroke-width="1.8" x1="380" x2="660" y1="220" y2="200"></line>
+<line opacity="0.75" stroke="#5d7285" stroke-dasharray="5 4" stroke-width="1.8" x1="380" x2="640" y1="220" y2="330"></line>
+<line opacity="0.75" stroke="#7f8f68" stroke-width="1.8" x1="380" x2="380" y1="220" y2="395"></line>
+<line opacity="0.75" stroke="#7f8f68" stroke-width="1.8" x1="380" x2="140" y1="220" y2="330"></line>
+<line opacity="0.75" stroke="#7f8f68" stroke-dasharray="5 4" stroke-width="1.8" x1="380" x2="100" y1="220" y2="200"></line>
+<line opacity="0.75" stroke="#7f8f68" stroke-width="1.8" x1="380" x2="160" y1="220" y2="80"></line>
+<circle cx="380" cy="220" fill="#243036" r="62"></circle>
+<text style="font-size:20px;font-weight:800;fill:#fffaf0" text-anchor="middle" x="380" y="214">TESLA</text>
+<text style="font-size:11px;font-weight:700;fill:#ded4c3" text-anchor="middle" x="380" y="236">physical-AI holding</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#b86432" stroke-width="2" width="176" x="292.0" y="24"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="380" y="44">SpaceX / xAI</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="380" y="61">합병 특별위원회 · 지분 보유</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#b86432" stroke-width="2" width="176" x="512.0" y="56"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="600" y="76">Terafab</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="600" y="93">Tesla·SpaceX 칩 팹</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#5d7285" stroke-width="2" width="176" x="572.0" y="176"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="660" y="196">Samsung · TSMC</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="660" y="213">AI5/AI6 칩 파운드리</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#5d7285" stroke-dasharray="5 4" stroke-width="2" width="176" x="552.0" y="306"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="640" y="326">셀 공급사</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="640" y="343">Panasonic·CATL·LGES(후보)</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#7f8f68" stroke-width="2" width="176" x="292.0" y="371"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="380" y="391">FSD 구독자</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="380" y="408">174만 (직접·반복매출)</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#7f8f68" stroke-width="2" width="176" x="52.0" y="306"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="140" y="326">Semi 플릿</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="140" y="343">WattEV 370대 · Einride 500대</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#7f8f68" stroke-dasharray="5 4" stroke-width="2" width="176" x="12.0" y="176"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="100" y="196">유틸리티 / IPP</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="100" y="213">Megapack (고객 대부분 익명)</text>
+<rect fill="#fffaf0" height="48" rx="12" stroke="#7f8f68" stroke-width="2" width="176" x="72.0" y="56"></rect>
+<text style="font-size:13px;font-weight:800;fill:#243036" text-anchor="middle" x="160" y="76">로보택시 이용자</text>
+<text style="font-size:10.5px;font-weight:600;fill:#6f756e" text-anchor="middle" x="160" y="93">Austin·Fort Worth·Dallas(예정)</text>
+<text class="axis-label" x="12" y="432">갈색=Musk 계열 · 블루그레이=공급 파트너 · 그린=고객 · 점선=익명/후보(검증 필요)</text>
+</svg>
+</div>
+<div class="card tbl">
+<table>
+<tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr>
+<tr><td>직접 고객</td><td>FSD 구독자</td><td>월 구독</td><td>활성 174만(3Q 업데이트)</td><td>반복매출·고마진</td><td>A</td><td>구독 가격·해지율 미공시</td></tr>
+<tr><td>직접 고객</td><td>WattEV</td><td>Semi 370대 (~$1억)</td><td>회사 발표</td><td>Semi 상용 수요 입증</td><td>B</td><td>Tesla 매출 대비 0.1% 수준</td></tr>
+<tr><td>직접 고객</td><td>Einride</td><td>Semi 500대, 24개월</td><td>독일 매체 보도</td><td>Amazon 물류 노선</td><td>B/C</td><td>제3자 금융 의존 <span class="tag t-ver">검증 필요</span></td></tr>
+<tr><td>직접 고객</td><td>유틸리티·IPP</td><td>Megapack</td><td>배치 13.7GWh</td><td>에너지 GM 33%</td><td>A(총량)</td><td>개별 고객 익명 → 단정 금지</td></tr>
+<tr><td>최종 수혜 고객</td><td>로보택시 이용자</td><td>TaaS</td><td>Austin·Fort Worth 운영</td><td>2027 실적 기여 목표</td><td>B</td><td>매출 미공시, 규제 조사</td></tr>
+<tr><td>핵심 파트너</td><td>SpaceX / xAI</td><td>합병 후보·Terafab·지분</td><td>특위 공식화, Tesla가 SpaceX 지분 보유</td><td>합병 시 정체성 전환</td><td>A</td><td>이해상충·50% 허들</td></tr>
+<tr><td>핵심 파트너</td><td>Samsung · TSMC</td><td>AI5/AI6 칩 생산</td><td>삼성 AI6 장기계약(2025-07), AI5 양사 생산 발언</td><td>칩 내재화</td><td>B</td><td>Terafab 가동 시 비중 축소 가능</td></tr>
+<tr><td>간접(공급)</td><td>셀 공급사</td><td>배터리 셀</td><td>"배터리 공급이 병목"(3Q 레터)</td><td>인도·저장 상한</td><td>A(병목)</td><td>LGES는 익명 계약 <b>후보</b>일 뿐</td></tr>
+<tr><td>관련 대기업</td><td>현대차·기아·모비스</td><td>경쟁/간접</td><td>—</td><td>관련성 낮음</td><td>C</td><td>직접 거래 근거 없음</td></tr>
+</table>
+</div>
+<!-- ============ 5. CAP STRUCTURE ============ -->
+<h2><span class="no">5</span>자본구조와 수급 (D)</h2>
+<div class="card tbl">
+<table>
+<tr><th style="width:24%">항목</th><th style="width:28%">수치</th><th>설명</th></tr>
+<tr><td>발행주식 (표지)</td><td class="n">3,952,757,946 (10/15)</td><td>1년 새 약 +6억주. <mark>대부분 Musk 제한주</mark>, 시장 매도 물량 아님.</td></tr>
+<tr><td>희석 가중주식 (EPS 분모)</td><td class="n">35.41억</td><td>기본 32.40억 + 주식보상 3.01억.</td></tr>
+<tr><td>Fully diluted (추정)</td><td class="n">~40억</td><td>표지 39.53억 + 임직원 RSU/옵션 일부 <span class="tag t-ver">검증 필요</span>. 밸류에이션에 40억 적용.</td></tr>
+<tr><td>2025 CEO 보상</td><td class="n">4.24억주 (12×3,531만)</td><td>시총 $2T~$8.5T + 운영 마일스톤. 달성 전 EPS 제외. 지배권 변경 시 즉시 측정.</td></tr>
+<tr><td>2018 옵션 행사분</td><td class="n">2.86억 제한주</td><td>2028-01-19 확정, 이후 5년 보유. 의결권 있음.</td></tr>
+<tr><td>전환사채 / warrant</td><td class="n">없음</td><td>과거 CB 전량 정리. 신규 발행 없음.</td></tr>
+<tr><td>ATM / shelf</td><td class="n">미확인</td><td>최근 증자 공시 없음. 자금은 부채 한도로 조달 <span class="tag t-ver">검증 필요</span>.</td></tr>
+<tr><td>부채</td><td class="n">금융부채 ~$8–9B + $30B 미인출 한도</td><td>대부분 비소구(ABS·중국 운전자금). 순현금 ~$36B.</td></tr>
+<tr><td>Insider 지분</td><td class="n">Musk 6.996억주 (19.9%)</td><td>+ 보상 4.24억(의결권 비례 투표). Insider 순매수 없음.</td></tr>
+<tr><td>기관 지분</td><td class="n">~45–50%</td><td>BlackRock 5% 미만으로 하락(희석 때문). 집계처별 상이 <span class="tag t-ver">검증 필요</span>.</td></tr>
+<tr><td>Short</td><td class="n">6,935만주 · DTC 2.2</td><td>유통주식(~28억) 대비 ~2.5%. <mark>스퀴즈 구조 아님</mark>.</td></tr>
+<tr><td>거래량</td><td class="n">11/2 4,313만 vs 평균 3,676만</td><td>+17%. 로보택시 도시 확장 뉴스 동반.</td></tr>
+</table>
+</div>
+<div class="card">
+<h3>최근 상승(10/16 저점 $349.33 → $403.82, +15.6%) 분해 <span class="tag t-inf">추론</span></h3>
+<table>
+<tr><th>요인</th><th>기여 추정</th><th>근거</th></tr>
+<tr><td>멀티플 확장 (합병·로보택시 서사)</td><td class="n"><mark>~60%</mark></td><td>10/20 합병 특위 공식화, Barclays $450, Fort Worth 개시</td></tr>
+<tr><td>펀더멘털</td><td class="n">~25%</td><td>3Q GM 19.6%·FCF 흑자·조정 EPS beat. 단 GAAP EPS는 하락</td></tr>
+<tr><td>Financing overhang 해소</td><td class="n">~10%</td><td>증자 대신 $30B 부채 한도 → 희석 증자 우려 제거</td></tr>
+<tr><td>Short covering</td><td class="n">~5%</td><td>SI 3월 대비 오히려 증가, DTC 2.2 → 영향 작음</td></tr>
+</table>
+</div>
+<!-- ============ 6. VALUATION ============ -->
+<h2><span class="no">6</span>밸류에이션과 목표가</h2>
+<div class="chart-card wide">
+<div class="chart-header"><h3>Valuation Bridge</h3><span class="note">세로 점선: 현재가 · $506 보상 트리거</span></div>
+<svg role="img" viewbox="0 0 760 330" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="150.0" x2="150.0" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="150.0" y="306">$0</text>
+<line class="grid" x1="228.6" x2="228.6" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="228.6" y="306">$100</text>
+<line class="grid" x1="307.1" x2="307.1" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="307.1" y="306">$200</text>
+<line class="grid" x1="385.7" x2="385.7" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="385.7" y="306">$300</text>
+<line class="grid" x1="464.3" x2="464.3" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="464.3" y="306">$400</text>
+<line class="grid" x1="542.9" x2="542.9" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="542.9" y="306">$500</text>
+<line class="grid" x1="621.4" x2="621.4" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="621.4" y="306">$600</text>
+<line class="grid" x1="700.0" x2="700.0" y1="20" y2="290"></line>
+<text class="axis-label" text-anchor="middle" x="700.0" y="306">$700</text>
+<line stroke="#5d7285" stroke-dasharray="5 4" stroke-width="1.4" x1="467.3" x2="467.3" y1="14" y2="290"></line>
+<text class="axis-label" style="fill:#5d7285" x="471.3" y="14">현재 $403.82</text>
+<line stroke="#c95b4a" stroke-dasharray="2 3" stroke-width="1.2" x1="547.6" x2="547.6" y1="14" y2="290"></line>
+<text class="axis-label" style="fill:#c95b4a" x="551.6" y="26">$506 = 시총 $2T (Musk 보상 1차 트랜치)</text>
+<text class="bar-label" text-anchor="end" x="140" y="55.0">하방 리스크</text>
+<rect fill="#c95b4a" height="30" rx="6" width="204.3" x="150" y="36"></rect>
+<text class="bar-label" x="362.3" y="55.0">$260 · -36%</text>
+<text class="bar-label" text-anchor="end" x="140" y="98.0">보수적 내재가치</text>
+<rect fill="#7f8f68" height="30" rx="6" width="149.3" x="150" y="79"></rect>
+<text class="bar-label" x="307.3" y="98.0">$190 · -53%</text>
+<text class="bar-label" text-anchor="end" x="140" y="141.0">현재 주가</text>
+<rect fill="#5d7285" height="30" rx="6" width="317.3" x="150" y="122"></rect>
+<text class="bar-label" x="475.3" y="141.0">$403.82 · 기준</text>
+<text class="bar-label" text-anchor="end" x="140" y="184.0">12M base</text>
+<rect fill="#d97941" height="30" rx="6" width="330.0" x="150" y="165"></rect>
+<text class="bar-label" x="488.0" y="184.0">$420 · +4%</text>
+<text class="bar-label" text-anchor="end" x="140" y="227.0">bull</text>
+<rect fill="#b86432" height="30" rx="6" width="440.0" x="150" y="208"></rect>
+<text class="bar-label" x="598.0" y="227.0">$560 · +39%</text>
+<text class="bar-label" text-anchor="end" x="140" y="270.0">overshoot</text>
+<rect fill="none" height="30" rx="6" stroke="#b86432" stroke-dasharray="6 4" stroke-width="2.4" width="510.7" x="150" y="251"></rect>
+<text class="bar-label" x="668.7" y="270.0">$650 · +61%</text>
+</svg>
+</div>
+<div class="card">
+<b>해석</b>
+<ul class="tight">
+<li>현재가는 보수적 내재가치($190)보다 <mark>+113% 높다</mark>. 안전마진 없음.</li>
+<li>$403.82는 base($420)와 거의 같다. <b>base case를 이미 다 산 가격</b>, bull 일부 선반영.</li>
+<li>overshoot $650은 펀더멘털이 아니다. 숏 비중이 낮아 스퀴즈가 아닌 <b>합병 프리미엄 + 개인 수급 과열</b> 시나리오.</li>
+<li>매수 구간은 <mark>$350 이하</mark>(10월 저점), 축소 구간은 <mark>$500~510</mark>($2T 트리거 근처).</li>
+</ul>
+</div>
+<div class="card tbl">
+<table>
+<tr><th>시나리오</th><th>목표가</th><th>적용 매출/EPS/FCF</th><th>멀티플</th><th>희석 주식</th><th>확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr>
+<tr><td><b>보수적 내재가치</b></td><td class="n">$190</td><td>SOTP: 자동차·서비스 $140B + 에너지 $50B + FSD $52B + 순현금 $36B + SpaceX 지분 ~$10B + AI 옵션 $450B</td><td>매출 1.5x / 4x / ARR 25x</td><td class="n">39.5억</td><td class="n">5%</td><td>합병 무산 + AI 지연</td><td>로보택시 매출 가시화</td><td>여기선 적극 매수</td></tr>
+<tr><td><b>하방 리스크</b></td><td class="n">$260</td><td>2027E 조정 EPS $1.6</td><td>160x</td><td class="n">40억</td><td class="n">15%</td><td>합병 결렬, 4Q opex 급증, FCF 적자</td><td>—</td><td>$300 하회 시 축소</td></tr>
+<tr><td><b>12M base</b></td><td class="n">$420</td><td>2027E 매출 $121B, 조정 EPS $2.16 → 2028E ~$2.8 <span class="tag t-inf">추론</span></td><td>2028E 150x</td><td class="n">40억</td><td class="n">45%</td><td>로보택시 도시 확장, FSD 구독 200만</td><td>영업이익률 &lt;2% 지속</td><td>보유</td></tr>
+<tr><td><b>bull</b></td><td class="n">$560</td><td>시총 $2.2T (합병 딜 가치 또는 TaaS 매출 공시)</td><td>합병 교환가치</td><td class="n">40억 (+1차 트랜치 0.35억)</td><td class="n">25%</td><td>합병 발표 ≥$506, 2Q27 로보택시 기여</td><td>교환비율 불리</td><td>1.98–2.47%p 차익</td></tr>
+<tr><td><b>overshoot</b></td><td class="n">$650</td><td>시총 $2.6T, 펀더멘털 근거 없음</td><td>수급</td><td class="n">40.7억 (2트랜치)</td><td class="n">10%</td><td>합병 승인 기대 과열</td><td>표결 50% 미달</td><td>2.47%p 추가 차익</td></tr>
+<tr><td><b>실적 전 trading</b></td><td class="n">$450</td><td>12/0.30%총·합병 뉴스 선반영</td><td>—</td><td>—</td><td>조건부</td><td>주총 전 딜 발표</td><td>발표 지연</td><td>추격 금지</td></tr>
+<tr><td><b>실적 후 재평가</b></td><td class="n">$470 / $340</td><td>beat+raise 시 / 미스 시</td><td>—</td><td>—</td><td>조건부</td><td>4Q 레터(1월 말 예상)</td><td>—</td><td>$340대 1차 매수</td></tr>
+</table>
+<p class="note">확률가중 기대가 = 0.05×190 + 0.15×260 + 0.45×420 + 0.25×560 + 0.10×650 = <b>$442.5 (+9.6%)</b>. 모든 목표가는 본 보고서의 추론이며 애널리스트 컨센서스 아님. 참고: 10월 초 평균 목표가 ~$397(S&amp;P 집계), UBS $247 ~ Wedbush $600.</p>
+</div>
+<!-- ============ 7. ACTION PLAN ============ -->
+<h2><span class="no">7</span>실적 전후 행동 계획 · 리스크 · 실행안</h2>
+<div class="grid2">
+<div class="card">
+<h3>다음 이벤트</h3>
+<ul class="tight">
+<li><b>12/3 연례 주총</b> (Austin) — 합병 관련 발표 가능성. 실질적 1차 촉매.</li>
+<li><b>12/9 FOMC</b> — 추가 인상 여부.</li>
+<li><b>4Q26 실적: 2027년 1월 말 예상</b> (전년 1/28) <span class="tag t-ver">미확정</span>. 컨센 매출 $28.47B, 조정 EPS $0.49.</li>
+</ul>
+<h3 style="margin-top:12px">실적 전 판단</h3>
+<ul class="tight">
+<li>기대 반영도: <mark>높음</mark>. 0.20% +16%, base 목표가 도달.</li>
+<li>실적 전 매수: <b>안 함</b>. 합병 뉴스가 실적보다 큰 변수.</li>
+<li>beat만으로는 부족. <b>beat + 2027 가이던스(capex·FCF) 명확화</b> 필요.</li>
+</ul>
+</div>
+<div class="card">
+<h3>이 숫자면 오른다</h3>
+<ul class="tight">
+<li>크레딧 제외 자동차 GM ≥19%</li>
+<li>영업이익률 ≥4% (opex 증가율 둔화)</li>
+<li>FSD 구독 ≥190만, 로보택시 유료 마일/매출 공시</li>
+<li>2027 capex 가이던스와 FCF 흑자 동시 제시</li>
+</ul>
+<h3 style="margin-top:12px">이 숫자면 빠진다</h3>
+<ul class="tight">
+<li>영업이익률 &lt;2%, GAAP EPS &lt;$0.20</li>
+<li>에너지 매출 연속 감소, 배치 &lt;14GWh</li>
+<li>2027 capex &gt;$30B + FCF 적자 + 신용한도 인출</li>
+<li>Cybercab 램프 지연, NHTSA 제재</li>
+</ul>
+</div>
+</div>
+<div class="card tbl">
+<h3>Thesis break trigger</h3>
+<table>
+<tr><th>리스크</th><th>thesis가 깨지는 지표</th><th>시장이 반영 시작하는 가격</th><th>확인 시점</th><th>대응</th></tr>
+<tr><td>매출 성장 둔화</td><td>2026 매출 &lt;$103B (컨센 $106B)</td><td class="n">$370</td><td>1월 4Q</td><td>추가매수 보류</td></tr>
+<tr><td>EPS 정체</td><td>2분기 연속 영업이익률 &lt;2%</td><td class="n">$340</td><td>4Q·1Q27</td><td>2.97%p 축소</td></tr>
+<tr><td>주식 수 희석</td><td>신규 보상안·증자 공시, 희석 가중주식 &gt;36억</td><td class="n">$380</td><td>주총·10-Q</td><td>반대 투표·비중 점검</td></tr>
+<tr><td>현금 소진</td><td>현금 &lt;$35B 또는 TL 인출</td><td class="n">$330</td><td>분기</td><td>2.97%p 축소</td></tr>
+<tr><td>고객 집중</td><td>로보택시가 Austin 외 확장 실패</td><td class="n">$350</td><td>2027 1H</td><td>bull 확률 하향</td></tr>
+<tr><td>경쟁사 대체</td><td>Waymo 등 도시·마일 격차 확대, 중국 EV 가격 공세</td><td class="n">$340</td><td>상시</td><td>비중 10% 이하</td></tr>
+<tr><td>금리·실업·신용</td><td>10년물 &gt;5.5%, 실업률 &gt;4.5%, 오토론 연체 상승</td><td class="n">$320</td><td>월간</td><td>신규 매수 중단</td></tr>
+<tr><td>급등 후 급락</td><td>$560+ 도달 후 거래량 급감</td><td class="n">고점 −20%</td><td>이벤트 후</td><td>미리 분할 차익</td></tr>
+<tr><td>M&amp;A 과열</td><td>교환비율 Tesla 몫 &lt;50% 또는 표결 실패</td><td class="n">$300</td><td>딜 공시</td><td>4.95%p 축소</td></tr>
+</table>
+</div>
+<div class="card tbl">
+<h3>포트폴리오 실행안 (14.84% 기준)</h3>
+<table>
+<tr><th>항목</th><th>제안</th></tr>
+<tr><td>목표 비중</td><td><mark>10~12% 유지</mark> (과거 35% 집중은 반복 금지). 핵심 성(城)은 유지, 추격 확대는 없음.</td></tr>
+<tr><td>매수 가격 · 비중</td><td>1차 <b>$350</b> 0.99% · 2차 <b>$310</b> 1.48% (최대 17.31%). 조건: thesis 유지 + 합병 결렬이 아닌 매크로성 하락일 때만.</td></tr>
+<tr><td>매도 가격 · 비중</td><td>1차 <b>$505</b> 1.98% · 2차 <b>$560</b> 2.47% · 3차 <b>$650</b> 2.47% → 코어 7.92% 장기 보유.</td></tr>
+<tr><td>분할</td><td>매수 2차, 매도 3차.</td></tr>
+<tr><td>실적 전</td><td>보유. 신규 매수 금지. 합병 발표 시 <b>교환비율 확인 전 추격 금지</b>.</td></tr>
+<tr><td>실적 후</td><td>beat+raise → 보유, 매도 라인 유지. 미스 → $340대에서 1차 매수 검토.</td></tr>
+<tr><td>목표가 도달 시</td><td>$505 도달 시 1.98%p 차익. 12월·1월로 나눠 매도해 <b>연도별 기본공제 250만원 2회 활용</b>(22% 양도세).</td></tr>
+<tr><td>thesis 훼손 시</td><td>종가 $300 하회 + 위 trigger 2개 이상 → 4.95%p 축소. 기계적 손절이 아닌 지표 확인형.</td></tr>
+<tr><td>시나리오별 손익 (14.84%)</td><td>base +0.59%p · bull +5.74%p · overshoot +9.05%p · 하방 −5.29%p (세전, 현재가 대비)</td></tr>
+</table>
+</div>
+<!-- ============ FINAL ============ -->
+<div class="final">
+<h2>최종 투자 행동 요약</h2>
+<dl>
+<dt>현재 주가</dt><dd>$403.82 (11/2 종가)</dd>
+<dt>보수적 내재가치</dt><dd>$190 (SOTP 추론)</dd>
+<dt>12개월 base target</dt><dd>$420</dd>
+<dt>bull target</dt><dd>$560</dd>
+<dt>overshoot target</dt><dd>$650 (수급·합병 과열, 펀더멘털 아님)</dd>
+<dt>실적 발표 전 trading target</dt><dd>$450</dd>
+<dt>실적 발표 후 재평가 target</dt><dd>$470 (beat+raise) / $340 (미스)</dd>
+<dt>하방 리스크</dt><dd>$260</dd>
+<dt>12개월 기대수익률</dt><dd>+9.6% (확률가중, 세전)</dd>
+<dt>총자산 대비 기대 기여도</dt><dd>+1.42%p (14.84%)</dd>
+<dt>추천 행동</dt><dd><mark>HOLD · 보유 (신규 매수 금지)</mark></dd>
+<dt>목표 비중</dt><dd>10~12%</dd>
+<dt>실적 발표 전 행동</dt><dd>보유, 12/0.30%총·합병 조건 확인, 추격 금지</dd>
+<dt>실적 발표 후 행동</dt><dd>beat+raise면 보유 / 미스면 $340대 0.99%p 매수 검토</dd>
+<dt>목표가 도달 시 행동</dt><dd>$505 1.98% → $560 2.47%p → $650 2.47% 분할 차익, 코어 7.92%p</dd>
+<dt>thesis 훼손 시 행동</dt><dd>$300 하회 + trigger 2개 → 4.95%p 축소</dd>
+<dt>가장 중요한 체크포인트</dt><dd>① 합병 교환비율과 딜 가치(≥$506?) ② 4Q 영업이익률·opex ③ 로보택시 매출 첫 공시</dd>
+<dt>내가 틀렸다고 인정해야 하는 조건</dt><dd>합병 결렬 + 2분기 연속 영업이익률 &lt;2% + 2027 capex 증가 속 FCF 적자·신용한도 인출. 셋 중 둘이면 thesis 폐기.</dd>
+</dl>
+</div>
+<div class="card src">
+<h3>출처</h3>
+<ul>
+<li>Tesla 10-Q (3Q26, 2026-10-22): <a href="https://www.sec.gov/Archives/edgar/data/0001318605/000162828026066775/tsla-20260930.htm">sec.gov</a> · <a href="https://ir.tesla.com/_flysystem/s3/sec/000162828026066775/tsla-20260930-gen.pdf">ir.tesla.com PDF</a></li>
+<li>Tesla 10-Q (1Q26): <a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026026673/tsla-20260331.htm">sec.gov</a> · 10-Q (2Q26): <a href="https://www.sec.gov/Archives/edgar/data/0001318605/000162828026049270/tsla-20260630.htm">sec.gov</a></li>
+<li>Tesla 1Q26 컨센서스(IR): <a href="https://ir.tesla.com/press-release/earnings-consensus-first-quarter-2026">ir.tesla.com</a></li>
+<li>Electrek 3Q26 실적: <a href="https://electrek.co/2026/10/21/tesla-tsla-q3-2026-financial-results/">electrek.co</a> · 3Q26 프리뷰: <a href="https://electrek.co/2026/10/20/tesla-tsla-q3-2026-earnings-preview/">electrek.co</a></li>
+<li>Electrek 프록시/합병·보상 분석: <a href="https://electrek.co/2026/10/19/tesla-tsla-proxy-annual-meeting-spacex-merger/">electrek.co</a> · SEC 자동위임: <a href="https://electrek.co/2026/09/29/tesla-sec-retail-auto-vote-board-spacex-merger/">electrek.co</a></li>
+<li>InvestingLive 3Q26: <a href="https://investinglive.com/stocks/tesla-q3-earnings-beat-as-margins-and-cash-flow-surprise-revenue-narrowly-misses/">investinglive.com</a> · Kalkine 10-Q 요약: <a href="https://kalkine.com/news/announcements/tesla-q3-2026-revenue-flat-rd-surges-to-276b">kalkine.com</a></li>
+<li>Stocktwits capex 하향: <a href="https://stocktwits.com/news-articles/markets/equity/tsla-stock-reverses-after-hours-gains-as-tesla-cuts-full-year-capex-guidance-to-20-b-musk-tempers-optimus-timeline/cZxMSJuRBwc">stocktwits.com</a> · 3Q 콜 트랜스크립트: <a href="https://singjupost.com/transcript-tesla-tsla-q3-2026-earnings-call/">singjupost.com</a></li>
+<li>$30B 신용한도: <a href="https://driveteslacanada.ca/news/tesla-30-billion-credit-lines/">driveteslacanada.ca</a> · <a href="https://www.basenor.com/blogs/news/tesla-locks-in-30-billion-credit-package-what-the-sec-filing-reveals">basenor.com</a> · <a href="https://fourweekmba.com/ai-tesla-30-billion-credit-facilities-8k-analysis/">fourweekmba.com</a></li>
+<li>SpaceX 합병: <a href="https://aljazeera.com/economy/2026/10/21/elon-musk-says-spacex-and-tesla-exploring-largest-merger-in">aljazeera.com</a> · <a href="https://thenextweb.com/news/spacex-tesla-merger-musk-insiders-reuters">thenextweb.com</a> · <a href="https://www.morningstar.com.au/stocks/what-happens-if-tesla-spacex-merge">morningstar.com.au</a> · <a href="https://decrypt.co/381753/spacex-filing-elon-musk-final-word-tesla-merger">decrypt.co</a></li>
+<li>희석·BlackRock: <a href="https://eletric-vehicles.com/tesla/blackrocks-stake-in-tesla-falls-below-5-over-dilution/">eletric-vehicles.com</a> · Musk 13G/A: <a href="https://www.stocktitan.net/sec-filings/TSLA/schedule-13g-a-tesla-inc-amended-passive-investment-disclosure-cbfd3603af2b.html">stocktitan.net</a></li>
+<li>2Q26 실적: <a href="https://qz.com/tesla-q2-2026-earnings-revenue-profit-072226">qz.com</a> · <a href="https://electrek.co/?p=476867">electrek.co</a> · 1Q26: <a href="https://247wallst.com/companies/tsla/earnings/2026/Q1/">247wallst.com</a></li>
+<li>4Q25/FY25: <a href="https://driveteslacanada.ca/news/tesla-beats-q4-2025-earnings-estimates-as-margins-improve/">driveteslacanada.ca</a> · <a href="https://www.letsdatascience.com/news/tesla-reports-q4-and-full-year-2025-results-2edbf572">letsdatascience.com</a></li>
+<li>분기 주식수 집계: <a href="https://www.marketbeat.com/stocks/NASDAQ/TSLA/financials/">marketbeat.com</a> · 부채: <a href="https://stockanalysis.com/stocks/tsla/financials/balance-sheet/">stockanalysis.com</a></li>
+<li>주가·거래량: <a href="https://finance.yahoo.com/quote/TSLA/">Yahoo Finance</a> · <a href="https://www.heygotrade.com/en/news/tesla-tsla-stock-news-november-3-2026/">heygotrade.com</a> · <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/262265898-tesla-forecast-above-400-target-500-tradingkey">tradingkey.com</a></li>
+<li>컨센서스: <a href="https://finance.yahoo.com/quote/TSLA/analysis/">Yahoo Analysis</a> · 목표가: <a href="https://beinsure.com/news/tesla-stock-price-forecast/">beinsure.com</a> · <a href="https://www.tipranks.com/news/wall-street-analysts-split-on-tesla-stock-tsla-after-q3-miss">tipranks.com</a></li>
+<li>Short interest: <a href="https://massive.com/quote/tsla">massive.com</a> · <a href="https://equibles.com/stocks/tsla/shortinterest">equibles.com</a></li>
+<li>Insider (CFO Form 4): <a href="https://www.sec.gov/Archives/edgar/data/0001318605/000110465926106432/tm2625055d1_4seq1.xml">sec.gov</a></li>
+<li>Semi 주문: <a href="https://www.nasdaq.com/articles/tesla-lands-record-100m-deal-370-semi-trucks-california">nasdaq.com</a> · <a href="https://www.boerse-express.com/news/articles/tesla-aktie-500-semi-fuer-einride-939865">boerse-express.com</a></li>
+<li>매크로: <a href="https://www.babypips.com/news/headline-us-jobs-report-september-2026-payrolls-miss-fed-hike-odds">babypips.com</a> · <a href="https://blog.orbitremit.com/federal-reserve-fomc-minutes-october-2026/">orbitremit.com</a> · <a href="https://www.advisorperspectives.com/dshort/updates/2026/10/28/feds-interest-rate-decision-october-28-2026">advisorperspectives.com</a></li>
+<li>주총 일정: <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/tesla-stock-faces-november-6-deadline-before-annual-meeting/70446759">ad-hoc-news.de</a></li>
+</ul>
+<p class="note">본 자료는 투자 판단 보조용이며 투자 자문이 아닙니다. 옵션 체인·borrow fee는 확인 가능한 무료 출처가 없어 미포함(검증 필요).</p>
+</div>
+</div>
+</body>
+</html>

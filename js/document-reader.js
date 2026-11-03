@@ -35,7 +35,7 @@
     var columns = Math.max.apply(null, rows.map(function (row) { return Array.from(row.cells).reduce(function (n, cell) { return n + cell.colSpan; }, 0); }));
     var headers = Array.from(head.cells).map(function (cell) { return cell.textContent.trim(); });
     var cells = rows.slice(1).flatMap(function (row) { return Array.from(row.cells); });
-    var narrative = columns >= 4 && cells.some(function (cell) { return cell.textContent.trim().length > 45; });
+    var narrative = columns >= 3 && cells.some(function (cell) { return cell.textContent.trim().length > 40; });
     var regular = rows.slice(1).every(function (row) { return row.cells.length === headers.length && Array.from(row.cells).every(function (cell) { return cell.colSpan === 1 && cell.rowSpan === 1; }); });
     var stack = narrative && regular && head.querySelector('th') && !table.closest('.reader-workspace');
     var wrap = scrollRegion(table, 'reader-table', '표 ' + (index + 1));

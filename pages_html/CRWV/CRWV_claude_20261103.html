@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html class="document-reader" lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>CRWV · CoreWeave 투자 메모 (2026-11-03) | YOUNG FINANCE 城主</title>
+<style>
+:root{--bg:#f4efe6;--card:#fffaf0;--text:#243036;--muted:#6f756e;--accent:#d97941;--green:#7f8f68;--bluegray:#5d7285;--risk:#c95b4a;--line:#ded4c3;--grid:#e7ddcc;--teal:#5f9ea0;--deep:#b86432}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;line-height:1.55;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;border-bottom:2px solid var(--text);padding-bottom:14px;margin-bottom:18px;flex-wrap:wrap}
+.brand{font-size:12px;letter-spacing:.18em;color:var(--muted);font-weight:800}
+h1{margin:4px 0 0;font-size:30px;letter-spacing:-.02em}
+h1 small{font-size:15px;color:var(--muted);font-weight:600;margin-left:6px}
+.meta{font-size:12.5px;color:var(--muted);text-align:right}
+h2{font-size:21px;margin:38px 0 6px;display:flex;align-items:center;gap:10px}
+h2 .num{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--text);color:var(--card);font-size:14px;align-items:center;justify-content:center}
+.lead{color:var(--muted);margin:0 0 14px;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .l{font-size:12px;color:var(--muted);font-weight:700}
+.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--muted)}
+.tag{display:inline-block;font-size:11.5px;font-weight:800;border-radius:999px;padding:3px 10px;border:1.5px solid currentColor}
+.t-risk{color:var(--risk)}.t-green{color:var(--green)}.t-blue{color:var(--bluegray)}.t-acc{color:var(--accent)}
+.band{border-left:6px solid var(--accent);padding:12px 16px;background:var(--card);border-radius:0 14px 14px 0;margin:10px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band.anti{border-left-color:var(--risk)}
+.band b{display:block;font-size:12px;color:var(--muted);letter-spacing:.05em}
+mark{background:#f6dcc4;color:inherit;padding:0 3px;border-radius:3px}
+mark.r{background:#f1cfc8}
+mark.g{background:#dde3cf}
+table{width:100%;border-collapse:collapse;font-size:13.2px}
+th,td{border-bottom:1px solid var(--grid);padding:8px 8px;text-align:left;vertical-align:top}
+th{font-size:12px;color:var(--muted);font-weight:800;background:#f8f1e4;position:sticky;top:0}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;border-radius:12px}
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+.pill{font-size:11px;font-weight:800;padding:2px 7px;border-radius:6px;white-space:nowrap}
+.pA{background:#dde3cf;color:#4f5c3c}.pB{background:#f6dcc4;color:#8a4a22}.pC{background:#f1cfc8;color:#8d3a2d}
+.inf{font-size:11px;font-weight:800;color:var(--bluegray);border:1px dashed var(--bluegray);border-radius:5px;padding:0 5px;white-space:nowrap}
+.chk{font-size:11px;font-weight:800;color:var(--risk);border:1px dashed var(--risk);border-radius:5px;padding:0 5px;white-space:nowrap}
+ul.tight{margin:6px 0;padding-left:18px}ul.tight li{margin:3px 0}
+/* required chart css */
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:22px 0}
+.chart-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.chart-header h3{margin:0;font-size:16px}
+.tabs{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:700}
+.tabs .active{color:var(--text);border:2px solid var(--bluegray);border-radius:10px;padding:5px 10px;background:rgba(93,114,133,0.10)}
+.mini-chart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.mini-chart h3{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.mini-chart svg{width:100%;height:auto;display:block}
+.mini-chart .cap{font-size:11.5px;color:var(--muted);margin-top:4px}
+.grid{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 3}
+.zero{stroke:var(--text);stroke-width:1.2;opacity:0.55}
+.bar-negative{fill:var(--risk)}.bar-positive{fill:var(--bluegray)}.bar-revenue{fill:var(--accent)}.bar-shares{fill:var(--teal)}
+.bar-outline{fill:none;stroke-width:2.5;stroke:currentColor}
+.bar-label{font-size:11px;font-weight:800;fill:var(--text)}
+.axis-label{font-size:10px;font-weight:700;fill:var(--muted)}
+.vb-label{font-size:13px;font-weight:800;fill:var(--text)}
+.interp{background:#f8f1e4;border-radius:12px;padding:12px 16px;margin-top:14px;font-size:13.5px}
+.interp ol{margin:4px 0;padding-left:18px}.interp li{margin:3px 0}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.final{background:var(--text);color:var(--card);border-radius:18px;padding:22px 24px;margin-top:30px}
+.final h2{color:var(--card);margin-top:0}
+.final dl{display:grid;grid-template-columns:200px 1fr;gap:6px 16px;margin:0;font-size:14px}
+.final dt{color:#c9c2b4;font-weight:700}
+.final dd{margin:0}
+.final mark{background:#d97941;color:#fff}
+.src{font-size:12.5px}.src li{margin:3px 0;word-break:break-all}
+a{color:var(--bluegray)}
+.timeline td:first-child{white-space:nowrap;font-weight:800}
+@media (max-width:900px){
+ .mini-chart-grid{grid-template-columns:1fr}
+ .chart-header{align-items:flex-start;flex-direction:column}
+ .grid2,.grid3{grid-template-columns:1fr}
+ .grid4{grid-template-columns:1fr 1fr}
+ .final dl{grid-template-columns:1fr}
+ h1{font-size:24px}
+}
+</style>
+<link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head>
+<body>
+<div class="wrap">
+<header class="top">
+<div>
+<div class="brand">YOUNG FINANCE · 城主 FORENSIC MEMO</div>
+<h1>CRWV · CoreWeave, Inc.<small>Nasdaq · AI 클라우드(neocloud)</small></h1>
+</div>
+<div class="meta">분석 기준일 2026-11-03 (한국 11/3 23:50 작성)<br/>주가: 11/3 미 동부 오전 9:30~9:40 실시간 <b>$51.3~51.5</b><br/>다음 실적: <b>11/10(화) 장 마감 후 · 한국 11/11(수) 07:00 콜</b></div>
+</header>
+<!-- ===================== PRE-BRIEF A~E ===================== -->
+<h2><span class="num">0</span>정식 보고서 전 핵심 5가지</h2>
+<p class="lead">확정 사실(공시·회사 발표)과 추론을 분리. <span class="inf">추론</span> = 합리적 해석, <span class="chk">검증 필요</span> = 아직 확인 불가.</p>
+<h3>놓치기 쉬운 핵심 신호 3개</h3><div class="grid3">
+<div class="card">
+<span class="tag t-acc">A-1 숨은 신호</span>
+<h3 style="margin:8px 0 4px;font-size:16px">가격은 오르는데 계약은 짧아졌다</h3>
+<p style="margin:0;font-size:13.5px"><b>사실:</b> 3Q 신규 단기계약(3~6개월) 단가 <mark>MW당 연환산 약 $40M</mark>, 2Q 신규계약 기여마진 +5~10%p.<br/><b>해석</b> <span class="inf">추론</span>: GPU 부족 → 가격결정권은 CoreWeave 쪽. 다만 단기계약 비중이 늘면 backlog 듀레이션이 짧아지고, 수요가 꺾일 때 가장 먼저 빠지는 매출이 된다.</p>
+</div>
+<div class="card">
+<span class="tag t-risk">A-2 숨은 신호</span>
+<h3 style="margin:8px 0 4px;font-size:16px">전환가는 내려가고, 내부자는 판다</h3>
+<p style="margin:0;font-size:13.5px"><b>사실:</b> 전환사채 전환가 4월 <b>$119.60</b> → 9월 <mark class="r">$97.85</mark>, 9월 ATM <b>3,500만 주</b> 프로그램 신설. 창업자 3인 IPO 후 <mark class="r">$3.3B 매도, 2026년만 $2.4B</mark> (대부분 10b5-1).<br/><b>해석</b> <span class="inf">추론</span>: 자금조달이 "고금리 무담보채 → 주식연계"로 이동. 이자는 줄지만 희석 부담이 주주에게 넘어온다.</p>
+</div>
+<div class="card">
+<span class="tag t-blue">A-3 숨은 신호</span>
+<h3 style="margin:8px 0 4px;font-size:16px">공매도 21%의 일부는 '헤지'</h3>
+<p style="margin:0;font-size:13.5px"><b>사실:</b> 10/15 공매도 <mark>유통주식의 21.25%</mark>(9/30 대비 +3.0%p). 같은 기간 $4.2B 전환사채 발행(9/22).<br/><b>해석</b> <span class="inf">추론</span>: 전환사채 차익거래 펀드의 델타 헤지 매도가 공매도에 섞여 있다. 그래서 숫자만큼 squeeze 연료가 크지 않을 수 있다. Days to cover도 약 2일로 짧다.</p>
+</div>
+</div>
+<div class="grid2">
+<div class="card">
+<span class="tag t-green">B 기업 정체성 재정의</span>
+<table style="margin-top:8px">
+<tr><th style="width:26%">관점</th><th>시장이 보는 회사 (레거시 잣대)</th><th>내가 보는 회사</th></tr>
+<tr><td><b>정체성</b></td><td>빚으로 GPU 사서 빌려주는 neocloud. 2000년 통신 오버빌더 재현. S&amp;P <b>B+</b> 하이일드 발행사</td><td>IG 고객의 <mark class="g">take-or-pay 계약을 담보로 돈을 빌려 짓는 AI 인프라 프로젝트 파이낸스 플랫폼</mark> + Nvidia의 사실상 전속 배포 채널</td></tr>
+<tr><td><b>매출 구조</b></td><td>GPU 시간 임대 (원가 경쟁)</td><td>다년 예약 계약(backlog $104B) + 비GPU 서비스 ARR $400M+ + 추론 관리형 ARR(연말 $250M+ 목표)</td></tr>
+<tr><td><b>마진·lock-in</b></td><td>하이퍼스케일러가 따라오면 가격 붕괴</td><td>신규계약 마진 상승 중. 단, 소프트웨어 매출 비중이 아직 5% 미만이라 lock-in은 <span class="inf">추론</span> 단계</td></tr>
+<tr><td><b>밸류 잣대</b></td><td>신용위험 할인 → 2027E EV/EBITDA 약 5.5배 <span class="inf">추론</span></td><td>자금조달이 정상화되면 인프라/유틸리티형 6~7.5배. <mark>multiple 1배 = 주당 약 $23</mark></td></tr>
+</table>
+</div>
+<div class="card">
+<span class="tag t-risk">E 반대 thesis (같은 강도로)</span>
+<ul class="tight" style="font-size:13.5px">
+<li><b>우연일 가능성:</b> 단가 상승·신규계약은 GPU 부족이라는 일시적 사이클 덕일 수 있다. 공급이 풀리면 단기계약 단가부터 무너진다.</li>
+<li><b>계약 과대평가:</b> backlog는 현금이 아니다. 고객이 재협상·지연하면 줄 수 있다. <mark class="r">Nvidia 백스톱 $6.3B는 backlog의 6%</mark>뿐이다.</li>
+<li><b>매출↑ EPS↓:</b> 2Q 매출 +112%인데 EPS는 −0.60 → −1.14. <mark class="r">3Q 이자비용 가이드 $0.86~0.94B는 조정영업이익의 약 4배</mark>.</li>
+<li><b>희석:</b> 가중평균 희석주식 수 1년 +13%(487M→551M). ATM 3,500만 주와 전환사채가 남아 있다.</li>
+<li><b>금리·신용:</b> 10년물 5.3%(2002년 이후 최고), 9월 연준 인상, 9월 고용 +2.9만 명, 실업률 4.2%. 하이일드 시장이 닫히면 2027년 만기 $6.2B 재조달이 막힌다.</li>
+<li><b>squeeze 후 급락:</b> 베타 3.6. 실적 후 숏커버로 급등해도 전환가($97.85) 아래 구간에서 매물이 반복된다.</li>
+<li><b>M&amp;A 과열:</b> Core Scientific 인수는 무산됐다. Musk는 "SpaceX는 neocloud를 사지 않는다"고 했다. 인수 기대는 근거가 약하다.</li>
+</ul>
+</div>
+</div>
+<!-- C. event chain -->
+<section class="reader-quarter"><h2>2026년 4분기 사건 요약</h2><p class="reader-period">10–12월 중 원문에 날짜가 명시된 핵심 사건입니다. 작성일 이후 일정은 예정으로 표시했습니다.</p><div class="reader-summary"><ol><li><strong>10/25~26 · Musk 경고</strong><p><b>원문 사실:</b> "200개 넘는 neocloud가 실패할 수 있다", "SpaceX는 인수하지 않는다". 섹터 동반 하락</p><p><b>의미:</b> M&amp;A 출구 기대 차단</p></li><li><strong>10/27~28 · 3일 반등</strong><p><b>원문 사실:</b> 데이터센터 업데이트와 "부채상환 안전망" 분석으로 3거래일 연속 상승</p><p><b>의미:</b> 일부 숏커버 추론</p></li><li><strong>10/28 FOMC · 금리 결정</strong><p><b>원문 사실:</b> 검증 필요 결과 미확인 (시장은 동결 우세 전망이었음)</p><p><b>의미:</b> —</p></li><li><strong>10/29~30 · 하이퍼스케일러 capex 하회</strong><p><b>원문 사실:</b> MSFT·GOOGL capex가 추정치 하회. 나스닥 −2.5%. CRWV 10/30 −9.7%</p><p><b>의미:</b> AI 지출 속도 논쟁 재점화</p></li><li><strong>11/2 · 신저가, 파트너십</strong><p><b>원문 사실:</b> CrowdStrike와 AI 워크로드 보안 제휴. 52주 저가 $49.46</p><p><b>의미:</b> 뉴스 무시, 수급이 주가 결정</p></li></ol></div></section>
+<!-- D. capital structure forensic -->
+<div class="card">
+<span class="tag t-blue">D 자본구조 forensic 요약 → 상세는 5장</span>
+<div class="grid4" style="margin-top:10px">
+<div class="kpi"><div class="l">현금 (6/30)</div><div class="v">$5.5B</div><div class="s">12/31 $3.1B</div></div>
+<div class="kpi"><div class="l">차입금 (6/30, 리스 제외)</div><div class="v t-risk">$35.1B</div><div class="s">+ 운용리스 약 $16.3B → 총 $51.6B</div></div>
+<div class="kpi"><div class="l">희석주식 수 (2Q 가중)</div><div class="v">551M</div><div class="s">YoY +13% · 발행주식 551.5M</div></div>
+<div class="kpi"><div class="l">공매도 (10/15)</div><div class="v">21.3%</div><div class="s">유통주식 대비 · DTC ~2일</div></div>
+</div>
+<p class="note" style="font-size:13px"><b>최근 1개월 하락(약 −45%) 분해</b> <span class="inf">추론</span>: 펀더멘털 변화 ≈ 0% (가이던스·backlog 변동 없음) · <mark class="r">신용/multiple 압축 ≈ 55%</mark> · 공급 오버행(전환사채 헤지, ATM, 창업자 매도) ≈ 20% · 매크로/섹터(금리, 하이퍼스케일러 capex, Musk) ≈ 25%. 숏커버는 상승 동력이 아니었다. 오히려 공매도 증가가 하락을 키웠다.</p>
+</div>
+<!-- ===================== 1. EXEC SUMMARY ===================== -->
+<h2><span class="num">1</span>Executive Summary</h2>
+<div class="band"><b>한 문장 투자 THESIS</b>backlog $104B(+3Q $25B), 단가 상승, 마진 변곡으로 <mark>2027년 조정 EBITDA ~$14B</mark> 경로는 보인다 <span class="inf">추론</span>. 그런데 주가는 신용 공포 때문에 2027E EV/EBITDA 약 5.5배다. 2027년 자금조달만 확인되면 multiple 정상화가 레버리지를 타고 주가에 증폭된다.</div>
+<div class="band anti"><b>한 문장 ANTI-THESIS</b>이 자본구조에서 주주는 <mark class="r">후순위 콜옵션</mark>이다. 분기 이자(~$0.9B)가 조정영업이익의 4배이고, 내부자는 팔고, 회사는 주식연계로 희석한다. 채권이 80센트라면 지금 주식은 base case가 아니라 '생존'을 사는 것이다.</div>
+<div class="grid4">
+<div class="kpi"><div class="l">투자 등급</div><div class="v t-blue">Hold</div><div class="s">수요는 A급, 자본구조는 C급</div></div>
+<div class="kpi"><div class="l">포트폴리오 행동</div><div class="v" style="font-size:20px">보유</div><div class="s"><mark>실적(11/10) 전 신규 매수 금지</mark></div></div>
+<div class="kpi"><div class="l">현재 주가</div><div class="v">$51.5</div><div class="s">시총 약 $28.4B · 52주 $49.46~138.25</div></div>
+<div class="kpi"><div class="l">12개월 기대수익률</div><div class="v t-green">+17%</div><div class="s">확률가중 $60 · 세후(22%) 약 +13%</div></div>
+</div>
+<div class="grid4" style="margin-top:12px">
+<div class="kpi"><div class="l">보수적 내재가치</div><div class="v t-green">$41</div><div class="s">현재가가 26% 높음</div></div>
+<div class="kpi"><div class="l">12M base / bull</div><div class="v t-acc">$64 / $115</div><div class="s">+24% / +123%</div></div>
+<div class="kpi"><div class="l">overshoot (수급)</div><div class="v">$135</div><div class="s">펀더멘털 아님 · 확률 5%</div></div>
+<div class="kpi"><div class="l">하방 리스크</div><div class="v t-risk">$22</div><div class="s">−57% · 확률 25%</div></div>
+</div>
+<div class="card" style="font-size:13.5px">
+<b>보유 포지션 기준 기대손익 (포지션 = 100 기준)</b>
+<table style="margin-top:6px">
+<tr><th>시나리오</th><th class="n">하방 $22</th><th class="n">보수 $41</th><th class="n">base $64</th><th class="n">bull $115</th><th class="n">overshoot $135</th><th class="n">확률가중</th></tr>
+<tr><td>포지션 손익</td><td class="n t-risk">−57</td><td class="n t-risk">−20</td><td class="n">+24</td><td class="n">+123</td><td class="n">+162</td><td class="n"><b>+17</b></td></tr>
+<tr><td>포트폴리오 영향 <span class="inf">추정</span></td><td class="n">−0.75%p</td><td class="n">−0.26%p</td><td class="n">+0.31%p</td><td class="n">+1.6%p</td><td class="n">+2.1%p</td><td class="n">+0.22%p</td></tr>
+</table>
+<p class="note">포트폴리오 영향은 현재 비중을 약 1.3%로 가정한 값 <span class="chk">검증 필요</span>. 실제 비중을 넣어 다시 계산할 것. 매입가가 입력되지 않아 실현 손익은 계산하지 않았다.</p>
+</div>
+<!-- ===================== 2. INFLECTION ===================== -->
+<h2><span class="num">2</span>핵심 변곡점 3개</h2><div class="reader-summary"><ol><li><strong>가격결정권 반전</strong><p><b>확정 사실:</b> 3Q 단기계약 MW당 ~$40M. 2Q 신규계약 마진 +5~10%p. 계약전력 3.7→4.2GW</p><p><b>합리적 추론:</b> GPU·전력 부족으로 neocloud가 가격을 올릴 수 있는 국면</p><p><b>검증되지 않은 가설:</b> 고가 단기계약이 장기계약으로 갱신될지</p><p><b>다음 확인 지표:</b> 3Q MW당 매출, 계약기간 mix</p></li><li><strong>고객 다변화</strong><p><b>확정 사실:</b> 최대고객 비중: FY25 Microsoft 67% → 1Q26 45% → 2Q26 36% . 2위 26%, 3위 10%. Meta $21B 추가, Anthropic 다년 계약, Jane Street $6B</p><p><b>합리적 추론:</b> Microsoft 내재화 리스크가 줄어든다</p><p><b>검증되지 않은 가설:</b> 고객 A/B의 정체 (A=MSFT, B=Meta 또는 OpenAI) 추론</p><p><b>다음 확인 지표:</b> 10-Q 주석의 고객 비중</p></li><li><strong>자금조달 구조 전환</strong><p><b>확정 사실:</b> 무담보채 9.6~9.75% → 전환사채 2.875% + ATM. IG 등급 GPU 담보 DDTL(지연인출 대출) 확대</p><p><b>합리적 추론:</b> 비싼 무담보채 대신 계약 담보 대출과 주식연계로 이동 → 이자↓ 희석↑</p><p><b>검증되지 않은 가설:</b> 보험사 자본 등 신규 조달원의 비용 검증 필요</p><p><b>다음 확인 지표:</b> 콜에서 2027 funding plan, 신규 DDTL 금리</p></li></ol></div>
+
+<!-- ===================== 3. NUMBERS ===================== -->
+<h2><span class="num">3</span>투자자가 반드시 봐야 할 숫자</h2>
+<p class="lead">단위: 백만 달러(EPS 제외). 3Q26은 회사 가이던스와 컨센서스. 출처: 회사 실적 발표, 10-Q/10-K.</p>
+<div class="tbl card" style="padding:6px 8px">
+<table>
+<tr><th>항목</th><th class="n">FY24</th><th class="n">FY25</th><th class="n">3Q25</th><th class="n">4Q25</th><th class="n">1Q26</th><th class="n">2Q26</th><th class="n">3Q26E</th><th>읽는 법</th></tr>
+<tr><td>매출</td><td class="n">1,915</td><td class="n">5,131</td><td class="n">1,365</td><td class="n">1,572</td><td class="n">2,078</td><td class="n"><b>2,575</b></td><td class="n">3,450~3,600</td><td>성장은 의심할 여지 없음</td></tr>
+<tr><td>매출 YoY</td><td class="n">+737%</td><td class="n">+168%</td><td class="n">+134%</td><td class="n">+110%</td><td class="n">+112%</td><td class="n">+112%</td><td class="n">~+158%</td><td>3Q는 가속 가이드</td></tr>
+<tr><td>GAAP 희석 EPS</td><td class="n t-risk">−4.30</td><td class="n t-risk">−2.81</td><td class="n t-risk">−0.22</td><td class="n t-risk">−0.89</td><td class="n t-risk">−1.40</td><td class="n t-risk">−1.14</td><td class="n t-risk">−1.57 (컨센)</td><td><mark class="r">매출이 2배여도 EPS는 악화</mark></td></tr>
+<tr><td>조정 EPS</td><td class="n">N/A</td><td class="n">N/A</td><td class="n">−0.08</td><td class="n">−0.56</td><td class="n">−1.12</td><td class="n"><span class="chk">검증 필요</span></td><td class="n">—</td><td>2Q 조정순손실 $567M ÷ 551M ≈ −1.03 <span class="inf">추론</span></td></tr>
+<tr><td>매출총이익률</td><td class="n">74%</td><td class="n">N/A</td><td class="n" colspan="4">TTM 약 67% (감가상각 제외 기준)</td><td class="n">—</td><td>감가상각 포함 시 크게 낮아짐</td></tr>
+<tr><td>GAAP 영업이익률</td><td class="n">+17%</td><td class="n">−1%</td><td class="n">+4%</td><td class="n">−6%</td><td class="n">−7%</td><td class="n">−2%</td><td class="n">—</td><td>적자 축소 시작</td></tr>
+<tr><td>조정 영업이익률</td><td class="n">19%</td><td class="n">13%</td><td class="n">16%</td><td class="n">6%</td><td class="n">1%</td><td class="n">5%</td><td class="n">~6.5%</td><td>바닥 통과</td></tr>
+<tr><td>순이익</td><td class="n t-risk">−863</td><td class="n t-risk">−1,167</td><td class="n t-risk">−110</td><td class="n t-risk">−452</td><td class="n t-risk">−740</td><td class="n t-risk">−626</td><td class="n">—</td><td></td></tr>
+<tr><td>순이자비용</td><td class="n">361</td><td class="n">1,229</td><td class="n">311</td><td class="n">388</td><td class="n">536</td><td class="n">640</td><td class="n"><mark class="r">860~940</mark></td><td>이자가 가장 빨리 성장하는 '비용 라인'</td></tr>
+<tr><td>FCF (영업CF − 설비투자)</td><td class="n">N/A</td><td class="n">N/A</td><td class="n">~−200 <span class="inf">추정</span></td><td class="n">N/A</td><td class="n t-risk">−4,711</td><td class="n t-risk">−5,743</td><td class="n">capex 11.5~13.5B</td><td>FY26 capex는 매출의 약 2.9배</td></tr>
+<tr><td>현금</td><td class="n">N/A</td><td class="n">3,127</td><td class="n">~3,000</td><td class="n">3,127</td><td class="n">N/A</td><td class="n">5,524</td><td class="n">—</td><td></td></tr>
+<tr><td>차입금 (리스 제외)</td><td class="n">~8,000</td><td class="n">21,373</td><td class="n">N/A</td><td class="n">21,373</td><td class="n">25,149</td><td class="n t-risk">35,068</td><td class="n"><span class="chk">40,000+ 검증 필요</span></td><td>9월 전환사채 $4.2B 추가</td></tr>
+<tr><td>희석 가중주식 수 (M)</td><td class="n">~201*</td><td class="n">~415*</td><td class="n">~500*</td><td class="n">~508*</td><td class="n">~529*</td><td class="n">551</td><td class="n">—</td><td>*순손실 ÷ EPS로 역산</td></tr>
+<tr><td>공매도 (% 유통)</td><td class="n">—</td><td class="n">—</td><td class="n" colspan="4">4/30 20.4% · 5/15 17.1% · 8/31 ~11% · 9/30 ~18% · 10/15 21.3%</td><td class="n">—</td><td>바닥권에서 다시 증가</td></tr>
+<tr><td>밸류에이션</td><td class="n" colspan="7">EV ≈ 시총 $28.4B + 순차입 ~$30B(6/30) = 약 $58B → FY26 가이드 매출의 4.5배, 2026 말 ARR(가이드 $18.5~19.5B)의 3.1배</td><td>P/E는 의미 없음 (적자)</td></tr>
+</table>
+</div>
+<div class="interp">
+<b>핵심 분석</b>
+<ol>
+<li><b>매출 vs EPS:</b> 2Q 매출 +112%, 순손실 +116%. 이자비용(+140%)과 감가상각이 매출보다 빨리 늘어 EPS는 거꾸로 간다.</li>
+<li><b>EPS vs 주식 수:</b> 희석주식 수 +13% YoY. EPS가 음수라 희석이 '손실을 나눠주는' 효과도 있지만, 흑자 전환 후에는 주당 이익을 갉아먹는다.</li>
+<li><b>희석 반복 가능성: 높음.</b> ATM 3,500만 주(현 주식의 6.3%), 전환사채 최대 5,258만 주(9월물만). 2027 capex도 매출을 크게 웃돌 전망 <span class="inf">추론</span>.</li>
+<li><b>주가가 반영하는 것:</b> <mark>매출 성장만 반영</mark>하고 EPS는 반영하지 않는다(적자). 따라서 밸류는 EV/EBITDA와 순차입 경로에 달려 있다.</li>
+</ol>
+</div>
+<!-- Annual chart card -->
+<div class="chart-card">
+<div class="chart-header"><h3>연간 대시보드 — EPS · 매출 · 주식 수</h3><div class="tabs"><span>Timeframe</span><span class="active">Annual</span><span>Quarterly</span></div></div>
+<div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP 희석 EPS ($)</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">-5.0</text>
+<line class="grid" x1="8" x2="278" y1="161.2" y2="161.2"></line>
+<text class="axis-label" x="284" y="164.7">-4.0</text>
+<line class="grid" x1="8" x2="278" y1="126.4" y2="126.4"></line>
+<text class="axis-label" x="284" y="129.9">-3.0</text>
+<line class="grid" x1="8" x2="278" y1="91.6" y2="91.6"></line>
+<text class="axis-label" x="284" y="95.1">-2.0</text>
+<line class="grid" x1="8" x2="278" y1="56.8" y2="56.8"></line>
+<text class="axis-label" x="284" y="60.3">-1.0</text>
+<line class="zero" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">0.0</text>
+<text class="axis-label" text-anchor="middle" x="41.8" y="210">FY23</text>
+<text class="axis-label" text-anchor="middle" x="41.8" y="16.0">N/A</text>
+<text class="axis-label" text-anchor="middle" x="109.2" y="210">FY24</text>
+<rect fill="var(--risk)" height="149.6" rx="4" width="41.9" x="88.3" y="22.0"></rect>
+<text class="bar-label" text-anchor="middle" x="109.2" y="182.6">-4.30</text>
+<text class="axis-label" text-anchor="middle" x="176.8" y="210">FY25</text>
+<rect fill="var(--risk)" height="97.8" rx="4" width="41.9" x="155.8" y="22.0"></rect>
+<text class="bar-label" text-anchor="middle" x="176.8" y="130.8">-2.81</text>
+<text class="axis-label" text-anchor="middle" x="244.2" y="210">TTM</text>
+<rect fill="none" height="124.6" rx="4" stroke="var(--risk)" stroke-dasharray="4 3" stroke-width="2.2" width="39.5" x="224.5" y="23.2"></rect>
+<text class="bar-label" text-anchor="middle" x="244.2" y="160.0">-3.65</text>
+</svg><div class="cap">FY23은 공시 기준 확인 불가로 N/A. TTM = 최근 4분기 합(3Q25~2Q26, outline). 흑자 전환 시점 없음.</div></div>
+<div class="mini-chart"><h3>매출 Revenue</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">0B</text>
+<line class="grid" x1="8" x2="278" y1="138.0" y2="138.0"></line>
+<text class="axis-label" x="284" y="141.5">5B</text>
+<line class="grid" x1="8" x2="278" y1="80.0" y2="80.0"></line>
+<text class="axis-label" x="284" y="83.5">10B</text>
+<line class="grid" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">15B</text>
+<text class="axis-label" text-anchor="middle" x="35.0" y="210">FY22</text>
+<rect fill="var(--accent)" height="1.5" rx="4" width="33.5" x="18.3" y="195.8"></rect>
+<text class="bar-label" text-anchor="middle" x="35.0" y="191.8">16M</text>
+<text class="axis-label" text-anchor="middle" x="89.0" y="210">FY23</text>
+<rect fill="var(--accent)" height="2.7" rx="4" width="33.5" x="72.3" y="193.3"></rect>
+<text class="bar-label" text-anchor="middle" x="89.0" y="189.3">229M</text>
+<text class="axis-label" text-anchor="middle" x="143.0" y="210">FY24</text>
+<rect fill="var(--accent)" height="22.2" rx="4" width="33.5" x="126.3" y="173.8"></rect>
+<text class="bar-label" text-anchor="middle" x="143.0" y="169.8">1.9B</text>
+<text class="axis-label" text-anchor="middle" x="197.0" y="210">FY25</text>
+<rect fill="var(--accent)" height="59.5" rx="4" width="33.5" x="180.3" y="136.5"></rect>
+<text class="bar-label" text-anchor="middle" x="197.0" y="132.5">5.1B</text>
+<text class="axis-label" text-anchor="middle" x="251.0" y="210">FY26G</text>
+<rect fill="none" height="146.1" rx="4" stroke="var(--accent)" stroke-dasharray="4 3" stroke-width="2.2" width="31.1" x="235.5" y="48.7"></rect>
+<text class="bar-label" text-anchor="middle" x="251.0" y="43.5">12.8B</text>
+</svg><div class="cap">FY26G = 회사 가이던스 중간값 $12.8B (outline, 확정 아님).</div></div>
+<div class="mini-chart"><h3>희석 가중평균 주식 수 (M)</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">0</text>
+<line class="grid" x1="8" x2="278" y1="152.5" y2="152.5"></line>
+<text class="axis-label" x="284" y="156.0">200</text>
+<line class="grid" x1="8" x2="278" y1="109.0" y2="109.0"></line>
+<text class="axis-label" x="284" y="112.5">400</text>
+<line class="grid" x1="8" x2="278" y1="65.5" y2="65.5"></line>
+<text class="axis-label" x="284" y="69.0">600</text>
+<line class="grid" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">800</text>
+<text class="axis-label" text-anchor="middle" x="41.8" y="210">FY24</text>
+<rect fill="var(--teal)" height="43.7" opacity="0.38" rx="4" width="41.9" x="20.8" y="152.3"></rect>
+<text class="bar-label" text-anchor="middle" x="41.8" y="148.3">201M</text>
+<text class="axis-label" text-anchor="middle" x="109.2" y="210">FY25</text>
+<rect fill="var(--teal)" height="90.3" rx="4" width="41.9" x="88.3" y="105.7"></rect>
+<text class="bar-label" text-anchor="middle" x="109.2" y="101.7">415M</text>
+<text class="axis-label" text-anchor="middle" x="176.8" y="210">1H26</text>
+<rect fill="var(--teal)" height="117.2" rx="4" width="41.9" x="155.8" y="78.8"></rect>
+<text class="bar-label" text-anchor="middle" x="176.8" y="74.8">539M</text>
+<text class="axis-label" text-anchor="middle" x="244.2" y="210">MRQ</text>
+<rect fill="none" height="117.4" rx="4" stroke="var(--teal)" stroke-dasharray="4 3" stroke-width="2.2" width="39.5" x="224.5" y="77.4"></rect>
+<text class="bar-label" text-anchor="middle" x="244.2" y="72.2">551M</text>
+</svg><div class="cap">기준: <b>diluted weighted average shares</b>. FY24·FY25는 순손실÷EPS 역산, FY24는 IPO 전(우선주 미포함)이라 흐리게 표시. MRQ = 2Q26(outline). 증가 = 희석.</div></div>
+</div>
+<div class="legend"><span><i style="background:var(--risk)"></i>적자 EPS</span><span><i style="background:var(--accent)"></i>확정 매출</span><span><i style="background:var(--teal)"></i>확정 주식 수</span><span><i style="border:2px dashed var(--muted)"></i>TTM·가이던스·MRQ</span></div>
+<div class="interp">
+<ol>
+<li>매출은 FY24→FY25 2.7배, FY26 가이드 2.5배. 그런데 EPS 적자는 다시 커지는 중이다 (TTM −3.65 vs FY25 −2.81). 원인은 이자와 감가상각이 매출보다 먼저 들어오는 구조다.</li>
+<li>주식 수는 IPO 후 1년 반 만에 약 33% 증가(415M→551M). EPS 개선이 희석을 아직 못 이기고 있다.</li>
+<li>이 희석은 주주가치 훼손보다는 성장 투자형에 가깝다. 다만 전환가 하향은 경고 신호다.</li>
+<li>다음 실적 핵심 숫자: <mark>FY26 가이드 상단 유지 여부</mark>와 4Q 이자비용 가이드.</li>
+</ol>
+</div>
+</div>
+<!-- Quarterly chart card -->
+<div class="chart-card">
+<div class="chart-header"><h3>분기 대시보드 — 최근 8분기 + 3Q26E</h3><div class="tabs"><span>Timeframe</span><span>Annual</span><span class="active">Quarterly</span></div></div>
+<div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP 희석 EPS ($)</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">-2.5</text>
+<line class="grid" x1="8" x2="278" y1="161.2" y2="161.2"></line>
+<text class="axis-label" x="284" y="164.7">-2.0</text>
+<line class="grid" x1="8" x2="278" y1="126.4" y2="126.4"></line>
+<text class="axis-label" x="284" y="129.9">-1.5</text>
+<line class="grid" x1="8" x2="278" y1="91.6" y2="91.6"></line>
+<text class="axis-label" x="284" y="95.1">-1.0</text>
+<line class="grid" x1="8" x2="278" y1="56.8" y2="56.8"></line>
+<text class="axis-label" x="284" y="60.3">-0.5</text>
+<line class="zero" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">0.0</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="23.0" y="210">3Q24</text>
+<rect fill="var(--risk)" height="126.7" rx="4" width="18.6" x="13.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="23.0" y="159.7">-1.82</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="53.0" y="210">4Q24</text>
+<rect fill="var(--risk)" height="23.7" rx="4" width="18.6" x="43.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="53.0" y="56.7">-0.34</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="83.0" y="210">1Q25</text>
+<rect fill="var(--risk)" height="103.7" rx="4" width="18.6" x="73.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="83.0" y="136.7">-1.49</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="113.0" y="210">2Q25</text>
+<rect fill="var(--risk)" height="41.8" rx="4" width="18.6" x="103.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="113.0" y="74.8">-0.60</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="143.0" y="210">3Q25</text>
+<rect fill="var(--risk)" height="15.3" rx="4" width="18.6" x="133.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="143.0" y="48.3">-0.22</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="173.0" y="210">4Q25</text>
+<rect fill="var(--risk)" height="61.9" rx="4" width="18.6" x="163.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="173.0" y="94.9">-0.89</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="203.0" y="210">1Q26</text>
+<rect fill="var(--risk)" height="97.4" rx="4" width="18.6" x="193.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="203.0" y="130.4">-1.40</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="233.0" y="210">2Q26</text>
+<rect fill="var(--risk)" height="79.3" rx="4" width="18.6" x="223.7" y="22.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="233.0" y="112.3">-1.14</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="263.0" y="210">3Q26E</text>
+<rect fill="none" height="106.9" rx="4" stroke="var(--risk)" stroke-dasharray="4 3" stroke-width="2.2" width="16.2" x="254.9" y="23.2"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="263.0" y="142.3">-1.57</text>
+</svg><div class="cap">3Q26E = 컨센서스 −$1.57 (outline). 1Q25는 IPO 관련 주식보상 $177M 포함. 흑자 분기 없음.</div></div>
+<div class="mini-chart"><h3>매출 Revenue</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">0B</text>
+<line class="grid" x1="8" x2="278" y1="152.5" y2="152.5"></line>
+<text class="axis-label" x="284" y="156.0">1B</text>
+<line class="grid" x1="8" x2="278" y1="109.0" y2="109.0"></line>
+<text class="axis-label" x="284" y="112.5">2B</text>
+<line class="grid" x1="8" x2="278" y1="65.5" y2="65.5"></line>
+<text class="axis-label" x="284" y="69.0">3B</text>
+<line class="grid" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">4B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="23.0" y="210">3Q24</text>
+<rect fill="var(--accent)" height="25.4" rx="4" width="18.6" x="13.7" y="170.6"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="23.0" y="166.6">584M</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="53.0" y="210">4Q24</text>
+<rect fill="var(--accent)" height="32.5" rx="4" width="18.6" x="43.7" y="163.5"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="53.0" y="159.5">747M</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="83.0" y="210">1Q25</text>
+<rect fill="var(--accent)" height="42.7" rx="4" width="18.6" x="73.7" y="153.3"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="83.0" y="149.3">982M</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="113.0" y="210">2Q25</text>
+<rect fill="var(--accent)" height="52.8" rx="4" width="18.6" x="103.7" y="143.2"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="113.0" y="139.2">1.2B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="143.0" y="210">3Q25</text>
+<rect fill="var(--accent)" height="59.4" rx="4" width="18.6" x="133.7" y="136.6"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="143.0" y="132.6">1.4B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="173.0" y="210">4Q25</text>
+<rect fill="var(--accent)" height="68.4" rx="4" width="18.6" x="163.7" y="127.6"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="173.0" y="123.6">1.6B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="203.0" y="210">1Q26</text>
+<rect fill="var(--accent)" height="90.4" rx="4" width="18.6" x="193.7" y="105.6"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="203.0" y="101.6">2.1B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="233.0" y="210">2Q26</text>
+<rect fill="var(--accent)" height="112.0" rx="4" width="18.6" x="223.7" y="84.0"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="233.0" y="80.0">2.6B</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="263.0" y="210">3Q26E</text>
+<rect fill="none" height="150.9" rx="4" stroke="var(--accent)" stroke-dasharray="4 3" stroke-width="2.2" width="16.2" x="254.9" y="43.9"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="263.0" y="38.7">3.5B</text>
+</svg><div class="cap">3Q26E = 가이드 중간값 $3.525B (outline).</div></div>
+<div class="mini-chart"><h3>희석 가중평균 주식 수 (M)</h3><svg role="img" viewbox="0 0 330 230" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="8" x2="278" y1="196.0" y2="196.0"></line>
+<text class="axis-label" x="284" y="199.5">0</text>
+<line class="grid" x1="8" x2="278" y1="152.5" y2="152.5"></line>
+<text class="axis-label" x="284" y="156.0">200</text>
+<line class="grid" x1="8" x2="278" y1="109.0" y2="109.0"></line>
+<text class="axis-label" x="284" y="112.5">400</text>
+<line class="grid" x1="8" x2="278" y1="65.5" y2="65.5"></line>
+<text class="axis-label" x="284" y="69.0">600</text>
+<line class="grid" x1="8" x2="278" y1="22.0" y2="22.0"></line>
+<text class="axis-label" x="284" y="25.5">800</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="23.0" y="210">3Q24</text>
+<rect fill="var(--teal)" height="43.1" opacity="0.38" rx="4" width="18.6" x="13.7" y="152.9"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="23.0" y="148.9">198</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="53.0" y="210">4Q24</text>
+<rect fill="var(--teal)" height="32.8" opacity="0.38" rx="4" width="18.6" x="43.7" y="163.2"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="53.0" y="159.2">151</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="83.0" y="210">1Q25</text>
+<rect fill="var(--teal)" height="48.9" opacity="0.38" rx="4" width="18.6" x="73.7" y="147.1"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="83.0" y="143.1">225</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="113.0" y="210">2Q25</text>
+<rect fill="var(--teal)" height="105.9" rx="4" width="18.6" x="103.7" y="90.1"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="113.0" y="86.1">487</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="143.0" y="210">3Q25</text>
+<rect fill="var(--teal)" height="108.8" rx="4" width="18.6" x="133.7" y="87.2"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="143.0" y="83.2">500</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="173.0" y="210">4Q25</text>
+<rect fill="var(--teal)" height="110.5" rx="4" width="18.6" x="163.7" y="85.5"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="173.0" y="81.5">508</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="203.0" y="210">1Q26</text>
+<rect fill="var(--teal)" height="115.1" rx="4" width="18.6" x="193.7" y="80.9"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="203.0" y="76.9">529</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="233.0" y="210">2Q26</text>
+<rect fill="var(--teal)" height="119.8" rx="4" width="18.6" x="223.7" y="76.2"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="233.0" y="72.2">551</text>
+<text class="axis-label" style="font-size:8.6px" text-anchor="middle" x="263.0" y="210">현재</text>
+<rect fill="none" height="117.7" rx="4" stroke="var(--teal)" stroke-dasharray="4 3" stroke-width="2.2" width="16.2" x="254.9" y="77.1"></rect>
+<text class="bar-label" style="font-size:9.6px" text-anchor="middle" x="263.0" y="71.9">552</text>
+</svg><div class="cap">기준: <b>diluted weighted average</b>(2Q25·2Q26은 공시값, 나머지는 역산). 3Q24~1Q25는 IPO 전후 전환 구간이라 흐리게 표시. '현재' = 발행주식 551.5M(outline).</div></div>
+</div>
+<div class="interp">
+<ol>
+<li>매출은 8분기 연속 증가(3Q24 $584M → 2Q26 $2,575M, 4.4배). EPS는 3Q25 −0.22에서 다시 −1.1~−1.6로 악화. <mark class="r">분기 이자비용이 $311M→$900M(가이드)로 3배</mark> 된 영향이다.</li>
+<li>IPO 후 주식 수는 분기마다 +1~4% 꾸준히 증가. EPS 성장률이 주식 수 증가율을 아직 이기지 못한다.</li>
+<li>매출 증가와 EPS 정체가 2027년까지 반복될 가능성: <b>높음</b> <span class="inf">추론</span>. capex가 매출의 약 3배이기 때문.</li>
+<li>3Q 체크: 매출 ≥ $3.525B, 조정영업이익 ≥ $230M, 이자비용 ≤ $940M, 희석주식 수 증가 ≤ 2%.</li>
+</ol>
+</div>
+</div>
+<!-- ===================== 4. ECOSYSTEM ===================== -->
+<h2><span class="num">4</span>고객 · 파트너 · 생태계</h2>
+<div class="card">
+<svg role="img" style="width:100%;height:auto" viewbox="0 0 1100 470" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="ar" markerheight="7" markerwidth="7" orient="auto-start-reverse" refx="9" refy="5" viewbox="0 0 10 10"><path d="M0,0 L10,5 L0,10 z" fill="#6f756e"></path></marker></defs>
+<!-- end beneficiaries -->
+<rect fill="#f8f1e4" height="52" rx="14" stroke="#ded4c3" width="440" x="330" y="10"></rect>
+<text class="vb-label" text-anchor="middle" x="550" y="32">최종 수혜 고객</text>
+<text class="axis-label" style="font-size:12px" text-anchor="middle" x="550" y="51">ChatGPT · Claude · Meta AI 사용자 / Azure AI 고객 (간접)</text>
+<line marker-end="url(#ar)" stroke="#6f756e" stroke-dasharray="4 4" x1="550" x2="550" y1="62" y2="170"></line>
+<!-- center -->
+<rect fill="#243036" height="96" rx="22" width="220" x="440" y="175"></rect>
+<text style="font-size:20px;font-weight:800;fill:#fffaf0" text-anchor="middle" x="550" y="212">CoreWeave</text>
+<text style="font-size:12px;fill:#ded4c3" text-anchor="middle" x="550" y="234">backlog $104B + 3Q $25B</text>
+<text style="font-size:12px;fill:#ded4c3" text-anchor="middle" x="550" y="253">활성 1.5GW · 계약 4.2GW</text>
+<!-- customers left -->
+<text class="vb-label" style="fill:#d97941" x="20" y="96">직접 고객</text>
+<g style="font-size:13px;font-weight:700">
+<rect fill="#fffaf0" height="40" rx="10" stroke="#d97941" stroke-width="2" width="250" x="20" y="108"></rect><text style="fill:#243036" x="32" y="133">Microsoft · FY25 매출 67%</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#d97941" stroke-width="2" width="250" x="20" y="158"></rect><text style="fill:#243036" x="32" y="183">OpenAI · 누적 최대 ~$22.4B</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#d97941" stroke-width="2" width="250" x="20" y="208"></rect><text style="fill:#243036" x="32" y="233">Meta · $14.2B + $21B 추가</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#d97941" stroke-width="1.5" width="250" x="20" y="258"></rect><text style="fill:#243036" x="32" y="283">Anthropic · 다년(금액 비공개)</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#d97941" stroke-width="1.5" width="250" x="20" y="308"></rect><text style="fill:#243036" x="32" y="333">Jane Street · $6B + 지분 $1B</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#ded4c3" width="250" x="20" y="358"></rect><text style="fill:#6f756e" x="32" y="383">엔터프라이즈: Databricks·Cognition 등</text>
+</g>
+<g fill="none" stroke="#d97941" stroke-width="1.6">
+<path d="M270,128 C360,128 380,200 440,205"></path><path d="M270,178 C360,178 380,212 440,214"></path><path d="M270,228 C360,228 380,225 440,225"></path>
+<path d="M270,278 C360,278 380,240 440,238"></path><path d="M270,328 C360,328 390,252 440,250"></path><path d="M270,378 C360,378 400,262 440,262" stroke="#ded4c3"></path>
+</g>
+<!-- partners right -->
+<text class="vb-label" style="fill:#5d7285" x="830" y="96">핵심 파트너 · 공급</text>
+<g style="font-size:13px;font-weight:700">
+<rect fill="#fffaf0" height="56" rx="10" stroke="#5d7285" stroke-width="2.4" width="250" x="830" y="108"></rect><text style="fill:#243036" x="842" y="131">Nvidia · GPU 공급 + 지분 ~10%</text><text style="fill:#5d7285;font-size:12px" x="842" y="152">미판매분 백스톱 $6.3B (~2032.4)</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#5d7285" stroke-width="1.5" width="250" x="830" y="174"></rect><text style="fill:#243036" x="842" y="199">데이터센터 임대주 (Core Scientific 등)</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#5d7285" stroke-width="1.5" width="250" x="830" y="224"></rect><text style="fill:#243036" x="842" y="249">CrowdStrike · 보안 (11/2)</text>
+<rect fill="#fffaf0" height="40" rx="10" stroke="#5d7285" stroke-width="1.5" width="250" x="830" y="274"></rect><text style="fill:#243036" x="842" y="299">AdaniConneX · 인도 (10/7)</text>
+</g>
+<g fill="none" stroke="#5d7285" stroke-width="1.6">
+<path d="M830,136 C760,136 720,205 660,208"></path><path d="M830,194 C760,194 720,222 660,224"></path><path d="M830,244 C760,244 720,238 660,238"></path><path d="M830,294 C760,294 720,252 660,252"></path>
+</g>
+<!-- capital bottom -->
+<rect fill="#f8f1e4" height="120" rx="14" stroke="#c95b4a" stroke-width="1.5" width="440" x="330" y="330"></rect>
+<text class="vb-label" style="fill:#c95b4a" text-anchor="middle" x="550" y="355">자본 제공자 (선순위 → 후순위)</text>
+<text style="font-size:12.5px;fill:#243036" text-anchor="middle" x="550" y="378">① 담보 DDTL 대주 (Blackstone·Magnetar 등)</text>
+<text style="font-size:12.5px;fill:#243036" text-anchor="middle" x="550" y="398">② 무담보채 8.5~9.75% (2032물 ~80센트)</text>
+<text style="font-size:12.5px;fill:#243036" text-anchor="middle" x="550" y="418">③ 전환사채 1.75%·2.875%</text>
+<text style="font-size:12.5px;font-weight:800;fill:#c95b4a" text-anchor="middle" x="550" y="438">④ 보통주 (당신의 위치)</text>
+<line marker-end="url(#ar)" stroke="#c95b4a" stroke-width="1.6" x1="550" x2="550" y1="271" y2="328"></line>
+</svg>
+</div>
+<div class="tbl card" style="padding:6px 8px">
+<table>
+<tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr>
+<tr><td>직접 고객</td><td><b>Microsoft</b></td><td>최대 고객</td><td>10-K: FY25 매출의 약 67%</td><td>매출 기반이자 최대 집중 리스크</td><td><span class="pill pA">A</span></td><td>자체 데이터센터 확충, 10/29 capex 하회. 경쟁자이기도 함</td></tr>
+<tr><td>직접 고객</td><td><b>OpenAI</b></td><td>다년 계약</td><td>누적 최대 약 $22.4B</td><td>2029~30년 매출 앵커</td><td><span class="pill pA">A</span></td><td>OpenAI 자체의 자금조달 의존. 다수 공급자와 계약</td></tr>
+<tr><td>직접 고객</td><td><b>Meta</b></td><td>다년 계약</td><td>2025.9 $14.2B, 2026.3 $21B 추가</td><td>투자등급 고객 → 담보 대출 근거</td><td><span class="pill pA">A</span></td><td>Meta도 자체 capex 대규모</td></tr>
+<tr><td>직접 고객</td><td><b>Anthropic</b></td><td>다년, 학습+추론</td><td>2026.4 발표 (금액 비공개)</td><td>AI 랩 다변화</td><td><span class="pill pA">A</span></td><td>금액 미공개 → backlog 기여도 <span class="chk">검증 필요</span></td></tr>
+<tr><td>직접 고객</td><td><b>Jane Street</b></td><td>고객 + 투자자</td><td>$6B 계약, $1B 지분($109/주)</td><td>금융권 수요 확인</td><td><span class="pill pA">A</span></td><td>투자 단가 $109 → 현재 −53%</td></tr>
+<tr><td>익명 고객</td><td>고객 A / B</td><td>상반기 매출 40% / 23%</td><td>10-Q 주석 (이름 미공개)</td><td>집중도는 낮아지는 중</td><td><span class="pill pB">B</span></td><td>후보: A=Microsoft, B=Meta 또는 OpenAI <span class="inf">추론</span>. 기간마다 순위가 바뀔 수 있다고 회사가 명시</td></tr>
+<tr><td>간접 고객</td><td>Azure AI 고객</td><td>MSFT 경유</td><td>MSFT 계약 구조</td><td>OpenAI 수요가 MSFT를 거쳐 들어옴</td><td><span class="pill pB">B</span></td><td>MSFT가 재배분하면 사라질 수 있음</td></tr>
+<tr><td>최종 수혜</td><td>ChatGPT·Claude 사용자</td><td>최종 수요</td><td>—</td><td>추론(inference) 수요가 장기 동력</td><td><span class="pill pC">C</span></td><td>관련성 간접적</td></tr>
+<tr><td>핵심 파트너</td><td><b>Nvidia</b></td><td>공급·지분·백스톱</td><td>2026.1 $2B 지분($87.20), $6.3B 미판매 capacity 구매 약정(~2032.4), 5GW+ 공동계획</td><td>최신 GPU 우선 공급 + 대주에게 안전판</td><td><span class="pill pA">A</span></td><td>백스톱은 backlog의 약 6%. '순환거래' 비판</td></tr>
+<tr><td>파트너</td><td>CrowdStrike / AdaniConneX</td><td>보안 / 인도 확장</td><td>보도자료 (11/2, 10/7)</td><td>플랫폼 확장 신호</td><td><span class="pill pB">B</span></td><td>매출 기여 미미 → <b>관련성 낮음</b></td></tr>
+<tr><td>관련 대기업</td><td>Core Scientific</td><td>데이터센터 임대주</td><td>590MW 계약. 인수는 무산</td><td>전력 확보 경로</td><td><span class="pill pA">A</span></td><td>M&amp;A 재추진 근거 없음</td></tr>
+</table>
+</div>
+<!-- ===================== 5. CAP STRUCTURE ===================== -->
+<h2><span class="num">5</span>자본구조와 수급</h2>
+<div class="tbl card" style="padding:6px 8px">
+<table>
+<tr><th style="width:20%">항목</th><th style="width:30%">수치</th><th>해설</th></tr>
+<tr><td>발행주식 수</td><td>551.5M (Class A+B)</td><td>시총 ≈ $28.4B. 유통주식 약 311.5M (창업자·전략투자자 비중이 큼)</td></tr>
+<tr><td>Fully diluted <span class="inf">추론</span></td><td>약 600~640M</td><td>ATM 35M + RSU/옵션 + 전환사채(현재 주가에서는 out-of-the-money). 12개월 희석 약 9% 가정</td></tr>
+<tr><td>전환사채</td><td>① 1.75% 2031 (2025.12 발행, 조건 <span class="chk">검증 필요</span>)<br/>② 1.75% 2032 $3.5B, 전환가 ~$119.60<br/>③ <mark>2.875% 2033 $4.2B, 전환가 $97.85</mark>, 최대 52.6M주</td><td>현재가 대비 전환가가 90~130% 위 → 당장 희석은 아님. 대신 <b>$97~120 구간은 상승 시 매물대</b>. capped call이 $199.70까지 희석을 일부 상쇄</td></tr>
+<tr><td>무담보 선순위채</td><td>9.25% 2030, 9.0%·9.75% 2031, 9.625%·8.5% 2032</td><td>2032물 수익률 ~15%, 가격 ~80센트. S&amp;P B+</td></tr>
+<tr><td>상환 일정</td><td>2026 잔여 $4.4B · 2027 $6.2B · 2028 $4.4B</td><td>대부분 계약 현금흐름으로 상환되는 자기상각형 DDTL <span class="inf">추론</span>. 2027 재조달이 핵심</td></tr>
+<tr><td>ATM / shelf</td><td>최대 3,500만 주 (2026.9)</td><td>현재가 기준 약 $1.8B. 주가 약세 속 사용 시 희석 효율 나쁨</td></tr>
+<tr><td>Warrant / option / RSU</td><td><span class="chk">검증 필요</span></td><td>11/10 10-Q에서 확인</td></tr>
+<tr><td>내부자 지분</td><td>창업자 3인 합산 약 18~20%</td><td>IPO 후 $3.3B 매도, 2026년 $2.4B. CEO는 2026년 $907M+ 매도(2025년엔 $70M 미만). 90일 순매수 0건</td></tr>
+<tr><td>기관·전략 지분</td><td>13F 보유 930곳+. Magnetar(최대, 매도 중), Nvidia(~10%), BlackRock, Goldman 등</td><td>유통주식 대비 기관 비중 약 24% (Benzinga 기준)</td></tr>
+<tr><td>공매도</td><td><mark>21.25% of float (10/15)</mark> · 9/30 59.95M주</td><td>유동성 높은 미국 종목 중 최고 수준. DTC 약 2일 → squeeze가 나도 짧고 날카로울 가능성 <span class="inf">추론</span></td></tr>
+<tr><td>거래량 급증 원인</td><td>10일 평균 약 6,300만 주</td><td>채권 쇼크(10/14~16), 창업자 매도 보도(10/29), 하이퍼스케일러 capex(10/30)</td></tr>
+<tr><td>최근 움직임 분해</td><td>1개월 −45% · 5거래일 약 −10% <span class="inf">추정</span></td><td>펀더멘털 0 · 신용 55 · 오버행 20 · 매크로 25 <span class="inf">추론</span>. 숏커버는 10/27~28 반등에 일부만 기여</td></tr>
+</table>
+</div>
+<!-- ===================== 6. VALUATION ===================== -->
+<h2><span class="num">6</span>밸류에이션과 목표가</h2>
+<p class="lead">방법: 2027E 조정 EBITDA × EV/EBITDA − 2026말 순차입(약 $45B <span class="inf">추론</span>, 리스 제외) ÷ 희석 주식 수. 2027E 매출 약 $24B(2026말 ARR 가이드 $19B + backlog 전환) <span class="inf">추론</span>. <mark>현재가는 2027E EV/EBITDA 약 5.5배를 반영</mark>한다.</p>
+<div class="tbl card" style="padding:6px 8px">
+<table>
+<tr><th>시나리오</th><th class="n">목표가</th><th>적용 매출 / EBITDA</th><th>multiple</th><th class="n">희석주식</th><th class="n">확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr>
+<tr><td><span class="t-risk"><b>하방 리스크</b></span></td><td class="n t-risk"><b>$22</b></td><td>$23B / $13.0B</td><td>4.5x</td><td class="n">620M</td><td class="n">25%</td><td>2027 조달 실패, 할인 증자, 가이드 하향</td><td>—</td><td>$45 하회 시 50% 축소, $38 하회 시 정리</td></tr>
+<tr><td><span class="t-green"><b>보수적 내재가치</b></span></td><td class="n"><b>$41</b></td><td>$24B / $13.9B</td><td>5.0x (신용 할인 지속)</td><td class="n">600M</td><td class="n">20%</td><td>없음</td><td>EBITDA 미달</td><td>thesis 유지 시 매수 검토 구간</td></tr>
+<tr><td><b>12M base</b></td><td class="n t-acc"><b>$64</b></td><td>$24B / $13.9B (58%)</td><td>6.0x</td><td class="n">600M</td><td class="n">35%</td><td>3Q·4Q 실적, 2027 조달 확정, 채권 수익률 하락</td><td>조달 비용 &gt;12%</td><td>도달 시 30% 차익</td></tr>
+<tr><td><b>bull</b></td><td class="n"><b>$115</b></td><td>$25.5B / $15.0B (59%)</td><td>7.5x</td><td class="n">590M</td><td class="n">15%</td><td>backlog $150B+, 등급 상향, 4Q low-teens 마진</td><td>희석·금리 재상승</td><td>분할 차익, 전환가 $98 부근 매물 주의</td></tr>
+<tr><td><b>overshoot</b></td><td class="n"><b>$135</b></td><td colspan="2">펀더멘털 아님. 공매도 21% 커버 + 애널 평균 목표가 약 $135 수렴</td><td class="n">—</td><td class="n">5%</td><td>short squeeze</td><td>거래량 소멸</td><td>추격 금지, 보유분 1/3 매도</td></tr>
+<tr><td>실적 전 trading</td><td class="n"><b>$58</b></td><td colspan="2">기술적: 10/26 반등 고점 ~$57, 넥라인 $63.67 아래</td><td class="n">—</td><td class="n">—</td><td>실적 기대 선반영</td><td>$49.5 지지 이탈</td><td>$58~60 반등 시 20% 축소(선택)</td></tr>
+<tr><td>실적 후 재평가</td><td class="n"><b>$70 / $38</b></td><td>긍정 $13.9B×6.3x / 부정 ×4.9x</td><td>6.3x / 4.9x</td><td class="n">600M</td><td class="n">45 / 35</td><td>4Q 가이드, 2027 funding</td><td>—</td><td>조건 충족 시 1차 매수 / 미충족 시 축소</td></tr>
+</table>
+<p class="note">감도: <mark>EV/EBITDA 1.0배 변화 = 주당 약 $23</mark>. 2027E EBITDA $1B 변화 = 주당 약 $10 (6배 기준). 레버리지 때문에 목표가 범위가 넓다. 확률가중 가치 = $60.1 → +17%.</p>
+</div>
+<div class="chart-card">
+<div class="chart-header"><h3>Valuation Bridge — 주당 가치 ($)</h3><div class="tabs"><span>12개월</span><span class="active">2027E EV/EBITDA</span></div></div>
+<div class="mini-chart" style="max-width:100%"><svg role="img" viewbox="0 0 760 300" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="130.0" x2="130.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="130.0" y="286">$0</text>
+<line class="grid" x1="225.0" x2="225.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="225.0" y="286">$25</text>
+<line class="grid" x1="320.0" x2="320.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="320.0" y="286">$50</text>
+<line class="grid" x1="415.0" x2="415.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="415.0" y="286">$75</text>
+<line class="grid" x1="510.0" x2="510.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="510.0" y="286">$100</text>
+<line class="grid" x1="605.0" x2="605.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="605.0" y="286">$125</text>
+<line class="grid" x1="700.0" x2="700.0" y1="14" y2="270"></line>
+<text class="axis-label" text-anchor="middle" x="700.0" y="286">$150</text>
+<text class="vb-label" text-anchor="end" x="120" y="43">하방 리스크</text>
+<rect fill="#c95b4a" height="24" rx="6" width="83.6" x="130" y="26"></rect>
+<text class="bar-label" x="221.6" y="43">$22  (-57%)</text>
+<text class="vb-label" text-anchor="end" x="120" y="85">보수적 내재가치</text>
+<rect fill="#7f8f68" height="24" rx="6" width="155.8" x="130" y="68"></rect>
+<text class="bar-label" x="293.8" y="85">$41  (-20%)</text>
+<text class="vb-label" text-anchor="end" x="120" y="127">현재 주가</text>
+<rect fill="#5d7285" height="24" rx="6" width="195.7" x="130" y="110"></rect>
+<text class="bar-label" x="333.7" y="127">$51.5</text>
+<text class="vb-label" text-anchor="end" x="120" y="169">12M base</text>
+<rect fill="#d97941" height="24" rx="6" width="243.2" x="130" y="152"></rect>
+<text class="bar-label" x="381.2" y="169">$64  (+24%)</text>
+<text class="vb-label" text-anchor="end" x="120" y="211">bull</text>
+<rect fill="#b86432" height="24" rx="6" width="437.0" x="130" y="194"></rect>
+<text class="bar-label" x="575.0" y="211">$115  (+123%)</text>
+<text class="vb-label" text-anchor="end" x="120" y="253">overshoot</text>
+<rect fill="none" height="22" rx="6" stroke="#b86432" stroke-dasharray="6 4" stroke-width="2.4" width="511.0" x="131" y="237"></rect>
+<text class="bar-label" x="651.0" y="253">$135  (+162%)</text>
+<line stroke="#5d7285" stroke-dasharray="3 3" stroke-width="1.5" x1="325.7" x2="325.7" y1="12" y2="270"></line>
+</svg></div>
+<div class="legend"><span><i style="background:#c95b4a"></i>하방</span><span><i style="background:#7f8f68"></i>보수적 내재가치</span><span><i style="background:#5d7285"></i>현재가</span><span><i style="background:#d97941"></i>base</span><span><i style="background:#b86432"></i>bull</span><span><i style="border:2px dashed #b86432"></i>overshoot(수급)</span></div>
+<div class="interp">
+<ol>
+<li>현재가 $51.5는 <b>보수적 내재가치 $41보다 26% 높다</b>. 신용 할인(5배)에서 '약간의 정상화'(5.5배)를 이미 반영했다.</li>
+<li>따라서 지금 가격은 <mark>base case의 앞부분을 사는 가격</mark>이다. bull은 반영되지 않았고, 하방 25% 확률이 상승 여력을 상당 부분 상쇄한다.</li>
+<li>overshoot $135는 펀더멘털 목표가가 아니다. 공매도 커버와 애널리스트 목표가 수렴으로 생길 수 있는 <b>수급형 가격</b>이다.</li>
+<li>매수·축소 구간: 실적 전에는 신규 매수 없음, $58~60에서 일부 축소(선택). 실적 후 조건 충족 시 $48~54 1차 매수. $45 종가 이탈 + 가이드 하향이면 축소.</li>
+</ol>
+</div>
+</div>
+<!-- ===================== 7. EARNINGS PLAN & RISK ===================== -->
+<h2><span class="num">7</span>실적 전후 행동 계획 · 리스크 관리</h2>
+<div class="grid2">
+<div class="card">
+<span class="tag t-acc">11/10(화) 장 마감 후 · 한국 11/11 07:00 콜</span>
+<ul class="tight" style="font-size:13.5px">
+<li><b>기대치 반영도:</b> 매출 컨센서스 약 $3.52B ≈ 가이드 중간값. EPS −1.57. <mark>매출 beat은 이미 기본값</mark>. 주가는 이미 신용 공포로 크게 할인됐다.</li>
+<li><b>실적 전 매수?</b> <span class="t-risk"><b>No.</b></span> 결과보다 '자금조달 설명'이 주가를 움직이는 이벤트라 확률이 반반이다. 내재변동성도 높다.</li>
+<li><b>실적 후 확인하고 산다.</b> beat만으로는 부족하다. <mark>beat + FY 상향 + 2027 조달 계획(비용 &lt;10%)</mark> 세 가지가 필요하다.</li>
+<li><b>오를 숫자:</b> 매출 ≥ $3.6B · 조정영업이익 ≥ $260M · 4Q 가이드가 low-teens 마진을 시사 · backlog ≥ $130B · "추가 주식 발행 계획 없음" 언급 · 활성전력 연말 1.85GW 이상 유지.</li>
+<li><b>빠질 숫자:</b> 매출 &lt; $3.45B 또는 데이터센터 지연(2025년 3분기 사례 반복) · FY 가이드 하향 · 재조달 없이 capex 추가 상향 · ATM 대량 사용 · 4Q 이자 가이드 &gt; $1.0B · 최대 고객 비중 재상승.</li>
+</ul>
+</div>
+<div class="card">
+<span class="tag t-blue">포트폴리오 실행안 (포지션 = 100)</span>
+<table style="font-size:13px;margin-top:6px">
+<tr><th>항목</th><th>제안</th></tr>
+<tr><td>목표 비중</td><td>현 비중 유지. <mark>상한 포트폴리오의 2.0%</mark></td></tr>
+<tr><td>실적 전</td><td>신규 매수 0. $58~60 반등 시 <b>20 매도</b>(선택, 이벤트 리스크 축소)</td></tr>
+<tr><td>실적 후 1차</td><td>조건 3개 충족 + 2~3거래일 종가 $48 이상 유지 → <b>+25</b> 매수, 매수가 $48~54</td></tr>
+<tr><td>실적 후 2차</td><td>2032 채권 수익률 &lt;12% 또는 CDS &lt;700bp + 50일선 회복 → <b>+25</b> (총 2차 분할)</td></tr>
+<tr><td>목표가 도달</td><td>$64 → 30 매도 · $90~98(전환가 매물대) → 30 매도 · 잔량은 고점 대비 −20% trailing</td></tr>
+<tr><td>thesis 훼손</td><td>종가 $45 하회 + 가이드 하향 또는 할인 증자 → <b>50 매도</b> · $38 하회 → 전량</td></tr>
+<tr><td>세금 메모</td><td>해외주식 양도세 22%는 연간 손익을 합산한다. 매입가가 현재가보다 높다면 12월 손실 실현으로 올해 다른 이익과 상계할 수 있다.</td></tr>
+</table>
+</div>
+</div>
+<div class="tbl card" style="padding:6px 8px">
+<b style="display:block;padding:8px 6px 0">Thesis break trigger</b>
+<table>
+<tr><th>리스크</th><th>thesis가 깨지는 지표</th><th class="n">시장 반영 시작 가격</th><th>확인 시점</th><th>대응 행동</th></tr>
+<tr><td>매출 성장 둔화</td><td>분기 매출 QoQ &lt; +15% 또는 FY26 가이드 하향</td><td class="n">$45</td><td>11/10</td><td>50 축소</td></tr>
+<tr><td>EPS 정체</td><td>4Q GAAP EPS &lt; −1.60이면서 조정영업이익률 &lt; 8%</td><td class="n">$45</td><td>2027.2 (4Q 실적)</td><td>추가 매수 중단, 30 축소</td></tr>
+<tr><td>주식 수 희석</td><td>희석주식 수 YoY &gt; 15% 또는 ATM 3,500만 주 대부분 소진</td><td class="n">$42</td><td>분기 10-Q</td><td>축소</td></tr>
+<tr><td>현금 소진</td><td>현금 &lt; $3B 또는 2027 만기 $6.2B 재조달 미확정</td><td class="n">$40</td><td>11/10, 2027.2</td><td>전량 매도 검토</td></tr>
+<tr><td>고객 집중</td><td>최대 고객 비중 &gt; 45% 재상승, Microsoft 계약 축소</td><td class="n">$40</td><td>10-Q</td><td>50 축소</td></tr>
+<tr><td>경쟁사 대체</td><td>MW당 매출 하락, 하이퍼스케일러 가격 인하</td><td class="n">$45</td><td>분기</td><td>관망 → 축소</td></tr>
+<tr><td>금리·실업률·신용</td><td>10년물 &gt; 5.5%, 실업률 &gt; 4.5%, CRWV CDS &gt; 1,200bp</td><td class="n">$40</td><td>매월 (11/6 고용)</td><td>축소</td></tr>
+<tr><td>squeeze 후 급락</td><td>실적 후 하루 +25% 이상, 거래량 3배 이상 → 2주 내 되돌림</td><td class="n">$70~75 상단</td><td>실적 후 2주</td><td>상승분의 1/3 차익</td></tr>
+<tr><td>M&amp;A 기대 과열</td><td>인수 루머로 +20% 이상 급등 (Musk는 인수 부인)</td><td class="n">루머가</td><td>수시</td><td>추격 금지, 일부 차익</td></tr>
+</table>
+</div>
+<!-- ===================== FINAL ===================== -->
+<div class="final">
+<h2>최종 요약</h2>
+<dl>
+<dt>현재 주가</dt><dd>$51.5 (11/3 미 동부 장 초반)</dd>
+<dt>보수적 내재가치</dt><dd>$41</dd>
+<dt>12개월 base target</dt><dd>$64 (+24%)</dd>
+<dt>bull target</dt><dd>$115 (+123%)</dd>
+<dt>overshoot target</dt><dd>$135 (수급형, 펀더멘털 아님)</dd>
+<dt>실적 발표 전 trading target</dt><dd>$58</dd>
+<dt>실적 발표 후 재평가 target</dt><dd>긍정 $70 / 부정 $38</dd>
+<dt>하방 리스크</dt><dd>$22 (−57%)</dd>
+<dt>12개월 기대수익률</dt><dd>+17% (확률가중 $60), 세후 약 +13%</dd>
+<dt>보유 비중 기준 시나리오 손익</dt><dd>포지션 대비 base +24% / bull +123% / overshoot +162% / 하방 −57%</dd>
+<dt>추천 행동</dt><dd><mark>Hold · 보유 · 실적 전 신규 매수 금지</mark></dd>
+<dt>목표 비중</dt><dd>현 비중 유지, 상한 2.0%</dd>
+<dt>실적 발표 전 행동</dt><dd>매수 없음. $58~60 반등 시 20% 축소(선택)</dd>
+<dt>실적 발표 후 행동</dt><dd>beat + FY 상향 + 2027 조달 계획 확인 시 $48~54에서 +25%. 채권 안정 시 +25% 추가</dd>
+<dt>목표가 도달 시 행동</dt><dd>$64에서 30% 매도, $90~98에서 30% 매도, 잔량 trailing −20%</dd>
+<dt>thesis 훼손 시 행동</dt><dd>종가 $45 하회 + 가이드 하향/할인 증자 → 50% 매도. $38 하회 → 전량</dd>
+<dt>가장 중요한 체크포인트</dt><dd><mark>11/11 07:00 콜의 2027 자금조달 계획과 비용</mark>. 그다음 4Q 마진 가이드와 backlog(≥$130B)</dd>
+<dt>내가 틀렸다고 인정해야 하는 조건</dt><dd>① FY26 가이드 하향 ② 주가 $45 아래에서 증자·ATM 대량 사용 ③ 2027 만기 재조달 미확정 + CDS 1,200bp 이상 지속 ④ 최대 고객 비중 재상승. 이 중 두 개가 겹치면 매도</dd>
+</dl>
+</div>
+<!-- ===================== SOURCES ===================== -->
+<div class="card src">
+<b>출처 (교차검증: 회사 공시 · 언론 · 데이터 제공사)</b>
+<ul>
+<li>회사 IR · 2Q26 실적: <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx">investors.coreweave.com — Q2 2026 Results</a></li>
+<li>회사 IR · 1Q26 실적: <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-First-Quarter-2026-Results/default.aspx">Q1 2026 Results</a> · <a href="https://last10k.com/sec-filings/crwv/0001769628-26-000222.htm">Last10K 10-Q 1Q26</a></li>
+<li>4Q25·FY25 실적: <a href="https://www.barchart.com/story/news/452765/coreweave-reports-strong-fourth-quarter-and-fiscal-year-2025-results">Business Wire via Barchart</a> · <a href="https://www.stocktitan.net/sec-filings/CRWV/8-k-core-weave-inc-reports-material-event-6df7738f5119.html">8-K (StockTitan)</a></li>
+<li>3Q25 실적: <a href="https://www.businesswire.com/news/home/20251110221705/en">Business Wire</a> · <a href="https://fintool.com/app/research/companies/CRWV/earnings/Q3%202025">Fintool</a></li>
+<li>3Q26 실적일: <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx">CoreWeave IR (10/27)</a></li>
+<li>3Q 가이던스: <a href="https://transcripts.platformaeronaut.com/summaries/CRWV-2Q26-AI-Summary">2Q26 콜 요약</a> · <a href="https://www.indmoney.com/blog/us-stocks/crwv-stock-jumps-coreweave-q2-earnings-analysis">INDmoney</a> · <a href="https://www.marketbeat.com/instant-alerts/coreweave-q2-earnings-call-highlights-2026-08-11/">MarketBeat</a></li>
+<li>단가·계약 공시: <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Continues-to-Contract-New-Compute-Capacity-at-Higher-Prices/default.aspx">CoreWeave IR (9/17)</a></li>
+<li>전환사채: <a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Prices-Upsized-3-7-Billion-Convertible-Senior-Notes-Offering/">CoreWeave IR (9/18)</a> · <a href="https://us.kabutan.jp/disclosures/0001769628-26-000432">8-K (9/22)</a> · <a href="https://blockspace.media/insight/coreweave-convertible-notes-equity-sales-2033/">ATM 3,500만 주</a></li>
+<li>채권·CDS: <a href="https://www.cnbc.com/2026/10/14/coreweave-stock-bond-yields-ai-debt.html">CNBC 10/14</a> · <a href="https://www.fool.com/investing/2026/10/16/why-is-coreweave-stock-falling-today/">Motley Fool 10/16</a> · <a href="https://www.cnbc.com/2026/10/21/coreweaves-market-confidence-erodes-as-bond-yields-spike-stock-sinks.html">CNBC 10/21</a> · <a href="https://www.forbes.com/sites/greatspeculations/2026/10/15/why-is-coreweave-stock-falling/">Forbes/Trefis</a></li>
+<li>창업자 매도: <a href="https://247wallst.com/investing/2026/10/17/coreweaves-founders-have-sold-3-3-billion-of-stock-since-its-ipo/">24/7 Wall St</a> · <a href="https://beinsure.com/news/coreweave-founders-sell-3-3-bn-in-stock-as-shares-plunge-25/">Beinsure</a> · Magnetar: <a href="https://www.benzinga.com/quote/CRWV/ownership">Benzinga ownership</a></li>
+<li>고객 집중: <a href="https://sec-api.io/insights/coreweave-crwv-2026-revenue-analysis-top-customer-concentration-exposure">sec-api.io</a> · <a href="https://altss.com/blog/coreweave-debt-repayment-collateral-customer-concentration">Altss</a> · <a href="https://www.tikr.com/blog/coreweave-revenue-doubled-to-2-1-billion-last-quarter-with-99-billion-in-contracts-already-signed">TIKR</a></li>
+<li>Nvidia 투자·백스톱: <a href="https://theenergymag.com/news/2026-01-26/nvidia-coreweave-ai-gigawatt">The Energy Mag</a> · <a href="https://cryptobriefing.com/nvidia-huang-no-need-backstop-coreweave/">Crypto Briefing</a></li>
+<li>공매도: <a href="https://www.asktraders.com/?p=257227">AskTraders (FINRA 10/15)</a> · <a href="https://massive.com/quote/crwv">Massive (9/30)</a> · <a href="https://es.benzinga.com/quote/CRWV/short-interest">Benzinga</a></li>
+<li>주가·시총: <a href="https://www.cnbc.com/quotes/CRWV">CNBC quote</a> · <a href="https://seekingalpha.com/symbol/CRWV">Seeking Alpha</a> · <a href="https://www.tradingview.com/symbols/NASDAQ-CRWV/">TradingView</a> · <a href="https://stockanalysis.com/stocks/crwv/">StockAnalysis</a></li>
+<li>애널리스트: <a href="https://beinsure.com/news/coreweave-stock-forecast-analysts-see-upside/">Beinsure (10/15)</a> · <a href="https://stockanalysis.com/stocks/CRWV/forecast/">StockAnalysis forecast</a> · <a href="https://finance.yahoo.com/markets/stocks/articles/coreweave-stock-plunges-12-wall-223927844.html">Yahoo (Cantor)</a></li>
+<li>Gartner·Musk: <a href="https://capacityglobal.com/news/neolcoud-consolidation-explained/">Capacity</a> · <a href="https://cryptobriefing.com/musk-predicts-neocloud-consolidation-debt-markets/">Crypto Briefing</a></li>
+<li>매크로: <a href="https://political.org/2026/10/02/treasury-yields-whipsaw-after-weak-september-jobs-report-shows-just-29000-jobs-added/">Political.org (9월 고용·10년물)</a> · <a href="https://stockwirex.com/?p=47160">StockWireX (9/16 FOMC)</a></li>
+<li>하락 원인 (10/30): <a href="https://www.benzinga.com/trading-ideas/movers/26/10/62744871/why-is-coreweave-stock-falling-on-friday">Benzinga</a> · <a href="https://stockstotrade.com/news/coreweave-inc-crwv-news-2026_10_29-2/">StocksToTrade</a></li>
+</ul>
+<p class="note">본 자료는 개인 투자 기록이며 투자 권유가 아닙니다. <span class="inf">추론</span>과 <span class="chk">검증 필요</span> 표시는 사실로 확정되지 않은 내용입니다. 주가는 장중 변동합니다.</p>
+</div>
+</div>
+</body>
+</html>

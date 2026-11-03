@@ -34,8 +34,8 @@ pre { max-width: 100%; overflow-x: auto; }
   .document-reader body:not(.reader-workspace) h1 small { display: block; margin-top: 10px; font-size: 16px !important; line-height: 1.6; }
   .document-reader body:not(.reader-workspace) :is(h2, .sec-title, .sectitle, .section-title) { font-size: 22px !important; line-height: 1.45 !important; }
   .document-reader body:not(.reader-workspace) h3 { font-size: 18px !important; line-height: 1.5 !important; }
-  .document-reader body:not(.reader-workspace) :is(p, li, dd, .lead, .subtitle) { font-size: 16px; line-height: 1.75; }
-  .document-reader body:not(.reader-workspace) :is(.meta, .note, .small, .footnote, .sec-sub) { font-size: 13px !important; line-height: 1.65; text-align: left; }
+  .document-reader body:not(.reader-workspace) :is(p, li, dd, .lead, .subtitle) { font-size: 16px !important; line-height: 1.75 !important; }
+  .document-reader body:not(.reader-workspace) :is(.meta, .note, .small, .footnote, .sec-sub, .reader-public-note, .reader-period, .reader-hint) { font-size: 13px !important; line-height: 1.65; text-align: left; }
   .document-reader body:not(.reader-workspace) :is(.card, .box, .panel, .chart-card) { padding: 16px !important; }
   .document-reader :is(.reader-grid, .grid2, .grid3, .grid4, .grid-2, .grid-3, .grid-4, .two, .three, .four, .signal-grid, .mini-chart-grid, .pf-grid) { grid-template-columns: minmax(0, 1fr) !important; }
   .document-reader .reader-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
