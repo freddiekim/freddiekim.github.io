@@ -1,0 +1,19 @@
+{% assign bgm_tracks = site.data.background_music %}
+<div class="bgm" data-bgm>
+  <button class="bgm-button" id="bgm-toggle" type="button" aria-pressed="true" aria-label="배경음악 끄기" title="배경음악 끄기">
+    <i class="fa fa-volume-up" aria-hidden="true"></i>
+  </button>
+  <button class="bgm-button bgm-list-button" id="bgm-list-toggle" type="button" aria-expanded="false" aria-controls="bgm-track-list" title="배경음악 목록">
+    <i class="fa fa-music" aria-hidden="true"></i><span class="bgm-now" id="bgm-now">Music</span>
+  </button>
+  <div class="bgm-panel" id="bgm-track-list" hidden>
+    <p class="bgm-panel-title">배경음악</p>
+    <ol>
+      {% for track in bgm_tracks %}{% if track.youtube_id %}
+      <li><button type="button" class="bgm-track" data-youtube-id="{{ track.youtube_id | escape }}"><b>{{ forloop.index }}</b><em>{{ track.title | escape }}</em></button></li>
+      {% endif %}{% endfor %}
+    </ol>
+  </div>
+  <iframe class="bgm-frame" id="background-music-frame" title="배경음악" tabindex="-1" aria-hidden="true"
+    allow="autoplay; encrypted-media" src="about:blank"></iframe>
+</div>

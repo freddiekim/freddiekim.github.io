@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="document-reader" lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVCO 실바코 투자 메모 (2026-11-07)</title><style>
+:root{--bg:#f4efe6;--card:#fffaf0;--text:#243036;--muted:#6f756e;--accent:#d97941;--green:#7f8f68;--bluegray:#5d7285;--risk:#c95b4a;--line:#ded4c3;--grid:#e7ddcc;--teal:#5f9ea0;--bull:#b86432;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:18px 16px 60px}
+header.hero{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;position:relative;overflow:hidden;margin-bottom:14px}
+header.hero .deco{position:absolute;right:0;top:0;width:260px;height:100%;pointer-events:none}
+.brand{font-size:12px;font-weight:800;letter-spacing:.14em;color:var(--muted)}
+h1{margin:6px 0 4px;font-size:27px;line-height:1.25;max-width:760px}
+.sub{color:var(--muted);font-size:13px;max-width:720px}
+nav.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+nav.chips a{font-size:12px;font-weight:700;color:var(--text);text-decoration:none;border:1px solid var(--line);background:var(--bg);padding:5px 11px;border-radius:999px}
+section{margin:26px 0}
+section>h2{font-size:20px;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+section>h2 .n{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:14px;align-items:center;justify-content:center;flex:none}
+h3.sh{font-size:15px;margin:18px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px}
+.kpi .kl{font-size:11px;color:var(--muted);font-weight:700}
+.kpi .kv{font-size:21px;font-weight:800;margin:2px 0}
+.kpi .ks{font-size:11.5px;color:var(--muted)}
+.kpi.hl{border:2px solid var(--accent)}
+.kpi.rk .kv{color:var(--risk)}
+.kpi.gn .kv{color:var(--green)}
+.say{border-left:5px solid var(--accent);padding:2px 0 2px 14px;margin:8px 0}
+.say.anti{border-left-color:var(--risk)}
+.say b.l{font-size:11px;letter-spacing:.08em;color:var(--muted)}
+mark{background:rgba(217,121,65,.22);color:var(--text);padding:0 3px;border-radius:3px}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;background:var(--card);margin:8px 0}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:12.8px}
+th{background:#efe6d5;text-align:left;padding:8px 9px;font-size:12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 9px;border-bottom:1px solid var(--grid);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;white-space:nowrap}
+table.compact{min-width:560px}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:999px;border:1px solid;white-space:nowrap}
+.tag.f{color:var(--green);border-color:var(--green)}
+.tag.i{color:var(--bluegray);border-color:var(--bluegray)}
+.tag.v{color:var(--risk);border-color:var(--risk)}
+.grade{display:inline-flex;width:22px;height:22px;border-radius:50%;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px}
+.gA{background:var(--green)} .gB{background:var(--bluegray)} .gC{background:var(--risk)}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:22px 0 8px}
+.chart-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.chart-header .ct{margin:0;font-size:15px}
+.tabs{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:700}
+.tabs .active{color:var(--text);border:2px solid var(--bluegray);border-radius:10px;padding:5px 10px;background:rgba(93,114,133,0.10)}
+.mini-chart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.mini-chart h3{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.mini-chart svg{width:100%;height:auto;display:block}
+.basis{font-size:11px;color:var(--muted);margin:6px 0 0}
+.legend{font-size:11.5px;color:var(--muted);margin:12px 0 0;border-top:1px dashed var(--line);padding-top:8px}
+.grid{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 3}
+.zero{stroke:var(--text);stroke-width:1.2;opacity:.55}
+.bar-outline{fill:none;stroke-width:2.5;stroke:currentColor}
+.bar-label{font-size:11px;font-weight:800;fill:var(--text)}
+.axis-label{font-size:10px;font-weight:700;fill:var(--muted)}
+.interp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px 8px;margin:0 0 14px}
+.interp h4{margin:10px 0 4px;font-size:13px}
+.interp ul{margin:0;padding-left:18px} .interp li{margin:4px 0;font-size:13.5px}
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.vcard svg{width:100%;height:auto;display:block}
+ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:4px 0}
+.sig{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.sig .card{margin:0}
+.sig h4{margin:0 0 6px;font-size:14px}
+.final dl{display:grid;grid-template-columns:200px 1fr;gap:0;margin:0}
+.final dt{font-weight:800;padding:8px 10px;border-bottom:1px solid var(--grid);background:#f3ebdb;font-size:13px}
+.final dd{margin:0;padding:8px 10px;border-bottom:1px solid var(--grid);font-size:13.5px}
+.final{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+.src li{margin:4px 0;font-size:12.5px;word-break:break-all}
+.src a{color:var(--bluegray)}
+.foot{font-size:11.5px;color:var(--muted);margin-top:18px}
+@media (max-width:900px){
+.mini-chart-grid{grid-template-columns:1fr}
+.chart-header{align-items:flex-start;flex-direction:column}
+.kgrid{grid-template-columns:repeat(2,1fr)}
+.grid2,.grid3,.sig{grid-template-columns:1fr}
+header.hero .deco{opacity:.35}
+h1{font-size:22px}
+.final dl{grid-template-columns:1fr}
+.final dt{border-bottom:none;padding-bottom:2px}
+}
+</style><link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head>
+<body><div class="wrap">
+<header class="hero"><svg class="deco" viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<circle cx="190" cy="52" r="42" fill="#d97941"/><path d="M100 180 A60 60 0 0 1 220 180 Z" fill="#7f8f68"/>
+<rect x="210" y="96" width="34" height="84" rx="4" fill="#5d7285"/><rect x="150" y="128" width="42" height="12" rx="3" fill="#5f9ea0"/>
+<circle cx="130" cy="40" r="10" fill="none" stroke="#243036" stroke-width="2.5"/></svg>
+<div class="brand">YOUNG FINANCE · 城主 투자 메모</div>
+<h1>실바코 (NASDAQ: SVCO) — 레거시 EDA 소형주인가, AI 제조 시뮬레이션 + IP 플랫폼인가</h1>
+<div class="sub">분석 기준일 2026-11-07 (KST) · 시세 기준 <b>11/5 종가 $6.73</b> (11/6 장중 시세는 소스 간 불일치 → 검증 필요) · 보유 50주 · 매입가·비중 미입력 → 현재가 기준 손익으로 계산 · 확정 / 추론 / 검증 필요를 태그로 구분</div>
+<nav class="chips"><a href="#s1">1 요약</a><a href="#s2">2 변곡점·사건</a><a href="#s3">3 숫자</a><a href="#s4">4 고객·생태계</a><a href="#s5">5 자본구조·수급</a><a href="#s6">6 밸류에이션</a><a href="#s7">7 행동계획</a><a href="#src">출처</a></nav>
+</header>
+<section id="s1"><h2><span class="n">1</span>Executive Summary</h2>
+<div class="kgrid">
+<div class="kpi hl"><div class="kl">투자 등급</div><div class="kv">Hold</div><div class="ks">확률가중 +17% · 변동 큼</div></div>
+<div class="kpi hl"><div class="kl">포트폴리오 행동</div><div class="kv">보유</div><div class="ks">신규 대량 매수 금지 · 조건부 소량</div></div>
+<div class="kpi "><div class="kl">현재 주가</div><div class="kv">$6.73</div><div class="ks">11/5 종가 +15.6% · 시총 $230M</div></div>
+<div class="kpi gn"><div class="kl">보수적 내재가치</div><div class="kv">$4.61</div><div class="ks">현재가 −32%</div></div>
+<div class="kpi "><div class="kl">12개월 base</div><div class="kv">$7.82</div><div class="ks">+16%</div></div>
+<div class="kpi "><div class="kl">bull / overshoot</div><div class="kv">$12.99 / $17.92</div><div class="ks">+93% / +166%</div></div>
+<div class="kpi rk"><div class="kl">하방 리스크</div><div class="kv">$2.94</div><div class="ks">−56%</div></div>
+<div class="kpi "><div class="kl">50주 확률가중 손익</div><div class="kv">+$58</div><div class="ks">범위 −$189 ~ +$560</div></div>
+</div>
+<div class="card">
+<div class="say"><b class="l">한 문장 THESIS</b><br>실바코는 <mark>TCAD·EDA 라이선스 소형주에서 'IP + AI 물리 시뮬레이션(FTCO)' 구조로 매출 믹스가 바뀌는 초입</mark>이며, 비용 −25%로 손익분기에 접근했다.</div>
+<div class="say anti"><b class="l">한 문장 ANTI-THESIS</b><br>성장은 마일스톤·갱신 시점에 의존하고, 현금은 ATM·전환사채로 메우는 중이라 <mark>매출이 늘어도 주당 이익은 희석에 상쇄</mark>될 수 있다.</div>
+<div class="grid2" style="margin-top:10px">
+<div><b>시장이 보는 회사</b><br>AI 테마가 붙었다 빠지는 적자 소형 EDA 주식 (고변동, Synopsys/Cadence 할인판).</div>
+<div><b>내가 새롭게 보는 회사</b><br>GM 84~88% 소프트웨어 + IP 반복매출(27%) + 초기 AI 제조 소프트웨어(FTCO). 단, 고객(Micron)이 투자자이고 창업자 가족이 과반(≈54%)이며 주식담보 분쟁이 걸려 있다.</div>
+</div></div>
+<div class="tw"><table class="compact"><thead><tr><th>투자자 6대 질문</th><th>답</th></tr></thead><tbody><tr><td>1. 시장이 생각하는 회사와 같은가?</td><td><b>부분적으로 다름.</b> 매출 믹스가 IP(27%)·FTCO 쪽으로 이동 중. 단, 플랫폼/turnkey라고 부르기엔 이름·금액이 공개된 근거가 약함.</td></tr><tr><td>2. 매출 구조 변곡점인가?</td><td><b>예, 초기.</b> SIP 10%→27%, EDA 42%→24% (9M 기준). 변곡점은 확정이 아니라 Q4·2027 확인 대상.</td></tr><tr><td>3. 시간순 연결 시 숨은 변화?</td><td><b>예 3개:</b> ① 창업자 주식담보 이전 ② Micron 고객=투자자 ③ 이익 인식 vs 현금 지연(계약자산).</td></tr><tr><td>4. 현재가는 무엇을 사는 가격?</td><td><b>base case의 86%</b> (현재가 $6.73 vs base $7.82). bull 아님. 11/5 상승은 숏스퀴즈가 아니라 저점 반등+가이던스 안도.</td></tr><tr><td>5. 지금 신규 매수 vs 실적 후?</td><td><b>대량 신규 매수는 대기.</b> 다음 실적은 2027-03 중순(예상)으로 4개월 공백. 보상/위험비는 확률가중 +17% vs 하방 −56%. 가격 $5.2 이하 또는 Q4 beat+raise 시에만 소량 추가.</td></tr><tr><td>6. 틀렸다고 인정할 조건?</td><td>Q4 매출 < $19.8M, 현금 < $15M, 신규 ATM > 1M주, 창업자 담보주 대량 처분 중 <b>2개 이상</b>.</td></tr></tbody></table></div>
+<h3 class="sh">처음 보면 놓치기 쉬운 숨은 신호 3개</h3>
+<div class="sig">
+<div class="card"><h4>① 창업자 가족 지분(≈54%)이 '주식담보 대출' 형태로 이전 <span class="tag f">확정</span></h4>
+<p>Pesic 일가 3인 직접보유 합계 ≈18.3M주(11/2 주식 수 대비 ≈54%, 그룹 중복 검증 필요). 2025-11~2026-01 사이 일부 주식이 non-recourse 대출 구조로 넘어갔고, 공시상 <mark>암묵 가격이 $1.93~2.26 = 시가의 약 45%</mark>. Form 4는 '비신고 대상 pledge로 판단'해 늦게 제출됐고 성격이 <mark>중재 분쟁 중</mark>이라고 명시.</p>
+<p><b>해석 <span class="tag i">추론</span>:</b> 대주(貸主)가 담보주를 처분하면 대량 매물 가능(약 1.0~1.3M주 ≈ 평균 거래량 3~4일치). 소송 합의금 $6M을 관련자가 대납한 현금흐름과 연결 가능성 <span class="tag v">검증 필요</span>.</p></div>
+<div class="card"><h4>② Micron = 고객 + 투자자 + 공동개발자 <span class="tag f">확정</span></h4>
+<p>$10M 8% 무담보 전환사채(2026-08-06). 2028-08-07 <mark>강제전환</mark>, 가격은 'lower of 시가 90% / 발행 전일 종가 115%', 19.99% 초과 전환은 주주승인 필요(미승인 시 현금결제 가능), 파생부채 $3.2M. 신규 부채 $50M 초과 시 후순위 조건.</p>
+<p><b>해석 <span class="tag i">추론</span>:</b> 레퍼런스·로드맵 지지(+)이지만, 주가가 낮을수록 전환 주식 수가 늘어난다(현재가 약 1.9M주, $4면 약 3.2M주). 매출 순환 구조일 수 있어 Micron 매출 비중 확인이 핵심 <span class="tag v">검증 필요</span>.</p></div>
+<div class="card"><h4>③ 이익보다 현금이 늦다 — 계약자산 $29.5M <span class="tag f">확정</span></h4>
+<p>유동+비유동 계약자산 $27.6M(12/31) → <mark>$29.5M(9/30, +6.8%)</mark>. 라이선스 매출은 먼저 인식, 청구·현금은 뒤따른다. 9M 영업현금흐름 −$17.3M은 순손실(−$14.1M)보다 나쁨(소송 정산·구조조정 지급 포함). Q3 영업현금흐름은 −$0.8M(Q1 −$11.0M, Q2 −$5.5M)로 급개선.</p>
+<p><b>해석 <span class="tag i">추론</span>:</b> 개선은 실재하나 일회성 지급 종료 영향이 크다. Q4 가이던스(+35% QoQ)가 후반 집중이라 <mark>Q4 현금 회수</mark>가 진위를 가른다.</p></div>
+</div>
+<p class="foot">추가 메모: 2026-07 '감사인 변경' 8-K 존재가 공시 목록에서 확인됨(사유 미확인) <span class="tag v">검증 필요</span>. 과거 내부통제 취약점 언급도 2차 자료에서만 확인 <span class="tag v">검증 필요</span>.</p>
+</section>
+<section id="s2"><h2><span class="n">2</span>핵심 변곡점 · 정체성 · 사건 체인</h2>
+<h3 class="sh">기업 정체성 재정의</h3>
+<div class="tw"><table class="compact"><thead><tr><th>축</th><th>내용</th><th>메모</th></tr></thead><tbody><tr><td>시장의 레거시 잣대</td><td>TCAD/EDA 라이선스 소형주 · 매출 불규칙 · 중국 노출 · 만성 적자 · Synopsys/Cadence의 할인판</td><td>AI 테마(NVIDIA·Micron)가 붙을 때만 고멀티플 — 2026-07 고점 $14.39 후 −53%</td></tr><tr><td>실제 이동 중인 밸류체인</td><td>① SIP(IP) 반복 매출 (Mixel 인수) ② FTCO: 물리 시뮬레이션+AI 서로게이트 모델 = 팹 디지털 트윈 ③ 전력반도체 TCAD</td><td>9M 매출 믹스(본인 계산): SIP 10%→27%, EDA 42%→24%, TCAD 47%→48%</td></tr><tr><td>정체성 판정</td><td>'플랫폼/reference-design'이 아니라 <mark>고마진 소프트웨어 + IP 라이선스 + 초기 단계 AI 제조 소프트웨어</mark>. FTCO는 아직 S-curve 초입(경영진)</td><td>turnkey·financial OS 아님 — 과장 금지</td></tr><tr><td>매출·마진·lock-in·멀티플 영향</td><td>GAAP GM 84~86%(2024 80% → ) · 비용 −25% · 고객 lock-in은 TCAD 모델 캘리브레이션(전환비용) · 멀티플은 EV/Sales 3.2x (전체 SW 대비 낮음)</td><td>IP 마일스톤 의존 → 분기 변동 큼. FTCO 확산 전엔 멀티플 확장 근거 약함</td></tr></tbody></table></div>
+<h3 class="sh">핵심 변곡점 5개</h3>
+<div class="tw"><table class=""><thead><tr><th>변곡점</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 주가에 완전히 반영 안 됐나</th><th>다음 확인 지표</th></tr></thead><tbody><tr><td>① 매출 믹스: SIP 급성장</td><td>SIP 매출 FY25 $9.7M(+98%), 9M'26 $14.1M(Q1 4.0·Q2 6.0·Q3 4.1). 경영진 FY26 IP 목표 ≈$20M</td><td>Mixel(MIPI PHY) 효과. Q4에 IP 마일스톤이 몰리면 목표 달성</td><td>IP가 반복 매출로 굳는다(마일스톤→로열티 전환)</td><td>Q3 IP 마일스톤 일부가 Q4로 이연 → '타이밍' 이슈가 가려짐</td><td>Q4 SIP ≥ $6M, IP 수주잔·RPO($53.2M, 59%가 12개월 내)</td></tr><tr><td>② 비용 구조 전환</td><td>non-GAAP opex −25% YoY, Q2 non-GAAP 영업이익 +$0.6M(2년 만), 연 $20M 절감 프로그램</td><td>추가 절감 여지 + 매출 증가분 대비 opex 증가 1/3~1/2 (CFO)</td><td>2027 non-GAAP 영업이익률 두 자릿수</td><td>GAAP 적자·희석이 여전해 '이익 성장'으로 안 보임</td><td>Q4 non-GAAP opex $16.0M ±5%, 2027 가이던스</td></tr><tr><td>③ FTCO 고객 확산</td><td>신규 FTCO 고객: Q4'25(아시아), Q2'26(전통 반도체 제조사), Q3'26(Tier-1 대형). TCAD 예약 Q3 $10.3M(+89%)</td><td>FTCO가 파일럿→라이선스로 이행 중. NVIDIA·Dassault는 채널·연산 인프라</td><td>FTCO가 매출의 절반(CEO 발언)을 만든다 <span class="tag v">검증 필요</span></td><td>고객이 익명·매출 인식 후행·'기울기 완만'(경영진)</td><td>신규 FTCO 고객 수, TCAD 예약, FTCO 매출 비중 공시</td></tr><tr><td>④ 자본 조달 방식</td><td>ATM 1.46M주 @ $7.98(9M), Micron $10M 전환, 주식 수 +10.5%(YTD)</td><td>현금 소진 보전 + 파트너 락인. 추가 ATM 가능성</td><td>희석이 2027에도 반복</td><td>실적 서프라이즈 구간(주가↑)에서 ATM이 다시 열리기 쉬움</td><td>분기말 주식 수, ATM 잔여한도, 10-K 부록</td></tr><tr><td>⑤ Q4 '사상 최고' 가이던스</td><td>Q4 매출 $22.0M ±10%, 예약 $21.0M ±10%, non-GAAP GM ≈88%, 2026 +17%·2027 중고단위 성장</td><td>갱신 시즌 + 이연된 IP 마일스톤 + 신규 FTCO 라이선스</td><td>Q3 수준 미스가 반복되면 믿음 훼손</td><td>시장이 11/5 +15.6%로 일부 반영(저점 반등 포함)</td><td>2027-03 Q4 실적: 매출 ≥ $22M · 현금 ≥ $24M</td></tr></tbody></table></div>
+<h3 class="sh">9개월 매출 믹스 (제품 라인별, $M)</h3>
+<div class="tw"><table class="compact"><thead><tr><th>라인</th><th>9M'25</th><th>9M'26</th><th>증감</th><th>비중 변화</th><th>설명</th></tr></thead><tbody><tr><td>TCAD</td><td>21.2</td><td>25.1</td><td><b>+18%</b></td><td>47%→48%</td><td>Q3'26 예약 $10.3M(+89%), 신규 Tier-1 FTCO</td></tr><tr><td>EDA</td><td>18.9</td><td>12.6</td><td><b>−33%</b></td><td>42%→24%</td><td>Q3'25 $10.4M 일회성 대형 계약 기저효과. 경영진: 'Jivaro Pro가 예상보다 개선'</td></tr><tr><td>SIP (IP)</td><td>4.6</td><td>14.1</td><td><b>+207%</b></td><td>10%→27%</td><td>Mixel 인수(2025-Q3) · FY26 IP 목표 ≈$20M</td></tr><tr><td>합계</td><td>44.8</td><td>51.9</td><td>+15.7%</td><td></td><td>9M'25 → 9M'26 (본인 계산, 분기 PR 반올림 값 합산 → ±0.1 오차)</td></tr></tbody></table></div>
+<h3 class="sh">최근 주가 흐름과 사건 (확인된 종가 포인트만 · 8월 구간 일부 미확인)</h3>
+<div class="vcard"><svg viewBox="0 0 720 310" role="img" aria-label="price chart" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="44" x2="704" y1="250.0" y2="250.0"/>
+<text class="axis-label" x="38" y="253.5" text-anchor="end">$4</text>
+<line class="grid" x1="44" x2="704" y1="212.7" y2="212.7"/>
+<text class="axis-label" x="38" y="216.2" text-anchor="end">$5</text>
+<line class="grid" x1="44" x2="704" y1="175.3" y2="175.3"/>
+<text class="axis-label" x="38" y="178.8" text-anchor="end">$6</text>
+<line class="grid" x1="44" x2="704" y1="138.0" y2="138.0"/>
+<text class="axis-label" x="38" y="141.5" text-anchor="end">$7</text>
+<line class="grid" x1="44" x2="704" y1="100.7" y2="100.7"/>
+<text class="axis-label" x="38" y="104.2" text-anchor="end">$8</text>
+<line class="grid" x1="44" x2="704" y1="63.3" y2="63.3"/>
+<text class="axis-label" x="38" y="66.8" text-anchor="end">$9</text>
+<line class="grid" x1="44" x2="704" y1="26.0" y2="26.0"/>
+<text class="axis-label" x="38" y="29.5" text-anchor="end">$10</text>
+<path d="M63.2 108.9 L313.1 147.0 L409.2 91.0 L447.7 83.9 L454.1 72.3 L460.5 62.6 L466.9 57.7 L486.1 67.4 L492.5 76.8 L499.0 85.7 L505.4 101.0 L620.7 163.4 L672.0 171.2 L678.4 182.1 L684.8 148.1" fill="none" stroke="#5d7285" stroke-width="2" stroke-dasharray="4 3" opacity=".65"/>
+<circle cx="63.2" cy="108.9" r="3.2" fill="#5d7285"/>
+<circle cx="313.1" cy="147.0" r="3.2" fill="#5d7285"/>
+<circle cx="409.2" cy="91.0" r="3.2" fill="#5d7285"/>
+<circle cx="447.7" cy="83.9" r="3.2" fill="#5d7285"/>
+<circle cx="454.1" cy="72.3" r="3.2" fill="#5d7285"/>
+<circle cx="460.5" cy="62.6" r="3.2" fill="#5d7285"/>
+<circle cx="466.9" cy="57.7" r="3.2" fill="#5d7285"/>
+<circle cx="486.1" cy="67.4" r="3.2" fill="#5d7285"/>
+<circle cx="492.5" cy="76.8" r="3.2" fill="#5d7285"/>
+<circle cx="499.0" cy="85.7" r="3.2" fill="#5d7285"/>
+<circle cx="505.4" cy="101.0" r="3.2" fill="#5d7285"/>
+<circle cx="620.7" cy="163.4" r="3.2" fill="#5d7285"/>
+<circle cx="672.0" cy="171.2" r="3.2" fill="#5d7285"/>
+<circle cx="678.4" cy="182.1" r="3.2" fill="#5d7285"/>
+<circle cx="684.8" cy="148.1" r="3.2" fill="#5d7285"/>
+<text class="bar-label" x="466.9" y="49.7" text-anchor="middle" style="font-size:10px">$9.15</text>
+<text class="bar-label" x="620.7" y="177.4" text-anchor="middle" style="font-size:10px">$6.32</text>
+<text class="bar-label" x="678.4" y="198.1" text-anchor="middle" style="font-size:10px">$5.82</text>
+<text class="bar-label" x="684.8" y="139.1" text-anchor="middle" style="font-size:10px">$6.73</text>
+<text class="bar-label" x="63.2" y="100.9" text-anchor="middle" style="font-size:10px">$7.78</text>
+<line x1="101.7" x2="101.7" y1="26" y2="250" stroke="#d97941" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="101.7" y="264" text-anchor="middle" style="fill:#d97941">Q2+Micron</text>
+<line x1="178.6" x2="178.6" y1="26" y2="250" stroke="#5d7285" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="178.6" y="275" text-anchor="middle" style="fill:#5d7285">Dassault</text>
+<line x1="364.4" x2="364.4" y1="26" y2="250" stroke="#c95b4a" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="364.4" y="286" text-anchor="middle" style="fill:#c95b4a">Fed 인상</text>
+<line x1="633.5" x2="633.5" y1="26" y2="250" stroke="#6f756e" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="633.5" y="264" text-anchor="middle" style="fill:#6f756e">FOMC 동결</text>
+<line x1="665.6" x2="665.6" y1="26" y2="250" stroke="#c95b4a" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="665.6" y="275" text-anchor="middle" style="fill:#c95b4a">B.Riley PT↓</text>
+<line x1="678.4" x2="678.4" y1="26" y2="250" stroke="#d97941" stroke-width="1" stroke-dasharray="2 3" opacity=".8"/>
+<text class="axis-label" x="678.4" y="286" text-anchor="middle" style="fill:#d97941">Q3 실적</text>
+<text class="axis-label" x="69.6" y="304" text-anchor="middle">8월</text>
+<text class="axis-label" x="268.3" y="304" text-anchor="middle">9월</text>
+<text class="axis-label" x="460.5" y="304" text-anchor="middle">10월</text>
+<text class="axis-label" x="659.1" y="304" text-anchor="middle">11월</text>
+</svg><p class="basis">점은 확인된 종가이며 점선은 단순 연결(미확인 구간 포함). 5거래일 정확치는 일부 소스 불일치 → 검증 필요. 참고: 10/26 $6.32 → 11/5 $6.73 (+6.5%), 10/6 $8.64 → 11/5 (−22%), 연초 기준 약 +66%(기초 $4.05), 52주 범위 $3.07~$14.39.</p></div>
+<h3 class="sh">사건 체인 타임라인</h3>
+<div class="tw"><table class=""><thead><tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>투자 thesis 영향</th><th>신뢰도</th><th>다음 확인 증거</th></tr></thead><tbody><tr><td>2025-12-04~11</td><td>내부자 매수 저점권</td><td>CEO Rhines $4.01(13,100주)·CFO $3.80(10,000주)·이사 $4.13/$4.23 매수 (Form 4)</td><td>경영진이 $4 부근을 가치구간으로 판단</td><td>보수적 내재가치 앵커($4~4.6)</td><td><span class="grade gA">A</span></td><td>내부자 추가 매수/매도 Form 4</td></tr><tr><td>2026-07-01</td><td>52주 고점 $14.39</td><td>CNBC 52주 고점 일자</td><td>AI 테마 과열 정점</td><td>bull 일부 선반영 흔적 → 현재가는 −53%</td><td><span class="grade gB">B</span></td><td>거래량 동반 회복 여부</td></tr><tr><td>2026-07-06</td><td>Tech-X 인수 종결 8-K(Item 2.01)</td><td>69,062주 지급(earn-out). 2월에도 167,281주</td><td>인수 대가가 주식 중심 — 소규모 희석</td><td>희석 소폭, 현금 보존</td><td><span class="grade gA">A</span></td><td>추가 earn-out 주식 발행</td></tr><tr><td>2026-08-05/06</td><td>Micron $10M 전환사채 8-K</td><td>8% · 2028-08-07 강제전환 · 19.99% 캡 · 파생부채 $3.2M</td><td>고객의 로드맵 지지 + downside 보호</td><td>+레퍼런스 / −희석 상한 불확실</td><td><span class="grade gA">A</span></td><td>전환가·주주승인 공시, Micron 매출 비중</td></tr><tr><td>2026-08-06</td><td>Q2 실적·컨콜</td><td>매출 $17.8M(+48%), non-GAAP 영업이익 +$0.6M, NVIDIA·Dassault 파트너십, ATM $11.1M 순조달</td><td>턴어라운드 가시화</td><td>비용 레버리지 확인</td><td><span class="grade gA">A</span></td><td>Q3 가이던스 달성 여부(→ 미세 미달)</td></tr><tr><td>2026-08-11~29</td><td>임직원 소규모 매도·CEO 지급</td><td>CFO 2,257주 @ $7.55(세금충당), 임원 Jackson 5,070주, 이사 700주 @ $7.28; CEO 250,376주 RSU 지급(8/29)</td><td>대부분 세금·보상 성격</td><td>중립</td><td><span class="grade gA">A</span></td><td>10b5-1 외 재량 매도 여부</td></tr><tr><td>2026-08-18</td><td>Dassault SIMULIA 파트너십</td><td>보도자료</td><td>TCAD를 팹 디지털 트윈 워크플로로 확장; 채널 확대 기대</td><td>매출 기여는 아직 미확인</td><td><span class="grade gA">A</span></td><td>공동 고객·파이프라인 수치</td></tr><tr><td>2026-09-16 ~ 10-28</td><td>금리·고용·신용</td><td>연준 +25bp 인상(3.75~4.00%), 10/28 10-2 동결, 12월 인상 확률 높게 가격 반영(약 81%, 선물). 9월 고용 +29K·실업률 4.2%·CPI 3.4%</td><td>성장주 할인율↑ + 경기 둔화 동시 — 소형 적자주에 불리</td><td>신규매수 보수화 근거</td><td><span class="grade gA">A</span></td><td>11/6 10월 고용(결과 미확인), 11/10 CPI, 12/9 FOMC</td></tr><tr><td>2026-10-01 ~ 11-02</td><td>주가 $9.02→$6.14 (Q4 −30%)</td><td>B.Riley: SNPS·CDNS 매출 멀티플 −10~20%, 10/26 Cadence 결과 '무난'</td><td>섹터 멀티플 압축이 주도</td><td>실적 전 눌림 형성(역발상 근거)</td><td><span class="grade gB">B</span></td><td>섹터 멀티플 반등</td></tr><tr><td>2026-11-02</td><td>B.Riley 목표가 $16→$11 (Buy)</td><td>애널리스트 노트</td><td>밸류에이션 정상화</td><td>컨센서스 평균 약 $14(Google, 6명 · 범위 $12~18)</td><td><span class="grade gA">A</span></td><td>목표가 추가 하향</td></tr><tr><td>2026-11-04</td><td>Q3 실적·컨콜·10-Q</td><td>매출 $16.3M(−13% YoY, 컨센 $17.08M 하회), GAAP EPS −$0.14, 예약 $19.3M(−15%), Q4 가이던스 $22.0M, 신규 Tier-1 FTCO, Jivaro Pro 4곳, RPO $53.2M</td><td>미스는 타이밍, 질은 개선(GM 84%·opex↓)</td><td>Q4에 모든 것을 건 구조</td><td><span class="grade gA">A</span></td><td>Q4 매출·현금·주식 수</td></tr><tr><td>2026-11-05</td><td>주가 +15.6% → $6.73</td><td>거래량 536K(평균 325K의 1.65배), 시간외 $6.33</td><td>저점 반등 + 가이던스 안도. 숏 비중 3%대라 숏스퀴즈 기여는 제한적</td><td>급등분 일부 되돌림 위험</td><td><span class="grade gA">A</span></td><td>11/6~ 종가 유지 여부</td></tr><tr><td>2025-11 ~ 2026-03</td><td>창업자 가족 주식대출형 이전</td><td>Form 4 지연 제출 · 시가 45% 수준 암묵가 · 중재 분쟁</td><td>대량 매물/지배구조 리스크</td><td>할인 요인</td><td><span class="grade gC">C</span></td><td>13D/Form 4, 중재 결과, 블록딜</td></tr><tr><td>2026-07</td><td>감사인 변경 8-K (사유 미확인)</td><td>공시 목록 확인(내용 미확인)</td><td>재무 통제 이슈일 수도, 단순 교체일 수도</td><td>불확실성</td><td><span class="grade gC">C</span></td><td>8-K Item 4.01 원문</td></tr></tbody></table></div>
+</section>
+<section id="s3"><h2><span class="n">3</span>투자자가 반드시 봐야 할 숫자</h2>
+<p style="margin:0 0 6px">모든 수치는 SEC 8-K 실적 보도자료·10-K/10-Q 기준. TTM·MRQ·가이던스는 확정치와 구분(외곽선).</p>
+<div class="tw"><table class=""><thead><tr><th>항목</th><th>FY2024</th><th>FY2025</th><th>TTM(Q3'26)</th><th>설명</th></tr></thead><tbody><tr><td>매출 ($M)</td><td>59.7</td><td>63.1</td><td><b>70.1</b></td><td>TTM YoY +11.9% (전년 TTM 62.7)</td></tr><tr><td>GAAP EPS</td><td>−1.53</td><td>−1.39</td><td>−0.68</td><td>분기 합(TTM). 전년 TTM −1.03 → 주당 손실 −34%</td></tr><tr><td>adjusted(non-GAAP) EPS</td><td>+0.22</td><td>−0.37</td><td>−0.08</td><td>FY25 큰 폭 적자 후 2026 거의 손익분기 (Q2 +0.01)</td></tr><tr><td>GAAP 매출총이익률</td><td>79.8%</td><td>78.3%</td><td><b>84.7%</b></td><td>Mixel IP·저마진 서비스 축소 + 상각 변화</td></tr><tr><td>GAAP 영업이익률</td><td>−67.5%</td><td>−72.8%</td><td>−29.6%</td><td>opex 감축·소송비($13.1M, 2025) 소멸</td></tr><tr><td>순이익 ($M)</td><td>−39.4</td><td>−41.2</td><td>−21.3</td><td>전년 TTM −29.8 대비 −28%</td></tr><tr><td>잉여현금흐름 ($M)</td><td>−20.3</td><td>−34.5</td><td>−26.8</td><td>영업CF − capex. Q3 단독 −0.8(영업CF)</td></tr><tr><td>현금 ($M)</td><td>19.6 (+증권 67.9)</td><td>9.0 (+제한 8.3·증권 1.0)</td><td><b>22.0</b></td><td>제한현금 소멸(합의금 지급), Micron $10M 유입</td></tr><tr><td>부채 ($M)</td><td>4.4 (벤더 금융)</td><td>3.2 (벤더 금융)</td><td>13.5 (전환사채 10.1 + 벤더 3.4)</td><td>전환사채는 주식으로 전환 예정(희석 형태 부채)</td></tr><tr><td>주식 수 (희석 가중평균, M)</td><td>25.7</td><td>29.7</td><td>34.0 (MRQ)</td><td>기말 34.20M(11/2). 12/31 대비 +10.5%</td></tr><tr><td>공매도 (short interest)</td><td>—</td><td>—</td><td>약 3.2% (8월 말)</td><td>5/1: 5.0% → 감소 추세. 최신(10월 말) 검증 필요</td></tr><tr><td>밸류에이션 (현재가 $6.73)</td><td>—</td><td>—</td><td>P/S 3.3x · EV/S 3.2x · P/B 2.8x</td><td>EV/FY26E 매출 3.0x. P/E 무의미(적자)</td></tr></tbody></table></div>
+<h3 class="sh">분기 추이</h3>
+<div class="tw"><table class="compact"><thead><tr><th>분기</th><th>Q3'24</th><th>Q4'24</th><th>Q1'25</th><th>Q2'25</th><th>Q3'25</th><th>Q4'25</th><th>Q1'26</th><th>Q2'26</th><th>Q3'26</th></tr></thead><tbody><tr><td>매출 $M</td><td>11.0</td><td>17.9</td><td>14.1</td><td>12.0</td><td>18.7</td><td>18.3</td><td>17.8</td><td>17.8</td><td>16.3</td></tr><tr><td>YoY</td><td>−27%</td><td>N/A</td><td>−11%</td><td>−19%</td><td>+70%</td><td>+2%</td><td>+26%</td><td>+48%</td><td>−13%</td></tr><tr><td>GAAP EPS</td><td>−0.23</td><td>+0.14</td><td>−0.67</td><td>−0.32</td><td>−0.18</td><td>−0.24</td><td>−0.19</td><td>−0.11</td><td>−0.14</td></tr><tr><td>GAAP 총이익률</td><td>74.6%</td><td>86.4%</td><td>78.6%</td><td>70.9%</td><td>77.9%</td><td>83.3%</td><td>86.4%</td><td>85.2%</td><td>84.0%</td></tr><tr><td>GAAP 영업손익 $M</td><td>−7.3</td><td>+2.4</td><td>−19.6</td><td>−10.1</td><td>−9.3</td><td>−6.8</td><td>−5.7</td><td>−4.0</td><td>−4.3</td></tr><tr><td>순손익 $M</td><td>−6.6</td><td>+4.2</td><td>−19.3</td><td>−9.4</td><td>−5.3</td><td>−7.2</td><td>−5.9</td><td>−3.7</td><td>−4.6</td></tr><tr><td>주식 수 M(가중)</td><td>29.0</td><td>28.8</td><td>28.7</td><td>29.3</td><td>30.2</td><td>30.7</td><td>31.4</td><td>33.0</td><td>34.0</td></tr></tbody></table></div>
+<p class="basis">Q3'24 YoY −27%는 2024 Q3 실적 발표 자료, Q2'25 −19%는 2025 Q2 PR 기준. Q4'24 YoY는 확보 자료에 없어 N/A. 일부 분기 값은 PR 반올림.</p>
+<div class="chart-card"><div class="chart-header"><h3 class="ct">연도별 · GAAP EPS / Sales / Shares</h3><div class="tabs"><span>Timeframe</span><span class="active">Annual</span><span class="">Quarterly</span></div></div><div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP EPS (diluted, $)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">−1.6</text>
+<line class="grid" x1="6" x2="316" y1="175.2" y2="175.2"/>
+<text class="axis-label" x="356" y="178.7" text-anchor="end">−1.2</text>
+<line class="grid" x1="6" x2="316" y1="136.4" y2="136.4"/>
+<text class="axis-label" x="356" y="139.9" text-anchor="end">−0.8</text>
+<line class="grid" x1="6" x2="316" y1="97.6" y2="97.6"/>
+<text class="axis-label" x="356" y="101.1" text-anchor="end">−0.4</text>
+<line class="zero" x1="6" x2="316" y1="58.8" y2="58.8"/>
+<text class="axis-label" x="356" y="62.3" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">0.4</text>
+<text class="axis-label" x="44.8" y="229" text-anchor="middle" style="font-size:9px">FY2024</text>
+<rect x="19.2" y="58.8" width="51.2" height="148.4" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="44.8" y="218.2" text-anchor="middle" style="font-size:11px">−1.53</text>
+<text class="axis-label" x="122.2" y="229" text-anchor="middle" style="font-size:9px">FY2025</text>
+<rect x="96.7" y="58.8" width="51.2" height="134.8" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="122.2" y="204.6" text-anchor="middle" style="font-size:11px">−1.39</text>
+<text class="axis-label" x="199.8" y="229" text-anchor="middle" style="font-size:9px">TTM(Q3'26)</text>
+<rect class="bar-outline" style="color:#c95b4a" x="174.2" y="58.8" width="51.2" height="66.0" rx="4"/>
+<text class="bar-label" x="199.8" y="135.8" text-anchor="middle" style="font-size:11px">−0.68</text>
+<text class="axis-label" x="277.2" y="229" text-anchor="middle" style="font-size:9px">FY2026E</text>
+<text class="axis-label" x="277.2" y="52.8" text-anchor="middle" style="font-size:9px">N/A</text>
+<rect x="251.7" y="56.8" width="51.2" height="2" fill="#6f756e" opacity=".45"/>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">적자 지속 · 흑자 전환 아직 없음 (TTM=최근 4개 분기 합)</text>
+</svg><p class="basis">기준: diluted GAAP EPS. 적자 bar는 0선 아래. FY2026E EPS는 회사 가이던스 없음 → N/A(컨센서스 검증 필요)</p></div>
+<div class="mini-chart"><h3>Sales ($M)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="165.5" y2="165.5"/>
+<text class="axis-label" x="356" y="169.0" text-anchor="end">20</text>
+<line class="grid" x1="6" x2="316" y1="117.0" y2="117.0"/>
+<text class="axis-label" x="356" y="120.5" text-anchor="end">40</text>
+<line class="grid" x1="6" x2="316" y1="68.5" y2="68.5"/>
+<text class="axis-label" x="356" y="72.0" text-anchor="end">60</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">80</text>
+<text class="axis-label" x="44.8" y="229" text-anchor="middle" style="font-size:9px">FY2024</text>
+<rect x="19.2" y="69.3" width="51.2" height="144.7" rx="4" fill="#d97941"/>
+<text class="bar-label" x="44.8" y="65.3" text-anchor="middle" style="font-size:11px">59.7</text>
+<text class="axis-label" x="122.2" y="229" text-anchor="middle" style="font-size:9px">FY2025</text>
+<rect x="96.7" y="61.1" width="51.2" height="152.9" rx="4" fill="#d97941"/>
+<text class="bar-label" x="122.2" y="57.1" text-anchor="middle" style="font-size:11px">63.1</text>
+<text class="axis-label" x="199.8" y="229" text-anchor="middle" style="font-size:9px">TTM(Q3'26)</text>
+<rect class="bar-outline" style="color:#d97941" x="174.2" y="44.0" width="51.2" height="170.0" rx="4"/>
+<text class="bar-label" x="199.8" y="40.0" text-anchor="middle" style="font-size:11px">70.1</text>
+<text class="axis-label" x="277.2" y="229" text-anchor="middle" style="font-size:9px">FY2026E</text>
+<rect class="bar-outline" style="color:#d97941" x="251.7" y="34.9" width="51.2" height="179.1" rx="4"/>
+<text class="bar-label" x="277.2" y="30.9" text-anchor="middle" style="font-size:11px">73.9</text>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">$M · 외곽선=TTM / 가이던스 내재 추정</text>
+</svg><p class="basis">기준: 총매출. 채움=확정(10-K), 외곽선=TTM(최근 4분기 합 $70.1M) · FY26E $73.9M(9M 실적+Q4 가이던스 중간값, 본인 계산)</p></div>
+<div class="mini-chart"><h3>Shares Outstanding (M)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="165.5" y2="165.5"/>
+<text class="axis-label" x="356" y="169.0" text-anchor="end">10</text>
+<line class="grid" x1="6" x2="316" y1="117.0" y2="117.0"/>
+<text class="axis-label" x="356" y="120.5" text-anchor="end">20</text>
+<line class="grid" x1="6" x2="316" y1="68.5" y2="68.5"/>
+<text class="axis-label" x="356" y="72.0" text-anchor="end">30</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">40</text>
+<text class="axis-label" x="44.8" y="229" text-anchor="middle" style="font-size:9px">FY2024</text>
+<rect x="19.2" y="89.5" width="51.2" height="124.5" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="44.8" y="85.5" text-anchor="middle" style="font-size:11px">25.7</text>
+<text class="axis-label" x="122.2" y="229" text-anchor="middle" style="font-size:9px">FY2025</text>
+<rect x="96.7" y="69.8" width="51.2" height="144.2" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="122.2" y="65.8" text-anchor="middle" style="font-size:11px">29.7</text>
+<text class="axis-label" x="199.8" y="229" text-anchor="middle" style="font-size:9px">TTM(Q3'26)</text>
+<rect class="bar-outline" style="color:#5f9ea0" x="174.2" y="49.3" width="51.2" height="164.7" rx="4"/>
+<text class="bar-label" x="199.8" y="45.3" text-anchor="middle" style="font-size:11px">34.0</text>
+<text class="axis-label" x="277.2" y="229" text-anchor="middle" style="font-size:9px">FY2026E</text>
+<text class="axis-label" x="277.2" y="208.0" text-anchor="middle" style="font-size:9px">N/A</text>
+<rect x="251.7" y="212.0" width="51.2" height="2" fill="#6f756e" opacity=".45"/>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">M주 · 희석 가중평균 (MRQ=외곽선)</text>
+</svg><p class="basis">기준: diluted weighted average (적자라 basic과 동일). 외곽선=MRQ(Q3'26). 증가=희석 가능성</p></div>
+</div>
+<p class="legend">채움 = 확정 실적 · 외곽선 = TTM/MRQ/가이던스 등 확정 아님 · N/A = 공시·가이던스 없음(임의 채움 금지)</p></div>
+<div class="interp"><h4>투자 해석</h4><ul><li><mark>매출은 FY24→FY25 +5.7%, TTM은 +11.9%로 가속</mark>했지만 GAAP EPS(−1.53→−1.39)는 소송비 $13.1M·인수비용·비용구조에 좌우됐다. 매출보다 비용 감축이 EPS를 움직이는 구간이다.</li><li><mark>EPS 개선이 주식 수 증가를 이기고 있다.</mark> Q3'26 순손실은 −13.5%, 가중평균 주식 수는 +12.4%라 주당 손실은 −0.18→−0.14(약 −23%). 다만 이는 적자폭 축소이지 이익 성장이 아니다.</li><li>희석의 성격은 <mark>절반은 생존·유동성 보전</mark>이다. 9M 영업현금흐름 −$17.3M을 ATM $11.7M(총액)과 Micron 전환사채 $10M으로 메웠다. 성장 투자 단독 희석으로 보기 어렵다.</li><li>매출 증가+EPS 정체 패턴은 <mark>반복 가능성이 높다</mark>: ATM 잔여한도 약 $23M(본인 계산), Micron 전환 최대 약 1.9M주(현재가 가정)가 대기 중이다.</li><li><b>다음 실적 핵심 숫자:</b> Q4 매출 ≥ $22.0M(±10%), non-GAAP 영업이익 ≈ +$3.4M(가이던스 내재), 영업현금흐름 흑자 전환, 기말 주식 수 ≤ 35M.</li></ul></div>
+<div class="chart-card"><div class="chart-header"><h3 class="ct">분기별 · GAAP EPS / Sales / Shares (최근 9개 분기 + Q4 가이던스)</h3><div class="tabs"><span>Timeframe</span><span class="">Annual</span><span class="active">Quarterly</span></div></div><div class="mini-chart-grid">
+<div class="mini-chart"><h3>GAAP EPS (diluted, $)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">−0.8</text>
+<line class="grid" x1="6" x2="316" y1="149.3" y2="149.3"/>
+<text class="axis-label" x="356" y="152.8" text-anchor="end">−0.4</text>
+<line class="zero" x1="6" x2="316" y1="84.7" y2="84.7"/>
+<text class="axis-label" x="356" y="88.2" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">0.4</text>
+<text class="axis-label" x="21.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’24</text>
+<rect x="11.3" y="84.7" width="20.5" height="37.2" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="21.5" y="132.8" text-anchor="middle" style="font-size:8.5px">−0.23</text>
+<text class="axis-label" x="52.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’24</text>
+<rect x="42.3" y="62.0" width="20.5" height="22.6" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="52.5" y="58.0" text-anchor="middle" style="font-size:8.5px">0.14</text>
+<text class="axis-label" x="83.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’25</text>
+<rect x="73.3" y="84.7" width="20.5" height="108.3" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="83.5" y="204.0" text-anchor="middle" style="font-size:8.5px">−0.67</text>
+<text class="axis-label" x="114.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’25</text>
+<rect x="104.3" y="84.7" width="20.5" height="51.7" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="114.5" y="147.4" text-anchor="middle" style="font-size:8.5px">−0.32</text>
+<text class="axis-label" x="145.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’25</text>
+<rect x="135.3" y="84.7" width="20.5" height="29.1" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="145.5" y="124.8" text-anchor="middle" style="font-size:8.5px">−0.18</text>
+<text class="axis-label" x="176.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’25</text>
+<rect x="166.3" y="84.7" width="20.5" height="38.8" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="176.5" y="134.5" text-anchor="middle" style="font-size:8.5px">−0.24</text>
+<text class="axis-label" x="207.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’26</text>
+<rect x="197.3" y="84.7" width="20.5" height="30.7" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="207.5" y="126.4" text-anchor="middle" style="font-size:8.5px">−0.19</text>
+<text class="axis-label" x="238.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’26</text>
+<rect x="228.3" y="84.7" width="20.5" height="17.8" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="238.5" y="113.4" text-anchor="middle" style="font-size:8.5px">−0.11</text>
+<text class="axis-label" x="269.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’26</text>
+<rect x="259.3" y="84.7" width="20.5" height="22.6" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="269.5" y="118.3" text-anchor="middle" style="font-size:8.5px">−0.14</text>
+<text class="axis-label" x="300.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’26E</text>
+<text class="axis-label" x="300.5" y="78.7" text-anchor="middle" style="font-size:9px">N/A</text>
+<rect x="290.3" y="82.7" width="20.5" height="2" fill="#6f756e" opacity=".45"/>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">* Q4'24 일시 흑자 = 소송충당금 환입 $3.8M 포함</text>
+</svg><p class="basis">기준: diluted GAAP EPS. Q4'24 외 전 분기 적자. 분기 합계≠연간(주식 수 변동)</p></div>
+<div class="mini-chart"><h3>Sales ($M)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="175.2" y2="175.2"/>
+<text class="axis-label" x="356" y="178.7" text-anchor="end">5.0</text>
+<line class="grid" x1="6" x2="316" y1="136.4" y2="136.4"/>
+<text class="axis-label" x="356" y="139.9" text-anchor="end">10</text>
+<line class="grid" x1="6" x2="316" y1="97.6" y2="97.6"/>
+<text class="axis-label" x="356" y="101.1" text-anchor="end">15</text>
+<line class="grid" x1="6" x2="316" y1="58.8" y2="58.8"/>
+<text class="axis-label" x="356" y="62.3" text-anchor="end">20</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">25</text>
+<text class="axis-label" x="21.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’24</text>
+<rect x="11.3" y="128.9" width="20.5" height="85.1" rx="4" fill="#d97941"/>
+<text class="bar-label" x="21.5" y="124.9" text-anchor="middle" style="font-size:8.5px">11.0</text>
+<text class="axis-label" x="52.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’24</text>
+<rect x="42.3" y="75.4" width="20.5" height="138.6" rx="4" fill="#d97941"/>
+<text class="bar-label" x="52.5" y="71.4" text-anchor="middle" style="font-size:8.5px">17.9</text>
+<text class="axis-label" x="83.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’25</text>
+<rect x="73.3" y="104.6" width="20.5" height="109.4" rx="4" fill="#d97941"/>
+<text class="bar-label" x="83.5" y="100.6" text-anchor="middle" style="font-size:8.5px">14.1</text>
+<text class="axis-label" x="114.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’25</text>
+<rect x="104.3" y="120.5" width="20.5" height="93.5" rx="4" fill="#d97941"/>
+<text class="bar-label" x="114.5" y="116.5" text-anchor="middle" style="font-size:8.5px">12.0</text>
+<text class="axis-label" x="145.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’25</text>
+<rect x="135.3" y="69.1" width="20.5" height="144.9" rx="4" fill="#d97941"/>
+<text class="bar-label" x="145.5" y="65.1" text-anchor="middle" style="font-size:8.5px">18.7</text>
+<text class="axis-label" x="176.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’25</text>
+<rect x="166.3" y="72.4" width="20.5" height="141.6" rx="4" fill="#d97941"/>
+<text class="bar-label" x="176.5" y="68.4" text-anchor="middle" style="font-size:8.5px">18.3</text>
+<text class="axis-label" x="207.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’26</text>
+<rect x="197.3" y="76.2" width="20.5" height="137.8" rx="4" fill="#d97941"/>
+<text class="bar-label" x="207.5" y="72.2" text-anchor="middle" style="font-size:8.5px">17.8</text>
+<text class="axis-label" x="238.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’26</text>
+<rect x="228.3" y="75.8" width="20.5" height="138.2" rx="4" fill="#d97941"/>
+<text class="bar-label" x="238.5" y="71.8" text-anchor="middle" style="font-size:8.5px">17.8</text>
+<text class="axis-label" x="269.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’26</text>
+<rect x="259.3" y="87.6" width="20.5" height="126.4" rx="4" fill="#d97941"/>
+<text class="bar-label" x="269.5" y="83.6" text-anchor="middle" style="font-size:8.5px">16.3</text>
+<text class="axis-label" x="300.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’26E</text>
+<rect class="bar-outline" style="color:#d97941" x="290.3" y="43.3" width="20.5" height="170.7" rx="4"/>
+<text class="bar-label" x="300.5" y="39.3" text-anchor="middle" style="font-size:8.5px">22.0</text>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">$M · Q4'26E = 회사 가이던스 중간값(외곽선)</text>
+</svg><p class="basis">기준: 총매출. Q3'25 $18.7M은 EDA $10.4M 일회성 대형 계약 포함 → Q3'26 YoY −13%의 기저효과</p></div>
+<div class="mini-chart"><h3>Shares Outstanding (M)</h3><svg viewBox="0 0 360 250" role="img" aria-label="bar chart" xmlns="http://www.w3.org/2000/svg">
+<line class="zero" x1="6" x2="316" y1="214.0" y2="214.0"/>
+<text class="axis-label" x="356" y="217.5" text-anchor="end">0.0</text>
+<line class="grid" x1="6" x2="316" y1="165.5" y2="165.5"/>
+<text class="axis-label" x="356" y="169.0" text-anchor="end">10</text>
+<line class="grid" x1="6" x2="316" y1="117.0" y2="117.0"/>
+<text class="axis-label" x="356" y="120.5" text-anchor="end">20</text>
+<line class="grid" x1="6" x2="316" y1="68.5" y2="68.5"/>
+<text class="axis-label" x="356" y="72.0" text-anchor="end">30</text>
+<line class="grid" x1="6" x2="316" y1="20.0" y2="20.0"/>
+<text class="axis-label" x="356" y="23.5" text-anchor="end">40</text>
+<text class="axis-label" x="21.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’24</text>
+<rect x="11.3" y="73.1" width="20.5" height="140.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="21.5" y="69.1" text-anchor="middle" style="font-size:8.5px">29.0</text>
+<text class="axis-label" x="52.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’24</text>
+<rect x="42.3" y="74.1" width="20.5" height="139.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="52.5" y="70.1" text-anchor="middle" style="font-size:8.5px">28.8</text>
+<text class="axis-label" x="83.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’25</text>
+<rect x="73.3" y="74.8" width="20.5" height="139.2" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="83.5" y="70.8" text-anchor="middle" style="font-size:8.5px">28.7</text>
+<text class="axis-label" x="114.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’25</text>
+<rect x="104.3" y="71.8" width="20.5" height="142.2" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="114.5" y="67.8" text-anchor="middle" style="font-size:8.5px">29.3</text>
+<text class="axis-label" x="145.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’25</text>
+<rect x="135.3" y="67.5" width="20.5" height="146.5" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="145.5" y="63.5" text-anchor="middle" style="font-size:8.5px">30.2</text>
+<text class="axis-label" x="176.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’25</text>
+<rect x="166.3" y="65.0" width="20.5" height="149.0" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="176.5" y="61.0" text-anchor="middle" style="font-size:8.5px">30.7</text>
+<text class="axis-label" x="207.5" y="229" text-anchor="middle" style="font-size:7.5px">Q1’26</text>
+<rect x="197.3" y="61.9" width="20.5" height="152.1" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="207.5" y="57.9" text-anchor="middle" style="font-size:8.5px">31.4</text>
+<text class="axis-label" x="238.5" y="229" text-anchor="middle" style="font-size:7.5px">Q2’26</text>
+<rect x="228.3" y="53.9" width="20.5" height="160.1" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="238.5" y="49.9" text-anchor="middle" style="font-size:8.5px">33.0</text>
+<text class="axis-label" x="269.5" y="229" text-anchor="middle" style="font-size:7.5px">Q3’26</text>
+<rect class="bar-outline" style="color:#5f9ea0" x="259.3" y="49.3" width="20.5" height="164.7" rx="4"/>
+<text class="bar-label" x="269.5" y="45.3" text-anchor="middle" style="font-size:8.5px">34.0</text>
+<text class="axis-label" x="300.5" y="229" text-anchor="middle" style="font-size:7.5px">Q4’26E</text>
+<text class="axis-label" x="300.5" y="208.0" text-anchor="middle" style="font-size:9px">N/A</text>
+<rect x="290.3" y="212.0" width="20.5" height="2" fill="#6f756e" opacity=".45"/>
+<text class="axis-label" x="6" y="10" style="font-size:8.5px">M주 · 희석 가중평균 (MRQ Q3'26=외곽선)</text>
+</svg><p class="basis">기준: diluted weighted average. Q3'24→Q4'24 소폭 감소는 원문 확인 필요(검증 필요)</p></div>
+</div>
+<p class="legend">채움 = 확정 · 외곽선 = Q3'26(주식 수 MRQ) / Q4'26E(가이던스 중간값, 확정 아님) · N/A = 미공시</p></div>
+<div class="interp"><h4>투자 해석</h4><ul><li><mark>Q3'26 매출 −13% YoY는 부진이 아니라 기저효과+타이밍</mark>이다. Q3'25 EDA $10.4M 일회성, Q3'26은 IP 마일스톤 일부가 Q4로 이연(경영진). 그래도 컨센서스($17.1M)는 하회했다.</li><li>Q1'26→Q3'26 EPS는 −0.19→−0.11→−0.14로 개선됐지만 <mark>매출이 아니라 비용(non-GAAP opex −25% YoY)</mark>이 만든 개선이다. Q3는 매출이 줄고도 손실이 줄었다.</li><li>가중평균 주식 수는 8분기 만에 28.7M→34.0M(+18%). <mark>주식 증가율이 연속 3분기 +2~5% QoQ</mark>로 가파르다(ATM 가동 시점과 일치).</li><li>Q4'26E $22.0M은 Q3 대비 +35% QoQ — <mark>후반 집중(back-end loaded)</mark>이라 미스 시 변동 폭이 크다. 이 구간은 확정이 아니라 가이던스다.</li><li><b>확인할 숫자:</b> Q4 GAAP EPS가 −0.05 안팎(가이던스 내재 non-GAAP 흑자 반영 시)으로 들어오는지, 분기말 주식 수가 35M 이하인지.</li></ul></div>
+<div class="card"><b>분석 필수 체크</b>
+<ul class="tight">
+<li><b>매출 증가율 vs EPS 증가율:</b> TTM 매출 +11.9% / 주당 손실 −34% 개선. 비용 감축이 EPS의 주 동력.</li>
+<li><b>EPS 증가율 vs 주식 수 증가율:</b> Q3 주당 손실 개선 −23% vs 주식 +12.4% → <mark>간신히 이김</mark> (이익이 아닌 손실 축소).</li>
+<li><b>희석 반복 가능성:</b> 높음 (ATM 잔여 + Micron 전환 + 연 SBC $8M).</li>
+<li><b>현재가가 반영한 것:</b> 매출 성장(2026 +17%, 2027 중고단위) <u>까지</u> 반영. <mark>EPS 흑자 전환은 거의 미반영</mark>(P/E 무의미) → 흑자 확인 시 상방, 미확인 시 멀티플 압축.</li>
+</ul></div>
+</section>
+<section id="s4"><h2><span class="n">4</span>고객 · 파트너 · 생태계</h2>
+<div class="vcard"><svg viewBox="0 0 760 430" role="img" aria-label="relationship map" xmlns="http://www.w3.org/2000/svg">
+<line x1="250" y1="90" x2="330" y2="185" stroke="#5d7285" stroke-width="2" stroke-dasharray="5 4"/><text x="270" y="128" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#5d7285">경쟁·멀티플 기준</text>
+<line x1="510" y1="90" x2="430" y2="185" stroke="#5d7285" stroke-width="2" stroke-dasharray="5 4"/><text x="486" y="128" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#5d7285">경쟁</text>
+<line x1="150" y1="215" x2="310" y2="215" stroke="#c95b4a" stroke-width="2"/><text x="232" y="205" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#c95b4a">고객+투자자+공동개발</text>
+<line x1="150" y1="300" x2="320" y2="250" stroke="#7f8f68" stroke-width="2" stroke-dasharray="5 4"/><text x="215" y="285" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#7f8f68">익명(추론)</text>
+<line x1="150" y1="370" x2="340" y2="262" stroke="#7f8f68" stroke-width="2" stroke-dasharray="5 4"/><text x="230" y="335" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#7f8f68">익명(추론)</text>
+<line x1="610" y1="215" x2="450" y2="215" stroke="#d97941" stroke-width="2"/><text x="530" y="205" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#d97941">파트너십(발표)</text>
+<line x1="610" y1="300" x2="440" y2="250" stroke="#d97941" stroke-width="2"/><text x="540" y="288" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#d97941">파트너십(발표)</text>
+<line x1="380" y1="330" x2="380" y2="262" stroke="#7f8f68" stroke-width="2"/><text x="440" y="308" text-anchor="middle" style="font-size:10px;font-weight:700;fill:#7f8f68">인수 → SIP/TCAD</text>
+<rect x="300" y="185" width="160" height="60" rx="12" fill="#f0e6d4" stroke="#243036" stroke-width="2"/><text x="380.0" y="212.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Silvaco (SVCO)</text><text x="380.0" y="229.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">TCAD · EDA · SIP</text>
+<rect x="60" y="60" width="190" height="56" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2" stroke-dasharray="6 4"/><text x="155.0" y="85.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Synopsys · Cadence</text><text x="155.0" y="102.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">Siemens EDA — 관련성: 경쟁</text>
+<rect x="510" y="60" width="190" height="56" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2" stroke-dasharray="6 4"/><text x="605.0" y="85.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">섹터 센티먼트</text><text x="605.0" y="102.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">SNPS/CDNS 멀티플 −10~20%</text>
+<rect x="10" y="185" width="140" height="60" rx="12" fill="#fffaf0" stroke="#c95b4a" stroke-width="2"/><text x="80.0" y="212.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Micron</text><text x="80.0" y="229.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">직접고객·FTCO 공동개발</text>
+<rect x="10" y="275" width="140" height="50" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2" stroke-dasharray="6 4"/><text x="80.0" y="297.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">신규 Tier-1 FTCO</text><text x="80.0" y="314.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">익명 · 후보만 가능</text>
+<rect x="10" y="345" width="140" height="50" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2" stroke-dasharray="6 4"/><text x="80.0" y="367.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Asia FTCO #2</text><text x="80.0" y="384.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">익명 · 확인 불가</text>
+<rect x="610" y="185" width="140" height="60" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/><text x="680.0" y="212.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">NVIDIA</text><text x="680.0" y="229.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">GPU 디지털 트윈 파트너</text>
+<rect x="610" y="275" width="140" height="50" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/><text x="680.0" y="297.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Dassault SIMULIA</text><text x="680.0" y="314.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">상호운용 워크플로(8/18)</text>
+<rect x="610" y="345" width="140" height="50" rx="12" fill="#fffaf0" stroke="#6f756e" stroke-width="2" stroke-dasharray="6 4"/><text x="680.0" y="367.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">APEC·Vicor·ITRI</text><text x="680.0" y="384.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">전력/모듈 TCAD · MoU</text>
+<rect x="280" y="330" width="200" height="60" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2"/><text x="380.0" y="357.0" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Mixel · Tech-X · Cadence PPC</text><text x="380.0" y="374.0" text-anchor="middle" style="font-size:10.5px;fill:#6f756e">인수 3건 (SIP 매출 견인)</text>
+<line x1="200" x2="236" y1="410" y2="410" stroke="#243036" stroke-width="2"/><text x="242" y="414" style="font-size:10.5px;fill:#6f756e">확정(공시/PR)</text>
+<line x1="360" x2="396" y1="410" y2="410" stroke="#243036" stroke-width="2" stroke-dasharray="5 4"/><text x="402" y="414" style="font-size:10.5px;fill:#6f756e">추론·익명·경쟁(단정 금지)</text>
+</svg><p class="basis">실선 = 공시·보도자료로 확인. 점선 = 익명·추론·경쟁 관계(이름 단정 금지). 익명 Tier-1 고객은 후보를 특정할 근거가 없어 지명하지 않음.</p></div>
+<div class="tw"><table class=""><thead><tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr></thead><tbody><tr><td>직접 고객</td><td>Micron</td><td>FTCO 공동개발·라이선스 + 투자자</td><td>8-K(전환사채), 10-Q, 2024 $5M note→IPO 시 294,217주 전환</td><td>레퍼런스 + 자금. <span class="tag f">확정</span></td><td><span class="grade gA">A</span></td><td>투자자이자 고객 → 매출 순환 의심. 매출 비중 비공시(>10% 고객 없음 공시)</td></tr><tr><td>직접 고객</td><td>신규 Tier-1 FTCO (Q3'26)</td><td>'매우 큰 회사'(경영진 발언)</td><td>컨콜 발언뿐, 공시·계약 8-K 없음</td><td>후보: 대형 파운드리/IDM급 <span class="tag i">추론</span> — <b>단정 금지</b></td><td><span class="grade gC">C</span></td><td>이름·금액 미공개. 후보 확정 근거 0. FTCO 매출 인식은 후행</td></tr><tr><td>직접 고객</td><td>Asia FTCO #2 (Q4'25)</td><td>'아시아' FTCO</td><td>Q4'25 PR</td><td>TCAD 예약 +70% QoQ 견인 <span class="tag f">확정</span></td><td><span class="grade gB">B</span></td><td>익명. 규모 미공개</td></tr><tr><td>직접 고객</td><td>Vicor · APEC(대만) · Analog Power Conversion</td><td>전력반도체/모듈 TCAD·DTCO</td><td>보도자료(2025-Q3, 2026-03)</td><td>전력 반도체 확장 사례</td><td><span class="grade gA">A</span></td><td>금액 소규모, 매출 기여 미미</td></tr><tr><td>간접 고객</td><td>AI 서버 전력·HBM/메모리 제조 생태계</td><td>FTCO·TCAD 최종 수요</td><td>경영진 설명(메모리·전력·파운드리)</td><td>AI 인프라 간접 수혜 <span class="tag i">추론</span></td><td><span class="grade gB">B</span></td><td>반도체 설비투자 사이클에 종속 (10월 반도체 변동성)</td></tr><tr><td>최종 수혜 고객</td><td>팹·디자인하우스 엔지니어(수율·개발기간 단축)</td><td>제품 가치 수혜자</td><td>제품 설명</td><td>lock-in = 모델 캘리브레이션 전환비용</td><td><span class="grade gB">B</span></td><td>Synopsys·Cadence·Siemens가 번들로 대체 가능</td></tr><tr><td>핵심 파트너</td><td>NVIDIA</td><td>GPU 가속 디지털 트윈 파트너십</td><td>Q2 PR(2026-08)</td><td>연산 인프라·신뢰. <b>매출 계약 아님</b> <span class="tag f">확정</span></td><td><span class="grade gA">A</span></td><td>파트너십 다수 존재(중소형사 흔함) · GPU capex 증가 가능</td></tr><tr><td>핵심 파트너</td><td>Dassault Systèmes SIMULIA</td><td>상호운용 디지털 트윈 워크플로</td><td>보도자료 2026-08-18</td><td>대형 설치기반 접근</td><td><span class="grade gA">A</span></td><td>개발 초기 — 공동 고객 수치 없음</td></tr><tr><td>핵심 파트너</td><td>ITRI(대만) · Semicon India MoU</td><td>생태계·정부 연계</td><td>Q1·Q3 PR</td><td>낮은 직접 영향</td><td><span class="grade gB">B</span></td><td>MoU는 구속력 낮음</td></tr><tr><td>관련성 있는 대기업</td><td>Synopsys · Cadence · Siemens EDA</td><td>경쟁 + 섹터 멀티플 기준 (Cadence PPC 제품군은 인수)</td><td>B.Riley 노트, 2025-03 인수 PR</td><td>섹터 센티먼트 베타</td><td><span class="grade gA">A</span></td><td>직접 매출 연동은 없음</td></tr><tr><td>관련성 낮음</td><td>반도체 장비사·정부 연구소(FTCO 관심)</td><td>관심 표명</td><td>Q1 PR 문구</td><td>'관심' 단계</td><td><span class="grade gC">C</span></td><td>계약 근거 없음 — 관련성 낮음</td></tr></tbody></table></div>
+</section>
+<section id="s5"><h2><span class="n">5</span>자본구조 · 수급</h2>
+<div class="tw"><table class="compact"><thead><tr><th>항목</th><th>값 / 근거</th><th>의미 (투자자 관점)</th></tr></thead><tbody><tr><td>주식 수</td><td><b>34,196,912주</b> (11/2, 10-Q 표지) · 12/31 30,948,403주</td><td><mark>10개월 +10.5%</mark>. 가중평균은 YoY +12.4%</td></tr><tr><td>Fully diluted (본인 계산)</td><td>약 36.1M (Micron 전환 +1.9M) ~ 39.6M (ATM 한도 전량 소진 시)</td><td>최대 +15.7%. RSU·옵션 잔량은 10-K 확인 필요 <span class="tag v">검증 필요</span></td></tr><tr><td>전환사채</td><td>$10.0M · 8% · 무담보 · 2028-08-07 강제전환 · 장부 $10.1M · 파생 $3.2M</td><td>전환가 = min(시가×90%, 8/5 종가×115%) → 주가↓ = 주식 수↑</td></tr><tr><td>ATM / shelf</td><td>ATM 한도 $35.0M: 9M 매도 1,460,737주 @ $7.98 (총 $11.7M). 잔여 약 $23.3M(본인 계산). S-3 $50M shelf 존재 <span class="tag v">검증 필요</span></td><td>주가가 $7~8 이상일 때 다시 쓰기 쉬움 → <mark>상승 구간의 천장</mark></td></tr><tr><td>warrant / option / RSU</td><td>warrant 정보 미확인 <span class="tag v">검증 필요</span> · SBC 9M $8.0M · CEO 250K주 RSU(8/29)</td><td>SBC는 연 3% 안팎 추가 희석 가능(추정)</td></tr><tr><td>Insider 보유</td><td>Pesic 가족 3인 ≈18.3M주 (≈54%, 중복 검증 필요). 주식대출형 이전 ≈1.0~1.3M주</td><td>지배구조 안정 ↔ 대량 매물 리스크</td></tr><tr><td>Institutional</td><td>보유율 ≈28%(102개 기관, 직전 분기 +21%·순매수 +1.6M주, Equibles) · BlackRock 10.3%(2024-06 13G, 최신 검증 필요)</td><td>기관 유입은 진행 중이나 유동주식이 얇음</td></tr><tr><td>Short float</td><td>약 3.2% (1.1M주, 2.9일, 8월 말) · 5/1 5.0% · 2025년 15~16%</td><td>숏 연료가 작아 <mark>스퀴즈 상승 여력 제한</mark></td></tr><tr><td>거래량 급증 원인</td><td>11/5: 536K주(평균 325K의 1.65배). 실적 발표(11/4 장 마감 후) 반응</td><td>급증 폭이 작아 '수급 폭발'은 아님</td></tr></tbody></table></div>
+<div class="vcard"><svg viewBox="0 0 720 132" role="img" aria-label="dilution bar" xmlns="http://www.w3.org/2000/svg">
+<rect x="20.0" y="30" width="553.7" height="34" rx="6" fill="#5f9ea0"/>
+<text x="296.8" y="52" text-anchor="middle" style="font-size:11px;font-weight:700;fill:#fff">현재 34.20M주 (11/2)</text>
+<rect class="bar-outline" style="color:#d97941" x="573.7" y="30" width="31.1" height="34" rx="6"/>
+<text x="603.2" y="82" text-anchor="end" style="font-size:11px;font-weight:700;fill:#243036">Micron 전환 +1.92M</text>
+<rect class="bar-outline" style="color:#c95b4a" x="604.8" y="30" width="56.0" height="34" rx="6"/>
+<text x="700.0" y="98" text-anchor="end" style="font-size:11px;font-weight:700;fill:#243036">ATM 잔여 소진 +3.46M</text>
+<text x="20" y="18" style="font-size:11px;fill:#6f756e">희석 최대 시나리오(본인 계산, 가정: 현재가 $6.73 · ATM $35M 한도 전량 · Micron 90% 할인 전환)</text>
+<text x="700" y="122" text-anchor="end" style="font-size:12px;font-weight:800;fill:#243036">합계 약 39.6M주 (+15.7%)</text>
+</svg><p class="basis">희석 최대치는 상한 시나리오이며 확정 아님. Micron 전환은 이자 포함 약 $11.6M(2028-08까지 단순이자 가정) 기준.</p></div>
+<h3 class="sh">11/5 상승은 무엇 때문이었나</h3>
+<div class="tw"><table class="compact"><thead><tr><th>11/5 상승(+15.6%) 요인</th><th>증거</th><th>기여 (추론)</th></tr></thead><tbody><tr><td>펀더멘털 (Q4 사상 최고 가이던스·Tier-1 FTCO)</td><td>가이던스 $22.0M(+35% QoQ), 예약 $21.0M, 미스에도 상승</td><td>높음 <span class="tag i">추론</span></td></tr><tr><td>멀티플 저점 반등 (과매도)</td><td>직전 한 달 −37%, 이전 4주 SNPS/CDNS 압축, EV/S 3.2x</td><td>높음 <span class="tag i">추론</span></td></tr><tr><td>숏커버링</td><td>SI ≈3% · 1.1M주 < 일평균 3.4일치; 거래량 1.65배</td><td>낮음 <span class="tag i">추론</span></td></tr><tr><td>Financing overhang 해소</td><td>Micron 전환사채로 현금 $22M 확보, 단 ATM 잔여와 전환 대기</td><td>중간 <span class="tag i">추론</span> (해소 아닌 이연)</td></tr></tbody></table></div>
+</section>
+<section id="s6"><h2><span class="n">6</span>밸류에이션 · 목표가 · 반대 thesis</h2>
+<div class="vcard"><b>Valuation Bridge ($/주)</b><svg viewBox="0 0 720 330" role="img" aria-label="valuation bridge" xmlns="http://www.w3.org/2000/svg">
+<line class="grid" x1="190.0" x2="190.0" y1="22" y2="286"/>
+<text class="axis-label" x="190.0" y="302" text-anchor="middle">$0</text>
+<line class="grid" x1="292.1" x2="292.1" y1="22" y2="286"/>
+<text class="axis-label" x="292.1" y="302" text-anchor="middle">$5</text>
+<line class="grid" x1="394.2" x2="394.2" y1="22" y2="286"/>
+<text class="axis-label" x="394.2" y="302" text-anchor="middle">$10</text>
+<line class="grid" x1="496.2" x2="496.2" y1="22" y2="286"/>
+<text class="axis-label" x="496.2" y="302" text-anchor="middle">$15</text>
+<line class="grid" x1="598.3" x2="598.3" y1="22" y2="286"/>
+<text class="axis-label" x="598.3" y="302" text-anchor="middle">$20</text>
+<text x="180" y="47" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">하방 리스크</text>
+<rect x="190" y="30" width="60.0" height="26" rx="6" fill="#c95b4a"/>
+<text class="bar-label" x="258.0" y="48" style="font-size:13px">$2.94 (−56%)</text>
+<text x="180" y="91" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">보수적 내재가치</text>
+<rect x="190" y="74" width="94.1" height="26" rx="6" fill="#7f8f68"/>
+<text class="bar-label" x="292.1" y="92" style="font-size:13px">$4.61 (−32%)</text>
+<text x="180" y="135" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">현재 주가 (11/5 종가)</text>
+<rect x="190" y="118" width="137.4" height="26" rx="6" fill="#5d7285"/>
+<text class="bar-label" x="335.4" y="136" style="font-size:13px">$6.73</text>
+<text x="180" y="179" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">12개월 base target</text>
+<rect x="190" y="162" width="159.7" height="26" rx="6" fill="#d97941"/>
+<text class="bar-label" x="357.7" y="180" style="font-size:13px">$7.82 (+16%)</text>
+<text x="180" y="223" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">bull target</text>
+<rect x="190" y="206" width="265.2" height="26" rx="6" fill="#b86432"/>
+<text class="bar-label" x="463.2" y="224" style="font-size:13px">$12.99 (+93%)</text>
+<text x="180" y="267" text-anchor="end" style="font-size:13px;font-weight:700;fill:#243036">overshoot target</text>
+<rect x="190" y="250" width="365.9" height="26" rx="6" fill="none" stroke="#b86432" stroke-width="2.5" stroke-dasharray="6 4"/>
+<text class="bar-label" x="563.9" y="268" style="font-size:13px">$17.92 (+166%)</text>
+<line x1="327.4" x2="327.4" y1="16" y2="286" stroke="#5d7285" stroke-width="1.5" stroke-dasharray="4 3"/>
+</svg></div>
+<div class="interp"><h4>그래프 해석</h4><ul>
+<li><b>현재가 $6.73은 보수적 내재가치($4.61)보다 46% 높다</b> (내재가치는 현재가의 69%).</li>
+<li><mark>현재가는 base case(+16%)를 거의 그대로 사는 가격</mark>이다. bull을 사려면 +93%의 성과 달성이 필요하다. 지금 가격에 bull을 지불하는 것은 아니다.</li>
+<li><b>overshoot $17.92는 펀더멘털 목표가가 아니라 수급·테마 가능성</b>이다 (2026-07 고점 ≈ EV/S 7배, 애널리스트 최고 목표가 $18과 겹침). 숏 3%대라 스퀴즈 연료는 작음.</li>
+<li><b>매수/축소 가격대:</b> 실적 전에는 $5.2 이하에서만 매수, $8.6 이상에서 분할 차익. 실적 후 beat+raise면 $9 이하에서 추가, 미스면 $5.0 이하 이탈 시 축소.</li>
+</ul></div>
+<h3 class="sh">6개 목표가 표</h3>
+<div class="tw"><table class=""><thead><tr><th>시나리오</th><th>목표가</th><th>적용 매출/EPS/FCF</th><th>적용 multiple</th><th>희석 주식 수</th><th>확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr></thead><tbody><tr><td>하방 리스크</td><td><b>$2.94</b> (−56%)</td><td>매출 $70M, FCF −</td><td>EV/S 1.5x + 순현금 $8M</td><td>38.5M (Micron 전환 4.3M)</td><td>30%</td><td>—</td><td>Q4 미스·ATM 재가동·창업자 담보 처분</td><td>신규 금지, 추가 하락 시 thesis 점검</td></tr><tr><td>보수적 내재가치</td><td><b>$4.61</b> (−32%)</td><td>FY26E 매출 $73.9M</td><td>EV/S 2.0x</td><td>36.1M</td><td>(바닥 앵커)</td><td>—</td><td>—</td><td>$5.2 이하에서만 추가 매수 검토</td></tr><tr><td>12개월 base</td><td><b>$7.82</b> (+16%)</td><td>FY27E $85.7M(+16%)</td><td>EV/S 3.2x · 순현금 $20M</td><td>37.6M</td><td>45%</td><td>Q4 $22M 달성·2027 가이던스 중고단위 성장</td><td>성장률 <12%, 현금 <$15M</td><td>보유</td></tr><tr><td>bull</td><td><b>$12.99</b> (+93%)</td><td>FY27E $90.1M(+22%)</td><td>EV/S 5.0x · 순현금 $25M</td><td>36.6M</td><td>20%</td><td>FTCO 신규 고객 2곳+·IP 반복화·non-GAAP OP 흑자 지속</td><td>FTCO 지연, 경쟁 번들</td><td>일부 매도(1/3)</td></tr><tr><td>overshoot</td><td><b>$17.92</b> (+166%)</td><td>FY27E $90.1M</td><td>EV/S 7.0x (2026-07 고점대 ≈ 7배)</td><td>36.6M</td><td>5%</td><td>AI 테마 재점화·M&A 소문·수급</td><td>펀더멘털 근거 없음</td><td>전량 차익 · 추격 금지</td></tr><tr><td>실적 전 trading target</td><td><b>$8.60</b> (+28%)</td><td>—</td><td>10월 초 갭 구간 $8.6~9.0 (EV/S ≈ 3.9x)</td><td>—</td><td>25%</td><td>Q4 기대 재상승·섹터 반등</td><td>12월 FOMC 인상, 섹터 약세</td><td>15주 분할 매도</td></tr><tr><td>실적 후 재평가</td><td><b>$9.57</b> / 미스 시 <b>$4.12</b></td><td>beat+raise: FY27E $87.9M(+19%)</td><td>EV/S 3.8x / 1.8x</td><td>37.2M / 37.8M</td><td>beat+raise 35% · 미스 25%</td><td>Q4 매출 ≥$23M, OCF 흑자, 2027 ≥+19%</td><td>매출 <$19.8M, 현금 <$18M</td><td>조건부 3차 매수 / 50% 축소</td></tr></tbody></table></div>
+<p class="basis">확률 = 하방 30% · base 45% · bull 20% · overshoot 5% (합 100%). 확률가중 목표가 ≈ $7.90 (+17%). 순현금 = 현금 − 벤더 금융(전환사채는 주식 수에 반영). 모든 목표가는 본인 계산이며 컨센서스(평균 약 $14, 범위 $12~18)와 다름 — 애널리스트 목표가는 Buy 6곳 모두 현재가 대비 높지만 B.Riley가 11/2 $16→$11로 낮춤.</p>
+<h3 class="sh">반대 thesis (bull과 같은 강도)</h3>
+<div class="grid2">
+<div class="card"><b>1. 이 모든 연결이 우연일 수 있다</b><br>Micron 투자, NVIDIA·Dassault 파트너십, Tier-1 고객은 서로 독립 사건일 수 있고 'AI 디지털 트윈' 서사가 사후적으로 엮은 것일 수 있다. 확정 매출 계약은 없다.</div>
+<div class="card"><b>2. 고객·플랫폼 기대 과대평가</b><br>FTCO는 '기울기 완만'(경영진). 신규 고객은 익명이고 매출 인식은 후행. 파트너십 ≠ 수주. 경영진이 말한 'FTCO가 매출 절반'은 시간표가 없다 <span class="tag v">검증 필요</span>.</div>
+<div class="card"><b>3. 매출↑ EPS↔ (희석)</b><br>2025-Q3 이후 가중평균 주식 +12%, ATM 잔여 $23M, Micron 최대 +1.9~4.3M주. FY26 GAAP 흑자 전환 가이던스는 없다.</div>
+<div class="card"><b>4. 금리·실업률·신용 사이클</b><br>연준이 9월 인상, 12월 추가 인상 가능성. 9월 고용 +29K·실업률 4.2%. 소형 적자주는 금리·신용에 가장 취약하고 반도체 설비투자 사이클에 종속.</div>
+<div class="card"><b>5. 스퀴즈/반등 후 급락</b><br>11/5 +15.6%는 과매도 반등 성격. 시간외 −5.9%. 숏 3%대라 연료가 약하고, 반등 실패 시 $5.8 재방문 가능.</div>
+<div class="card"><b>6. M&A 기대 과열</b><br>Silvaco는 3건 인수(Mixel·Tech-X·Cadence PPC)로 성장했지만, 피인수 소문은 확인된 사실이 아니다. 창업자 가족 담보·중재 이슈는 오히려 인수 협상의 마찰 요인.</div>
+</div>
+</section>
+<section id="s7"><h2><span class="n">7</span>실적 전후 행동 · 리스크 · 포트폴리오 실행안</h2>
+<div class="card"><b>다음 실적 전후 해석</b> (Q4 FY26, 2027-03 중순 예상 · 날짜 미확정 <span class="tag v">검증 필요</span>)
+<ul class="tight">
+<li><b>실적 전 기대치 반영도:</b> 현재가는 Q4 $22.0M와 2026 +17%를 이미 반영(EV/S 3.0x FY26E). 가이던스 달성은 '기본값'.</li>
+<li><b>실적 전 매수해도 되는가:</b> 대량 매수는 대기. $5.2 이하 눌림에서만 소량(25주).</li>
+<li><b>실적 후 확인하고 사야 하는가:</b> <mark>그렇다.</mark> 현금·OCF·주식 수가 확인되는 시점이 위험을 크게 낮춘다.</li>
+<li><b>beat만으로 충분한가:</b> 아니다. 가이던스 중간값 달성은 base(+16%) 수준. <mark>beat + raise(2027 ≥ +19%) + 영업CF 흑자</mark>가 필요하다.</li>
+<li><b>주가가 오르는 숫자:</b> 매출 ≥ $23M · 예약 ≥ $21M · non-GAAP GM ≥ 88% · non-GAAP 영업이익 ≥ +$3.4M · 현금 ≥ $24M · 주식 수 ≤ 35M.</li>
+<li><b>주가가 빠지는 숫자:</b> 매출 < $19.8M · 예약 < $18.9M · 현금 < $18M · ATM 1M주 이상 신규 · 2027 성장 가이던스 < 12%.</li>
+</ul></div>
+<h3 class="sh">Thesis-break 트리거 (리스크 → 대응)</h3>
+<div class="tw"><table class=""><thead><tr><th>리스크</th><th>thesis가 깨지는 지표</th><th>시장이 반영하기 시작하는 가격</th><th>확인 시점</th><th>대응 행동</th></tr></thead><tbody><tr><td>매출 성장 둔화</td><td>Q4 매출 < $19.8M(가이던스 하단) 또는 2027 성장 가이던스 < 12%</td><td>$5.5</td><td>2027-03 Q4 실적</td><td>50% 축소</td></tr><tr><td>EPS 정체</td><td>TTM GAAP EPS가 −0.60보다 나쁘거나 Q4 GAAP 영업손실 > $3M</td><td>$5.5</td><td>Q4/Q1'27</td><td>25% 축소 · 추가 매수 금지</td></tr><tr><td>주식 수 희석</td><td>분기말 주식 수 > 36.0M(+5%) 또는 ATM 신규 > 1M주</td><td>$5.8</td><td>10-K / 10-Q 표지</td><td>추가 매수 금지, 초과 시 축소</td></tr><tr><td>현금 소진</td><td>현금 < $15M + 영업CF 음수 2분기 연속</td><td>$5.0</td><td>10-K, 분기 PR</td><td>50% 축소</td></tr><tr><td>고객 집중</td><td>Micron 매출 비중 > 20% 공시 또는 단일 고객 AR > 20%</td><td>$5.5</td><td>10-K</td><td>검증 후 25% 축소</td></tr><tr><td>경쟁사 대체</td><td>신규 FTCO 고객 0 (2분기 연속) + 대형사 유사 제품 출시</td><td>$5.5</td><td>분기 컨콜</td><td>25% 축소</td></tr><tr><td>금리/실업률/신용 사이클</td><td>12/9 FOMC 인상 + 실업률 ≥ 4.5% 또는 소형주(Russell 2000) 급락</td><td>$5.5</td><td>2026-12-09 · 11/10 CPI</td><td>신규 매수 금지 유지</td></tr><tr><td>short squeeze 후 급락</td><td>3일 내 +30% 급등 후 거래량 3배 · 상승분 반납</td><td>$8.6 이상 급등 구간</td><td>상시</td><td>1/3 차익 · 추격 금지</td></tr><tr><td>M&A 기대 과열</td><td>공식 8-K 없는 인수설로 +20% 급등</td><td>$9 이상</td><td>상시</td><td>루머 확인 전 추격 금지 · 차익</td></tr><tr><td>창업자 주식대출 처분</td><td>블록 매물 > 1M주 또는 13D/Form 4에 대주 등장</td><td>$6.0</td><td>상시</td><td>50% 축소 후 재평가</td></tr></tbody></table></div>
+<h3 class="sh">포트폴리오 실행안</h3>
+<div class="tw"><table class="compact"><thead><tr><th>항목</th><th>실행안 (보유 50주 · 현재가 $6.73 · 평가액 약 $336.5)</th></tr></thead><tbody><tr><td>목표 비중</td><td>포트폴리오 평가액의 <b>1.0% 이하</b>(상한 1.5%). 매입가·현재 비중이 미입력이라 비중 산출은 [비중 입력] 후 재확인 필요 <span class="tag v">검증 필요</span></td></tr><tr><td>몇 차 분할</td><td>1차 = 기존 50주 유지 · 2차 = +25주 (가격 조건) · 3차 = +25주 (실적 조건). <b>총 100주 상한</b></td></tr><tr><td>매수 가격</td><td>2차: 종가 ≤ <b>$5.20</b>일 때만 +25주 (보수적 내재가치 +13% 위 · EV/S ≈ 2.4x). 3차: Q4 beat+raise 확인 후 ≤ <b>$9.00</b>에서 +25주</td></tr><tr><td>매도 가격 · 수량 (50주 기준)</td><td>$8.60에서 15주 · $10.00에서 10주 · $12.99(bull)에서 15주 · $17.92(overshoot)에서 10주(전량). 추가 매수 시 같은 비율로 확대</td></tr><tr><td>실적 발표 전 행동</td><td>(다음 실적: 2027-03 중순 예상, 날짜 미확정 <span class="tag v">검증 필요</span>) 신규 매수 없음. 보유 유지. 12/9 FOMC·11/10 CPI·10-K 지연 여부 점검</td></tr><tr><td>실적 발표 후 행동</td><td>beat+raise(매출 ≥ $23M, OCF 흑자, 2027 ≥ +19%) → 3차 매수 · 미스(매출 < $19.8M) → 25주 매도</td></tr><tr><td>목표가 도달 시</td><td>base $7.8 도달: 보유 · $8.6: 15주 매도 · $13: 15주 매도 · $17.9: 나머지 정리</td></tr><tr><td>thesis 훼손 시</td><td>표의 지표 중 2개 이상 동시 발생 또는 종가 ≤ $5.0 + 지표 1개 악화 → 25주 축소 · 종가 ≤ $4.0 → 잔량 전량 재평가/매도</td></tr><tr><td>base / bull / overshoot 기대손익 (50주, 현재가 기준)</td><td>base +$54.5 (+16%) · bull +$313.0 (+93%) · overshoot +$559.5 (+166%) · 하방 −$189.5 (−56%) · <b>확률가중 +$58 (+17%)</b></td></tr></tbody></table></div>
+<h3 class="sh">최종 요약</h3>
+<div class="final"><dl><dt>현재 주가:</dt><dd>$6.73 (11/5 종가, +15.6%) · 시총 약 $230M · EV 약 $222M</dd><dt>보수적 내재가치:</dt><dd>$4.61 (EV/S 2.0x × FY26E $73.9M)</dd><dt>12개월 base target:</dt><dd>$7.82 (+16%)</dd><dt>bull target:</dt><dd>$12.99 (+93%)</dd><dt>overshoot target:</dt><dd>$17.92 (+166%) — 펀더멘털이 아니라 수급·테마 가능성</dd><dt>실적 발표 전 trading target:</dt><dd>$8.60</dd><dt>실적 발표 후 재평가 target:</dt><dd>$9.57 (beat+raise) / $4.12 (미스)</dd><dt>하방 리스크:</dt><dd>$2.94 (−56%)</dd><dt>12개월 기대수익률:</dt><dd>확률가중 약 +17% (변동 범위 −56% ~ +166%)</dd><dt>보유 수량 기준 기대손익:</dt><dd>50주: 확률가중 약 +$58 (−$189 ~ +$560)</dd><dt>추천 행동:</dt><dd><b>Hold · 보유</b> (신규 대량 매수 금지, 가격·실적 조건부 소량만)</dd><dt>목표 비중:</dt><dd>포트폴리오의 1% 이하 (상한 1.5%) · 총 100주 이내</dd><dt>실적 발표 전 행동:</dt><dd>신규 매수 없음 · 보유 · $8.60에서 15주 분할 차익</dd><dt>실적 발표 후 행동:</dt><dd>beat+raise → +25주 (≤ $9.00) · 미스 → 25주 축소</dd><dt>목표가 도달 시 행동:</dt><dd>$8.6 / $10 / $13 / $17.9 단계별 15·10·15·10주 매도</dd><dt>thesis 훼손 시 행동:</dt><dd>지표 2개 이상 동시 악화 또는 종가 ≤ $5.0 + 악화 → 25주 축소, ≤ $4.0 → 전량 재평가</dd><dt>가장 중요한 체크포인트:</dt><dd>Q4 매출 ≥ $22M · 영업현금흐름 흑자 · 분기말 주식 수 ≤ 35M</dd><dt>내가 틀렸다고 인정해야 하는 조건:</dt><dd>Q4 매출 < $19.8M, 현금 < $15M, 신규 ATM > 1M주, 창업자 담보주 대량 처분 중 2개 이상</dd></dl></div>
+</section>
+<section id="src"><h2>출처</h2><div class="card"><ul class="src"><li><a href="https://www.sec.gov/Archives/edgar/data/0001943289/000162828026070138/svco-20261104.htm" target="_blank" rel="noopener">Silvaco 3Q26 8-K (SEC)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/0001943289/000162828026070138/svco-20261104.htm</span></li><li><a href="https://www.globenewswire.com/news-release/2026/11/04/3395806/0/en/silvaco-reports-third-quarter-2026-financial-results.html" target="_blank" rel="noopener">Silvaco 3Q26 실적 보도자료 (GlobeNewswire)</a><br><span style="color:var(--muted)">https://www.globenewswire.com/news-release/2026/11/04/3395806/0/en/silvaco-reports-third-quarter-2026-financial-results.html</span></li><li><a href="https://www.stocktitan.net/sec-filings/SVCO/10-q-silvaco-group-inc-quarterly-earnings-report-edc2b5a5b2e7.html" target="_blank" rel="noopener">Silvaco 3Q26 10-Q 요약 (Stock Titan)</a><br><span style="color:var(--muted)">https://www.stocktitan.net/sec-filings/SVCO/10-q-silvaco-group-inc-quarterly-earnings-report-edc2b5a5b2e7.html</span></li><li><a href="https://gloom.sh/stocks/svco/transcripts/q3-2026" target="_blank" rel="noopener">Silvaco 3Q26 컨콜 전사/요약</a><br><span style="color:var(--muted)">https://gloom.sh/stocks/svco/transcripts/q3-2026</span></li><li><a href="https://www.sec.gov/Archives/edgar/data/0001943289/000162828026054291/a991earningsreleasedatedau.htm" target="_blank" rel="noopener">Silvaco 2Q26 실적 (SEC 8-K Ex.99.1)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/0001943289/000162828026054291/a991earningsreleasedatedau.htm</span></li><li><a href="https://www.sec.gov/Archives/edgar/data/0001943289/000162828026032098/a991earningsreleasedatedma.htm" target="_blank" rel="noopener">Silvaco 1Q26 실적 (SEC 8-K Ex.99.1)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/0001943289/000162828026032098/a991earningsreleasedatedma.htm</span></li><li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026017254/a991q425earningsreleasedat.htm" target="_blank" rel="noopener">Silvaco 4Q25·FY2025 실적 (SEC 8-K Ex.99.1)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/1943289/000162828026017254/a991q425earningsreleasedat.htm</span></li><li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000194328925000018/a991earningsreleasedatedno.htm" target="_blank" rel="noopener">Silvaco 3Q25 실적 (SEC 8-K Ex.99.1)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/1943289/000194328925000018/a991earningsreleasedatedno.htm</span></li><li><a href="https://www.sec.gov/Archives/edgar/data/1943289/000162828026054383/svco-20260806.htm" target="_blank" rel="noopener">Micron 전환사채 8-K (SEC)</a><br><span style="color:var(--muted)">https://www.sec.gov/Archives/edgar/data/1943289/000162828026054383/svco-20260806.htm</span></li><li><a href="https://www.tipranks.com/news/company-announcements/silvaco-signs-convertible-note-financing-with-micron" target="_blank" rel="noopener">Micron 전환사채 해설 (TipRanks)</a><br><span style="color:var(--muted)">https://www.tipranks.com/news/company-announcements/silvaco-signs-convertible-note-financing-with-micron</span></li><li><a href="https://app.fundz.net/sec-filings/silvaco-group-inc-8k-completion-of-acquisition-disp-9276" target="_blank" rel="noopener">Tech-X 인수 종결 8-K 요약 (Fundz)</a><br><span style="color:var(--muted)">https://app.fundz.net/sec-filings/silvaco-group-inc-8k-completion-of-acquisition-disp-9276</span></li><li><a href="https://www.stocktitan.net/sec-filings/SVCO/form-4-silvaco-group-inc-insider-trading-activity-4c3c2c9a8704.html" target="_blank" rel="noopener">Pesic 주식대출형 이전 Form 4 요약 (Stock Titan)</a><br><span style="color:var(--muted)">https://www.stocktitan.net/sec-filings/SVCO/form-4-silvaco-group-inc-insider-trading-activity-4c3c2c9a8704.html</span></li><li><a href="https://www.stocktitan.net/sec-filings/SVCO/form-4-silvaco-group-inc-insider-trading-activity-c5731abf00b4.html" target="_blank" rel="noopener">Pesic Form 4 (두 번째)</a><br><span style="color:var(--muted)">https://www.stocktitan.net/sec-filings/SVCO/form-4-silvaco-group-inc-insider-trading-activity-c5731abf00b4.html</span></li><li><a href="https://www.quantisnow.com/insiders/SVCO" target="_blank" rel="noopener">내부자 거래 목록 (Quantisnow)</a><br><span style="color:var(--muted)">https://www.quantisnow.com/insiders/SVCO</span></li><li><a href="https://www.insiderset.com/insiders/stocks/SVCO" target="_blank" rel="noopener">내부자 거래 (Insiderset)</a><br><span style="color:var(--muted)">https://www.insiderset.com/insiders/stocks/SVCO</span></li><li><a href="https://www.google.com/finance/quote/SVCO:NASDAQ" target="_blank" rel="noopener">시세·컨센서스 (Google Finance)</a><br><span style="color:var(--muted)">https://www.google.com/finance/quote/SVCO:NASDAQ</span></li><li><a href="https://www.marketbeat.com/stocks/NASDAQ/SVCO/chart/" target="_blank" rel="noopener">주가 이력 (MarketBeat)</a><br><span style="color:var(--muted)">https://www.marketbeat.com/stocks/NASDAQ/SVCO/chart/</span></li><li><a href="https://stockscan.io/stocks/SVCO" target="_blank" rel="noopener">주가 이력 (Stockscan)</a><br><span style="color:var(--muted)">https://stockscan.io/stocks/SVCO</span></li><li><a href="https://www.investing.com/news/analyst-ratings/briley-cuts-silvaco-group-stock-price-target-to-11-on-valuation-93CH-4990491" target="_blank" rel="noopener">B.Riley 목표가 하향 (Investing.com)</a><br><span style="color:var(--muted)">https://www.investing.com/news/analyst-ratings/briley-cuts-silvaco-group-stock-price-target-to-11-on-valuation-93CH-4990491</span></li><li><a href="https://equibles.com/stocks/SVCO" target="_blank" rel="noopener">Short interest · 기관 보유 (Equibles)</a><br><span style="color:var(--muted)">https://equibles.com/stocks/SVCO</span></li><li><a href="https://www.advisorperspectives.com/dshort/updates/2026/10/28/feds-interest-rate-decision-october-28-2026" target="_blank" rel="noopener">연준 10월 FOMC (Advisor Perspectives)</a><br><span style="color:var(--muted)">https://www.advisorperspectives.com/dshort/updates/2026/10/28/feds-interest-rate-decision-october-28-2026</span></li><li><a href="https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates" target="_blank" rel="noopener">FOMC 10월·12월 인상 확률 (Admiral Markets)</a><br><span style="color:var(--muted)">https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates</span></li><li><a href="https://www.foxbusiness.com/economy/us-jobs-report-september-2026" target="_blank" rel="noopener">9월 고용 (Fox Business)</a><br><span style="color:var(--muted)">https://www.foxbusiness.com/economy/us-jobs-report-september-2026</span></li><li><a href="https://www.financecalendar.com/event/us-employment-situation-non-farm-payrolls-november-2026/" target="_blank" rel="noopener">10월 고용 발표일 (financecalendar)</a><br><span style="color:var(--muted)">https://www.financecalendar.com/event/us-employment-situation-non-farm-payrolls-november-2026/</span></li><li><a href="https://investors.silvaco.com/" target="_blank" rel="noopener">Silvaco 투자자 관계</a><br><span style="color:var(--muted)">https://investors.silvaco.com/</span></li></ul><p class="foot">교차검증: 가격·실적은 SEC 8-K/10-Q + 보도자료 + Google Finance·MarketBeat·Stockscan 3곳 이상 대조. 11/6 장중 시세는 소스 간 불일치(약 $6.3~6.8)로 확정하지 않음. 컨센서스 EPS는 소스별 차이(Google non-GAAP −0.04 vs 일부 GAAP −0.11) 있음 → 검증 필요. 루머는 사실로 쓰지 않음.</p><p class="foot">본 문서는 공개자료 기반 분석이며 투자 자문이 아닙니다. 확률·목표가는 본인 계산이며 불확실합니다. 최종 판단과 책임은 투자자 본인에게 있습니다.</p></div></section>
+</div></body></html>

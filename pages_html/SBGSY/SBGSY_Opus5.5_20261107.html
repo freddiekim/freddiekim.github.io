@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html class="document-reader" lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SBGSY 슈나이더 일렉트릭 — 투자 메모 (2026-11-07)</title>
+<style>
+:root { --bg:#f4efe6; --card:#fffaf0; --text:#243036; --muted:#6f756e; --accent:#d97941;
+ --green:#7f8f68; --bluegray:#5d7285; --risk:#c95b4a; --line:#ded4c3; --grid:#e7ddcc; --teal:#5f9ea0; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text);
+ font-family:-apple-system,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif; line-height:1.55; font-size:15px; }
+.wrap { max-width:1180px; margin:0 auto; padding:28px 20px 60px; }
+header.top { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; flex-wrap:wrap;
+ border-bottom:3px solid var(--text); padding-bottom:14px; margin-bottom:18px; }
+.brand { font-size:12px; letter-spacing:.18em; color:var(--muted); font-weight:800; }
+h1 { margin:4px 0 0; font-size:30px; line-height:1.15; }
+h1 small { font-size:15px; color:var(--muted); font-weight:600; }
+.meta { font-size:12.5px; color:var(--muted); text-align:right; }
+h2 { font-size:21px; margin:38px 0 12px; display:flex; gap:10px; align-items:center; }
+h2 .num { background:var(--text); color:var(--card); border-radius:50%; width:30px; height:30px; display:inline-flex;
+ align-items:center; justify-content:center; font-size:14px; }
+h3.card-title { margin:0; font-size:16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px 20px; margin:14px 0; }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.kpi { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 16px; }
+.kpi .k { font-size:12px; color:var(--muted); font-weight:700; }
+.kpi .v { font-size:22px; font-weight:800; margin-top:2px; }
+.kpi .s { font-size:12px; color:var(--muted); }
+.kpi.accent { border:2px solid var(--accent); }
+.kpi.risk .v { color:var(--risk); }
+.kpi.good .v { color:var(--green); }
+.badge { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:800; }
+.b-buy { background:var(--green); color:#fff; } .b-risk { background:var(--risk); color:#fff; }
+.b-blue { background:var(--bluegray); color:#fff; } .b-acc { background:var(--accent); color:#fff; }
+.b-line { border:1.5px solid var(--text); }
+.hl { background:rgba(217,121,65,.20); padding:0 3px; border-radius:3px; font-weight:700; }
+.hl-r { background:rgba(201,91,74,.16); padding:0 3px; border-radius:3px; font-weight:700; }
+.hl-g { background:rgba(127,143,104,.22); padding:0 3px; border-radius:3px; font-weight:700; }
+.thesis { border-left:6px solid var(--green); } .anti { border-left:6px solid var(--risk); }
+table { width:100%; border-collapse:collapse; font-size:13.2px; }
+th, td { border-bottom:1px solid var(--grid); padding:8px 8px; text-align:left; vertical-align:top; }
+th { background:#f2eadb; font-size:12px; color:var(--text); font-weight:800; white-space:nowrap; }
+td.n, th.n { text-align:right; white-space:nowrap; }
+.tbl { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:6px 8px; margin:12px 0; }
+.tbl-cap { font-size:12.5px; color:var(--muted); padding:6px 4px 2px; }
+.conf-A { color:var(--green); font-weight:800; } .conf-B { color:var(--accent); font-weight:800; } .conf-C { color:var(--risk); font-weight:800; }
+.tag { font-size:11px; font-weight:800; padding:1px 6px; border-radius:6px; border:1px solid var(--line); color:var(--muted); white-space:nowrap; }
+.tag.f { border-color:var(--green); color:var(--green); } .tag.i { border-color:var(--accent); color:var(--accent); } .tag.u { border-color:var(--risk); color:var(--risk); }
+ul { margin:6px 0; padding-left:20px; } li { margin:3px 0; }
+.muted { color:var(--muted); } .small { font-size:12.5px; }
+.chart-card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px; margin:22px 0; }
+.chart-header { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px; }
+.tabs { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--muted); font-weight:700; }
+.tabs .tf { color:var(--text); }
+.tabs .active { color:var(--text); border:2px solid var(--bluegray); border-radius:10px; padding:5px 10px; background:rgba(93,114,133,0.10); }
+.mini-chart-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.mini-chart h3 { margin:0 0 8px; font-size:14px; color:var(--muted); }
+.mini-chart svg, .wide svg { width:100%; height:auto; display:block; }
+.chart-note { font-size:11.5px; color:var(--muted); margin:4px 0 0; }
+.grid { stroke:var(--grid); stroke-width:1; stroke-dasharray:2 3; }
+.zero { stroke:var(--text); stroke-width:1.2; opacity:.55; }
+.bar-label { font-size:11px; font-weight:800; fill:var(--text); }
+.axis-label { font-size:10px; font-weight:700; fill:var(--muted); }
+.note-label { font-size:10px; font-weight:800; fill:var(--accent); }
+.interp { margin-top:14px; border-top:1px dashed var(--line); padding-top:10px; font-size:13.5px; }
+.final { background:var(--text); color:var(--card); border-radius:18px; padding:22px 24px; margin-top:26px; }
+.final dt { font-weight:800; color:#f0c9a8; margin-top:8px; font-size:13px; }
+.final dd { margin:2px 0 0; font-size:14px; }
+.final dl { display:grid; grid-template-columns:1fr 1fr; gap:4px 28px; margin:0; }
+.src li { font-size:12.5px; word-break:break-all; }
+.src a { color:var(--bluegray); }
+.legend { font-size:12px; color:var(--muted); }
+@media (max-width:900px) {
+ .mini-chart-grid, .grid2, .grid3 { grid-template-columns:1fr; }
+ .grid4 { grid-template-columns:1fr 1fr; }
+ .chart-header { align-items:flex-start; flex-direction:column; }
+ .final dl { grid-template-columns:1fr; }
+ h1 { font-size:24px; } .meta { text-align:left; }
+}
+</style><link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head>
+<body><div class="wrap">
+
+<header class="top">
+ <div><div class="brand">YOUNG FINANCE · 城主 RESEARCH</div>
+ <h1>Schneider Electric <small>SBGSY (OTC ADR) · SU (Euronext Paris)</small></h1>
+ <div class="small muted">“전기장비 회사”로 팔리고 있지만, 실제로는 <b>AI 팩토리 전력·냉각 시스템 + 산업 소프트웨어</b> 회사로 이동 중</div></div>
+ <div class="meta">분석 기준일 2026-11-07(토) · 가격 기준 11-06 종가<br>보유 0 · 신규 매수 검토<br>다음 실적: <b>2027-02-18 FY26 결산</b></div>
+</header>
+
+<div class="grid4">
+ <div class="kpi"><div class="k">현재 주가 (SU)</div><div class="v">€228.65</div><div class="s">SBGSY 환산 ≈ $50.9 (추정) · 최근 확인 체결 10/23 $51.59</div></div>
+ <div class="kpi accent"><div class="k">투자 등급 · 행동</div><div class="v">Buy</div><div class="s"><b>신규 매수(3분할)</b> · 추격 금지</div></div>
+ <div class="kpi good"><div class="k">12M base target</div><div class="v">€265</div><div class="s">$59.0 · +15.9%</div></div>
+ <div class="kpi risk"><div class="k">하방 리스크</div><div class="v">€178</div><div class="s">$39.6 · -22.2%</div></div>
+</div>
+
+<!-- ============================ 1 -->
+<h2><span class="num">1</span>Executive Summary</h2>
+<div class="grid2">
+ <div class="card thesis"><span class="badge b-buy">THESIS</span>
+ <p><b>펀더멘털은 올해 두 번 상향됐는데 주가는 고점 대비 −27%.</b> 하락분 전부가 PTC 인수·유상증자·AI 심리발 <span class="hl">멀티플 압축</span>이다. 2026E PER 22배는 3월 저점(22.9배)보다 낮다. 분할로 사면 base case 가격에 품질 복리주를 산다.</p></div>
+ <div class="card anti"><span class="badge b-risk">ANTI-THESIS</span>
+ <p><b>“먼저 희석, 나중 이익” 구간이 1년 남았다.</b> 신주 +4.3%는 이미 발행, PTC 이익은 2027 3분기 이후. 2027 EPS 컨센서스(€12.3–12.6)가 <span class="hl-r">5–10% 과대</span>일 수 있고, AI capex가 꺾이면 데이터센터 프리미엄까지 동시에 빠진다.</p></div>
+</div>
+
+<div class="tbl"><table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>시장이 보는 회사</td><td>유럽 전기장비 경기순환주 + <b>무리한 대형 M&A로 레버리지 올린 회사</b> (JPM 10/6 Neutral 하향)</td></tr>
+<tr><td>내가 새롭게 보는 회사</td><td>Systems(프리팹 전력모듈·액체냉각·UPS)가 매출 35%로 +22% 성장하는 <span class="hl">AI 팩토리 인프라 시스템 공급자</span> + 그 위에 PTC·AVEVA·Cognite로 <b>설계→운영 데이터 레이어</b>를 얹는 회사</td></tr>
+<tr><td>투자 등급 / 행동</td><td><span class="badge b-buy">Buy</span> &nbsp;<span class="badge b-line">신규 매수 — 3분할, 1차만 지금</span></td></tr>
+<tr><td>현재 주가</td><td>€228.65 (SBGSY ≈ $50.9, 5 ADR = 1주, EUR/USD 1.113 가정)</td></tr>
+<tr><td>보수적 내재가치</td><td>€215 (-6.0%) — 2027E FCF/주 ≈ €10.1 ÷ FCF 수익률 4.7% <span class="tag i">추론</span></td></tr>
+<tr><td>12M base / bull / overshoot</td><td><b>€265</b> (+15.9%) / €320 (+40.0%) / €360 (+57.4%)</td></tr>
+<tr><td>하방 리스크</td><td>€178 (-22.2%) — AI 수주 정상화 + 통합비용, 2027E EPS €10.5 × 17배</td></tr>
+<tr><td>12개월 기대수익률</td><td><b>+15.5%</b> (확률가중, 배당 약 2.1% 별도, 원화 환율·양도세 22% 미반영)</td></tr>
+<tr><td>보유 수량 기준 기대손익</td><td>현재 보유 0 → <b>0</b>. 목표 비중 3% 기준: base +0.48%p / bull +1.20%p / 하방 -0.66%p (포트폴리오 대비)</td></tr>
+</table></div>
+
+<h3 class="card-title" style="margin-top:22px">A. 처음 보면 놓치기 쉬운 숨은 신호 3개</h3>
+<div class="grid3">
+ <div class="card"><span class="badge b-risk">신호 1</span><p><b>선(先)희석 · 후(後)이익 갭</b></p>
+ <p class="small"><span class="tag f">확정</span> 10/22 신주 2,500만주(자본의 4.32%) 발행, 가격 €240. PTC 종결은 2027년 3분기 예정.<br>
+ <span class="tag i">추론</span> 2027년엔 주식수 +4.4%가 1년 내내 잡히고 PTC 이익은 길어야 1개 분기. <span class="hl">컨센서스 2027 EPS €12.3–12.6은 덜 반영됐을 가능성</span> (AlphaValue는 이미 €11.1로 하향).</p></div>
+ <div class="card"><span class="badge b-acc">신호 2</span><p><b>소프트웨어 엔진은 감속 중인데, 소프트웨어에 $26bn 베팅</b></p>
+ <p class="small"><span class="tag f">확정</span> Software &amp; Services 유기성장 Q1 +9% → Q3 +7%. AVEVA ARR +12%(25년 말) → 약 +10%(Q3).<br>
+ <span class="tag i">추론</span> 시장은 “증명 전엔 소프트웨어 프리미엄을 주지 않는다.” PTC 매출 시너지 €8억(=PTC 매출의 약 1/3)이 증명되기 전까지 멀티플 상단은 막혀 있다.</p></div>
+ <div class="card"><span class="badge b-buy">신호 3</span><p><b>실적과 주가의 완전한 디커플링</b></p>
+ <p class="small"><span class="tag f">확정</span> 10/16 Q3 유기 +16.9%(컨센 +13.8%), 연간 EBITA 가이던스 18–21%로 2차 상향. 같은 기간 주가 €303 → €228.65.<br>
+ <span class="tag i">추론</span> 하락은 이익이 아니라 배수에서 나왔다. 동종 Vertiv는 Q3 수주가 +100% 넘게 늘었다(10/28) → <span class="hl-g">업황 붕괴 신호는 아직 없음</span>.</p></div>
+</div>
+
+<h3 class="card-title" style="margin-top:22px">B. 기업 정체성 재정의</h3>
+<div class="tbl"><table>
+<tr><th>구분</th><th>레거시 잣대 (시장)</th><th>실제 이동 방향</th><th>바뀌는 것</th></tr>
+<tr><td>매출 구조</td><td>차단기·배전반 “Products” 회사</td><td>Products 48% / <b>Systems 35% (+22%)</b> / S&amp;S 17%. 인수 완료 시 S&amp;S ≈ 24% (프로포마)</td><td>프로젝트형·백로그형 매출 ↑ → 가시성 ↑ (경영진: 2027–28 가시성)</td></tr>
+<tr><td>포지션</td><td>범용 전기장비 공급사</td><td>NVIDIA·AMD <b>레퍼런스 설계</b> 참여 + 프리팹 모듈 턴키 공급</td><td>설계 단계부터 사양 고정 → <span class="hl">고객 lock-in</span></td></tr>
+<tr><td>마진</td><td>조정 EBITA 18%대</td><td>2026 가이던스 19.7–19.9%, 2030까지 +250bp 목표 (2025 CMD)</td><td>EPS 성장률 &gt; 매출 성장률 구조</td></tr>
+<tr><td>밸류에이션 잣대</td><td>유럽 산업재 PER 20배 안팎</td><td>AI 인프라(Vertiv류) + 산업 SW(PTC류) 혼합</td><td>증명되면 25배+, 실패하면 18배 — <b>지금 가격은 중간 아래</b></td></tr>
+</table></div>
+
+<!-- ============================ 2 -->
+<h2><span class="num">2</span>핵심 변곡점 &amp; 최근 사건 체인</h2>
+<div class="tbl"><table>
+<tr><th>변곡점</th><th>확정 사실</th><th>합리적 추론</th><th>검증 안 된 가설</th><th>왜 아직 주가에 없나</th><th>다음 확인 지표</th></tr>
+<tr><td><b>① 데이터센터 → 시스템 기업화</b></td><td>DC 수요 최근 4분기 중 3분기 세 자릿수 증가, 분기말 백로그 사상 최대</td><td>2027 매출 가시성 높음</td><td>2028년에도 수주 성장 지속 <span class="tag u">가설</span></td><td>AI capex 정점 논쟁·금리 인상</td><td>FY26 결산 시 DC 수주·백로그 코멘트</td></tr>
+<tr><td><b>② 소프트웨어 레이어 대형 인수</b></td><td>PTC $22.6bn(현금), Cognite $3.1bn, Shelly €1.2bn</td><td>설계(PTC)–운영(AVEVA)–데이터(Cognite) 수직통합</td><td>매출 시너지 €8억 달성 <span class="tag u">가설</span></td><td>2027 Q3 종결 전 숫자 없음</td><td>PTC 주주승인·규제 승인 일정</td></tr>
+<tr><td><b>③ 자본배분 전환</b></td><td>2026 바이백 €6억 후 2027–28 중단, €60억 유증 + €60억 채권</td><td>주당 가치보다 규모 성장을 택함</td><td>2029년 이후 바이백 가속 <span class="tag u">가설</span></td><td>희석 공포가 먼저 반영됨</td><td>잔여 차입(약 €10bn+) 조달 조건 <span class="tag i">추론</span></td></tr>
+<tr><td><b>④ 마진 레벨업</b></td><td>H1 조정 EBITA 마진 19.3%(+120bp 유기), 연간 +100–120bp 가이던스</td><td>가격·생산성 효과 지속</td><td>2030년 +250bp 조기 달성 <span class="tag u">가설</span></td><td>통합비용(1회성 약 €2.5억)이 가림</td><td>FY26 마진 19.7–19.9% 달성 여부</td></tr>
+<tr><td><b>⑤ 금리 재인상 사이클</b></td><td>Fed 9월 인상(상단 4.00%), 10월 동결, 12월 인상 확률 약 75%. ECB 2026년 2회 인상</td><td>장기성장 산업재 멀티플 압박</td><td>—</td><td>이미 일부 반영</td><td>12/9 FOMC, 12월 ECB</td></tr>
+</table></div>
+
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">C. 주가 경로와 사건 (2026)</h3><div class="tabs"><span class="tf">Timeframe</span><span class="active">YTD</span></div></div>
+<div class="wide"><svg viewBox="0 0 760 250" role="img" aria-label="price path">
+<line class="grid" x1="20" x2="700" y1="200.0" y2="200.0"/>
+<text class="axis-label" x="708" y="203.0">€200</text>
+<line class="grid" x1="20" x2="700" y1="165.4" y2="165.4"/>
+<text class="axis-label" x="708" y="168.4">€225</text>
+<line class="grid" x1="20" x2="700" y1="130.8" y2="130.8"/>
+<text class="axis-label" x="708" y="133.8">€250</text>
+<line class="grid" x1="20" x2="700" y1="96.2" y2="96.2"/>
+<text class="axis-label" x="708" y="99.2">€275</text>
+<line class="grid" x1="20" x2="700" y1="61.5" y2="61.5"/>
+<text class="axis-label" x="708" y="64.5">€300</text>
+<line class="grid" x1="20" x2="700" y1="26.9" y2="26.9"/>
+<text class="axis-label" x="708" y="29.9">€325</text>
+<line x1="20" x2="700" y1="144.6" y2="144.6" stroke="#d97941" stroke-dasharray="5 4" stroke-width="1.4"/>
+<text class="note-label" x="310" y="158.6">유상증자 발행가 €240 (10/20)</text>
+<polyline points="20.0,151.7 72.3,152.9 124.6,77.0 176.9,114.9 229.2,44.5 281.5,75.7 333.8,94.7 386.2,57.4 438.5,99.2 490.8,126.2 543.1,156.5 595.4,148.1 647.7,144.0 700.0,160.3" fill="none" stroke="#5d7285" stroke-width="2.4"/>
+<circle cx="20.0" cy="151.7" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="20.0" y="218" text-anchor="middle">12/31</text>
+<circle cx="72.3" cy="152.9" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="72.3" y="218" text-anchor="middle">3/23</text>
+<circle cx="124.6" cy="77.0" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="124.6" y="218" text-anchor="middle">6/18</text>
+<circle cx="176.9" cy="114.9" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="176.9" y="218" text-anchor="middle">7/16</text>
+<circle cx="229.2" cy="44.5" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="229.2" y="218" text-anchor="middle">8/13</text>
+<text class="bar-label" x="229.2" y="34.5" text-anchor="middle">고점 €312.3(장중)</text>
+<circle cx="281.5" cy="75.7" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="281.5" y="218" text-anchor="middle">9/1</text>
+<circle cx="333.8" cy="94.7" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="333.8" y="218" text-anchor="middle">9/15</text>
+<circle cx="386.2" cy="57.4" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="386.2" y="218" text-anchor="middle">10/2</text>
+<circle cx="438.5" cy="99.2" r="4" fill="#fffaf0" stroke="#c95b4a" stroke-width="2"/>
+<text class="axis-label" x="438.5" y="218" text-anchor="middle">10/5</text>
+<text class="bar-label" x="472.5" y="87.2" text-anchor="middle">PTC 인수 −10%</text>
+<circle cx="490.8" cy="126.2" r="4" fill="#fffaf0" stroke="#7f8f68" stroke-width="2"/>
+<text class="axis-label" x="490.8" y="218" text-anchor="middle">10/16</text>
+<text class="bar-label" x="552.8" y="114.2" text-anchor="middle">Q3 +17%·가이던스↑</text>
+<circle cx="543.1" cy="156.5" r="4" fill="#fffaf0" stroke="#c95b4a" stroke-width="2"/>
+<text class="axis-label" x="543.1" y="218" text-anchor="middle">10/23</text>
+<text class="bar-label" x="543.1" y="174.5" text-anchor="middle">€6bn 유증+급락</text>
+<circle cx="595.4" cy="148.1" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="595.4" y="218" text-anchor="middle">10/30</text>
+<circle cx="647.7" cy="144.0" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="647.7" y="218" text-anchor="middle">11/2</text>
+<circle cx="700.0" cy="160.3" r="4" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="axis-label" x="700.0" y="218" text-anchor="middle">11/6</text>
+<text class="bar-label" x="678.0" y="180.3" text-anchor="middle">€228.65</text>
+<text class="axis-label" x="20" y="242">SU (Euronext Paris) 종가·장중 표기 지점. 2025-12-31 ~ 2026-11-06. 8/13은 장중 고가.</text>
+</svg></div></div>
+
+<div class="tbl"><div class="tbl-cap">C. 최근 1분기 사건 체인 (시간순) — 신뢰도 A=회사 공시, B=복수 언론, C=단일 출처·추론</div><table>
+<tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>thesis 영향</th><th>신뢰도</th><th>다음 확인 증거</th></tr>
+<tr><td>06-30</td><td>Cognite 인수</td><td>$3.1bn 현금, AVEVA에 편입</td><td>산업 AI 데이터 레이어 확보</td><td>중립(+)</td><td class="conf-A">A</td><td>규제 승인</td></tr>
+<tr><td>07-30</td><td>H1 실적</td><td>매출 €21.2bn(+14% 유기), 순이익 +30%, FCF €1.6bn, 가이던스 1차 상향</td><td>DC+가격+생산성 동시 작동</td><td><b>+</b></td><td class="conf-A">A</td><td>H2 마진</td></tr>
+<tr><td>08-13</td><td>사상 최고가</td><td>장중 €312.30</td><td>AI 인프라 프리미엄 정점</td><td>—</td><td class="conf-B">B</td><td>—</td></tr>
+<tr><td>09-15</td><td>−5.2% 급락</td><td>ECB 9/10 인상, FOMC 직전</td><td>금리 민감도 노출</td><td>−</td><td class="conf-B">B</td><td>금리 경로</td></tr>
+<tr><td>09-24</td><td>Shelly 인수</td><td>약 €1.2bn 공개매수, Q1'27 종결</td><td>스마트홈·IoT 보강</td><td>중립</td><td class="conf-A">A</td><td>95% 지분 확보</td></tr>
+<tr><td>10-02</td><td>美 9월 고용</td><td>+2.9만, 실업률 4.2%</td><td>경기 둔화 vs 인플레</td><td>−(금리)</td><td class="conf-B">B</td><td>—</td></tr>
+<tr><td><b>10-05</b></td><td><b>PTC 인수 발표</b></td><td>$205/주 현금(프리미엄 42%), EV $23.7bn, 2027E EBITA 21배. 주가 −10% (€272.80)</td><td>최대 규모 M&amp;A, 레버리지·희석 우려</td><td><b>−(단기)</b></td><td class="conf-A">A</td><td>PTC 주총</td></tr>
+<tr><td>10-06</td><td>등급·리포트</td><td>S&amp;P A / Moody's A2 유지. JPM Neutral, 목표 €345→€310</td><td>신용은 안전, 주식 프리미엄은 축소</td><td>−</td><td class="conf-B">B</td><td>—</td></tr>
+<tr><td><b>10-16</b></td><td><b>Q3 매출</b></td><td>€11.46bn, 유기 +16.9%, 연간 매출 가이던스 12–14%, EBITA 18–21%</td><td>펀더멘털은 오히려 가속</td><td><b>++</b></td><td class="conf-A">A</td><td>FY26 결산</td></tr>
+<tr><td><b>10-20</b></td><td><b>€60억 유상증자</b></td><td>2,500만주 × €240 (4.99% 할인, 자본의 4.32%), 10/22 결제</td><td>희석 확정 + 오버행 일부 해소</td><td>−/+</td><td class="conf-A">A</td><td>—</td></tr>
+<tr><td>10-22</td><td>−5.36%</td><td>회사 발표 없음, 다음날 €231.40</td><td>신주 물량 소화 + AI 심리 <span class="tag i">추론</span></td><td>−</td><td class="conf-B">B</td><td>거래량</td></tr>
+<tr><td>10-28</td><td>€60억 회사채</td><td>6개 트랜치(2028–2046), 평균 쿠폰 약 4.3%</td><td>연 이자 약 €2.6억 증가 <span class="tag i">추론</span></td><td>−(EPS)</td><td class="conf-A">A</td><td>잔여 차입</td></tr>
+<tr><td>10-28</td><td>Vertiv Q3 · FOMC</td><td>Vertiv 수주 +100%↑ / Fed 3.75–4.00% 동결</td><td>업황은 견조, 금리는 경계</td><td>+</td><td class="conf-B">B</td><td>12/9 FOMC</td></tr>
+<tr><td>10월 말</td><td>EPS 하향</td><td>AlphaValue 2027 EPS €11.1(약 −5%), 목표 €289 유지</td><td>컨센서스 하향 시작</td><td>−</td><td class="conf-B">B</td><td>컨센 추이</td></tr>
+<tr><td>11-04~06</td><td>−3.4%, −1.6%, +0.35%</td><td>美 중간선거 직후 기술주 변동, 거래량 평소 약 2배</td><td>매크로·AI 심리 동조 <span class="tag i">추론</span></td><td>−</td><td class="conf-B">B</td><td>—</td></tr>
+<tr><td>11-06</td><td>美 10월 고용</td><td>+16.5만, 실업률 4.1%, 12월 인상 확률 약 75%</td><td>금리 부담 지속</td><td>−</td><td class="conf-B">B</td><td>11월 CPI</td></tr>
+</table></div>
+<p class="small muted">insider 장내 매수: 2026년 확인된 건 없음(3월 성과주식 무상 취득만 확인) <span class="tag u">검증 필요</span>.</p>
+
+<!-- ============================ 3 -->
+<h2><span class="num">3</span>투자자가 반드시 봐야 할 숫자</h2>
+<div class="tbl"><div class="tbl-cap">연간 (€m, IFRS). 슈나이더는 프랑스 상장사라 <b>SEC 10-K/10-Q가 없다</b> → 연차보고서(URD)·반기재무제표·실적 발표문 기준.</div><table>
+<tr><th>항목</th><th class="n">FY2022</th><th class="n">FY2023</th><th class="n">FY2024</th><th class="n">FY2025</th><th class="n">H1'25</th><th class="n">H1'26</th><th>읽는 법</th></tr>
+<tr><td>매출</td><td class="n">34,176</td><td class="n">35,902</td><td class="n">38,153</td><td class="n">40,152</td><td class="n">19,336</td><td class="n"><b>21,226</b></td><td>H1'26 유기 +14%</td></tr>
+<tr><td>GAAP 희석 EPS (€)</td><td class="n">6.15</td><td class="n">7.07</td><td class="n">7.53</td><td class="n">7.33</td><td class="n">3.38</td><td class="n"><b>4.37</b></td><td>H1 +29%</td></tr>
+<tr><td>조정 EPS (€)</td><td class="n">N/A</td><td class="n">N/A</td><td class="n">8.32</td><td class="n">8.59</td><td class="n">3.97</td><td class="n"><b>4.79</b></td><td>2026E 컨센 €10.3–10.45</td></tr>
+<tr><td>매출총이익률</td><td class="n">40.6%</td><td class="n">41.8%</td><td class="n">42.6%</td><td class="n">42.1%</td><td class="n">42.4%</td><td class="n">42.5%</td><td>가격 전가 유지</td></tr>
+<tr><td>조정 EBITA 마진</td><td class="n">N/A</td><td class="n">N/A</td><td class="n">18.6%</td><td class="n">18.7%</td><td class="n">18.2%</td><td class="n"><b>19.3%</b></td><td>FY26 가이던스 19.7–19.9%</td></tr>
+<tr><td>순이익 (지배)</td><td class="n">3,477</td><td class="n">4,003</td><td class="n">4,269</td><td class="n">4,163</td><td class="n">1,913</td><td class="n">2,488</td><td>H1'25 관계사 손상 −274</td></tr>
+<tr><td>FCF (회사 정의)</td><td class="n">N/A</td><td class="n">N/A</td><td class="n">4,216</td><td class="n"><b>4,635</b></td><td class="n">474</td><td class="n">1,631</td><td>H1'25는 €2억대 과징금 영향</td></tr>
+<tr><td>총차입금</td><td class="n">16,322</td><td class="n">15,135</td><td class="n">16,313</td><td class="n">19,909</td><td class="n">—</td><td class="n">20,809</td><td>+ 10월 채권 €6,000</td></tr>
+<tr><td>순차입금</td><td class="n">12,336</td><td class="n">10,439</td><td class="n">9,426</td><td class="n">15,275</td><td class="n">—</td><td class="n">15,400</td><td>H1'26은 회사 발표치</td></tr>
+<tr><td>희석주식수(백만, 산출)</td><td class="n">565.4</td><td class="n">566.2</td><td class="n">566.9</td><td class="n">568.0</td><td class="n">566.0</td><td class="n">569.3</td><td><span class="hl-r">→ 약 594 (유증 후)</span></td></tr>
+<tr><td>short interest</td><td colspan="6" class="muted">AMF 순매도 공시(0.5%↑) 확인 불가 · SBGSY OTC 데이터 신뢰도 낮음 <span class="tag u">검증 필요</span></td><td>숏스퀴즈 논리 해당 없음</td></tr>
+<tr><td>밸류에이션</td><td colspan="6">PER 2026E <b>약 22배</b>(€228.65 ÷ €10.3–10.45) · 내 희석반영 2027E €11.5 기준 <b>약 20배</b> · 3월 저점 22.9배</td><td>역사적 하단</td></tr>
+</table></div>
+<p class="small muted">총차입·순차입 FY22–FY25 및 H1'26 총차입은 stockanalysis 집계(회사 정의와 차이 가능). 매출총이익률 FY22–24는 동일 출처 산출.</p>
+
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">연도별 실적 대시보드 (€, IFRS)</h3><div class="tabs"><span class="tf">Timeframe</span><span class="active">Annual</span><span class="">Quarterly</span></div></div><div class="mini-chart-grid"><div class="mini-chart"><h3>GAAP 희석 EPS (€)</h3><svg viewBox="0 0 320 220" role="img" aria-label="EPS">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">0</text>
+<line class="grid" x1="10" x2="268" y1="146.8" y2="146.8"/>
+<text class="axis-label" x="274" y="149.8">2</text>
+<line class="grid" x1="10" x2="268" y1="115.6" y2="115.6"/>
+<text class="axis-label" x="274" y="118.6">4</text>
+<line class="grid" x1="10" x2="268" y1="84.4" y2="84.4"/>
+<text class="axis-label" x="274" y="87.4">6</text>
+<line class="grid" x1="10" x2="268" y1="53.2" y2="53.2"/>
+<text class="axis-label" x="274" y="56.2">8</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">10</text>
+<rect x="18.5" y="89.5" width="26.0" height="88.5" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="31.5" y="84.5" text-anchor="middle">5.67</text>
+<text class="axis-label" x="31.5" y="194" text-anchor="middle">FY21</text>
+<rect x="61.5" y="82.1" width="26.0" height="95.9" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="74.5" y="77.1" text-anchor="middle">6.15</text>
+<text class="axis-label" x="74.5" y="194" text-anchor="middle">FY22</text>
+<rect x="104.5" y="67.7" width="26.0" height="110.3" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="117.5" y="62.7" text-anchor="middle">7.07</text>
+<text class="axis-label" x="117.5" y="194" text-anchor="middle">FY23</text>
+<rect x="147.5" y="60.5" width="26.0" height="117.5" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="160.5" y="55.5" text-anchor="middle">7.53</text>
+<text class="axis-label" x="160.5" y="194" text-anchor="middle">FY24</text>
+<rect x="190.5" y="63.7" width="26.0" height="114.3" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="203.5" y="58.7" text-anchor="middle">7.33</text>
+<text class="axis-label" x="203.5" y="194" text-anchor="middle">FY25</text>
+<rect x="233.5" y="48.2" width="26.0" height="129.8" rx="4" fill="none" stroke="#5d7285" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="246.5" y="43.2" text-anchor="middle">8.32</text>
+<text class="axis-label" x="246.5" y="194" text-anchor="middle">TTM</text>
+</svg><p class="chart-note">TTM = H2'25(산출 3.95)+H1'26(4.37). 적자 구간 없음.</p></div><div class="mini-chart"><h3>매출 Revenue (€bn)</h3><svg viewBox="0 0 320 220" role="img" aria-label="Revenue">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">0</text>
+<line class="grid" x1="10" x2="268" y1="146.8" y2="146.8"/>
+<text class="axis-label" x="274" y="149.8">10</text>
+<line class="grid" x1="10" x2="268" y1="115.6" y2="115.6"/>
+<text class="axis-label" x="274" y="118.6">20</text>
+<line class="grid" x1="10" x2="268" y1="84.4" y2="84.4"/>
+<text class="axis-label" x="274" y="87.4">30</text>
+<line class="grid" x1="10" x2="268" y1="53.2" y2="53.2"/>
+<text class="axis-label" x="274" y="56.2">40</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">50</text>
+<rect x="18.5" y="87.8" width="26.0" height="90.2" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="31.5" y="82.8" text-anchor="middle">28.9</text>
+<text class="axis-label" x="31.5" y="194" text-anchor="middle">FY21</text>
+<rect x="61.5" y="71.4" width="26.0" height="106.6" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="74.5" y="66.4" text-anchor="middle">34.2</text>
+<text class="axis-label" x="74.5" y="194" text-anchor="middle">FY22</text>
+<rect x="104.5" y="66.0" width="26.0" height="112.0" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="117.5" y="61.0" text-anchor="middle">35.9</text>
+<text class="axis-label" x="117.5" y="194" text-anchor="middle">FY23</text>
+<rect x="147.5" y="59.0" width="26.0" height="119.0" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="160.5" y="54.0" text-anchor="middle">38.2</text>
+<text class="axis-label" x="160.5" y="194" text-anchor="middle">FY24</text>
+<rect x="190.5" y="52.7" width="26.0" height="125.3" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="203.5" y="47.7" text-anchor="middle">40.2</text>
+<text class="axis-label" x="203.5" y="194" text-anchor="middle">FY25</text>
+<rect x="233.5" y="37.8" width="26.0" height="140.2" rx="4" fill="none" stroke="#d97941" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="246.5" y="32.8" text-anchor="middle">45.0</text>
+<text class="axis-label" x="246.5" y="194" text-anchor="middle">FY26E</text>
+</svg><p class="chart-note">FY26E = 컨센서스 평균 €44.95bn (점선, 추정치).</p></div><div class="mini-chart"><h3>희석 가중평균 주식수 (백만주)</h3><svg viewBox="0 0 320 220" role="img" aria-label="Shares">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">540</text>
+<line class="grid" x1="10" x2="268" y1="139.0" y2="139.0"/>
+<text class="axis-label" x="274" y="142.0">555</text>
+<line class="grid" x1="10" x2="268" y1="100.0" y2="100.0"/>
+<text class="axis-label" x="274" y="103.0">570</text>
+<line class="grid" x1="10" x2="268" y1="61.0" y2="61.0"/>
+<text class="axis-label" x="274" y="64.0">585</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">600</text>
+<rect x="18.5" y="112.7" width="26.0" height="65.3" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="31.5" y="107.7" text-anchor="middle">565</text>
+<text class="axis-label" x="31.5" y="194" text-anchor="middle">FY21</text>
+<rect x="61.5" y="112.0" width="26.0" height="66.0" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="74.5" y="107.0" text-anchor="middle">565</text>
+<text class="axis-label" x="74.5" y="194" text-anchor="middle">FY22</text>
+<rect x="104.5" y="109.9" width="26.0" height="68.1" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="117.5" y="104.9" text-anchor="middle">566</text>
+<text class="axis-label" x="117.5" y="194" text-anchor="middle">FY23</text>
+<rect x="147.5" y="108.1" width="26.0" height="69.9" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="160.5" y="103.1" text-anchor="middle">567</text>
+<text class="axis-label" x="160.5" y="194" text-anchor="middle">FY24</text>
+<rect x="190.5" y="105.2" width="26.0" height="72.8" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="203.5" y="100.2" text-anchor="middle">568</text>
+<text class="axis-label" x="203.5" y="194" text-anchor="middle">FY25</text>
+<rect x="233.5" y="36.8" width="26.0" height="141.2" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="246.5" y="31.8" text-anchor="middle">594</text>
+<text class="axis-label" x="246.5" y="194" text-anchor="middle">PF26</text>
+<text class="note-label" x="246.5" y="14" text-anchor="middle">+25.0m 신주</text>
+</svg><p class="chart-note">기준: 희석 가중평균(=순이익÷희석EPS 산출). PF26 = H1'26 569.3 + 10/22 신주 25.0m (추정). y축 540부터 시작.</p></div></div><div class="interp"><b>투자 해석</b><ul><li>FY21→FY25 매출 CAGR <b>+8.6%</b> vs 희석 EPS CAGR <b>+6.6%</b>. 주식수는 연 0.1%만 증가 → 희석이 아니라 <b>환율·일회성 손상</b>이 EPS를 깎았다.</li><li>FY25 매출 +5.2%인데 GAAP EPS −2.7%: 유기 +8.9% vs 보고 +5.2% → FX·범위 효과 약 −3.7%p, H1'25 관계사 손상 €274m. 조정 EPS는 유기 기준 +13.6%.</li><li><span class="hl">구조가 바뀌는 지점은 FY26–27:</span> 10월 유상증자로 주식수가 한 번에 <b>+4.4%</b> 뛴다. 성장 투자 목적 희석이지만, PTC 이익은 2027년 3분기 이후에야 들어온다.</li><li>다음 실적(2027-02-18) 확인 숫자: FY26 조정 EPS(컨센서스 €10.3–10.45), 2027 가이던스의 EPS 함의(희석 반영 후 €11.5 이상인지).</li></ul></div></div>
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">분기·반기 실적 대시보드</h3><div class="tabs"><span class="tf">Timeframe</span><span class="">Annual</span><span class="active">Quarterly</span></div></div><div class="mini-chart-grid"><div class="mini-chart"><h3>GAAP 희석 EPS – 반기 (€)</h3><svg viewBox="0 0 320 220" role="img" aria-label="EPS H">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">0</text>
+<line class="grid" x1="10" x2="268" y1="146.8" y2="146.8"/>
+<text class="axis-label" x="274" y="149.8">1</text>
+<line class="grid" x1="10" x2="268" y1="115.6" y2="115.6"/>
+<text class="axis-label" x="274" y="118.6">2</text>
+<line class="grid" x1="10" x2="268" y1="84.4" y2="84.4"/>
+<text class="axis-label" x="274" y="87.4">3</text>
+<line class="grid" x1="10" x2="268" y1="53.2" y2="53.2"/>
+<text class="axis-label" x="274" y="56.2">4</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">5</text>
+<rect x="22.8" y="74.4" width="26.0" height="103.6" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="35.8" y="69.4" text-anchor="middle">3.32</text>
+<text class="axis-label" x="35.8" y="194" text-anchor="middle">H1'24</text>
+<rect x="74.4" y="46.6" width="26.0" height="131.4" rx="4" fill="#5d7285" fill-opacity="0.55"/>
+<text class="bar-label" x="87.4" y="41.6" text-anchor="middle">4.21*</text>
+<text class="axis-label" x="87.4" y="194" text-anchor="middle">H2'24</text>
+<rect x="126.0" y="72.5" width="26.0" height="105.5" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="139.0" y="67.5" text-anchor="middle">3.38</text>
+<text class="axis-label" x="139.0" y="194" text-anchor="middle">H1'25</text>
+<rect x="177.6" y="54.8" width="26.0" height="123.2" rx="4" fill="#5d7285" fill-opacity="0.55"/>
+<text class="bar-label" x="190.6" y="49.8" text-anchor="middle">3.95*</text>
+<text class="axis-label" x="190.6" y="194" text-anchor="middle">H2'25</text>
+<rect x="229.2" y="41.7" width="26.0" height="136.3" rx="4" fill="#5d7285" fill-opacity="1"/>
+<text class="bar-label" x="242.2" y="36.7" text-anchor="middle">4.37</text>
+<text class="axis-label" x="242.2" y="194" text-anchor="middle">H1'26</text>
+</svg><p class="chart-note">슈나이더는 분기 EPS를 공시하지 않음 → 반기 기준. *=FY−H1 산출.</p></div><div class="mini-chart"><h3>분기 매출 (€bn)</h3><svg viewBox="0 0 320 220" role="img" aria-label="Rev Q">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">0</text>
+<line class="grid" x1="10" x2="268" y1="155.7" y2="155.7"/>
+<text class="axis-label" x="274" y="158.7">2</text>
+<line class="grid" x1="10" x2="268" y1="133.4" y2="133.4"/>
+<text class="axis-label" x="274" y="136.4">4</text>
+<line class="grid" x1="10" x2="268" y1="111.1" y2="111.1"/>
+<text class="axis-label" x="274" y="114.1">6</text>
+<line class="grid" x1="10" x2="268" y1="88.9" y2="88.9"/>
+<text class="axis-label" x="274" y="91.9">8</text>
+<line class="grid" x1="10" x2="268" y1="66.6" y2="66.6"/>
+<text class="axis-label" x="274" y="69.6">10</text>
+<line class="grid" x1="10" x2="268" y1="44.3" y2="44.3"/>
+<text class="axis-label" x="274" y="47.3">12</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">14</text>
+<rect x="15.4" y="59.1" width="17.8" height="118.9" rx="4" fill="#d97941" fill-opacity="0.55"/>
+<text class="bar-label" x="24.3" y="54.1" text-anchor="middle">10.7*</text>
+<text class="axis-label" x="24.3" y="192" text-anchor="middle">Q4</text><text class="axis-label" x="24.3" y="204" text-anchor="middle">'24</text>
+<rect x="44.1" y="74.1" width="17.8" height="103.9" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="53.0" y="69.1" text-anchor="middle">9.3</text>
+<text class="axis-label" x="53.0" y="192" text-anchor="middle">Q1</text><text class="axis-label" x="53.0" y="204" text-anchor="middle">'25</text>
+<rect x="72.8" y="66.4" width="17.8" height="111.6" rx="4" fill="#d97941" fill-opacity="0.55"/>
+<text class="bar-label" x="81.7" y="61.4" text-anchor="middle">10.0*</text>
+<text class="axis-label" x="81.7" y="192" text-anchor="middle">Q2</text><text class="axis-label" x="81.7" y="204" text-anchor="middle">'25</text>
+<rect x="101.4" y="69.7" width="17.8" height="108.3" rx="4" fill="#d97941" fill-opacity="0.55"/>
+<text class="bar-label" x="110.3" y="64.7" text-anchor="middle">9.7*</text>
+<text class="axis-label" x="110.3" y="192" text-anchor="middle">Q3</text><text class="axis-label" x="110.3" y="204" text-anchor="middle">'25</text>
+<rect x="130.1" y="54.3" width="17.8" height="123.7" rx="4" fill="#d97941" fill-opacity="0.55"/>
+<text class="bar-label" x="139.0" y="49.3" text-anchor="middle">11.1*</text>
+<text class="axis-label" x="139.0" y="192" text-anchor="middle">Q4</text><text class="axis-label" x="139.0" y="204" text-anchor="middle">'25</text>
+<rect x="158.8" y="69.2" width="17.8" height="108.8" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="167.7" y="64.2" text-anchor="middle">9.8</text>
+<text class="axis-label" x="167.7" y="192" text-anchor="middle">Q1</text><text class="axis-label" x="167.7" y="204" text-anchor="middle">'26</text>
+<rect x="187.4" y="50.3" width="17.8" height="127.7" rx="4" fill="#d97941" fill-opacity="0.55"/>
+<text class="bar-label" x="196.3" y="45.3" text-anchor="middle">11.5*</text>
+<text class="axis-label" x="196.3" y="192" text-anchor="middle">Q2</text><text class="axis-label" x="196.3" y="204" text-anchor="middle">'26</text>
+<rect x="216.1" y="50.3" width="17.8" height="127.7" rx="4" fill="#d97941" fill-opacity="1"/>
+<text class="bar-label" x="225.0" y="45.3" text-anchor="middle">11.5</text>
+<text class="axis-label" x="225.0" y="192" text-anchor="middle">Q3</text><text class="axis-label" x="225.0" y="204" text-anchor="middle">'26</text>
+<rect x="244.8" y="38.0" width="17.8" height="140.0" rx="4" fill="none" stroke="#d97941" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="253.7" y="33.0" text-anchor="middle">12.6</text>
+<text class="axis-label" x="253.7" y="192" text-anchor="middle">Q4E</text><text class="axis-label" x="253.7" y="204" text-anchor="middle">'26</text>
+</svg><p class="chart-note">*=반기·연간에서 산출. Q4'26E = 컨센서스 €12.56bn(점선).</p></div><div class="mini-chart"><h3>희석 가중평균 주식수 – 반기 (백만주)</h3><svg viewBox="0 0 320 220" role="img" aria-label="Shares H">
+<line class="grid" x1="10" x2="268" y1="178.0" y2="178.0"/>
+<text class="axis-label" x="274" y="181.0">540</text>
+<line class="grid" x1="10" x2="268" y1="139.0" y2="139.0"/>
+<text class="axis-label" x="274" y="142.0">555</text>
+<line class="grid" x1="10" x2="268" y1="100.0" y2="100.0"/>
+<text class="axis-label" x="274" y="103.0">570</text>
+<line class="grid" x1="10" x2="268" y1="61.0" y2="61.0"/>
+<text class="axis-label" x="274" y="64.0">585</text>
+<line class="grid" x1="10" x2="268" y1="22.0" y2="22.0"/>
+<text class="axis-label" x="274" y="25.0">600</text>
+<rect x="22.8" y="108.1" width="26.0" height="69.9" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="35.8" y="103.1" text-anchor="middle">567</text>
+<text class="axis-label" x="35.8" y="194" text-anchor="middle">H1'24</text>
+<rect x="74.4" y="110.4" width="26.0" height="67.6" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="87.4" y="105.4" text-anchor="middle">566</text>
+<text class="axis-label" x="87.4" y="194" text-anchor="middle">H1'25</text>
+<rect x="126.0" y="105.2" width="26.0" height="72.8" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="139.0" y="100.2" text-anchor="middle">568</text>
+<text class="axis-label" x="139.0" y="194" text-anchor="middle">FY'25</text>
+<rect x="177.6" y="101.8" width="26.0" height="76.2" rx="4" fill="#5f9ea0" fill-opacity="1"/>
+<text class="bar-label" x="190.6" y="96.8" text-anchor="middle">569</text>
+<text class="axis-label" x="190.6" y="194" text-anchor="middle">H1'26</text>
+<rect x="229.2" y="36.8" width="26.0" height="141.2" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="242.2" y="31.8" text-anchor="middle">594</text>
+<text class="axis-label" x="242.2" y="194" text-anchor="middle">PF Nov</text>
+</svg><p class="chart-note">기준: 희석 가중평균(산출). PF Nov = 유상증자 반영 추정치. 증가 = <b>희석</b>.</p></div></div><div class="interp"><b>투자 해석</b><ul><li>분기 매출은 Q2·Q3'26 연속 <b>€11.46bn 신기록</b>. Q3 유기성장 +16.9%는 컨센서스(+13.8%)를 크게 상회.</li><li>H1'26 희석 EPS +29% vs 주식수 +0.6% → <b>현재까지는 EPS 성장이 희석을 압도</b>.</li><li>문제는 다음 1년: 주식수 +4.4%가 먼저 반영되고 PTC 이익은 나중. <span class="hl">2027 상반기 EPS 성장률이 매출 성장률보다 낮게 나올 가능성이 높다(추론).</span></li><li>Q4'26 확인 숫자: 유기성장 ≥ +13%, 조정 EBITA 마진 19.7–19.9% 달성 여부, 데이터센터 수주 증가율.</li></ul></div></div>
+
+<div class="grid2">
+ <div class="card"><b>매출 vs EPS vs 주식수</b><ul class="small">
+ <li>2026E: 매출 +12%(컨센 €44.95bn) · 조정 EPS 약 +20% · 주식수 +0.2% → <span class="hl-g">EPS 레버리지 최상</span></li>
+ <li>2027E: 매출 +10–11% · 주식수 <b>+4.4%</b> · PTC 1개 분기 · 신규 채권 이자 → EPS 성장 <b>약 +10–12%</b>로 둔화 <span class="tag i">추론</span></li>
+ <li>2028E: PTC 풀연도 + 비용 시너지 → EPS 재가속 가능 <span class="tag u">가설</span></li></ul></div>
+ <div class="card"><b>희석은 반복될까?</b><ul class="small">
+ <li>이번 유증은 PTC 전용 1회성 성격. 채권·은행 차입 위주로 남은 조달 예정 <span class="tag f">확정</span></li>
+ <li>상시 희석원: 직원 지주 증자(연 ≈0.6%), 전환사채 3종 €21.5억(전환가 약 €234–€321) — 주가 상승 시 최대 약 1.2% <span class="tag i">추론</span></li>
+ <li>현재 주가는 <b>매출 성장만 반영</b>하고 2028년 EPS 재가속(시너지)은 거의 반영하지 않은 가격 <span class="tag i">추론</span></li></ul></div>
+</div>
+
+<!-- ============================ 4 -->
+<h2><span class="num">4</span>고객 · 파트너 · 생태계</h2>
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">관계도</h3><div class="tabs"><span class="tf">Map</span><span class="active">Ecosystem</span></div></div><div class="wide"><svg viewBox="0 0 760 420" role="img" aria-label="ecosystem">
+<line x1="380" y1="200" x2="130" y2="70" stroke="#7f8f68" stroke-width="1.6"/>
+<line x1="380" y1="200" x2="130" y2="140" stroke="#7f8f68" stroke-width="1.6"/>
+<line x1="380" y1="200" x2="630" y2="70" stroke="#d97941" stroke-width="1.6"/>
+<line x1="380" y1="200" x2="630" y2="140" stroke="#d97941" stroke-width="1.6"/>
+<line x1="380" y1="200" x2="630" y2="210" stroke="#d97941" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="380" y1="200" x2="380" y2="40" stroke="#5d7285" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="380" y1="200" x2="175" y2="260" stroke="#5d7285" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="380" y1="200" x2="175" y2="330" stroke="#5d7285" stroke-width="1.6" stroke-dasharray="5 4"/>
+<line x1="380" y1="200" x2="585" y2="300" stroke="#5d7285" stroke-width="1.6"/>
+<line x1="380" y1="200" x2="380" y2="360" stroke="#6f756e" stroke-width="1.6"/>
+<circle cx="380" cy="200" r="62" fill="#243036"/>
+<text x="380" y="194" text-anchor="middle" fill="#fffaf0" font-size="15" font-weight="800">Schneider</text>
+<text x="380" y="213" text-anchor="middle" fill="#fffaf0" font-size="10.5">전력·냉각 + 산업 SW</text>
+<rect x="45.0" y="48" width="170" height="44" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2"/>
+<text class="bar-label" x="130" y="67" text-anchor="middle">NVIDIA</text>
+<text class="axis-label" x="130" y="83" text-anchor="middle">AI factory 레퍼런스 설계 (A)</text>
+<rect x="45.0" y="118" width="170" height="44" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2"/>
+<text class="bar-label" x="130" y="137" text-anchor="middle">AMD</text>
+<text class="axis-label" x="130" y="153" text-anchor="middle">Helios 레퍼런스 설계 (B)</text>
+<rect x="540.0" y="48" width="180" height="44" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text class="bar-label" x="630" y="67" text-anchor="middle">Switch</text>
+<text class="axis-label" x="630" y="83" text-anchor="middle">$1.9bn 공급계약 (A)</text>
+<rect x="540.0" y="118" width="180" height="44" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text class="bar-label" x="630" y="137" text-anchor="middle">Digital Realty</text>
+<text class="axis-label" x="630" y="153" text-anchor="middle">$373m UPS·스위치기어 (A)</text>
+<rect x="540.0" y="188" width="180" height="44" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2" stroke-dasharray="5 4"/>
+<text class="bar-label" x="630" y="207" text-anchor="middle">하이퍼스케일러</text>
+<text class="axis-label" x="630" y="223" text-anchor="middle">익명 – 단정 불가 (C)</text>
+<rect x="285.0" y="18" width="190" height="44" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2" stroke-dasharray="5 4"/>
+<text class="bar-label" x="380" y="37" text-anchor="middle">PTC  $22.6bn</text>
+<text class="axis-label" x="380" y="53" text-anchor="middle">인수 대기 · Q3'27 종결 (A)</text>
+<rect x="90.0" y="238" width="170" height="44" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2" stroke-dasharray="5 4"/>
+<text class="bar-label" x="175" y="257" text-anchor="middle">Cognite  $3.1bn</text>
+<text class="axis-label" x="175" y="273" text-anchor="middle">AVEVA 편입 대기 (A)</text>
+<rect x="90.0" y="308" width="170" height="44" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2" stroke-dasharray="5 4"/>
+<text class="bar-label" x="175" y="327" text-anchor="middle">Shelly  €1.2bn</text>
+<text class="axis-label" x="175" y="343" text-anchor="middle">공개매수 · Q1'27 (A)</text>
+<rect x="495.0" y="278" width="180" height="44" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text class="bar-label" x="585" y="297" text-anchor="middle">AVEVA · Motivair</text>
+<text class="axis-label" x="585" y="313" text-anchor="middle">소프트웨어 · 액체냉각 (A/B)</text>
+<rect x="230.0" y="338" width="300" height="44" rx="12" fill="#fffaf0" stroke="#6f756e" stroke-width="2"/>
+<text class="bar-label" x="380" y="357" text-anchor="middle">경쟁: Vertiv · Eaton · ABB · Siemens · Legrand</text>
+<text class="axis-label" x="380" y="373" text-anchor="middle">업황 지표 – Vertiv Q3 수주 +100%↑</text>
+<text class="axis-label" x="12" y="414">초록=기술 파트너 · 오렌지=직접 고객 · 블루=자회사/인수 · 점선=미종결 또는 미확인</text>
+</svg></div></div>
+<div class="tbl"><table>
+<tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr>
+<tr><td>직접 고객</td><td><b>Switch</b></td><td>2단계 공급능력계약 $1.9bn (2025-11)</td><td>공동 발표 · 북미 최대 냉각 프로젝트</td><td>대형 AI 캠퍼스 레퍼런스</td><td class="conf-A">A</td><td>단일 고객 · 비상장사</td></tr>
+<tr><td>직접 고객</td><td>Digital Realty</td><td>$373m UPS·스위치기어</td><td>2025-11 발표</td><td>코로케이션 채널 확보</td><td class="conf-A">A</td><td>금액 작음</td></tr>
+<tr><td>직접 고객(익명)</td><td>하이퍼스케일러</td><td>“하이퍼스케일·코로·소버린” 수요 언급</td><td>회사가 고객명 미공시</td><td>후보: MSFT·META·AMZN·GOOGL <span class="tag u">단정 불가</span></td><td class="conf-C">C</td><td>후보 근거 = 업계 capex 규모뿐</td></tr>
+<tr><td>핵심 파트너</td><td><b>NVIDIA</b></td><td>AI 팩토리 레퍼런스 설계 (GB300 NVL72 등)</td><td>공동 발표</td><td>설계 단계 사양 진입 = lock-in</td><td class="conf-A">A</td><td>Vertiv·Eaton도 동일 파트너</td></tr>
+<tr><td>핵심 파트너</td><td>AMD</td><td>Helios 레퍼런스 설계</td><td>언론 보도</td><td>NVIDIA 의존 분산</td><td class="conf-B">B</td><td>매출 기여 미공시</td></tr>
+<tr><td>간접 고객</td><td>유통·패널빌더·EPC</td><td>Products 48%의 판매 채널</td><td>사업모델 공시</td><td>가격 인상 전가력</td><td class="conf-A">A</td><td>재고 조정 시 변동성</td></tr>
+<tr><td>최종 수혜 고객</td><td>AI 클라우드·데이터센터 운영사</td><td>전력·냉각 최종 사용자</td><td>DC 수요 세 자릿수 증가</td><td>capex 사이클에 연동</td><td class="conf-B">B</td><td>capex 둔화 시 직격</td></tr>
+<tr><td>인수 대상</td><td>PTC / Cognite / Shelly</td><td>미종결 인수</td><td>계약 공시</td><td>S&amp;S 비중 17% → ≈24%</td><td class="conf-A">A</td><td>규제·통합 리스크</td></tr>
+<tr><td>관련 대기업</td><td>Vertiv · Eaton · ABB · Siemens</td><td>경쟁사 겸 업황 지표</td><td>Vertiv Q3 수주 +100%↑</td><td>업황 건재 확인용</td><td class="conf-A">A</td><td>점유율 경쟁 심화</td></tr>
+<tr><td>관련성 낮음</td><td>반도체 팹(TSMC·삼성 등)</td><td>“반도체” 엔드마켓 언급뿐</td><td>고객명 없음</td><td><span class="muted">관련성 낮음</span></td><td class="conf-C">C</td><td>—</td></tr>
+</table></div>
+
+<!-- ============================ 5 -->
+<h2><span class="num">5</span>자본구조와 수급 (D)</h2>
+<div class="tbl"><table>
+<tr><th>항목</th><th>수치</th><th>설명</th><th>판정</th></tr>
+<tr><td>발행주식</td><td>578.6m(9/30, 자사주 포함) → <b>약 603.6m</b></td><td>10/22 신주 25.0m 반영 (+4.32%)</td><td><span class="tag f">확정</span></td></tr>
+<tr><td>희석 가중평균</td><td>569.3m(H1'26) → 약 594m</td><td>순이익÷희석EPS 산출 + 신주</td><td><span class="tag i">추론</span></td></tr>
+<tr><td>Fully diluted</td><td>약 611m+</td><td>+ 전환사채 약 7.5m주 + 성과주식 (규모 미확인)</td><td><span class="tag u">검증 필요</span></td></tr>
+<tr><td>전환사채(OCEANE)</td><td>€650m(2030, 전환가 €234.4 최초) · €750m(2031, 약 €311) · €750m(2033, 약 €320.5)</td><td><span class="hl">2030물은 현재가 근처</span> — 배당 조정 후 실제 전환가 확인 필요</td><td><span class="tag u">검증 필요</span></td></tr>
+<tr><td>ATM / shelf / warrant</td><td>美 ATM·워런트 없음</td><td>프랑스식 주총 증자 위임 + 직원 증자(연 ≈0.6%)</td><td><span class="tag f">확정</span></td></tr>
+<tr><td>자사주 매입</td><td>2026 €6억 (10/12까지 180만주, 평균 €269)</td><td><span class="hl-r">€269에 사고 €240에 신주 발행</span> · 2027–28 중단</td><td><span class="tag f">확정</span></td></tr>
+<tr><td>현금·부채</td><td>H1'26 순차입 €15.4bn → 유증·채권 €12bn 선조달</td><td>브리지 $25bn. 종결 후 순차입 €30bn 안팎 <span class="tag i">추론</span></td><td>등급 A/A2 유지</td></tr>
+<tr><td>Insider 지분</td><td>1% 미만</td><td>장내 매수 확인 안 됨</td><td><span class="tag u">검증 필요</span></td></tr>
+<tr><td>기관 / 직원</td><td>기관 약 51% · 직원 약 3.7%</td><td>BlackRock 약 7.9%, MFS 약 5.9% (2024 기준 데이터)</td><td><span class="tag u">검증 필요</span></td></tr>
+<tr><td>Short float</td><td>공개 데이터 없음</td><td>시총 €138bn 대형주 → 스퀴즈 구조 아님</td><td><span class="tag i">추론</span></td></tr>
+<tr><td>거래량 급증 원인</td><td>10/5, 10/20–22, 11/4–5 (평소 약 2배)</td><td>M&amp;A 발표 · 신주 소화 · 매크로</td><td><span class="tag f">확정</span></td></tr>
+</table></div>
+
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">최근 하락 분해: 펀더멘털 vs 멀티플 vs 수급</h3><div class="tabs"><span class="tf">Window</span><span class="active">10/2→11/6</span></div></div>
+<div class="wide"><svg viewBox="0 0 760 230" role="img" aria-label="drop decomposition">
+<line class="grid" x1="20" x2="700" y1="180.0" y2="180.0"/>
+<text class="axis-label" x="708" y="183.0">€200</text>
+<line class="grid" x1="20" x2="700" y1="150.9" y2="150.9"/>
+<text class="axis-label" x="708" y="153.9">€220</text>
+<line class="grid" x1="20" x2="700" y1="121.8" y2="121.8"/>
+<text class="axis-label" x="708" y="124.8">€240</text>
+<line class="grid" x1="20" x2="700" y1="92.7" y2="92.7"/>
+<text class="axis-label" x="708" y="95.7">€260</text>
+<line class="grid" x1="20" x2="700" y1="63.6" y2="63.6"/>
+<text class="axis-label" x="708" y="66.6">€280</text>
+<line class="grid" x1="20" x2="700" y1="34.5" y2="34.5"/>
+<text class="axis-label" x="708" y="37.5">€300</text>
+<rect x="44.7" y="30.2" width="64" height="149.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="76.7" y="25.2" text-anchor="middle">€303.0</text>
+<text class="axis-label" x="76.7" y="196" text-anchor="middle">10/2 종가</text>
+<rect x="158.0" y="30.2" width="64" height="43.9" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="190.0" y="25.2" text-anchor="middle">-30.2</text>
+<text class="axis-label" x="190.0" y="196" text-anchor="middle">PTC 발표일</text>
+<rect x="271.3" y="74.1" width="64" height="28.4" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="303.3" y="69.1" text-anchor="middle">-19.5</text>
+<text class="axis-label" x="303.3" y="196" text-anchor="middle">JPM 하향·자금조달 우려</text>
+<rect x="384.7" y="102.5" width="64" height="31.9" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="416.7" y="97.5" text-anchor="middle">-21.9</text>
+<text class="axis-label" x="416.7" y="196" text-anchor="middle">€6bn 유증·10/22 급락</text>
+<rect x="498.0" y="134.3" width="64" height="4.0" rx="4" fill="#c95b4a"/>
+<text class="bar-label" x="530.0" y="129.3" text-anchor="middle">-2.8</text>
+<text class="axis-label" x="530.0" y="196" text-anchor="middle">AI·금리 심리</text>
+<rect x="611.3" y="138.3" width="64" height="41.7" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="643.3" y="133.3" text-anchor="middle">€228.65</text>
+<text class="axis-label" x="643.3" y="196" text-anchor="middle">11/6 종가</text>
+<text class="axis-label" x="20" y="218">y축 €200부터 시작. 같은 기간 2026 EBITA 가이던스는 상향(14–19% → 18–21%). 하락분 전부가 멀티플 압축.</text>
+</svg></div>
+<div class="interp"><ul>
+<li><b>펀더멘털:</b> 같은 기간 가이던스 상향 → 기여도 <span class="hl-g">플러스</span>.</li>
+<li><b>멀티플 압축:</b> −€74 전부. PTC 가격(21배)·희석·레버리지·AI/금리 심리.</li>
+<li><b>Short covering:</b> 해당 없음(상승이 아니라 하락 국면, 대형주). <b>자금조달 오버행:</b> 주식분은 해소, 채권 잔여분 남음 → <span class="hl">추가 주식 발행 리스크는 크게 낮아짐</span>.</li></ul></div></div>
+
+<!-- ============================ 6 -->
+<h2><span class="num">6</span>밸류에이션과 목표가</h2>
+<div class="tbl"><table>
+<tr><th>시나리오</th><th class="n">목표가 (€ / $)</th><th>적용 EPS·FCF</th><th>배수</th><th>희석 주식수</th><th class="n">확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr>
+<tr><td><b>보수적 내재가치</b></td><td class="n">€215 / $47.9</td><td>2027E FCF/주 €10.1</td><td>FCF 수익률 4.7%</td><td>594m</td><td class="n">15%</td><td>—</td><td>FCF &lt; €5.5bn</td><td>2차 매수 구간</td></tr>
+<tr><td><b>12M base</b></td><td class="n">€265 / $59.0</td><td>2027E 조정 EPS €11.5 (희석 반영)</td><td>23배</td><td>594m</td><td class="n">40%</td><td>FY26 결산·2027 가이던스</td><td>2027 EPS &lt; €11</td><td>보유</td></tr>
+<tr><td><b>Bull</b></td><td class="n">€320 / $71.2</td><td>2028E EPS €13.5 (PTC 풀연도+비용 시너지)</td><td>24배</td><td>약 600m</td><td class="n">22%</td><td>DC 수주 지속 + PTC 종결</td><td>시너지 지연</td><td>1/3 차익</td></tr>
+<tr><td><b>Overshoot</b></td><td class="n">€360 / $80.1</td><td>2028E €13.5</td><td>27배</td><td>약 600m</td><td class="n">8%</td><td>AI 인프라 재평가(센티먼트)</td><td>—</td><td>추가 1/3 차익</td></tr>
+<tr><td><b>하방 리스크</b></td><td class="n">€178 / $39.6</td><td>2027E €10.5</td><td>17배</td><td>594m</td><td class="n">15%</td><td>—</td><td>AI capex 감속 + 통합 실패</td><td>thesis 점검</td></tr>
+<tr><td>실적 전 trading</td><td class="n">€250 / $55.6</td><td>—</td><td>기술적 되돌림</td><td>—</td><td class="n">—</td><td>10/16 갭(€244–255) 재테스트</td><td>€220 이탈</td><td>신규 추격 금지</td></tr>
+<tr><td>실적 후 재평가</td><td class="n">€280 / $62.3</td><td>2027E €11.7</td><td>24배</td><td>594m</td><td class="n">—</td><td>beat + 2027 가이던스 ≥ 시장</td><td>가이던스 실망</td><td>3차 매수 판단</td></tr>
+</table></div>
+<p class="small muted">확률가중 기대값 €264 → +15.5%. 모든 목표가는 <b>추론</b>(컨센서스·회사 가이던스 기반 자체 계산). $ 환산은 EUR/USD 1.113 고정.</p>
+
+<div class="chart-card"><div class="chart-header"><h3 class="card-title">Valuation Bridge</h3><div class="tabs"><span class="tf">Horizon</span><span class="active">12M</span></div></div>
+<div class="wide"><svg viewBox="0 0 760 300" role="img" aria-label="valuation bridge">
+<line class="grid" x1="150.0" x2="150.0" y1="20" y2="248"/>
+<text class="axis-label" x="150.0" y="264" text-anchor="middle">€0</text>
+<line class="grid" x1="206.2" x2="206.2" y1="20" y2="248"/>
+<text class="axis-label" x="206.2" y="264" text-anchor="middle">€50</text>
+<line class="grid" x1="262.5" x2="262.5" y1="20" y2="248"/>
+<text class="axis-label" x="262.5" y="264" text-anchor="middle">€100</text>
+<line class="grid" x1="318.8" x2="318.8" y1="20" y2="248"/>
+<text class="axis-label" x="318.8" y="264" text-anchor="middle">€150</text>
+<line class="grid" x1="375.0" x2="375.0" y1="20" y2="248"/>
+<text class="axis-label" x="375.0" y="264" text-anchor="middle">€200</text>
+<line class="grid" x1="431.2" x2="431.2" y1="20" y2="248"/>
+<text class="axis-label" x="431.2" y="264" text-anchor="middle">€250</text>
+<line class="grid" x1="487.5" x2="487.5" y1="20" y2="248"/>
+<text class="axis-label" x="487.5" y="264" text-anchor="middle">€300</text>
+<line class="grid" x1="543.8" x2="543.8" y1="20" y2="248"/>
+<text class="axis-label" x="543.8" y="264" text-anchor="middle">€350</text>
+<line class="grid" x1="600.0" x2="600.0" y1="20" y2="248"/>
+<text class="axis-label" x="600.0" y="264" text-anchor="middle">€400</text>
+<line x1="407.2" x2="407.2" y1="16" y2="248" stroke="#5d7285" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.6"/>
+<rect x="150" y="27" width="200.2" height="24" rx="5" fill="#c95b4a"/>
+<text class="bar-label" x="140" y="43" text-anchor="end">하방 리스크</text>
+<text class="bar-label" x="358.2" y="43">€178 · $39.6 (-22.2%)</text>
+<rect x="150" y="65" width="241.9" height="24" rx="5" fill="#7f8f68"/>
+<text class="bar-label" x="140" y="81" text-anchor="end">보수적 내재가치</text>
+<text class="bar-label" x="399.9" y="81">€215 · $47.9 (-6.0%)</text>
+<rect x="150" y="103" width="257.2" height="24" rx="5" fill="#5d7285"/>
+<text class="bar-label" x="140" y="119" text-anchor="end">현재 주가</text>
+<text class="bar-label" x="415.2" y="119">€228.65 · $50.9</text>
+<rect x="150" y="141" width="298.1" height="24" rx="5" fill="#d97941"/>
+<text class="bar-label" x="140" y="157" text-anchor="end">12M base</text>
+<text class="bar-label" x="456.1" y="157">€265 · $59.0 (+15.9%)</text>
+<rect x="150" y="179" width="360.0" height="24" rx="5" fill="#b86432"/>
+<text class="bar-label" x="140" y="195" text-anchor="end">Bull</text>
+<text class="bar-label" x="518.0" y="195">€320 · $71.2 (+40.0%)</text>
+<rect x="150" y="217" width="405.0" height="24" rx="5" fill="none" stroke="#b86432" stroke-width="2.2" stroke-dasharray="6 4"/>
+<text class="bar-label" x="140" y="233" text-anchor="end">Overshoot</text>
+<text class="bar-label" x="563.0" y="233">€360 · $80.1 (+57.4%)</text>
+<text class="axis-label" x="12" y="294">$ = SBGSY 환산 (€ × 0.2 × EUR/USD 1.113 추정). 점선 = 펀더멘털이 아닌 센티먼트 목표.</text>
+</svg></div>
+<div class="interp"><ul>
+<li>현재가 €228.65는 보수적 내재가치(€215)보다 <b>+6.3%</b> 높다 — 거의 바닥 가치 근처.</li>
+<li>지금 가격은 <span class="hl">base case(€265)보다 낮은 가격</span>이다. bull case를 사는 가격이 아니다.</li>
+<li>Overshoot €360는 펀더멘털이 아니라 <b>AI 인프라 재평가 심리</b> 목표. 숏스퀴즈 시나리오가 아니다.</li>
+<li>실적 전: €220–232 1차, €205–212 2차. 실적 후: 가이던스 확인 시 €265 이하에서 3차. <span class="hl-r">€265 이상에선 신규 매수 금지</span>, €320에서 축소 시작.</li></ul></div></div>
+
+<h3 class="card-title" style="margin-top:22px">E. 반대 thesis — 같은 강도로</h3>
+<div class="tbl"><table>
+<tr><th>반대 논리</th><th>근거</th><th>얼마나 심각한가</th></tr>
+<tr><td>이 연결이 우연일 가능성</td><td>DC 호황과 소프트웨어 인수는 별개일 수 있다. PTC 고객(이산제조)과 DC 고객은 거의 겹치지 않는다.</td><td>중간 — 시너지 €8억은 JPM도 “야심찬” 목표로 평가</td></tr>
+<tr><td>고객·계약 기대 과대</td><td>공개 대형 계약은 Switch $1.9bn 정도. 하이퍼스케일러 이름은 없다.</td><td>중간</td></tr>
+<tr><td>매출↑ EPS 정체</td><td>2027년 주식수 +4.4%, 신규 채권 이자, PPA 상각, 통합비용 €2.5억</td><td><span class="hl-r">높음 (2027년 한정)</span></td></tr>
+<tr><td>금리·실업·신용</td><td>Fed 12월 인상 확률 약 75%, 프랑스 신용 전망 부정적(Fitch 10/30)</td><td>중간 — 등급 A 유지</td></tr>
+<tr><td>Short squeeze 후 급락</td><td>해당 없음. 대형주·공매도 공시 미확인</td><td>낮음</td></tr>
+<tr><td>M&amp;A 기대 과열</td><td>반대로 <b>M&amp;A 피로</b>가 문제. 6개월간 3건, 약 $27bn. 추가 인수 시 신뢰 훼손</td><td>중간–높음</td></tr>
+<tr><td>AI capex 사이클 꺾임</td><td>DC가 매출의 약 1/4 수준(2025년 언론 보도), Systems가 성장 견인</td><td><span class="hl-r">가장 큰 리스크</span></td></tr>
+</table></div>
+
+<!-- ============================ 7 -->
+<h2><span class="num">7</span>실적 전후 행동 계획 &amp; 리스크 관리</h2>
+<div class="grid2">
+<div class="card"><b>실적일: 2027-02-18 (FY26 결산)</b> <span class="tag f">확정</span>
+<ul class="small">
+<li><b>이미 반영된 것:</b> FY26 가이던스(매출 유기 12–14%, EBITA 18–21%)는 공개됨 → FY26 beat 자체는 약한 재료.</li>
+<li><b>실적 전 매수?</b> 1차(1%)만. 가격이 이미 base 아래라 기다리기만 하는 비용도 있다.</li>
+<li><b>실적 후 확인 매수?</b> 2·3차는 확인 후.</li>
+<li><b>beat만으로 충분?</b> 아니다. <span class="hl">beat + 2027 가이던스(희석 반영 EPS 함의 €11.5↑)</span>가 필요.</li></ul></div>
+<div class="card"><b>주가를 움직일 숫자</b>
+<ul class="small">
+<li><span class="hl-g">오를 숫자</span>: Q4 유기 ≥ +13% · EBITA 마진 ≥ 19.9% · FCF ≥ €5.5bn · 2027 유기 매출 가이던스 ≥ +8% · DC 수주 “두 자릿수 이상”.</li>
+<li><span class="hl-r">빠질 숫자</span>: 2027 유기 매출 가이던스 ≤ +6% · 마진 개선 &lt; +50bp · DC 수주 역성장 · AVEVA ARR &lt; +8% · 종결 후 순차입/EBITDA 목표 &gt; 2.5배.</li></ul></div>
+</div>
+
+<div class="tbl"><div class="tbl-cap">Thesis break trigger (리스크 = 숫자로 정의)</div><table>
+<tr><th>리스크</th><th>thesis가 깨지는 지표</th><th>시장이 반영하기 시작하는 가격</th><th>확인 시점</th><th>대응</th></tr>
+<tr><td>매출 성장 둔화</td><td>분기 유기성장 &lt; +7%</td><td>€205 이하</td><td>2/18, 4월 Q1</td><td>비중 1%로 축소</td></tr>
+<tr><td>EPS 정체</td><td>2027 조정 EPS 가이던스 함의 &lt; €11</td><td>€210</td><td>2/18</td><td>추가 매수 중단</td></tr>
+<tr><td>주식 수 희석</td><td>추가 유상증자 또는 하이브리드 자본 발행</td><td>발표일 −5%</td><td>상시</td><td>절반 축소</td></tr>
+<tr><td>현금 소진</td><td>FCF/순이익 전환율 &lt; 90%</td><td>€215</td><td>2/18</td><td>보유 유지, 매수 중단</td></tr>
+<tr><td>고객 집중</td><td>DC 매출 비중 &gt; 35% + 수주 감소</td><td>€200</td><td>반기</td><td>축소</td></tr>
+<tr><td>경쟁사 대체</td><td>Vertiv·Eaton 수주 +, 슈나이더 DC 수주 −</td><td>상대 −10%</td><td>분기</td><td>점검</td></tr>
+<tr><td>금리·실업·신용</td><td>Fed 연속 인상 + 美 실업률 &gt; 4.5%, 등급 A− 이하</td><td>€195</td><td>12/9, 월간</td><td>1% 이하</td></tr>
+<tr><td>급등 후 급락</td><td>€320 이상 도달 후 −15%</td><td>€272</td><td>—</td><td>1/3씩 차익 실현 규칙 준수</td></tr>
+<tr><td>M&amp;A 과열</td><td>추가 €5bn 이상 인수 발표</td><td>발표일 −5% 이상</td><td>상시</td><td>절반 축소</td></tr>
+</table></div>
+
+<div class="tbl"><div class="tbl-cap">포트폴리오 실행안 — 수량 대신 비중(%)으로 표기</div><table>
+<tr><th>단계</th><th>조건</th><th>가격 (SU € / SBGSY $)</th><th class="n">비중</th></tr>
+<tr><td><b>1차</b></td><td>지금 (실적 전)</td><td>€220–232 / $49–52</td><td class="n">1.0%</td></tr>
+<tr><td><b>2차</b></td><td>하락 시 또는 2/18 실적 확인 후</td><td>€205–212 / $46–47, 또는 확인 후 €265 이하</td><td class="n">+1.0%</td></tr>
+<tr><td><b>3차</b></td><td>2027 가이던스·PTC 승인 진척 확인</td><td>€265 이하</td><td class="n">+1.0%</td></tr>
+<tr><td>목표 비중</td><td colspan="2">3% (확신 강화 시 최대 4%) — 반도체·AI 칩 편중 포트에서 <b>전력·냉각 레이어 분산</b> 역할</td><td class="n"><b>3%</b></td></tr>
+<tr><td>매도</td><td colspan="2">€320 도달 1/3 · €360 도달 추가 1/3 · 나머지 thesis 유지 시 장기 보유</td><td class="n">—</td></tr>
+<tr><td>손절/축소</td><td colspan="2">€195 종가 2주 이탈 + 위 trigger 1개 이상 → 1%로 축소. trigger 2개 이상 → 전량</td><td class="n">—</td></tr>
+<tr><td>기대손익 (3% 기준)</td><td colspan="2">base +0.48%p · bull +1.20%p · overshoot +1.72%p · 하방 -0.66%p (세전, 포트 대비)</td><td class="n">—</td></tr>
+</table></div>
+<div class="card small"><b>실행 메모</b> · SBGSY는 <b>비후원(unsponsored) OTC ADR</b>(5 ADR = 1주, Citibank)라 스프레드가 넓고 예탁 수수료가 붙을 수 있다 → 지정가 주문 필수. 파리 직접 매매가 가능하면 SU가 유동성 우위. 배당은 프랑스 원천징수(한·프 조세조약 세율) 적용 <span class="tag u">검증 필요</span>. 매도 차익은 해외주식 양도세 22%.</div>
+
+<div class="final">
+<div style="font-size:12px;letter-spacing:.15em;font-weight:800;color:#f0c9a8">FINAL SUMMARY</div>
+<dl>
+<dt>현재 주가</dt><dd>€228.65 (SBGSY ≈ $50.9)</dd>
+<dt>보수적 내재가치</dt><dd>€215 ($47.9)</dd>
+<dt>12개월 base target</dt><dd>€265 ($59.0, +15.9%)</dd>
+<dt>bull target</dt><dd>€320 ($71.2, +40.0%)</dd>
+<dt>overshoot target</dt><dd>€360 ($80.1, +57.4%) — 센티먼트 목표</dd>
+<dt>실적 발표 전 trading target</dt><dd>€250 ($55.6)</dd>
+<dt>실적 발표 후 재평가 target</dt><dd>€280 ($62.3)</dd>
+<dt>하방 리스크</dt><dd>€178 ($39.6, -22.2%)</dd>
+<dt>12개월 기대수익률</dt><dd>+15.5% (배당 약 2.1% 별도)</dd>
+<dt>보유 수량 기준 기대손익</dt><dd>보유 0 → 0. 3% 편입 시 base +0.48%p</dd>
+<dt>추천 행동</dt><dd>Buy · 신규 매수 3분할 (1차 1%만 지금)</dd>
+<dt>목표 비중</dt><dd>3% (최대 4%)</dd>
+<dt>실적 발표 전 행동</dt><dd>€220–232 1차 1%. €205–212면 2차. €265 이상 추격 금지</dd>
+<dt>실적 발표 후 행동</dt><dd>beat + 2027 가이던스(EPS 함의 ≥ €11.5) 확인 시 2·3차</dd>
+<dt>목표가 도달 시 행동</dt><dd>€320에서 1/3, €360에서 추가 1/3 차익</dd>
+<dt>thesis 훼손 시 행동</dt><dd>trigger 1개 + €195 이탈 → 1%로 축소, 2개 → 전량 매도</dd>
+<dt>가장 중요한 체크포인트</dt><dd>2027-02-18: 2027 가이던스와 데이터센터 수주 코멘트</dd>
+<dt>내가 틀렸다고 인정해야 하는 조건</dt><dd>2027 유기 매출 가이던스 ≤ +6% <b>또는</b> DC 수주 역성장 <b>또는</b> PTC 외 추가 대형 M&amp;A·증자</dd>
+</dl></div>
+
+<h2><span class="num">S</span>출처</h2>
+<div class="card src"><ul>
+<li>Q3 2026 매출 발표 (2026-10-16): <a href="https://www.webdisclosure.com/press-release/third-quarter-revenues-2026-odiihfxJLgs">webdisclosure.com</a></li>
+<li>H1 2026 실적 발표: <a href="https://www.se.com/ww/en/assets/pdf/release-hy-results-2026">se.com</a> · 반기 재무제표: <a href="https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2026/07/FCECO082815_20260730.pdf">AMF/DILA</a></li>
+<li>FY2025 실적: <a href="https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2026/02/FCECO081066_20260226.pdf">AMF/DILA</a> · <a href="https://www.se.com/ww/en/assets/564/document/528237/release-fy-results-2025.pdf">se.com</a></li>
+<li>Q1 2026 매출: <a href="https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2026/04/FCECO081812_20260430.pdf">AMF/DILA</a> · Q1 2025: <a href="https://www.emr-online.com/?p=12734">emr-online</a></li>
+<li>H1 2025 재무제표: <a href="https://webdisclosure.com/press-release/schneider-electric-epa-su-2025-half-year-financial-statements-rDLSNxk7FIb">webdisclosure</a> · H1 2024: <a href="https://se.com/ww/en/assets/564/document/481036/accounts-hy-results-2024.pdf">se.com</a> · Q3 2024: <a href="https://webdisclosure.com/press-release/schneider-electric-epa-su-third-quarter-revenues-2024-f0pJ35om7ic">webdisclosure</a></li>
+<li>연간 재무 집계: <a href="https://stockanalysis.com/quote/epa/su/financials/">stockanalysis.com</a></li>
+<li>PTC 인수: <a href="https://thetechcapital.com/schneider-electric-buy-ptc-22-6-billion-industrial-ai/">The Tech Capital</a> · <a href="https://www.tikr.com/blog/schneider-electric-just-lost-e15-billion-in-a-day-heres-what-spooked-investors">TIKR</a> · <a href="https://www.ideal-investisseur.fr/en/stock-news/schneider-electric-signs-agreement-to-acquire-ptc-for-approximately-22-billion-euros-and-plans-a-pause-in-share-buybacks/26401.html">Idéal Investisseur</a> · <a href="https://lessentieldeleco.fr/9218-schneider-electric-le-pari-qui-fache-la-bourse/">L'Essentiel de l'Éco</a></li>
+<li>€60억 유상증자: <a href="https://www.abcbourse.com/marches/schneider-electric-plie-en-bourse-apres-une-augmentation-de-capital-de-6-milliar_704479">ABC Bourse</a> · <a href="https://www.ideal-investisseur.fr/en/actions-b/schneider-electric-raises-approximately-6-billion-euros-in-equity-to-finance-ptc-acquisition/27469.html">Idéal Investisseur</a> · €60억 채권: <a href="https://www.webdisclosure.com/press-release/successful-issue-of-a-60-billion-bond-as-part-of-the-financing-of-the-ptc-acquisition-gXInqCaRQEG">webdisclosure</a></li>
+<li>Cognite 인수: <a href="https://www.automation.com/article/schneider-electric-acquire-cognite-unlocking-strategic-intelligence-industrial-ai">automation.com</a></li>
+<li>주가·컨센서스: <a href="https://www.zonebourse.com/cours/action/SCHNEIDER-ELECTRIC-SE-4699/">Zonebourse</a> · <a href="https://www.boursorama.com/cours/1rPSU/">Boursorama</a> · <a href="https://www.tradingsat.com/schneider-electric-FR0000121972/">BFM Bourse</a> · <a href="https://finance.yahoo.com/quote/SU.PA/analysis/">Yahoo Finance</a> · <a href="https://finimize.com/content/schneiders-ptc-deal-has-analysts-rethinking-2027-earnings">Finimize(AlphaValue)</a> · <a href="https://www.investing.com/news/stock-market-news/schneider-electric-stock-outlook-after-historic-ptc-acquisition-93CH-4936427">Investing.com(JPM)</a></li>
+<li>전환사채: <a href="https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2025/09/FCECO079684_20250916.pdf">2033물</a> · <a href="https://echanges.dila.gouv.fr/OPENDATA/AMF/ECO/2024/06/FCECO075238_20240625.pdf">2031물</a> · <a href="https://Se.com/ww/en/assets/564/document/466530/board-of-directors-additional-report-on-the-issue-of-OCEANEs.pdf">2030물</a></li>
+<li>고객·파트너: <a href="https://tedmag.com/?p=53400">Switch $1.9bn</a> · <a href="https://979weve.com/?p=770855">Digital Realty(Reuters)</a> · Vertiv Q3: <a href="https://datacenterdynamics.com/en/news/vertiv-shares-jump-14-percent-as-data-center-earnings-beat-expectations">DCD</a></li>
+<li>매크로: <a href="https://www.americanbanker.com/news/strong-jobs-report-keeps-fed-focus-squarely-on-inflation">American Banker(10월 고용·FOMC)</a> · <a href="https://247wallst.com/investing/2026/10/03/the-fed-may-now-skip-october-rate-hike-but-december-is-still-very-much-in-play/">24/7 Wall St(9월 인상)</a> · <a href="https://www.tradingnews.com/news/eur-usd-11228-clears-11196-on-oil-collapse-as-france-spread-holds-at-165bp">TradingNews(EUR/USD·ECB)</a></li>
+<li>ADR 구조: <a href="https://walnutinvest.com/stocks/sbgsy">Walnut(5 ADR=1주, 비후원)</a> · 지분구조: <a href="https://simplywall.st/stocks/us/capital-goods/otc-sbgs.y/schneider-electric/ownership">Simply Wall St</a></li>
+</ul>
+<p class="small muted">본 문서는 공개 자료 기반 개인 투자 메모이며 투자 권유가 아니다. “추론/가설/검증 필요” 표시 항목은 확정 사실이 아니다. SBGSY 달러 가격은 실시간 체결가가 아니라 환산 추정치다.</p></div>
+
+</div></body></html>

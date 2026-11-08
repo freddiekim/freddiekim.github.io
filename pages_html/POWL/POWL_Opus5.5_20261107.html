@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html class="document-reader" lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POWL 파웰 인더스트리 — 투자 메모 (2026-11-07)</title>
+<style>
+:root {
+--bg: #f4efe6;
+--card: #fffaf0;
+--text: #243036;
+--muted: #6f756e;
+--accent: #d97941;
+--green: #7f8f68;
+--bluegray: #5d7285;
+--risk: #c95b4a;
+--line: #ded4c3;
+--grid: #e7ddcc;
+--teal: #5f9ea0;
+--bull: #b86432;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Segoe UI", sans-serif;
+  font-size: 15px; line-height: 1.6; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 28px 18px 60px; }
+header.top { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap;
+  border-bottom: 2px solid var(--text); padding-bottom: 14px; margin-bottom: 8px; }
+.brand { font-size: 12px; letter-spacing: .14em; color: var(--muted); font-weight: 800; }
+h1 { margin: 4px 0 0; font-size: 30px; line-height: 1.2; }
+h1 small { font-size: 16px; color: var(--muted); font-weight: 600; }
+.meta { font-size: 13px; color: var(--muted); text-align: right; }
+h2 { font-size: 21px; margin: 40px 0 6px; display: flex; align-items: center; gap: 10px; }
+h2 .num { background: var(--text); color: var(--card); border-radius: 8px; padding: 1px 9px; font-size: 15px; }
+h3 { font-size: 16px; margin: 18px 0 8px; }
+.lead { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; margin: 14px 0; }
+.grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; }
+.kpi .k { font-size: 12px; color: var(--muted); font-weight: 700; }
+.kpi .v { font-size: 24px; font-weight: 800; line-height: 1.25; }
+.kpi .s { font-size: 12px; color: var(--muted); }
+.v.up { color: var(--green); } .v.down { color: var(--risk); } .v.or { color: var(--accent); }
+.tag { display: inline-block; font-size: 12px; font-weight: 800; border-radius: 999px; padding: 2px 10px; border: 1.5px solid currentColor; }
+.tag.buy { color: var(--green); } .tag.risk { color: var(--risk); } .tag.or { color: var(--accent); } .tag.bg { color: var(--bluegray); }
+.hl { background: rgba(217,121,65,.20); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.hl-r { background: rgba(201,91,74,.16); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.hl-g { background: rgba(127,143,104,.20); border-radius: 4px; padding: 0 3px; font-weight: 700; }
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; background: var(--card); }
+th, td { border-bottom: 1px solid var(--line); padding: 8px 9px; text-align: left; vertical-align: top; }
+th { background: #f1e8da; font-size: 12.5px; color: var(--text); white-space: nowrap; }
+td.n, th.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+tr.est td { color: var(--muted); font-style: italic; }
+.b { display: inline-block; min-width: 22px; text-align: center; font-weight: 800; font-size: 12px; border-radius: 6px; padding: 0 6px; color: #fffaf0; }
+.b.A { background: var(--green); } .b.B { background: var(--bluegray); } .b.C { background: var(--risk); }
+.note { font-size: 12.5px; color: var(--muted); }
+.interp { border-left: 4px solid var(--accent); background: #fbf3e6; border-radius: 0 12px 12px 0; padding: 10px 14px; margin-top: 12px; font-size: 14px; }
+.interp ul { margin: 4px 0; padding-left: 18px; }
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.duo .pro { border-top: 5px solid var(--green); } .duo .con { border-top: 5px solid var(--risk); }
+ul.tight { margin: 6px 0; padding-left: 18px; } ul.tight li { margin: 3px 0; }
+.final { background: var(--text); color: var(--card); border-radius: 18px; padding: 22px 24px; margin-top: 30px; }
+.final h2 { color: var(--card); margin-top: 0; }
+.final dl { display: grid; grid-template-columns: 220px 1fr; gap: 6px 16px; margin: 0; font-size: 14.5px; }
+.final dt { color: #e7ddcc; font-weight: 700; }
+.final dd { margin: 0; }
+.final .hl { background: rgba(217,121,65,.45); }
+.src { font-size: 12.5px; } .src li { margin: 2px 0; word-break: break-all; }
+.src a { color: var(--bluegray); }
+/* required chart CSS */
+.chart-card {
+background: var(--card);
+border: 1px solid var(--line);
+border-radius: 18px;
+padding: 20px;
+margin: 22px 0;
+}
+.chart-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 16px;
+margin-bottom: 12px;
+}
+.chart-header h3 { margin: 0; }
+.tabs {
+display: flex;
+align-items: center;
+gap: 10px;
+font-size: 13px;
+color: var(--muted);
+font-weight: 700;
+}
+.tabs .active {
+color: var(--text);
+border: 2px solid var(--bluegray);
+border-radius: 10px;
+padding: 5px 10px;
+background: rgba(93,114,133,0.10);
+}
+.mini-chart-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 22px;
+}
+.mini-chart h3 {
+margin: 0 0 8px;
+font-size: 14px;
+color: var(--muted);
+}
+.mini-chart svg, .chart-card svg {
+width: 100%;
+height: auto;
+display: block;
+}
+.mini-chart .basis { font-size: 11.5px; color: var(--muted); margin-top: 4px; }
+.grid {
+stroke: var(--grid);
+stroke-width: 1;
+stroke-dasharray: 2 3;
+}
+.zero {
+stroke: var(--text);
+stroke-width: 1.2;
+opacity: 0.55;
+}
+.bar-negative { fill: var(--risk); }
+.bar-positive { fill: var(--bluegray); }
+.bar-revenue { fill: var(--accent); }
+.bar-shares { fill: var(--teal); }
+.bar-outline { fill: none; stroke-width: 2.5; stroke: currentColor; }
+.bar-label {
+font-size: 11px;
+font-weight: 800;
+fill: var(--text);
+}
+.axis-label {
+font-size: 10px;
+font-weight: 700;
+fill: var(--muted);
+}
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 8px; }
+.legend i { display: inline-block; width: 12px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+@media (max-width: 900px) {
+.mini-chart-grid {
+grid-template-columns: 1fr;
+}
+.chart-header {
+align-items: flex-start;
+flex-direction: column;
+}
+.grid3, .grid4 { grid-template-columns: 1fr 1fr; }
+.duo, .grid2 { grid-template-columns: 1fr; }
+.final dl { grid-template-columns: 1fr; }
+.final dt { margin-top: 8px; }
+}
+@media (max-width: 520px) {
+.grid3, .grid4 { grid-template-columns: 1fr; }
+h1 { font-size: 24px; }
+.meta { text-align: left; }
+}
+</style>
+<link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div>
+    <div class="brand">YOUNG FINANCE · 城主 리서치 · FORENSIC MEMO</div>
+    <h1>Powell Industries <small>NASDAQ: POWL · 파웰</small></h1>
+  </div>
+  <div class="meta">분석 기준일 2026-11-07(토) · 가격 = <b>11/6 종가</b><br>회계연도 9월 결산 · 2026-04-02 <b>3:1 액면분할</b> 반영(모든 주당 수치 분할 조정)<br>보유 0주 · 포트폴리오 약 7.6억 원·환율 1,345원 가정</div>
+</header>
+
+<!-- ===================== 0. PRE-CHECK A–E ===================== -->
+<h2><span class="num">0</span> 사전 점검 A–E — 처음 보면 놓치는 것들</h2>
+<p class="lead">확정 사실 = 공시·회사 발표 / 추론 = 공시 숫자로 계산한 해석 / 검증 필요 = 단일 또는 저신뢰 출처.</p>
+
+<h3>A. 숨은 신호 3가지</h3>
+<div class="grid3">
+  <div class="card">
+    <span class="tag or">신호 1 · 현금의 주인</span>
+    <p><b>확정:</b> 현금 $634M(6/30) 중 <span class="hl">고객 선수금(계약부채) $466M</span>. 순계약부채 $350M.<br>
+    <b>추론:</b> 진짜 '여유 현금'은 약 <b>$284M(주당 ~$8)</b>. 9개월 영업현금흐름 $195M도 선수금 증가($189M)가 크게 부풀린 숫자 → 프로젝트 납품 시 되돌아감.<br>
+    <b>의미:</b> 고객이 선결제할 만큼 공급자 우위. 다만 <span class="hl-r">FCF 수익률 5%는 과대평가</span>.</p>
+  </div>
+  <div class="card">
+    <span class="tag or">신호 2 · 수주 ≠ 매출</span>
+    <p><b>확정:</b> Q3 수주 $934M(+158%) vs 매출 $312M(+9%). 잔고 $2.4B 중 12개월 내 인식 약 $1.3B.<br>
+    <b>추론:</b> 병목은 수요가 아니라 <span class="hl">생산능력</span>. 2분기 연속 EPS 미스도 같은 원인. Jacintoport 확장(FY26 말)·30만 sq ft 신공장(FY27 Q2~Q3) 가동 전까지 매출 가속은 제한적.<br>
+    <b>의미:</b> FY27 하반기가 진짜 변곡 구간.</p>
+  </div>
+  <div class="card">
+    <span class="tag risk">신호 3 · 텍사스 정치 + 내부자</span>
+    <p><b>확정:</b> 11/3 텍사스 주지사 당선인 Hinojosa가 <span class="hl-r">데이터센터 승인 모라토리엄</span> 공약. 창업가 가문(Thomas W. Powell)은 2026년 약 $35M 매도, 내부자 매수 0건. CEO는 은퇴 자격(60세) 앞두고 특별 RSU 36,000주(2029년까지 후취 베스팅).<br>
+    <b>추론:</b> $400M+ 수주는 <b>BTM(계통 밖) 자가발전</b> 설계라 계통 접속 규제엔 오히려 대안. 단, 건설 승인 자체가 막히면 무력. 수주 현장 위치는 <b>검증 필요</b>.</p>
+  </div>
+</div>
+
+<h3>B. 기업 정체성 재정의</h3>
+<div class="tw"><table>
+<tr><th>구분</th><th>시장이 보는 회사</th><th>실제로 이동 중인 회사</th><th>매출·마진·lock-in·멀티플 영향</th></tr>
+<tr><td><b>잣대</b></td><td>5월까지: "AI 데이터센터 전력 테마주"(TTM P/E 63x) → 11월: "정치 리스크 피해주"</td><td>석유·가스 배전반 업체 → <span class="hl">엔지니어드 투 오더 전력 섬(power island) 통합사</span></td><td>제품회사→<b>턴키 패키지</b>. 플랫폼/OS는 아님(소프트웨어 매출 미미).</td></tr>
+<tr><td><b>밸류체인</b></td><td>데이터홀 내부 장비(Vertiv·Schneider와 동일선상)</td><td>데이터센터 <b>담장 밖</b>: 자가발전 연계 MV 배전·PCR(E-house)·변전 자동화(Remsdaq SCADA)</td><td>MW당 콘텐츠↑. 다단계 프로젝트는 <b>후속 단계 우선권</b> 효과(추론).</td></tr>
+<tr><td><b>매출 구조</b></td><td>데이터센터 의존</td><td>9M FY26: 석유·가스 37% · 유틸 28% · C&I(데이터센터 포함) 20% · 석화 8% · 기타 7%</td><td>DC는 잔고 약 25~30%(추론; 12/31엔 15%). 나머지가 <span class="hl-g">경기 완충재</span>.</td></tr>
+<tr><td><b>멀티플</b></td><td>25.5x TTM, 19.4x FY27E</td><td>고정비 레버리지 끝난 산업재(20x) ↔ 전력화 컴파운더(25~30x)</td><td>후속 메가수주 반복 여부가 결정. 반복 안 되면 18~20x가 상한.</td></tr>
+</table></div>
+
+<h3>C. 최근 사건 체인 (시간순)</h3>
+<div class="chart-card">
+  <div class="chart-header"><h3>주가 경로와 사건 (분할 조정 종가, $)</h3><div class="tabs"><span>Timeframe</span><span class="active">YTD 2026</span></div></div>
+  <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="10" y1="200.0" x2="650" y2="200.0"/>
+<text class="axis-label" x="656" y="203.5">$0</text>
+<line class="grid" x1="10" y1="166.8" x2="650" y2="166.8"/>
+<text class="axis-label" x="656" y="170.3">$70</text>
+<line class="grid" x1="10" y1="133.6" x2="650" y2="133.6"/>
+<text class="axis-label" x="656" y="137.1">$140</text>
+<line class="grid" x1="10" y1="100.4" x2="650" y2="100.4"/>
+<text class="axis-label" x="656" y="103.9">$210</text>
+<line class="grid" x1="10" y1="67.2" x2="650" y2="67.2"/>
+<text class="axis-label" x="656" y="70.7">$280</text>
+<line class="grid" x1="10" y1="34.0" x2="650" y2="34.0"/>
+<text class="axis-label" x="656" y="37.5">$350</text>
+<text class="axis-label" x="12.0" y="214" text-anchor="middle">1월</text>
+<text class="axis-label" x="128.5" y="214" text-anchor="middle">3월</text>
+<text class="axis-label" x="249.0" y="214" text-anchor="middle">5월</text>
+<text class="axis-label" x="369.5" y="214" text-anchor="middle">7월</text>
+<text class="axis-label" x="492.0" y="214" text-anchor="middle">9월</text>
+<text class="axis-label" x="612.5" y="214" text-anchor="middle">11월</text>
+<line x1="138.4" y1="28" x2="138.4" y2="200" stroke="#7f8f68" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="138.4" y="12" text-anchor="middle" fill="#7f8f68">3:1 분할 발표</text>
+<line x1="199.6" y1="28" x2="199.6" y2="200" stroke="#7f8f68" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="199.6" y="24" text-anchor="middle" fill="#7f8f68">$400M+ DC 수주</text>
+<line x1="254.9" y1="28" x2="254.9" y2="200" stroke="#c95b4a" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="254.9" y="12" text-anchor="middle" fill="#c95b4a">Q2 miss</text>
+<line x1="434.7" y1="28" x2="434.7" y2="200" stroke="#c95b4a" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="434.7" y="24" text-anchor="middle" fill="#c95b4a">Q3 miss·수주 $934M / TX 허가중단</text>
+<line x1="590.7" y1="28" x2="590.7" y2="200" stroke="#7f8f68" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="590.7" y="12" text-anchor="end" fill="#7f8f68">DSX POD</text>
+<line x1="616.4" y1="28" x2="616.4" y2="200" stroke="#c95b4a" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="616.4" y="24" text-anchor="end" fill="#c95b4a">중간선거</text>
+<line x1="642.1" y1="28" x2="642.1" y2="200" stroke="#d97941" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="axis-label" x="642.1" y="12" text-anchor="end" fill="#d97941">Q4 실적</text>
+<path d="M 10.0 149.7 L 268.8 47.4 L 428.8 101.1 L 549.3 112.5 L 565.1 110.2 L 576.9 119.6 L 592.7 128.5 L 608.5 125.9 L 616.4 122.5 L 618.4 130.2 L 620.4 140.7 L 622.3 136.9" fill="none" stroke="#5d7285" stroke-width="2.4" stroke-linejoin="round"/>
+<rect x="7.0" y="146.7" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="265.8" y="44.4" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="425.8" y="98.1" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="546.3" y="109.5" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="562.1" y="107.2" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="573.9" y="116.6" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="589.7" y="125.5" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="605.5" y="122.9" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="613.4" y="119.5" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="615.4" y="127.2" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="617.4" y="137.7" width="6" height="6" rx="3" fill="#5d7285"/>
+<rect x="619.3" y="133.9" width="6" height="6" rx="3" fill="#5d7285"/>
+<text class="bar-label" x="612.4" y="154.7" text-anchor="end">$125.06 (11/5 저점)</text>
+<text class="bar-label" x="16.0" y="141.7" text-anchor="start">$106.13</text>
+<text class="bar-label" x="268.8" y="39.4" text-anchor="middle">$321.80</text>
+<text class="bar-label" x="628.3" y="152.9" text-anchor="start">$133</text>
+</svg>
+  <p class="note">점: 확인된 종가만 사용(12/31, 5/11 사상최고, 7/31, 9/30, 10/8, 10/14, 10/22, 10/30, 11/3~11/6). 그 사이 구간은 직선 연결이라 실제 경로와 다름.</p>
+</div>
+<div class="tw"><table>
+<tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>thesis 영향</th><th>신뢰도</th><th>다음 확인 증거</th></tr>
+<tr><td>3/6 · 4/2</td><td>3:1 액면분할</td><td>4/6부터 분할가 거래</td><td>4월 공매도 '198% 급증' 보도는 <span class="hl">분할 착시</span>(1.10M×3≈3.3M)</td><td>중립</td><td><span class="b A">A</span></td><td>—</td></tr>
+<tr><td>3/19 · 6/25</td><td>창업가 가문 매도</td><td>T. Powell 약 $25.0M(분할조정 ~$167) · $10.0M(~$294)</td><td>고점권 분산 매도. 지분 ~18%는 유지(추정)</td><td>약 음(-)</td><td><span class="b A">A</span></td><td>추가 Form 4</td></tr>
+<tr><td>4월 초</td><td>사상 최대 수주</td><td>DC $400M+ · BTM 자가발전 · 1단계 · "수 GW" · 다단계 예정</td><td>DC 시장 내 위치 격상</td><td><b>강한 양(+)</b></td><td><span class="b A">A</span></td><td>2단계 수주 발표</td></tr>
+<tr><td>5/4</td><td>Q2 FY26</td><td>EPS $1.25 (컨센 $1.34 미스), 수주 $490M</td><td>매출 전환 지연 첫 신호</td><td>약 음(-)</td><td><span class="b A">A</span></td><td>—</td></tr>
+<tr><td>5/11</td><td>사상 최고가</td><td>종가 $321.80</td><td>TTM P/E ~63x, 내러티브 정점</td><td>—</td><td><span class="b A">A</span></td><td>—</td></tr>
+<tr><td>7/1</td><td>CEO 특별 RSU</td><td>36,000주, 25/25/50% (2027~29) 후취</td><td><span class="hl-r">핵심인물 리스크</span> 관리. 승계 이슈 가능성</td><td>중립~약 음</td><td><span class="b A">A</span></td><td>승계 계획 공시</td></tr>
+<tr><td>8/3</td><td>Q3 FY26 + TX 정책</td><td>EPS $1.42 (컨센 $1.47~1.49 미스), 수주 <b>$934M 사상최대</b>, 잔고 $2.4B · 같은 날 Abbott 주지사 DC 계통승인 중단</td><td>"수요는 넘치고 공급이 못 따라감"</td><td>양(+) 수요 / 음(-) 실행</td><td><span class="b A">A</span></td><td>Q4 매출 전환</td></tr>
+<tr><td>10/1 · 10/13</td><td>목표가 하향</td><td>Cantor $235 재확인(이전 $320에서 하향, 중립) · JPM $300→$250(비중확대)</td><td>멀티플 정상화</td><td>약 음(-)</td><td><span class="b A">A</span></td><td>실적 후 조정</td></tr>
+<tr><td>10/21</td><td>젠슨 황 DSX POD</td><td>모듈형 AI 팩토리, 6개월→최단 14일. 파트너: Vertiv·Schneider·Dell·HPE 등</td><td><span class="hl-r">Powell은 파트너 명단에 없음</span>. 담장 안 모듈 ≠ 담장 밖 전력</td><td>관련성 낮음</td><td><span class="b B">B</span></td><td>—</td></tr>
+<tr><td>10/28</td><td>매크로</td><td>연준 3.75~4.00% 동결(9월 인상 후). 9월 실업률 4.2%</td><td>금리 고점권 → 멀티플 압박</td><td>약 음(-)</td><td><span class="b A">A</span></td><td>12/9 FOMC</td></tr>
+<tr><td>11/3~5</td><td>중간선거 쇼크</td><td>민주당 의회 장악 · TX 주지사 Hinojosa 당선 · 11/4 −9.9% · 11/5 −15% ($125.06)</td><td>펀더멘털 아닌 <b>정책 할인</b></td><td>음(-) (멀티플)</td><td><span class="b A">A</span></td><td>TX 의회 1월 회기</td></tr>
+<tr><td>11/6</td><td>반등</td><td>+6.4% $133.12, 거래량 86만주(평균 61만)</td><td>Bernstein "우려 과도" 코멘트와 섹터 동반 반등</td><td>—</td><td><span class="b B">B</span></td><td>—</td></tr>
+<tr><td>11/16</td><td><b>Q4 FY26 실적</b> (장 마감 후), 11/17 콜</td><td>컨센 EPS $1.52~1.55 · 매출 $328~331M</td><td>3분기 연속 미스 여부가 분수령</td><td>결정적</td><td><span class="b A">A</span></td><td>수주·잔고·GM·FY27 코멘트</td></tr>
+</table></div>
+
+<h3>D. 자본구조 forensic 한눈에</h3>
+<div class="grid4">
+  <div class="kpi"><div class="k">부채</div><div class="v up">$0</div><div class="s">리볼버 $150M 미사용 · 2028/10 만기</div></div>
+  <div class="kpi"><div class="k">전환사채 / ATM / 워런트</div><div class="v up">없음</div><div class="s">최근 S-3·ATM 공시 미발견(검증 필요)</div></div>
+  <div class="kpi"><div class="k">희석주식수 3년 변화</div><div class="v up">+0.2%/년</div><div class="s">FY23 36.36M → 9M FY26 36.57M</div></div>
+  <div class="kpi"><div class="k">공매도 (9/30)</div><div class="v or">2.72M주</div><div class="s">유통주식 대비 ~9~10% · 커버일수 ~5</div></div>
+</div>
+<p class="note">최근 하락 분해: 5/11 고점 대비 TTM EPS는 $5.11→$5.21(+2%)로 거의 그대로, P/E는 63x→25.5x. <span class="hl">하락의 ~100%가 멀티플 압축</span>. 숏스퀴즈·자금조달 이슈 아님.</p>
+
+<h3>E. 반대 thesis (같은 강도로)</h3>
+<div class="duo">
+  <div class="card pro"><b>Thesis</b><ul class="tight">
+    <li>잔고 $2.4B = TTM 매출의 2.1배. FY27 매출 가속은 <b>이미 계약된 물량</b>.</li>
+    <li>무차입·희석 없음 → 매출 성장이 그대로 EPS로.</li>
+    <li>BTM 전력섬은 계통 병목의 해법. 정책이 계통을 막을수록 수요 이동(추론).</li>
+    <li>절반 이상이 LNG·유틸 → DC가 멈춰도 사업은 남음.</li></ul></div>
+  <div class="card con"><b>Anti-thesis</b><ul class="tight">
+    <li><b>우연일 가능성:</b> $400M은 단일 고객·단일 PO. 반복 안 되면 FY26이 '한 번의 행운'.</li>
+    <li><b>과대평가:</b> 2단계는 미확정. 경영진도 "그 규모 파이프라인은 이 고객 후속 외엔 많지 않다".</li>
+    <li><b>EPS 정체:</b> 희석은 없지만 SG&A·R&D·신공장 고정비로 <span class="hl-r">매출 +7% · EPS +8%</span>에 그침.</li>
+    <li><b>금리·고용:</b> 연준 9월 인상, CPI 3%대. 실업률 4.4% 돌파 시 경기 둔화 + 멀티플 이중 타격.</li>
+    <li><b>스퀴즈 후 급락:</b> 공매도 10%·커버 5일 → 단기 급반등 뒤 되돌림 위험.</li>
+    <li><b>M&A 과열:</b> 경영진은 "밸류에이션이 비싸다"며 M&A 신중. 피인수 기대는 근거 없음.</li></ul></div>
+</div>
+
+<!-- ===================== 1. EXEC SUMMARY ===================== -->
+<h2><span class="num">1</span> Executive Summary</h2>
+<div class="card">
+  <p style="margin:0 0 6px"><span class="tag buy">투자 등급: BUY</span> &nbsp; <span class="tag or">행동: 신규 매수 (3차 분할, 실적 전 1/3만)</span></p>
+  <p><b>Thesis:</b> <span class="hl">실적은 그대로인데 멀티플만 63x→25x로 왕복</span>했다. 잔고 $2.4B가 FY27~28 매출을 이미 깔아뒀고, 지금 가격은 bull이 아니라 <b>보수적 가치 근처</b>다.</p>
+  <p style="margin-bottom:0"><b>Anti-thesis:</b> $400M 한 건이 만든 착시일 수 있고, 텍사스·워싱턴 정책이 2단계 수주를 막으면 <span class="hl-r">FY28 성장 스토리가 사라진다</span>.</p>
+</div>
+<div class="grid4">
+  <div class="kpi"><div class="k">현재 주가 (11/6 종가)</div><div class="v">$133.12</div><div class="s">시총 $4.85B · 5일 −14.8% · 1개월 −35% · 고점 대비 −59%</div></div>
+  <div class="kpi"><div class="k">보수적 내재가치</div><div class="v up">$125</div><div class="s">현재가가 6.5% 위</div></div>
+  <div class="kpi"><div class="k">12개월 base target</div><div class="v or">$165</div><div class="s">+24%</div></div>
+  <div class="kpi"><div class="k">bull / overshoot</div><div class="v or">$240 / $310</div><div class="s">+80% / +133%</div></div>
+  <div class="kpi"><div class="k">하방 리스크</div><div class="v down">$95</div><div class="s">−29% (52주 저점 $92.59 부근)</div></div>
+  <div class="kpi"><div class="k">12개월 기대수익률</div><div class="v up">+18.7%</div><div class="s">확률가중 $158 (배당 0.3% 별도)</div></div>
+  <div class="kpi"><div class="k">보유 수량 기준 기대손익</div><div class="v">$0</div><div class="s">현재 0주. 제안 85주 기준 +$2,380(≈+320만 원)</div></div>
+  <div class="kpi"><div class="k">다음 이벤트</div><div class="v">11/16</div><div class="s">Q4 FY26 실적(장 후) · 11/18 배당락</div></div>
+</div>
+<div class="grid2">
+  <div class="card"><b>현재 시장이 보는 회사</b><br>정치 리스크에 노출된 '데이터센터 전력 테마주'. 2분기 연속 실적 미스 → "실행력 의심".</div>
+  <div class="card"><b>내가 새롭게 보는 회사</b><br><span class="hl">수요가 공급을 2~3배 초과한 무차입 전력 인프라 통합사</span>. 문제는 수요가 아니라 생산능력, 그리고 그것은 FY27에 풀린다.</div>
+</div>
+
+<!-- ===================== 2. INFLECTION ===================== -->
+<h2><span class="num">2</span> 핵심 변곡점 5가지</h2>
+<div class="chart-card">
+  <div class="chart-header"><h3>수주 vs 매출 — 수요는 가속, 매출이 못 따라옴 ($M)</h3><div class="tabs"><span>Timeframe</span><span class="active">Quarterly</span></div></div>
+  <svg viewBox="0 0 700 270" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="10" y1="220.0" x2="640" y2="220.0"/>
+<text class="axis-label" x="646" y="223.5">$0M</text>
+<line class="grid" x1="10" y1="182.0" x2="640" y2="182.0"/>
+<text class="axis-label" x="646" y="185.5">$200M</text>
+<line class="grid" x1="10" y1="144.0" x2="640" y2="144.0"/>
+<text class="axis-label" x="646" y="147.5">$400M</text>
+<line class="grid" x1="10" y1="106.0" x2="640" y2="106.0"/>
+<text class="axis-label" x="646" y="109.5">$600M</text>
+<line class="grid" x1="10" y1="68.0" x2="640" y2="68.0"/>
+<text class="axis-label" x="646" y="71.5">$800M</text>
+<line class="grid" x1="10" y1="30.0" x2="640" y2="30.0"/>
+<text class="axis-label" x="646" y="33.5">$1000M</text>
+<rect x="26.0" y="168.9" width="27.0" height="51.1" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="39.5" y="164.9" text-anchor="middle">269</text>
+<rect x="57.0" y="174.1" width="27.0" height="45.9" rx="4" fill="#d97941"/>
+<text class="bar-label" x="70.5" y="170.1" text-anchor="middle">241</text>
+<text class="axis-label" x="55.0" y="235" text-anchor="middle">Q1'25</text>
+<text class="axis-label" x="55.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 ~$1.38B</text>
+<rect x="116.0" y="172.7" width="27.0" height="47.3" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="129.5" y="168.7" text-anchor="middle">249</text>
+<rect x="147.0" y="167.1" width="27.0" height="52.9" rx="4" fill="#d97941"/>
+<text class="bar-label" x="160.5" y="163.1" text-anchor="middle">279</text>
+<text class="axis-label" x="145.0" y="235" text-anchor="middle">Q2'25</text>
+<text class="axis-label" x="145.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 ~$1.35B</text>
+<rect x="206.0" y="151.2" width="27.0" height="68.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="219.5" y="147.2" text-anchor="middle">362</text>
+<rect x="237.0" y="165.6" width="27.0" height="54.4" rx="4" fill="#d97941"/>
+<text class="bar-label" x="250.5" y="161.6" text-anchor="middle">286</text>
+<text class="axis-label" x="235.0" y="235" text-anchor="middle">Q3'25</text>
+<text class="axis-label" x="235.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 $1.4B</text>
+<rect x="296.0" y="168.5" width="27.0" height="51.5" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="309.5" y="164.5" text-anchor="middle">271</text>
+<rect x="327.0" y="163.4" width="27.0" height="56.6" rx="4" fill="#d97941"/>
+<text class="bar-label" x="340.5" y="159.4" text-anchor="middle">298</text>
+<text class="axis-label" x="325.0" y="235" text-anchor="middle">Q4'25</text>
+<text class="axis-label" x="325.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 $1.4B</text>
+<rect x="386.0" y="136.6" width="27.0" height="83.4" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="399.5" y="132.6" text-anchor="middle">439</text>
+<rect x="417.0" y="172.3" width="27.0" height="47.7" rx="4" fill="#d97941"/>
+<text class="bar-label" x="430.5" y="168.3" text-anchor="middle">251</text>
+<text class="axis-label" x="415.0" y="235" text-anchor="middle">Q1'26</text>
+<text class="axis-label" x="415.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 $1.6B</text>
+<rect x="476.0" y="126.9" width="27.0" height="93.1" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="489.5" y="122.9" text-anchor="middle">490</text>
+<rect x="507.0" y="163.6" width="27.0" height="56.4" rx="4" fill="#d97941"/>
+<text class="bar-label" x="520.5" y="159.6" text-anchor="middle">297</text>
+<text class="axis-label" x="505.0" y="235" text-anchor="middle">Q2'26</text>
+<text class="axis-label" x="505.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 $1.8B</text>
+<rect x="566.0" y="42.5" width="27.0" height="177.5" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="579.5" y="38.5" text-anchor="middle">934</text>
+<rect x="597.0" y="160.8" width="27.0" height="59.2" rx="4" fill="#d97941"/>
+<text class="bar-label" x="610.5" y="156.8" text-anchor="middle">312</text>
+<text class="axis-label" x="595.0" y="235" text-anchor="middle">Q3'26</text>
+<text class="axis-label" x="595.0" y="250" text-anchor="middle" fill="#7f8f68">잔고 $2.4B</text>
+<rect x="14" y="6" width="12" height="10" rx="2" fill="#5d7285"/><text class="axis-label" x="30" y="15">신규 수주</text>
+<rect x="90" y="6" width="12" height="10" rx="2" fill="#d97941"/><text class="axis-label" x="106" y="15">매출</text>
+<text class="axis-label" x="150" y="15">Q3'26 Book-to-bill 3.0x · 9M 2.2x</text>
+</svg>
+  <p class="note">잔고: Q1'25·Q2'25는 회사 발표 증감률로 역산한 근사치(~). 나머지는 분기 실적 발표 수치.</p>
+</div>
+<div class="tw"><table>
+<tr><th>변곡점</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 주가에 미반영?</th><th>다음 확인 지표</th></tr>
+<tr><td><b>① 수주→매출 전환</b></td><td>잔고 $2.4B, 12개월 내 ~$1.3B 인식 예정. 9M 매출 +6.6%</td><td>FY27 매출 $1.35~1.45B(+13~22%) 가능</td><td>대형 프로젝트도 GM 30% 유지</td><td>2분기 연속 미스로 <b>전환 능력 불신</b></td><td>Q4 매출 ≥$330M · FY27 코멘트</td></tr>
+<tr><td><b>② BTM 전력섬 진입</b></td><td>$400M+ 1단계, "수 GW", 다단계, 전부 데이터홀 밖</td><td>DC 비중 잔고의 25~30%로 상승</td><td>북미 5개 사이트(저신뢰 출처) · 2단계 Powell 수주</td><td>정책 리스크가 후속 단계 확률을 할인</td><td>2단계 수주 · C&I 수주액</td></tr>
+<tr><td><b>③ 정책 변곡</b></td><td>TX 계통승인 중단(8/3) · Hinojosa 모라토리엄 공약 · 민주당 의회</td><td>BTM은 계통 규제 회피 수단 → 수요 이동 가능</td><td>Powell DC 현장이 텍사스에 있는지</td><td>시장은 'DC = 일괄 매도'로 처리</td><td>TX 의회(1월) · 11/17 콜 코멘트</td></tr>
+<tr><td><b>④ 마진 고원 + 증설비</b></td><td>GM 28.4~30.6% 박스권. 9M SG&A +14%, R&D +50%. 30만 sq ft 신공장 FY27 Q2~Q3</td><td>FY27 상반기는 비용 선행, 하반기 레버리지</td><td>Remsdaq이 "현저히 마진 accretive"</td><td>EPS 성장 둔화가 먼저 보임</td><td>GM ≥30% · SG&A/매출 &lt;9%</td></tr>
+<tr><td><b>⑤ LNG 사이클 재개</b></td><td>Q1 LNG $100M+ · Q3 ~$60M · 석화 ~$75M</td><td>DC가 멈춰도 코어 산업이 완충</td><td>2027~28 LNG FID 지속</td><td>시장 관심이 DC에만 쏠림</td><td>석유·가스 수주 추이</td></tr>
+</table></div>
+
+<!-- ===================== 3. NUMBERS ===================== -->
+<h2><span class="num">3</span> 투자자가 반드시 봐야 할 숫자</h2>
+<div class="tw"><table>
+<tr><th>연간 (9월 결산)</th><th class="n">FY22</th><th class="n">FY23</th><th class="n">FY24</th><th class="n">FY25</th><th class="n">9M FY26</th><th>읽는 법</th></tr>
+<tr><td>매출 ($M)</td><td class="n">532.6</td><td class="n">699.3</td><td class="n">1,012.4</td><td class="n">1,104.3</td><td class="n">859.5</td><td>9M +6.6% YoY</td></tr>
+<tr><td>GAAP 희석 EPS</td><td class="n">$0.38</td><td class="n">$1.50</td><td class="n">$4.10</td><td class="n">$4.95</td><td class="n">$3.81</td><td>9M +7.6% YoY</td></tr>
+<tr><td>Adjusted EPS</td><td class="n" colspan="5" style="text-align:center">회사는 non-GAAP EPS 미발표 → GAAP = 실질</td><td>FY22·23엔 일회성 이익 포함</td></tr>
+<tr><td>매출총이익률</td><td class="n">16.0%</td><td class="n">21.1%</td><td class="n">27.0%</td><td class="n">29.4%</td><td class="n">29.6%</td><td><span class="hl">확장 끝, 고원</span></td></tr>
+<tr><td>영업이익률</td><td class="n">1.4%</td><td class="n">8.9%</td><td class="n">17.7%</td><td class="n">19.7%</td><td class="n">19.1%</td><td>비용 투자로 소폭 하락</td></tr>
+<tr><td>순이익 ($M)</td><td class="n">13.7</td><td class="n">54.5</td><td class="n">149.8</td><td class="n">180.7</td><td class="n">139.4</td><td></td></tr>
+<tr><td>FCF ($M)</td><td class="n">−6.0</td><td class="n">174.7</td><td class="n">96.7</td><td class="n">154.8</td><td class="n">184.7</td><td><span class="hl-r">선수금 효과 포함</span></td></tr>
+<tr><td>현금+단기투자 ($M)</td><td class="n">117</td><td class="n">279</td><td class="n">358</td><td class="n">476</td><td class="n">634</td><td>계약부채 $466M 포함</td></tr>
+<tr><td>차입금</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td>무차입</td></tr>
+<tr><td>희석 가중주식수 (M)</td><td class="n">35.83</td><td class="n">36.36</td><td class="n">36.56</td><td class="n">36.50</td><td class="n">36.57</td><td>사실상 고정</td></tr>
+<tr><td>공매도</td><td class="n" colspan="4" style="text-align:center">4/30: 3.46M(유통 9.7%) → 9/30: 2.72M</td><td class="n">~2.7M</td><td>스퀴즈 연료 제한적</td></tr>
+<tr><td>밸류에이션</td><td class="n" colspan="5" style="text-align:center">P/E TTM 25.5x · FY27E 19.4x · FY28E 16.2x · EV/EBITDA TTM ~17.9x · P/S 4.2x</td><td>5년 중앙 P/E 22.7x</td></tr>
+</table></div>
+<div class="tw" style="margin-top:12px"><table>
+<tr><th>분기</th><th class="n">Q1'25</th><th class="n">Q2'25</th><th class="n">Q3'25</th><th class="n">Q4'25</th><th class="n">Q1'26</th><th class="n">Q2'26</th><th class="n">Q3'26</th><th class="n">Q4'26E</th></tr>
+<tr><td>매출 ($M)</td><td class="n">241.4</td><td class="n">278.6</td><td class="n">286.3</td><td class="n">298.0</td><td class="n">251.2</td><td class="n">296.6</td><td class="n">311.7</td><td class="n"><i>328~331</i></td></tr>
+<tr><td>GAAP 희석 EPS</td><td class="n">$0.95</td><td class="n">$1.27</td><td class="n">$1.32</td><td class="n">$1.41</td><td class="n">$1.13</td><td class="n">$1.25</td><td class="n">$1.42</td><td class="n"><i>$1.52~1.55</i></td></tr>
+<tr><td>GM</td><td class="n">24.7%</td><td class="n">29.9%</td><td class="n">30.7%</td><td class="n">31.4%</td><td class="n">28.4%</td><td class="n">29.6%</td><td class="n">30.6%</td><td class="n">—</td></tr>
+<tr><td>영업이익률</td><td class="n">14.7%</td><td class="n">21.1%</td><td class="n">21.0%</td><td class="n">21.2%</td><td class="n">17.0%</td><td class="n">19.4%</td><td class="n">20.6%</td><td class="n">—</td></tr>
+<tr><td>순이익 ($M)</td><td class="n">34.8</td><td class="n">46.3</td><td class="n">48.2</td><td class="n">51.4</td><td class="n">41.4</td><td class="n">45.9</td><td class="n">52.2</td><td class="n">—</td></tr>
+<tr><td>신규 수주 ($M)</td><td class="n">269</td><td class="n">249</td><td class="n">362</td><td class="n">271</td><td class="n">439</td><td class="n">490</td><td class="n"><b>934</b></td><td class="n">—</td></tr>
+<tr><td>EPS 서프라이즈</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n" style="color:var(--green)">+12.8%</td><td class="n" style="color:var(--green)">+17.7%</td><td class="n" style="color:var(--risk)">−6.7%</td><td class="n" style="color:var(--risk)">−3.4%</td><td class="n">?</td></tr>
+</table></div>
+
+<div class="chart-card">
+  <div class="chart-header"><h3>연간 대시보드 (분할 조정)</h3><div class="tabs"><span>Timeframe</span><span class="active">Annual</span><span>Quarterly</span></div></div>
+  <div class="mini-chart-grid">
+    <div class="mini-chart"><h3>GAAP EPS (희석)</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0</text>
+<line class="grid" x1="6" y1="161.2" x2="292" y2="161.2"/>
+<text class="axis-label" x="298" y="164.7">1.2</text>
+<line class="grid" x1="6" y1="126.4" x2="292" y2="126.4"/>
+<text class="axis-label" x="298" y="129.9">2.4</text>
+<line class="grid" x1="6" y1="91.6" x2="292" y2="91.6"/>
+<text class="axis-label" x="298" y="95.1">3.6</text>
+<line class="grid" x1="6" y1="56.8" x2="292" y2="56.8"/>
+<text class="axis-label" x="298" y="60.3">4.8</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">6</text>
+<text class="axis-label" x="29.8" y="212" text-anchor="middle">FY21</text>
+<rect x="15.5" y="195.4" width="28.6" height="0.6" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="29.8" y="191.4" text-anchor="middle">$0.02</text>
+<text class="axis-label" x="77.5" y="212" text-anchor="middle">FY22</text>
+<rect x="63.2" y="185.0" width="28.6" height="11.0" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="77.5" y="181.0" text-anchor="middle">$0.38</text>
+<text class="axis-label" x="125.2" y="212" text-anchor="middle">FY23</text>
+<rect x="110.9" y="152.5" width="28.6" height="43.5" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="125.2" y="148.5" text-anchor="middle">$1.50</text>
+<text class="axis-label" x="172.8" y="212" text-anchor="middle">FY24</text>
+<rect x="158.5" y="77.1" width="28.6" height="118.9" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="172.8" y="73.1" text-anchor="middle">$4.10</text>
+<text class="axis-label" x="220.5" y="212" text-anchor="middle">FY25</text>
+<rect x="206.2" y="52.4" width="28.6" height="143.6" rx="4" fill="#5d7285"/>
+<text class="bar-label" x="220.5" y="48.4" text-anchor="middle">$4.95</text>
+<text class="axis-label" x="268.2" y="212" text-anchor="middle">FY26E</text>
+<rect x="255.1" y="41.8" width="26.2" height="154.2" rx="4" fill="none" stroke="#5d7285" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="268.2" y="36.6" text-anchor="middle">$5.36</text>
+<text class="axis-label" x="10" y="14" fill="#7f8f68">FY21 손익분기 → FY23부터 본격 흑자 (적자 연도 없음)</text>
+</svg><div class="basis">FY26E = 컨센서스 $5.36 (점선)</div></div>
+    <div class="mini-chart"><h3>Revenue</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0</text>
+<line class="grid" x1="6" y1="161.2" x2="292" y2="161.2"/>
+<text class="axis-label" x="298" y="164.7">250</text>
+<line class="grid" x1="6" y1="126.4" x2="292" y2="126.4"/>
+<text class="axis-label" x="298" y="129.9">500</text>
+<line class="grid" x1="6" y1="91.6" x2="292" y2="91.6"/>
+<text class="axis-label" x="298" y="95.1">750</text>
+<line class="grid" x1="6" y1="56.8" x2="292" y2="56.8"/>
+<text class="axis-label" x="298" y="60.3">1.0B</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">1.2B</text>
+<text class="axis-label" x="29.8" y="212" text-anchor="middle">FY21</text>
+<rect x="15.5" y="130.5" width="28.6" height="65.5" rx="4" fill="#d97941"/>
+<text class="bar-label" x="29.8" y="126.5" text-anchor="middle">471</text>
+<text class="axis-label" x="77.5" y="212" text-anchor="middle">FY22</text>
+<rect x="63.2" y="121.9" width="28.6" height="74.1" rx="4" fill="#d97941"/>
+<text class="bar-label" x="77.5" y="117.9" text-anchor="middle">533</text>
+<text class="axis-label" x="125.2" y="212" text-anchor="middle">FY23</text>
+<rect x="110.9" y="98.7" width="28.6" height="97.3" rx="4" fill="#d97941"/>
+<text class="bar-label" x="125.2" y="94.7" text-anchor="middle">699</text>
+<text class="axis-label" x="172.8" y="212" text-anchor="middle">FY24</text>
+<rect x="158.5" y="55.1" width="28.6" height="140.9" rx="4" fill="#d97941"/>
+<text class="bar-label" x="172.8" y="51.1" text-anchor="middle">1.01B</text>
+<text class="axis-label" x="220.5" y="212" text-anchor="middle">FY25</text>
+<rect x="206.2" y="42.3" width="28.6" height="153.7" rx="4" fill="#d97941"/>
+<text class="bar-label" x="220.5" y="38.3" text-anchor="middle">1.10B</text>
+<text class="axis-label" x="268.2" y="212" text-anchor="middle">FY26E</text>
+<rect x="255.1" y="31.6" width="26.2" height="164.4" rx="4" fill="none" stroke="#d97941" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="268.2" y="26.4" text-anchor="middle">1.19B</text>
+</svg><div class="basis">FY26E = 9M 실적 $859.5M + Q4 컨센 ~$330M (점선)</div></div>
+    <div class="mini-chart"><h3>Shares Outstanding</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0</text>
+<line class="grid" x1="6" y1="161.2" x2="292" y2="161.2"/>
+<text class="axis-label" x="298" y="164.7">8</text>
+<line class="grid" x1="6" y1="126.4" x2="292" y2="126.4"/>
+<text class="axis-label" x="298" y="129.9">16</text>
+<line class="grid" x1="6" y1="91.6" x2="292" y2="91.6"/>
+<text class="axis-label" x="298" y="95.1">24</text>
+<line class="grid" x1="6" y1="56.8" x2="292" y2="56.8"/>
+<text class="axis-label" x="298" y="60.3">32</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">40</text>
+<text class="axis-label" x="29.8" y="212" text-anchor="middle">FY21</text>
+<text class="axis-label" x="29.8" y="190" text-anchor="middle">N/A</text>
+<text class="axis-label" x="77.5" y="212" text-anchor="middle">FY22</text>
+<rect x="63.2" y="40.1" width="28.6" height="155.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="77.5" y="36.1" text-anchor="middle">35.8</text>
+<text class="axis-label" x="125.2" y="212" text-anchor="middle">FY23</text>
+<rect x="110.9" y="37.8" width="28.6" height="158.2" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="125.2" y="33.8" text-anchor="middle">36.4</text>
+<text class="axis-label" x="172.8" y="212" text-anchor="middle">FY24</text>
+<rect x="158.5" y="37.0" width="28.6" height="159.0" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="172.8" y="33.0" text-anchor="middle">36.6</text>
+<text class="axis-label" x="220.5" y="212" text-anchor="middle">FY25</text>
+<rect x="206.2" y="37.2" width="28.6" height="158.8" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" x="220.5" y="33.2" text-anchor="middle">36.5</text>
+<text class="axis-label" x="268.2" y="212" text-anchor="middle">9M FY26</text>
+<rect x="255.1" y="38.1" width="26.2" height="157.9" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" x="268.2" y="32.9" text-anchor="middle">36.6</text>
+<text class="axis-label" x="10" y="14" fill="#7f8f68">3년간 +0.2%/년 — 희석 거의 없음</text>
+</svg><div class="basis">기준: <b>희석 가중평균 주식수</b>(M). FY21 분할조정 희석치 미확보 → N/A. 9M FY26 = 현재 기간(점선)</div></div>
+  </div>
+  <div class="legend"><span><i style="background:var(--bluegray)"></i>확정 EPS</span><span><i style="background:var(--accent)"></i>확정 매출</span><span><i style="background:var(--teal)"></i>확정 주식수</span><span><i style="border:2px dashed var(--muted);background:none"></i>추정/현재 기간</span></div>
+  <div class="interp"><b>투자 해석</b><ul>
+    <li>FY24는 매출 +45%에 EPS +173% → <b>마진 확장 레버리지</b>. FY25부터는 매출 +9% · EPS +21%, 9M FY26은 +6.6% · +7.6%로 <span class="hl">레버리지 소진</span>.</li>
+    <li>매출은 늘고 EPS가 덜 늘어난 이유는 희석이 아니라 <b>SG&A·R&D·증설 비용</b>. 주식수는 3년간 +0.6%에 불과 → EPS 성장률이 주식수 증가율을 압도.</li>
+    <li>희석은 주주가치 훼손 요인 아님. RSU 잔량 16.6만주(0.46%) + CEO 특별 3.6만주가 전부.</li>
+    <li>"매출 증가·EPS 정체" 반복 위험은 <b>FY27 상반기</b>(신공장 가동 전)가 가장 큼.</li>
+    <li>다음 실적 핵심 숫자: <span class="hl">Q4 매출 ≥$330M, GM ≥30%, 수주 ≥$300M</span>.</li></ul></div>
+</div>
+
+<div class="chart-card">
+  <div class="chart-header"><h3>분기 대시보드 (분할 조정)</h3><div class="tabs"><span>Timeframe</span><span>Annual</span><span class="active">Quarterly</span></div></div>
+  <div class="mini-chart-grid">
+    <div class="mini-chart"><h3>GAAP EPS (희석)</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0.0</text>
+<line class="grid" x1="6" y1="167.0" x2="292" y2="167.0"/>
+<text class="axis-label" x="298" y="170.5">0.3</text>
+<line class="grid" x1="6" y1="138.0" x2="292" y2="138.0"/>
+<text class="axis-label" x="298" y="141.5">0.6</text>
+<line class="grid" x1="6" y1="109.0" x2="292" y2="109.0"/>
+<text class="axis-label" x="298" y="112.5">0.9</text>
+<line class="grid" x1="6" y1="80.0" x2="292" y2="80.0"/>
+<text class="axis-label" x="298" y="83.5">1.2</text>
+<line class="grid" x1="6" y1="51.0" x2="292" y2="51.0"/>
+<text class="axis-label" x="298" y="54.5">1.5</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">1.8</text>
+<text class="axis-label" x="20.3" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="20.3" y="222" text-anchor="middle">'24</text>
+<rect x="11.7" y="74.2" width="17.2" height="121.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="20.3" y="70.2" text-anchor="middle">1.26</text>
+<text class="axis-label" x="48.9" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="48.9" y="222" text-anchor="middle">'24</text>
+<rect x="40.3" y="74.2" width="17.2" height="121.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="48.9" y="70.2" text-anchor="middle">1.26</text>
+<text class="axis-label" x="77.5" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="77.5" y="222" text-anchor="middle">'25</text>
+<rect x="68.9" y="104.2" width="17.2" height="91.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="77.5" y="100.2" text-anchor="middle">0.95</text>
+<text class="axis-label" x="106.1" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="106.1" y="222" text-anchor="middle">'25</text>
+<rect x="97.5" y="73.2" width="17.2" height="122.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="106.1" y="69.2" text-anchor="middle">1.27</text>
+<text class="axis-label" x="134.7" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="134.7" y="222" text-anchor="middle">'25</text>
+<rect x="126.1" y="68.4" width="17.2" height="127.6" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="134.7" y="64.4" text-anchor="middle">1.32</text>
+<text class="axis-label" x="163.3" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="163.3" y="222" text-anchor="middle">'25</text>
+<rect x="154.7" y="59.7" width="17.2" height="136.3" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="163.3" y="55.7" text-anchor="middle">1.41</text>
+<text class="axis-label" x="191.9" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="191.9" y="222" text-anchor="middle">'26</text>
+<rect x="183.3" y="86.8" width="17.2" height="109.2" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="191.9" y="82.8" text-anchor="middle">1.13</text>
+<text class="axis-label" x="220.5" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="220.5" y="222" text-anchor="middle">'26</text>
+<rect x="211.9" y="75.2" width="17.2" height="120.8" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="220.5" y="71.2" text-anchor="middle">1.25</text>
+<text class="axis-label" x="249.1" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="249.1" y="222" text-anchor="middle">'26</text>
+<rect x="240.5" y="58.7" width="17.2" height="137.3" rx="4" fill="#5d7285"/>
+<text class="bar-label" style="font-size:9.5px" x="249.1" y="54.7" text-anchor="middle">1.42</text>
+<text class="axis-label" x="277.7" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="277.7" y="222" text-anchor="middle">'26E</text>
+<rect x="270.3" y="49.3" width="14.8" height="146.7" rx="4" fill="none" stroke="#5d7285" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" style="font-size:9.5px" x="277.7" y="44.1" text-anchor="middle">1.53</text>
+</svg><div class="basis">Q4'26E = 컨센 $1.52~1.55 중간값 (점선, $ 단위). 전 분기 흑자</div></div>
+    <div class="mini-chart"><h3>Revenue ($M)</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0</text>
+<line class="grid" x1="6" y1="161.2" x2="292" y2="161.2"/>
+<text class="axis-label" x="298" y="164.7">70</text>
+<line class="grid" x1="6" y1="126.4" x2="292" y2="126.4"/>
+<text class="axis-label" x="298" y="129.9">140</text>
+<line class="grid" x1="6" y1="91.6" x2="292" y2="91.6"/>
+<text class="axis-label" x="298" y="95.1">210</text>
+<line class="grid" x1="6" y1="56.8" x2="292" y2="56.8"/>
+<text class="axis-label" x="298" y="60.3">280</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">350</text>
+<text class="axis-label" x="20.3" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="20.3" y="222" text-anchor="middle">'24</text>
+<rect x="11.7" y="52.7" width="17.2" height="143.3" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="20.3" y="48.7" text-anchor="middle">288</text>
+<text class="axis-label" x="48.9" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="48.9" y="222" text-anchor="middle">'24</text>
+<rect x="40.3" y="59.2" width="17.2" height="136.8" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="48.9" y="55.2" text-anchor="middle">275</text>
+<text class="axis-label" x="77.5" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="77.5" y="222" text-anchor="middle">'25</text>
+<rect x="68.9" y="76.0" width="17.2" height="120.0" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="77.5" y="72.0" text-anchor="middle">241</text>
+<text class="axis-label" x="106.1" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="106.1" y="222" text-anchor="middle">'25</text>
+<rect x="97.5" y="57.5" width="17.2" height="138.5" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="106.1" y="53.5" text-anchor="middle">279</text>
+<text class="axis-label" x="134.7" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="134.7" y="222" text-anchor="middle">'25</text>
+<rect x="126.1" y="53.7" width="17.2" height="142.3" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="134.7" y="49.7" text-anchor="middle">286</text>
+<text class="axis-label" x="163.3" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="163.3" y="222" text-anchor="middle">'25</text>
+<rect x="154.7" y="47.9" width="17.2" height="148.1" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="163.3" y="43.9" text-anchor="middle">298</text>
+<text class="axis-label" x="191.9" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="191.9" y="222" text-anchor="middle">'26</text>
+<rect x="183.3" y="71.1" width="17.2" height="124.9" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="191.9" y="67.1" text-anchor="middle">251</text>
+<text class="axis-label" x="220.5" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="220.5" y="222" text-anchor="middle">'26</text>
+<rect x="211.9" y="48.5" width="17.2" height="147.5" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="220.5" y="44.5" text-anchor="middle">297</text>
+<text class="axis-label" x="249.1" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="249.1" y="222" text-anchor="middle">'26</text>
+<rect x="240.5" y="41.0" width="17.2" height="155.0" rx="4" fill="#d97941"/>
+<text class="bar-label" style="font-size:9.5px" x="249.1" y="37.0" text-anchor="middle">312</text>
+<text class="axis-label" x="277.7" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="277.7" y="222" text-anchor="middle">'26E</text>
+<rect x="270.3" y="33.1" width="14.8" height="162.9" rx="4" fill="none" stroke="#d97941" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" style="font-size:9.5px" x="277.7" y="27.9" text-anchor="middle">330</text>
+</svg><div class="basis">Q1(10~12월)은 근무일 적어 계절적 저점</div></div>
+    <div class="mini-chart"><h3>Shares Outstanding (M)</h3><svg viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="6" y1="196.0" x2="292" y2="196.0"/>
+<text class="axis-label" x="298" y="199.5">0</text>
+<line class="grid" x1="6" y1="161.2" x2="292" y2="161.2"/>
+<text class="axis-label" x="298" y="164.7">8</text>
+<line class="grid" x1="6" y1="126.4" x2="292" y2="126.4"/>
+<text class="axis-label" x="298" y="129.9">16</text>
+<line class="grid" x1="6" y1="91.6" x2="292" y2="91.6"/>
+<text class="axis-label" x="298" y="95.1">24</text>
+<line class="grid" x1="6" y1="56.8" x2="292" y2="56.8"/>
+<text class="axis-label" x="298" y="60.3">32</text>
+<line class="grid" x1="6" y1="22.0" x2="292" y2="22.0"/>
+<text class="axis-label" x="298" y="25.5">40</text>
+<text class="axis-label" x="20.3" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="20.3" y="222" text-anchor="middle">'24</text>
+<rect x="11.7" y="36.7" width="17.2" height="159.3" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="20.3" y="32.7" text-anchor="middle">36.6</text>
+<text class="axis-label" x="48.9" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="48.9" y="222" text-anchor="middle">'24</text>
+<rect x="40.3" y="36.7" width="17.2" height="159.3" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="48.9" y="32.7" text-anchor="middle">36.6</text>
+<text class="axis-label" x="77.5" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="77.5" y="222" text-anchor="middle">'25</text>
+<rect x="68.9" y="37.4" width="17.2" height="158.6" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="77.5" y="33.4" text-anchor="middle">36.5</text>
+<text class="axis-label" x="106.1" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="106.1" y="222" text-anchor="middle">'25</text>
+<rect x="97.5" y="37.1" width="17.2" height="158.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="106.1" y="33.1" text-anchor="middle">36.5</text>
+<text class="axis-label" x="134.7" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="134.7" y="222" text-anchor="middle">'25</text>
+<rect x="126.1" y="37.1" width="17.2" height="158.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="134.7" y="33.1" text-anchor="middle">36.5</text>
+<text class="axis-label" x="163.3" y="210" text-anchor="middle">Q4</text>
+<text class="axis-label" x="163.3" y="222" text-anchor="middle">'25</text>
+<rect x="154.7" y="37.1" width="17.2" height="158.9" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="163.3" y="33.1" text-anchor="middle">36.5</text>
+<text class="axis-label" x="191.9" y="210" text-anchor="middle">Q1</text>
+<text class="axis-label" x="191.9" y="222" text-anchor="middle">'26</text>
+<rect x="183.3" y="37.3" width="17.2" height="158.7" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="191.9" y="33.3" text-anchor="middle">36.5</text>
+<text class="axis-label" x="220.5" y="210" text-anchor="middle">Q2</text>
+<text class="axis-label" x="220.5" y="222" text-anchor="middle">'26</text>
+<rect x="211.9" y="36.9" width="17.2" height="159.1" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="220.5" y="32.9" text-anchor="middle">36.6</text>
+<text class="axis-label" x="249.1" y="210" text-anchor="middle">Q3</text>
+<text class="axis-label" x="249.1" y="222" text-anchor="middle">'26</text>
+<rect x="240.5" y="36.8" width="17.2" height="159.2" rx="4" fill="#5f9ea0"/>
+<text class="bar-label" style="font-size:9.5px" x="249.1" y="32.8" text-anchor="middle">36.6</text>
+<text class="axis-label" x="277.7" y="212" text-anchor="middle">현재</text>
+<rect x="270.3" y="38.7" width="14.8" height="157.3" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.2" stroke-dasharray="4 3"/>
+<text class="bar-label" style="font-size:9.5px" x="277.7" y="33.5" text-anchor="middle">36.4</text>
+</svg><div class="basis">기준: <b>희석 가중평균</b>. '현재' = 8/3 표지 발행주식 36.43M(기본주식, 기준 다름·점선)</div></div>
+  </div>
+  <div class="legend"><span><i style="background:var(--bluegray)"></i>확정 EPS</span><span><i style="background:var(--accent)"></i>확정 매출</span><span><i style="background:var(--teal)"></i>확정 주식수</span><span><i style="border:2px dashed var(--muted);background:none"></i>컨센서스/현재</span></div>
+  <div class="interp"><b>투자 해석</b><ul>
+    <li>Q3'26 매출 +9% YoY · EPS +8%. 주식수 +0.2% → <b>성장 = 순이익 성장</b>, 희석 손실 없음.</li>
+    <li>Q2·Q3 EPS 미스는 매출 전환 지연 + 비용 선행. 수주($934M)와의 괴리가 사상 최대.</li>
+    <li>Q1'25 소폭 감소는 자사주 매입이 아님(현금흐름표에 매입 항목 없음). RSU 정산 시 세금 원천징수 주식(9M $14.7M) 영향으로 추정 — buyback 효과 미미.</li>
+    <li>Q4 컨센 EPS $1.53은 YoY +9% 수준. <span class="hl">beat만으로는 부족</span>, 잔고 소화 속도 코멘트가 관건.</li></ul></div>
+</div>
+
+<!-- ===================== 4. ECOSYSTEM ===================== -->
+<h2><span class="num">4</span> 고객 · 파트너 · 생태계</h2>
+<div class="chart-card">
+  <div class="chart-header"><h3>관계도 (실선 = 공시 확인 / 점선 = 추론·관련성 낮음)</h3></div>
+  <svg viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg" role="img">
+<rect x="285" y="190" width="190" height="90" rx="16" fill="#243036"/>
+<text x="380" y="223" text-anchor="middle" font-size="18" font-weight="800" fill="#fffaf0">POWELL (POWL)</text>
+<text x="380" y="245" text-anchor="middle" font-size="11" fill="#e7ddcc">배전반·PCR(E-house)·Power island</text>
+<text x="380" y="262" text-anchor="middle" font-size="11" fill="#e7ddcc">수주잔고 $2.4B · 무차입</text>
+<line x1="240" y1="68" x2="285" y2="197" stroke="#d97941" stroke-width="1.6"/>
+<rect x="20" y="40" width="220" height="56" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text x="32" y="63" font-size="13" font-weight="800" fill="#243036">DC 개발사 (익명)</text>
+<text x="32" y="82" font-size="11" fill="#6f756e">직접 · $400M+ BTM 1단계 · 신뢰 A</text>
+<line x1="240" y1="168" x2="285" y2="197" stroke="#d97941" stroke-width="1.6"/>
+<rect x="20" y="140" width="220" height="56" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text x="32" y="163" font-size="13" font-weight="800" fill="#243036">LNG EPC/개발사 (익명)</text>
+<text x="32" y="182" font-size="11" fill="#6f756e">직접 · $100M+ / ~$60M · 신뢰 A</text>
+<line x1="240" y1="268" x2="285" y2="268" stroke="#d97941" stroke-width="1.6"/>
+<rect x="20" y="240" width="220" height="56" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text x="32" y="263" font-size="13" font-weight="800" fill="#243036">전력 유틸리티 (동부 발전소)</text>
+<text x="32" y="282" font-size="11" fill="#6f756e">직접 · 사상 최대 유틸 수주 · A</text>
+<line x1="240" y1="368" x2="285" y2="273" stroke="#d97941" stroke-width="1.6"/>
+<rect x="20" y="340" width="220" height="56" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2"/>
+<text x="32" y="363" font-size="13" font-weight="800" fill="#243036">석유화학(비료) 고객</text>
+<text x="32" y="382" font-size="11" fill="#6f756e">직접 · ~$75M · A</text>
+<line x1="520" y1="68" x2="475" y2="197" stroke="#6f756e" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="520" y="40" width="220" height="56" rx="12" fill="#fffaf0" stroke="#6f756e" stroke-width="2"/>
+<text x="532" y="63" font-size="13" font-weight="800" fill="#243036">하이퍼스케일러 / AI 랩</text>
+<text x="532" y="82" font-size="11" fill="#6f756e">최종 수혜 · 이름 미확인 · C</text>
+<line x1="520" y1="168" x2="475" y2="197" stroke="#7f8f68" stroke-width="1.6"/>
+<rect x="520" y="140" width="220" height="56" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2"/>
+<text x="532" y="163" font-size="13" font-weight="800" fill="#243036">Remsdaq (英, 2025 인수)</text>
+<text x="532" y="182" font-size="11" fill="#6f756e">핵심 파트너(자회사) · SCADA RTU · A</text>
+<line x1="520" y1="268" x2="475" y2="268" stroke="#5d7285" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="520" y="240" width="220" height="56" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/>
+<text x="532" y="263" font-size="13" font-weight="800" fill="#243036">GE Vernova (가스터빈)</text>
+<text x="532" y="282" font-size="11" fill="#6f756e">관련 대기업 · 보완 관계 추론 · B/C</text>
+<line x1="520" y1="368" x2="475" y2="273" stroke="#c95b4a" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="520" y="340" width="220" height="56" rx="12" fill="#fffaf0" stroke="#c95b4a" stroke-width="2"/>
+<text x="532" y="363" font-size="13" font-weight="800" fill="#243036">Eaton·Schneider·Siemens</text>
+<text x="532" y="382" font-size="11" fill="#6f756e">경쟁사 · 2단계 수주 경쟁</text>
+<line x1="380" y1="405" x2="380" y2="280" stroke="#6f756e" stroke-width="1.6" stroke-dasharray="5 4"/>
+<rect x="270" y="405" width="220" height="56" rx="12" fill="#fffaf0" stroke="#6f756e" stroke-width="2"/>
+<text x="282" y="428" font-size="13" font-weight="800" fill="#243036">NVIDIA DSX POD</text>
+<text x="282" y="447" font-size="11" fill="#6f756e">관련성 낮음 · 파트너 명단에 없음</text>
+<text x="20" y="22" font-size="12" font-weight="800" fill="#d97941">직접 고객</text>
+<text x="520" y="22" font-size="12" font-weight="800" fill="#5d7285">최종 수혜 · 파트너 · 관련 대기업</text>
+</svg>
+</div>
+<div class="tw"><table>
+<tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr>
+<tr><td>직접 고객</td><td>익명 DC 개발사</td><td>$400M+ BTM 자가발전 1단계</td><td>Q2·Q3 실적 발표·콜</td><td>단일 최대 고객. 2단계가 bull 열쇠</td><td><span class="b A">A</span></td><td><b>이름 비공개 — 후보 추정 금지</b>. 고객 집중 위험</td></tr>
+<tr><td>직접 고객</td><td>DC 다수 (~$75M 등)</td><td>MV 배전 장비</td><td>Q1·Q2 메가 수주</td><td>반복 수주 증거</td><td><span class="b A">A</span></td><td>규모는 1/5 수준</td></tr>
+<tr><td>직접 고객</td><td>美 걸프만 LNG 프로젝트</td><td>PCR·배전 패키지</td><td>Q1 $100M+, Q3 ~$60M</td><td>비DC 완충재</td><td><span class="b A">A</span></td><td>통상 EPC 경유, 최종 발주처 비공개</td></tr>
+<tr><td>직접 고객</td><td>동부 유틸리티 발전소</td><td>사상 최대 유틸 수주</td><td>Q2 콜</td><td>유틸 = 잔고 30%</td><td><span class="b A">A</span></td><td>유틸 투자 규제 승인 리스크</td></tr>
+<tr><td>최종 수혜 고객</td><td>하이퍼스케일러 / AI 랩</td><td>DC 개발사의 임차인</td><td>없음</td><td>CAPEX 사이클 민감도</td><td><span class="b C">C</span></td><td><b>관련성 미확인</b></td></tr>
+<tr><td>핵심 파트너</td><td>Remsdaq (英)</td><td>2025 인수 자회사, SCADA RTU</td><td>FY25 10-K ($10.6M+$0.9M)</td><td>변전 자동화 → 마진 개선</td><td><span class="b A">A</span></td><td>규모 작음</td></tr>
+<tr><td>금융 파트너</td><td>BofA · Texas Capital</td><td>리볼버 $150M, LC $104M · 보증보험 $492M</td><td>10-Q</td><td>대형 프로젝트 이행보증 여력</td><td><span class="b A">A</span></td><td>LC 여력 $46M로 빠듯</td></tr>
+<tr><td>관련 대기업</td><td>GE Vernova</td><td>가스터빈(발전) ↔ Powell(전력 분배) 보완</td><td>공동 계약 공시 없음</td><td>BTM 수요 선행지표</td><td><span class="b C">C</span></td><td><b>직접 관계 확인 안 됨</b></td></tr>
+<tr><td>관련 대기업</td><td>Eaton · Schneider · Siemens · ABB</td><td>경쟁사</td><td>업계 구조</td><td>2단계 수주 경쟁자</td><td><span class="b B">B</span></td><td>Powell은 엔지니어드 맞춤형 틈새</td></tr>
+<tr><td>관련 대기업</td><td>NVIDIA (DSX POD)</td><td>모듈형 AI 팩토리</td><td>파트너 명단에 Powell 없음</td><td>테마 연관, 매출 연관 없음</td><td><span class="b C">C</span></td><td><b>관련성 낮음</b></td></tr>
+</table></div>
+
+<!-- ===================== 5. CAPITAL / FLOW ===================== -->
+<h2><span class="num">5</span> 자본구조와 수급</h2>
+<div class="tw"><table>
+<tr><th>항목</th><th>수치</th><th>해석</th></tr>
+<tr><td>발행주식수</td><td>36,432,564주 (2026-08-03)</td><td>분할 후 기준</td></tr>
+<tr><td>Fully diluted</td><td>~36.6M (Q3 희석 가중 36.60M) + CEO 특별 RSU 0.036M</td><td>희석 여지 ~0.6%</td></tr>
+<tr><td>전환사채</td><td>없음</td><td>—</td></tr>
+<tr><td>ATM / shelf</td><td>확인된 S-3·ATM 없음 (<b>검증 필요</b>)</td><td>현금 충분, 조달 동기 없음</td></tr>
+<tr><td>워런트 / 옵션 / RSU</td><td>워런트·옵션 없음 · RSU 166,118주 · 9M RSU 비용 $3.7M</td><td>SBC 부담 미미</td></tr>
+<tr><td>내부자 지분</td><td>창업가 가문 ~18% 추정 (T. Powell 직접 + 배우자 신탁 등, 분할 환산) · Finviz 21.3%</td><td>신탁분은 실질소유 부인 → <b>검증 필요</b></td></tr>
+<tr><td>내부자 거래 (2026)</td><td>T. Powell 약 $35.8M 매도 · CEO 64,539주($7.2M, 대부분 10b5-1) · <span class="hl-r">매수 0건</span></td><td>−59% 하락 중에도 매수 없음</td></tr>
+<tr><td>기관 지분</td><td>78.5~89.8% (출처별 상이) · BlackRock 3.52M주 9.7%</td><td>패시브 비중 높음</td></tr>
+<tr><td>공매도</td><td>2.72M주(9/30), 커버 4.9~5.5일, 유통 대비 ~9~10%</td><td>중간 수준. 스퀴즈 단독 촉매 아님</td></tr>
+<tr><td>옵션 체인 / 대차 수수료</td><td>확인 불가 — <b>검증 필요</b></td><td>실적 전 내재변동성 직접 확인 권장</td></tr>
+<tr><td>거래량 급증 원인</td><td>11/4~5 선거 쇼크 섹터 매도 · 11/6 86만주 반등</td><td>회사 고유 뉴스 없음</td></tr>
+</table></div>
+<div class="grid3">
+  <div class="kpi"><div class="k">12/31 → 5/11 상승 (+203%)</div><div class="v or">멀티플 ~95%</div><div class="s">TTM EPS +3% · P/E 21x→63x</div></div>
+  <div class="kpi"><div class="k">5/11 → 11/6 하락 (−59%)</div><div class="v down">멀티플 ~100%</div><div class="s">TTM EPS +2% · P/E 63x→25.5x</div></div>
+  <div class="kpi"><div class="k">숏커버 / 조달 오버행</div><div class="v">해당 없음</div><div class="s">공매도 감소 · 희석 조달 없음</div></div>
+</div>
+
+<!-- ===================== 6. VALUATION ===================== -->
+<h2><span class="num">6</span> 밸류에이션과 목표가</h2>
+<p class="lead">공통: 순초과현금 = 현금 $634M − 순계약부채 $350M = $284M ≈ <b>주당 $8</b>. 희석주식수 36.6M. 컨센 FY27 EPS $6.87 · FY28 $8.20.</p>
+<div class="tw"><table>
+<tr><th>시나리오</th><th class="n">목표가</th><th>적용 매출/EPS/FCF</th><th>멀티플</th><th>희석주식</th><th class="n">확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr>
+<tr><td style="color:var(--risk)"><b>하방 리스크</b></td><td class="n">$95</td><td>FY27 EPS $5.80 (매출 $1.30B, GM 28%)</td><td>15x + $8</td><td>36.6M</td><td class="n">25%</td><td>TX 모라토리엄 법제화 · DC 2단계 취소</td><td>—</td><td>$105 종가 이탈 시 전량 정리</td></tr>
+<tr><td style="color:var(--green)"><b>보수적 내재가치</b></td><td class="n">$125</td><td>TTM EPS $5.21</td><td>22.7x(5년 중앙) + $8</td><td>36.6M</td><td class="n">20%</td><td>현상 유지</td><td>GM &lt;28%</td><td>이 아래는 2·3차 매수 구간</td></tr>
+<tr><td><b>실적 전 trading</b></td><td class="n">$148</td><td>—</td><td>11/4 종가 갭 메우기</td><td>—</td><td class="n">40%</td><td>섹터 반등 · 정책 우려 완화</td><td>11/16 전 $120 이탈</td><td>신규자는 추격 금지</td></tr>
+<tr><td style="color:var(--accent)"><b>12개월 base</b></td><td class="n">$165</td><td>FY28 EPS $7.80 (컨센 −5%)</td><td>20x + $8</td><td>36.7M</td><td class="n">35%</td><td>잔고 전환 · GM 30% 유지</td><td>FY27 Q1 매출 +10% 미만</td><td>1/3 매도</td></tr>
+<tr><td><b>실적 후 재평가</b></td><td class="n">$170</td><td>FY28 EPS $8.00</td><td>20x + $8</td><td>36.7M</td><td class="n">35%</td><td>beat + 수주 ≥$300M + FY27 가속 코멘트</td><td>미스 시 $112</td><td>2차 매수 후 보유</td></tr>
+<tr><td style="color:var(--bull)"><b>bull</b></td><td class="n">$240</td><td>FY28 EPS $9.00 (매출 ~$1.75B, GM 31%)</td><td>25.5x + $8</td><td>36.8M</td><td class="n">15%</td><td>DC 2단계 수주 · 신규 하이퍼스케일 고객</td><td>2단계 경쟁사 수주</td><td>추가 1/3 매도</td></tr>
+<tr><td><b>overshoot</b></td><td class="n">$310</td><td>FY28 EPS $9.00</td><td>~34x (5월 재현)</td><td>36.8M</td><td class="n">5%</td><td><b>수급·내러티브</b> (공매도 커버)</td><td>—</td><td>코어 15주 제외 매도</td></tr>
+</table></div>
+<p class="note">12개월 확률은 하방·보수·base·bull·overshoot 5개 합 100%. 실적 전/후 target은 기간이 다른 별도 확률.</p>
+
+<div class="chart-card">
+  <div class="chart-header"><h3>Valuation Bridge ($/주)</h3><div class="tabs"><span>Timeframe</span><span class="active">12M</span></div></div>
+  <svg viewBox="0 0 720 320" xmlns="http://www.w3.org/2000/svg" role="img">
+<line class="zero" x1="170.0" y1="16" x2="170.0" y2="296"/>
+<text class="axis-label" x="170.0" y="310" text-anchor="middle">$0</text>
+<line class="grid" x1="240.0" y1="16" x2="240.0" y2="296"/>
+<text class="axis-label" x="240.0" y="310" text-anchor="middle">$50</text>
+<line class="grid" x1="310.0" y1="16" x2="310.0" y2="296"/>
+<text class="axis-label" x="310.0" y="310" text-anchor="middle">$100</text>
+<line class="grid" x1="380.0" y1="16" x2="380.0" y2="296"/>
+<text class="axis-label" x="380.0" y="310" text-anchor="middle">$150</text>
+<line class="grid" x1="450.0" y1="16" x2="450.0" y2="296"/>
+<text class="axis-label" x="450.0" y="310" text-anchor="middle">$200</text>
+<line class="grid" x1="520.0" y1="16" x2="520.0" y2="296"/>
+<text class="axis-label" x="520.0" y="310" text-anchor="middle">$250</text>
+<line class="grid" x1="590.0" y1="16" x2="590.0" y2="296"/>
+<text class="axis-label" x="590.0" y="310" text-anchor="middle">$300</text>
+<line class="grid" x1="660.0" y1="16" x2="660.0" y2="296"/>
+<text class="axis-label" x="660.0" y="310" text-anchor="middle">$350</text>
+<text class="bar-label" x="160" y="47" text-anchor="end">하방 리스크</text>
+<rect x="170" y="28" width="133.0" height="28" rx="6" fill="#c95b4a"/>
+<text class="bar-label" x="311.0" y="47">$95 <tspan fill="#6f756e">(-29%)</tspan></text>
+<text class="bar-label" x="160" y="93" text-anchor="end">보수적 내재가치</text>
+<rect x="170" y="74" width="175.0" height="28" rx="6" fill="#7f8f68"/>
+<text class="bar-label" x="353.0" y="93">$125 <tspan fill="#6f756e">(-6%)</tspan></text>
+<text class="bar-label" x="160" y="139" text-anchor="end">현재 주가 (11/6 종가)</text>
+<rect x="170" y="120" width="186.4" height="28" rx="6" fill="#5d7285"/>
+<text class="bar-label" x="364.4" y="139">$133 <tspan fill="#6f756e">(기준)</tspan></text>
+<text class="bar-label" x="160" y="185" text-anchor="end">12개월 base target</text>
+<rect x="170" y="166" width="231.0" height="28" rx="6" fill="#d97941"/>
+<text class="bar-label" x="409.0" y="185">$165 <tspan fill="#6f756e">(+24%)</tspan></text>
+<text class="bar-label" x="160" y="231" text-anchor="end">bull target</text>
+<rect x="170" y="212" width="336.0" height="28" rx="6" fill="#b86432"/>
+<text class="bar-label" x="514.0" y="231">$240 <tspan fill="#6f756e">(+80%)</tspan></text>
+<text class="bar-label" x="160" y="277" text-anchor="end">overshoot target</text>
+<rect x="171" y="259" width="432.0" height="26" rx="6" fill="none" stroke="#b86432" stroke-width="2.4" stroke-dasharray="6 4"/>
+<text class="bar-label" x="612.0" y="277">$310 <tspan fill="#6f756e">(+133%)</tspan></text>
+<line x1="356.4" y1="14" x2="356.4" y2="296" stroke="#5d7285" stroke-width="1.5" stroke-dasharray="3 3"/>
+</svg>
+  <div class="interp"><b>해석</b><ul>
+    <li>현재가 $133은 보수적 내재가치 $125보다 <b>6.5% 높음</b> → 거의 바닥 가치에 사는 가격.</li>
+    <li><span class="hl">base case도 다 반영 안 된 가격</span>. FY27E 19.4x는 성장 산업재 평균 이하. bull은 전혀 미반영.</li>
+    <li>overshoot $310은 펀더멘털 목표가가 아니라 <b>수급·내러티브 재점화</b>(5월 63x 국면) 가능성. 공매도 10%는 보조 연료일 뿐.</li>
+    <li>매수: 실적 전 $125~135 소량, 실적 후 조건 충족 시 $130~150, 미스 시 $110~118. 축소: $165 / $240 / $300+.</li></ul></div>
+</div>
+
+<!-- ===================== 7. EARNINGS PLAN & RISK ===================== -->
+<h2><span class="num">7</span> 실적 전후 행동 계획 · 리스크 · 실행안</h2>
+<div class="grid2">
+  <div class="card"><b>실적 전 (11/16 장 마감 후 발표)</b><ul class="tight">
+    <li>기대치 반영도: 1개월 −35%로 <span class="hl-g">기대는 이미 크게 낮아짐</span>. 다만 컨센 EPS $1.52~1.55는 그대로 → 숫자 기대는 낮지 않음.</li>
+    <li>실적 전 매수: <b>1/3만 허용</b>. 3분기 연속 미스 가능성 존재.</li>
+    <li>beat만으로 충분? <b>아니오.</b> 가이던스가 정성적인 회사 → <span class="hl">beat + 수주/잔고 유지 + FY27 매출 가속 코멘트</span>가 필요.</li></ul></div>
+  <div class="card"><b>주가 반응 시나리오</b><ul class="tight">
+    <li style="color:var(--green)"><b>오를 숫자:</b> 매출 ≥$335M · GM ≥30.5% · 수주 ≥$350M(잔고 ≥$2.5B) · DC 2단계/신규 메가 언급 · TX 노출 제한 코멘트</li>
+    <li style="color:var(--risk)"><b>빠질 숫자:</b> 매출 &lt;$320M(3연속 미스) · GM &lt;29% · 수주 &lt;$250M · 잔고 감소 · 취소/범위축소 언급</li>
+    <li>실적 후 확인하고 살 것: <b>나머지 2/3</b>.</li></ul></div>
+</div>
+
+<h3>Thesis break trigger</h3>
+<div class="tw"><table>
+<tr><th>리스크</th><th>thesis가 깨지는 지표</th><th>시장 반영 시작 가격</th><th>확인 시점</th><th>대응</th></tr>
+<tr><td>매출 성장 둔화</td><td>FY27 Q1 매출 YoY &lt;+10% (잔고 $2.4B에도)</td><td>$115</td><td>2027-02 초</td><td>50% 축소</td></tr>
+<tr><td>EPS 정체</td><td>분기 EPS &lt;$1.40 2연속 · GM &lt;28%</td><td>$110</td><td>Q4·Q1 실적</td><td>50% 축소</td></tr>
+<tr><td>주식 수 희석</td><td>희석주식 &gt;37.0M 또는 S-3/ATM 공시</td><td>즉시</td><td>매 10-Q</td><td>재검토 후 축소</td></tr>
+<tr><td>현금 소진</td><td>영업CF 적자 전환 + 현금 &lt;$450M</td><td>$115</td><td>매 분기</td><td>계약부채 감소 원인 확인</td></tr>
+<tr><td>고객 집중</td><td>DC 메가 수주 취소·범위 축소 공시</td><td>$100</td><td>10-K(12월)·콜</td><td><span class="hl-r">전량 매도</span></td></tr>
+<tr><td>경쟁사 대체</td><td>C&I 수주 2분기 연속 −30% · 2단계 타사 수주 보도</td><td>$110</td><td>2027 상반기</td><td>bull 시나리오 폐기, 비중 1%로</td></tr>
+<tr><td>금리/실업률/신용</td><td>12월 연준 추가 인상 · 실업률 ≥4.4% · 10년물 급등</td><td>$115</td><td>12/4 고용 · 12/9 FOMC</td><td>3차 매수 보류</td></tr>
+<tr><td>정책 (TX/연방)</td><td>TX 의회 DC 모라토리엄 법제화 · Powell 현장 TX 확인</td><td>$105</td><td>2027-01 회기</td><td>50% 축소</td></tr>
+<tr><td>스퀴즈 후 급락</td><td>추정치 변화 없이 수주일 내 $200+ 급등</td><td>—</td><td>상시</td><td>1/3 차익 실현</td></tr>
+<tr><td>M&A 기대 과열</td><td>피인수 루머 단독으로 +20% 급등</td><td>—</td><td>상시</td><td>추격 금지, 일부 매도</td></tr>
+</table></div>
+
+<h3>포트폴리오 실행안 (보유 0주 기준)</h3>
+<div class="tw"><table>
+<tr><th>항목</th><th>제안</th></tr>
+<tr><td>목표 비중</td><td><b>2.0%</b> (≈1,520만 원 ≈ $11,300 ≈ <b>85주</b>) · 최대 2.5%. CRWV·MU·AAOI 등 기존 AI 인프라와 <span class="hl-r">상관관계 높음</span>(11/4 동반 급락) → 상한 엄수</td></tr>
+<tr><td>1차 (실적 전)</td><td><b>25주</b> · $125~135 지정가 · 11/16 장 마감 전까지</td></tr>
+<tr><td>2차 (실적 후)</td><td><b>35주</b> · 조건(매출 ≥$330M, GM ≥29.5%, 잔고 ≥$2.4B) 충족 시 $130~150 · 미충족 시 대기</td></tr>
+<tr><td>3차</td><td><b>25주</b> · $110~118 안정화 확인 또는 DC 2단계 수주 확인 시 · <span class="hl">$170 위 추격 금지</span></td></tr>
+<tr><td>매도</td><td>$165 → 1/3 · $240 → 1/3 · $300+ → 코어 15주만 남김</td></tr>
+<tr><td>손절/축소</td><td>종가 $105 이탈 또는 메가 수주 취소 → 전량 · thesis 트리거 1개 → 50%</td></tr>
+<tr><td>세금</td><td>해외주식 양도세 22% (연 250만 원 공제). 연말 손익 통산 고려해 1차 매수는 11월 진행 무방</td></tr>
+</table></div>
+<div class="tw" style="margin-top:10px"><table>
+<tr><th>시나리오 (85주, 평단 $130 가정)</th><th class="n">주가</th><th class="n">손익 ($)</th><th class="n">손익 (원, 세전)</th></tr>
+<tr><td>하방</td><td class="n">$95</td><td class="n" style="color:var(--risk)">−$2,975</td><td class="n" style="color:var(--risk)">약 −400만</td></tr>
+<tr><td>보수적</td><td class="n">$125</td><td class="n" style="color:var(--risk)">−$425</td><td class="n" style="color:var(--risk)">약 −57만</td></tr>
+<tr><td>base</td><td class="n">$165</td><td class="n">+$2,975</td><td class="n">약 +400만</td></tr>
+<tr><td>bull</td><td class="n">$240</td><td class="n">+$9,350</td><td class="n">약 +1,258만</td></tr>
+<tr><td>overshoot</td><td class="n">$310</td><td class="n">+$15,300</td><td class="n">약 +2,058만</td></tr>
+<tr><td><b>확률가중</b></td><td class="n">$158</td><td class="n"><b>+$2,380</b></td><td class="n"><b>약 +320만</b></td></tr>
+</table></div>
+
+<!-- ===================== FINAL ===================== -->
+<div class="final">
+<h2>최종 요약</h2>
+<dl>
+<dt>현재 주가:</dt><dd>$133.12 (2026-11-06 종가, 시총 $4.85B)</dd>
+<dt>보수적 내재가치:</dt><dd>$125</dd>
+<dt>12개월 base target:</dt><dd>$165 (+24%)</dd>
+<dt>bull target:</dt><dd>$240 (+80%)</dd>
+<dt>overshoot target:</dt><dd>$310 (수급·내러티브, 펀더멘털 아님)</dd>
+<dt>실적 발표 전 trading target:</dt><dd>$148</dd>
+<dt>실적 발표 후 재평가 target:</dt><dd>$170 (미스 시 $112)</dd>
+<dt>하방 리스크:</dt><dd>$95 (−29%)</dd>
+<dt>12개월 기대수익률:</dt><dd><span class="hl">+18.7%</span> (확률가중 $158)</dd>
+<dt>보유 수량 기준 기대손익:</dt><dd>$0 (현재 0주) · 제안 85주 기준 +$2,380 ≈ +320만 원</dd>
+<dt>추천 행동:</dt><dd><b>BUY · 신규 매수 3차 분할</b></dd>
+<dt>목표 비중:</dt><dd>2.0% (최대 2.5%)</dd>
+<dt>실적 발표 전 행동:</dt><dd>25주만 $125~135. 그 이상 추격 금지</dd>
+<dt>실적 발표 후 행동:</dt><dd>매출 ≥$330M·GM ≥29.5%·잔고 ≥$2.4B 확인 시 35주 추가</dd>
+<dt>목표가 도달 시 행동:</dt><dd>$165 1/3 · $240 1/3 · $300+ 코어만 남김</dd>
+<dt>thesis 훼손 시 행동:</dt><dd>종가 $105 이탈 또는 메가수주 취소 → 전량 매도 · 트리거 1개 → 50% 축소</dd>
+<dt>가장 중요한 체크포인트:</dt><dd><span class="hl">11/16 Q4: 잔고 $2.4B가 매출로 바뀌는 속도 + DC 2단계·텍사스 노출 코멘트</span></dd>
+<dt>내가 틀렸다고 인정해야 하는 조건:</dt><dd>① 3분기 연속 미스 + 수주 &lt;$250M ② 메가 수주 취소/축소 ③ FY27 Q1 매출 +10% 미만</dd>
+</dl>
+</div>
+
+<!-- ===================== SOURCES ===================== -->
+<h2><span class="num">S</span> 출처</h2>
+<div class="card src">
+<b>SEC 공시 (1차)</b>
+<ul>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0000080420/000008042026000103/ex991-powlq3xfy2026earning.htm">8-K Ex.99.1 Q3 FY26 실적 (2026-08-03)</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0000080420/000008042026000107/powl-20260630.htm">10-Q Q3 FY26 (현금흐름·계약부채·리볼버·RSU·발행주식)</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0000080420/000008042026000063/ex991-powlq2xfy2026earning.htm">8-K Ex.99.1 Q2 FY26</a> · <a href="https://www.sec.gov/Archives/edgar/data/0000080420/000008042026000070/powl-20260331.htm">10-Q Q2 FY26</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/80420/000008042026000013/ex991-powlq1xfy2026earning.htm">8-K Ex.99.1 Q1 FY26</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/80420/000008042025000145/ex991-powlq4xfy2025earning.htm">8-K Ex.99.1 Q4·FY25</a> · <a href="https://www.sec.gov/Archives/edgar/data/80420/000008042025000152/powl-20250930.htm">10-K FY25</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/80420/000008042024000086/powl-20240930.htm">10-K FY24 (분기 데이터)</a> · <a href="https://www.sec.gov/Archives/edgar/data/80420/000008042024000057/ex991-powlq3xfy2024earning.htm">Q3 FY24</a> · <a href="https://www.sec.gov/Archives/edgar/data/80420/000008042024000026/ex991-powlq2xfy2024earning.htm">Q2 FY24</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/80420/000008042023000051/powl-20230930.htm">10-K FY23</a> · <a href="https://www.globenewswire.com/news-release/2023/12/05/2791364/0/en/Powell-Industries-Announces-Fiscal-2023-Fourth-Quarter-And-Full-Year-Results.html">FY23 실적 발표</a> · <a href="https://www.sec.gov/Archives/edgar/data/80420/000008042022000034/ex991-q422earningsrelease.htm">FY22 실적 발표</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0000080420/000008042026000095/powl-20260701.htm">8-K CEO 특별 RSU (2026-07-06)</a> · <a href="https://www.sec.gov/Archives/edgar/data/0000080420/000201238326002932/primary_doc.xml">13G/A BlackRock</a></li>
+<li><a href="https://powellindustriesinc.gcs-web.com/static-files/561009f3-ea45-483d-abc8-2d1b4a192a29">Form 4 T. Powell (3/19)</a> · <a href="https://powellindustriesinc.gcs-web.com/static-files/9bbb6178-bcce-45ef-9299-77deaf329ea6">Form 4 T. Powell (3/11, 신탁 보유)</a></li>
+</ul>
+<b>컨콜 · IR · 일정</b>
+<ul>
+<li><a href="https://www.fool.com/earnings/call-transcripts/2026/08/10/powell-industries-powl-q3-2026-earnings-call-transcript/">Q3 FY26 컨콜 트랜스크립트</a> · <a href="https://finance.yahoo.com/markets/stocks/articles/powell-industries-q2-earnings-call-192726631.html">Q2 콜 하이라이트</a></li>
+<li><a href="https://finviz.com/news/414733/powell-industries-announces-date-and-conference-call-for-fiscal-2026-fourth-quarter-and-full-year-results">Q4 FY26 실적 일정 (11/16)</a></li>
+</ul>
+<b>시세 · 수급 · 컨센서스</b>
+<ul>
+<li><a href="https://finance.yahoo.com/quote/POWL/">Yahoo Finance (11/6 종가)</a> · <a href="https://www.gurufocus.com/news/9182878/a-look-at-powell-industries-inc-powl-after-64-gain-gf-value-8898-vs-price-13312">GuruFocus 11/6</a> · <a href="https://stockanalysis.com/stocks/powl/history/">StockAnalysis 가격 이력</a> · <a href="https://www.fool.com/quote/nasdaq/powl/">Motley Fool 수익률</a></li>
+<li><a href="https://news.alphastreet.com/powell-industries-drops-9-9-amid-sector-wide-selling/">AlphaStreet 11/4</a> · <a href="https://www.investing.com/news/stock-market-news/why-is-powell-industries-stock-sinking-today-93CH-4833197">Investing.com Q3 반응</a></li>
+<li><a href="https://massive.com/quote/powl/insider-trading">Massive 내부자</a> · <a href="https://curvedtrading.com/stocks/powl/short-interest/">FINRA 공매도(CurvedTrading)</a> · <a href="https://www.marketbeat.com/stocks/NASDAQ/POWL/short-interest/">MarketBeat 공매도</a> · <a href="https://www.marketbeat.com/instant-alerts/filing-powell-industries-inc-powl-shares-sold-by-hodges-capital-management-inc-2026-07-06/">MarketBeat (6/25 매도)</a></li>
+<li><a href="https://www.benzinga.com/quote/POWL/earnings-forecasts">Benzinga 컨센서스</a> · <a href="https://therighttrader.com/earnings-calendar/powl">FY26~28 EPS 컨센</a> · <a href="https://www.benzinga.com/quote/POWL/price-targets">목표가</a> · <a href="https://www.marketbeat.com/instant-alerts/analyst-powell-industries-nasdaq-powl-stock-price-target-lowered-at-jpmorgan-chase-co-2026-10-13/">JPM 하향</a> · <a href="https://www.barchart.com/stocks/quotes/POWL/cash-flow/quarterly">Barchart 현금흐름</a></li>
+</ul>
+<b>매크로 · 정책 · 산업</b>
+<ul>
+<li><a href="https://finance.yahoo.com/markets/stocks/articles/vertiv-sinks-9-ge-vernova-150952479.html">중간선거 후 DC 주 급락</a> · <a href="https://www.tikr.com/blog/ge-vernova-is-up-18-in-2026-after-three-guidance-raises-take-profits-or-buy-more">TIKR (11/5 나스닥 −5.5%)</a></li>
+<li><a href="https://gvwire.com/2026/11/04/texas-data-centers-face-uncertain-future-after-hinojosa-wins-governors-race/">Reuters: 텍사스 DC 불확실성</a> · <a href="https://www.ksat.com/news/texas/2026/11/04/gina-hinojosa-won-the-governors-race-what-happens-to-texas-data-centers-now/">Texas Tribune/KSAT</a> · <a href="https://www.eenews.net/articles/texas-governor-puts-data-center-grid-approvals-on-hold/">E&E: Abbott 계통승인 중단</a></li>
+<li><a href="https://technologymagazine.com/news/what-nvidias-infrastructure-upgrades-mean-for-ai">NVIDIA DSX POD 파트너</a> · <a href="https://capacityglobal.com/news/nvidia-cuts-ai-factory-deployment/">Capacity: GTC Berlin</a></li>
+<li><a href="https://www.wealthmanagement.com/fixed-income/fed-holds-rates-says-more-data-will-help-next-decision">연준 10/28 동결</a> · <a href="https://www.semafor.com/article/10/02/2026/us-adds-29000-jobs-in-september-far-short-of-expectations">9월 고용</a> · <a href="https://kbthink.com/investment/fx/daily/261104.html">KB 환율(11/4)</a></li>
+<li>저신뢰(참고만): <a href="https://www.nerdoutonbusiness.com/p/powell-industries-company-profile">NerdOut 프로필 (5개 사이트 언급)</a></li>
+</ul>
+<p class="note">이 메모는 공개 자료 기반 개인 연구용이며 투자 자문이 아닙니다. 목표가·확률은 추론입니다.</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html><html class="document-reader" lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VRT 버티브 — 투자자용 Forensic 메모 (2026-11-07)</title><style>
+:root{--bg:#f4efe6;--card:#fffaf0;--text:#243036;--muted:#6f756e;--accent:#d97941;--green:#7f8f68;--bluegray:#5d7285;--risk:#c95b4a;--line:#ded4c3;--grid:#e7ddcc;--teal:#5f9ea0;--bull:#b86432}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;line-height:1.6;font-size:15px}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 60px}
+header.top{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--text);padding-bottom:14px;margin-bottom:22px}
+.brand{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--accent)}
+h1{margin:4px 0 0;font-size:30px;line-height:1.2}
+h1 small{font-size:15px;color:var(--muted);font-weight:600}
+.meta{font-size:12.5px;color:var(--muted);text-align:right}
+h2{font-size:20px;margin:40px 0 12px;display:flex;align-items:center;gap:10px}
+h2 .no{display:inline-flex;width:30px;height:30px;border-radius:50%;background:var(--text);color:var(--card);font-size:14px;align-items:center;justify-content:center;flex:none}
+h3{font-size:15.5px;margin:18px 0 8px}
+p{margin:6px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin:14px 0}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .k{font-size:12px;color:var(--muted);font-weight:700}
+.kpi .v{font-size:23px;font-weight:900;margin-top:2px}
+.kpi .s{font-size:12px;color:var(--muted)}
+.kpi.acc{border:2px solid var(--accent)} .kpi.risk .v{color:var(--risk)} .kpi.green .v{color:var(--green)} .kpi.blue .v{color:var(--bluegray)} .kpi.orange .v{color:var(--accent)} .kpi.bull .v{color:var(--bull)}
+.thesis{border-left:6px solid var(--green);padding:10px 14px;background:var(--card);border-radius:0 14px 14px 0;margin:8px 0}
+.anti{border-left:6px solid var(--risk)}
+.label{font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--muted)}
+.hl{background:rgba(217,121,65,.20);padding:1px 4px;border-radius:4px;font-weight:700}
+.hl-r{background:rgba(201,91,74,.16);padding:1px 4px;border-radius:4px;font-weight:700}
+.hl-g{background:rgba(127,143,104,.20);padding:1px 4px;border-radius:4px;font-weight:700}
+.badge{display:inline-block;padding:4px 12px;border-radius:999px;font-weight:900;font-size:14px;color:var(--card);background:var(--green)}
+.badge.o{background:var(--accent)}
+.tag{display:inline-block;font-size:10.5px;font-weight:800;padding:1px 7px;border-radius:999px;margin:0 2px;vertical-align:1px;white-space:nowrap}
+.t-fact{background:var(--bluegray);color:var(--card)} .t-inf{background:var(--accent);color:var(--card)} .t-ver{background:transparent;border:1.5px solid var(--risk);color:var(--risk)}
+.t-a{background:var(--green);color:var(--card)} .t-b{background:var(--accent);color:var(--card)} .t-c{background:var(--risk);color:var(--card)}
+.tbl{width:100%;overflow-x:auto;margin:8px 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13.2px;background:var(--card)}
+th,td{border-bottom:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+th{background:#efe6d6;font-size:12.2px;color:var(--text);white-space:nowrap}
+td.n,th.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+tr.sum td{font-weight:800;background:#f7efe2}
+.note{font-size:12.3px;color:var(--muted)}
+.explain{font-size:12.6px;color:var(--muted);margin:4px 0 0}
+ul.tight{margin:6px 0;padding-left:20px} ul.tight li{margin:3px 0}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin:22px 0}
+.chart-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+.chart-header h3{margin:0}
+.tabs{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-weight:700}
+.tabs .active{color:var(--text);border:2px solid var(--bluegray);border-radius:10px;padding:5px 10px;background:rgba(93,114,133,0.10)}
+.mini-chart-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.mini-chart h3{margin:0 0 8px;font-size:14px;color:var(--muted)}
+.mini-chart svg{width:100%;height:auto;display:block}
+.wide{overflow-x:auto;-webkit-overflow-scrolling:touch}.wide svg{width:100%;height:auto;display:block}
+.grid{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 3}
+.zero{stroke:var(--text);stroke-width:1.2;opacity:.55}
+.bar-label{font-size:11px;font-weight:800;fill:var(--text)}
+.axis-label{font-size:10px;font-weight:700;fill:var(--muted)}
+.interp{border-top:1px dashed var(--line);margin-top:14px;padding-top:10px;font-size:13.4px}
+.interp li{margin:3px 0}
+.legend{font-size:11.5px;color:var(--muted);margin-top:6px}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin:0 4px 0 10px}
+.sw.o{background:none;border:2px dashed var(--muted)}
+.final{background:var(--text);color:var(--card);border-radius:18px;padding:22px 24px;margin-top:30px}
+.final h2{color:var(--card);margin-top:0}
+.final dl{display:grid;grid-template-columns:230px 1fr;gap:6px 16px;margin:0}
+.final dt{font-weight:800;color:#e9c9ad}
+.final dd{margin:0}
+.src{font-size:12.4px} .src a{color:var(--bluegray);word-break:break-all}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.pill{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:12.5px;background:var(--card)}
+@media (max-width:900px){
+ .mini-chart-grid,.grid2,.grid3{grid-template-columns:1fr}
+ .grid4{grid-template-columns:repeat(2,1fr)}
+ .chart-header{align-items:flex-start;flex-direction:column}
+ .final dl{grid-template-columns:1fr}
+ .wide svg{min-width:620px}
+ .tbl table{min-width:760px}
+ .tbl td:first-child{white-space:nowrap}
+ h1{font-size:24px}
+ .meta{text-align:left}
+}
+</style><link href="/css/document-reader.css?v=20261104" rel="stylesheet"/><script defer="" src="/js/document-reader.js?v=20261104"></script></head><body><div class="wrap">
+<header class="top"><div><div class="brand">YOUNG FINANCE · 城主 리서치</div>
+<h1>Vertiv (NYSE: VRT) <small>버티브 · 투자자용 Forensic 메모</small></h1></div>
+<div class="meta">분석 기준일 2026-11-07(토) · 가격은 직전 거래일 11/6 종가<br>보유 0주 · 신규 진입 검토 · 환율 1,340원/$ 가정</div></header>
+
+<div class="grid4">
+<div class="kpi blue"><div class="k">현재 주가 (11/6)</div><div class="v">$182.86</div><div class="s">+3.5% · 52주 $147.82–379.94</div></div>
+<div class="kpi"><div class="k">시가총액</div><div class="v">$70.4B</div><div class="s">발행주식 385.06M</div></div>
+<div class="kpi risk"><div class="k">최근 흐름</div><div class="v">≈ −26%</div><div class="s">5거래일(10/30→11/6) · 1개월(10/9→) −24.7%</div></div>
+<div class="kpi orange"><div class="k">선행 PER</div><div class="v">25.6x / 20.0x</div><div class="s">FY26 조정 $7.15 / FY27 컨센 ~$9.15</div></div>
+</div>
+
+<h2><span class="no">1</span>Executive Summary</h2>
+<div class="thesis"><div class="label">한 문장 THESIS</div>버티브는 '데이터센터 공조·UPS 회사'에서 <span class="hl">AI 팩토리의 전력·냉각 물리층을 grid부터 chip까지 통째로 공급하는 회사</span>로 바뀌는 중인데, 주가는 정치·AI capex 공포로 <span class="hl">2027E EPS의 20배</span>까지 눌렸다. 이익은 오르고 멀티플만 깎인 구간.</div>
+<div class="thesis anti"><div class="label">한 문장 ANTI-THESIS</div>주문 공시를 끊은 상태에서 <span class="hl-r">하이퍼스케일러 내재화 · 주(州) 단위 데이터센터 모라토리엄 · 품질 이슈</span>가 겹치면 2026년이 이익 정점이 될 수 있고, 그때 20배는 싸지 않다.</div>
+<div class="grid2">
+<div class="card"><div class="label">시장이 보는 회사</div><p>데이터센터 냉각·UPS 산업재. AI capex의 고베타(β≈2.1) 대리 변수. 정치 뉴스에 하루 −13~14%.</p></div>
+<div class="card"><div class="label">내가 새롭게 보는 회사 <span class="tag t-inf">추론</span></div><p>NVIDIA 레퍼런스 디자인(DSX)에 들어간 <b>turnkey 물리 인프라 레이어</b>. 800VDC 전력 + 액체냉각 + 12.5MW 모듈(OneCore) + 마이크로그리드(UIG) + 유체관리 서비스까지 수직 통합.</p></div>
+</div>
+<div class="grid4">
+<div class="kpi acc"><div class="k">투자 등급</div><div class="v"><span class="badge">Buy</span></div><div class="s">Strong Buy 아님: 정치·가시성 리스크</div></div>
+<div class="kpi acc"><div class="k">포트폴리오 행동</div><div class="v"><span class="badge o">신규 매수</span></div><div class="s">3분할 · 지금은 1차(1%)만</div></div>
+<div class="kpi green"><div class="k">보수적 내재가치</div><div class="v">$170</div><div class="s">현재가 대비 −7%</div></div>
+<div class="kpi risk"><div class="k">하방 리스크</div><div class="v">$135</div><div class="s">−26% · 2027 정체 시</div></div>
+<div class="kpi orange"><div class="k">12M base target</div><div class="v">$230</div><div class="s">+26%</div></div>
+<div class="kpi bull"><div class="k">bull target</div><div class="v">$305</div><div class="s">+67%</div></div>
+<div class="kpi"><div class="k">overshoot target</div><div class="v">$370</div><div class="s">+102% · 심리 회귀</div></div>
+<div class="kpi green"><div class="k">12M 기대수익률</div><div class="v">+28%</div><div class="s">확률가중 · 세후 약 +24%(공제 250만 반영)</div></div>
+</div>
+<p class="note">보유 수량 기준 기대손익: <b>0주 → 0원</b>. 제안안(90주, 평단 $181 가정) 기준 확률가중 <b>+$4.8K(≈ +640만원)</b>. 시나리오별 수치는 §8.</p>
+
+<h2><span class="no">2</span>숨은 신호 · 정체성 재정의 · 핵심 변곡점</h2>
+<h3>A. 처음 보면 놓치기 쉬운 숨은 신호 3개</h3>
+<div class="grid3">
+<div class="card"><div class="label">신호 ① 공시 블랙아웃 vs '그림자 backlog'</div>
+<p><span class="tag t-fact">확정</span> 2026년부터 분기 주문·backlog 공시 중단. Q3엔 "주문 +100% 이상"만 구두로 공개 후 <b>앞으로도 비공개</b> 재확인.</p>
+<p><span class="tag t-fact">확정</span> 그런데 10-Q의 <span class="hl">이연수익(고객 선수금) $1.81B → $4.12B(+127%)</span>, 재고 $1.46B → $3.29B(+126%).</p>
+<p><span class="tag t-inf">추론</span> 이연수익이 사실상 숨은 backlog 지표. 매 분기 10-Q에서 이 숫자를 직접 추적해야 함. 좋은 숫자만 골라 말하는 '선택적 공시'라는 의심도 함께 남음.</p></div>
+<div class="card"><div class="label">신호 ② 순현금 → 사실상 0 근처</div>
+<p><span class="tag t-fact">확정</span> 9/30 순현금 약 $0.78B(현금+단기투자 $3.71B − 차입 $2.93B). 10/27 UIG 인수에 <b>현금 $1.45B</b> 지급, 추가 earnout 최대 <b>$1.15B(현금)</b>.</p>
+<p><span class="tag t-inf">추론</span> 4분기 FCF를 감안해도 연말 순현금은 0 안팎. 2026 M&A가 6건(ThermoKey·Bmarko·STL·UIG·KES 등). <span class="hl-r">성장을 주식이 아니라 현금으로 사는 중</span> → 희석 대신 '현금 희석'. 조건부대가 비용 9M $96M이 GAAP–조정 EPS 차이를 키움.</p></div>
+<div class="card"><div class="label">신호 ③ 실행 리스크 + 내부자 매도</div>
+<p><span class="tag t-fact">확정</span> Q2 매출 미스(공급망 정체) → Q3에 $100–150M 이월 인식. 컨콜에서 Melius가 <b>컴프레서 고장·전원장치 과열</b> 보도에 대해 질의, 경영진은 "완벽하지 않다"고 인정.</p>
+<p><span class="tag t-fact">확정</span> 2026년 2~3월 이사·회장이 약 $250대에서 대량 매도(Fradin 약 $77M, Reinemund 직접 보유분 전량). <b>최근 12개월 내부자 매수 0건.</b></p>
+<p><span class="tag t-inf">추론</span> 초고성장 중 품질·납기 흔들림. 다음 10-Q의 <b>보증충당금(warranty)</b> 증가 여부 <span class="tag t-ver">검증 필요</span></p></div>
+</div>
+
+<h3>B. 기업 정체성 재정의</h3>
+<div class="tbl"><table>
+<tr><th>구분</th><th>레거시 잣대(시장)</th><th>실제 이동 중인 밸류체인</th><th>매출·마진·lock-in·멀티플 영향</th></tr>
+<tr><td><b>제품</b></td><td>CRAC·UPS·PDU 단품</td><td>800VDC 전력 + 액체냉각(CDU) + 프리팹 12.5MW OneCore 블록 <span class="tag t-fact">확정</span></td><td>MW당 콘텐츠 ↑, 프로젝트 단위 대형화 → 매출은 덩어리지고 분기 변동성 ↑ <span class="tag t-inf">추론</span></td></tr>
+<tr><td><b>설계 단계</b></td><td>입찰 대상 벤더</td><td>NVIDIA Vera Rubin DSX 레퍼런스 디자인에 SimReady 디지털 자산 공급 <span class="tag t-fact">확정</span></td><td>설계 초기 진입 = 사양 고정(spec-in) → <span class="hl">lock-in ↑</span> <span class="tag t-inf">추론</span></td></tr>
+<tr><td><b>전력 상류</b></td><td>건물 안(white space)</td><td>UIG 인수로 behind-the-meter 마이크로그리드·그리드 연계까지 <span class="tag t-fact">확정</span></td><td>전력 부족 시대의 '시간-투-파워' 판매. TAM 확장, 멀티플 재평가 근거 <span class="tag t-inf">추론</span></td></tr>
+<tr><td><b>서비스</b></td><td>유지보수</td><td>유체관리·커미셔닝(PurgeRite·KES) 라이프사이클 <span class="tag t-fact">확정</span></td><td>서비스 비중 Q3 16.7%(FY25 19.8%)로 오히려 하락 → 제품 믹스 확대 중 <span class="tag t-fact">확정</span></td></tr>
+<tr class="sum"><td>결론</td><td colspan="3">단순 제품 회사 → <b>reference design + turnkey + 서비스 결합 'AI 인프라 물리 레이어'</b>로 진화 중 <span class="tag t-inf">추론</span>. 산업재 20–25x vs 플랫폼 30x+ 사이에서 시장이 아직 결정을 못 함.</td></tr>
+</table></div>
+
+<h3>핵심 변곡점 5개</h3>
+<div class="tbl"><table>
+<tr><th>변곡점</th><th>확정 사실</th><th>합리적 추론</th><th>검증되지 않은 가설</th><th>왜 아직 주가에 덜 반영됐나</th><th>다음 확인 지표</th></tr>
+<tr><td><b>800VDC 전환</b></td><td>800VDC 포트폴리오 2026 하반기 출시, 2027 NVIDIA Rubin Ultra와 일정 맞춤. Infineon과 Si/SiC 3년 공급계약(11/4)</td><td>2027부터 랙당 전력 콘텐츠 증가</td><td>800VDC 점유율이 Eaton·Delta 대비 우위</td><td>매출 인식이 2027 이후 · 별도 공시 없음</td><td>Q4 컨콜 800VDC 수주 언급</td></tr>
+<tr><td><b>grid-to-chip</b></td><td>UIG $1.45B 인수 완료(10/27), 2027E EBITDA 13배</td><td>설계 초기 진입 → 하류 장비 동반 수주</td><td>UIG 2027 EBITDA ≈ $110M 달성 <span class="tag t-ver">검증 필요</span></td><td>규모가 작고 정치 리스크가 가림</td><td>2027 가이던스 내 UIG 기여, earnout 진행</td></tr>
+<tr><td><b>Turnkey/모듈화</b></td><td>OneCore 12.5MW 블록, SmartRun 프리팹</td><td>티켓 사이즈 ↑, 경쟁 입찰 ↓</td><td>프리팹 마진이 단품보다 높음</td><td>마진 공시 없음</td><td>Americas 조정 마진(Q3 29.4%) 유지</td></tr>
+<tr><td><b>주문 2배</b></td><td>Q3 유기적 주문 +100% 이상, 이연수익 $4.12B</td><td>2027 매출 가시성 높음(고객은 12~18개월 전에 발주)</td><td>2026말 backlog ≥ $20B <span class="tag t-ver">검증 필요</span></td><td>분기 공시 중단으로 숫자 확인 불가</td><td><b>2월 10-K 연간 backlog</b>(2025말 $15.0B)</td></tr>
+<tr><td><b>정치 레짐 변화</b>(역풍)</td><td>11/3 민주당 의회 장악, 텍사스 주지사 당선인 데이터센터 모라토리엄 공약. 지역 제한 투표 41건 중 40건 통과</td><td>신규 착공 지연·비용 ↑</td><td>기 수주 프로젝트까지 중단</td><td>이미 −25%(11/4~5 이틀) 반영 = 오히려 과반영 가능</td><td>1월 텍사스 의회 회기, 주별 입법</td></tr>
+</table></div>
+
+<h2><span class="no">3</span>최근 1분기 사건 체인 (C)</h2>
+<div class="chart-card"><div class="chart-header"><h3>주가 경로와 사건 · 10/9–11/6</h3><div class="tabs"><span>Timeframe</span><span class="active">1M</span></div></div>
+<div class="wide"><svg viewBox="0 0 760 250" role="img" xmlns="http://www.w3.org/2000/svg"><line class="grid" x1="30" y1="196.0" x2="700" y2="196.0"/><text class="axis-label" x="708" y="199.5">$160</text><line class="grid" x1="30" y1="163.6" x2="700" y2="163.6"/><text class="axis-label" x="708" y="167.1">$180</text><line class="grid" x1="30" y1="131.2" x2="700" y2="131.2"/><text class="axis-label" x="708" y="134.7">$200</text><line class="grid" x1="30" y1="98.8" x2="700" y2="98.8"/><text class="axis-label" x="708" y="102.3">$220</text><line class="grid" x1="30" y1="66.4" x2="700" y2="66.4"/><text class="axis-label" x="708" y="69.9">$240</text><line class="grid" x1="30" y1="34.0" x2="700" y2="34.0"/><text class="axis-label" x="708" y="37.5">$260</text><polyline points="30.0,61.9 113.8,140.4 197.5,118.9 281.2,63.4 365.0,56.8 448.8,72.9 532.5,122.2 616.2,168.9 700.0,159.0" fill="none" stroke="#5d7285" stroke-width="2.4" stroke-linejoin="round"/><circle cx="30.0" cy="61.9" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="30.0" y="51.9" text-anchor="middle">243</text><text class="axis-label" x="30.0" y="212" text-anchor="middle">10/9</text><circle cx="113.8" cy="140.4" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="113.8" y="130.4" text-anchor="middle">194</text><text class="axis-label" x="113.8" y="212" text-anchor="middle">10/23</text><text x="113.8" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#c95b4a">11일 연속 하락</text><circle cx="197.5" cy="118.9" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="197.5" y="108.9" text-anchor="middle">208</text><text class="axis-label" x="197.5" y="212" text-anchor="middle">10/27</text><text x="197.5" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#6f756e">UIG 인수 완료</text><circle cx="281.2" cy="63.4" r="5" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="281.2" y="53.4" text-anchor="middle">242</text><text class="axis-label" x="281.2" y="212" text-anchor="middle">10/28</text><text x="281.2" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#7f8f68">Q3 서프라이즈 +16.5%</text><circle cx="365.0" cy="56.8" r="5" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="365.0" y="46.8" text-anchor="middle">246</text><text class="axis-label" x="365.0" y="212" text-anchor="middle">10/30</text><circle cx="448.8" cy="72.9" r="5" fill="#fffaf0" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="448.8" y="62.9" text-anchor="middle">236</text><text class="axis-label" x="448.8" y="212" text-anchor="middle">11/3</text><text x="448.8" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#7f8f68">중간선거 +5.2%</text><circle cx="532.5" cy="122.2" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="532.5" y="112.2" text-anchor="middle">206</text><text class="axis-label" x="532.5" y="212" text-anchor="middle">11/4</text><text x="532.5" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#c95b4a">민주당 압승 −12.9%</text><circle cx="616.2" cy="168.9" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="616.2" y="158.9" text-anchor="middle">177</text><text class="axis-label" x="616.2" y="212" text-anchor="middle">11/5</text><text x="616.2" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#c95b4a">AI 투매 −14.0%</text><circle cx="700.0" cy="159.0" r="5" fill="#5d7285" stroke="#5d7285" stroke-width="2"/><text class="bar-label" x="700.0" y="149.0" text-anchor="middle">183</text><text class="axis-label" x="700.0" y="212" text-anchor="middle">11/6</text><text x="700.0" y="227" text-anchor="middle" style="font-size:9px;font-weight:700;fill:#7f8f68">+3.5%</text><text class="axis-label" x="30" y="14">● 확정 종가  ○ 등락률로 역산한 값(추정)</text></svg></div>
+<div class="interp">실적은 기대를 크게 넘었는데(+16.5%) <span class="hl-r">6거래일 만에 상승분을 모두 반납</span>. 원인은 회사가 아니라 정치·섹터 투매. 그만큼 시장이 이 회사를 'AI capex 베타'로만 본다는 증거.</div></div>
+<div class="tbl"><table>
+<tr><th>날짜</th><th>사건</th><th>확정 사실</th><th>가능한 해석</th><th>thesis 영향</th><th>신뢰도</th><th>다음 확인 증거</th></tr>
+<tr><td>7/29</td><td>Q2 실적</td><td>매출 $3.27B(컨센 $3.38B 미스), 공급망 정체. 당일 −17.3%</td><td>수요가 아니라 납기 문제</td><td>중립(−)</td><td><span class="tag t-a">A</span></td><td>Q3 이월 매출 → 확인됨</td></tr>
+<tr><td>9/2</td><td>UIG 인수 발표</td><td>현금 $1.45B + earnout 최대 $1.15B</td><td>전력 상류 진출, 플랫폼화</td><td>+</td><td><span class="tag t-a">A</span></td><td>2027 기여도</td></tr>
+<tr><td>9/24</td><td>KES 인수 발표</td><td>EMEA 유체관리. 금액 비공개·비중요</td><td>서비스 라이프사이클 확장</td><td>+ (소)</td><td><span class="tag t-a">A</span></td><td>서비스 성장률</td></tr>
+<tr><td>10월 초~중순</td><td>목표가 하향·Sell 개시</td><td>GLJ Sell $188, Mizuho·RBC·Evercore 하향. 11일 연속 하락</td><td>실적 전 기대치 리셋</td><td>중립</td><td><span class="tag t-a">A</span></td><td>—</td></tr>
+<tr><td>10/26–27</td><td>KES·UIG 인수 완료</td><td>UIG 현금 $1.45B 지급</td><td>순현금 거의 소진 <span class="tag t-inf">추론</span></td><td>중립</td><td><span class="tag t-a">A</span></td><td>Q4 대차대조표</td></tr>
+<tr><td>10/28</td><td><b>Q3 실적·컨콜</b></td><td>매출 $4.31B(+61%), GAAP EPS $1.95, 조정 $2.21(컨센 $1.82). FY 가이던스 +$650M 상향, 주문 +100%↑, 주문 공시는 계속 안 함. +16.5%</td><td>수요 피크 우려 반박</td><td><b>++</b></td><td><span class="tag t-a">A</span></td><td>Q4 매출 ≥ $4.41B</td></tr>
+<tr><td>10/29</td><td>목표가 상향</td><td>Bernstein $376, RBC $351</td><td>컨센 EPS 상향 사이클</td><td>+</td><td><span class="tag t-a">A</span></td><td>2027 EPS 컨센 이동</td></tr>
+<tr><td>11/2</td><td>Oracle 자금조달</td><td>Oracle 주식 $10B + 채권 $10B 발행 계획</td><td>AI capex 조달 스트레스 신호</td><td>−</td><td><span class="tag t-b">B</span></td><td>하이퍼스케일러 capex 가이던스</td></tr>
+<tr><td>11/3</td><td>중간선거</td><td>Bernstein "정치 리스크 과장". VRT +5.2%</td><td>—</td><td>중립</td><td><span class="tag t-a">A</span></td><td>—</td></tr>
+<tr><td>11/4</td><td>민주당 압승 · Infineon 계약</td><td>VRT −12.9%, Eaton −9.9%, nVent −12.7%. 거래량 평소의 약 2배</td><td>정책 리스크가 섹터 전체로 반영</td><td>− (심리)</td><td><span class="tag t-a">A</span></td><td>텍사스 입법</td></tr>
+<tr><td>11/5</td><td>AI 투매</td><td>S&amp;P −4.4%, 나스닥 −5.5%(조정 진입). VRT −14.0% → $176.73. 10년물 금리 9월 이후 최저</td><td>헤지펀드 2026 수익 확정·포지션 청산 <span class="tag t-inf">추론</span></td><td>− (수급)</td><td><span class="tag t-a">A</span></td><td>자금 흐름 안정</td></tr>
+<tr><td>11/6</td><td>반등</td><td>+3.5% → $182.86, 거래량 9.3M</td><td>투매 일단락 여부 미정</td><td>—</td><td><span class="tag t-a">A</span></td><td>$176 지지 여부</td></tr>
+<tr><td>거시</td><td>금리·고용</td><td>9월 구인 752만 건(예상 상회), 연준 추가 긴축 경계, WTI ~$97</td><td>금리 부담 = 데이터센터 조달비용 ↑</td><td>−</td><td><span class="tag t-b">B</span></td><td>실업률 <span class="tag t-ver">검증 필요</span></td></tr>
+</table></div>
+<p class="note">insider: 최근 1분기 내 대규모 신규 매도는 확인 안 됨 <span class="tag t-ver">검증 필요</span>. 대량 매도는 2026년 2~3월에 집중. short interest는 §6.</p>
+
+<h2><span class="no">4</span>투자자가 반드시 봐야 할 숫자</h2>
+<div class="tbl"><table>
+<tr><th>항목</th><th class="n">FY2024</th><th class="n">FY2025</th><th class="n">Q3'25</th><th class="n">Q4'25</th><th class="n">Q1'26</th><th class="n">Q2'26</th><th class="n">Q3'26</th><th class="n">FY26E(가이던스)</th></tr>
+<tr><td>매출 ($M)</td><td class="n">8,012</td><td class="n">10,230</td><td class="n">2,676</td><td class="n">2,880</td><td class="n">2,650</td><td class="n">3,274</td><td class="n"><b>4,313</b></td><td class="n">14,650</td></tr>
+<tr><td>GAAP 희석 EPS</td><td class="n">1.28</td><td class="n">3.41</td><td class="n">1.02</td><td class="n">1.14</td><td class="n">0.99*</td><td class="n">1.27</td><td class="n"><b>1.95</b></td><td class="n">6.29</td></tr>
+<tr><td>조정 EPS</td><td class="n">2.85</td><td class="n">4.20</td><td class="n">1.24</td><td class="n">1.36</td><td class="n">1.17</td><td class="n">1.52</td><td class="n"><b>2.21</b></td><td class="n">7.15</td></tr>
+<tr><td>매출총이익률</td><td class="n">36.6%</td><td class="n">36.3%</td><td class="n">37.8%</td><td class="n">38.9%</td><td class="n">37.7%</td><td class="n">37.7%</td><td class="n">38.1%</td><td class="n">N/A</td></tr>
+<tr><td>GAAP 영업이익률</td><td class="n">17.1%</td><td class="n">17.9%</td><td class="n">19.3%</td><td class="n">20.1%</td><td class="n">16.6%</td><td class="n">19.5%</td><td class="n">22.8%</td><td class="n">N/A</td></tr>
+<tr><td>조정 영업이익률</td><td class="n">N/A</td><td class="n">20.4%</td><td class="n">22.3%</td><td class="n">23.2%</td><td class="n">20.8%</td><td class="n">22.6%</td><td class="n">25.2%</td><td class="n">23.5–24.5%</td></tr>
+<tr><td>순이익 ($M)</td><td class="n">496</td><td class="n">1,333</td><td class="n">399</td><td class="n">446</td><td class="n">390</td><td class="n">498</td><td class="n">765</td><td class="n">≈2,470 <span class="tag t-inf">추론</span></td></tr>
+<tr><td>조정 FCF ($M)</td><td class="n">1,135</td><td class="n">1,887</td><td class="n">436</td><td class="n">910</td><td class="n">653</td><td class="n">925</td><td class="n">652</td><td class="n">2,600–2,800</td></tr>
+<tr><td>현금 ($M, 기말)</td><td class="n">1,228</td><td class="n">1,728</td><td class="n">—</td><td class="n">1,728</td><td class="n">N/A</td><td class="n">2,811</td><td class="n">3,513</td><td class="n">—</td></tr>
+<tr><td>차입금 ($M)</td><td class="n">2,928</td><td class="n">2,913</td><td class="n">—</td><td class="n">2,913</td><td class="n">N/A</td><td class="n">2,940</td><td class="n">2,929</td><td class="n">—</td></tr>
+<tr><td>희석 주식 수 (M)</td><td class="n">386.3</td><td class="n">390.7</td><td class="n">390.9</td><td class="n">391.7</td><td class="n">392.3*</td><td class="n">392.7</td><td class="n">392.7</td><td class="n">—</td></tr>
+<tr><td>Short interest</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">3.4–3.6% float</td><td class="n">—</td></tr>
+<tr><td>밸류에이션 (11/6)</td><td colspan="8">TTM PER 34.2x(GAAP EPS $5.35) · FY26E 조정 PER 25.6x · FY27E 20.0x · TTM P/S 5.4x · EV/FY27E 매출 ≈ 3.9x <span class="tag t-inf">추론</span> · FCF 수익률 ≈ 3.8%</td></tr>
+</table></div>
+<p class="explain">* Q1 수치는 반기 누적에서 Q2를 빼서 파생. 조정 EPS·조정 FCF는 회사 Non-GAAP. FY2026E 순이익은 GAAP EPS 가이던스 × 희석 주식 수로 계산한 값.</p>
+<div class="grid2">
+<div class="card"><div class="label">매출 증가율 vs EPS 증가율</div><p>Q3 매출 <b>+61%</b> vs GAAP EPS <b>+91%</b>. FY26E 매출 +43% vs EPS +84%. <span class="hl-g">영업 레버리지 + 이자비용 소멸</span>로 EPS가 더 빠름.</p></div>
+<div class="card"><div class="label">EPS 증가율 vs 주식 수 증가율</div><p>EPS +84% vs 주식 수 +0.5%. 희석 반복 가능성 <b>낮음</b>: 투자등급(Baa3/BBB−), 전환사채·ATM 없음. 리스크는 희석이 아니라 <span class="hl-r">현금 M&A·earnout</span>.</p></div>
+</div>
+<p><b>현재 주가가 반영한 것:</b> 매출 성장은 반영. EPS 성장 <b>지속성</b>은 할인(2027E 20배, PEG 약 0.7). 즉 시장은 'FY26이 사이클 정점일 수 있다'에 베팅 중 <span class="tag t-inf">추론</span>.</p>
+<div class="chart-card"><div class="chart-header"><h3>연간 대시보드 · FY2021–FY2026E</h3><div class="tabs"><span>Timeframe</span><span class="active">Annual</span><span>Quarterly</span></div></div>
+<div class="mini-chart-grid"><div class="mini-chart"><h3>GAAP Diluted EPS ($)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="181.4" x2="266" y2="181.4"/><text class="axis-label" x="272" y="184.9">0</text><line class="grid" x1="10" y1="143.6" x2="266" y2="143.6"/><text class="axis-label" x="272" y="147.1">2</text><line class="grid" x1="10" y1="105.7" x2="266" y2="105.7"/><text class="axis-label" x="272" y="109.2">4</text><line class="grid" x1="10" y1="67.9" x2="266" y2="67.9"/><text class="axis-label" x="272" y="71.4">6</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">8</text><rect x="19.0" y="175.2" width="24.7" height="6.2" rx="4" fill="#5d7285"/><text class="bar-label" style="font-size:9.5px" x="31.3" y="170.2" text-anchor="middle">0.33</text><text class="axis-label" style="font-size:9.5px" x="31.3" y="207" text-anchor="middle">2021</text><rect x="61.6" y="181.4" width="24.7" height="1.6" rx="4" fill="#c95b4a"/><text class="bar-label" style="font-size:9.5px" x="74.0" y="194.0" text-anchor="middle">-0.04</text><text class="axis-label" style="font-size:9.5px" x="74.0" y="207" text-anchor="middle">2022</text><rect x="104.3" y="158.9" width="24.7" height="22.5" rx="4" fill="#5d7285"/><text class="bar-label" style="font-size:9.5px" x="116.7" y="153.9" text-anchor="middle">1.19</text><text class="axis-label" style="font-size:9.5px" x="116.7" y="207" text-anchor="middle">2023</text><rect x="147.0" y="157.2" width="24.7" height="24.2" rx="4" fill="#5d7285"/><text class="bar-label" style="font-size:9.5px" x="159.3" y="152.2" text-anchor="middle">1.28</text><text class="axis-label" style="font-size:9.5px" x="159.3" y="207" text-anchor="middle">2024</text><rect x="189.6" y="116.9" width="24.7" height="64.5" rx="4" fill="#5d7285"/><text class="bar-label" style="font-size:9.5px" x="202.0" y="111.9" text-anchor="middle">3.41</text><text class="axis-label" style="font-size:9.5px" x="202.0" y="207" text-anchor="middle">2025</text><rect x="233.5" y="63.6" width="22.3" height="116.6" rx="4" fill="none" stroke="#5d7285" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:9.5px" x="244.7" y="57.4" text-anchor="middle">6.29</text><text class="axis-label" style="font-size:9.5px" x="244.7" y="207" text-anchor="middle">2026E</text><text class="axis-label" x="10" y="13" style="fill:#7f8f68;font-size:9.5px">▲ 2023 흑자전환 · 2022 −0.04는 워런트 회계</text></svg><div class="note">2026E = 회사 가이던스 중간값 $6.29 (outline)</div></div><div class="mini-chart"><h3>Net Sales ($B)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="192.0" x2="266" y2="192.0"/><text class="axis-label" x="272" y="195.5">0</text><line class="grid" x1="10" y1="138.0" x2="266" y2="138.0"/><text class="axis-label" x="272" y="141.5">5</text><line class="grid" x1="10" y1="84.0" x2="266" y2="84.0"/><text class="axis-label" x="272" y="87.5">10</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">15</text><rect x="19.0" y="138.0" width="24.7" height="54.0" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:9px" x="31.3" y="133.0" text-anchor="middle">5.00</text><text class="axis-label" style="font-size:9.5px" x="31.3" y="207" text-anchor="middle">2021</text><rect x="61.6" y="130.5" width="24.7" height="61.5" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:9px" x="74.0" y="125.5" text-anchor="middle">5.69</text><text class="axis-label" style="font-size:9.5px" x="74.0" y="207" text-anchor="middle">2022</text><rect x="104.3" y="117.9" width="24.7" height="74.1" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:9px" x="116.7" y="112.9" text-anchor="middle">6.86</text><text class="axis-label" style="font-size:9.5px" x="116.7" y="207" text-anchor="middle">2023</text><rect x="147.0" y="105.5" width="24.7" height="86.5" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:9px" x="159.3" y="100.5" text-anchor="middle">8.01</text><text class="axis-label" style="font-size:9.5px" x="159.3" y="207" text-anchor="middle">2024</text><rect x="189.6" y="81.5" width="24.7" height="110.5" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:9px" x="202.0" y="76.5" text-anchor="middle">10.23</text><text class="axis-label" style="font-size:9.5px" x="202.0" y="207" text-anchor="middle">2025</text><rect x="233.5" y="35.0" width="22.3" height="155.8" rx="4" fill="none" stroke="#d97941" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:9px" x="244.7" y="28.8" text-anchor="middle">14.65</text><text class="axis-label" style="font-size:9.5px" x="244.7" y="207" text-anchor="middle">2026E</text></svg><div class="note">2026E = 가이던스 중간값 $14.65B (outline)</div></div><div class="mini-chart"><h3>Diluted Wtd. Shares (M)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="192.0" x2="266" y2="192.0"/><text class="axis-label" x="272" y="195.5">0</text><line class="grid" x1="10" y1="151.5" x2="266" y2="151.5"/><text class="axis-label" x="272" y="155.0">100</text><line class="grid" x1="10" y1="111.0" x2="266" y2="111.0"/><text class="axis-label" x="272" y="114.5">200</text><line class="grid" x1="10" y1="70.5" x2="266" y2="70.5"/><text class="axis-label" x="272" y="74.0">300</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">400</text><rect x="19.0" y="46.2" width="24.7" height="145.8" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:8.6px" x="31.3" y="41.2" text-anchor="middle">360.1</text><text class="axis-label" style="font-size:9.5px" x="31.3" y="207" text-anchor="middle">2021</text><rect x="61.6" y="38.8" width="24.7" height="153.2" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:8.6px" x="74.0" y="33.8" text-anchor="middle">378.2</text><text class="axis-label" style="font-size:9.5px" x="74.0" y="207" text-anchor="middle">2022</text><rect x="104.3" y="35.6" width="24.7" height="156.4" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:8.6px" x="116.7" y="30.6" text-anchor="middle">386.2</text><text class="axis-label" style="font-size:9.5px" x="116.7" y="207" text-anchor="middle">2023</text><rect x="147.0" y="35.5" width="24.7" height="156.5" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:8.6px" x="159.3" y="30.5" text-anchor="middle">386.3</text><text class="axis-label" style="font-size:9.5px" x="159.3" y="207" text-anchor="middle">2024</text><rect x="189.6" y="33.8" width="24.7" height="158.2" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:8.6px" x="202.0" y="28.8" text-anchor="middle">390.7</text><text class="axis-label" style="font-size:9.5px" x="202.0" y="207" text-anchor="middle">2025</text><rect x="233.5" y="34.2" width="22.3" height="156.6" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:8.6px" x="244.7" y="28.0" text-anchor="middle">392.6</text><text class="axis-label" style="font-size:9.5px" x="244.7" y="207" text-anchor="middle">2026E</text><text class="axis-label" x="10" y="13" style="fill:#5d7285;font-size:9.5px">2023→9M'26 +1.7% · 희석 미미</text></svg><div class="note">기준: <b>희석 가중평균 주식 수</b>. 2026 = 1~3분기 평균(outline)</div></div></div><div class="legend"><span class="sw" style="background:#5d7285"></span>확정 GAAP EPS<span class="sw" style="background:#c95b4a"></span>음수 EPS<span class="sw" style="background:#d97941"></span>확정 매출<span class="sw" style="background:#5f9ea0"></span>확정 주식 수<span class="sw o"></span>가이던스·추정·MRQ(점선 outline)</div><div class="interp"><ul class="tight"><li>5년간 매출 <span class='hl'>2.9배</span>(4.99→14.65B), GAAP EPS는 0.33→6.29로 <span class='hl'>19배</span>. 주식 수는 +9%에 그침 → EPS가 매출보다 빠른 이유는 마진 레버리지(조정 영업이익률 FY25 20.4% → Q3'26 25.2%)와 이자비용 감소(Q3 순이자 $6.4M, 전년 $22.8M).</li><li>2022 희석 EPS −0.04는 워런트 평가이익을 희석 계산에서 제거한 회계 효과. 기본 EPS는 +0.20 → 영업 적자가 아님.</li><li>EPS 성장률(FY26E +84%) ≫ 주식 수 증가율(+0.5%). <span class='hl-g'>희석이 주주가치를 훼손하는 구조가 아님.</span> 전환사채·ATM 없음.</li><li>'매출↑ EPS 정체' 패턴은 과거에도 없었고 앞으로도 가능성 낮음. 대신 성장 자금을 <b>현금 M&A</b>로 쓰므로 '순현금 소진'이 희석을 대신함.</li><li>다음 실적 확인: <b>2027 가이던스 조정 EPS ≥ $9.5</b>, GAAP–조정 EPS 차이(조건부대가 비용) 축소 여부.</li></ul></div></div>
+<div class="chart-card"><div class="chart-header"><h3>분기 대시보드 · Q4'24–Q4'26E</h3><div class="tabs"><span>Timeframe</span><span>Annual</span><span class="active">Quarterly</span></div></div>
+<div class="mini-chart-grid"><div class="mini-chart"><h3>GAAP Diluted EPS ($)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="192.0" x2="266" y2="192.0"/><text class="axis-label" x="272" y="195.5">0</text><line class="grid" x1="10" y1="138.0" x2="266" y2="138.0"/><text class="axis-label" x="272" y="141.5">1</text><line class="grid" x1="10" y1="84.0" x2="266" y2="84.0"/><text class="axis-label" x="272" y="87.5">2</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">3</text><rect x="16.0" y="171.5" width="16.5" height="20.5" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="24.2" y="166.5" text-anchor="middle">0.38</text><text class="axis-label" style="font-size:8px" x="24.2" y="207" text-anchor="middle">Q4'24</text><rect x="44.4" y="169.3" width="16.5" height="22.7" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="52.7" y="164.3" text-anchor="middle">0.42</text><text class="axis-label" style="font-size:8px" x="52.7" y="207" text-anchor="middle">Q1'25</text><rect x="72.9" y="147.2" width="16.5" height="44.8" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="81.1" y="142.2" text-anchor="middle">0.83</text><text class="axis-label" style="font-size:8px" x="81.1" y="207" text-anchor="middle">Q2'25</text><rect x="101.3" y="136.9" width="16.5" height="55.1" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="109.6" y="131.9" text-anchor="middle">1.02</text><text class="axis-label" style="font-size:8px" x="109.6" y="207" text-anchor="middle">Q3'25</text><rect x="129.8" y="130.4" width="16.5" height="61.6" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="138.0" y="125.4" text-anchor="middle">1.14</text><text class="axis-label" style="font-size:8px" x="138.0" y="207" text-anchor="middle">Q4'25</text><rect x="158.2" y="138.5" width="16.5" height="53.5" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="166.4" y="133.5" text-anchor="middle">0.99</text><text class="axis-label" style="font-size:8px" x="166.4" y="207" text-anchor="middle">Q1'26</text><rect x="186.6" y="123.4" width="16.5" height="68.6" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="194.9" y="118.4" text-anchor="middle">1.27</text><text class="axis-label" style="font-size:8px" x="194.9" y="207" text-anchor="middle">Q2'26</text><rect x="215.1" y="86.7" width="16.5" height="105.3" rx="4" fill="#7f8f68"/><text class="bar-label" style="font-size:8.5px" x="223.3" y="81.7" text-anchor="middle">1.95</text><text class="axis-label" style="font-size:8px" x="223.3" y="207" text-anchor="middle">Q3'26</text><rect x="244.7" y="80.9" width="14.1" height="109.9" rx="4" fill="none" stroke="#7f8f68" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:8.5px" x="251.8" y="74.7" text-anchor="middle">2.08</text><text class="axis-label" style="font-size:8px" x="251.8" y="207" text-anchor="middle">Q4'26E</text><text class="axis-label" x="10" y="13" style="fill:#7f8f68;font-size:9.5px">분기 적자 없음 · 8분기 EPS 5.1배</text></svg><div class="note">Q4'26E = 가이던스 중간값 $2.08</div></div><div class="mini-chart"><h3>Net Sales ($B)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="192.0" x2="266" y2="192.0"/><text class="axis-label" x="272" y="195.5">0</text><line class="grid" x1="10" y1="138.0" x2="266" y2="138.0"/><text class="axis-label" x="272" y="141.5">2</text><line class="grid" x1="10" y1="84.0" x2="266" y2="84.0"/><text class="axis-label" x="272" y="87.5">4</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">6</text><rect x="16.0" y="128.6" width="16.5" height="63.4" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="24.2" y="123.6" text-anchor="middle">2.35</text><text class="axis-label" style="font-size:8px" x="24.2" y="207" text-anchor="middle">Q4'24</text><rect x="44.4" y="136.9" width="16.5" height="55.1" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="52.7" y="131.9" text-anchor="middle">2.04</text><text class="axis-label" style="font-size:8px" x="52.7" y="207" text-anchor="middle">Q1'25</text><rect x="72.9" y="120.7" width="16.5" height="71.3" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="81.1" y="115.7" text-anchor="middle">2.64</text><text class="axis-label" style="font-size:8px" x="81.1" y="207" text-anchor="middle">Q2'25</text><rect x="101.3" y="119.6" width="16.5" height="72.4" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="109.6" y="114.6" text-anchor="middle">2.68</text><text class="axis-label" style="font-size:8px" x="109.6" y="207" text-anchor="middle">Q3'25</text><rect x="129.8" y="114.2" width="16.5" height="77.8" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="138.0" y="109.2" text-anchor="middle">2.88</text><text class="axis-label" style="font-size:8px" x="138.0" y="207" text-anchor="middle">Q4'25</text><rect x="158.2" y="120.5" width="16.5" height="71.5" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="166.4" y="115.5" text-anchor="middle">2.65</text><text class="axis-label" style="font-size:8px" x="166.4" y="207" text-anchor="middle">Q1'26</text><rect x="186.6" y="103.7" width="16.5" height="88.3" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="194.9" y="98.7" text-anchor="middle">3.27</text><text class="axis-label" style="font-size:8px" x="194.9" y="207" text-anchor="middle">Q2'26</text><rect x="215.1" y="75.6" width="16.5" height="116.4" rx="4" fill="#d97941"/><text class="bar-label" style="font-size:8.5px" x="223.3" y="70.6" text-anchor="middle">4.31</text><text class="axis-label" style="font-size:8px" x="223.3" y="207" text-anchor="middle">Q3'26</text><rect x="244.7" y="74.1" width="14.1" height="116.7" rx="4" fill="none" stroke="#d97941" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:8.5px" x="251.8" y="67.9" text-anchor="middle">4.41</text><text class="axis-label" style="font-size:8px" x="251.8" y="207" text-anchor="middle">Q4'26E</text><text class="axis-label" x="10" y="13" style="fill:#c95b4a;font-size:9.5px">Q4'26E 가이던스 = QoQ +2% (성장 둔화 착시)</text></svg><div class="note">Q4'26E = 가이던스 중간값 $4.41B</div></div><div class="mini-chart"><h3>Diluted Wtd. Shares (M)</h3><svg viewBox="0 0 320 232" role="img" xmlns="http://www.w3.org/2000/svg"><line class="zero" x1="10" y1="192.0" x2="266" y2="192.0"/><text class="axis-label" x="272" y="195.5">0</text><line class="grid" x1="10" y1="151.5" x2="266" y2="151.5"/><text class="axis-label" x="272" y="155.0">100</text><line class="grid" x1="10" y1="111.0" x2="266" y2="111.0"/><text class="axis-label" x="272" y="114.5">200</text><line class="grid" x1="10" y1="70.5" x2="266" y2="70.5"/><text class="axis-label" x="272" y="74.0">300</text><line class="grid" x1="10" y1="30.0" x2="266" y2="30.0"/><text class="axis-label" x="272" y="33.5">400</text><rect x="16.7" y="35.5" width="18.6" height="156.5" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="26.0" y="30.5" text-anchor="middle">386.5</text><text class="axis-label" style="font-size:7.6px" x="26.0" y="207" text-anchor="middle">Q4'24</text><rect x="48.7" y="34.0" width="18.6" height="158.0" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="58.0" y="29.0" text-anchor="middle">390.2</text><text class="axis-label" style="font-size:7.6px" x="58.0" y="207" text-anchor="middle">Q1'25*</text><rect x="80.7" y="34.1" width="18.6" height="157.9" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="90.0" y="29.1" text-anchor="middle">389.8</text><text class="axis-label" style="font-size:7.6px" x="90.0" y="207" text-anchor="middle">Q2'25</text><rect x="112.7" y="33.7" width="18.6" height="158.3" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="122.0" y="28.7" text-anchor="middle">390.9</text><text class="axis-label" style="font-size:7.6px" x="122.0" y="207" text-anchor="middle">Q3'25</text><rect x="144.7" y="33.4" width="18.6" height="158.6" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="154.0" y="28.4" text-anchor="middle">391.7</text><text class="axis-label" style="font-size:7.6px" x="154.0" y="207" text-anchor="middle">Q4'25</text><rect x="176.7" y="33.1" width="18.6" height="158.9" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="186.0" y="28.1" text-anchor="middle">392.3</text><text class="axis-label" style="font-size:7.6px" x="186.0" y="207" text-anchor="middle">Q1'26*</text><rect x="208.7" y="33.0" width="18.6" height="159.0" rx="4" fill="#5f9ea0"/><text class="bar-label" style="font-size:7.6px" x="218.0" y="28.0" text-anchor="middle">392.7</text><text class="axis-label" style="font-size:7.6px" x="218.0" y="207" text-anchor="middle">Q2'26</text><rect x="241.9" y="34.2" width="16.2" height="156.6" rx="4" fill="none" stroke="#5f9ea0" stroke-width="2.4" stroke-dasharray="4 2.5"/><text class="bar-label" style="font-size:7.6px" x="250.0" y="28.0" text-anchor="middle">392.7</text><text class="axis-label" style="font-size:7.6px" x="250.0" y="207" text-anchor="middle">Q3'26</text><text class="axis-label" x="10" y="13" style="fill:#5d7285;font-size:9.5px">8분기 +1.6% · buyback 없음</text></svg><div class="note">기준: <b>희석 가중평균</b>. *Q1은 반기−Q2로 파생. Q3'26 = MRQ(outline)</div></div></div><div class="legend"><span class="sw" style="background:#5d7285"></span>확정 GAAP EPS<span class="sw" style="background:#c95b4a"></span>음수 EPS<span class="sw" style="background:#d97941"></span>확정 매출<span class="sw" style="background:#5f9ea0"></span>확정 주식 수<span class="sw o"></span>가이던스·추정·MRQ(점선 outline)</div><div class="interp"><ul class="tight"><li>8분기 매출 <span class='hl'>+84%</span>, GAAP EPS <span class='hl'>5.1배</span>, 주식 수 +1.6% → EPS 성장이 희석을 압도.</li><li>Q3 매출 $4.31B 중 <span class='hl-r'>$100–150M은 Q2에서 밀린 매출</span>(CFO 확인). Q3 서프라이즈의 일부는 timing.</li><li>Q4 가이던스 $4.41B는 <span class='hl-r'>전분기 대비 +2%</span>. 연간 +50%여도 차트상 '성장 둔화'로 보일 수 있음 → 2월 실적 때 시장이 '피크'로 오해할 위험.</li><li>다음 확인: Q4 매출 ≥ $4.5B, 조정 영업이익률 ≥ 26%, <b>이연수익(고객 선수금) 증가 지속</b>.</li></ul></div></div>
+
+<h2><span class="no">5</span>고객 · 파트너 · 생태계</h2>
+<div class="chart-card"><div class="chart-header"><h3>생태계 관계도</h3><div class="tabs"><span>Timeframe</span><span class="active">현재</span></div></div><div class="wide"><svg viewBox="0 0 760 430" role="img" xmlns="http://www.w3.org/2000/svg"><line x1="380" y1="215" x2="110" y2="60" stroke="#d97941" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="380" y2="40" stroke="#7f8f68" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="650" y2="60" stroke="#d97941" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="80" y2="215" stroke="#d97941" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="680" y2="215" stroke="#5d7285" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="110" y2="370" stroke="#5f9ea0" stroke-width="2" opacity="0.75"/><line x1="380" y1="215" x2="380" y2="392" stroke="#c95b4a" stroke-width="2" stroke-dasharray="5 4" opacity="0.75"/><line x1="380" y1="215" x2="650" y2="370" stroke="#5d7285" stroke-width="2" opacity="0.75"/><circle cx="380" cy="215" r="74" fill="#243036"/><text x="380" y="201" text-anchor="middle" style="fill:#fffaf0;font-size:22px;font-weight:900">VRT</text><text x="380" y="223" text-anchor="middle" style="fill:#fffaf0;font-size:11px;font-weight:700">grid → chip</text><text x="380" y="239" text-anchor="middle" style="fill:#fffaf0;font-size:11px;font-weight:700">전력·냉각·서비스</text><rect x="25.0" y="36" width="170" height="48" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2.2"/><text x="110" y="56" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">하이퍼스케일러</text><text x="110" y="73" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">직접 고객 · 일부 내재화</text><rect x="295.0" y="16" width="170" height="48" rx="12" fill="#fffaf0" stroke="#7f8f68" stroke-width="2.2"/><text x="380" y="36" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">NVIDIA</text><text x="380" y="53" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">레퍼런스 디자인 파트너</text><rect x="565.0" y="36" width="170" height="48" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2.2"/><text x="650" y="56" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">코로케이션</text><text x="650" y="73" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">EdgeConneX 등 직접 고객</text><rect x="-5.0" y="191" width="170" height="48" rx="12" fill="#fffaf0" stroke="#d97941" stroke-width="2.2"/><text x="80" y="211" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">네오클라우드</text><text x="80" y="228" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">고객군 존재(이름 미확인)</text><rect x="595.0" y="191" width="170" height="48" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2.2"/><text x="680" y="211" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Infineon</text><text x="680" y="228" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">Si/SiC 3년 공급</text><rect x="25.0" y="346" width="170" height="48" rx="12" fill="#fffaf0" stroke="#5f9ea0" stroke-width="2.2"/><text x="110" y="366" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">인수 자산</text><text x="110" y="383" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">UIG · KES · PurgeRite 외</text><rect x="295.0" y="368" width="170" height="48" rx="12" fill="#fffaf0" stroke="#c95b4a" stroke-width="2.2"/><text x="380" y="388" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">경쟁사</text><text x="380" y="405" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">Schneider · Eaton · nVent</text><rect x="565.0" y="346" width="170" height="48" rx="12" fill="#fffaf0" stroke="#5d7285" stroke-width="2.2"/><text x="650" y="366" text-anchor="middle" style="font-size:13px;font-weight:800;fill:#243036">Caterpillar · PNY</text><text x="650" y="383" text-anchor="middle" style="font-size:10px;font-weight:600;fill:#6f756e">온사이트 전력 / EMEA 유통</text></svg></div>
+<div class="legend"><span class="sw" style="background:#d97941"></span>고객<span class="sw" style="background:#7f8f68"></span>설계 파트너<span class="sw" style="background:#5d7285"></span>공급·유통<span class="sw" style="background:#5f9ea0"></span>인수<span class="sw" style="background:#c95b4a"></span>경쟁(점선)</div></div>
+<div class="tbl"><table>
+<tr><th>구분</th><th>이름</th><th>관계</th><th>확정 근거</th><th>투자적 의미</th><th>신뢰도</th><th>반대 근거</th></tr>
+<tr><td>직접 고객</td><td>하이퍼스케일러(AWS·MS·Google·Meta 후보)</td><td>대형 프로젝트 구매자</td><td>Americas Q3 +75%, 하이퍼스케일·코로가 주문 주도(Q4'25 보도자료). 개별 고객명 미공시</td><td>수요의 핵심 동력</td><td><span class="tag t-b">B</span></td><td><span class="hl-r">AWS 자체 냉각 IRHX(2025), MS 마이크로플루이딕</span> → 내재화</td></tr>
+<tr><td>직접 고객</td><td>EdgeConneX</td><td>코로케이션 파트너</td><td>Q3 컨콜에서 협력사로 언급</td><td>코로 채널 확인</td><td><span class="tag t-b">B</span></td><td>계약 규모 비공개</td></tr>
+<tr><td>직접 고객</td><td>네오클라우드(CoreWeave 등 후보)</td><td>GPU 클라우드 구축</td><td>경영진 "네오클라우드를 빼도 주문은 강하다" → 고객군 존재 확인, 이름은 미확인</td><td>보유 중인 CRWV와 상관관계 ↑ <span class="tag t-inf">추론</span></td><td><span class="tag t-c">C</span></td><td>신용 리스크·자금조달 의존</td></tr>
+<tr><td>간접 고객</td><td>Oracle 등 AI capex 발주처</td><td>수요 원천</td><td>VRT 고객 여부 미확인</td><td>capex 조달 스트레스 = 수요 리스크</td><td><span class="tag t-c">C</span></td><td>관련성 낮음·검증 필요</td></tr>
+<tr><td>최종 수혜</td><td>AI 모델 기업·엔터프라이즈</td><td>최종 연산 수요</td><td>—</td><td>장기 수요 기반</td><td><span class="tag t-c">C</span></td><td>관련성 낮음</td></tr>
+<tr><td>핵심 파트너</td><td>NVIDIA</td><td>DSX 레퍼런스 디자인·800VDC</td><td>3/16 OneCore Rubin DSX 발표, Rubin Ultra 2027 일정 정렬</td><td><span class="hl">spec-in = lock-in 핵심</span></td><td><span class="tag t-a">A</span></td><td>NVIDIA는 고객이 아님, 다수 벤더와 협력</td></tr>
+<tr><td>핵심 공급</td><td>Infineon</td><td>Si/SiC 전력반도체 3년 공급</td><td>11/4 계약(비독점, 멀티벤더)</td><td>800VDC 생산 병목 완화</td><td><span class="tag t-a">A</span></td><td>물량·금액 비공개</td></tr>
+<tr><td>파트너</td><td>Caterpillar / PNY</td><td>온사이트 전력 모듈 / EMEA 유통</td><td>2025 협력 발표</td><td>채널 확대</td><td><span class="tag t-b">B</span></td><td>매출 기여 불명</td></tr>
+<tr><td>인수 자산</td><td>UIG · KES · PurgeRite · ThermoKey · Bmarko · Strategic Thermal Labs</td><td>상류 전력·서비스·냉각</td><td>인수 기여 Q3 성장의 약 6%p</td><td>플랫폼화</td><td><span class="tag t-a">A</span></td><td>통합 리스크·earnout 현금 유출</td></tr>
+<tr><td>관련 대기업</td><td>Schneider · Eaton · nVent · GE Vernova</td><td>경쟁/동종</td><td>11/4 동반 급락</td><td>섹터 동조화 → 개별 알파 희석</td><td><span class="tag t-a">A</span></td><td>—</td></tr>
+</table></div>
+<p class="note">익명 고객은 단정하지 않음. 2023 10-K는 대형 고객이 고객 기반의 '상당 부분'이라고만 밝힘. 단일 고객 10% 초과 여부는 FY2025 10-K에서 <span class="tag t-ver">검증 필요</span>.</p>
+
+<h2><span class="no">6</span>자본구조 · 수급 (D)</h2>
+<div class="tbl"><table>
+<tr><th>항목</th><th>수치</th><th>해석</th></tr>
+<tr><td>발행주식 / 희석 주식</td><td>385.06M / 392.7M(Q3 희석 가중평균)</td><td>옵션·RSU 희석분 약 7.6M(≈2%) <span class="tag t-inf">추론</span></td></tr>
+<tr><td>현금·단기투자 / 차입</td><td>$3.71B / $2.93B (9/30)</td><td>순현금 $0.78B → UIG 지급 후 ≈ −$0.67B 순차입 <span class="tag t-inf">추론</span></td></tr>
+<tr><td>부채 구조</td><td>2026.3 선순위 무담보채 $2.1B 발행, 기간대출 상환. 리볼버 $2.5B. Moody's Baa3 / S&amp;P BBB−</td><td>투자등급 → 조달 리스크 낮음</td></tr>
+<tr><td>전환사채</td><td>없음 <span class="tag t-fact">확정</span></td><td>희석 트리거 없음</td></tr>
+<tr><td>ATM / shelf</td><td>ATM 확인 안 됨, 2025–26 자사주 매입 없음(2024년 $600M)</td><td>shelf 존재 여부 <span class="tag t-ver">검증 필요</span></td></tr>
+<tr><td>warrant / option / RSU</td><td>옵션·RSU 소규모. 워런트 잔존 영향은 2026 실적에서 확인 안 됨 <span class="tag t-ver">검증 필요</span></td><td>연 +0.5% 내외 희석</td></tr>
+<tr><td>earnout(조건부대가)</td><td>UIG 최대 $1.15B 현금 · 9M 조건부대가 비용 $96M</td><td><span class="hl-r">GAAP EPS를 깎는 숨은 항목</span></td></tr>
+<tr><td>insider 보유</td><td>2.63%. 12개월 매수 0건, 2~3월 대량 매도</td><td>경영진 동행 신호 약함</td></tr>
+<tr><td>기관 보유</td><td>약 89.9%</td><td>헤지펀드 포지션 정리 시 하락 증폭</td></tr>
+<tr><td>Short interest</td><td>약 14.4M주, float의 3.4–3.6%, 상환일수 1.9–3.1일, 대차비용 0.46%</td><td><span class="hl-g">squeeze 연료 없음</span></td></tr>
+<tr><td>옵션</td><td>P/C 0.79–1.17(스냅샷별 상이)</td><td><span class="tag t-ver">검증 필요</span></td></tr>
+<tr><td>거래량 급증 원인</td><td>11/4 평소의 약 2배, 11/6 9.3M(10일 평균 10.2M)</td><td>정치 이벤트 + 섹터 청산. 회사 고유 악재 없음</td></tr>
+</table></div>
+<h3>최근 주가 움직임 분해</h3>
+<div class="tbl"><table>
+<tr><th>구간</th><th class="n">주가</th><th class="n">FY26 조정 EPS 기대</th><th class="n">선행 PER</th><th>분해</th></tr>
+<tr><td>5/14 고점</td><td class="n">$376.23</td><td class="n">$6.35(4월 가이던스)</td><td class="n">59x</td><td>—</td></tr>
+<tr><td>10/27 실적 전</td><td class="n">$207.59</td><td class="n">$6.70</td><td class="n">31x</td><td>—</td></tr>
+<tr><td>11/6</td><td class="n">$182.86</td><td class="n">$7.15</td><td class="n">25.6x</td><td>—</td></tr>
+<tr class="sum"><td>10/27→11/6</td><td class="n">−11.9%</td><td class="n">+6.7%</td><td class="n">−17.4%</td><td><b>펀더멘털 +, 멀티플 −</b>. short covering 0, 증자 부담 0</td></tr>
+<tr class="sum"><td>5/14→11/6</td><td class="n">−51.4%</td><td class="n">+12.6%</td><td class="n">−56.8%</td><td>하락의 <span class="hl">100% 이상이 멀티플 압축</span></td></tr>
+</table></div>
+<p class="explain">PER = 주가 ÷ 당시 FY26 조정 EPS 가이던스 중간값. (1+EPS 변화) × (1+PER 변화) = 1+주가 변화.</p>
+
+<h2><span class="no">7</span>밸류에이션과 목표가</h2>
+<div class="chart-card"><div class="chart-header"><h3>Valuation Bridge · 12개월</h3><div class="tabs"><span>Timeframe</span><span class="active">12M</span></div></div>
+<div class="wide"><svg viewBox="0 0 760 330" role="img" xmlns="http://www.w3.org/2000/svg"><line class="grid" x1="150.0" y1="20" x2="150.0" y2="302"/><text class="axis-label" x="150.0" y="318" text-anchor="middle">$0</text><line class="grid" x1="217.5" y1="20" x2="217.5" y2="302"/><text class="axis-label" x="217.5" y="318" text-anchor="middle">$50</text><line class="grid" x1="285.0" y1="20" x2="285.0" y2="302"/><text class="axis-label" x="285.0" y="318" text-anchor="middle">$100</text><line class="grid" x1="352.5" y1="20" x2="352.5" y2="302"/><text class="axis-label" x="352.5" y="318" text-anchor="middle">$150</text><line class="grid" x1="420.0" y1="20" x2="420.0" y2="302"/><text class="axis-label" x="420.0" y="318" text-anchor="middle">$200</text><line class="grid" x1="487.5" y1="20" x2="487.5" y2="302"/><text class="axis-label" x="487.5" y="318" text-anchor="middle">$250</text><line class="grid" x1="555.0" y1="20" x2="555.0" y2="302"/><text class="axis-label" x="555.0" y="318" text-anchor="middle">$300</text><line class="grid" x1="622.5" y1="20" x2="622.5" y2="302"/><text class="axis-label" x="622.5" y="318" text-anchor="middle">$350</text><line class="grid" x1="690.0" y1="20" x2="690.0" y2="302"/><text class="axis-label" x="690.0" y="318" text-anchor="middle">$400</text><line x1="396.9" y1="16" x2="396.9" y2="302" stroke="#5d7285" stroke-width="1.6" stroke-dasharray="3 3"/><text x="138" y="47" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">하방 리스크</text><text x="138" y="61" text-anchor="end" class="axis-label">2027E EPS $7.70 × 17.5x</text><rect x="150" y="32" width="182.2" height="26" rx="6" fill="#c95b4a"/><text x="340.2" y="50" style="font-size:13px;font-weight:800;fill:#243036">$135 <tspan style="fill:#c95b4a;font-size:11.5px">-26%</tspan></text><text x="138" y="93" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">보수적 내재가치</text><text x="138" y="107" text-anchor="end" class="axis-label">2027E EPS $8.50 × 20x</text><rect x="150" y="78" width="229.5" height="26" rx="6" fill="#7f8f68"/><text x="387.5" y="96" style="font-size:13px;font-weight:800;fill:#243036">$170 <tspan style="fill:#c95b4a;font-size:11.5px">-7%</tspan></text><text x="138" y="139" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">현재 주가</text><text x="138" y="153" text-anchor="end" class="axis-label">11/6 종가</text><rect x="150" y="124" width="246.9" height="26" rx="6" fill="#5d7285"/><text x="404.9" y="142" style="font-size:13px;font-weight:800;fill:#243036">$182.86 <tspan style="fill:#7f8f68;font-size:11.5px">기준</tspan></text><text x="138" y="185" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">12M base</text><text x="138" y="199" text-anchor="end" class="axis-label">2027E $9.30 × 25x</text><rect x="150" y="170" width="310.5" height="26" rx="6" fill="#d97941"/><text x="468.5" y="188" style="font-size:13px;font-weight:800;fill:#243036">$230 <tspan style="fill:#7f8f68;font-size:11.5px">+26%</tspan></text><text x="138" y="231" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">bull</text><text x="138" y="245" text-anchor="end" class="axis-label">2027E $10.20 × 30x</text><rect x="150" y="216" width="411.8" height="26" rx="6" fill="#b86432"/><text x="569.8" y="234" style="font-size:13px;font-weight:800;fill:#243036">$305 <tspan style="fill:#7f8f68;font-size:11.5px">+67%</tspan></text><text x="138" y="277" text-anchor="end" style="font-size:13px;font-weight:800;fill:#243036">overshoot</text><text x="138" y="291" text-anchor="end" class="axis-label">5월 멀티플 회귀 (수급·심리)</text><rect x="151.5" y="263.5" width="496.5" height="23" rx="6" fill="none" stroke="#b86432" stroke-width="2.5" stroke-dasharray="7 4"/><text x="657.5" y="280" style="font-size:13px;font-weight:800;fill:#243036">$370 <tspan style="fill:#7f8f68;font-size:11.5px">+102%</tspan></text><text x="400.9" y="14" class="axis-label" style="fill:#5d7285">현재가 $182.86</text></svg></div>
+<div class="legend"><span class="sw" style="background:#c95b4a"></span>하방<span class="sw" style="background:#7f8f68"></span>보수적 가치<span class="sw" style="background:#5d7285"></span>현재가<span class="sw" style="background:#d97941"></span>base<span class="sw" style="background:#b86432"></span>bull<span class="sw o"></span>overshoot. 희석 주식 수 395M 가정(현 392.7M + 연 0.5%).</div>
+<div class="interp"><ul class="tight">
+<li>현재가 $182.86은 보수적 내재가치 $170보다 <span class="hl">+7.6%</span> 위. 안전마진은 크지 않지만 프리미엄도 거의 없음.</li>
+<li>시장은 2027E 컨센서스 조정 EPS(~$9.1–9.2)에 <b>약 20배</b>만 줌. 매출 성장은 반영, <span class="hl-r">EPS 성장의 지속성은 할인</span> → <b>bear와 base 사이를 사는 가격</b>. bull은 반영 안 됨.</li>
+<li>overshoot $370은 펀더멘털 목표가가 아님. 5월 고점 멀티플(선행 50배대) 회귀 = 심리·모멘텀. <span class="hl-g">short squeeze 아님</span>(공매도 float 3.4–3.6%, 상환일수 ~2일).</li>
+<li>실적 전: <b>$165–185 분할 매수</b>, <span class="hl-r">$215 이상 추격 금지</span>. 실적 후: 2027 가이던스 확인 시 $190–215 3차 매수, <b>$230 도달 시 1/3 차익</b>.</li></ul></div></div>
+<div class="tbl"><table>
+<tr><th>시나리오</th><th class="n">목표가</th><th>적용 EPS/매출/FCF</th><th>멀티플</th><th>희석 주식</th><th class="n">확률</th><th>촉매</th><th>실패 조건</th><th>행동</th></tr>
+<tr><td>하방 리스크</td><td class="n">$135</td><td>2027E 조정 EPS $7.70(+8%)</td><td>17.5x</td><td>395M</td><td class="n">25%</td><td>텍사스 모라토리엄 입법, capex 소화기</td><td>—</td><td>$145 주간 종가 이탈 시 50% 축소</td></tr>
+<tr><td>보수적 내재가치</td><td class="n">$170</td><td>2027E EPS $8.50 / FCF ≈ $3.3B</td><td>20x EPS · 5% FCF 수익률</td><td>395M</td><td class="n">—</td><td>기준선</td><td>—</td><td>이 아래는 2차 매수 구간</td></tr>
+<tr><td><b>12M base</b></td><td class="n"><b>$230</b></td><td>2027E 매출 ~$18.5B, EPS $9.30</td><td>25x(=2028E $11×21x)</td><td>395M</td><td class="n">45%</td><td>2월 2027 가이던스 ≥ 컨센</td><td>2027 매출 가이던스 &lt; $17.5B</td><td>1/3 차익</td></tr>
+<tr><td>bull</td><td class="n">$305</td><td>EPS $10.20(800VDC·UIG·주문 2배)</td><td>30x</td><td>395M</td><td class="n">22%</td><td>backlog ≥ $20B, 마진 26%+</td><td>품질 충당금 증가</td><td>추가 1/3 차익</td></tr>
+<tr><td>overshoot</td><td class="n">$370</td><td>EPS $10.20</td><td>36x(5월 수준)</td><td>395M</td><td class="n">8%</td><td>AI 랠리 재점화(심리)</td><td>펀더멘털 아님</td><td>잔여분 트레일링 스톱</td></tr>
+<tr><td>실적 전 trading</td><td class="n">$215</td><td>FY26 EPS $7.15</td><td>30x(10월 말 수준)</td><td>393M</td><td class="n">—</td><td>정치 공포 진정, 섹터 반등</td><td>$176 이탈</td><td>$215 이상 신규 매수 금지</td></tr>
+<tr><td>실적 후 재평가</td><td class="n">$250 / $160</td><td>2027 가이던스 EPS ≥ $9.5 / &lt; $8.5</td><td>26x / 19x</td><td>395M</td><td class="n">—</td><td>2월 중순 4Q 실적·10-K</td><td>가이던스 미달</td><td>상단 시 3차 매수, 하단 시 축소</td></tr>
+</table></div>
+<p class="explain">확률가중 12M 목표 = 0.25×135 + 0.45×230 + 0.22×305 + 0.08×370 ≈ <b>$234 (+28%)</b>. 목표가는 모두 이 보고서의 모델 추정 <span class="tag t-inf">추론</span>. 참고: 컨센 목표가 평균 약 $320대, Bernstein $376, RBC $351, GLJ $187(Sell).</p>
+
+<h2><span class="no">8</span>반대 thesis · 실적 전후 계획 · 리스크 트리거 · 실행안</h2>
+<h3>E. 반대 thesis (bull과 같은 강도로)</h3>
+<div class="grid3">
+<div class="card"><div class="label">연결이 우연일 가능성</div><p>NVIDIA 협력·800VDC·UIG는 각각 사실이지만, NVIDIA는 Eaton·Schneider 등 다수와 같은 협력을 함. '레퍼런스 디자인 = lock-in'은 <span class="tag t-inf">추론</span>일 뿐 독점 근거 없음.</p></div>
+<div class="card"><div class="label">고객·계약 과대평가</div><p>AWS는 이미 자체 냉각 장비로 Vertiv를 우회한 전례. 주문 +100%는 검증 불가(공시 중단). 네오클라우드 주문은 신용 사이클에 취약.</p></div>
+<div class="card"><div class="label">매출↑ EPS 정체 가능성</div><p>희석은 아니지만 <b>조건부대가·인수 상각·품질 비용</b>으로 GAAP EPS가 꺾일 수 있음. Q4 가이던스 GAAP $2.08 vs 조정 $2.25 차이가 확대 중.</p></div>
+<div class="card"><div class="label">금리·실업·신용 악화</div><p>연준 추가 긴축 경계 + AI capex의 부채·증자 의존(Oracle $20B). 조달비용 ↑ → 착공 지연.</p></div>
+<div class="card"><div class="label">squeeze 후 급락?</div><p>공매도 3.5%라 squeeze형 급등·급락은 아님. 대신 <span class="hl-r">기관 89.9% 보유 → 포지션 청산형 급락</span>(11/4~5 −25%)이 실제 리스크.</p></div>
+<div class="card"><div class="label">M&A 기대 과열</div><p>2026 인수 6건. UIG는 2027E EBITDA 13배 + earnout. 성장의 6%p가 인수 → 유기 성장 둔화를 M&A로 가릴 위험.</p></div>
+</div>
+
+<h3>실적 전후 행동 계획 (다음 실적: 2027년 2월 중순 예상, 날짜 미발표 <span class="tag t-ver">검증 필요</span>)</h3>
+<div class="tbl"><table>
+<tr><th>질문</th><th>답</th></tr>
+<tr><td>실적 전 기대치는 얼마나 반영?</td><td>Q4 가이던스 조정 EPS $2.25 > 컨센 $2.21 → Q4 자체는 반영 완료. <b>2027 가이던스</b>는 컨센(매출 ~$18.2B, EPS ~$9.1–9.2)이 기준선. 주가는 이보다 낮은 기대를 반영 중 <span class="tag t-inf">추론</span>.</td></tr>
+<tr><td>실적 전 매수해도 되나?</td><td><b>1/3만.</b> 멀티플이 이미 크게 눌렸고 정치 악재가 선반영됨. 나머지는 확인 후.</td></tr>
+<tr><td>beat만으로 충분?</td><td><span class="hl-r">아니오.</span> Q3도 beat+raise였는데 6거래일 만에 반납.</td></tr>
+<tr><td>필요한 것</td><td><b>beat + 2027 가이던스 ≥ 컨센 + 연간 backlog 공개치</b>. 이 셋이 모여야 멀티플이 회복됨.</td></tr>
+<tr><td>오를 숫자</td><td>2027 매출 가이던스 ≥ $18.5B · 조정 영업이익률 ≥ 26% · 10-K backlog ≥ $20B · 이연수익 증가</td></tr>
+<tr><td>빠질 숫자</td><td>2027 매출 &lt; $17.5B · 보증충당금 급증 · 재고↑ & 이연수익↓ · FCF 전환율 &lt; 80% · "프로젝트 지연" 표현</td></tr>
+</table></div>
+
+<h3>Thesis Break Trigger</h3>
+<div class="tbl"><table>
+<tr><th>리스크</th><th>thesis가 깨지는 지표</th><th class="n">시장 반영 가격</th><th>확인 시점</th><th>대응</th></tr>
+<tr><td>매출 성장 둔화</td><td>2027 유기 성장 가이던스 &lt; 18%</td><td class="n">$150</td><td>2월</td><td>50% 축소</td></tr>
+<tr><td>EPS 정체</td><td>조정 영업이익률 2분기 연속 &lt; 24%</td><td class="n">$160</td><td>매 분기</td><td>추가 매수 중단</td></tr>
+<tr><td>주식 수 희석</td><td>희석 주식 &gt; 400M 또는 증자</td><td class="n">—</td><td>10-Q</td><td>재평가</td></tr>
+<tr><td>현금 소진</td><td>순차입 &gt; 1× EBITDA, FCF 전환 &lt; 80%</td><td class="n">$165</td><td>10-K</td><td>비중 1%로</td></tr>
+<tr><td>고객 집중</td><td>10% 초과 고객 공시 or 하이퍼스케일러 내재화 확대</td><td class="n">$160</td><td>10-K·뉴스</td><td>1/3 축소</td></tr>
+<tr><td>경쟁사 대체</td><td>Americas 조정 마진 &lt; 27%</td><td class="n">$165</td><td>매 분기</td><td>1/3 축소</td></tr>
+<tr><td>금리·실업·신용</td><td>10년물 &gt; 5%, HY 스프레드 급등, AI 기업 증자 연쇄</td><td class="n">$150</td><td>상시</td><td>신규 매수 중단</td></tr>
+<tr><td>급등 후 급락</td><td>뉴스 없이 $240+ 급등</td><td class="n">—</td><td>상시</td><td>1/3 차익</td></tr>
+<tr><td>M&A 과열</td><td>추가 $2B+ 인수, earnout 조기 대거 지급</td><td class="n">—</td><td>8-K</td><td>재평가</td></tr>
+<tr><td>정치·모라토리엄</td><td>텍사스 등 기 수주 프로젝트 중단 입법</td><td class="n">$135</td><td>1~5월</td><td><span class="hl-r">전량 매도 검토</span></td></tr>
+</table></div>
+
+<h3>포트폴리오 실행안</h3>
+<p class="note">전제: 포트폴리오 약 7.6억 원(6월 기준) · 환율 1,340원. 이미 CRWV·AAOI·MU·LITE·MRVL 등 AI 인프라 비중이 높아 <b>목표 비중을 3%로 제한</b>. 11/5 CRWV도 −12%대로 동반 급락 → 같은 위험 요인. POWL·MPWR을 같은 '모듈형 데이터센터' 테마로 검토 중이라면 VRT와 겹치므로 셋 중 1~2개로 압축 권장.</p>
+<div class="tbl"><table>
+<tr><th>차수</th><th>조건</th><th class="n">매수 가격</th><th class="n">수량</th><th class="n">누적 비중</th></tr>
+<tr><td>1차</td><td>지금(실적 전)</td><td class="n">$175–185</td><td class="n">30주</td><td class="n">≈1.0%</td></tr>
+<tr><td>2차</td><td>정치 공포 재확산 · 52주 저점 근접</td><td class="n">$155–165</td><td class="n">30주</td><td class="n">≈1.9%</td></tr>
+<tr><td>3차</td><td>2월 실적: 2027 가이던스 ≥ 컨센 확인 후</td><td class="n">$190–215</td><td class="n">30주</td><td class="n">≈2.9%</td></tr>
+<tr class="sum"><td colspan="2">합계 · 목표 비중 3%</td><td class="n">평단 ≈ $181</td><td class="n">90주</td><td class="n">≈2,200만 원</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>시나리오(90주·평단 $181)</th><th class="n">주가</th><th class="n">손익($)</th><th class="n">손익(원)</th><th class="n">세후(22%)</th></tr>
+<tr><td>하방</td><td class="n">$135</td><td class="n">−4,140</td><td class="n">−555만</td><td class="n">—</td></tr>
+<tr><td>base</td><td class="n">$230</td><td class="n">+4,410</td><td class="n">+591만</td><td class="n">≈ +516만</td></tr>
+<tr><td>bull</td><td class="n">$305</td><td class="n">+11,160</td><td class="n">+1,495만</td><td class="n">≈ +1,221만</td></tr>
+<tr><td>overshoot</td><td class="n">$370</td><td class="n">+17,010</td><td class="n">+2,279만</td><td class="n">≈ +1,833만</td></tr>
+</table></div>
+<p class="explain">세후 = 손익 − (손익 − 기본공제 250만 원) × 22%. 다른 해외주식 손익과 합산되므로 실제 세액은 달라짐. 차익은 연도를 나눠 실현해 기본공제를 매년 활용.</p>
+<ul class="tight">
+<li><b>실적 전 행동:</b> 1차 30주만. $215 이상 추격 금지. 11/5 저점 $176 지지 여부 확인.</li>
+<li><b>실적 후 행동:</b> beat + 2027 가이던스 ≥ 컨센 → 3차 매수. 가이던스 미달 → 2·3차 취소, 보유분 1/2 축소.</li>
+<li><b>목표가 도달 시:</b> $230에서 1/3, $305에서 1/3, 잔여는 $370까지 −15% 트레일링 스톱.</li>
+<li><b>thesis 훼손 시:</b> 주간 종가 $145 이탈 or 2027 매출 가이던스 &lt; $17.5B → 50% 축소. 둘 다면 전량 매도.</li>
+</ul>
+
+<div class="final"><h2>최종 투자 행동 요약</h2><dl>
+<dt>현재 주가</dt><dd>$182.86 (2026-11-06 종가)</dd>
+<dt>보수적 내재가치</dt><dd>$170</dd>
+<dt>12개월 base target</dt><dd>$230 (+26%)</dd>
+<dt>bull target</dt><dd>$305 (+67%)</dd>
+<dt>overshoot target</dt><dd>$370 (+102%) — 심리·멀티플 회귀, squeeze 아님</dd>
+<dt>실적 발표 전 trading target</dt><dd>$215</dd>
+<dt>실적 발표 후 재평가 target</dt><dd>$250 (가이던스 충족) / $160 (미달)</dd>
+<dt>하방 리스크</dt><dd>$135 (−26%)</dd>
+<dt>12개월 기대수익률</dt><dd>확률가중 +28% (세후 약 +24%, 다른 해외 손익 없을 때)</dd>
+<dt>보유 수량 기준 기대손익</dt><dd>0주 → 0원 · 제안 90주 기준 확률가중 +$4.8K(≈ +640만 원)</dd>
+<dt>추천 행동</dt><dd><b>Buy · 신규 매수(3분할)</b></dd>
+<dt>목표 비중</dt><dd>3% (90주) · 지금은 1%(30주)</dd>
+<dt>실적 발표 전 행동</dt><dd>1차 30주 @ $175–185, $155–165에서 2차, $215 이상 추격 금지</dd>
+<dt>실적 발표 후 행동</dt><dd>2027 가이던스 ≥ 컨센 + backlog 확인 시 3차 30주, 미달 시 1/2 축소</dd>
+<dt>목표가 도달 시 행동</dt><dd>$230 1/3 · $305 1/3 · 잔여 트레일링 스톱</dd>
+<dt>thesis 훼손 시 행동</dt><dd>주간 종가 $145 이탈 또는 2027 매출 가이던스 &lt; $17.5B → 50% 축소, 둘 다면 전량</dd>
+<dt>가장 중요한 체크포인트</dt><dd>2월 10-K의 <b>연간 backlog</b>(2025말 $15.0B)과 매 분기 <b>이연수익</b>, 2027 매출 가이던스</dd>
+<dt>내가 틀렸다고 인정할 조건</dt><dd>backlog가 $15B 아래로 감소 · 이연수익 2분기 연속 감소 · 텍사스 등에서 기 수주 프로젝트 중단 입법</dd>
+</dl></div>
+
+<h2><span class="no">S</span>출처</h2>
+<div class="card src"><ol>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067707/q32026exhibit991vrt10282026.htm">SEC 8-K Ex.99.1 — Q3 2026 실적(2026-10-28)</a></li>
+<li><a href="https://last10k.com/sec-filings/vrt/0001628280-26-067893.htm">10-Q Q3 2026 요약 (last10k)</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1674101/000167410126000006/exhibit991vrt02112026.htm">SEC 8-K Ex.99.1 — Q4/FY2025 실적(2026-02-11)</a></li>
+<li><a href="https://s205.q4cdn.com/554782763/files/doc_financials/2026/q2/Vertiv-Second-Quarter-2026-Earnings-Release.pdf">Vertiv IR — Q2 2026 Earnings Release</a></li>
+<li><a href="https://investors.vertiv.com/news/news-details/2026/Vertiv-Reports-Strong-First-Quarter-with-Diluted-EPS-Growth-of-136-Adjusted-Diluted-EPS-Growth-of-83-Raises-Full-Year-Guidance/">Vertiv IR — Q1 2026 실적</a></li>
+<li><a href="https://app.edgar.tools/filing/1674101/0001628280-26-026379/q12026exhibit991vrt04222026.htm">Q1 2026 Ex.99.1 — 투자등급·$2.1B 채권</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/1674101/000162828024006498/vrt-20231231.htm">SEC 10-K FY2023</a> · <a href="https://au.finance.yahoo.com/quote/VRT/financials?p=VRT">Yahoo Finance 연간 손익(2021–2023 EPS)</a></li>
+<li><a href="https://www.sec.gov/Archives/edgar/data/0001674101/000162828026067393/exhibit991vrt-q42026102720.htm">SEC 8-K — UIG 인수 완료(2026-10-27)</a> · <a href="https://pulse2.com/vertiv-to-acquire-utilityinnovation-group-for-1-45-billion-plus-up-to-1-15-billion-earnout/">UIG 인수 조건</a></li>
+<li><a href="https://www.vertiv.com/en-us/about/news-and-events/corporate-news/2026/vertiv-completes-acquisition-of-king-environmental-services-ltd.-expanding-global-fluid-management-services/">Vertiv — KES 인수 완료</a> · <a href="https://datacenterdynamics.com/en/news/vertiv-acquires-microgrid-company-utilityinnovation">DCD — 2026 인수 목록</a></li>
+<li><a href="https://finviz.com/news/415388/vertiv-and-infineon-deepen-strategic-partnership-for-critical-power-infrastructure">Vertiv–Infineon 3년 계약(PR Newswire)</a></li>
+<li><a href="https://investors.vertiv.com/news/news-details/2026/Vertiv-Brings-Converged-Physical-Infrastructure-to-NVIDIA-Vera-Rubin-DSX-AI-Factories/">Vertiv IR — NVIDIA Vera Rubin DSX</a> · <a href="https://www.tipranks.com/news/the-fly/vertiv-says-matures-system-level-infrastructure-design-in-nvidia-collaboration-thefly">800VDC·Rubin Ultra 일정</a></li>
+<li><a href="https://stockanalysis.com/stocks/vrt/">StockAnalysis — 11/6 종가</a> · <a href="https://www.cnbc.com/quotes/VRT">CNBC 시세·발행주식</a> · <a href="https://www.morningstar.com/stocks/xnys/vrt/quote">Morningstar 52주 범위·P/S</a></li>
+<li><a href="https://www.trefis.com/stock/vrt/articles/623340/what-is-behind-the-drop-in-vertiv-stock/2026-11-06">Trefis — 11/5 하락 분석</a> · <a href="https://www.trefis.com/stock/vrt/articles/622913/what-should-vertiv-stock-holders-take-from-its-third-quarter-report/2026-11-05">Trefis — Q3 시사점·공시 정책</a> · <a href="https://www.trefis.com/data/companies/VRT?from=section_ticker">Trefis — 멀티플 분해</a></li>
+<li><a href="https://www.fox19.com/2026/11/05/brutal-sell-off-ai-stocks-sends-wall-street-reeling-sp-500-sees-worst-day-since-2025-liberation-day-tariffs/">AP — 11/5 AI 투매</a> · <a href="https://political.org/2026/11/05/ai-stock-wipeout-sends-sp-500-down-4-4-in-worst-day-since-april-2025-erasing-post-midterm-rally/">Political.org — Oracle 조달·포지션 청산</a></li>
+<li><a href="https://political.org/2026/11/04/midterm-results-could-slow-u-s-data-center-buildout-analysts-say/">중간선거·텍사스 모라토리엄</a> · <a href="https://www.useluminix.com/reports/industry-analysis/data-center-moratoriums-after-the-midterms">지역 투표 41건 중 40건</a> · <a href="https://www.trefis.com/articles/622736/what-s-happening-with-vertiv-stock/2026-11-05">Trefis — Eaton·GEV 비교</a></li>
+<li><a href="https://app.ortex.com/s/NYSE/VRT">ORTEX — 공매도·대차비용</a> · <a href="https://massive.com/quote/vrt">Massive — 공매도 주식 수</a> · <a href="https://www.benzinga.com/quote/VRT/sentiment">Benzinga — 공매도·P/C·목표가</a></li>
+<li><a href="https://www.marketbeat.com/instant-alerts/filing-arnhold-llc-sells-19258-shares-of-vertiv-holdings-co-vrt-2026-05-26/">MarketBeat — 내부자 매도·보유율</a> · <a href="https://qnow.quantisnow.com/insight/vertiv-holdings-llc-filed-sec-form-8-k-results-of-operations-6385407">Form 4 (Fradin·Reinemund)</a></li>
+<li><a href="https://www.tikr.com/blog/vertiv-has-tumbled-since-may-why-bernstein-sees-53-upside-after-its-big-beat">TIKR — Bernstein $376</a> · <a href="https://www.marketbeat.com/instant-alerts/price-vertiv-nyse-vrt-stock-jumps-33-time-to-buy-2026-11-06/">MarketBeat — RBC $351, 11/6</a> · <a href="https://www.webull.com/news/15826754013299712">실적 전 목표가 하향</a></li>
+<li><a href="https://247wallst.com/investing/2026/10/30/vertiv-looks-like-its-comeback-is-finally-materializing/">24/7 Wall St — 2027 컨센 EPS</a> · <a href="https://finance.yahoo.com/quote/VRT/analysis/">Yahoo — 2027 매출·EPS 컨센</a></li>
+<li><a href="https://www.zacks.com/stock/news/3018437/">Zacks — Q3 컨콜(품질·이월 매출)</a> · <a href="https://www.tradingkey.com/news/transcripts/262248257-tradingkey">TradingKey — Q3 컨콜 전문</a> · <a href="https://www.benzinga.com/node/62664069">Benzinga — Q3 컨콜</a> · <a href="https://statementdog.com/analysis/VRT/earnings_calls/321309">StatementDog — 네오클라우드 발언</a></li>
+<li><a href="https://www.streetinsider.com/Basic+Content/Vertiv+stock+falls+after+AWS+unveils+custom+cooling+technology/25037653.html">AWS IRHX 자체 냉각</a> · <a href="https://sec-api.io/insights/vertiv-vrt-q2-2026-results-and-outlook-backlog-data-center-demand-acquisitions-valuation-against-peers-and-scenarios-to-fy2029">SEC-API — Q2 분석·10월 주가</a></li>
+<li><a href="https://kbthink.com/investment/fx/daily/261104.html">KB — 원/달러 환율·거시</a></li>
+</ol>
+<p class="note">이 메모는 투자 판단 보조 자료이며 투자 자문이 아님. 목표가·확률은 공시와 컨센서스 위에 세운 모델 추정 <span class="tag t-inf">추론</span>. 확인하지 못한 항목은 <span class="tag t-ver">검증 필요</span>로 표시함.</p></div>
+</div></body></html>

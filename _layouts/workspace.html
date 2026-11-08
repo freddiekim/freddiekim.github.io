@@ -10,15 +10,20 @@
   <link rel="stylesheet" href="{{ '/css/workspace.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M' }}">
   <link rel="stylesheet" href="/css/document-reader.css?v=20261104">
   <script src="/js/document-reader.js?v=20261104" defer></script>
+  <script>try{if(localStorage.getItem('theme')==='night')document.documentElement.classList.add('theme-night')}catch(e){}</script>
 </head>
 <body class="workspace-page">
   <a class="skip-link" href="#main">본문으로 이동</a>
   <header class="site-topbar">
     <div class="site-width topbar-inner">
-      <a class="brand" href="{{ '/' | relative_url }}">
-        <img src="{{ '/img/young-finance-suwon-day.png' | relative_url }}" alt="" width="42" height="42">
-        <span>YOUNG FINANCE</span>
-      </a>
+      <div class="brand">
+        <button class="brand-avatar" id="theme-toggle" type="button" aria-pressed="false" aria-label="야간 이미지로 전환" title="야간 이미지로 전환"
+          data-day="{{ '/img/young-finance-suwon-day.png' | relative_url }}" data-night="{{ '/img/young-finance-suwon-night.png' | relative_url }}">
+          <img class="brand-day" src="{{ '/img/young-finance-suwon-day.png' | relative_url }}" alt="" width="42" height="42">
+          <img class="brand-night" src="{{ '/img/young-finance-suwon-night.png' | relative_url }}" alt="" width="42" height="42" loading="lazy">
+        </button>
+        <a href="{{ '/' | relative_url }}">YOUNG FINANCE</a>
+      </div>
       <nav aria-label="주 메뉴">
         <a href="{{ '/' | relative_url }}" {% if page.nav == 'home' %}aria-current="page"{% endif %}>홈</a>
         <a href="{{ '/pages/research.html' | relative_url }}" {% if page.nav == 'research' %}aria-current="page"{% endif %}>자료실</a>
@@ -26,6 +31,7 @@
         <a href="{{ '/pages/quarterly-report.html' | relative_url }}">분기보고서</a>
         <a href="{{ '/pages/investment-diary.html' | relative_url }}">투자기록</a>
       </nav>
+      {% if page.nav == 'home' %}{% include bgm-player.html %}{% endif %}
     </div>
   </header>
   <main id="main" class="site-width" data-research-index="{{ '/research-index.json' | relative_url }}">
@@ -39,6 +45,7 @@
   <script id="company-catalog" type="application/json">[
     {% assign catalog_separator = '' %}{% for company in site.data.company_research %}{% assign overview = site.pages | where: 'ticker', company.ticker | first %}{% if overview %}{{ catalog_separator }}{"ticker":{{ company.ticker | jsonify }},"name":{{ company.name | jsonify }},"url":{{ overview.url | relative_url | jsonify }}}{% assign catalog_separator = ',' %}{% endif %}{% endfor %}
   ]</script>
+  <script src="{{ '/js/site-chrome.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
   <script src="{{ '/js/research-workspace.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M' }}" defer></script>
 </body>
 </html>
