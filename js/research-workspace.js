@@ -80,6 +80,15 @@
       link.textContent = '기업 개요';
       box.append(link);
     }
+    var audioCount = window.YFAudioCount ? window.YFAudioCount(companyQuery) : 0;
+    if (audioCount) {
+      var listen = document.createElement('button');
+      listen.type = 'button';
+      listen.className = 'context-audio js-audio-playlist-trigger';
+      listen.setAttribute('data-audio-ticker', companyQuery.toUpperCase());
+      listen.innerHTML = '<i class="fa fa-headphones" aria-hidden="true"></i> 분석 음성 ' + audioCount + '개 듣기';
+      box.append(listen);
+    }
   }
   function renderLibrary() {
     var list = document.getElementById('research-documents');
